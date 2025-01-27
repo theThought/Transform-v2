@@ -1,0 +1,93 @@
+@use 'globals';
+
+$default-text-width: globals.$default-input-width;
+
+.o-combobox {
+    input[type=text] {
+        max-width: 100%;
+        padding: 10px 16px;
+        border-radius: globals.$text-border-radius;
+        border: globals.$border-thickness solid globals.$borders;
+        color: globals.$theme-primary;
+        min-width: 3em;
+        height: 19px;
+        background-color: globals.$input-background;
+        box-sizing: content-box;
+        text-overflow: ellipsis;
+        font-size: globals.$option-font-size;
+        line-height: globals.$option-line-height;
+
+        &.exact {
+            color: globals.$input-text
+        }
+    }
+
+    input:focus {
+        border-color: globals.$theme-primary;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    input:focus-visible {
+        outline: none;
+    }
+
+    input::-ms-clear {
+        display: none !important;
+    }
+
+    input::-webkit-calendar-picker-indicator {
+        display: none !important;
+    }
+
+    input::placeholder {
+        color: globals.$placeholder;
+    }
+}
+
+.o-dropdown {
+    input[type=text] {
+        max-width: 100%;
+        padding: 10px 48px 10px 16px;
+        border-radius: globals.$border-radius;
+        border: globals.$border-thickness solid globals.$theme-primary;
+        color: globals.$white;
+        min-width: 3em;
+        height: 19px;
+        box-sizing: content-box;
+        cursor: default;
+        background: url("/Survey/images/informal/white-chevron-down.png") right 12px center no-repeat globals.$theme-primary;
+        text-overflow: ellipsis;
+        font-size: globals.$option-font-size;
+        line-height: globals.$option-line-height;
+
+        &.list-visible {
+            background-image: url("/Survey/images/informal/white-chevron-up.png");
+        }
+
+        &:not([data-readonly=true]):hover {
+            background-color: globals.$theme-primary-hover;
+        }
+    }
+
+    input::placeholder {
+        color: globals.$white;
+    }
+}
+
+.direction-down input[aria-expanded="true"] {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.direction-up input[aria-expanded="true"] {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+html[dir="rtl"] .o-dropdown {
+    input[type=text] {
+        background: url("/Survey/images/informal/white-chevron-down.png") left 12px center no-repeat globals.$theme-primary;
+        padding: 10px 16px 10px 48px;
+    }
+}

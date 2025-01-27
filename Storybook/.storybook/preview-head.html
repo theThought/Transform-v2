@@ -1,0 +1,120 @@
+<meta name="robots" content="noindex, nofollow">
+
+<link rel="stylesheet" href="styles/formal/base.css" type="text/css" />
+
+
+<!-- Overrides for Storybook Docs and UI. -->
+<link href="storybook-overrides.css" rel="stylesheet" />
+
+<!-- Scripts required for survey components. -->
+<script src="scripts/require.js"></script>
+<script src="scripts/survey.js"></script>
+<script src="scripts/base.js"></script>
+<script>
+    require.config({
+        baseUrl: 'scripts',
+        waitSeconds: 0
+    });
+</script>
+
+<!--
+    Handle any inline <script> tags which define survey "custom properties" in stories - e.g. <script>app.RegisterProperties(...)</script>
+ -->
+<script>
+    /**
+     * Function to generate sanitised custom properties.
+    */
+    const parseCustomProperties = () => {
+        let customProps = '';
+        let newTextContent = '';
+
+        // Storybook moves all inline <script> tags into "scripts-root".
+        const scripts = document.querySelector('#scripts-root').childNodes;
+
+        scripts && scripts.forEach(script => {
+            if (script.textContent.indexOf('RegisterProperties') === -1) return;
+
+            // Handle multiple sets of custom props, by stripping out "app.RegisterProperties" up to the first "{".
+            newTextContent = script.textContent.substring(script.textContent.indexOf('{'));
+
+            customProps += newTextContent;
+        });
+
+        // Remove any unwanted strings.
+        ignoredStrings.map(string => {
+            if (customProps.includes(string)) {
+                customProps = customProps.replace(string, '');
+            }
+        });
+
+        // Sanitise custom props for use in ZeroHeight.
+        customProps = customProps.replace(/\);/gm, ''); // Remove );
+        customProps = customProps.replace(/"/gm, '\''); // Replace " with '
+        customProps = customProps.replace(/\s+/gm, ' '); // Whitespace
+        customProps = customProps.replace(/( ,)/gm, ','); // Rogue commas
+        customProps = customProps.replace(/,+/gm, ','); // Rogue commas
+        customProps = customProps.replace(/, }/gm, ' }'); // Rogue commas
+        customProps = customProps.replace(/{,/gm, '{'); // Rogue commas
+
+        // Add line break between each set of custom props.
+        customProps = customProps.replace(/}{/gm, '\n\n{');
+
+        return customProps;
+    }
+
+    /**
+     * Custom properties map to Storybook controls which, when updated, trigger the survey JS to re-render the DOM, causing Storybook to fire the "DOMContentLoaded" event. We need to re-initialise the survey JS again, based on newly updated DOM.
+     */
+    document.addEventListener('DOMContentLoaded', () => {
+        console.log('Storybook DOMContentLoaded fired... re-init components');
+
+        // Replaces "require(['main'], function () { })" used in real survey.
+        require(['main-storybook'], function () { });
+
+        // Generate & copy custom properties JSON.
+        const btnCopy = document.querySelector('[data-copy]');
+        const json = document.querySelector('[data-json]');
+
+        btnCopy && json && btnCopy.addEventListener('click', () => {
+            json.textContent = parseCustomProperties();
+            navigator.clipboard.writeText(json.textContent);
+        });
+    });
+</script>
+
+<script>
+    /**
+     * Array of custom properties strings to be removed.
+     * Keep adding to array as required...
+    */
+    const ignoredStrings = [
+        // Choice questions
+        '"balance":{"state":false}',
+        '"onesize":{"state":false}',
+        '"sublistline":{"state":false}',
+        // Open-end questions
+        '"labels":{}',
+        // List questions
+        '"exact":true',
+        '"filtertype":"contains"',
+        '"mincharactersforlist":0',
+        '"showanswers":true',
+        '"selection":"undefined"',
+        '"jumptofirstletter":true',
+        // Slider & scale questions
+        '"marks":false',
+        '"value":false',
+        '"terminators":false',
+        '"ticklabels":"undefined"',
+        '"floodtovalue":false',
+        '"min":undefined',
+        '"max":undefined',
+        '"position":"inside"',
+        // Grid questions
+        '"rowheader":false',
+        '"altrows":false',
+        '"pre":""',
+        '"post":""',
+    ];
+
+</script>

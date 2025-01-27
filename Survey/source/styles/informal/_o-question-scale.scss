@@ -1,0 +1,102 @@
+@use 'globals';
+
+.o-question-scale-horizontal,
+.o-question-scale-vertical {
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.o-question-scale-horizontal-control,
+.o-question-scale-vertical-control {
+    position: relative;
+}
+
+.has-container-background .o-scale-unitcontainer {
+    border: none;
+}
+
+.o-scale-unitcontainer {
+    display: flex;
+    justify-content: space-around;
+    max-width: 100%;
+    border-radius: globals.$text-border-radius;
+    border: 1px solid globals.$light4;
+}
+
+.o-question-scale-vertical .o-scale-unitcontainer {
+    flex-direction: column-reverse;
+}
+
+.o-label-container {
+    display: flex;
+}
+
+.o-label-container {
+    width: 400px;
+    justify-content: space-between;
+}
+
+.m-scale-unit {
+    position: relative;
+    cursor: pointer;
+    flex: 1 0 0;
+    text-align: center;
+    height: 52px;
+    align-content: center;
+    background-repeat: no-repeat;
+    background-position: left center;
+}
+
+.o-question-scale-vertical .m-scale-unit {
+    flex-basis: auto;
+}
+
+.has-unit-background .m-scale-unit {
+    flex: 0 0 auto;
+}
+
+.m-scale-unit::before {
+    position: absolute;
+    left: 4px;
+    top: 4px;
+    display: block;
+    content: ' ';
+    height: calc(100% - 8px);
+    width: calc(100% - 8px);
+    background-color: globals.$light3;
+    border-radius: globals.$border-radius;
+}
+
+.has-unit-background .m-scale-unit::before {
+    content: none;
+}
+
+.m-scale-unit.current-value::before {
+    background-color: globals.$theme-secondary-hover;
+}
+
+.m-scale-unit.current-value {
+    color: globals.$white;
+}
+
+.a-image-multistate {
+    display: block;
+    margin: 0 auto;
+    transition: transform 0.3s ease;
+}
+
+.a-label-datavalue {
+    visibility: hidden;
+}
+
+.a-label-datavalue.showValue {
+    visibility: visible;
+    position: absolute;
+    top: 32px;
+    left: 30px;
+    color: globals.$dark1;
+}
+
+.a-label-datavalue.showValue.highlighted {
+    color: globals.$white;
+}

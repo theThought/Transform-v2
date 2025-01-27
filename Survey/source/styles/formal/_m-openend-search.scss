@@ -1,0 +1,262 @@
+@use 'globals';
+
+.l-selection-and-scan {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+    @media (max-width: 768px) {
+      .m-list-messages {
+        padding-top: 10px;
+    }
+
+    .m-openend-search-count {
+        text-align: right;
+        margin-top: 10px;
+        padding-top: 5px;
+    }
+
+    .o-question-openend-search input[type=text]{
+        width: 80%;
+    }
+}
+
+.o-openend-search {
+  padding-bottom: 20px;
+}
+
+.o-question-openend-search .m-list-messages {
+  padding: 15px 14px;
+}
+
+.o-question-openend-search .m-openend-search-count {
+  margin-top: 60px;
+  padding-top: 11px;
+  text-align: right;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.o-question-openend-search .m-option-base {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 100%;
+  display: block;
+  background-color: transparent;
+  position: relative;
+}
+
+.o-question-selected {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 50px;
+    margin-bottom: 10px;
+}
+
+.m-tag-answer {
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    padding: 5px 10px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    gap: 5px;
+    margin: 20px 0;
+}
+
+.m-tag-answer span {
+    font-size: 16px;
+}
+
+.delete-tag {
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  font-size: 16px;
+  color: #002554;
+  margin-top: 0.1em;
+}
+
+.o-list.empty ul {
+  display: none;
+}
+
+.o-list{
+ visibility: hidden;
+ padding: 10px 0px;
+ position: absolute;
+ box-sizing: border-box;
+  ul{
+   width: 100%;
+  }
+
+  .m-list-external {
+    border:none;    
+    box-shadow: none !important;
+  }
+}
+
+.o-list.visible {
+  visibility: visible;
+  //Making the same as the combox box
+  position: absolute;
+  box-sizing: border-box;
+  list-style-type: none;
+  background-color: #FFFFFF;
+  z-index: 1;
+  border: globals.$border-thickness solid globals.$theme-primary;
+}
+
+// Openended search for the images
+
+// Images vertical 
+.vertical-list {
+  display: flex !important;
+  flex-wrap: wrap;
+  flex-direction: row;
+
+
+  li {
+    width: 30%;
+    padding: 10px 12px !important;
+    margin: 10px;
+  }
+
+  .flex-container label {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    img {
+      margin-bottom: 10px;
+    }
+  }
+
+  @media (max-width: 1200px) {
+    width: 45% !important;
+  }
+
+  @media (max-width: 992px) {
+    width: 60% !important;
+  }
+
+  @media (max-width: 768px) {
+    width: 60% !important;
+    li {
+    
+      width: 35%;
+    }
+  }
+
+  @media (max-width: 576px) {
+    width: 80% !important;
+    margin: -1px 0px 5px -10px !important;
+    li {
+      width: 40%;
+      // background: cadetblue;
+      padding: 0px !important;
+    }
+  }
+}
+
+// Images horizontal 
+.horizontal-list {
+  display: flex !important;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden; 
+  gap: 20px;
+  padding: 20px 0px !important;
+  margin: 10px !important;
+  align-items: center;
+  justify-content: flex-start; 
+  width: 95% !important;
+
+  li {
+    flex: 0 0 auto; 
+    padding: 20px !important;
+    display: flex;
+  }
+
+  .flex-container label {
+    cursor: pointer;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  @media (max-width: 1200px) {
+    width: 30% !important;
+  }
+
+  @media (max-width: 992px) {
+    width: 40% !important;
+  }
+
+  @media (max-width: 768px) {
+    width: 60% !important;
+    background-color: yellow;
+    height: 50px;
+  }
+  
+  @media (max-width: 576px) {
+    width: 100% !important;
+  }
+}
+
+
+//So if the .a-input-openend-search has .list-visible
+// Then target o-list with these styles
+    // .m-list-external.standard-list.visible{
+    //   //ORG
+      
+    //   background: white !important;
+    //   display: block;
+    //   position: absolute;
+    //   // z-index: 3;
+    //   // margin-top: -50px;
+    //   // background: white !important;
+    //   // display: block;
+    //   // position: absolute;
+    // }
+
+
+ // RTL Styles
+ :dir(rtl) {
+  .m-openend-search-count,
+  .m-list-messages {
+    text-align: left;
+  }
+
+  .a-label-counter-prompt {
+    margin-left: 20px;
+    margin-right: 0;
+  }
+
+  .o-question-selected {
+    flex-direction: row-reverse;
+  }
+  
+  #a-button-word-match {
+      margin-right: 10px;
+    }
+
+  .m-tag-answer {
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    margin: 20px 0 20px auto; 
+  }
+
+  .delete-tag {
+    margin-left: 0.1em;
+    margin-right: 0;
+  }
+}
