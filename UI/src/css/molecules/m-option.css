@@ -1,0 +1,13 @@
+.m-option-base {
+    display: inline-flex;
+    gap: 0.2em;
+    padding-block: calc(var(--space1) / 2);
+    position: relative;
+}
+
+.m-option-wrapper {
+    column-gap: 1em;
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: var(--space1);
+}
