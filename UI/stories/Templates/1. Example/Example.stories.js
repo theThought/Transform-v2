@@ -21,7 +21,7 @@ export default {
 
 export const Example = {
     args: {
-        ExampleCustomProp: 'test'
+        ExampleCustomProp: 'example...'
     },
     render: (args) => ExampleHtml(args),
 };

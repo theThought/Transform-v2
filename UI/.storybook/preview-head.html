@@ -14,3 +14,90 @@
 <!-- Load CSS/JS that Parcel has bundled. -->
 <link href="index.css" rel="stylesheet" />
 <script defer src="index.js"></script>
+
+<!-- Enable custom properties JSON to be generated for ZeroHeight users. -->
+ <script>
+    /**
+     * Function to generate sanitised custom properties.
+     *
+     * TODO: Adjust logic below if custom properties are no longer implemented via a "data-customprops" attribute on <o-question-response>.
+    */
+    const parseCustomProperties = () => {
+        const question = document.querySelector('o-question-response');
+        let customProps = question?.dataset.customprops;
+
+        if (!customProps) return;
+
+        // Remove any unwanted strings.
+        ignoredStrings.map(string => {
+            if (customProps.includes(string)) {
+                customProps = customProps.replace(string, '');
+            }
+        });
+
+        // Sanitise custom properties for use in ZeroHeight.
+        customProps = customProps.replace(/\);/gm, ''); // Remove );
+        customProps = customProps.replace(/"/gm, '\''); // Replace " with '
+        customProps = customProps.replace(/\s+/gm, ' '); // Whitespace
+        customProps = customProps.replace(/( ,)/gm, ','); // Rogue commas
+        customProps = customProps.replace(/,+/gm, ','); // Rogue commas
+        customProps = customProps.replace(/, }/gm, ' }'); // Rogue commas
+        customProps = customProps.replace(/{,/gm, '{'); // Rogue commas
+
+        // Add line break between each set of custom properties.
+        customProps = customProps.replace(/}{/gm, '\n\n{');
+
+        return customProps;
+    }
+
+    /**
+     * Custom properties map to Storybook controls which, when updated, trigger the survey JS to re-render the DOM, causing Storybook to fire the "DOMContentLoaded" event.
+     */
+    document.addEventListener('DOMContentLoaded', () => {
+        // Generate & copy custom properties JSON.
+        const btnCopy = document.querySelector('[data-copy]');
+        const json = document.querySelector('[data-json]');
+
+        btnCopy && json && btnCopy.addEventListener('click', () => {
+            json.textContent = parseCustomProperties();
+            navigator.clipboard.writeText(json.textContent);
+        });
+    });
+</script>
+
+<script>
+    /**
+     * Array of custom properties strings to be removed.
+     * Keep adding to array as required...
+    */
+    const ignoredStrings = [
+        // Choice questions
+        '"balance":{"state":false}',
+        '"onesize":{"state":false}',
+        '"sublistline":{"state":false}',
+        // Open-end questions
+        '"labels":{}',
+        // List questions
+        '"exact":true',
+        '"filtertype":"contains"',
+        '"mincharactersforlist":0',
+        '"showanswers":true',
+        '"selection":"undefined"',
+        '"jumptofirstletter":true',
+        // Slider & scale questions
+        '"marks":false',
+        '"value":false',
+        '"terminators":false',
+        '"ticklabels":"undefined"',
+        '"floodtovalue":false',
+        '"min":undefined',
+        '"max":undefined',
+        '"position":"inside"',
+        // Grid questions
+        '"rowheader":false',
+        '"altrows":false',
+        '"pre":""',
+        '"post":""',
+    ];
+
+</script>
