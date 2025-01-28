@@ -9,3 +9,9 @@ export const LabelQuestionUsingDivHtml = () => `
     Question text - using a <code>&lt;div&gt;</code> - with additional <code>id</code> for use with <code>ARIA</code>.
 </div>
 `;
+
+export const LabelOptionHtml = () => `
+<span class="a-label-option">
+    Checkbox/radio label
+</span>
+`;
