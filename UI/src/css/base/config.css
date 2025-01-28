@@ -18,5 +18,9 @@ i.e. custom properties other than colors/fonts.
     --space4: var(--theme-space4);
 
     /* Widths */
-    --width-input: 197px;
+    --input-width: 197px;
+
+    /* Icons */
+    --icon-height: 17px;
+    --icon-width: 18px;
 }

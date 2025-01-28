@@ -1,6 +1,6 @@
 export const OptionSingleHtml = () => `
 <div class="m-option-base m-option-single-answer">
-    <input type="radio" class="visually-hidden" id="radio1" name="radios" />
+    <input type="radio" id="radio1" name="radios" />
     <label for="radio1">
         <span class="a-icon-multistate" data-icontype="single"></span>
         <span class="a-label-option">
@@ -12,7 +12,7 @@ export const OptionSingleHtml = () => `
 
 export const OptionMultiHtml = () => `
 <div class="m-option-base m-option-multi-answer">
-    <input type="checkbox" class="visually-hidden" id="check1" />
+    <input type="checkbox" id="check1" />
     <label for="check1">
         <span class="a-icon-multistate" data-icontype="multi"></span>
         <span class="a-label-option">
@@ -25,7 +25,7 @@ export const OptionMultiHtml = () => `
 export const OptionWrapperHtml = () => `
 <div class="m-option-wrapper">
     <div class="m-option-base m-option-single-answer">
-        <input type="radio" class="visually-hidden" id="radio1" name="radios" />
+        <input type="radio" id="radio1" name="radios" />
         <label for="radio1">
             <span class="a-icon-multistate" data-icontype="single"></span>
             <span class="a-label-option">
@@ -34,7 +34,7 @@ export const OptionWrapperHtml = () => `
         </label>
     </div>
     <div class="m-option-base m-option-single-answer">
-        <input type="radio" class="visually-hidden" id="radio2" name="radios" />
+        <input type="radio" id="radio2" name="radios" />
         <label for="radio2">
             <span class="a-icon-multistate" data-icontype="single"></span>
             <span class="a-label-option">
@@ -43,7 +43,7 @@ export const OptionWrapperHtml = () => `
         </label>
     </div>
     <div class="m-option-base m-option-multi-answer">
-        <input type="checkbox" class="visually-hidden" id="check1" />
+        <input type="checkbox" id="check1" />
         <label for="check1">
             <span class="a-icon-multistate" data-icontype="multi"></span>
             <span class="a-label-option">
@@ -52,7 +52,7 @@ export const OptionWrapperHtml = () => `
         </label>
     </div>
     <div class="m-option-base m-option-multi-answer">
-        <input type="checkbox" class="visually-hidden" id="check2" />
+        <input type="checkbox" id="check2" />
         <label for="check2">
             <span class="a-icon-multistate" data-icontype="multi"></span>
             <span class="a-label-option">

@@ -1,8 +1,17 @@
 .m-option-base {
-    display: inline-flex;
-    gap: 0.2em;
-    padding-block: calc(var(--space1) / 2);
-    position: relative;
+    label {
+        display: inline-flex;
+        gap: 0.2em;
+        padding-block: calc(var(--space1) / 2);
+    }
+
+    /* See https://www.sarasoueidan.com/blog/inclusively-hiding-and-styling-checkboxes-and-radio-buttons/ */
+    input {
+        block-size: var(--icon-height);
+        inline-size: var(--icon-width);
+        opacity: 0;
+        position: absolute;
+    }
 }
 
 .m-option-wrapper {
