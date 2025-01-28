@@ -57,6 +57,10 @@ img {
     max-inline-size: 100%; /* Needed for responsive widths */
 }
 
+:where(sub, sup) {
+    vertical-align: revert;
+}
+
 /* Remove all animations & transitions for people that prefer not to see them */
 @media (prefers-reduced-motion: reduce) {
     * {

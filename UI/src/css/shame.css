@@ -5,10 +5,10 @@ Shame.
 ----------------------------------------------------------------------------
 */
 * {
-    font-size: initial;
-    line-height: initial;
+    font-size: revert;
+    line-height: revert;
 }
 
 [type='number'] {
-    appearance: initial;
+    appearance: revert;
 }
