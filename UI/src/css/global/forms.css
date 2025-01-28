@@ -17,6 +17,7 @@
 :where([type='button'], [type='submit'], [type='reset'], button) {
     border: var(--border-thickness) solid var(--color-primary);
     border-radius: var(--border-radius);
+    box-sizing: content-box;
     display: inline-block;
     min-block-size: 1.875rem;
     min-inline-size: 3em;
