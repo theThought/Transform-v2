@@ -14,6 +14,7 @@
 - From terminal prompt, enter `cd UI`.
 - Enter `npm run build` to generate up-to-date CSS/JavaScript.
 - Copy newly generated CSS/JavaScript folders from `./UI/build/` folder to `./UI/_example-pages/` folder.
+    - The `CSS` folder will also include any Parcel-bundled font files & any images that are used as CSS background images.
 
 ## Run local server
 - Enter `npx http-server _example-pages/`.
