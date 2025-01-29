@@ -21,6 +21,6 @@ i.e. custom properties other than colors/fonts.
     --input-width: 197px;
 
     /* Icons */
-    --icon-height: 17px;
-    --icon-width: 18px;
+    --option-icon-height: 17px;
+    --option-icon-width: 18px;
 }

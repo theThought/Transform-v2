@@ -1,0 +1,39 @@
+export const MessageErrorHtml = () => `
+<div class="m-message-error">
+    <div>
+        Error message(s).
+        <br/>
+        TODO: Can these contain HTML markup and/or more than 1 line of text?
+    </div>
+</div>
+`;
+
+export const MessageSuccessHtml = () => `
+<div class="m-message-instruction">
+    <div>
+        Success message(s).
+        <br/>
+        TODO: Can these contain HTML markup and/or more than 1 line of text?
+    </div>
+</div>
+`;
+
+export const MessageWarningHtml = () => `
+<div class="m-message-instruction">
+    <div>
+        Warning message(s).
+        <br/>
+        TODO: Can these contain HTML markup and/or more than 1 line of text?
+    </div>
+</div>
+`;
+
+export const MessageInstructionHtml = () => `
+<div class="m-message-instruction">
+    <div>
+        Instruction message(s).
+        <br/>
+        TODO: Can these contain HTML markup and/or more than 1 line of text?
+    </div>
+</div>
+`;

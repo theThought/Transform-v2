@@ -1,7 +1,7 @@
 .a-icon-multistate {
     background-position-y: -28px;
-    block-size: var(--icon-height);
-    inline-size: var(--icon-width);
+    block-size: var(--option-icon-height);
+    inline-size: var(--option-icon-width);
 }
 
 [type='checkbox'] + label > .a-icon-multistate {
