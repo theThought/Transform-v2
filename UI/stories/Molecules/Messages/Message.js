@@ -8,18 +8,8 @@ export const MessageErrorHtml = () => `
 </div>
 `;
 
-export const MessageSuccessHtml = () => `
-<div class="m-message-instruction">
-    <div>
-        Success message(s).
-        <br/>
-        TODO: Can these contain HTML markup and/or more than 1 line of text?
-    </div>
-</div>
-`;
-
 export const MessageWarningHtml = () => `
-<div class="m-message-instruction">
+<div class="m-message-warning">
     <div>
         Warning message(s).
         <br/>
@@ -28,10 +18,20 @@ export const MessageWarningHtml = () => `
 </div>
 `;
 
-export const MessageInstructionHtml = () => `
-<div class="m-message-instruction">
+export const MessageSuccessHtml = () => `
+<div class="m-message-success">
     <div>
-        Instruction message(s).
+        Success message(s).
+        <br/>
+        TODO: Can these contain HTML markup and/or more than 1 line of text?
+    </div>
+</div>
+`;
+
+export const MessageInformationHtml = () => `
+<div class="m-message-information">
+    <div>
+        Information message(s).
         <br/>
         TODO: Can these contain HTML markup and/or more than 1 line of text?
     </div>

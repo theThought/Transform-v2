@@ -22,6 +22,12 @@
     --theme-color-dark2: #324371;
     --theme-color-darkest: #212c4c;
 
+    /* Defined as RGB so we can use rgba() function */
+    --theme-color-error: 218, 41, 17;
+    --theme-color-warning: 212, 170, 73;
+    --theme-color-success: 70, 155, 155;
+    --theme-color-information: 75, 121, 182;
+
     /* Fonts */
     --theme-font-primary: 'Karla', 'KarlaLocal', sans-serif;
     --theme-font-secondary: 'Merriweather', 'MerriweatherLocal', serif;
@@ -29,7 +35,7 @@
 
     /* Typography */
     --theme-font-size: 1rem;
-    --theme-font-size-s: 1rem;
+    --theme-font-size-s: 0.875rem;
     --theme-line-height: 1.1875;
 
     /* Borders */

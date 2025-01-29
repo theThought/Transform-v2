@@ -17,6 +17,10 @@ Color settings.
     --color-dark1: var(--theme-color-dark1);
     --color-dark2: var(--theme-color-dark2);
     --color-darkest: var(--theme-color-darkest);
+    --color-error: var(--theme-color-error);
+    --color-warning: var(--theme-color-warning);
+    --color-success: var(--theme-color-success);
+    --color-information: var(--theme-color-information);
 
     /* Semantic names. */
     --color-background: var(--theme-color-white);

@@ -1,3 +1,53 @@
 [class^='m-message'] {
+    border-radius: var(--border-radius);
+    font-size: var(--font-size-s);
+    inline-size: fit-content;
     padding: var(--space2) var(--space4) var(--space2) calc(var(--space4) * 2);
+    position: relative;
+
+    &::before {
+        background-repeat: no-repeat;
+        block-size: 1.25rem;
+        content: '';
+        inline-size: 1.25rem;
+        inset: 0.5rem 0 0 0.5rem;
+        position: absolute;
+    }
+}
+
+/* TODO: Fix a11y color contrast */
+.m-message-error {
+    background-color: rgba(var(--color-error), 0.15);
+    color: rgb(var(--color-error));
+
+    &::before {
+        background-image: url('../../static/images/icon-error.svg');
+    }
+}
+
+.m-message-warning {
+    background-color: rgba(var(--color-warning), 0.15);
+    color: rgb(var(--color-warning));
+
+    &::before {
+        background-image: url('../../static/images/icon-warning.svg');
+    }
+}
+
+.m-message-success {
+    background-color: rgba(var(--color-success), 0.15);
+    color: rgb(var(--color-success));
+
+    &::before {
+        background-image: url('../../static/images/icon-success.svg');
+    }
+}
+
+.m-message-information {
+    background-color: rgba(var(--color-information), 0.15);
+    color: rgb(var(--color-information));
+
+    &::before {
+        background-image: url('../../static/images/icon-information.svg');
+    }
 }

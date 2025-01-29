@@ -1,8 +1,8 @@
 import {
     MessageErrorHtml,
-    MessageSuccessHtml,
     MessageWarningHtml,
-    MessageInstructionHtml
+    MessageSuccessHtml,
+    MessageInformationHtml
 } from './Message';
 
 export default {
@@ -19,17 +19,17 @@ export const MessageError = {
 };
 MessageError.storyName = 'm-message-error';
 
-export const MessageSuccess = {
-    render: () => MessageSuccessHtml(),
-};
-MessageSuccess.storyName = 'm-message-success';
-
 export const MessageWarning = {
     render: () => MessageWarningHtml(),
 };
 MessageWarning.storyName = 'm-message-warning';
 
-export const MessageInstruction = {
-    render: () => MessageInstructionHtml(),
+export const MessageSuccess = {
+    render: () => MessageSuccessHtml(),
 };
-MessageInstruction.storyName = 'm-message-instruction';
+MessageSuccess.storyName = 'm-message-success';
+
+export const MessageInformation = {
+    render: () => MessageInformationHtml(),
+};
+MessageInformation.storyName = 'm-message-information';
