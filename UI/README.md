@@ -90,14 +90,13 @@ Configured using `husky` and `lint-staged` to ensure no linting errors are commi
 
 ## Publish Storybook using GitHub Pages
 - Uses the workflow defined in `./.github/workflows/static.yml`.
-- Live Storybook URL = https://theThought.github.io/Project-Transform
-
-> Note: Github workflow & live Storybook URL relate to the existing Storybook component library in `./Storybook/` directory. Once this POC Storybook is ready for production, we can deprecate the old one.
+- Live Storybook URL = https://theThought.github.io/Transform-v2
 
 ## Build CSS and JavaScript for use in survey
+> NOTE: Any fonts or background images referenced in the CSS will be bundled into the `UI/build/css` folder, thereby preserving relative filepaths.
+
 - `npm run build`.
 
-> NOTE: Any fonts or background images referenced in the CSS will be bundled into the `UI/build/css` folder, thereby preserving relative filepaths.
 ### Linking to build artefacts in survey
 Uses whatever build folder has been defined in `package.json`.
 
