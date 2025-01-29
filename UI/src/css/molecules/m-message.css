@@ -1,0 +1,3 @@
+[class^='m-message'] {
+    padding: var(--space2) var(--space4) var(--space2) calc(var(--space4) * 2);
+}

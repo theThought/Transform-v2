@@ -2,6 +2,11 @@
     font-family: var(--font-primary);
 }
 
+:where(input, textarea, select) {
+    font-size: inherit;
+    line-height: inherit;
+}
+
 html[dir='rtl'] {
     :where(body, input, textarea, select) {
         font-family: var(--font-rtl);
