@@ -8,6 +8,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const colors = require('colors/safe');
 const cheerio = require('cheerio');
 const validExt = require('./static-assets-config');
 const prodDirectoryPath = path.join(__dirname, '../build');
@@ -16,7 +17,7 @@ const prodDirectoryPath = path.join(__dirname, '../build');
 const readProdDirectory = () => {
     fs.readdir(prodDirectoryPath, (err, files) => {
         if (err) {
-            return console.log(err);
+            return console.log(colors.red.bold('static-assets-rename:', err));
         }
 
         const validFiles = files.filter((ext) =>
@@ -34,7 +35,7 @@ const readIndexHtml = () =>
     new Promise((resolve, reject) => {
         fs.readFile(`${prodDirectoryPath}/index.html`, 'utf8', (err, data) => {
             if (err) {
-                reject(err);
+                reject(console.log(colors.red.bold('static-assets-rename:', err)));
             } else {
                 resolve(data);
             }
@@ -89,9 +90,9 @@ const renameFile = (renamed, file) => {
         `${prodDirectoryPath}/${renamed}`,
         (err) => {
             if (err) {
-                return console.log(err);
+                return console.log(colors.red.bold('static-assets-rename:', err));
             }
-            console.log(`Successfully renamed ${file} to ${renamed}`);
+            console.log(colors.green.bold(`Successfully renamed ${file} to ${renamed}`));
         },
     );
 };

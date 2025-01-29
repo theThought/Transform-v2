@@ -2,7 +2,7 @@
 This is the NEW POC component library for [Project Transform](https://zeroheight.com/61aada3a1/p/264eaa-project-transform).
 
 ## Launch Storybook/HTML locally, and run Parcel bundler
-> - NOTE: Use the correct Node version as listed in `.nvmrc`. If necessary, install Node Version Manager (NVM).
+> NOTE: Use the correct Node version as listed in `.nvmrc`. If necessary, install Node Version Manager (NVM).
 
 - `cd UI`.
 - `npm start` - installs Node modules (if not already installed), launches Parcel bundler to compile/watch files.
@@ -75,8 +75,7 @@ This component library provides lint configurations for both JavaScript and CSS.
 ### Git pre-commit hooks
 Configured using `husky` and `lint-staged` to ensure no linting errors are committed to the remote codebase.
 
-> NOTE:
-> Run `npm run prepare` from `./UI/` directory to install husky shell script. Do this just ONCE after cloning the repo.
+> NOTE: Run `npm run prepare` from `./UI/` directory to install husky shell script. Do this just ONCE after cloning the repo.
 
 ### Other recommended extensions for VSCode
 - [ES6 template literal syntax highlighter](https://marketplace.visualstudio.com/items?itemName=julienetie.vscode-template-literals). Useful when editing Storybook/HTML stories, which use ES6 template literals.
@@ -97,6 +96,8 @@ Configured using `husky` and `lint-staged` to ensure no linting errors are commi
 
 ## Build CSS and JavaScript for use in survey
 - `npm run build`.
+
+> NOTE: Any fonts or background images referenced in the CSS will be bundled into the `UI/build/css` folder, thereby preserving relative filepaths.
 ### Linking to build artefacts in survey
 Uses whatever build folder has been defined in `package.json`.
 
