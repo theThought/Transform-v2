@@ -16,3 +16,31 @@ See https://every-layout.dev/layouts/stack/.
         margin-block-end: 0;
     }
 }
+
+/*
+----------------------------------------------------------------------------
+Sidebar.
+
+See https://every-layout.dev/layouts/sidebar/ for a detailed explanation of this Flexbox behaviour.
+----------------------------------------------------------------------------
+*/
+.l-sidebar {
+    --sidebar-width: revert;
+    --sidebar-content-min-width: 50%;
+    --sidebar-gap: calc(var(--space4) * 4);
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sidebar-gap);
+
+    > :first-child {
+        flex-basis: var(--sidebar-width);
+        flex-grow: 1;
+    }
+
+    > :last-child {
+        flex-basis: 0;
+        flex-grow: 999;
+        min-inline-size: var(--sidebar-content-min-width);
+    }
+}
