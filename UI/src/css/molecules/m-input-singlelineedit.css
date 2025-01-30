@@ -5,7 +5,7 @@ m-input-singlelineedit {
 
     :where(.a-label-prelabel, .a-label-postlabel) {
         border: var(--border-thickness) solid var(--color-border);
-        padding: var(--space2) var(--space4);
+        padding: var(--space-2) var(--space-4);
     }
 
     .a-label-prelabel {

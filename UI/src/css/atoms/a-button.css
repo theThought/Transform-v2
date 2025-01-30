@@ -1,4 +1,4 @@
 .a-button {
-    background: var(--color-primary);
-    color: var(--color-white);
+    background: var(--color-brand-primary);
+    color: var(--color-neutral-white);
 }

@@ -2,7 +2,8 @@
     border-radius: var(--border-radius);
     font-size: var(--font-size-s);
     inline-size: fit-content;
-    padding: var(--space2) var(--space4) var(--space2) calc(var(--space4) * 2);
+    padding: var(--space-2) var(--space-4) var(--space-2)
+        calc(var(--space-4) * 2);
     position: relative;
 
     &::before {
@@ -17,8 +18,12 @@
 
 /* Uses color-mix() function to fix a11y color contrast. */
 .m-message-error {
-    background-color: rgba(var(--color-error), 0.15);
-    color: color-mix(in srgb, rgb(var(--color-error)) 80%, var(--color-text));
+    background-color: rgba(var(--color-accent-error), 0.15);
+    color: color-mix(
+        in srgb,
+        rgb(var(--color-accent-error)) 80%,
+        var(--color-text)
+    );
 
     &::before {
         background-image: url('../../images/icon-error.svg');
@@ -26,8 +31,12 @@
 }
 
 .m-message-warning {
-    background-color: rgba(var(--color-warning), 0.15);
-    color: color-mix(in srgb, rgb(var(--color-warning)) 45%, var(--color-text));
+    background-color: rgba(var(--color-accent-warning), 0.15);
+    color: color-mix(
+        in srgb,
+        rgb(var(--color-accent-warning)) 45%,
+        var(--color-text)
+    );
 
     &::before {
         background-image: url('../../images/icon-warning.svg');
@@ -35,8 +44,12 @@
 }
 
 .m-message-success {
-    background-color: rgba(var(--color-success), 0.15);
-    color: color-mix(in srgb, rgb(var(--color-success)) 45%, var(--color-text));
+    background-color: rgba(var(--color-accent-success), 0.15);
+    color: color-mix(
+        in srgb,
+        rgb(var(--color-accent-success)) 45%,
+        var(--color-text)
+    );
 
     &::before {
         background-image: url('../../images/icon-success.svg');
@@ -44,10 +57,10 @@
 }
 
 .m-message-information {
-    background-color: rgba(var(--color-information), 0.15);
+    background-color: rgba(var(--color-accent-information), 0.15);
     color: color-mix(
         in srgb,
-        rgb(var(--color-information)) 60%,
+        rgb(var(--color-accent-information)) 60%,
         var(--color-text)
     );
 

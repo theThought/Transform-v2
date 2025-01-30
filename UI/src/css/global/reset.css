@@ -12,7 +12,7 @@ Josh Comeau = https://www.joshwcomeau.com/css/custom-css-reset/
 ----------------------------------------------------------------------------
 */
 html {
-    accent-color: var(--color-primary);
+    accent-color: var(--color-brand-primary);
     interpolate-size: allow-keywords;
 
     /* Remove the automatic text size adjustment that is provided by iOS. */

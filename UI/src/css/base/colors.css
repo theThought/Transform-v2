@@ -4,27 +4,27 @@ Color settings.
 ----------------------------------------------------------------------------
 */
 :root {
-    --color-primary: var(--theme-color-primary);
-    --color-primary-hover: var(--theme-color-primary-alt);
-    --color-secondary: var(--theme-color-secondary);
-    --color-secondary-hover: var(--theme-color-secondary-alt);
-    --color-white: var(--theme-color-white);
-    --color-lightest: var(--theme-color-lightest);
-    --color-light1: var(--theme-color-light1);
-    --color-light2: var(--theme-color-light2);
-    --color-light3: var(--theme-color-light3);
-    --color-light4: var(--theme-color-light4);
-    --color-dark1: var(--theme-color-dark1);
-    --color-dark2: var(--theme-color-dark2);
-    --color-darkest: var(--theme-color-darkest);
-    --color-error: var(--theme-color-error);
-    --color-warning: var(--theme-color-warning);
-    --color-success: var(--theme-color-success);
-    --color-information: var(--theme-color-information);
+    --color-brand-primary: var(--theme-color-brand-primary);
+    --color-brand-primary-hover: var(--theme-color-brand-primary-alt);
+    --color-brand-secondary: var(--theme-color-brand-secondary);
+    --color-brand-secondary-hover: var(--theme-color-brand-secondary-alt);
+    --color-neutral-white: var(--theme-color-neutral-white);
+    --color-neutral-lightest: var(--theme-color-neutral-lightest);
+    --color-neutral-light1: var(--theme-color-neutral-light1);
+    --color-neutral-light2: var(--theme-color-neutral-light2);
+    --color-neutral-light3: var(--theme-color-neutral-light3);
+    --color-neutral-light4: var(--theme-color-neutral-light4);
+    --color-neutral-dark1: var(--theme-color-neutral-dark1);
+    --color-neutral-dark2: var(--theme-color-neutral-dark2);
+    --color-neutral-darkest: var(--theme-color-neutral-darkest);
+    --color-accent-error: var(--theme-color-accent-error);
+    --color-accent-warning: var(--theme-color-accent-warning);
+    --color-accent-success: var(--theme-color-accent-success);
+    --color-accent-information: var(--theme-color-accent-information);
 
     /* Semantic names. */
-    --color-background: var(--theme-color-white);
-    --color-text: var(--theme-color-darkest);
-    --color-border: var(--theme-color-light4);
-    --color-border-active: var(--theme-color-primary);
+    --color-background: var(--theme-color-neutral-white);
+    --color-text: var(--theme-color-neutral-darkest);
+    --color-border: var(--theme-color-neutral-light4);
+    --color-border-active: var(--theme-color-brand-primary);
 }

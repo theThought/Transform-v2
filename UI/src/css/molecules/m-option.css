@@ -1,11 +1,11 @@
 .m-option-base {
-    --color-checked: var(--color-secondary);
+    --color-checked: var(--color-brand-secondary);
 
     label {
         align-items: center;
         display: inline-flex;
         gap: 0.2em;
-        padding-block: calc(var(--space1) / 2);
+        padding-block: calc(var(--space-1) / 2);
     }
 
     /* See https://www.sarasoueidan.com/blog/inclusively-hiding-and-styling-checkboxes-and-radio-buttons/ */
@@ -26,5 +26,5 @@
     column-gap: 1em;
     display: flex;
     flex-wrap: wrap;
-    row-gap: var(--space1);
+    row-gap: var(--space-1);
 }

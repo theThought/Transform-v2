@@ -1,5 +1,5 @@
 :where(body, input, textarea, select) {
-    font-family: var(--font-primary);
+    font-family: var(--font-family-primary);
 }
 
 :where(input, textarea, select) {
@@ -9,7 +9,7 @@
 
 html[dir='rtl'] {
     :where(body, input, textarea, select) {
-        font-family: var(--font-rtl);
+        font-family: var(--font-family-rtl);
     }
 }
 

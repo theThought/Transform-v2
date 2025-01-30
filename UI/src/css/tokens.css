@@ -2,40 +2,47 @@
 ----------------------------------------------------------------------------
 "Primitive" design tokens for dynamic theming.
 
-- Rationalise naming convention for "primitive" design tokens, align with Figma, and implement automatic tokens export.
+- Rationalise naming convention for "primitive" design tokens.
+- Align with Figma.
+- Implement automatic tokens export. TBC
+
 - See related ClickUp task POC = https://app.clickup.com/t/8696gvh4k.
 ----------------------------------------------------------------------------
 */
 :root {
     /* Colors */
-    --theme-color-primary: #455b97;
-    --theme-color-primary-alt: #324371;
-    --theme-color-secondary: #449b9b;
-    --theme-color-secondary-alt: #317474;
-    --theme-color-white: #fafafa;
-    --theme-color-lightest: #f2f8fe;
-    --theme-color-light1: #eceff5;
-    --theme-color-light2: #d6ddeb;
-    --theme-color-light3: #b4bddb;
-    --theme-color-light4: #8797c8;
-    --theme-color-dark1: #57699c;
-    --theme-color-dark2: #324371;
-    --theme-color-darkest: #212c4c;
+    --theme-color-brand-primary: #455b97;
+    --theme-color-brand-primary-alt: #324371;
+    --theme-color-brand-secondary: #449b9b;
+    --theme-color-brand-secondary-alt: #317474;
+    --theme-color-neutral-white: #fafafa;
+    --theme-color-neutral-lightest: #f2f8fe;
+    --theme-color-neutral-light1: #eceff5;
+    --theme-color-neutral-light2: #d6ddeb;
+    --theme-color-neutral-light3: #b4bddb;
+    --theme-color-neutral-light4: #8797c8;
+    --theme-color-neutral-dark1: #57699c;
+    --theme-color-neutral-dark2: #324371;
+    --theme-color-neutral-darkest: #212c4c;
 
     /* Defined as RGB so we can use rgba() function */
-    --theme-color-error: 218, 41, 17;
-    --theme-color-warning: 212, 170, 73;
-    --theme-color-success: 70, 155, 155;
-    --theme-color-information: 75, 121, 182;
+    --theme-color-accent-error: 218, 41, 17;
+    --theme-color-accent-warning: 212, 170, 73;
+    --theme-color-accent-success: 70, 155, 155;
+    --theme-color-accent-information: 75, 121, 182;
 
     /* Fonts */
-    --theme-font-primary: 'Karla', 'KarlaLocal', sans-serif;
-    --theme-font-secondary: 'Merriweather', 'MerriweatherLocal', serif;
-    --theme-font-rtl: 'Rubik', 'RubikLocal', serif;
+    --theme-font-family-primary: 'Karla', 'KarlaLocal', sans-serif;
+    --theme-font-family-secondary: 'Merriweather', 'MerriweatherLocal', serif;
+    --theme-font-family-rtl: 'Rubik', 'RubikLocal', serif;
 
     /* Typography */
-    --theme-font-size: 1rem;
+    --theme-font-size-xs: 0.75rem;
     --theme-font-size-s: 0.875rem;
+    --theme-font-size: 1rem;
+    --theme-font-size-m: 1.125rem;
+    --theme-font-size-l: 1.25rem;
+    --theme-font-size-xl: 1.5rem;
     --theme-line-height: 1.1875;
 
     /* Borders */
@@ -44,8 +51,8 @@
     --theme-border-radius-s: 0.125rem;
 
     /* Spacing */
-    --theme-space1: 0.25rem;
-    --theme-space2: 0.5rem;
-    --theme-space3: 0.75rem;
-    --theme-space4: 1rem;
+    --theme-space-1: 0.25rem;
+    --theme-space-2: 0.5rem;
+    --theme-space-3: 0.75rem;
+    --theme-space-4: 1rem;
 }
