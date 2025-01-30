@@ -10,6 +10,7 @@
 
 const fs = require('fs-extra');
 const path = require('path');
+const colors = require('colors/safe');
 const prodDirectoryPath = path.join(__dirname, '../build');
 const staticDirectoryPath = path.join(__dirname, '../src/static');
 
@@ -67,23 +68,23 @@ const moveFile = (file, type) => {
         `${prodDirectoryPath}/${subFolder}/${file}`,
         (err) => {
             if (err) {
-                return console.log(err);
+                return console.log(colors.red.bold('move files:', err));
             }
-            console.log(`Successfully moved ${file}`);
+            console.log(colors.green.bold(`Successfully moved ${file}`));
         },
     );
 };
 
-// 2. Copy other static UI files (e.g. images & favicons).
+// 2. Copy other static UI files (e.g. favicons & images used in HTML).
 const copyStatic = () => {
     fs.copy(
         staticDirectoryPath,
         `${prodDirectoryPath}/static`,
         (err) => {
             if (err) {
-                return console.log(err);
+                return console.log(colors.red.bold('copy static assets:', err));
             }
-            console.log('Successfully copied other static assets!');
+            console.log(colors.green.bold('Successfully copied other static assets!'));
         },
     );
 };

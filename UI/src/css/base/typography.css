@@ -40,9 +40,14 @@ Font-face rules.
 }
 
 :root {
-    --font-primary: var(--theme-font-primary);
-    --font-secondary: var(--theme-font-secondary);
-    --font-rtl: var(--theme-font-rtl);
+    --font-family-primary: var(--theme-font-family-primary);
+    --font-family-secondary: var(--theme-font-family-secondary);
+    --font-family-rtl: var(--theme-font-family-rtl);
+    --font-size-xs: var(--theme-font-size-xs);
+    --font-size-s: var(--theme-font-size-s);
     --font-size: var(--theme-font-size);
+    --font-size-m: var(--theme-font-size-m);
+    --font-size-l: var(--theme-font-size-l);
+    --font-size-xl: var(--theme-font-size-xl);
     --line-height: var(--theme-line-height);
 }

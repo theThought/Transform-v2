@@ -3,11 +3,10 @@
 
     background: var(--color-background);
     border: var(--border-thickness) solid var(--color-border);
-    border-radius: var(--border-radius-small);
+    border-radius: var(--border-radius-s);
     color: inherit;
-    inline-size: var(--width-input);
-    padding: var(--space2) var(--space4);
-    vertical-align: middle;
+    inline-size: var(--input-width);
+    padding: var(--space-2) var(--space-4);
 
     &:focus {
         border-color: var(--color-border-active);
@@ -18,10 +17,15 @@
     border: var(--border-thickness) solid var(--color-primary);
     border-radius: var(--border-radius);
     display: inline-block;
-    min-block-size: 1.875rem;
+    min-block-size: 2.5rem;
     min-inline-size: 3em;
-    padding: var(--space1) 1em;
+    padding: var(--space-1) 1em;
     white-space: normal;
 
     /* TODO: :hover/:focus states */
 }
+
+/*
+    TODO:
+    - .focus-control, or use :has() on parent element
+*/

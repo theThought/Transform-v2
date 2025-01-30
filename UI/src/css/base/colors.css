@@ -4,23 +4,27 @@ Color settings.
 ----------------------------------------------------------------------------
 */
 :root {
-    --color-primary: var(--theme-color-primary);
-    --color-primary-hover: var(--theme-color-primary-alt);
-    --color-secondary: var(--theme-color-secondary);
-    --color-secondary-hover: var(--theme-color-secondary-alt);
-    --color-white: var(--theme-color-white);
-    --color-lightest: var(--theme-color-lightest);
-    --color-light1: var(--theme-color-light1);
-    --color-light2: var(--theme-color-light2);
-    --color-light3: var(--theme-color-light3);
-    --color-light4: var(--theme-color-light4);
-    --color-dark1: var(--theme-color-dark1);
-    --color-dark2: var(--theme-color-dark2);
-    --color-darkest: var(--theme-color-darkest);
+    --color-primary: var(--theme-color-brand-primary);
+    --color-primary-hover: var(--theme-color-brand-primary-alt);
+    --color-secondary: var(--theme-color-brand-secondary);
+    --color-secondary-hover: var(--theme-color-brand-secondary-alt);
+    --color-white: var(--theme-color-neutral-100);
+    --color-lightest: var(--theme-color-neutral-200);
+    --color-light1: var(--theme-color-neutral-300);
+    --color-light2: var(--theme-color-neutral-400);
+    --color-light3: var(--theme-color-neutral-500);
+    --color-light4: var(--theme-color-neutral-600);
+    --color-dark1: var(--theme-color-neutral-700);
+    --color-dark2: var(--theme-color-neutral-800);
+    --color-darkest: var(--theme-color-neutral-900);
+    --color-error: var(--theme-color-accent-error);
+    --color-warning: var(--theme-color-accent-warning);
+    --color-success: var(--theme-color-accent-success);
+    --color-information: var(--theme-color-accent-information);
 
     /* Semantic names. */
-    --color-background: var(--theme-color-white);
-    --color-text: var(--theme-color-darkest);
-    --color-border: var(--theme-color-light4);
-    --color-border-active: var(--theme-color-primary);
+    --color-background: var(--theme-color-neutral-100);
+    --color-text: var(--theme-color-neutral-900);
+    --color-border: var(--theme-color-neutral-600);
+    --color-border-active: var(--theme-color-brand-primary);
 }

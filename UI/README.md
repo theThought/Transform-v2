@@ -2,7 +2,7 @@
 This is the NEW POC component library for [Project Transform](https://zeroheight.com/61aada3a1/p/264eaa-project-transform).
 
 ## Launch Storybook/HTML locally, and run Parcel bundler
-> - NOTE: Use the correct Node version as listed in `.nvmrc`. If necessary, install Node Version Manager (NVM).
+> NOTE: Use the correct Node version as listed in `.nvmrc`. If necessary, install Node Version Manager (NVM).
 
 - `cd UI`.
 - `npm start` - installs Node modules (if not already installed), launches Parcel bundler to compile/watch files.
@@ -75,8 +75,7 @@ This component library provides lint configurations for both JavaScript and CSS.
 ### Git pre-commit hooks
 Configured using `husky` and `lint-staged` to ensure no linting errors are committed to the remote codebase.
 
-> NOTE:
-> Run `npm run prepare` from `./UI/` directory to install husky shell script. Do this just ONCE after cloning the repo.
+> NOTE: Run `npm run prepare` from `./UI/` directory to install husky shell script. Do this just ONCE after cloning the repo.
 
 ### Other recommended extensions for VSCode
 - [ES6 template literal syntax highlighter](https://marketplace.visualstudio.com/items?itemName=julienetie.vscode-template-literals). Useful when editing Storybook/HTML stories, which use ES6 template literals.
@@ -91,15 +90,18 @@ Configured using `husky` and `lint-staged` to ensure no linting errors are commi
 
 ## Publish Storybook using GitHub Pages
 - Uses the workflow defined in `./.github/workflows/static.yml`.
-- Live Storybook URL = https://theThought.github.io/Project-Transform
-
-> Note: Github workflow & live Storybook URL relate to the existing Storybook component library in `./Storybook/` directory. Once this POC Storybook is ready for production, we can deprecate the old one.
+- Live Storybook URL = https://theThought.github.io/Transform-v2
 
 ## Build CSS and JavaScript for use in survey
-- `npm run build`.
-### Linking to build artefacts in survey
-Uses whatever build folder has been defined in `package.json`.
+> NOTES:
+> - Any fonts or background images referenced in the CSS will be bundled into the build folder (e.g. `UI/build/css`), thereby preserving relative filepaths in the bundled CSS.
+> - Static assets (e.g. favicons) are also bundled into the build folder.
+> - Build folder is defined in `package.json` using the `--dist-dir` argument in the `build:parcel` NPM script.
+> - Build folder path is also referenced by the `prodDirectoryPath` variable in the `UI/scripts/static-assets-move.js` NPM script.
 
+- `npm run build`.
+
+### Linking to build artefacts in survey
 Add to document `<head>`:
 ```
 <link rel="stylesheet" href="/path/to/build/folder/stylesheets/index.css">

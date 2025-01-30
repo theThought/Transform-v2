@@ -7,4 +7,5 @@ Global HTML element styles.
 /* Import 'reset' first. */
 @import 'reset';
 @import 'forms';
+@import 'layout';
 @import 'typography';

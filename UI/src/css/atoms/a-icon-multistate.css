@@ -1,0 +1,26 @@
+.a-icon-multistate {
+    background-position-y: -28px;
+    block-size: var(--option-icon-height);
+    inline-size: var(--option-icon-width);
+}
+
+[type='checkbox'] + label > .a-icon-multistate {
+    background-image: url('../../images/checkboxes.png');
+    background-position-x: -42px;
+}
+
+[type='radio'] + label > .a-icon-multistate {
+    background-image: url('../../images/radiobuttons.png');
+    background-position-x: -42px;
+}
+
+[type='checkbox']:checked + label > .a-icon-multistate,
+[type='radio']:checked + label > .a-icon-multistate {
+    background-position-x: -14px;
+}
+
+/*
+    TODO:
+    - read only states.
+    - .focus-control, or use :has() on parent element.
+*/

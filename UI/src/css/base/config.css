@@ -9,14 +9,18 @@ i.e. custom properties other than colors/fonts.
     /* Borders. */
     --border-thickness: var(--theme-border-thickness);
     --border-radius: var(--theme-border-radius);
-    --border-radius-small: var(--theme--border-radius-small);
+    --border-radius-s: var(--theme--border-radius-s);
 
     /* Spacing. Use for margin|padding, and gap in flex|grid layouts. */
-    --space1: var(--theme-space1);
-    --space2: var(--theme-space2);
-    --space3: var(--theme-space3);
-    --space4: var(--theme-space4);
+    --space-1: var(--theme-space-1);
+    --space-2: var(--theme-space-2);
+    --space-3: var(--theme-space-3);
+    --space-4: var(--theme-space-4);
 
     /* Widths */
-    --width-input: 197px;
+    --input-width: 12.5rem;
+
+    /* Icons */
+    --option-icon-height: 1.0625rem;
+    --option-icon-width: 1.125rem;
 }

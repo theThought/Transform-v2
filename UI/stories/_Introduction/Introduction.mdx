@@ -22,10 +22,7 @@ This is Project Transform's component library.
 
 ## CSS and JavaScript
 - The compiled CSS/JavaScript code is loaded inside `./UI/.storybook/preview-head.html`.
-- Storybook's `public` folder has been pointed at `staticDirs: ['../public', '../../Survey']` folders inside `./UI/.storybook/main.js`.
-
-### Filepaths
-- Storybook's static directory is defined by the `staticDirs: ['../public', '../../Survey']` array inside `.storybook/main.js`.
+- Storybook's `public` folder defaults to `staticDirs: ['../public']` folder inside `./UI/.storybook/main.js`.
 
 ## Accessibility testing
 Storybook comes with 2 default accessibility testing tools:
@@ -35,20 +32,3 @@ Storybook comes with 2 default accessibility testing tools:
 ## Additional reading
 - [WAI-ARIA Authoring Practices](https://www.w3.org/WAI/ARIA/apg/).
 - [Inclusive Components](https://inclusive-components.design/).
-
-## TODO
-- Update Github workflow to publish this Storybook instance, rather than the existing Storybook component library in `./Storybook/` directory.
-
-### TBC
-- `npx browserslist` - what Safari versions do we need to support?
-- Fonts:
-    - Do we need so many font variants? Currently, only a subset of the WOFF fonts have been defined in the new CSS.
-    - Do we need to fetch from Google too, or just use local fonts?
-- Images and favicons:
-    - Images currently have CSS path pointing to `/Survey/images/...`.
-    - [Do we need so many favicons](https://evilmartians.com/chronicles/how-to-favicon-in-2021-six-files-that-fit-most-needs)?
-- Define naming convention for "primitive" design tokens, align with Figma, and implement automatic export:
-    - See [related ClickUp task POC](https://app.clickup.com/t/8696gvh4k)
-- Implement new CSS theming mechanism with "whitelabel" default theme:
-    - Current Storybook implementation in `./Storybook/` directory uses `storybook-theme-switch-addon` to switch themes in the Storybook UI.
-    - Also see this [POC for dynamic theming in local DEV environment via Parcel](https://github.com/basher/demo-storybook-modern-code-legacy-browser).

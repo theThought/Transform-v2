@@ -5,18 +5,18 @@ m-input-singlelineedit {
 
     :where(.a-label-prelabel, .a-label-postlabel) {
         border: var(--border-thickness) solid var(--color-border);
-        padding: var(--space2) var(--space4);
+        padding: var(--space-2) var(--space-4);
     }
 
     .a-label-prelabel {
         border-inline-end-width: 0;
-        border-radius: var(--theme-border-radius-small) 0 0
-            var(--theme-border-radius-small);
+        border-radius: var(--theme-border-radius-s) 0 0
+            var(--theme-border-radius-s);
     }
 
     .a-label-postlabel {
         border-inline-start-width: 0;
-        border-radius: 0 var(--theme-border-radius-small)
-            var(--theme-border-radius-small) 0;
+        border-radius: 0 var(--theme-border-radius-s)
+            var(--theme-border-radius-s) 0;
     }
 }

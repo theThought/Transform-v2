@@ -1,14 +1,13 @@
 import {
     LabelQuestionUsingLabelHtml,
-    LabelQuestionUsingDivHtml
+    LabelQuestionUsingDivHtml,
+    LabelOptionHtml,
 } from './Label';
 
 export default {
     title: 'Atoms/Labels',
     parameters: {
-        status: {
-            type: 'beta',
-        },
+        status: { type: 'beta' },
     }
 };
 
@@ -21,3 +20,8 @@ export const LabelQuestionUsingDiv = {
     render: () => LabelQuestionUsingDivHtml(),
 };
 LabelQuestionUsingDiv.storyName = 'a-label-question using <div>';
+
+export const LabelOption = {
+    render: () => LabelOptionHtml(),
+};
+LabelOption.storyName = 'a-label-option';

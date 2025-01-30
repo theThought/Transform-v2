@@ -2,7 +2,7 @@ name: Build and Publish Storybook to GitHub Pages
 
 on:
   push:
-    branches: [ 'develop' ]
+    branches: [ 'master' ]
     # Trigger the action only when files change in the folders defined here.
     paths: [
       'UI/.storybook/**',

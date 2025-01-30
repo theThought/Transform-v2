@@ -13,7 +13,7 @@ export default class MInputSinglelineedit extends Component {
         this.qid = this.dataset.questionid;
         this.qgroup = this.dataset.questiongroup;
         this.element = document.querySelector('.a-input-singlelineedit');
-        this.question = this.closest('o-question-container');
+        this.question = this.closest('o-question-response');
 
         if (!this.element) return;
 
@@ -37,33 +37,30 @@ export default class MInputSinglelineedit extends Component {
 
     // TODO: should this be a generic method in Component.ts?
     private parseCustomProperties(): void {
-        const elemCustomProps = this.question?.querySelector(
-            '[data-custom-props]',
-        ) as HTMLElement;
+        const dataCustomProps = this.question?.dataset.customprops;
 
         if (
-            this.qid !== elemCustomProps?.dataset.questionid &&
-            this.qgroup !== elemCustomProps?.dataset.questiongroup &&
-            !elemCustomProps
+            this.qid !== this.question?.dataset.questionid &&
+            this.qgroup !== this.question?.dataset.questiongroup &&
+            !dataCustomProps
         ) {
             return;
         }
 
-        const customProps = elemCustomProps?.dataset.customProps;
-        if (customProps) {
+        if (dataCustomProps) {
             let customPropsJSON: Record<string, unknown>;
 
-            if (customProps.includes('type')) {
+            if (dataCustomProps.includes('type')) {
                 customPropsJSON = generateCustomPropertiesJSON(
-                    customProps,
+                    dataCustomProps,
                     'type',
                 );
                 this.setInputType(customPropsJSON);
             }
 
-            if (customProps.includes('labels')) {
+            if (dataCustomProps.includes('labels')) {
                 customPropsJSON = generateCustomPropertiesJSON(
-                    customProps,
+                    dataCustomProps,
                     'labels',
                 );
                 this.setLabels(customPropsJSON);
