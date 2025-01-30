@@ -25,9 +25,9 @@ See https://every-layout.dev/layouts/sidebar/ for a detailed explanation of this
 ----------------------------------------------------------------------------
 */
 .l-sidebar {
-    --sidebar-width: revert;
+    --sidebar-width: fit-content;
     --sidebar-content-min-width: 50%;
-    --sidebar-gap: calc(var(--space-4) * 4);
+    --sidebar-gap: calc(var(--space-4) * 2);
 
     display: flex;
     flex-wrap: wrap;

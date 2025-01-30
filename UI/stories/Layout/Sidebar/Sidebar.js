@@ -3,8 +3,7 @@ export const SidebarHtml = () => `
     <div>
         Sidebar:
         <ul>
-            <li>Narrow content.</li>
-            <li>With defined width (e.g. 30%).</li>
+            <li>Constrained or defined width (e.g. 30%).</li>
             <li>For example, <b>question text</b>.</li>
         </ul>
     </div>
