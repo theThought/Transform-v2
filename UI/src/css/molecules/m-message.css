@@ -15,10 +15,10 @@
     }
 }
 
-/* TODO: Fix a11y color contrast */
+/* Uses color-mix() function to fix a11y color contrast. */
 .m-message-error {
     background-color: rgba(var(--color-error), 0.15);
-    color: rgb(var(--color-error));
+    color: color-mix(in srgb, rgb(var(--color-error)) 80%, var(--color-text));
 
     &::before {
         background-image: url('../../images/icon-error.svg');
@@ -27,7 +27,7 @@
 
 .m-message-warning {
     background-color: rgba(var(--color-warning), 0.15);
-    color: rgb(var(--color-warning));
+    color: color-mix(in srgb, rgb(var(--color-warning)) 45%, var(--color-text));
 
     &::before {
         background-image: url('../../images/icon-warning.svg');
@@ -36,7 +36,7 @@
 
 .m-message-success {
     background-color: rgba(var(--color-success), 0.15);
-    color: rgb(var(--color-success));
+    color: color-mix(in srgb, rgb(var(--color-success)) 45%, var(--color-text));
 
     &::before {
         background-image: url('../../images/icon-success.svg');
@@ -45,7 +45,11 @@
 
 .m-message-information {
     background-color: rgba(var(--color-information), 0.15);
-    color: rgb(var(--color-information));
+    color: color-mix(
+        in srgb,
+        rgb(var(--color-information)) 60%,
+        var(--color-text)
+    );
 
     &::before {
         background-image: url('../../images/icon-information.svg');
