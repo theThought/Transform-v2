@@ -10,9 +10,6 @@ The purpose of this project is to refactor v1, using ES6/TypeScript, HTML Web Co
 - Fonts:
     - Do we need so many font variants? Currently, only a subset of the WOFF fonts have been defined in the new CSS.
     - Do we need to fetch from Google too, or just use local fonts?
-- Images in `UI/src/static/images/` folder:
-    - Are they only used for CSS backgrounds?
-    - Or are some used in HTML `<img>` tags?
 - [Do we need so many favicons](https://evilmartians.com/chronicles/how-to-favicon-in-2021-six-files-that-fit-most-needs)?
 - Define naming convention for "primitive" design tokens, align with Figma, and implement automatic export:
     - See [related ClickUp task POC](https://app.clickup.com/t/8696gvh4k)
