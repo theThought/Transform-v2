@@ -75,7 +75,7 @@ const moveFile = (file, type) => {
     );
 };
 
-// 2. Copy other static UI files (e.g. images & favicons).
+// 2. Copy other static UI files (e.g. favicons & images used in HTML).
 const copyStatic = () => {
     fs.copy(
         staticDirectoryPath,

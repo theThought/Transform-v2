@@ -93,13 +93,15 @@ Configured using `husky` and `lint-staged` to ensure no linting errors are commi
 - Live Storybook URL = https://theThought.github.io/Transform-v2
 
 ## Build CSS and JavaScript for use in survey
-> NOTE: Any fonts or background images referenced in the CSS will be bundled into the `UI/build/css` folder, thereby preserving relative filepaths.
+> NOTES:
+> - Any fonts or background images referenced in the CSS will be bundled into the build folder (e.g. `UI/build/css`), thereby preserving relative filepaths in the bundled CSS.
+> - Static assets (e.g. favicons) are also bundled into the build folder.
+> - Build folder is defined in `package.json` using the `--dist-dir` argument in the `build:parcel` NPM script.
+> - Build folder path is also referenced by the `prodDirectoryPath` variable in the `UI/scripts/static-assets-move.js` NPM script.
 
 - `npm run build`.
 
 ### Linking to build artefacts in survey
-Uses whatever build folder has been defined in `package.json`.
-
 Add to document `<head>`:
 ```
 <link rel="stylesheet" href="/path/to/build/folder/stylesheets/index.css">

@@ -21,7 +21,7 @@
     color: rgb(var(--color-error));
 
     &::before {
-        background-image: url('../../static/images/icon-error.svg');
+        background-image: url('../../images/icon-error.svg');
     }
 }
 
@@ -30,7 +30,7 @@
     color: rgb(var(--color-warning));
 
     &::before {
-        background-image: url('../../static/images/icon-warning.svg');
+        background-image: url('../../images/icon-warning.svg');
     }
 }
 
@@ -39,7 +39,7 @@
     color: rgb(var(--color-success));
 
     &::before {
-        background-image: url('../../static/images/icon-success.svg');
+        background-image: url('../../images/icon-success.svg');
     }
 }
 
@@ -48,6 +48,6 @@
     color: rgb(var(--color-information));
 
     &::before {
-        background-image: url('../../static/images/icon-information.svg');
+        background-image: url('../../images/icon-information.svg');
     }
 }
