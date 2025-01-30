@@ -1454,6 +1454,25 @@
         "@parcel/core": "^2.13.2"
       }
     },
+    "node_modules/@parcel/config-default/node_modules/@parcel/optimizer-svgo": {
+      "version": "2.13.2",
+      "resolved": "https://registry.npmjs.org/@parcel/optimizer-svgo/-/optimizer-svgo-2.13.2.tgz",
+      "integrity": "sha512-QbuQzGfk5b/p9Yzc8PaSyjwalZbu/5afrKaLYKkiyG+kAVVOGMsxA2WPqPdb8x551AgdQL4OVODS9dE3zdDQOQ==",
+      "dev": true,
+      "dependencies": {
+        "@parcel/diagnostic": "2.13.2",
+        "@parcel/plugin": "2.13.2",
+        "@parcel/utils": "2.13.2"
+      },
+      "engines": {
+        "node": ">= 16.0.0",
+        "parcel": "^2.13.2"
+      },
+      "funding": {
+        "type": "opencollective",
+        "url": "https://opencollective.com/parcel"
+      }
+    },
     "node_modules/@parcel/core": {
       "version": "2.13.2",
       "resolved": "https://registry.npmjs.org/@parcel/core/-/core-2.13.2.tgz",
@@ -1719,25 +1738,6 @@
       },
       "peerDependencies": {
         "@parcel/core": "^2.13.2"
-      }
-    },
-    "node_modules/@parcel/optimizer-svgo": {
-      "version": "2.13.2",
-      "resolved": "https://registry.npmjs.org/@parcel/optimizer-svgo/-/optimizer-svgo-2.13.2.tgz",
-      "integrity": "sha512-QbuQzGfk5b/p9Yzc8PaSyjwalZbu/5afrKaLYKkiyG+kAVVOGMsxA2WPqPdb8x551AgdQL4OVODS9dE3zdDQOQ==",
-      "dev": true,
-      "dependencies": {
-        "@parcel/diagnostic": "2.13.2",
-        "@parcel/plugin": "2.13.2",
-        "@parcel/utils": "2.13.2"
-      },
-      "engines": {
-        "node": ">= 16.0.0",
-        "parcel": "^2.13.2"
-      },
-      "funding": {
-        "type": "opencollective",
-        "url": "https://opencollective.com/parcel"
       }
     },
     "node_modules/@parcel/optimizer-swc": {
