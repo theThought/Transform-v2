@@ -7,9 +7,7 @@ import {
 export default {
     title: 'Atoms/Labels',
     parameters: {
-        status: {
-            type: 'beta',
-        },
+        status: { type: 'beta' },
     }
 };
 

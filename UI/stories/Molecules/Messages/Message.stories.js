@@ -8,9 +8,7 @@ import {
 export default {
     title: 'Molecules/Messages',
     parameters: {
-        status: {
-            type: 'beta',
-        },
+        status: { type: 'beta' },
     }
 };
 

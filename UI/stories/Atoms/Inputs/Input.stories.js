@@ -3,9 +3,7 @@ import { AInputSinglelineEditHtml } from './Input';
 export default {
     title: 'Atoms/Inputs',
     parameters: {
-        status: {
-            type: 'beta',
-        },
+        status: { type: 'beta' },
     },
 };
 

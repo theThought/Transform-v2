@@ -7,9 +7,7 @@ import {
 export default {
     title: 'Molecules/Options',
     parameters: {
-        status: {
-            type: 'beta',
-        },
+        status: { type: 'beta' },
     }
 };
 
