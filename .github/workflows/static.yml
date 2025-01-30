@@ -47,7 +47,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ${{ github.workspace }}/Storybook/storybook-static
+          path: ${{ github.workspace }}/UI/storybook-static
 
       - name: Deploy to GitHub Pages
         id: deployment
