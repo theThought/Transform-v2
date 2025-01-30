@@ -14,7 +14,7 @@
 }
 
 :where([type='button'], [type='submit'], [type='reset'], button) {
-    border: var(--border-thickness) solid var(--color-brand-primary);
+    border: var(--border-thickness) solid var(--color-primary);
     border-radius: var(--border-radius);
     display: inline-block;
     min-block-size: 2.5rem;

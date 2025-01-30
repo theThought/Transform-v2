@@ -15,15 +15,15 @@
     --theme-color-brand-primary-alt: #324371;
     --theme-color-brand-secondary: #449b9b;
     --theme-color-brand-secondary-alt: #317474;
-    --theme-color-neutral-white: #fafafa;
-    --theme-color-neutral-lightest: #f2f8fe;
-    --theme-color-neutral-light1: #eceff5;
-    --theme-color-neutral-light2: #d6ddeb;
-    --theme-color-neutral-light3: #b4bddb;
-    --theme-color-neutral-light4: #8797c8;
-    --theme-color-neutral-dark1: #57699c;
-    --theme-color-neutral-dark2: #324371;
-    --theme-color-neutral-darkest: #212c4c;
+    --theme-color-neutral-100: #fafafa;
+    --theme-color-neutral-200: #f2f8fe;
+    --theme-color-neutral-300: #eceff5;
+    --theme-color-neutral-400: #d6ddeb;
+    --theme-color-neutral-500: #b4bddb;
+    --theme-color-neutral-600: #8797c8;
+    --theme-color-neutral-700: #57699c;
+    --theme-color-neutral-800: #324371;
+    --theme-color-neutral-900: #212c4c;
 
     /* Defined as RGB so we can use rgba() function */
     --theme-color-accent-error: 218, 41, 17;

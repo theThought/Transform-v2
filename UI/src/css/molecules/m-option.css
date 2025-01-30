@@ -1,5 +1,5 @@
 .m-option-base {
-    --color-checked: var(--color-brand-secondary);
+    --color-checked: var(--color-secondary);
 
     label {
         align-items: center;
