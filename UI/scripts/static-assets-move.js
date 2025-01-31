@@ -11,7 +11,7 @@
 const fs = require('fs-extra');
 const path = require('path');
 const colors = require('colors/safe');
-const prodDirectoryPath = path.join(__dirname, '../build');
+const prodDirectoryPath = path.join(__dirname, '../public/build');
 const staticDirectoryPath = path.join(__dirname, '../src/static');
 
 // 1. Read the renamed files in PRODUCTION folder.

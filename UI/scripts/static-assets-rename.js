@@ -11,7 +11,7 @@ const path = require('path');
 const colors = require('colors/safe');
 const cheerio = require('cheerio');
 const validExt = require('./static-assets-config');
-const prodDirectoryPath = path.join(__dirname, '../build');
+const prodDirectoryPath = path.join(__dirname, '../public/build');
 
 // Read files in PRODUCTION folder, and process the valid ones.
 const readProdDirectory = () => {

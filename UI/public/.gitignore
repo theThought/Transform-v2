@@ -1,5 +1,8 @@
 # Ignore everything in this directory
 *
-# Except these files
+# Except these files/folders
 !.gitignore
 !storybook-overrides.css
+
+!*/
+!build/**
