@@ -94,7 +94,7 @@ Configured using `husky` and `lint-staged` to ensure no linting errors are commi
 
 ## Build CSS and JavaScript for use in survey
 > NOTES:
-> - Any fonts or background images referenced in the CSS will be bundled into the build folder (e.g. `UI/build/css`), thereby preserving relative filepaths in the bundled CSS.
+> - Any fonts or background images referenced in the CSS will be bundled into the build folder (e.g. `UI/public/build/css`), thereby preserving relative filepaths in the bundled CSS.
 > - Static assets (e.g. favicons) are also bundled into the build folder.
 > - Build folder is defined in `package.json` using the `--dist-dir` argument in the `build:parcel` NPM script.
 > - Build folder path is also referenced by the `prodDirectoryPath` variable in the `UI/scripts/static-assets-move.js` NPM script.
