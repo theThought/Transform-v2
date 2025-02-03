@@ -84,20 +84,42 @@ Configured using `husky` and `lint-staged` to ensure no linting errors are commi
 - The [default browserslist configuration](https://github.com/browserslist/browserslist#best-practices) has been defined in `package.json`.
 - Run `npx browserslist` to see a list of supported browsers.
 
-## Build and publish Storybook locally
+## Storybook
+> The `<link>` and `<script>` tags in `./UI/.storybook/preview-head.html` use placeholders, which reference environment variables defined in `./UI/.env` files.
+
+```
+<link href="%STORYBOOK_CSS_PATH%" rel="stylesheet" />
+<script defer src="%STORYBOOK_JS_PATH%"></script>
+```
+
+These are resolved as follows:
+
+### `./UI/.env.development`
+```
+STORYBOOK_CSS_PATH=index.css
+STORYBOOK_JS_PATH=index.js
+```
+
+### `./UI/.env.production`
+```
+STORYBOOK_CSS_PATH=build/css/index.css
+STORYBOOK_JS_PATH=build/javascript/index.js
+```
+
+### Build and publish Storybook locally
 - `npm run publish-storybook` - builds all Storybook dependencies, and copies output to `storybook-static` directory.
 - `npx http-server ./storybook-static` - test Storybook production build on local server.
 
-## Publish Storybook using GitHub Pages
+### Publish Storybook using GitHub Pages
 - Uses the workflow defined in `./.github/workflows/static.yml`.
 - Live Storybook URL = https://theThought.github.io/Transform-v2
 
 ## Build CSS and JavaScript for use in survey
 > NOTES:
-> - Any fonts or background images referenced in the CSS will be bundled into the build folder (e.g. `UI/public/build/css`), thereby preserving relative filepaths in the bundled CSS.
+> - Any fonts or background images referenced in the CSS will be bundled into the build folder (e.g. `./UI/public/build/css`), thereby preserving relative filepaths in the bundled CSS.
 > - Static assets (e.g. favicons) are also bundled into the build folder.
 > - Build folder is defined in `package.json` using the `--dist-dir` argument in the `build:parcel` NPM script.
-> - Build folder path is also referenced by the `prodDirectoryPath` variable in the `UI/scripts/static-assets-move.js` NPM script.
+> - Build folder path is also referenced by the `prodDirectoryPath` variable in the `./UI/scripts/static-assets-move.js` NPM script.
 
 - `npm run build`.
 
