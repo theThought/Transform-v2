@@ -15,3 +15,9 @@ export const LabelOptionHtml = () => `
     Checkbox/radio label
 </span>
 `;
+
+export const LabelHeadingSublistHtml = () => `
+<span class="a-label-heading-sublist">
+    Sublist heading
+</span>
+`;

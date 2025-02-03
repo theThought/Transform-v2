@@ -2,6 +2,7 @@ import {
     LabelQuestionUsingLabelHtml,
     LabelQuestionUsingDivHtml,
     LabelOptionHtml,
+    LabelHeadingSublistHtml,
 } from './Label';
 
 export default {
@@ -25,3 +26,8 @@ export const LabelOption = {
     render: () => LabelOptionHtml(),
 };
 LabelOption.storyName = 'a-label-option';
+
+export const LabelHeadingSublist = {
+    render: () => LabelHeadingSublistHtml(),
+};
+LabelHeadingSublist.storyName = 'a-label-heading-sublist';

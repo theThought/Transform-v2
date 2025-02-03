@@ -1,6 +1,4 @@
 :where([type='text'], [type='date'], [type='number'], textarea) {
-    --color-background: #fff;
-
     background: var(--color-background);
     border: var(--border-thickness) solid var(--color-border);
     border-radius: var(--border-radius-s);

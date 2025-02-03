@@ -3,6 +3,7 @@ m-input-singlelineedit {
     display: inline-flex;
     flex-wrap: wrap;
 
+    /* TODO: Should pre/postlabel be in "a-label.css" instead? */
     :where(.a-label-prelabel, .a-label-postlabel) {
         border: var(--border-thickness) solid var(--color-border);
         padding: var(--space-2) var(--space-4);

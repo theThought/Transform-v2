@@ -1,7 +1,13 @@
-[class*='a-label'] {
+[class^='a-label'] {
     cursor: pointer;
 }
 
 .a-label-option {
     color: var(--color-primary);
+}
+
+.a-label-heading-sublist {
+    color: var(--color-primary);
+    cursor: default;
+    font-family: var(--font-family-secondary);
 }

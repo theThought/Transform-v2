@@ -1,0 +1,18 @@
+.o-select-custom {
+    position: relative;
+
+    .m-list {
+        block-size: 0;
+        inset-block-start: 100%;
+        inset-inline-start: -1000em;
+        position: absolute;
+        z-index: 1;
+    }
+
+    &:focus-within {
+        .m-list {
+            block-size: auto;
+            inset-inline-start: 0;
+        }
+    }
+}

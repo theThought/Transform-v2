@@ -1,5 +1,7 @@
 /*
 ----------------------------------------------------------------------------
+- "Semantic" design tokens.
+
 Color settings.
 ----------------------------------------------------------------------------
 */
@@ -17,14 +19,15 @@ Color settings.
     --color-dark1: var(--theme-color-neutral-700);
     --color-dark2: var(--theme-color-neutral-800);
     --color-darkest: var(--theme-color-neutral-900);
+    --color-placeholder: var(--theme-color-placeholder);
     --color-error: var(--theme-color-accent-error);
     --color-warning: var(--theme-color-accent-warning);
     --color-success: var(--theme-color-accent-success);
     --color-information: var(--theme-color-accent-information);
 
     /* Semantic names. */
-    --color-background: var(--theme-color-neutral-100);
-    --color-text: var(--theme-color-neutral-900);
-    --color-border: var(--theme-color-neutral-600);
-    --color-border-active: var(--theme-color-brand-primary);
+    --color-background: var(--color-white);
+    --color-text: var(--color-darkest);
+    --color-border: var(--color-light4);
+    --color-border-active: var(--color-primary);
 }

@@ -1,0 +1,5 @@
+.o-option-sublist {
+    &.l-stack {
+        --stack-gutter: 0.5em;
+    }
+}

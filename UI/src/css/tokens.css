@@ -2,8 +2,8 @@
 ----------------------------------------------------------------------------
 "Primitive" design tokens for dynamic theming.
 
-- Rationalise naming convention for "primitive" design tokens.
-- Align with Figma.
+- "Primitive" design tokens.
+- Rationalise naming convention, and align with Figma.
 - Implement automatic tokens export. TBC
 
 - See related ClickUp task POC = https://app.clickup.com/t/8696gvh4k.
@@ -16,7 +16,7 @@
     --theme-color-brand-secondary: #449b9b;
     --theme-color-brand-secondary-alt: #317474;
     --theme-color-neutral-100: #fff;
-    --theme-color-neutral-200: #f2f8fe;
+    --theme-color-neutral-200: #fafafa;
     --theme-color-neutral-300: #eceff5;
     --theme-color-neutral-400: #d6ddeb;
     --theme-color-neutral-500: #b4bddb;
@@ -24,6 +24,7 @@
     --theme-color-neutral-700: #57699c;
     --theme-color-neutral-800: #324371;
     --theme-color-neutral-900: #212c4c;
+    --theme-color-placeholder: #6b5b72;
 
     /* Defined as RGB so we can use rgba() function */
     --theme-color-accent-error: 218, 41, 17;
