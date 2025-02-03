@@ -1,3 +1,10 @@
 .m-list {
-    color: red;
+    --color-border: var(--color-primary);
+
+    background: var(--color-white);
+    border: var(--border-thickness) solid var(--color-border);
+    max-block-size: 18.75rem;
+    min-inline-size: 3em;
+    overflow-block: auto;
+    padding: var(--space-3) var(--space-4);
 }

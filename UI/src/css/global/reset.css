@@ -50,6 +50,10 @@ html {
     padding-inline-start: var(--space-4);
 }
 
+:where(ol, ul)[class] {
+    list-style-type: '';
+}
+
 table {
     border-collapse: collapse;
     border-spacing: 0;
