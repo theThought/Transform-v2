@@ -1,7 +1,7 @@
 export const MInputSinglelineEditHtml = (args) => `
 <!--
     TODO:
-    See https://app.clickup.com/t/8697h5cc4?comment=90120097089630&threadedComment=90120097249142
+    See https://app.clickup.com/t/8697h5cc4?comment=90120097089630&threadedComment=90120097249142 about simplifying pre/postlabel JSON
  -->
 <o-question-response
     data-questionid="_Q0"
