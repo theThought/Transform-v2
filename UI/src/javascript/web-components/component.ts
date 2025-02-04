@@ -1,6 +1,5 @@
 /*
-TODO:   Explain what this file is doing - class that components inherit
-        methods from
+TODO: Explain what this file is doing - class that components inherit methods from
  */
 
 export default class Component extends HTMLElement {
