@@ -28,6 +28,7 @@ Color settings.
     /* Semantic names. */
     --color-background: var(--color-white);
     --color-text: var(--color-darkest);
+    --color-input: var(--color-secondary);
     --color-border: var(--color-light4);
     --color-border-active: var(--color-primary);
 }

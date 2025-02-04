@@ -1,4 +1,7 @@
-import { AInputSinglelineEditHtml } from './Input';
+import {
+    AInputSinglelineEditHtml,
+    InputMultilineHtml
+} from './Input';
 
 export default {
     title: 'Atoms/Inputs',
@@ -11,3 +14,8 @@ export const AInputSinglelineEdit = {
     render: () => AInputSinglelineEditHtml(),
 };
 AInputSinglelineEdit.storyName = 'a-input-singlelineedit';
+
+export const InputMultiline = {
+    render: () => InputMultilineHtml(),
+};
+InputMultiline.storyName = 'a-input-multiline';

@@ -4,6 +4,14 @@
     }
 }
 
+/* Textarea */
+.a-input-multilineedit {
+    inline-size: 100%;
+    min-block-size: 6.25rem;
+    padding: 0.5em;
+}
+
+/* Combobox/dropdown */
 :where(.a-input-combobox, .a-input-dropdown) {
     border-color: var(--color-primary);
     padding-block: calc(var(--space-1) * 2.5);
