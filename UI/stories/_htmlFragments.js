@@ -7,3 +7,24 @@ export const htmlFragmentCustomProperties = `
     </code>
 </div>
 `;
+
+/* Keep these HTML fragments in sync with the "real" atomic components. */
+export const htmlFragmentMessageError = `
+<div class="m-message-error">
+    <div>
+        Error message(s).
+        <br/>
+        TODO: Can these contain HTML markup and/or more than 1 line of text?
+    </div>
+</div>
+`;
+
+export const htmlFragmentMessageInformation = `
+<div class="m-message-information">
+    <div>
+        Information message(s).
+        <br/>
+        TODO: Can these contain HTML markup and/or more than 1 line of text?
+    </div>
+</div>
+`;
