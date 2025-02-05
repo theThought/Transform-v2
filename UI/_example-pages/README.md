@@ -1,7 +1,7 @@
 # Example survey pages
 - New ES6 modules have to be run from a local web server to fix CORS errors.
 - We'll use `http-server` for this.
-- Example HTML pages have to be copied into `./UI/_example-pages/` folder, and each one to be tested has to be renamed to `index.html`.
+- Example HTML pages have to be copied from `./Example Pages/` folder into `./UI/_example-pages/` folder, and each one to be tested has to be renamed to `index.html`.
 - Edit the filepaths for CSS/JavaScript:
 ```
 <link rel="stylesheet" type="text/css" href="css/index.css" />
@@ -10,7 +10,7 @@
 ```
 
 
-## Generate build assets and run server
+## Generate build assets (e.g. CSS/JS) and run local web server
 - From terminal prompt, enter `cd UI`.
 - Enter `npm run build` to generate up-to-date CSS/JavaScript.
 - Copy newly generated CSS/JavaScript folders from `./UI/public/build/` folder to `./UI/_example-pages/` folder.
