@@ -3,9 +3,9 @@ import { OptionListHtml } from './List';
 export default {
     title: 'Molecules/Lists',
     parameters: {
-        status: {
-            type: 'beta',
-        },
+        status: { type: 'beta' },
+        controls: { sort: 'alpha' },
+        docs: { controls: { sort: 'alpha' } }
     }
 };
 

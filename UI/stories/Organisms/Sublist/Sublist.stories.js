@@ -3,9 +3,9 @@ import { SublistHtml } from './Sublist';
 export default {
     title: 'Organisms/Sublist',
     parameters: {
-        status: {
-            type: 'beta',
-        },
+        status: { type: 'beta' },
+        controls: { sort: 'alpha' },
+        docs: { controls: { sort: 'alpha' } }
     }
 };
 
