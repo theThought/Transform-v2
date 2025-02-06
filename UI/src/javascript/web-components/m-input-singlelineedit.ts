@@ -1,76 +1,47 @@
-import { generateCustomPropertiesJSON } from '../utils/helpers';
 import Component from './component';
 
 export default class MInputSinglelineedit extends Component {
-    private qid: string | undefined;
-    private qgroup: string | undefined;
-    private element: HTMLInputElement | null;
-    private question: HTMLElement | null;
+    private element: HTMLInputElement;
+    private allowPaste = false;
 
     constructor() {
         super();
 
-        this.qid = this.dataset.questionid;
-        this.qgroup = this.dataset.questiongroup;
-        this.element = document.querySelector('.a-input-singlelineedit');
-        this.question = this.closest('o-question-response');
-
-        if (!this.element) return;
+        // Not returning an element should be an immediate error condition,
+        // however this error cannot (?) be encountered and so createElement
+        // prevents TypeScript from constantly warning about null this.element
+        this.element =
+            this.querySelector('.a-input-singlelineedit') ??
+            document.createElement('input');
 
         this.init();
-
-        this.element.addEventListener('click', this);
-        this.element.addEventListener('change', this);
     }
 
     private init(): void {
-        console.log(
-            'MInputSinglelineedit: init...',
-            this.qid,
-            this.qgroup,
-            this.element,
-        );
-
-        this.broadcastChange('message from the child using Component class.');
-        this.parseCustomProperties();
+        this.addLocalEventListeners();
+        this.setLabels();
+        this.setInputType();
     }
 
-    // TODO: should this be a generic method in Component.ts?
-    private parseCustomProperties(): void {
-        const dataCustomProps = this.question?.dataset.customprops;
-
-        if (
-            this.qid !== this.question?.dataset.questionid &&
-            this.qgroup !== this.question?.dataset.questiongroup &&
-            !dataCustomProps
-        ) {
-            return;
-        }
-
-        if (dataCustomProps) {
-            let customPropsJSON: Record<string, unknown>;
-
-            if (dataCustomProps.includes('type')) {
-                customPropsJSON = generateCustomPropertiesJSON(
-                    dataCustomProps,
-                    'type',
-                );
-                this.setInputType(customPropsJSON);
-            }
-
-            if (dataCustomProps.includes('labels')) {
-                customPropsJSON = generateCustomPropertiesJSON(
-                    dataCustomProps,
-                    'labels',
-                );
-                this.setLabels(customPropsJSON);
-            }
-        }
+    private addLocalEventListeners(): void {
+        //this.element.addEventListener('keyup', this, false);
+        //this.element.addEventListener('change', this, false);
+        //this.element.addEventListener('input', this, false);
+        //this.element.addEventListener('click', this, false);
+        //this.element.addEventListener('focusin', this, false);
+        //this.element.addEventListener('focusout', this, false);
+        //this.element.addEventListener('keydown', this, false);
+        //this.element.addEventListener('paste', this, false);
     }
 
     // Set the appropriate 'type' attribute on <input> based on custom properties.
-    private setInputType(customPropsJSON: Record<string, unknown>): void {
-        let inputType = customPropsJSON.type as string;
+    private setInputType(): void {
+        if (!this.properties.hasOwnProperty('type')) {
+            return;
+        }
+
+        // TODO: I am not sure how to prevent the linter from presenting an error here.
+        let inputType: string = this.properties.type;
 
         switch (inputType) {
             case 'date':
@@ -84,15 +55,22 @@ export default class MInputSinglelineedit extends Component {
                 break;
         }
 
-        if (this.element) {
+        try {
             this.element.type = inputType;
+        } catch (e) {
+            console.error('Unknown input type', e);
         }
     }
 
     // Set pre-/post-labels.
     // TODO: See https://app.clickup.com/t/8697h5cc4?comment=90120097089630&threadedComment=90120097249142
-    private setLabels(customPropsJSON: Record<string, unknown>): void {
-        const labels = customPropsJSON.labels as Record<string, unknown>;
+    private setLabels(): void {
+        if (!this.properties.hasOwnProperty('labels')) {
+            return;
+        }
+
+        // TODO: I am not sure how to prevent the linter from presenting an error here.
+        const labels = this.properties.labels as Record<string, unknown>;
 
         for (const [key, value] of Object.entries(labels)) {
             if (key === 'pre' && value) {
@@ -116,12 +94,61 @@ export default class MInputSinglelineedit extends Component {
     // Handle constructor() event listeners.
     public handleEvent(e: Event): void {
         switch (e.type) {
+            case 'paste':
+                this.onPaste(e);
+                break;
+            case 'keydown':
+                this.onKeydown(e);
+                break;
             case 'click':
-                console.log('click');
+                this.onClick(e);
                 break;
+            case 'keyup':
             case 'change':
-                console.log('change');
+                this.onChange(e);
                 break;
+            case 'input':
+                this.onInput(e);
+                break;
+            case 'clearEntries':
+                this.clearEntriesFromExternal(e);
+                break;
+            case 'restoreEntries':
+                this.restoreEntries(e);
+                this.makeAvailable();
+                break;
+            case 'focusin':
+                this.onFocusIn(e);
+                break;
+            case 'focusout':
+                this.onFocusOut();
+                break;
+            case this.group + '_enableExclusive':
+                this.onEnableExclusive(e);
+                break;
+            case 'broadcastChange':
+                this.processVisibilityRulesFromExternalTrigger(e);
+                this.processCalculations(e);
+                break;
+        }
+    }
+
+    // TODO: Query the parent form instead of reading the attribute directly?
+    private onPaste(e: Event): void {
+        const parentForm = this.element.closest('form');
+
+        if (!parentForm) {
+            return;
+        }
+
+        const pageAllowPaste = parentForm.getAttribute('data-paste');
+
+        if (
+            !this.allowPaste ||
+            (pageAllowPaste === 'false' && !this.allowPaste)
+        ) {
+            e.preventDefault();
+            e.stopPropagation();
         }
     }
 

@@ -6,17 +6,17 @@ export const MInputSinglelineEditHtml = (args) => `
 <o-question-response
     data-questionid="_Q0"
     data-questiongroup="_QText"
-    data-customprops='{
-        "type":"${args.InputType}",
-        "labels":{
-            "pre":"${args.PreLabel}",
-            "post":"${args.PostLabel}"
-        }
-    }'
 >
     <m-input-singlelineedit
         data-questionid="_Q0"
         data-questiongroup="_QText"
+        data-customprops='{
+            "type":"${args.InputType}",
+            "labels":{
+                "pre":"${args.PreLabel}",
+                "post":"${args.PostLabel}"
+            }
+        }'
     >
         <input
             type="text"
