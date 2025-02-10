@@ -1,18 +1,15 @@
 import Component from './component';
 
 export default class MInputSinglelineedit extends Component {
-    private element: HTMLInputElement;
+    private element: HTMLInputElement | null;
     private allowPaste = false;
 
     constructor() {
         super();
 
-        // Not returning an element should be an immediate error condition,
-        // however this error cannot (?) be encountered and so createElement
-        // prevents TypeScript from constantly warning about null this.element
-        this.element =
-            this.querySelector('.a-input-singlelineedit') ??
-            document.createElement('input');
+        this.element = this.querySelector('.a-input-singlelineedit');
+
+        if (!this.element) return;
 
         this.init();
     }
@@ -40,8 +37,7 @@ export default class MInputSinglelineedit extends Component {
             return;
         }
 
-        // TODO: I am not sure how to prevent the linter from presenting an error here.
-        let inputType: string = this.properties.type;
+        let inputType = this.properties.type;
 
         switch (inputType) {
             case 'date':
@@ -56,7 +52,9 @@ export default class MInputSinglelineedit extends Component {
         }
 
         try {
-            this.element.type = inputType;
+            if (this.element) {
+                this.element.type = inputType as string;
+            }
         } catch (e) {
             console.error('Unknown input type', e);
         }
@@ -69,7 +67,6 @@ export default class MInputSinglelineedit extends Component {
             return;
         }
 
-        // TODO: I am not sure how to prevent the linter from presenting an error here.
         const labels = this.properties.labels as Record<string, unknown>;
 
         for (const [key, value] of Object.entries(labels)) {
@@ -135,7 +132,7 @@ export default class MInputSinglelineedit extends Component {
 
     // TODO: Query the parent form instead of reading the attribute directly?
     private onPaste(e: Event): void {
-        const parentForm = this.element.closest('form');
+        const parentForm = this.element?.closest('form');
 
         if (!parentForm) {
             return;

@@ -9,7 +9,7 @@
 export default class Component extends HTMLElement {
     protected qid: string | undefined;
     protected qgroup: string | undefined;
-    protected properties = Array;
+    protected properties: Record<string, unknown>;
     protected question: HTMLElement | null;
 
     constructor() {
@@ -18,6 +18,7 @@ export default class Component extends HTMLElement {
         this.qid = this.dataset.questionid;
         this.qgroup = this.dataset.questiongroup;
         this.question = this.closest('o-question-response');
+        this.properties = {};
 
         this.parseProperties();
     }
