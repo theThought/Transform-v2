@@ -22,7 +22,7 @@
     */
     const parseCustomProperties = () => {
         const question = document.querySelector('o-question-response');
-        const formControl = document.querySelector('[data-customprops]');
+        const formControl = question?.querySelector('[data-customprops]');
         let customProps = formControl?.dataset.customprops;
 
         if (!customProps) return;
