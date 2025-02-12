@@ -7,3 +7,20 @@ export const htmlFragmentCustomProperties = `
     </code>
 </div>
 `;
+
+/* Keep these HTML fragments in sync with the "real" atomic components. */
+export const htmlFragmentMessageError = `
+<div class="m-message-error">
+    <div>
+        Error message(s).
+    </div>
+</div>
+`;
+
+export const htmlFragmentMessageInformation = `
+<div class="m-message-information">
+    <div>
+        Information message(s).
+    </div>
+</div>
+`;

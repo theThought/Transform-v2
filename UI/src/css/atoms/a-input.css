@@ -1,0 +1,30 @@
+[class^='a-input'] {
+    &::placeholder {
+        color: var(--color-placeholder);
+    }
+}
+
+/* Textarea */
+.a-input-multilineedit {
+    inline-size: 100%;
+    min-block-size: 6.25rem;
+    padding: 0.5em;
+}
+
+/* Combobox/dropdown */
+:where(.a-input-combobox, .a-input-dropdown) {
+    border-color: var(--color-primary);
+    padding-block: calc(var(--space-1) * 2.5);
+    text-overflow: ellipsis;
+}
+
+.a-input-dropdown {
+    background: var(--color-primary) url('../../images/white-chevron-down.png')
+        no-repeat right 12px center;
+    color: var(--color-lightest);
+    padding-inline-end: calc(var(--space-4) * 3);
+
+    &::placeholder {
+        color: var(--color-lightest);
+    }
+}

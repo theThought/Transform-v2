@@ -19,12 +19,10 @@
 <script>
     /**
      * Function to generate sanitised custom properties.
-     *
-     * TODO: Adjust logic below if custom properties are no longer implemented via a "data-customprops" attribute on <o-question-response>.
     */
     const parseCustomProperties = () => {
         const question = document.querySelector('o-question-response');
-        let customProps = question?.dataset.customprops;
+        let customProps = question?.dataset.properties;
 
         if (!customProps) return;
 

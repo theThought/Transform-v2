@@ -3,9 +3,9 @@ import { ExampleNoArgsHtml } from './Example';
 export default {
     title: 'Introduction/Example',
     parameters: {
-        status: {
-            type: 'stable',
-        },
+        status: { type: 'stable' },
+        controls: { sort: 'alpha' },
+        docs: { controls: { sort: 'alpha' } }
     },
 };
 

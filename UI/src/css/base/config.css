@@ -1,5 +1,7 @@
 /*
 ----------------------------------------------------------------------------
+- "Semantic" design tokens.
+
 Config settings.
 
 i.e. custom properties other than colors/fonts.
@@ -9,7 +11,7 @@ i.e. custom properties other than colors/fonts.
     /* Borders. */
     --border-thickness: var(--theme-border-thickness);
     --border-radius: var(--theme-border-radius);
-    --border-radius-s: var(--theme--border-radius-s);
+    --border-radius-s: var(--theme-border-radius-s);
 
     /* Spacing. Use for margin|padding, and gap in flex|grid layouts. */
     --space-1: var(--theme-space-1);

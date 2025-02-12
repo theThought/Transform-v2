@@ -29,6 +29,7 @@ Atomic components.
 */
 @import 'atoms/index' screen;
 @import 'molecules/index' screen;
+@import 'organisms/index' screen;
 
 /*
 ----------------------------------------------------------------------------

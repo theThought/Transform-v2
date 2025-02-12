@@ -1,10 +1,10 @@
 :where([type='text'], [type='date'], [type='number'], textarea) {
-    --color-background: #fff;
-
     background: var(--color-background);
     border: var(--border-thickness) solid var(--color-border);
     border-radius: var(--border-radius-s);
-    color: inherit;
+
+    /* TODO: fix a11y contrast with color */
+    color: var(--color-input);
     inline-size: var(--input-width);
     padding: var(--space-2) var(--space-4);
 
