@@ -3,6 +3,7 @@ import {
     LabelQuestionUsingDivHtml,
     LabelOptionHtml,
     LabelHeadingSublistHtml,
+    LabelPrePostHtml,
 } from './Label';
 
 export default {
@@ -31,3 +32,8 @@ export const LabelHeadingSublist = {
     render: () => LabelHeadingSublistHtml(),
 };
 LabelHeadingSublist.storyName = 'a-label-heading-sublist';
+
+export const LabelPrePost = {
+    render: () => LabelPrePostHtml(),
+};
+LabelPrePost.storyName = 'a-label-prepost';

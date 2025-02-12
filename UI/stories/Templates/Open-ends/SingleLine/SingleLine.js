@@ -14,25 +14,26 @@ ${htmlFragmentCustomProperties}
         <div>This is a singleline question with custom properties (e.g. number/date input, pre/post labels)</div>
 
         <o-question-response
-            data-questionid="_Q0"
-            data-questiongroup="_QText"
+            data-question-id="_Q0"
+            data-question-group="_QText"
+            data-properties='{
+                "labels":{
+                    "pre":"",
+                    "post":""
+                }
+            }'
         >
             <m-input-singlelineedit
-                data-questionid="_Q0"
-                data-questiongroup="_QText"
-                data-customprops='{
-                    "type":"${args.InputType}",
-                    "labels":{
-                        "pre":"${args.PreLabel}",
-                        "post":"${args.PostLabel}"
-                    }
-                }'
+                data-question-id="_Q0"
+                data-question-group="_QText"
             >
+                <span class="a-label-prepost" data-prelabel>${args.PreLabel}</span>
                 <input
-                    type="text"
+                    type="${args.InputType}"
                     id="_Q0"
                     class="a-input-singlelineedit"
                 />
+                <span class="a-label-prepost" data-postlabel>${args.PostLabel}</span>
             </m-input-singlelineedit>
         </o-question-response>
     </o-question>
@@ -49,12 +50,12 @@ export const SingleLineSpecialCodesHtml = () => `
         <div>This is a singleline question with special codes</div>
 
         <o-question-response
-            data-questionid="_Q0"
-            data-questiongroup="_QText"
+            data-question-id="_Q0"
+            data-question-group="_QText"
         >
             <m-input-singlelineedit
-                data-questionid="_Q0"
-                data-questiongroup="_QText"
+                data-question-id="_Q0"
+                data-question-group="_QText"
             >
                 <input
                     type="text"

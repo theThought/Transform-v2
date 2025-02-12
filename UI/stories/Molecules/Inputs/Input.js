@@ -1,23 +1,30 @@
 export const MInputSinglelineEditHtml = (args) => `
 <!--
     TODO:
-    See https://app.clickup.com/t/8697h5cc4?comment=90120097089630&threadedComment=90120097249142 about simplifying pre/postlabel JSON
+    1. Confirm custom element name for "<o-question-response>" replacement?
+    2. Confirm if "<m-input-singlelineedit>" needs "data-question-" attributes that match container's attributes?
  -->
-<m-input-singlelineedit
-    data-questionid="_Q0"
-    data-questiongroup="_QText"
-    data-customprops='{
-        "type":"${args.InputType}",
+ <o-question-response
+    data-question-id="_Q0"
+    data-question-group="_QText"
+    data-properties='{
         "labels":{
-            "pre":"${args.PreLabel}",
-            "post":"${args.PostLabel}"
+            "pre":"",
+            "post":""
         }
     }'
 >
-    <input
-        type="text"
-        id="_Q0"
-        class="a-input-singlelineedit"
-    />
-</m-input-singlelineedit>
+    <m-input-singlelineedit
+        data-question-id="_Q0"
+        data-question-group="_QText"
+    >
+        <span class="a-label-prepost" data-prelabel>${args.PreLabel}</span>
+        <input
+            type="${args.InputType}"
+            id="_Q0"
+            class="a-input-singlelineedit"
+        />
+        <span class="a-label-prepost" data-postlabel>${args.PostLabel}</span>
+    </m-input-singlelineedit>
+</o-question-response>
 `;

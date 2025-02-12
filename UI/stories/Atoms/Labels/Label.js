@@ -21,3 +21,8 @@ export const LabelHeadingSublistHtml = () => `
     Sublist heading
 </span>
 `;
+
+export const LabelPrePostHtml = () => `
+<span class="a-label-prepost" data-prelabel>Pre-label</span>
+<span class="a-label-prepost" data-postlabel>Post-label</span>
+`;

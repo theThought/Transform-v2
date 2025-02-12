@@ -11,3 +11,8 @@
     cursor: default;
     font-family: var(--font-family-secondary);
 }
+
+.a-label-prepost {
+    border: var(--border-thickness) solid var(--color-border);
+    padding: var(--space-2) var(--space-4);
+}
