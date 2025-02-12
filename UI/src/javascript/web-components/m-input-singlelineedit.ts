@@ -17,7 +17,6 @@ export default class MInputSinglelineedit extends Component {
     private init(): void {
         this.addLocalEventListeners();
         this.setLabels();
-        this.setInputType();
     }
 
     private addLocalEventListeners(): void {
@@ -31,37 +30,7 @@ export default class MInputSinglelineedit extends Component {
         //this.element.addEventListener('paste', this, false);
     }
 
-    // Set the appropriate 'type' attribute on <input> based on custom properties.
-    private setInputType(): void {
-        if (!this.properties.hasOwnProperty('type')) {
-            return;
-        }
-
-        let inputType = this.properties.type;
-
-        switch (inputType) {
-            case 'date':
-                inputType = 'date';
-                break;
-            case 'number':
-                inputType = 'number';
-                break;
-            default:
-                inputType = 'text';
-                break;
-        }
-
-        try {
-            if (this.element) {
-                this.element.type = inputType as string;
-            }
-        } catch (e) {
-            console.error('Unknown input type', e);
-        }
-    }
-
     // Set pre-/post-labels.
-    // TODO: See https://app.clickup.com/t/8697h5cc4?comment=90120097089630&threadedComment=90120097249142
     private setLabels(): void {
         if (!this.properties.hasOwnProperty('labels')) {
             return;
@@ -71,19 +40,17 @@ export default class MInputSinglelineedit extends Component {
 
         for (const [key, value] of Object.entries(labels)) {
             if (key === 'pre' && value) {
-                const elemPre = document.createElement('span');
-                elemPre.classList.add('a-label-prelabel');
-                elemPre.textContent = value as string;
-
-                this.insertBefore(elemPre, this.element);
+                const elemPre = this.querySelector('[data-prelabel]');
+                if (elemPre) {
+                    elemPre.textContent = value as string;
+                }
             }
 
             if (key === 'post' && value) {
-                const elemPre = document.createElement('span');
-                elemPre.classList.add('a-label-postlabel');
-                elemPre.textContent = value as string;
-
-                this.appendChild(elemPre);
+                const elemPost = this.querySelector('[data-postlabel]');
+                if (elemPost) {
+                    elemPost.textContent = value as string;
+                }
             }
         }
     }

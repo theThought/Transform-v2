@@ -9,8 +9,8 @@ export const MInputSinglelineEditHtml = (args) => `
     data-question-group="_QText"
     data-properties='{
         "labels":{
-            "pre":"",
-            "post":""
+            "pre":"${args.PreLabel}",
+            "post":"${args.PostLabel}"
         }
     }'
 >
@@ -18,13 +18,13 @@ export const MInputSinglelineEditHtml = (args) => `
         data-question-id="_Q0"
         data-question-group="_QText"
     >
-        <span class="a-label-prepost" data-prelabel>${args.PreLabel}</span>
+        <span class="a-label-prepost" data-prelabel></span>
         <input
             type="${args.InputType}"
             id="_Q0"
             class="a-input-singlelineedit"
         />
-        <span class="a-label-prepost" data-postlabel>${args.PostLabel}</span>
+        <span class="a-label-prepost" data-postlabel></span>
     </m-input-singlelineedit>
 </o-question-response>
 `;

@@ -15,4 +15,8 @@
 .a-label-prepost {
     border: var(--border-thickness) solid var(--color-border);
     padding: var(--space-2) var(--space-4);
+
+    &:empty {
+        display: none;
+    }
 }

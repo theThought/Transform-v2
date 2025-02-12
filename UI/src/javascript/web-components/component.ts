@@ -15,8 +15,8 @@ export default class Component extends HTMLElement {
     constructor() {
         super();
 
-        this.qid = this.dataset.questionid;
-        this.qgroup = this.dataset.questiongroup;
+        this.qid = this.dataset.questionId;
+        this.qgroup = this.dataset.questionGroup;
         this.question = this.closest('o-question-response');
         this.properties = {};
 
@@ -24,7 +24,7 @@ export default class Component extends HTMLElement {
     }
 
     private parseProperties(): void {
-        const properties = this.dataset.customprops;
+        const properties = this.question?.dataset.properties;
 
         if (!properties) {
             return;
