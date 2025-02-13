@@ -56,8 +56,8 @@
         <xsl:param name="qGroup" />
 
         <xsl:choose>
-            <xsl:when test="$qType='input-singleline-integer'">
-                <xsl:call-template name="input-singleline-integer">
+            <xsl:when test="$qType='input-singleline-number'">
+                <xsl:call-template name="input-singleline-number">
                     <xsl:with-param name="qType" select="$qType" />
                     <xsl:with-param name="qGroup" select="$qGroup"/>
                     <xsl:with-param name="Hidden" select="false()"/>
@@ -260,10 +260,10 @@
     <!-- Question Types -->
     <!-- ============== -->
 
-    <xsl:template name="input-singleline-integer">
+    <xsl:template name="input-singleline-number">
         <xsl:param name="qType" />
         <xsl:param name="qGroup" />
-        <xsl:element name="o-input-singlelineedit-integer">
+        <xsl:element name="o-input-singlelineedit-number">
 
         <xsl:attribute name="data-question-group">
             <xsl:value-of select="$qGroup" />
