@@ -259,13 +259,14 @@
     <xsl:template name="insert-common-labelstyle-attributes">
     </xsl:template>
 
-    <!-- Question Types -->
-    <!-- ============== -->
-
-    <xsl:template name="input-singleline-number">
-        <xsl:param name="qType" />
+    <xsl:template name="insert-common-questiontype-attributes">
         <xsl:param name="qGroup" />
-        <xsl:element name="o-input-singlelineedit-number">
+
+        <xsl:if test="Style/@Color">
+            <xsl:attribute name="data-properties">
+                <xsl:value-of select="Style/@Color" />
+            </xsl:attribute>
+        </xsl:if>
 
         <xsl:attribute name="data-question-group">
             <xsl:value-of select="$qGroup" />
@@ -285,6 +286,19 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:attribute>
+    </xsl:template>
+
+    <!-- Question Types -->
+    <!-- ============== -->
+
+    <xsl:template name="input-singleline-number">
+        <xsl:param name="qType" />
+        <xsl:param name="qGroup" />
+        <xsl:element name="o-input-singlelineedit-number">
+
+            <xsl:call-template name="insert-common-questiontype-attributes">
+                <xsl:with-param name="qGroup" select="$qGroup" />
+            </xsl:call-template>
 
             <xsl:for-each select="Control[@Type='SingleLineEdit']">
                 <xsl:call-template name='m-input-singlelineedit'>
