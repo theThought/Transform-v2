@@ -9,18 +9,18 @@
 
     <xsl:template match="Questions">
         <!-- iterate through the questions eleents in the XML structure -->
-        <xsl:for-each select="*">
-            <xsl:choose>
-                <xsl:when test="name()='Question'">
-                    <xsl:call-template name="Question" />
-                </xsl:when>
-                <xsl:otherwise>
-                <Other>
-                    <xsl:value-of select="name()" />
-                </Other>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:for-each>
+            <xsl:for-each select="*">
+                <xsl:choose>
+                    <xsl:when test="name()='Question'">
+                        <xsl:call-template name="Question" />
+                    </xsl:when>
+                    <xsl:otherwise>
+                    <Other>
+                        <xsl:value-of select="name()" />
+                    </Other>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:for-each>
     </xsl:template>    
 
     <xsl:template name="Question">
@@ -42,10 +42,12 @@
             </xsl:call-template>
         </xsl:variable>
 
-        <xsl:call-template name="LaunchQType">
-            <xsl:with-param name="qType" select="$qType"/>
-            <xsl:with-param name="qGroup" select="$qGroup"/>
-        </xsl:call-template>
+        <xsl:element name="question">        
+            <xsl:call-template name="LaunchQType">
+                <xsl:with-param name="qType" select="$qType"/>
+                <xsl:with-param name="qGroup" select="$qGroup"/>
+            </xsl:call-template>
+        </xsl:element>
 
     </xsl:template>
 
