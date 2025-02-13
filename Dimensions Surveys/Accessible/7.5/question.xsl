@@ -339,7 +339,7 @@
             <!-- pre label -->
             <xsl:element name="div">
                 <xsl:attribute name="class">
-                    <xsl:text>a-label-prepost</xsl:text>
+                    <xsl:text>a-label-pre</xsl:text>
                 </xsl:attribute>
                 <xsl:comment>
                     <xsl:text>pre label</xsl:text>
@@ -357,7 +357,7 @@
             <!-- post label -->
             <xsl:element name="div">
                 <xsl:attribute name="class">
-                    <xsl:text>a-label-prepost</xsl:text>
+                    <xsl:text>a-label-post</xsl:text>
                 </xsl:attribute>
                 <xsl:comment>
                     <xsl:text>post label</xsl:text>
