@@ -67,16 +67,20 @@
 
     </xsl:template>
 
-    <xsl:template name="InsertInput">
+    <xsl:template name="insert-input">
         <xsl:param name="InputType" select="text" />
         <xsl:param name="qGroup" />
         <xsl:param name="isHidden" select="false()" />
 
         <xsl:element name="input">
             <!-- insert base attributes -->
-            <xsl:call-template name="Insert-Common-Input-Attributes">
+            <xsl:call-template name="insert-common-input-attributes">
                 <xsl:with-param name="qGroup" select="$qGroup" />
             </xsl:call-template>
+
+            <xsl:attribute name="id">
+                <xsl:value-of select="@ElementID" />
+            </xsl:attribute>
 
             <!--- Set Input specific attributes -->
             <xsl:attribute name="type">
@@ -109,9 +113,124 @@
         </xsl:element>
     </xsl:template>
 
-    <xsl:template name="Insert-Common-Input-Attributes">
+   <xsl:template name="insert-input-option">
+        <xsl:param name="InputType" select="text" />
         <xsl:param name="qGroup" />
-    <!-- adds all the attributes that are used in every input connected to the form -->
+        <xsl:param name="isHidden" select="false()" />
+        <xsl:param name="controlId" />
+
+        <xsl:element name="input">
+            <!-- insert base attributes -->
+            <xsl:call-template name="insert-common-input-attributes">
+                <xsl:with-param name="qGroup" select="$qGroup" />
+            </xsl:call-template>
+
+            <xsl:attribute name="id">
+                <xsl:value-of select="$controlId" />
+            </xsl:attribute>
+
+            <!--- Set Input specific attributes -->
+            <xsl:attribute name="type">
+                <xsl:value-of select="$InputType"/>
+            </xsl:attribute>
+
+            <!--- Accelerator access key -->
+            <xsl:if test="Style/Control/@Accelerator != ''">
+                <xsl:attribute name="accesskey">
+                    <xsl:value-of select="Style/Control/@Accelerator" />
+                </xsl:attribute>
+            </xsl:if>
+        </xsl:element>
+    </xsl:template>
+
+    <xsl:template name="insert-label">
+        <xsl:param name="subType" />
+        <xsl:element name="label">
+            <xsl:attribute name="for">
+                <xsl:value-of select="@ElementID" />
+            </xsl:attribute>
+            <xsl:element name="span">
+                <xsl:attribute name="class">
+                    <xsl:text>a-label</xsl:text>
+                    <xsl:if test="$subType != ''">
+                        <xsl:text>-</xsl:text>
+                        <xsl:value-of select="$subType" />
+                    </xsl:if>
+                </xsl:attribute>
+                <xsl:call-template name="insert-common-labelstyle-attributes" />
+            
+                <xsl:call-template name="insert-label-text" />      
+            </xsl:element>
+        </xsl:element>
+    </xsl:template>
+
+    <xsl:template name="insert-label-option">
+        <xsl:param name="subType" />
+        <xsl:param name="controlId" />
+        <xsl:element name="label">
+            <xsl:attribute name="for">
+                <xsl:value-of select="$controlId" />
+            </xsl:attribute>
+            
+            <xsl:call-template name="insert-label-icon-multistate">
+                <xsl:with-param name="iconType" select="$subType" />
+            </xsl:call-template>
+
+            <xsl:element name="span">
+                <xsl:attribute name="class">
+                    <xsl:text>a-label</xsl:text>
+                    <xsl:if test="$subType != ''">
+                        <xsl:text>-</xsl:text>
+                        <xsl:value-of select="$subType" />
+                    </xsl:if>
+                </xsl:attribute>
+                <xsl:call-template name="insert-common-labelstyle-attributes" />
+            
+                <xsl:call-template name="insert-label-text">
+                    <xsl:with-param name="content" select="Category/Label/Text" />
+                </xsl:call-template>
+            </xsl:element>
+        </xsl:element>
+    </xsl:template>
+
+    <xsl:template name="insert-label-icon-multistate">
+        <xsl:param name="iconType" />
+
+        <xsl:element name="span">
+            <xsl:attribute name="class">
+                <xsl:text>a-icon-multistate</xsl:text>
+            </xsl:attribute>
+            <xsl:attribute name="data-icon-type">
+                <xsl:choose>
+                    <xsl:when test="$iconType='radio'">
+                        <xsl:text>radio</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="$iconType='checkbox'">
+                        <xsl:text>checkbox</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="$iconType" />
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:attribute>
+        </xsl:element> 
+    </xsl:template>
+
+    <xsl:template name="insert-label-text">
+        <xsl:param name="content" />
+        <xsl:choose>
+            <xsl:when test="Text/@WellFormed = 'false'">
+                <xsl:value-of select="$content" />
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of disable-output-escaping="yes" select="$content" />
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+
+    <xsl:template name="insert-common-input-attributes">
+        <xsl:param name="qGroup" />
+        <!-- adds all the attributes that are used in every input connected to the form -->
         <xsl:attribute name="data-question-group">
             <xsl:value-of select="$qGroup" />
         </xsl:attribute>
@@ -119,9 +238,6 @@
         <!--- Set name, id, min, max, maxlength -->
         <xsl:attribute name="name">
             <xsl:value-of select="@QuestionName" />
-        </xsl:attribute>
-        <xsl:attribute name="id">
-            <xsl:value-of select="@ElementID" />
         </xsl:attribute>
 
         <!--- Show current response -->
@@ -138,19 +254,22 @@
 
     </xsl:template>
 
+    <xsl:template name="insert-common-labelstyle-attributes">
+    </xsl:template>
+
     <!-- Question Types -->
     <!-- ============== -->
 
     <xsl:template name="input-singleline-integer">
         <xsl:param name="qType" />
         <xsl:param name="qGroup" />
-        <xsl:element name="input-singleline-integer">
+        <xsl:element name="o-input-singlelineedit-integer">
 
         <xsl:attribute name="data-question-group">
             <xsl:value-of select="$qGroup" />
         </xsl:attribute>
 
-        <xsl:attribute name="id">
+        <xsl:attribute name="data-question-id">
             <xsl:value-of select="Control[1]/@ElementID" />
         </xsl:attribute>
 
@@ -165,28 +284,45 @@
             </xsl:choose>
         </xsl:attribute>
 
-            <xsl:for-each select="Control">
-                <xsl:choose>
-                    <xsl:when test="@Type='SingleLineEdit'">
-                        <xsl:call-template name='m-input-singlelineedit'>
-                            <xsl:with-param name="InputType">
-                                <xsl:text>number</xsl:text>
-                            </xsl:with-param>
-                            <xsl:with-param name="qGroup">
-                                <xsl:value-of select="$qGroup" />
-                            </xsl:with-param>
-                        </xsl:call-template>
-                    </xsl:when>
-                    <xsl:when test="@Type='CheckButton'">
-                        <xsl:call-template name='m-option-base'>
-                        </xsl:call-template>                    
-                    </xsl:when>
-                    <xsl:when test="@Type='RadioButton'">
-                        <xsl:call-template name='m-option-base'>
-                        </xsl:call-template>                    
-                    </xsl:when>
-                </xsl:choose>
+            <xsl:for-each select="Control[@Type='SingleLineEdit']">
+                <xsl:call-template name='m-input-singlelineedit'>
+                    <xsl:with-param name="InputType">
+                        <xsl:text>number</xsl:text>
+                    </xsl:with-param>
+                    <xsl:with-param name="qGroup">
+                        <xsl:value-of select="$qGroup" />
+                    </xsl:with-param>
+                </xsl:call-template>
             </xsl:for-each>
+
+            <xsl:element name="o-list-choice">
+                <xsl:for-each select="Control[not(@Type='SingleLineEdit')]">
+
+                    <xsl:variable name="isExclusive">
+                        <xsl:choose>
+                            <xsl:when test="@Type='CheckButton'">
+                                <xsl:choose>
+                                    <xsl:when test="Category/Label/Style/Font/@IsBold">
+                                        <xsl:text>true</xsl:text>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:text>false</xsl:text>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:when>
+                            <xsl:when test="@Type='RadioButton'">
+                                <xsl:text>true</xsl:text>
+                            </xsl:when>
+                        </xsl:choose>
+                    </xsl:variable>
+
+                    <xsl:call-template name='m-option-base'>
+                        <xsl:with-param name="qType" select="$qType" />
+                        <xsl:with-param name="qGroup" select="$qGroup" />
+                        <xsl:with-param name="isExclusive" select="$isExclusive" />
+                    </xsl:call-template>                    
+                </xsl:for-each>
+            </xsl:element>
         </xsl:element>
     </xsl:template>
 
@@ -209,7 +345,7 @@
             </xsl:element>
 
             <!-- input -->
-            <xsl:call-template name="InsertInput">
+            <xsl:call-template name="insert-input">
                 <xsl:with-param name="InputType">
                     <xsl:value-of select="$InputType" />
                 </xsl:with-param>
@@ -231,18 +367,34 @@
     <xsl:template name="m-option-base">
         <xsl:param name="qType" />
         <xsl:param name="qGroup" />
-        <xsl:param name="isExclusive" select="false()" />
+        <xsl:param name="isExclusive" select="'false'" />
 
         <xsl:element name="m-option-base">
+            <xsl:variable name="qCategoryID">
+                <xsl:value-of select="@ElementID" />
+                <xsl:value-of select="Category/@CategoryID" />
+            </xsl:variable>
             <xsl:attribute name="data-exclusive">
                 <xsl:value-of select="$isExclusive" />
             </xsl:attribute>
 
-            <xsl:attribute name="data-questionid">
-                <xsl:value-of select="@CategoryID" />
+            <xsl:attribute name="data-question-id">
+                <xsl:value-of select="$qCategoryID" />
             </xsl:attribute>
+
             <xsl:attribute name="data-question-group">
                 <xsl:value-of select="$qGroup" />
+            </xsl:attribute>
+
+            <xsl:attribute name="class">
+                <xsl:choose>
+                    <xsl:when test="Style/@ElementAlign='NewLine'">
+                        <xsl:text> below </xsl:text>
+                    </xsl:when>
+                    <xsl:when test="Style/@ElementAlign='Right'">
+                        <xsl:text> side </xsl:text>
+                    </xsl:when>
+                </xsl:choose>
             </xsl:attribute>
 
             <xsl:attribute name='data-hidden'>
@@ -259,23 +411,40 @@
             <xsl:call-template name="set-data-position">
                 <xsl:with-param name="position" select="Style/@ElementAlign" />
             </xsl:call-template>
-        </xsl:element>
 
-        <!-- input -->
-        <xsl:call-template name="InsertInput">
-            <xsl:with-param name="InputType">
-                <xsl:choose>
-                    <xsl:when test="$isExclusive">
-                        <xsl:text>radio</xsl:text>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:text>checkbox</xsl:text>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:with-param>
-            <xsl:with-param name="qGroup" select="$qGroup" />
-            <xsl:with-param name="isHidden" select="true()" />
-        </xsl:call-template>
+            <!-- hidden input -->
+            <xsl:call-template name="insert-input-option">
+                <xsl:with-param name="InputType">
+                    <xsl:choose>
+                        <xsl:when test="$isExclusive">
+                            <xsl:text>radio</xsl:text>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>checkbox</xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:with-param>
+                <xsl:with-param name="qGroup" select="$qGroup" />
+                <xsl:with-param name="isHidden" select="true()" />
+                <xsl:with-param name="controlId" select="$qCategoryID" />
+            </xsl:call-template>
+
+            <!-- label-option -->
+            <xsl:call-template name="insert-label-option">
+                <xsl:with-param name="subType">
+                    <xsl:choose>
+                        <xsl:when test="$isExclusive='true'">
+                            <xsl:text>radio</xsl:text>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>checkbox</xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:with-param>
+                <xsl:with-param name="controlId" select="$qCategoryID" />
+            </xsl:call-template>
+
+        </xsl:element>
 
     </xsl:template>
 
