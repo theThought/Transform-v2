@@ -16,7 +16,10 @@ export const MultiLineHtml = () => `
         >
             <textarea id="_Q0" class="a-input-multilineedit"></textarea>
 
-            <div class="m-option-wrapper">
+            <fieldset
+                class="o-option-sublist"
+                aria-describedby="question-id"
+            >
                 <div class="m-option-base m-option-single-answer">
                     <input type="radio" id="radio1" name="radios" />
                     <label for="radio1">
@@ -35,7 +38,7 @@ export const MultiLineHtml = () => `
                         </span>
                     </label>
                 </div>
-            </div>
+            </fieldset>
         </o-question-response>
     </o-question>
 

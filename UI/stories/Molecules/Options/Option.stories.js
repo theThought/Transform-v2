@@ -1,7 +1,6 @@
 import {
     OptionSingleHtml,
-    OptionMultiHtml,
-    OptionWrapperHtml
+    OptionMultiHtml
 } from './Option';
 
 export default {
@@ -20,8 +19,3 @@ export const OptionMulti = {
     render: () => OptionMultiHtml(),
 };
 OptionMulti.storyName = 'm-option-multi-answer';
-
-export const OptionWrapper = {
-    render: () => OptionWrapperHtml(),
-};
-OptionWrapper.storyName = 'm-option-wrapper';

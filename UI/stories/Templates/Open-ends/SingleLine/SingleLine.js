@@ -64,7 +64,10 @@ export const SingleLineSpecialCodesHtml = () => `
                 />
             </m-input-singlelineedit>
 
-            <div class="m-option-wrapper">
+            <fieldset
+                class="o-option-sublist"
+                aria-describedby="question-id"
+            >
                 <div class="m-option-base m-option-single-answer">
                     <input type="radio" id="radio1" name="radios" />
                     <label for="radio1">
@@ -83,7 +86,7 @@ export const SingleLineSpecialCodesHtml = () => `
                         </span>
                     </label>
                 </div>
-            </div>
+            </fieldset>
         </o-question-response>
     </o-question>
 
