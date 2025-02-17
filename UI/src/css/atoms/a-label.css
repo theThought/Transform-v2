@@ -12,8 +12,9 @@
     font-family: var(--font-family-secondary);
 }
 
-.a-label-prepost {
+:is(.a-label-pre, .a-label-post) {
     border: var(--border-thickness) solid var(--color-border);
+    cursor: default;
     padding: var(--space-2) var(--space-4);
 
     &:empty {

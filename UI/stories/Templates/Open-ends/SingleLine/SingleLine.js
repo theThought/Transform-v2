@@ -27,13 +27,13 @@ ${htmlFragmentCustomProperties}
                 data-question-id="_Q0"
                 data-question-group="_QText"
             >
-                <span class="a-label-prepost" data-prelabel></span>
+                <span class="a-label-pre"></span>
                 <input
                     type="${args.InputType}"
                     id="_Q0"
                     class="a-input-singlelineedit"
                 />
-                <span class="a-label-prepost" data-postlabel></span>
+                <span class="a-label-post"></span>
             </m-input-singlelineedit>
         </o-question-response>
     </o-question>

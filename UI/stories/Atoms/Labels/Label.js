@@ -22,7 +22,10 @@ export const LabelHeadingSublistHtml = () => `
 </span>
 `;
 
-export const LabelPrePostHtml = () => `
-<span class="a-label-prepost" data-prelabel>Pre-label</span>
-<span class="a-label-prepost" data-postlabel>Post-label</span>
+export const LabelPreHtml = () => `
+<span class="a-label-pre">Pre-label</span>
+`;
+
+export const LabelPostHtml = () => `
+<span class="a-label-post">Post-label</span>
 `;

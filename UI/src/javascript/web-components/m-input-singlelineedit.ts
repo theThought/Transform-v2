@@ -40,14 +40,14 @@ export default class MInputSinglelineedit extends Component {
 
         for (const [key, value] of Object.entries(labels)) {
             if (key === 'pre' && value) {
-                const elemPre = this.querySelector('[data-prelabel]');
+                const elemPre = this.querySelector('.a-label-pre');
                 if (elemPre) {
                     elemPre.textContent = value as string;
                 }
             }
 
             if (key === 'post' && value) {
-                const elemPost = this.querySelector('[data-postlabel]');
+                const elemPost = this.querySelector('.a-label-post');
                 if (elemPost) {
                     elemPost.textContent = value as string;
                 }
