@@ -20,11 +20,3 @@
         color: var(--color-checked);
     }
 }
-
-/* Rather than adding margins to "m-option-base", contain them in a flex wrapper. */
-.m-option-wrapper {
-    column-gap: 1em;
-    display: flex;
-    flex-wrap: wrap;
-    row-gap: var(--space-1);
-}

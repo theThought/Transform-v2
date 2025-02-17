@@ -1,7 +1,7 @@
 import { SingleLineSpecialCodesHtml } from './SingleLine';
 
 export default {
-    title: 'Templates/Open-ends/t-singleline (no story controls)',
+    title: 'Templates/Open-ends/t-singleline (special codes)',
     parameters: {
         status: { type: 'beta' },
         controls: { sort: 'alpha' },

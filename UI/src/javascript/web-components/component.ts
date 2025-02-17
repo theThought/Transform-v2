@@ -20,6 +20,8 @@ export default class Component extends HTMLElement {
         this.question = this.closest('o-question-response');
         this.properties = {};
 
+        // TODO: Do we need to cross-reference qid/qgroup with parent question's ID and GROUP?
+
         this.parseProperties();
     }
 

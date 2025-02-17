@@ -27,13 +27,13 @@ ${htmlFragmentCustomProperties}
                 data-question-id="_Q0"
                 data-question-group="_QText"
             >
-                <span class="a-label-prepost" data-prelabel></span>
+                <span class="a-label-pre"></span>
                 <input
                     type="${args.InputType}"
                     id="_Q0"
                     class="a-input-singlelineedit"
                 />
-                <span class="a-label-prepost" data-postlabel></span>
+                <span class="a-label-post"></span>
             </m-input-singlelineedit>
         </o-question-response>
     </o-question>
@@ -64,11 +64,14 @@ export const SingleLineSpecialCodesHtml = () => `
                 />
             </m-input-singlelineedit>
 
-            <div class="m-option-wrapper">
+            <fieldset
+                class="o-option-sublist"
+                aria-describedby="question-id"
+            >
                 <div class="m-option-base m-option-single-answer">
                     <input type="radio" id="radio1" name="radios" />
                     <label for="radio1">
-                        <span class="a-icon-multistate"></span>
+                        <span class="a-icon-multistate" data-icontype="single"></span>
                         <span class="a-label-option">
                             Special code 1
                         </span>
@@ -77,13 +80,13 @@ export const SingleLineSpecialCodesHtml = () => `
                 <div class="m-option-base m-option-single-answer">
                     <input type="radio" id="radio2" name="radios" />
                     <label for="radio2">
-                        <span class="a-icon-multistate"></span>
+                        <span class="a-icon-multistate" data-icontype="single"></span>
                         <span class="a-label-option">
                             Special code 2
                         </span>
                     </label>
                 </div>
-            </div>
+            </fieldset>
         </o-question-response>
     </o-question>
 
