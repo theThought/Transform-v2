@@ -311,7 +311,7 @@
                 </xsl:call-template>
             </xsl:for-each>
 
-            <xsl:element name="o-option-list">
+            <xsl:element name="o-option-sublist">
                 <xsl:for-each select="Control[not(@Type='SingleLineEdit')]">
 
                     <xsl:variable name="isExclusive">
