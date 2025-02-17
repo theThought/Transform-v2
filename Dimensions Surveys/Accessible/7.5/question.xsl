@@ -9,18 +9,18 @@
 
     <xsl:template match="Questions">
         <!-- iterate through the questions eleents in the XML structure -->
-        <xsl:for-each select="*">
-            <xsl:choose>
-                <xsl:when test="name()='Question'">
-                    <xsl:call-template name="Question" />
-                </xsl:when>
-                <xsl:otherwise>
-                <Other>
-                    <xsl:value-of select="name()" />
-                </Other>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:for-each>
+            <xsl:for-each select="*">
+                <xsl:choose>
+                    <xsl:when test="name()='Question'">
+                        <xsl:call-template name="Question" />
+                    </xsl:when>
+                    <xsl:otherwise>
+                    <Other>
+                        <xsl:value-of select="name()" />
+                    </Other>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:for-each>
     </xsl:template>    
 
     <xsl:template name="Question">
@@ -42,10 +42,12 @@
             </xsl:call-template>
         </xsl:variable>
 
-        <xsl:call-template name="LaunchQType">
-            <xsl:with-param name="qType" select="$qType"/>
-            <xsl:with-param name="qGroup" select="$qGroup"/>
-        </xsl:call-template>
+        <xsl:element name="question">        
+            <xsl:call-template name="LaunchQType">
+                <xsl:with-param name="qType" select="$qType"/>
+                <xsl:with-param name="qGroup" select="$qGroup"/>
+            </xsl:call-template>
+        </xsl:element>
 
     </xsl:template>
 
@@ -257,13 +259,14 @@
     <xsl:template name="insert-common-labelstyle-attributes">
     </xsl:template>
 
-    <!-- Question Types -->
-    <!-- ============== -->
-
-    <xsl:template name="input-singleline-number">
-        <xsl:param name="qType" />
+    <xsl:template name="insert-common-questiontype-attributes">
         <xsl:param name="qGroup" />
-        <xsl:element name="o-input-singlelineedit-number">
+
+        <xsl:if test="Style/@Color">
+            <xsl:attribute name="data-properties">
+                <xsl:value-of select="Style/@Color" />
+            </xsl:attribute>
+        </xsl:if>
 
         <xsl:attribute name="data-question-group">
             <xsl:value-of select="$qGroup" />
@@ -283,6 +286,19 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:attribute>
+    </xsl:template>
+
+    <!-- Question Types -->
+    <!-- ============== -->
+
+    <xsl:template name="input-singleline-number">
+        <xsl:param name="qType" />
+        <xsl:param name="qGroup" />
+        <xsl:element name="o-input-singlelineedit-number">
+
+            <xsl:call-template name="insert-common-questiontype-attributes">
+                <xsl:with-param name="qGroup" select="$qGroup" />
+            </xsl:call-template>
 
             <xsl:for-each select="Control[@Type='SingleLineEdit']">
                 <xsl:call-template name='m-input-singlelineedit'>
@@ -295,7 +311,7 @@
                 </xsl:call-template>
             </xsl:for-each>
 
-            <xsl:element name="o-list-choice">
+            <xsl:element name="o-option-sublist">
                 <xsl:for-each select="Control[not(@Type='SingleLineEdit')]">
 
                     <xsl:variable name="isExclusive">
@@ -337,7 +353,7 @@
             <!-- pre label -->
             <xsl:element name="div">
                 <xsl:attribute name="class">
-                    <xsl:text>a-label-prepost</xsl:text>
+                    <xsl:text>a-label-pre</xsl:text>
                 </xsl:attribute>
                 <xsl:comment>
                     <xsl:text>pre label</xsl:text>
@@ -355,7 +371,7 @@
             <!-- post label -->
             <xsl:element name="div">
                 <xsl:attribute name="class">
-                    <xsl:text>a-label-prepost</xsl:text>
+                    <xsl:text>a-label-post</xsl:text>
                 </xsl:attribute>
                 <xsl:comment>
                     <xsl:text>post label</xsl:text>

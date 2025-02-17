@@ -7,7 +7,7 @@
 		<title>PageSix</title>
 	</head>
 	<body>
-		<form name="mrForm" id="mrForm" action="./" method="post"><input type="hidden" name="I.Engine" value="Server"/><input type="hidden" name="I.Project" value="Accessible"/><input type="hidden" name="I.Session" value="qiyj1ox3s5lefljumpd21c6dmiaqaaaa"/><input type="hidden" name="I.SavePoint" value="PageSix"/><input type="hidden" name="I.Language" value="en-US"/><input type="hidden" name="I.Renderer" value="HTMLPlayer"/><div class="header">
+		<form name="mrForm" id="mrForm" action="./" method="post"><input type="hidden" name="I.Engine" value="Server"/><input type="hidden" name="I.Project" value="Accessible"/><input type="hidden" name="I.Session" value="tasqfgvuyosujk4y1ihrucjwneaqaaaa"/><input type="hidden" name="I.SavePoint" value="PageSix"/><input type="hidden" name="I.Language" value="en-US"/><input type="hidden" name="I.Renderer" value="HTMLPlayer"/><div class="header">
 				<img class="site-logo" alt="Ipsos Logo" title="Ipsos Logo" src="https://cdn.ipsosinteractive.com/sandbox/kevin.gray/healthcare/staging/images/formal/ipsoslogo192.png"/>
 			</div>
 			<div class="surroundcontent">
@@ -17,40 +17,44 @@
 					<div class="o-question-core">
 						<!--elementID: _Q0-->
 						<label for="_Q0" id="_Q0_label_question">provide the cost of the purchase</label>
-						<m-input-singlelineedit>
-							<div class="a-label-prepost">
-								<!--pre label-->
-							</div>
-							<input data-question-group="_QPageSix_QPaymentmade" name="_QPageSix_QPaymentmade" value="" data-position="below" id="_Q0" type="number" min="1" max="999" maxlength="3"/>
-							<div class="a-label-prepost">
-								<!--post label-->
-							</div>
-						</m-input-singlelineedit>
-						<o-list-choice></o-list-choice>
+						<o-input-singlelineedit-number data-properties="{&quot;labels&quot;:{&quot;pre&quot;:&quot;$&quot;}}" data-question-group="_QPageSix_QPaymentmade" data-question-id="_Q0" class="below">
+							<m-input-singlelineedit>
+								<div class="a-label-pre">
+									<!--pre label-->
+								</div>
+								<input data-question-group="_QPageSix_QPaymentmade" name="_QPageSix_QPaymentmade" value="" data-position="below" id="_Q0" type="number" min="1" max="999" maxlength="3"/>
+								<div class="a-label-post">
+									<!--post label-->
+								</div>
+							</m-input-singlelineedit>
+							<o-option-sublist></o-option-sublist>
+						</o-input-singlelineedit-number>
 					</div>
 				</div>
 				<div class="o-question-container">
 					<div class="o-question-core">
 						<!--elementID: _Q1-->
 						<label for="_Q1" id="_Q1_label_question">provide the amount of cashback requested</label>
-						<m-input-singlelineedit>
-							<div class="a-label-prepost">
-								<!--pre label-->
-							</div>
-							<input data-question-group="_QPageSix_Qcashback" name="_QPageSix_Qcashback" value="" data-position="below" id="_Q1" type="number" min="1" max="9999" maxlength="4"/>
-							<div class="a-label-prepost">
-								<!--post label-->
-							</div>
-						</m-input-singlelineedit>
-						<o-list-choice>
-							<m-option-base data-exclusive="true" data-question-id="_Q1_X0" data-question-group="_QPageSix_Qcashback" class=" below " data-hidden="false" data-position="below">
-								<input data-question-group="_QPageSix_Qcashback" name="_QPageSix_Qcashback_X" data-position="below" id="_Q1_X0" type="radio"/>
-								<label for="_Q1_X0">
-									<span class="a-icon-multistate" data-icon-type="radio"/>
-									<span class="a-label-radio">I did not request cashback</span>
-								</label>
-							</m-option-base>
-						</o-list-choice>
+						<o-input-singlelineedit-number data-properties="{&quot;labels&quot;:{&quot;pre&quot;:&quot;$&quot;}}" data-question-group="_QPageSix_Qcashback" data-question-id="_Q1" class="below">
+							<m-input-singlelineedit>
+								<div class="a-label-pre">
+									<!--pre label-->
+								</div>
+								<input data-question-group="_QPageSix_Qcashback" name="_QPageSix_Qcashback" value="" data-position="below" id="_Q1" type="number" min="1" max="9999" maxlength="4"/>
+								<div class="a-label-post">
+									<!--post label-->
+								</div>
+							</m-input-singlelineedit>
+							<o-option-sublist>
+								<m-option-base data-exclusive="true" data-question-id="_Q1_X0" data-question-group="_QPageSix_Qcashback" class=" below " data-hidden="false" data-position="below">
+									<input data-question-group="_QPageSix_Qcashback" name="_QPageSix_Qcashback_X" data-position="below" id="_Q1_X0" type="radio"/>
+									<label for="_Q1_X0">
+										<span class="a-icon-multistate" data-icon-type="radio"/>
+										<span class="a-label-radio">I did not request cashback</span>
+									</label>
+								</m-option-base>
+							</o-option-sublist>
+						</o-input-singlelineedit-number>
 					</div>
 				</div>
 			</div>
