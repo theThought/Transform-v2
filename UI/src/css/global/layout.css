@@ -19,28 +19,28 @@ See https://every-layout.dev/layouts/stack/.
 
 /*
 ----------------------------------------------------------------------------
-Sidebar.
+Row.
 
-See https://every-layout.dev/layouts/sidebar/ for a detailed explanation of this Flexbox behaviour.
+Based on https://every-layout.dev/layouts/sidebar/.
 ----------------------------------------------------------------------------
 */
-.l-sidebar {
-    --sidebar-width: fit-content;
-    --sidebar-content-min-width: 50%;
-    --sidebar-gap: calc(var(--space-4) * 2);
+.l-row {
+    --column1-width: fit-content;
+    --column2-min-width: 50%;
+    --column-gap: calc(var(--space-4) * 2);
 
     display: flex;
     flex-wrap: wrap;
-    gap: var(--sidebar-gap);
+    gap: var(--column-gap);
 
     > :first-child {
-        flex-basis: var(--sidebar-width);
+        flex-basis: var(--column1-width);
         flex-grow: 1;
     }
 
     > :last-child {
         flex-basis: 0;
         flex-grow: 999;
-        min-inline-size: var(--sidebar-content-min-width);
+        min-inline-size: var(--column2-min-width);
     }
 }
