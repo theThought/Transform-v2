@@ -25,8 +25,12 @@ Based on https://every-layout.dev/layouts/sidebar/.
 ----------------------------------------------------------------------------
 */
 .l-row {
+    --column-char-count: 50ch; /* Number of chars before column2 wraps */
     --column1-width: fit-content;
-    --column2-min-width: 50%;
+    --column2-min-width: max(
+        var(--column-char-count),
+        calc(100% - var(--column1-width) - var(--column-gap))
+    );
     --column-gap: calc(var(--space-4) * 2);
 
     display: flex;
