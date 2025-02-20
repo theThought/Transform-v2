@@ -42,13 +42,28 @@
             </xsl:call-template>
         </xsl:variable>
 
-        <xsl:element name="question">        
+        <xsl:element name="question">   
+            <xsl:call-template name="response">
+                <xsl:with-param name="qType" select="$qType"/>
+                <xsl:with-param name="qGroup" select="$qGroup"/>
+            </xsl:call-template>
+        </xsl:element>
+    </xsl:template>
+
+    <xsl:template name="response">
+        <xsl:param name="qType" />
+        <xsl:param name="qGroup" />
+        <xsl:element name="o-response">
+            <!--- Adds class to define below/side position -->
+            <xsl:call-template name="set-data-position">
+                <xsl:with-param name="position" select="Style/@ElementAlign" />
+            </xsl:call-template>
+
             <xsl:call-template name="LaunchQType">
                 <xsl:with-param name="qType" select="$qType"/>
                 <xsl:with-param name="qGroup" select="$qGroup"/>
             </xsl:call-template>
         </xsl:element>
-
     </xsl:template>
 
     <!-- Sub-routines -->
@@ -60,6 +75,14 @@
         <xsl:choose>
             <xsl:when test="$qType='input-singleline-number'">
                 <xsl:call-template name="input-singleline-number">
+                    <xsl:with-param name="qType" select="$qType" />
+                    <xsl:with-param name="qGroup" select="$qGroup"/>
+                    <xsl:with-param name="Hidden" select="false()"/>
+                </xsl:call-template>
+            </xsl:when>
+
+            <xsl:when test="$qType='choice'">
+                <xsl:call-template name="choice">
                     <xsl:with-param name="qType" select="$qType" />
                     <xsl:with-param name="qGroup" select="$qGroup"/>
                     <xsl:with-param name="Hidden" select="false()"/>
@@ -115,7 +138,7 @@
         </xsl:element>
     </xsl:template>
 
-   <xsl:template name="insert-input-option">
+    <xsl:template name="insert-input-option">
         <xsl:param name="InputType" select="text" />
         <xsl:param name="qGroup" />
         <xsl:param name="isHidden" select="false()" />
@@ -248,12 +271,6 @@
                 <xsl:value-of select="@Value" />
             </xsl:attribute>
         </xsl:if>
-
-        <!--- Adds class to define below/side position -->
-        <xsl:call-template name="set-data-position">
-            <xsl:with-param name="position" select="Style/@ElementAlign" />
-        </xsl:call-template>
-
     </xsl:template>
 
     <xsl:template name="insert-common-labelstyle-attributes">
@@ -273,83 +290,122 @@
         </xsl:attribute>
 
         <xsl:attribute name="data-question-id">
-            <xsl:value-of select="Control[1]/@ElementID" />
+            <xsl:value-of select="@ElementID" />
         </xsl:attribute>
 
-        <xsl:attribute name="class">
-            <xsl:choose>
-                <xsl:when test="Style/@ElementAlign='NewLine'">
-                    <xsl:text>below</xsl:text>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:text>side</xsl:text>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:attribute>
     </xsl:template>
 
-    <!-- Question Types -->
+    <xsl:template name="process-option-rows">
+        <xsl:param name="qGroup" />
+        <xsl:param name="theRows" />
+        <xsl:param name="sublistCategory" />
+        <xsl:text>ROWS: </xsl:text>
+        <xsl:value-of select="count($theRows)" />
+        <xsl:text>, </xsl:text>
+        <xsl:value-of select="count($theRows[position() > 1])" />
+        <xsl:text>, sublistCategory: </xsl:text>
+        <xsl:value-of select="$sublistCategory" />
+        <xsl:if test="count(Row)>0">
+            <xsl:for-each select="Row">
+                <xsl:sort select="@Y" order="ascending" data-type="number" />
+                <xsl:variable name="currentRow">
+                    <xsl:value-of select="$theRows[1]" />
+                </xsl:variable> 
+                <xsl:variable name="categoryID">
+                    <xsl:value-of select="currentRow/Cell/Control/Category/@CategoryID" />
+                </xsl:variable>
+                <xsl:choose>
+                    <xsl:when test="contains($categoryID,'S_')">
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:choose>
+                            <xsl:when test="not($sublistCategory)">
+                                <xsl:element name="o-option-sublist">
+                                    <xsl:element name="fieldset">
+                                        <xsl:for-each select="Cell/Control">
+                                            <xsl:call-template name="m-option-base">
+                                                <xsl:with-param name="qType" select="@Type" />
+                                                <xsl:with-param name="qGroup" select="$qGroup" />
+                                            </xsl:call-template>
+                                        </xsl:for-each>
+                                        <xsl:call-template name="process-option-rows">
+                                            <xsl:with-param name="qGroup" select="$qGroup" />
+                                            <xsl:with-param name="theRows" select="$theRows[position() >1]" />
+                                            <xsl:with-param name="sublistCategory" select="true()" />
+                                        </xsl:call-template>
+                                    </xsl:element>
+                                </xsl:element>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:for-each select="Cell/Control">
+                                    <xsl:call-template name="m-option-base">
+                                        <xsl:with-param name="qType" select="@Type" />
+                                        <xsl:with-param name="qGroup" select="$qGroup" />
+                                    </xsl:call-template>
+                                </xsl:for-each>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:for-each>
+        </xsl:if>
+    </xsl:template>
+
+    <!-- Response Types -->
     <!-- ============== -->
 
     <xsl:template name="input-singleline-number">
         <xsl:param name="qType" />
         <xsl:param name="qGroup" />
-        <xsl:element name="o-input-singlelineedit-number">
+        <xsl:param name="Hidden" />
 
+        <xsl:for-each select="Control[@Type='SingleLineEdit']">
+            <xsl:call-template name='m-input-singleline-number'>
+                <xsl:with-param name="qGroup">
+                    <xsl:value-of select="$qGroup" />
+                </xsl:with-param>
+            </xsl:call-template>
+        </xsl:for-each>
+
+        <xsl:if test="count(Control[not(@Type='SingleLineEdit')]) > 0">
+            <xsl:call-template name="o-option-sublist">
+                <xsl:with-param name="qType" select="$qType" />
+                <xsl:with-param name="qGroup" select="$qGroup" />
+            </xsl:call-template>
+        </xsl:if>
+
+    </xsl:template>
+
+    <xsl:template name="choice">
+        <xsl:param name="qType" />
+        <xsl:param name="qGroup" />
+        <xsl:param name="Hidden" />
+
+        <xsl:element name="o-choice">
             <xsl:call-template name="insert-common-questiontype-attributes">
                 <xsl:with-param name="qGroup" select="$qGroup" />
             </xsl:call-template>
-
-            <xsl:for-each select="Control[@Type='SingleLineEdit']">
-                <xsl:call-template name='m-input-singlelineedit'>
-                    <xsl:with-param name="InputType">
-                        <xsl:text>number</xsl:text>
-                    </xsl:with-param>
-                    <xsl:with-param name="qGroup">
-                        <xsl:value-of select="$qGroup" />
-                    </xsl:with-param>
-                </xsl:call-template>
-            </xsl:for-each>
-
-            <xsl:element name="o-option-sublist">
-                <xsl:for-each select="Control[not(@Type='SingleLineEdit')]">
-
-                    <xsl:variable name="isExclusive">
-                        <xsl:choose>
-                            <xsl:when test="@Type='CheckButton'">
-                                <xsl:choose>
-                                    <xsl:when test="Category/Label/Style/Font/@IsBold">
-                                        <xsl:text>true</xsl:text>
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                        <xsl:text>false</xsl:text>
-                                    </xsl:otherwise>
-                                </xsl:choose>
-                            </xsl:when>
-                            <xsl:when test="@Type='RadioButton'">
-                                <xsl:text>true</xsl:text>
-                            </xsl:when>
-                        </xsl:choose>
-                    </xsl:variable>
-
-                    <xsl:call-template name='m-option-base'>
-                        <xsl:with-param name="qType" select="$qType" />
-                        <xsl:with-param name="qGroup" select="$qGroup" />
-                        <xsl:with-param name="isExclusive" select="$isExclusive" />
-                    </xsl:call-template>                    
-                </xsl:for-each>
-            </xsl:element>
         </xsl:element>
+
+        <xsl:for-each select="Table">
+            <xsl:call-template name="process-option-rows">
+                <xsl:with-param name="qGroup" select="$qGroup" />
+                <xsl:with-param name="theRows" select="Row" />
+            </xsl:call-template>
+        </xsl:for-each>
     </xsl:template>
 
     <!-- Control Types -->
     <!-- ============== -->
-    <xsl:template name="m-input-singlelineedit">
+    <xsl:template name="m-input-singleline-number">
         <!-- inserts a basic edit box -->
-        <xsl:param name="InputType" />
         <xsl:param name="qGroup" />
 
-        <xsl:element name="m-input-singlelineedit">
+        <xsl:element name="m-input-singleline-number">
+            <xsl:call-template name="insert-common-questiontype-attributes">
+                <xsl:with-param name="qGroup" select="$qGroup" />
+            </xsl:call-template>
+
             <!-- pre label -->
             <xsl:element name="div">
                 <xsl:attribute name="class">
@@ -363,7 +419,7 @@
             <!-- input -->
             <xsl:call-template name="insert-input">
                 <xsl:with-param name="InputType">
-                    <xsl:value-of select="$InputType" />
+                    <xsl:value-of select="number" />
                 </xsl:with-param>
                 <xsl:with-param name="qGroup" select="$qGroup" />
             </xsl:call-template>
@@ -383,7 +439,24 @@
     <xsl:template name="m-option-base">
         <xsl:param name="qType" />
         <xsl:param name="qGroup" />
-        <xsl:param name="isExclusive" select="'false'" />
+
+        <xsl:variable name="isExclusive">
+            <xsl:choose>
+                <xsl:when test="@Type='CheckButton'">
+                    <xsl:choose>
+                        <xsl:when test="Category/Label/Style/Font/@IsBold">
+                            <xsl:text>true</xsl:text>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>false</xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:when>
+                <xsl:when test="@Type='RadioButton'">
+                    <xsl:text>true</xsl:text>
+                </xsl:when>
+            </xsl:choose>
+        </xsl:variable>
 
         <xsl:element name="m-option-base">
             <xsl:variable name="qCategoryID">
@@ -462,6 +535,30 @@
 
         </xsl:element>
 
+    </xsl:template>
+
+    <!-- List Structures -->
+    <!-- =============== -->
+    <xsl:template name="o-option-sublist">
+        <xsl:param name="qType" />
+        <xsl:param name="qGroup" />
+        <xsl:element name="o-option-sublist">
+            <xsl:element name="fieldset">
+                <xsl:element name="legend">
+                    <xsl:call-template name="insert-label">
+                        <xsl:with-param name="subType" select="heading-sublist" />
+                    </xsl:call-template>
+                </xsl:element>
+
+                <xsl:for-each select="Control[not(@Type='SingleLineEdit')]">
+                    <xsl:call-template name='m-option-base'>
+                        <xsl:with-param name="qType" select="$qType" />
+                        <xsl:with-param name="qGroup" select="$qGroup" />
+                    </xsl:call-template>                    
+                </xsl:for-each>
+
+            </xsl:element>
+        </xsl:element>
     </xsl:template>
 
     <!-- Common Attributes -->
