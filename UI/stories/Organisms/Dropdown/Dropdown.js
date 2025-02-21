@@ -1,22 +1,21 @@
 export const DropdownHtml = (args) => `
-<o-question-response
+<o-dropdown
+    class="o-select-custom"
     data-questionid="_Q0"
     data-questiongroup="_QDropdown"
     data-customprops='{
         "jumptofirstletter":${args.JumpToFirstLetter}
     }'
 >
-    <o-dropdown class="o-select-custom">
-        <input type="text" class="a-input-dropdown" placeholder="placeholder" />
-        <ul class="m-list l-stack">
-            <li class="a-option-list">I am first option in dropdown or combobox</li>
-            <li class="a-option-list">I am an option in dropdown or combobox</li>
-            <li class="a-option-list">I am a short option</li>
-            <li class="a-option-list">I am a much longer option in dropdown or combobox</li>
-            <li class="a-option-list">I am last option in dropdown or combobox</li>
-        </ul>
-    </o-dropdown>
-</o-question-response>
+    <input type="text" class="a-input-dropdown" placeholder="placeholder" />
+    <ul class="m-list l-stack">
+        <li class="a-option-list">I am first option in dropdown or combobox</li>
+        <li class="a-option-list">I am an option in dropdown or combobox</li>
+        <li class="a-option-list">I am a short option</li>
+        <li class="a-option-list">I am a much longer option in dropdown or combobox</li>
+        <li class="a-option-list">I am last option in dropdown or combobox</li>
+    </ul>
+</o-dropdown>
 
 <br /><br />
 <p>TODO:</p>
