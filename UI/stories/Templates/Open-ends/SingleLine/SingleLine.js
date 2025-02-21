@@ -7,89 +7,113 @@ import {
 export const SingleLineCustomPropertiesHtml = (args) => `
 ${htmlFragmentCustomProperties}
 
-<o-question-container>
-    ${htmlFragmentMessageError}
+<form action="#">
+    <div class="surroundcontent">
 
-    <o-question>
-        <div>This is a singleline question with custom properties (e.g. number/date input, pre/post labels)</div>
+        <o-question class="l-stack">
+            <div class="l-cover"><!-- cover --></div>
 
-        <o-question-response
-            data-question-id="_Q0"
-            data-question-group="_QText"
-            data-properties='{
-                "labels":{
-                    "pre":"${args.PreLabel}",
-                    "post":"${args.PostLabel}"
-                }
-            }'
-        >
-            <m-input-singlelineedit
-                data-question-id="_Q0"
-                data-question-group="_QText"
-            >
-                <span class="a-label-pre"></span>
-                <input
-                    type="${args.InputType}"
-                    id="_Q0"
-                    class="a-input-singlelineedit"
-                />
-                <span class="a-label-post"></span>
-            </m-input-singlelineedit>
-        </o-question-response>
-    </o-question>
+            ${htmlFragmentMessageError}
 
-    ${htmlFragmentMessageInformation}
-</o-question-container>
+            <div class="l-row">
+                <div class="l-column">
+                    <div>This is a singleline question with custom properties (e.g. pre/post labels)</div>
+                </div>
+
+                <div class="l-column">
+                    <o-response
+                        data-question-id="_Q0"
+                        data-question-group="_QText"
+                    >
+                        <m-input-singleline
+                            data-question-id="_Q0"
+                            data-question-group="_QText"
+                            data-properties='{
+                                "labels":{
+                                    "pre":"${args.PreLabel}",
+                                    "post":"${args.PostLabel}"
+                                }
+                            }'
+                        >
+                            <span class="a-label-pre"></span>
+                            <input
+                                type="text"
+                                id="_Q0"
+                                class="a-input-singleline"
+                            />
+                            <span class="a-label-post"></span>
+                        </m-input-singleline>
+                    </o-response>
+                </div>
+            </div>
+
+            ${htmlFragmentMessageInformation}
+        </o-question>
+
+    </div>
+</form>
 `;
 
 export const SingleLineSpecialCodesHtml = () => `
-<o-question-container>
-    ${htmlFragmentMessageError}
+<form action="#">
+    <div class="surroundcontent">
 
-    <o-question>
-        <div>This is a singleline question with special codes</div>
+        <o-question class="l-stack">
+            <div class="l-cover"><!-- cover --></div>
 
-        <o-question-response
-            data-question-id="_Q0"
-            data-question-group="_QText"
-        >
-            <m-input-singlelineedit
-                data-question-id="_Q0"
-                data-question-group="_QText"
-            >
-                <input
-                    type="text"
-                    id="_Q0"
-                    class="a-input-singlelineedit"
-                />
-            </m-input-singlelineedit>
+            ${htmlFragmentMessageError}
 
-            <fieldset
-                class="o-option-sublist"
-                aria-describedby="question-id"
-            >
-                <div class="m-option-base m-option-single-answer">
-                    <input type="radio" id="radio1" name="radios" />
-                    <label for="radio1">
-                        <span class="a-icon-multistate" data-icontype="single"></span>
-                        <span class="a-label-option">
-                            Special code 1
-                        </span>
-                    </label>
+            <div class="l-row">
+                <div class="l-column">
+                    <div>This is a singleline question with special codes</div>
                 </div>
-                <div class="m-option-base m-option-single-answer">
-                    <input type="radio" id="radio2" name="radios" />
-                    <label for="radio2">
-                        <span class="a-icon-multistate" data-icontype="single"></span>
-                        <span class="a-label-option">
-                            Special code 2
-                        </span>
-                    </label>
-                </div>
-            </fieldset>
-        </o-question-response>
-    </o-question>
 
-    ${htmlFragmentMessageInformation}
-</o-question-container>
+                <div class="l-column">
+                    <o-response
+                        data-question-id="_Q0"
+                        data-question-group="_QText"
+                    >
+                        <m-input-singleline
+                            data-question-id="_Q0"
+                            data-question-group="_QText"
+                        >
+                            <input
+                                type="text"
+                                id="_Q0"
+                                class="a-input-singleline"
+                            />
+                        </m-input-singleline>
+
+                        <fieldset
+                            class="o-option-sublist"
+                            aria-describedby="question-id"
+                        >
+                            <div class="m-option-base m-option-single-answer">
+                                <input type="radio" id="radio1" name="radios" />
+                                <label for="radio1">
+                                    <span class="a-icon-multistate" data-icontype="single"></span>
+                                    <span class="a-label-option">
+                                        Special code 1
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="m-option-base m-option-single-answer">
+                                <input type="radio" id="radio2" name="radios" />
+                                <label for="radio2">
+                                    <span class="a-icon-multistate" data-icontype="single"></span>
+                                    <span class="a-label-option">
+                                        Special code 2
+                                    </span>
+                                </label>
+                            </div>
+                        </fieldset>
+                    </o-response>
+                </div>
+            </div>
+
+            ${htmlFragmentMessageInformation}
+        </o-question>
+
+    </div>
+</form>
 `;

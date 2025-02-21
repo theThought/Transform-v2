@@ -2,13 +2,11 @@
 import WCExample from './web-components/wc-example';
 
 // Survey web components.
-import OQuestion from './web-components/o-question';
-import OQuestionContainer from './web-components/o-question-container';
-import OQuestionResponse from './web-components/o-question-response';
-
-import MInputSinglelineedit from './web-components/m-input-singlelineedit';
+import MInputSingleline from './web-components/m-input-singleline';
 import OCombobox from './web-components/o-combobox';
 import ODropdown from './web-components/o-dropdown';
+import OQuestion from './web-components/o-question';
+import OResponse from './web-components/o-response';
 
 export const uiInit = (): void => {
     // DEMO web component for Storybook introduction.
@@ -16,17 +14,14 @@ export const uiInit = (): void => {
         customElements.define('wc-example', WCExample);
 
     // Survey web components.
-    !customElements.get('o-question') &&
-        customElements.define('o-question', OQuestion);
-    !customElements.get('o-question-container') &&
-        customElements.define('o-question-container', OQuestionContainer);
-    !customElements.get('o-question-response') &&
-        customElements.define('o-question-response', OQuestionResponse);
-
-    !customElements.get('m-input-singlelineedit') &&
-        customElements.define('m-input-singlelineedit', MInputSinglelineedit);
+    !customElements.get('m-input-singleline') &&
+        customElements.define('m-input-singleline', MInputSingleline);
     !customElements.get('o-combobox') &&
         customElements.define('o-combobox', OCombobox);
     !customElements.get('o-dropdown') &&
         customElements.define('o-dropdown', ODropdown);
+    !customElements.get('o-question') &&
+        customElements.define('o-question', OQuestion);
+    !customElements.get('o-response') &&
+        customElements.define('o-response', OResponse);
 };

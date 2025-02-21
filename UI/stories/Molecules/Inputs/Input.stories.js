@@ -1,4 +1,8 @@
-import { MInputSinglelineEditHtml } from './Input';
+import {
+    MInputSinglelineHtml,
+    MInputSinglelineNumberHtml,
+    MInputSinglelineDateHtml
+} from './Input';
 
 export default {
     title: 'Molecules/Inputs',
@@ -8,15 +12,6 @@ export default {
         docs: { controls: { sort: 'alpha' } }
     },
     argTypes: {
-        InputType: {
-            control: 'select',
-            options: ['text', 'number', 'date'],
-            description: 'Provides the "type" attribute for the HTML input tag.',
-            table: {
-                type: { summary: 'select' },
-                defaultValue: { summary: 'text' }
-            },
-        },
         PreLabel: {
             control: 'text',
             description: 'Specifies the text to be placed before the input.',
@@ -36,12 +31,29 @@ export default {
     }
 };
 
-export const MInputSinglelineEdit = {
+export const MInputSingleline = {
     args: {
-        InputType: 'text',
         PreLabel: '',
         PostLabel: ''
     },
-    render: (args) => MInputSinglelineEditHtml(args),
+    render: (args) => MInputSinglelineHtml(args),
 };
-MInputSinglelineEdit.storyName = '<m-input-singlelineedit>';
+MInputSingleline.storyName = '<m-input-singleline>';
+
+export const MInputSinglelineNumber = {
+    args: {
+        PreLabel: '',
+        PostLabel: ''
+    },
+    render: (args) => MInputSinglelineNumberHtml(args),
+};
+MInputSinglelineNumber.storyName = '<m-input-singleline-number>';
+
+export const MInputSinglelineDate = {
+    args: {
+        PreLabel: '',
+        PostLabel: ''
+    },
+    render: (args) => MInputSinglelineDateHtml(args),
+};
+MInputSinglelineDate.storyName = '<m-input-singleline-date>';
