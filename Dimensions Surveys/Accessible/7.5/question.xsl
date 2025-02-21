@@ -299,55 +299,43 @@
         <xsl:param name="qGroup" />
         <xsl:param name="theRows" />
         <xsl:param name="sublistCategory" />
-        <xsl:text>ROWS: </xsl:text>
-        <xsl:value-of select="count($theRows)" />
-        <xsl:text>, </xsl:text>
-        <xsl:value-of select="count($theRows[position() > 1])" />
-        <xsl:text>, sublistCategory: </xsl:text>
-        <xsl:value-of select="$sublistCategory" />
-        <xsl:if test="count(Row)>0">
-            <xsl:for-each select="Row">
-                <xsl:sort select="@Y" order="ascending" data-type="number" />
-                <xsl:variable name="currentRow">
-                    <xsl:value-of select="$theRows[1]" />
-                </xsl:variable> 
-                <xsl:variable name="categoryID">
-                    <xsl:value-of select="currentRow/Cell/Control/Category/@CategoryID" />
-                </xsl:variable>
-                <xsl:choose>
-                    <xsl:when test="contains($categoryID,'S_')">
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:choose>
-                            <xsl:when test="not($sublistCategory)">
-                                <xsl:element name="o-option-sublist">
-                                    <xsl:element name="fieldset">
-                                        <xsl:for-each select="Cell/Control">
-                                            <xsl:call-template name="m-option-base">
-                                                <xsl:with-param name="qType" select="@Type" />
-                                                <xsl:with-param name="qGroup" select="$qGroup" />
-                                            </xsl:call-template>
-                                        </xsl:for-each>
-                                        <xsl:call-template name="process-option-rows">
-                                            <xsl:with-param name="qGroup" select="$qGroup" />
-                                            <xsl:with-param name="theRows" select="$theRows[position() >1]" />
-                                            <xsl:with-param name="sublistCategory" select="true()" />
-                                        </xsl:call-template>
-                                    </xsl:element>
-                                </xsl:element>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:for-each select="Cell/Control">
+        <xsl:if test="count($theRows) > 0">
+            <xsl:variable name="currentRow" select="$theRows" />
+            <xsl:variable name="categoryID">
+                <xsl:value-of select="$currentRow/Cell/Control/Category/@CategoryID" />
+            </xsl:variable>
+            
+            <xsl:choose>
+                <xsl:when test="contains($categoryID,'S_')">
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:choose>
+                        <xsl:when test="not($sublistCategory)">
+                            <xsl:element name="o-option-sublist">
+                                <xsl:for-each select="$currentRow/Cell/Control">
                                     <xsl:call-template name="m-option-base">
                                         <xsl:with-param name="qType" select="@Type" />
                                         <xsl:with-param name="qGroup" select="$qGroup" />
                                     </xsl:call-template>
                                 </xsl:for-each>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:for-each>
+                                <xsl:call-template name="process-option-rows">
+                                    <xsl:with-param name="qGroup" select="$qGroup" />
+                                    <xsl:with-param name="theRows" select="$theRows[position() >1]" />
+                                    <xsl:with-param name="sublistCategory" select="true()" />
+                                </xsl:call-template>
+                            </xsl:element>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:for-each select="Cell/Control">
+                                <xsl:call-template name="m-option-base">
+                                    <xsl:with-param name="qType" select="@Type" />
+                                    <xsl:with-param name="qGroup" select="$qGroup" />
+                                </xsl:call-template>
+                            </xsl:for-each>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:if>
     </xsl:template>
 
