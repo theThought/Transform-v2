@@ -8,15 +8,6 @@ export default {
         docs: { controls: { sort: 'alpha' } }
     },
     argTypes: {
-        InputType: {
-            control: 'select',
-            options: ['text', 'number', 'date'],
-            description: 'Provides the "type" attribute for the HTML input tag.',
-            table: {
-                type: { summary: 'select' },
-                defaultValue: { summary: 'text' }
-            },
-        },
         PreLabel: {
             control: 'text',
             description: 'Specifies the text to be placed before the input.',
@@ -38,7 +29,6 @@ export default {
 
 export const SingleLineCustomProperties = {
     args: {
-        InputType: 'text',
         PreLabel: '',
         PostLabel: ''
     },

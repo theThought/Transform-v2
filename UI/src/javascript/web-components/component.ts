@@ -17,16 +17,14 @@ export default class Component extends HTMLElement {
 
         this.qid = this.dataset.questionId;
         this.qgroup = this.dataset.questionGroup;
-        this.question = this.closest('o-question-response');
+        this.question = this.closest('o-question');
         this.properties = {};
-
-        // TODO: Do we need to cross-reference qid/qgroup with parent question's ID and GROUP?
 
         this.parseProperties();
     }
 
     private parseProperties(): void {
-        const properties = this.question?.dataset.properties;
+        const properties = this.dataset.properties;
 
         if (!properties) {
             return;

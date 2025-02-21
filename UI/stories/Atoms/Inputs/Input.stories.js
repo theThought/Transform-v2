@@ -1,5 +1,5 @@
 import {
-    AInputSinglelineEditHtml,
+    AInputSinglelineHtml,
     InputMultilineHtml
 } from './Input';
 
@@ -10,10 +10,10 @@ export default {
     },
 };
 
-export const AInputSinglelineEdit = {
-    render: () => AInputSinglelineEditHtml(),
+export const AInputSingleline = {
+    render: () => AInputSinglelineHtml(),
 };
-AInputSinglelineEdit.storyName = 'a-input-singlelineedit';
+AInputSingleline.storyName = 'a-input-singleline';
 
 export const InputMultiline = {
     render: () => InputMultilineHtml(),

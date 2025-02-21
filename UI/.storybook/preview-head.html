@@ -21,8 +21,8 @@
      * Function to generate sanitised custom properties.
     */
     const parseCustomProperties = () => {
-        const question = document.querySelector('o-question-response');
-        let customProps = question?.dataset.properties;
+        const questionControl = document.querySelector('o-response [data-properties]');
+        let customProps = questionControl?.dataset.properties;
 
         if (!customProps) return;
 

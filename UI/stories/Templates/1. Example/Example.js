@@ -12,13 +12,13 @@ ${htmlFragmentCustomProperties}
     <o-question>
         <div>QUESTION GOES HERE...</div>
 
-        <o-question-response
+        <o-response
             data-properties='{
                 "custompropname":"${args.ExampleCustomProp}"
             }'
         >
             FORM CONTROL(S) GO HERE...
-        </o-question-response>
+        </o-response>
     </o-question>
 
     <div class="m-message-information">

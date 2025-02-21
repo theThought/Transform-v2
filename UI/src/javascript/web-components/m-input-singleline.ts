@@ -1,13 +1,13 @@
 import Component from './component';
 
-export default class MInputSinglelineedit extends Component {
+export default class MInputSingleline extends Component {
     private element: HTMLInputElement | null;
     private allowPaste = false;
 
     constructor() {
         super();
 
-        this.element = this.querySelector('.a-input-singlelineedit');
+        this.element = this.querySelector('.a-input-singleline');
 
         if (!this.element) return;
 

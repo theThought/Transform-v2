@@ -13,29 +13,29 @@ ${htmlFragmentCustomProperties}
     <o-question>
         <div>This is a singleline question with custom properties (e.g. number/date input, pre/post labels)</div>
 
-        <o-question-response
+        <o-response
             data-question-id="_Q0"
             data-question-group="_QText"
-            data-properties='{
-                "labels":{
-                    "pre":"${args.PreLabel}",
-                    "post":"${args.PostLabel}"
-                }
-            }'
         >
-            <m-input-singlelineedit
+            <m-input-singleline
                 data-question-id="_Q0"
                 data-question-group="_QText"
+                data-properties='{
+                    "labels":{
+                        "pre":"${args.PreLabel}",
+                        "post":"${args.PostLabel}"
+                    }
+                }'
             >
                 <span class="a-label-pre"></span>
                 <input
-                    type="${args.InputType}"
+                    type="text"
                     id="_Q0"
-                    class="a-input-singlelineedit"
+                    class="a-input-singleline"
                 />
                 <span class="a-label-post"></span>
-            </m-input-singlelineedit>
-        </o-question-response>
+            </m-input-singleline>
+        </o-response>
     </o-question>
 
     ${htmlFragmentMessageInformation}
@@ -49,20 +49,20 @@ export const SingleLineSpecialCodesHtml = () => `
     <o-question>
         <div>This is a singleline question with special codes</div>
 
-        <o-question-response
+        <o-response
             data-question-id="_Q0"
             data-question-group="_QText"
         >
-            <m-input-singlelineedit
+            <m-input-singleline
                 data-question-id="_Q0"
                 data-question-group="_QText"
             >
                 <input
                     type="text"
                     id="_Q0"
-                    class="a-input-singlelineedit"
+                    class="a-input-singleline"
                 />
-            </m-input-singlelineedit>
+            </m-input-singleline>
 
             <fieldset
                 class="o-option-sublist"
@@ -87,7 +87,7 @@ export const SingleLineSpecialCodesHtml = () => `
                     </label>
                 </div>
             </fieldset>
-        </o-question-response>
+        </o-response>
     </o-question>
 
     ${htmlFragmentMessageInformation}

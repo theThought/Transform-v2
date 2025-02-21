@@ -10,7 +10,7 @@ export const MultiLineHtml = () => `
     <o-question>
         <div>This is a multiline question with special codes</div>
 
-        <o-question-response
+        <o-response
             data-questionid="_Q0"
             data-questiongroup="_QText"
         >
@@ -39,7 +39,7 @@ export const MultiLineHtml = () => `
                     </label>
                 </div>
             </fieldset>
-        </o-question-response>
+        </o--response>
     </o-question>
 
     ${htmlFragmentMessageInformation}
