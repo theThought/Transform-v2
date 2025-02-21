@@ -17,7 +17,7 @@ ${htmlFragmentCustomProperties}
 
             <div class="l-row">
                 <div class="l-column">
-                    <div>This is a singleline question with custom properties (e.g. number/date input, pre/post labels)</div>
+                    <div>This is a singleline question with custom properties (e.g. pre/post labels)</div>
                 </div>
 
                 <div class="l-column">
