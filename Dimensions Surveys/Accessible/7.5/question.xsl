@@ -189,6 +189,24 @@
         </xsl:element>
     </xsl:template>
 
+    <xsl:template name="insert-label-heading-sublist">
+        <xsl:param name="labelXML" />
+        <xsl:element name="legend">
+            <xsl:element name="span">
+                <xsl:attribute name="class">
+                    <xsl:text>a-label-heading-sublist</xsl:text>
+                </xsl:attribute>
+                <xsl:call-template name="insert-common-labelstyle-attributes">
+                    <xsl:with-param name="theNode" select="$labelXML" />
+                </xsl:call-template>
+
+                <xsl:call-template name="insert-label-text">
+                    <xsl:with-param name="content" select="$labelXML/Text" />
+                </xsl:call-template>      
+            </xsl:element>
+        </xsl:element>
+    </xsl:template>
+
     <xsl:template name="insert-label-option">
         <xsl:param name="subType" />
         <xsl:param name="controlId" />
@@ -255,20 +273,22 @@
 
     <xsl:template name="insert-common-input-attributes">
         <xsl:param name="qGroup" />
+        <xsl:param name="theNode" select="." />
         <!-- adds all the attributes that are used in every input connected to the form -->
-        <xsl:attribute name="data-question-group">
-            <xsl:value-of select="$qGroup" />
-        </xsl:attribute>
-
+        <xsl:if test="$qGroup">
+            <xsl:attribute name="data-question-group">
+                <xsl:value-of select="$qGroup" />
+            </xsl:attribute>
+        </xsl:if>
         <!--- Set name, id, min, max, maxlength -->
         <xsl:attribute name="name">
-            <xsl:value-of select="@QuestionName" />
+            <xsl:value-of select="$theNode/@QuestionName" />
         </xsl:attribute>
 
         <!--- Show current response -->
         <xsl:if test="@Value">
             <xsl:attribute name="value">
-                <xsl:value-of select="@Value" />
+                <xsl:value-of select="$theNode/@Value" />
             </xsl:attribute>
         </xsl:if>
     </xsl:template>
@@ -298,19 +318,54 @@
     <xsl:template name="process-option-rows">
         <xsl:param name="qGroup" />
         <xsl:param name="theRows" />
+        <xsl:param name="startRow" select="1" />
+        <xsl:param name="endRow" select="$count($theRows)" />
         <xsl:param name="sublistCategory" />
+        <xsl:param name="filter" />
+        
+        <xsl:text>[Process row]</xsl:text>
+
         <xsl:if test="count($theRows) > 0">
-            <xsl:variable name="currentRow" select="$theRows" />
+            <xsl:variable name="currentRow" select="$theRows[1]" />
             <xsl:variable name="categoryID">
                 <xsl:value-of select="$currentRow/Cell/Control/Category/@CategoryID" />
             </xsl:variable>
             
+            <xsl:text>CategoryID: </xsl:text>
+            <xsl:value-of select="$categoryID" />
+            <xsl:text>Type: </xsl:text>
+            <xsl:value-of select="$currentRow/Cell/Control/@Type" />
+            
             <xsl:choose>
-                <xsl:when test="contains($categoryID,'S_')">
+                <xsl:when test="$currentRow/Cell/Control/@Type='Static'">
+                    <!-- is this the start of a sublist -->
+                    <xsl:variable name="theFilter">
+                        <xsl:value-of select="$categoryID" />
+                        <xsl:text>_S</xsl:text>
+                    </xsl:variable>
+                    <xsl:element name="o-option-sublist">
+                        <xsl:call-template name="insert-label-heading-sublist">
+                            <xsl:with-param name="labelXML" select="$currentRow/Cell/Control/Category/Label" />
+                        </xsl:call-template>
+                                                
+                        <xsl:call-template name="process-option-rows">
+                            <xsl:with-param name="qGroup" select="$qGroup" />
+                            <xsl:with-param name="theRows" select="$theRows[position() >1]" />
+                            <xsl:with-param name="sublistCategory" select="true()" />
+                            <xsl:with-param name="filter">
+                                <xsl:value-of select="substring-before($categoryID, '_')" />
+                            </xsl:with-param>
+                        </xsl:call-template>
+                    </xsl:element>
                 </xsl:when>
                 <xsl:otherwise>
+                    <!-- this is an option -->
+                    <xsl:text>OPTION: </xsl:text>
+                    
                     <xsl:choose>
                         <xsl:when test="not($sublistCategory)">
+                            <xsl:text>Create New Sublist wrapper</xsl:text>
+                            <!-- there is not a sublist so make one and then add the option -->
                             <xsl:element name="o-option-sublist">
                                 <xsl:for-each select="$currentRow/Cell/Control">
                                     <xsl:call-template name="m-option-base">
@@ -318,26 +373,128 @@
                                         <xsl:with-param name="qGroup" select="$qGroup" />
                                     </xsl:call-template>
                                 </xsl:for-each>
-                                <xsl:call-template name="process-option-rows">
-                                    <xsl:with-param name="qGroup" select="$qGroup" />
-                                    <xsl:with-param name="theRows" select="$theRows[position() >1]" />
-                                    <xsl:with-param name="sublistCategory" select="true()" />
-                                </xsl:call-template>
+                                
+                                <xsl:variable name="nextRow" select="$theRows[position() >1]" />
+
+                                <xsl:text>Next Position: </xsl:text>
+                                <xsl:value-of select="position()+1" />
+                                <xsl:text>Next Row: </xsl:text>
+                                <xsl:value-of select="name($nextRow)" />
+
+                                <xsl:text>, Next CategoryID: </xsl:text>
+                                <xsl:value-of select="$nextRow/Cell/Control/Category/@CategoryID" />
+                                <xsl:text>, Next Type: </xsl:text>
+                                <xsl:value-of select="$nextRow/Cell/Control/@Type" />
+                                <xsl:text>, Test: </xsl:text>
+                                <xsl:value-of select="(not(contains($nextRow/Cell/Control/Category/@CategoryID, '_S')) or $nextRow/Cell/Control/@Type='Static')" />
+
+                                <xsl:if test="(not(contains($theRows[2]/Cell/Control/Category/@CategoryID, '_S')) or $theRows[2]/Cell/Control/@Type='Static')">
+                                    <!-- next row has to be in the same sublist -->
+                                    <xsl:call-template name="process-option-rows">
+                                        <xsl:with-param name="qGroup" select="$qGroup" />
+                                        <xsl:with-param name="theRows" select="$theRows[position() >1]" />
+                                        <xsl:with-param name="sublistCategory" select="true()" />
+                                        <xsl:with-param name="output" />
+                                    </xsl:call-template>
+                                </xsl:if>
                             </xsl:element>
                         </xsl:when>
                         <xsl:otherwise>
-                            <xsl:for-each select="Cell/Control">
+                            <!-- there is already a sublist, so just have to add the option -->
+                            <xsl:text>Already in a sublist: </xsl:text>
+                            <xsl:text>,toplevel sublist: </xsl:text>
+                            <xsl:value-of select="$filter=''" />
+
+                            <xsl:for-each select="$currentRow/Cell/Control">
                                 <xsl:call-template name="m-option-base">
                                     <xsl:with-param name="qType" select="@Type" />
                                     <xsl:with-param name="qGroup" select="$qGroup" />
                                 </xsl:call-template>
                             </xsl:for-each>
+
+                            <xsl:choose>
+                                <xsl:when test="not($filter='')">
+                                    <xsl:if test="contains($theRows[2]/Cell/Control/Category/@CategoryID, $filter)">
+                                    <!-- next row has to be in the same sublist -->
+                                        <xsl:call-template name="process-option-rows">
+                                            <xsl:with-param name="qGroup" select="$qGroup" />
+                                            <xsl:with-param name="theRows" select="$theRows[position() >1]" />
+                                            <xsl:with-param name="sublistCategory" select="true()" />
+                                        </xsl:call-template>
+                                    </xsl:if>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:variable name="nextRow" select="$theRows[position() >1]" />
+
+                                    <xsl:text>Next Position: </xsl:text>
+                                    <xsl:value-of select="position()+1" />
+                                    <xsl:text>Next Row: </xsl:text>
+                                    <xsl:value-of select="name($nextRow)" />
+
+                                    <xsl:text>, Next CategoryID: </xsl:text>
+                                    <xsl:value-of select="$nextRow/Cell/Control/Category/@CategoryID" />
+                                    <xsl:text>, Next Type: </xsl:text>
+                                    <xsl:value-of select="$nextRow/Cell/Control/@Type" />
+                                    <xsl:text>, Test: </xsl:text>
+                                    <xsl:value-of select="(contains($nextRow/Cell/Control/Category/@CategoryID, '_S') or not($nextRow/Cell/Control/@Type='Static'))" />
+
+                                    <xsl:if test="(contains($nextRow/Cell/Control/Category/@CategoryID, '_S') or not($nextRow/Cell/Control/@Type='Static'))">
+                                        <!-- next row has to be in the same sublist -->
+                                        <xsl:call-template name="process-option-rows">
+                                            <xsl:with-param name="qGroup" select="$qGroup" />
+                                            <xsl:with-param name="theRows" select="$theRows[position() >1]" />
+                                            <xsl:with-param name="sublistCategory" select="true()" />
+                                        </xsl:call-template>
+                                    </xsl:if>
+                                </xsl:otherwise>
+                            </xsl:choose>
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:if>
     </xsl:template>
+
+    <!-- Functions -->
+    <!-- ========= -->
+        <xsl:template name="rowsToNextStatic">
+            <xsl:param name="theRows" />
+            <xsl:param name="startPosition" select="-1" />
+            <xsl:param name="nextStatic" />
+
+            <xsl:for-each select="$theRows">
+                <xsl:variable name="currentRow" select="." />
+                <xsl:choose>
+                    <xsl:when test="position() > $startPosition">
+                        <xsl:if test="$currentRow/Cell/Control/@Type='Static' and $nextStatic = ''">
+                            <xsl:with-param name="nextStatic" select="$currentRow/Cell/Control/Category/@CategoryID" />
+                        </xsl:if>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:for-each>
+        </xsl:template>
+
+        <xsl:template name="endOfSublist">
+            <xsl:param name="theRows" />
+            <xsl:param name="startPosition" select="-1" />
+            <xsl:param name="currentCategoryID" />
+            <xsl:param name="lastRow" />
+
+            <xsl:for-each select="$theRows">
+                <xsl:variable name="currentRow" select="$theRows[position()]" />
+                <xsl:variable name="nextRow" select="$theRows[position()+1]" />
+                <xsl:variable name="categoryID" select="$nextRow/Cell/Control/Category/@CategoryID" />
+                <xsl:choose>
+                    <xsl:when test="position() > $startPosition">
+                            <xsl:if test="not(substring.before($categoryID, '_S')=$currentCategoryID)">
+                                <xsl:value-of select="position()" />
+                            </xsl:if>
+                        </xsl:if>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:for-each>
+        </xsl:template>
+
 
     <!-- Response Types -->
     <!-- ============== -->
