@@ -25,7 +25,7 @@
         "build-storybook": "storybook build",
         "publish-storybook": "npm run build && npm run build-storybook",
         "prepare": "cd .. && husky install ui/.husky",
-        "prelocalserver": "npm run build && npm run static-assets-move-localserver",
+        "prelocalserver": "rm -rf ./_example-pages/css && rm -rf ./_example-pages/javascript && rm -rf ./_example-pages/static && npm run build && npm run static-assets-move-localserver",
         "localserver": "npx http-server _example-pages/"
     },
     "targets": {

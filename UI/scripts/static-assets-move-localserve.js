@@ -11,7 +11,7 @@
 const fs = require('fs');
 const path = require('path');
 const colors = require('colors/safe');
-const sourceDirectoryPath = path.join(__dirname, '../public/build');
+const sourceDirectoryPath = path.join(__dirname, '../public');
 const destDirectoryPath = path.join(__dirname, '../_example-pages/');
 
 // Copy all build assets to the local server folder.
