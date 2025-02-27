@@ -48,3 +48,46 @@ Based on https://every-layout.dev/layouts/sidebar/.
         min-inline-size: var(--column2-min-width);
     }
 }
+
+/*
+----------------------------------------------------------------------------
+Page.
+
+----------------------------------------------------------------------------
+*/
+html, body, form {
+    margin: 0;
+    height: 100%;
+}
+
+form {
+    display: grid;
+    grid-gap: var(--space-4);
+    grid-template-areas:
+        ". header ."
+        ". main ."
+        ". footer .";
+    grid-template-columns: 1fr minmax(var(--page-min-width), var(--page-max-width)) 1fr;
+    grid-template-rows: 120px 1fr 110px;
+}
+
+div.header {
+    grid-area: header;
+    display: flex;
+    align-items: end;
+
+    img {
+        max-height: 65%;
+    }
+}
+
+div.surroundcontent {
+    grid-area: main;
+    border-block-start: var(--border-thickness) solid var(--color-border);
+    border-block-end: var(--border-thickness) solid var(--color-border);
+}
+
+div.footer {
+    grid-area: footer;
+}
+

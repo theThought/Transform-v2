@@ -25,4 +25,8 @@ i.e. custom properties other than colors/fonts.
     /* Icons */
     --option-icon-height: 1.0625rem;
     --option-icon-width: 1.125rem;
+
+    /* Overall page dimensions */
+    --page-max-width: 1600px;
+    --page-min-width: 375px;
 }
