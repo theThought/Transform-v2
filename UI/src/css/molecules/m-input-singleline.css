@@ -1,17 +1,17 @@
-m-input-singleline {
+m-input-singleline,
+m-input-singleline-number,
+m-input-singleline-date {
     align-items: center;
     display: inline-flex;
     flex-wrap: wrap;
 
     .a-label-pre {
         border-inline-end-width: 0;
-        border-radius: var(--theme-border-radius-s) 0 0
-            var(--theme-border-radius-s);
+        border-radius: var(--theme-border-radius-s) 0 0 var(--theme-border-radius-s);
     }
 
     .a-label-post {
         border-inline-start-width: 0;
-        border-radius: 0 var(--theme-border-radius-s)
-            var(--theme-border-radius-s) 0;
+        border-radius: 0 var(--theme-border-radius-s) var(--theme-border-radius-s) 0;
     }
 }
