@@ -1,4 +1,4 @@
-.m-option-base {
+m-option-base {
     --color-checked: var(--color-secondary);
 
     label {
