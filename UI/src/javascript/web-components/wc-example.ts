@@ -1,5 +1,5 @@
 export default class WCExample extends HTMLElement {
-    private button: HTMLButtonElement | null;
+    private readonly button: HTMLButtonElement | null;
     private count: number;
 
     // Triggers attributeChangedCallback() lifecycle method whenever attributes listed here change.

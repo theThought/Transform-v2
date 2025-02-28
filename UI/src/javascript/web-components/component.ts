@@ -7,10 +7,10 @@
  */
 
 export default class Component extends HTMLElement {
-    protected qid: string | undefined;
-    protected qgroup: string | undefined;
+    protected readonly qid: string | undefined;
+    protected readonly qgroup: string | undefined;
+    protected readonly question: HTMLElement | null;
     protected properties: Record<string, unknown>;
-    protected question: HTMLElement | null;
 
     constructor() {
         super();

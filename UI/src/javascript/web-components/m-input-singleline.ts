@@ -1,8 +1,8 @@
 import Component from './component';
 
 export default class MInputSingleline extends Component {
-    protected element: HTMLInputElement | null;
-    protected allowPaste = false;
+    protected readonly element: HTMLInputElement | null;
+    private allowPaste = false;
 
     constructor() {
         super();
