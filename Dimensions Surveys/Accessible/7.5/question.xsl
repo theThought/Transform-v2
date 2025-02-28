@@ -7,6 +7,8 @@
     <xsl:param name="bShowOnly" select="false()" />
     <xsl:param name="bAutoComplete" select="false()" />
 
+    <xsl:strip-space elements="*"/>
+
     <xsl:template match="Questions">
         <!-- iterate through the questions eleents in the XML structure -->
             <xsl:for-each select="*">
@@ -93,7 +95,7 @@
     </xsl:template>
 
     <xsl:template name="insert-input">
-        <xsl:param name="InputType" select="text" />
+        <xsl:param name="inputType" select="text" />
         <xsl:param name="qGroup" />
         <xsl:param name="isHidden" select="false()" />
 
@@ -109,7 +111,11 @@
 
             <!--- Set Input specific attributes -->
             <xsl:attribute name="type">
-                <xsl:value-of select="$InputType"/>
+                <xsl:value-of select="$inputType"/>
+            </xsl:attribute>
+
+            <xsl:attribute name="class">
+                <xsl:text>a-input-singleline</xsl:text>
             </xsl:attribute>
 
             <xsl:if test="@MinValue">
@@ -139,7 +145,7 @@
     </xsl:template>
 
     <xsl:template name="insert-input-option">
-        <xsl:param name="InputType" select="text" />
+        <xsl:param name="InputType" select="radio" />
         <xsl:param name="qGroup" />
         <xsl:param name="isHidden" select="false()" />
         <xsl:param name="controlId" />
@@ -319,7 +325,7 @@
         <xsl:param name="qGroup" />
         <xsl:param name="theRows" />
         <xsl:param name="startRow" select="1" />
-        <xsl:param name="endRow" select="$count($theRows)" />
+        <xsl:param name="endRow" select="count($theRows)" />
         <xsl:param name="sublistCategory" />
         <xsl:param name="filter" />
         
@@ -467,7 +473,7 @@
                 <xsl:choose>
                     <xsl:when test="position() > $startPosition">
                         <xsl:if test="$currentRow/Cell/Control/@Type='Static' and $nextStatic = ''">
-                            <xsl:with-param name="nextStatic" select="$currentRow/Cell/Control/Category/@CategoryID" />
+ <!--                           <xsl:with-param name="nextStatic" select="$currentRow/Cell/Control/Category/@CategoryID" /> -->
                         </xsl:if>
                     </xsl:when>
                 </xsl:choose>
@@ -486,10 +492,9 @@
                 <xsl:variable name="categoryID" select="$nextRow/Cell/Control/Category/@CategoryID" />
                 <xsl:choose>
                     <xsl:when test="position() > $startPosition">
-                            <xsl:if test="not(substring.before($categoryID, '_S')=$currentCategoryID)">
+                            <xsl:if test="not(substring-before($categoryID, '_S')=$currentCategoryID)">
                                 <xsl:value-of select="position()" />
                             </xsl:if>
-                        </xsl:if>
                     </xsl:when>
                 </xsl:choose>
             </xsl:for-each>
@@ -552,7 +557,7 @@
             </xsl:call-template>
 
             <!-- pre label -->
-            <xsl:element name="div">
+            <xsl:element name="span">
                 <xsl:attribute name="class">
                     <xsl:text>a-label-pre</xsl:text>
                 </xsl:attribute>
@@ -563,14 +568,12 @@
 
             <!-- input -->
             <xsl:call-template name="insert-input">
-                <xsl:with-param name="InputType">
-                    <xsl:value-of select="number" />
-                </xsl:with-param>
+                <xsl:with-param name="inputType" select="'number'" />
                 <xsl:with-param name="qGroup" select="$qGroup" />
             </xsl:call-template>
 
             <!-- post label -->
-            <xsl:element name="div">
+            <xsl:element name="span">
                 <xsl:attribute name="class">
                     <xsl:text>a-label-post</xsl:text>
                 </xsl:attribute>
