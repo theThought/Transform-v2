@@ -1,5 +1,5 @@
 export const OptionSingleHtml = () => `
-<div class="m-option-base m-option-single-answer">
+<m-option-base class="m-option-single-answer">
     <input type="radio" id="radio1" name="radios" />
     <label for="radio1">
         <span class="a-icon-multistate" data-icontype="single"></span>
@@ -7,11 +7,11 @@ export const OptionSingleHtml = () => `
             Radio label
         </span>
     </label>
-</div>
+</m-option-base>
 `;
 
 export const OptionMultiHtml = () => `
-<div class="m-option-base m-option-multi-answer">
+<m-option-base class="m-option-multi-answer">
     <input type="checkbox" id="check1" />
     <label for="check1">
         <span class="a-icon-multistate" data-icontype="multi"></span>
@@ -19,5 +19,5 @@ export const OptionMultiHtml = () => `
             Checkbox label
         </span>
     </label>
-</div>
+</m-option-base>
 `;

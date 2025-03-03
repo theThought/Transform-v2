@@ -88,7 +88,7 @@ export const SingleLineSpecialCodesHtml = () => `
                             class="o-option-sublist"
                             aria-describedby="question-id"
                         >
-                            <div class="m-option-base m-option-single-answer">
+                            <m-option-base class="m-option-single-answer">
                                 <input type="radio" id="radio1" name="radios" />
                                 <label for="radio1">
                                     <span class="a-icon-multistate" data-icontype="single"></span>
@@ -96,8 +96,8 @@ export const SingleLineSpecialCodesHtml = () => `
                                         Special code 1
                                     </span>
                                 </label>
-                            </div>
-                            <div class="m-option-base m-option-single-answer">
+                            </m-option-base>
+                            <m-option-base class="m-option-single-answer">
                                 <input type="radio" id="radio2" name="radios" />
                                 <label for="radio2">
                                     <span class="a-icon-multistate" data-icontype="single"></span>
@@ -105,7 +105,7 @@ export const SingleLineSpecialCodesHtml = () => `
                                         Special code 2
                                     </span>
                                 </label>
-                            </div>
+                            </m-option-base>
                         </fieldset>
                     </o-response>
                 </div>
