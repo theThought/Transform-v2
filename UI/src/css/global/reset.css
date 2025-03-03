@@ -42,7 +42,7 @@ html {
     min-block-size: 100vh;
 }
 
-:where([type='submit'], label, summary) {
+:where([type='submit'], label[for], summary) {
     cursor: pointer;
 }
 
