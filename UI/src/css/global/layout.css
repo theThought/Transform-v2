@@ -66,6 +66,7 @@ form {
     margin-inline: auto;
     max-inline-size: var(--page-max-width);
     min-block-size: 100vh;
+    min-inline-size: var(--page-min-width);
     padding-inline: 2em;
 }
 
