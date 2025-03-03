@@ -3,6 +3,5 @@
 # Except these files/folders
 !.gitignore
 !storybook-overrides.css
-
-!*/
-!build/**
+!index.html
+!README.md
