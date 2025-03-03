@@ -3,5 +3,5 @@ export const ButtonHtml = () => `
 `;
 
 export const InputButtonHtml = () => `
-<input type="submit" class="a-button" value="Submit">
+<input type="submit" class="a-button" value="Submit" />
 `;

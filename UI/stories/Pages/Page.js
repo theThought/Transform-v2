@@ -11,7 +11,7 @@ ${style}
 
 <form action="#">
     <header class="header">
-        <p>Page header content goes inside <code>&lt;header&gt;</code>.</p>
+        <img alt="Ipsos" src="ipsoslogo192.png" height="192" width="192" />
     </header>
 
     <main class="surroundcontent">
@@ -37,10 +37,10 @@ ${style}
 
     <footer class="footer l-stack">
         <div class="m-button-group">
-            <input type="submit" class="a-button-next" value="Next">
+            <input type="submit" class="a-button-next" value="Next" />
             <div class="m-button-group">
-                <input type="submit" class="a-button-prev" value="Previous">
-                <input type="submit" class="a-button-stop" value="Stop">
+                <input type="submit" class="a-button-prev" value="Previous" />
+                <input type="submit" class="a-button-stop" value="Stop" />
             </div>
         </div>
 

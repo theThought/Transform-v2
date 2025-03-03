@@ -3,6 +3,6 @@
     display: flex;
 
     img {
-        max-block-size: 65%;
+        inline-size: 75px;
     }
 }

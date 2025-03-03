@@ -16,7 +16,7 @@
 <body>
     <form name="mrForm" id="mrForm" action="./" method="post">
         <header class="header">
-            <img class="site-logo" alt="Ipsos" src="https://cdn.ipsosinteractive.com/sandbox/kevin.gray/healthcare/staging/images/formal/ipsoslogo192.png" />
+            <img alt="Ipsos" src="https://cdn.ipsosinteractive.com/sandbox/kevin.gray/healthcare/staging/images/formal/ipsoslogo192.png" height="192" width="192" />
         </header>
         <main class="surroundcontent">
             <!--elementID: -->
@@ -582,17 +582,19 @@
                 </div>
             </o-question>
         </main>
-        <footer class="footer">
-            <div id="nav-controls" class="btn-container nav-center">
-                <div id="nextonly">
-                    <input type="submit" name="_NNext" class="a-button-next" style="" value="Next"></input>
-                </div>
-                <div id="prevstop">
-                    <input tabindex="-1" type="submit" name="_NStop" class="a-button-stop" style="" value="Stop"></input>
+        <footer class="footer l-stack">
+            <div class="m-button-group">
+                <input type="submit" name="_NNext" class="a-button-next" value="Next">
+                <div class="m-button-group">
+                    <input type="submit" name="_NPrev" class="a-button-prev" value="Previous">
+                    <input type="submit" name="_NStop" class="a-button-stop" value="Stop">
                 </div>
             </div>
-            <div class="page-links"><a href="#">Privacy Policy</a><a href="#">Terms and Conditions</a><a href="#">Unsubscribe</a>
-            </div>
+            <nav class="m-page-links" aria-label="Footer links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms and Conditions</a>
+                <a href="#">Unsubscribe</a>
+            </nav>
         </footer>
     </form>
 

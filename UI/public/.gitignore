@@ -3,5 +3,6 @@
 # Except these files/folders
 !.gitignore
 !storybook-overrides.css
+!ipsoslogo192.png
 !index.html
 !README.md
