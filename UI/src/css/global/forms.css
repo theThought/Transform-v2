@@ -1,3 +1,8 @@
+:root {
+    --box-shadow-button: var(--box-shadow);
+    --focus-outline-button: var(--border-thickness) solid transparent;
+}
+
 :where([type='text'], [type='date'], [type='number'], textarea) {
     background: var(--color-background);
     border: var(--border-thickness) solid var(--color-border);
@@ -22,7 +27,14 @@
     padding: var(--space-1) 1em;
     white-space: normal;
 
-    /* TODO: :hover/:focus states */
+    &:hover {
+        cursor: pointer;
+    }
+
+    &:focus {
+        box-shadow: var(--box-shadow-button);
+        outline: var(--focus-outline-button);
+    }
 }
 
 /*

@@ -19,6 +19,9 @@ i.e. custom properties other than colors/fonts.
     --space-3: var(--theme-space-3);
     --space-4: var(--theme-space-4);
 
+    /* Box shadows */
+    --box-shadow: var(--theme-box-shadow);
+
     /* Widths */
     --input-width: 12.5rem;
 

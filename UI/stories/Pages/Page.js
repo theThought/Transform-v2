@@ -35,8 +35,20 @@ ${style}
 
     </main>
 
-    <footer class="footer">
-        <p>Page footer content goes inside <code>&lt;footer&gt;</code>.</p>
+    <footer class="footer l-stack">
+        <div class="m-button-group">
+            <input type="submit" class="a-button-next" value="Next">
+            <div class="m-button-group">
+                <input type="submit" class="a-button-prev" value="Previous">
+                <input type="submit" class="a-button-stop" value="Stop">
+            </div>
+        </div>
+
+        <nav class="m-page-links" aria-label="Footer links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms and Conditions</a>
+            <a href="#">Unsubscribe</a>
+        </nav>
     </footer>
 </form>
 `;

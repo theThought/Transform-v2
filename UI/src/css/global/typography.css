@@ -17,3 +17,11 @@ body {
     font-size: var(--font-size);
     line-height: var(--line-height);
 }
+
+a {
+    color: var(--color-text);
+
+    &:hover {
+        text-decoration: none;
+    }
+}

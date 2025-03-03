@@ -1,3 +1,9 @@
 .footer {
-    /* TODO */
+    > .m-button-group {
+        flex-direction: row-reverse;
+
+        > :first-child {
+            margin-inline-start: auto;
+        }
+    }
 }

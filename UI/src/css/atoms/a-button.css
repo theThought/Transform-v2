@@ -1,4 +1,21 @@
-.a-button {
+[class*='a-button'] {
     background: var(--color-primary);
     color: var(--color-lightest);
+
+    &:hover {
+        background: var(--color-primary-hover);
+    }
+
+    &[type='submit'] {
+        background: var(--color-secondary);
+        border-color: var(--color-secondary);
+        inline-size: var(--input-width);
+
+        &:hover,
+        &:focus {
+            background: var(--color-lightest);
+            box-shadow: none;
+            color: var(--color-secondary);
+        }
+    }
 }

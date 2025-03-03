@@ -1,0 +1,5 @@
+.m-button-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+}
