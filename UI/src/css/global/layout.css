@@ -54,7 +54,7 @@ Based on https://every-layout.dev/layouts/sidebar/.
 Page.
 ----------------------------------------------------------------------------
 */
-body {
+form {
     display: grid;
     gap: var(--space-4);
     grid-template-areas:
@@ -65,6 +65,7 @@ body {
         1fr minmax(var(--page-min-width), var(--page-max-width))
         1fr;
     grid-template-rows: var(--header-min-height) 1fr var(--footer-min-height);
+    min-block-size: 100vh;
 }
 
 .header {

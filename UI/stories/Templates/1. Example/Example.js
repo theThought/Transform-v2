@@ -7,7 +7,6 @@ export const ExampleHtml = (args) => `
 ${htmlFragmentCustomProperties}
 
 <main class="surroundcontent">
-    <form action="#">
 
         <o-question class="l-stack">
             <div class="l-cover"><!-- cover --></div>
@@ -47,6 +46,5 @@ ${htmlFragmentCustomProperties}
             </div>
         </o-question>
 
-    </form>
 </main>
 `;

@@ -8,7 +8,6 @@ export const SingleLineCustomPropertiesHtml = (args) => `
 ${htmlFragmentCustomProperties}
 
 <main class="surroundcontent">
-    <form action="#">
 
         <o-question class="l-stack">
             <div class="l-cover"><!-- cover --></div>
@@ -50,13 +49,11 @@ ${htmlFragmentCustomProperties}
             ${htmlFragmentMessageInformation}
         </o-question>
 
-    </form>
 </main>
 `;
 
 export const SingleLineSpecialCodesHtml = () => `
 <main class="surroundcontent">
-    <form action="#">
 
         <o-question class="l-stack">
             <div class="l-cover"><!-- cover --></div>
@@ -114,6 +111,5 @@ export const SingleLineSpecialCodesHtml = () => `
             ${htmlFragmentMessageInformation}
         </o-question>
 
-    </form>
 </main>
 `;

@@ -13,6 +13,7 @@
 - From terminal prompt, enter `cd UI`.
 - Enter `npm run localserver` to generate and copy up-to-date CSS/JavaScript.
 - Assets are automatically copied from the UI/public folder and include non-minified javascript and CSS for debugging.
+
 ## Testing against production assets
 - It is possible to test against the production (minified) versions by referencing build/javascript/index.js and build/css/index.css
 - At the present time JavaScript -> TypeScript mapping does not working correctly in the minified version

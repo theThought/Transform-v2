@@ -5,7 +5,6 @@ import {
 
 export const MultiLineHtml = () => `
 <main class="surroundcontent">
-    <form action="#">
 
         <o-question class="l-stack">
             <div class="l-cover"><!-- cover --></div>
@@ -55,6 +54,5 @@ export const MultiLineHtml = () => `
             ${htmlFragmentMessageInformation}
         </o-question>
 
-    </form>
 </main>
 `;

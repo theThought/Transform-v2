@@ -14,11 +14,11 @@
     <title>PageFour</title>
 </head>
 <body>
-    <header class="header">
-        <img class="site-logo" alt="Ipsos" src="https://cdn.ipsosinteractive.com/sandbox/kevin.gray/healthcare/staging/images/formal/ipsoslogo192.png" />
-    </header>
-    <main class="surroundcontent">
-        <form name="mrForm" id="mrForm" action="./" method="post">
+    <form name="mrForm" id="mrForm" action="./" method="post">
+        <header class="header">
+            <img class="site-logo" alt="Ipsos" src="https://cdn.ipsosinteractive.com/sandbox/kevin.gray/healthcare/staging/images/formal/ipsoslogo192.png" />
+        </header>
+        <main class="surroundcontent">
             <!--elementID: -->
             <label>all question labels have ids</label>
             <o-question>
@@ -581,20 +581,21 @@
                     </div>
                 </div>
             </o-question>
-        </form>
-    </main>
-    <footer class="footer">
-        <div id="nav-controls" class="btn-container nav-center">
-            <div id="nextonly">
-                <input type="submit" name="_NNext" class="a-button-next" style="" value="Next"></input>
+        </main>
+        <footer class="footer">
+            <div id="nav-controls" class="btn-container nav-center">
+                <div id="nextonly">
+                    <input type="submit" name="_NNext" class="a-button-next" style="" value="Next"></input>
+                </div>
+                <div id="prevstop">
+                    <input tabindex="-1" type="submit" name="_NStop" class="a-button-stop" style="" value="Stop"></input>
+                </div>
             </div>
-            <div id="prevstop">
-                <input tabindex="-1" type="submit" name="_NStop" class="a-button-stop" style="" value="Stop"></input>
+            <div class="page-links"><a href="#">Privacy Policy</a><a href="#">Terms and Conditions</a><a href="#">Unsubscribe</a>
             </div>
-        </div>
-        <div class="page-links"><a href="#">Privacy Policy</a><a href="#">Terms and Conditions</a><a href="#">Unsubscribe</a>
-        </div>
-    </footer>
+        </footer>
+    </form>
+
 <script defer type="module" src="index.js"></script>
 </body>
 </html>
