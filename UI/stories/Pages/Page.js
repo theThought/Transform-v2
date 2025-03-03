@@ -1,4 +1,14 @@
+const style = `
+<style>
+    .sb-show-main.sb-main-padded {
+        padding: 0;
+    }
+</style>
+`;
+
 export const PageHtml = () => `
+${style}
+
 <form action="#">
     <header class="header">
         <p>Page header content goes inside <code>&lt;header&gt;</code>.</p>

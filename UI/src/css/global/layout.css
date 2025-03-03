@@ -58,18 +58,19 @@ form {
     display: grid;
     gap: var(--space-4);
     grid-template-areas:
-        '. header .'
-        '. main .'
-        '. footer .';
-    grid-template-columns:
-        1fr minmax(var(--page-min-width), var(--page-max-width))
-        1fr;
-    grid-template-rows: var(--header-min-height) 1fr var(--footer-min-height);
+        'header'
+        'main'
+        'footer';
+    grid-template-rows: auto 1fr auto;
+    margin-inline: auto;
+    max-inline-size: var(--page-max-width);
     min-block-size: 100vh;
+    padding-inline: 2em;
 }
 
 .header {
     grid-area: header;
+    min-block-size: var(--header-min-height);
 }
 
 .surroundcontent {
@@ -78,4 +79,5 @@ form {
 
 .footer {
     grid-area: footer;
+    min-block-size: var(--footer-min-height);
 }
