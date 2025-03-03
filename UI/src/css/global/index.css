@@ -6,6 +6,9 @@ Global HTML element styles.
 
 /* Import 'reset' first. */
 @import 'reset';
+@import 'footer';
 @import 'forms';
+@import 'header';
 @import 'layout';
+@import 'surroundcontent';
 @import 'typography';

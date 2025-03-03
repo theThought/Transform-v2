@@ -1,0 +1,4 @@
+.surroundcontent {
+    border-block-end: var(--border-thickness) solid var(--color-border);
+    border-block-start: var(--border-thickness) solid var(--color-border);
+}

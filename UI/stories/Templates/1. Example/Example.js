@@ -6,8 +6,8 @@ import {
 export const ExampleHtml = (args) => `
 ${htmlFragmentCustomProperties}
 
-<form action="#">
-    <div class="surroundcontent">
+<main class="surroundcontent">
+    <form action="#">
 
         <o-question class="l-stack">
             <div class="l-cover"><!-- cover --></div>
@@ -48,5 +48,5 @@ ${htmlFragmentCustomProperties}
         </o-question>
 
     </form>
-</div>
+</main>
 `;

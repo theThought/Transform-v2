@@ -27,6 +27,8 @@ i.e. custom properties other than colors/fonts.
     --option-icon-width: 1.125rem;
 
     /* Overall page dimensions */
-    --page-max-width: 1600px;
-    --page-min-width: 375px;
+    --page-max-width: 100rem;
+    --page-min-width: 23.4375rem;
+    --header-min-height: 7.5rem;
+    --footer-min-height: 6.875rem;
 }

@@ -4,8 +4,8 @@ import {
 } from '../../../_htmlFragments';
 
 export const MultiLineHtml = () => `
-<form action="#">
-    <div class="surroundcontent">
+<main class="surroundcontent">
+    <form action="#">
 
         <o-question class="l-stack">
             <div class="l-cover"><!-- cover --></div>
@@ -54,6 +54,7 @@ export const MultiLineHtml = () => `
 
             ${htmlFragmentMessageInformation}
         </o-question>
-    </div>
-</form>
+
+    </form>
+</main>
 `;
