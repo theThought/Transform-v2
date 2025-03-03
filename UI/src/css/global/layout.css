@@ -25,7 +25,8 @@ Based on https://every-layout.dev/layouts/sidebar/.
 ----------------------------------------------------------------------------
 */
 .l-row {
-    --column-char-count: 50ch; /* Number of chars before column2 wraps */
+    /* Number of chars before column2 wraps */
+    --column-char-count: min(50ch, 100%);
     --column1-width: 30%;
     --column2-min-width: max(
         var(--column-char-count),
