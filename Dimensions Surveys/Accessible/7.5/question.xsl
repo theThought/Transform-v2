@@ -328,20 +328,26 @@
         <xsl:param name="endRow" select="count($theRows)" />
         <xsl:param name="sublistCategory" />
         <xsl:param name="filter" />
-        
-        <xsl:text>[Process row]</xsl:text>
 
+<!--        
+        <xsl:text>[Process row]</xsl:text>
+        <xsl:value-of select="$theRows/position()" />
+        <xsl:text>&#xa;</xsl:text>
+-->
         <xsl:if test="count($theRows) > 0">
             <xsl:variable name="currentRow" select="$theRows[1]" />
             <xsl:variable name="categoryID">
                 <xsl:value-of select="$currentRow/Cell/Control/Category/@CategoryID" />
             </xsl:variable>
-            
+<!--            
             <xsl:text>CategoryID: </xsl:text>
             <xsl:value-of select="$categoryID" />
             <xsl:text>Type: </xsl:text>
             <xsl:value-of select="$currentRow/Cell/Control/@Type" />
-            
+
+            <xsl:text>&#xa;</xsl:text>
+-->
+
             <xsl:choose>
                 <xsl:when test="$currentRow/Cell/Control/@Type='Static'">
                     <!-- is this the start of a sublist -->
@@ -366,8 +372,9 @@
                 </xsl:when>
                 <xsl:otherwise>
                     <!-- this is an option -->
+<!--
                     <xsl:text>OPTION: </xsl:text>
-                    
+-->                    
                     <xsl:choose>
                         <xsl:when test="not($sublistCategory)">
                             <xsl:text>Create New Sublist wrapper</xsl:text>
@@ -381,11 +388,32 @@
                                 </xsl:for-each>
                                 
                                 <xsl:variable name="nextRow" select="$theRows[position() >1]" />
-
+<!--
                                 <xsl:text>Next Position: </xsl:text>
                                 <xsl:value-of select="position()+1" />
-                                <xsl:text>Next Row: </xsl:text>
-                                <xsl:value-of select="name($nextRow)" />
+
+                                <xsl:text>&#xa;</xsl:text>
+-->
+                                <xsl:variable name="staticRow">
+                                    <xsl:call-template name="rowOfNextStatic">
+                                        <xsl:with-param name="theRows" select="$theRows" />
+                                    </xsl:call-template>
+                                </xsl:variable>
+<!--
+                                <xsl:text>, Next Static: </xsl:text>
+                                <xsl:value-of select="$staticRow" />
+                                <xsl:text>&#xa;</xsl:text>
+-->
+                                <xsl:choose>
+                                    <xsl:when test="$staticRow &gt; 0">
+                                        <xsl:value-of select="$staticRow" />
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:value-of select="count($theRows)+1" />
+                                    </xsl:otherwise>
+                                </xsl:choose>
+<!--
+                                <xsl:text>&#xa;</xsl:text>
 
                                 <xsl:text>, Next CategoryID: </xsl:text>
                                 <xsl:value-of select="$nextRow/Cell/Control/Category/@CategoryID" />
@@ -393,7 +421,7 @@
                                 <xsl:value-of select="$nextRow/Cell/Control/@Type" />
                                 <xsl:text>, Test: </xsl:text>
                                 <xsl:value-of select="(not(contains($nextRow/Cell/Control/Category/@CategoryID, '_S')) or $nextRow/Cell/Control/@Type='Static')" />
-
+-->
                                 <xsl:if test="(not(contains($theRows[2]/Cell/Control/Category/@CategoryID, '_S')) or $theRows[2]/Cell/Control/@Type='Static')">
                                     <!-- next row has to be in the same sublist -->
                                     <xsl:call-template name="process-option-rows">
@@ -407,10 +435,12 @@
                         </xsl:when>
                         <xsl:otherwise>
                             <!-- there is already a sublist, so just have to add the option -->
+<!--   
                             <xsl:text>Already in a sublist: </xsl:text>
                             <xsl:text>,toplevel sublist: </xsl:text>
                             <xsl:value-of select="$filter=''" />
-
+                            <xsl:text>&#xa;</xsl:text>
+-->
                             <xsl:for-each select="$currentRow/Cell/Control">
                                 <xsl:call-template name="m-option-base">
                                     <xsl:with-param name="qType" select="@Type" />
@@ -431,11 +461,12 @@
                                 </xsl:when>
                                 <xsl:otherwise>
                                     <xsl:variable name="nextRow" select="$theRows[position() >1]" />
-
+<!--
                                     <xsl:text>Next Position: </xsl:text>
                                     <xsl:value-of select="position()+1" />
                                     <xsl:text>Next Row: </xsl:text>
                                     <xsl:value-of select="name($nextRow)" />
+                                    <xsl:text>&#xa;</xsl:text>
 
                                     <xsl:text>, Next CategoryID: </xsl:text>
                                     <xsl:value-of select="$nextRow/Cell/Control/Category/@CategoryID" />
@@ -443,6 +474,8 @@
                                     <xsl:value-of select="$nextRow/Cell/Control/@Type" />
                                     <xsl:text>, Test: </xsl:text>
                                     <xsl:value-of select="(contains($nextRow/Cell/Control/Category/@CategoryID, '_S') or not($nextRow/Cell/Control/@Type='Static'))" />
+                                    <xsl:text>&#xa;</xsl:text>
+-->
 
                                     <xsl:if test="(contains($nextRow/Cell/Control/Category/@CategoryID, '_S') or not($nextRow/Cell/Control/@Type='Static'))">
                                         <!-- next row has to be in the same sublist -->
@@ -463,21 +496,13 @@
 
     <!-- Functions -->
     <!-- ========= -->
-        <xsl:template name="rowsToNextStatic">
+        <xsl:template name="rowOfNextStatic">
             <xsl:param name="theRows" />
-            <xsl:param name="startPosition" select="-1" />
-            <xsl:param name="nextStatic" />
 
-            <xsl:for-each select="$theRows">
-                <xsl:variable name="currentRow" select="." />
-                <xsl:choose>
-                    <xsl:when test="position() > $startPosition">
-                        <xsl:if test="$currentRow/Cell/Control/@Type='Static' and $nextStatic = ''">
- <!--                           <xsl:with-param name="nextStatic" select="$currentRow/Cell/Control/Category/@CategoryID" /> -->
-                        </xsl:if>
-                    </xsl:when>
-                </xsl:choose>
-            </xsl:for-each>
+            <xsl:variable name="firstStaticRow" select="$theRows[Cell/Control/@Type = 'Static'][1]"/>
+            <xsl:variable name="positionInOriginalSet" select="count($firstStaticRow/preceding-sibling::*)"/>
+
+            <xsl:value-of select="$positionInOriginalSet"/>
         </xsl:template>
 
         <xsl:template name="endOfSublist">
