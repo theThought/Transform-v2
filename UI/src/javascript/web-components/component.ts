@@ -6,10 +6,12 @@
  * it belongs in this class instead of an individual component!
  */
 
+import OQuestion from './o-question';
+
 export default class Component extends HTMLElement {
     protected readonly qid: string | undefined;
     protected readonly qgroup: string | undefined;
-    protected readonly question: HTMLElement | null;
+    protected readonly question: OQuestion;
     protected properties: Record<string, unknown>;
 
     constructor() {
@@ -17,7 +19,8 @@ export default class Component extends HTMLElement {
 
         this.qid = this.dataset.questionId;
         this.qgroup = this.dataset.questionGroup;
-        this.question = this.closest('o-question');
+        this.question = this.closest('o-question') || new OQuestion();
+
         this.properties = {};
 
         this.parseProperties();
@@ -31,5 +34,17 @@ export default class Component extends HTMLElement {
         }
 
         this.properties = JSON.parse(properties.toString());
+    }
+
+    protected broadcastChange(): void {
+        const broadcastChange = new CustomEvent('broadcastChange', {
+            bubbles: true,
+            detail: this,
+        });
+        this.dispatchEvent(broadcastChange);
+    }
+
+    protected getKeyPressed(e: KeyboardEvent): string {
+        return e.key;
     }
 }

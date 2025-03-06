@@ -1,15 +1,19 @@
 import Component from './component';
+import { Observer } from '../interfaces';
 
-export default class MInputSingleline extends Component {
-    protected readonly element: HTMLInputElement | null;
+export default class MInputSingleline extends Component implements Observer {
+    protected readonly element: HTMLInputElement;
+    private readonly placeholder: string;
     private allowPaste = false;
 
     constructor() {
         super();
 
-        this.element = this.querySelector('.a-input-singleline');
+        this.element =
+            this.querySelector('.a-input-singleline') ??
+            document.createElement('input');
 
-        if (!this.element) return;
+        this.placeholder = this.element.placeholder || '';
 
         this.init();
     }
@@ -17,17 +21,41 @@ export default class MInputSingleline extends Component {
     private init(): void {
         this.addLocalEventListeners();
         this.setLabels();
+        this.question.addObserver(this);
     }
 
     private addLocalEventListeners(): void {
-        //this.element.addEventListener('keyup', this, false);
-        //this.element.addEventListener('change', this, false);
-        //this.element.addEventListener('input', this, false);
-        //this.element.addEventListener('click', this, false);
-        //this.element.addEventListener('focusin', this, false);
-        //this.element.addEventListener('focusout', this, false);
-        //this.element.addEventListener('keydown', this, false);
-        //this.element.addEventListener('paste', this, false);
+        this.addEventListener('focusin', this);
+        this.addEventListener('input', this);
+    }
+
+    // Handle constructor() event listeners.
+    public handleEvent(e: Event): void {
+        switch (e.type) {
+            case 'focusin':
+                this.onFocusIn();
+                break;
+            case 'change':
+            case 'input':
+                this.broadcastChange();
+        }
+    }
+
+    public update(method: string, data: CustomEvent): void {
+        if (method === 'exclusiveClear') {
+            this.exclusiveClear(data);
+        }
+    }
+
+    private onFocusIn(): void {
+        if (
+            this.element.placeholder.length &&
+            this.element.placeholder !== this.placeholder
+        ) {
+            this.element.value = this.element.placeholder;
+            this.element.placeholder = this.placeholder;
+            this.broadcastChange();
+        }
     }
 
     // Set pre-/post-labels.
@@ -55,45 +83,15 @@ export default class MInputSingleline extends Component {
         }
     }
 
-    // Handle constructor() event listeners.
-    public handleEvent(e: Event): void {
-        switch (e.type) {
-            case 'paste':
-                this.onPaste(e);
-                break;
-            case 'keydown':
-                this.onKeydown(e);
-                break;
-            case 'click':
-                this.onClick(e);
-                break;
-            case 'keyup':
-            case 'change':
-                this.onChange(e);
-                break;
-            case 'input':
-                this.onInput(e);
-                break;
-            case 'clearEntries':
-                this.clearEntriesFromExternal(e);
-                break;
-            case 'restoreEntries':
-                this.restoreEntries(e);
-                this.makeAvailable();
-                break;
-            case 'focusin':
-                this.onFocusIn(e);
-                break;
-            case 'focusout':
-                this.onFocusOut();
-                break;
-            case this.group + '_enableExclusive':
-                this.onEnableExclusive(e);
-                break;
-            case 'broadcastChange':
-                this.processVisibilityRulesFromExternalTrigger(e);
-                this.processCalculations(e);
-                break;
+    // Clears the value when an exclusive option is enabled.
+    private exclusiveClear(e: CustomEvent): void {
+        if (e.target === this) {
+            return;
+        }
+
+        if (this.element.value) {
+            this.element.placeholder = this.element.value;
+            this.element.value = '';
         }
     }
 
