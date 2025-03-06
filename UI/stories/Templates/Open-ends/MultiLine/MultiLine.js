@@ -18,7 +18,7 @@ export const MultiLineHtml = () => `
 
                 <div class="l-column">
                     <o-response
-                        data-questionid="_Q0"
+                        data-question-id="_Q0"
                         data-questiongroup="_QText"
                     >
                         <textarea id="_Q0" class="a-input-multilineedit"></textarea>
