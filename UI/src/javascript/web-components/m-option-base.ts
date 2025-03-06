@@ -23,7 +23,6 @@ export default class MOptionBase extends Component implements Observer {
 
     private init(): void {
         this.addLocalEventListeners();
-        this.question.addObserver(this);
     }
 
     private addLocalEventListeners(): void {
@@ -114,10 +113,10 @@ export default class MOptionBase extends Component implements Observer {
 
     // Handle (global) event listeners which are not part of this web component.
     public connectedCallback(): void {
-        // e.g. document.addEventListener('broadcastChange', ...);
+        this.question.addObserver(this);
     }
 
     public disconnectedCallback(): void {
-        // e.g. document.removeEventListener('broadcastChange', ...);
+        this.question.removeObserver(this);
     }
 }

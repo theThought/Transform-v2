@@ -16,18 +16,21 @@ export const uiInit = (): void => {
         customElements.define('wc-example', WCExample);
 
     // Survey web components.
+    !customElements.get('o-question') &&
+        customElements.define('o-question', OQuestion);
     !customElements.get('m-input-singleline') &&
         customElements.define('m-input-singleline', MInputSingleline);
     !customElements.get('m-input-singleline-number') &&
-        customElements.define('m-input-singleline-number', MInputSinglelineNumber);
+        customElements.define(
+            'm-input-singleline-number',
+            MInputSinglelineNumber,
+        );
     !customElements.get('m-option-base') &&
         customElements.define('m-option-base', MOptionBase);
     !customElements.get('o-combobox') &&
         customElements.define('o-combobox', OCombobox);
     !customElements.get('o-dropdown') &&
         customElements.define('o-dropdown', ODropdown);
-    !customElements.get('o-question') &&
-        customElements.define('o-question', OQuestion);
     !customElements.get('o-response') &&
         customElements.define('o-response', OResponse);
 };

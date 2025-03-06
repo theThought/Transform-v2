@@ -5,7 +5,6 @@
  * custom components. If you've written the same method twice ask whether
  * it belongs in this class instead of an individual component!
  */
-
 import OQuestion from './o-question';
 
 export default class Component extends HTMLElement {
@@ -42,9 +41,5 @@ export default class Component extends HTMLElement {
             detail: this,
         });
         this.dispatchEvent(broadcastChange);
-    }
-
-    protected getKeyPressed(e: KeyboardEvent): string {
-        return e.key;
     }
 }
