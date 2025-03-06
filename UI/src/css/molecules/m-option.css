@@ -1,7 +1,5 @@
 m-option-base {
     --color-checked: var(--color-secondary);
-    --box-shadow-option: var(--box-shadow);
-    --focus-outline-option: var(--border-thickness) solid transparent;
 
     position: relative;
 
@@ -21,8 +19,8 @@ m-option-base {
         z-index: -1;
 
         &:focus + label {
-            box-shadow: var(--box-shadow-option);
-            outline: var(--focus-outline-option);
+            box-shadow: var(--box-shadow);
+            outline: var(--focus-outline);
         }
     }
 

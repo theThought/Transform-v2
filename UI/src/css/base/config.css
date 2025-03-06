@@ -22,6 +22,9 @@ i.e. custom properties other than colors/fonts.
     /* Box shadows */
     --box-shadow: var(--theme-box-shadow);
 
+    /* :FOCUS state */
+    --focus-outline: var(--border-thickness) solid transparent;
+
     /* Widths */
     --input-width: 12.5rem;
 
