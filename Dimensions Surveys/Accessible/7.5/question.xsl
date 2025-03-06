@@ -56,6 +56,17 @@
         <xsl:param name="qType" />
         <xsl:param name="qGroup" />
         <xsl:element name="o-response">
+
+            <xsl:attribute name="data-question-group">
+                <xsl:value-of select="$qGroup" />  
+            </xsl:attribute>
+
+        <xsl:if test="Style/@Color">
+            <xsl:attribute name="data-properties">
+                <xsl:value-of select="Style/@Color" />
+            </xsl:attribute>
+        </xsl:if>
+
             <!--- Adds class to define below/side position -->
             <xsl:call-template name="set-data-position">
                 <xsl:with-param name="position" select="Style/@ElementAlign" />
@@ -227,11 +238,7 @@
 
             <xsl:element name="span">
                 <xsl:attribute name="class">
-                    <xsl:text>a-label</xsl:text>
-                    <xsl:if test="$subType != ''">
-                        <xsl:text>-</xsl:text>
-                        <xsl:value-of select="$subType" />
-                    </xsl:if>
+                    <xsl:text>a-label-option</xsl:text>
                 </xsl:attribute>
                 <xsl:call-template name="insert-common-labelstyle-attributes" />
             
@@ -304,12 +311,6 @@
 
     <xsl:template name="insert-common-questiontype-attributes">
         <xsl:param name="qGroup" />
-
-        <xsl:if test="Style/@Color">
-            <xsl:attribute name="data-properties">
-                <xsl:value-of select="Style/@Color" />
-            </xsl:attribute>
-        </xsl:if>
 
         <xsl:attribute name="data-question-group">
             <xsl:value-of select="$qGroup" />
