@@ -1,5 +1,9 @@
 m-option-base {
     --color-checked: var(--color-secondary);
+    --box-shadow-option: var(--box-shadow);
+    --focus-outline-option: var(--border-thickness) solid transparent;
+
+    position: relative;
 
     label {
         align-items: center;
@@ -14,6 +18,12 @@ m-option-base {
         inline-size: var(--option-icon-width);
         opacity: 0;
         position: absolute;
+        z-index: -1;
+
+        &:focus + label {
+            box-shadow: var(--box-shadow-option);
+            outline: var(--focus-outline-option);
+        }
     }
 
     &:has(:checked) .a-label-option {

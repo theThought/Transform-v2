@@ -19,16 +19,12 @@
 }
 
 .a-input-dropdown {
-    background: var(--color-primary) url('../../images/white-chevron-down.png') no-repeat right 12px center;
+    background: var(--color-primary) url('../../images/white-chevron-down.png')
+        no-repeat right 12px center;
     color: var(--color-lightest);
     padding-inline-end: calc(var(--space-4) * 3);
 
     &::placeholder {
         color: var(--color-lightest);
     }
-}
-
-input[type='radio'] {
-    left: -999px;
-    position: absolute;
 }
