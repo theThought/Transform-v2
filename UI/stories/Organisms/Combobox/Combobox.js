@@ -2,7 +2,7 @@ export const ComboboxHtml = (args) => `
 <o-combobox
     class="o-select-custom"
     data-question-id="_Q0"
-    data-questiongroup="_QCombobox"
+    data-question-group="_QCombobox"
     data-customprops='{
         "exact":${args.Exact},
         "filtertype":"${args.FilterType}"

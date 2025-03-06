@@ -19,7 +19,7 @@ export const MultiLineHtml = () => `
                 <div class="l-column">
                     <o-response
                         data-question-id="_Q0"
-                        data-questiongroup="_QText"
+                        data-question-group="_QText"
                     >
                         <textarea id="_Q0" class="a-input-multilineedit"></textarea>
 
@@ -30,7 +30,7 @@ export const MultiLineHtml = () => `
                             <m-option-base class="m-option-single-answer" data-exclusive="true">
                                 <input type="radio" id="radio1" name="radios" />
                                 <label for="radio1">
-                                    <span class="a-icon-multistate" data-icontype="single"></span>
+                                    <span class="a-icon-multistate" data-icon-type="single"></span>
                                     <span class="a-label-option">
                                         Special code 1
                                     </span>
@@ -39,7 +39,7 @@ export const MultiLineHtml = () => `
                             <m-option-base class="m-option-single-answer" data-exclusive="true">
                                 <input type="radio" id="radio2" name="radios" />
                                 <label for="radio2">
-                                    <span class="a-icon-multistate" data-icontype="single"></span>
+                                    <span class="a-icon-multistate" data-icon-type="single"></span>
                                     <span class="a-label-option">
                                         Special code 2
                                     </span>

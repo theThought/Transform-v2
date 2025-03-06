@@ -2,7 +2,7 @@ export const DropdownHtml = (args) => `
 <o-dropdown
     class="o-select-custom"
     data-question-id="_Q0"
-    data-questiongroup="_QDropdown"
+    data-question-group="_QDropdown"
     data-customprops='{
         "jumptofirstletter":${args.JumpToFirstLetter}
     }'
