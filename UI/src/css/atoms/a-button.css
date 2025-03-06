@@ -2,8 +2,10 @@
     background: var(--color-primary);
     color: var(--color-lightest);
 
-    &:hover {
+    &:hover,
+    &:focus {
         background: var(--color-primary-hover);
+        box-shadow: none;
     }
 
     &[type='submit'] {
@@ -14,7 +16,6 @@
         &:hover,
         &:focus {
             background: var(--color-lightest);
-            box-shadow: none;
             color: var(--color-secondary);
         }
     }
