@@ -14,7 +14,7 @@
 - From terminal prompt, enter `cd UI`.
 - Enter `npm run localserver-dev` to generate and copy up-to-date CSS/JavaScript.
 
-> NOTE: This command first starts the Parcel server, bundling the CSS/JavaScript. Hit `CTRL + C` to terminate Parcel server so that http-server can complete its setup.
+> NOTE: This command first starts the Parcel server, bundling the CSS/JavaScript. When Parcel has started (you'll see a "Built in..." console message), hit `CTRL-C` to terminate Parcel. This will then enable http-server to complete its setup, allowing you to view the webpage.
 
 ### Testing against minified PROD mode assets
 - Edit the file paths in `./UI/_example-pages/index.html` for CSS/JavaScript:
