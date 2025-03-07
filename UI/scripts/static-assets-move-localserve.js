@@ -24,35 +24,4 @@ const copyAssets = () => {
     }
 };
 
-const backupIndexFile = (filename) => {
-    fs.copyFile(
-        destDirectoryPath + '/' + filename,
-        destDirectoryPath + '/' + filename + '_bk',
-        (err) => {
-            if (err) {
-                console.log(colors.red.bold('Index restore problem: ' + err));
-            }
-        },
-    );
-};
-
-const restoreIndexFile = (filename) => {
-    fs.copyFile(
-        destDirectoryPath + '/' + filename + '_bk',
-        destDirectoryPath + '/' + filename,
-        (err) => {
-            if (err) {
-                console.log(colors.red.bold('Index restore problem: ' + err));
-            }
-        },
-    );
-    fs.unlink(destDirectoryPath + '/' + filename + '_bk', (err) => {
-        if (err) {
-            console.log(colors.red.bold('Backup delete problem: ' + err));
-        }
-    });
-};
-
-backupIndexFile('index.html');
 copyAssets();
-restoreIndexFile('index.html');
