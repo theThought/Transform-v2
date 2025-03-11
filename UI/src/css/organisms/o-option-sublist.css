@@ -1,9 +1,11 @@
-.o-option-sublist {
-    column-gap: 1em;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    row-gap: var(--space-1);
+o-option-sublist {
+    fieldset {
+        column-gap: 1em;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        row-gap: var(--space-1);
+    }
 
     .a-label-heading-sublist + * {
         margin-block-start: var(--space-2);
