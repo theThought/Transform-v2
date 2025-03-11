@@ -41,7 +41,7 @@ Utilities.
 /*
 ----------------------------------------------------------------------------
 Shame.
-- Until we resolve what HTML structure we use (e.g. for layout, footer, etc).
+- Temporary hacks, until we resolve what HTML structure we use (e.g. for layout, footer, etc).
 ----------------------------------------------------------------------------
 */
 @import 'shame' screen;

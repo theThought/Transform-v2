@@ -1,3 +1,10 @@
+/*
+----------------------------------------------------------------------------
+Shame.
+- Temporary hacks, until we resolve what HTML structure we use (e.g. for layout, footer, etc).
+----------------------------------------------------------------------------
+*/
+
 /* <o-question> should have 'l-stack' CSS class */
 .l-row + .l-row {
     margin-block-start: 1em;
