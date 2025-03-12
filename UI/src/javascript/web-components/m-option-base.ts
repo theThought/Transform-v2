@@ -2,18 +2,16 @@ import Component from './component';
 import { Observer } from '../interfaces';
 
 export default class MOptionBase extends Component implements Observer {
-    private readonly element: HTMLElement;
-    private readonly checkbox: HTMLInputElement;
+    private readonly element: HTMLElement | null;
+    private readonly checkbox: HTMLInputElement | null;
     private readonly isExclusive: boolean = false;
 
     constructor() {
         super();
 
-        this.element =
-            this.querySelector('label') ?? document.createElement('label');
+        this.element = this.querySelector('label');
 
-        this.checkbox =
-            this.querySelector('input') ?? document.createElement('input');
+        this.checkbox = this.querySelector('input');
 
         this.isExclusive =
             this.getAttribute('data-exclusive') === 'true' || false;
@@ -52,6 +50,8 @@ export default class MOptionBase extends Component implements Observer {
     }
 
     private changeState(check: boolean): void {
+        if (!this.checkbox) return;
+
         if (check) {
             this.checkbox.checked = true;
             this.setAttribute('data-checked', 'true');
@@ -62,6 +62,8 @@ export default class MOptionBase extends Component implements Observer {
     }
 
     private exclusiveClear(e: CustomEvent): void {
+        if (!this.checkbox) return;
+
         if (e.target === this || !this.checkbox.checked) {
             return;
         }
@@ -70,6 +72,8 @@ export default class MOptionBase extends Component implements Observer {
     }
 
     private onChange(): void {
+        if (!this.checkbox) return;
+
         if (this.isExclusive && this.checkbox.checked) {
             const exclusiveOn = new CustomEvent('exclusiveOn', {
                 bubbles: true,
@@ -82,6 +86,8 @@ export default class MOptionBase extends Component implements Observer {
         e.preventDefault();
         e.stopPropagation();
 
+        if (!this.checkbox) return;
+
         // prevent radio buttons from de-selecting
         if (this.checkbox.checked && this.checkbox.type === 'radio') {
             return;
@@ -92,6 +98,9 @@ export default class MOptionBase extends Component implements Observer {
     }
 
     private onKeydown(e: KeyboardEvent): void {
+        if (!this.checkbox) return;
+        if (!this.element) return;
+
         if (e.key === ' ' && !this.checkbox.disabled) {
             if (this.checkbox.type === 'radio') {
                 this.changeState(true);
@@ -113,10 +122,12 @@ export default class MOptionBase extends Component implements Observer {
 
     // Handle (global) event listeners which are not part of this web component.
     public connectedCallback(): void {
-        this.question.addObserver(this);
+        if (!this.response) return;
+        this.response.addObserver(this);
     }
 
     public disconnectedCallback(): void {
-        this.question.removeObserver(this);
+        if (!this.response) return;
+        this.response.removeObserver(this);
     }
 }

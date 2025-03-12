@@ -2,18 +2,17 @@ import Component from './component';
 import { Observer } from '../interfaces';
 
 export default class MInputSingleline extends Component implements Observer {
-    protected readonly element: HTMLInputElement;
-    private readonly placeholder: string;
+    protected readonly element: HTMLInputElement | null;
+    private readonly initialPlaceholder: string = '';
     private allowPaste = false;
 
     constructor() {
         super();
 
-        this.element =
-            this.querySelector('.a-input-singleline') ??
-            document.createElement('input');
+        this.element = this.querySelector('.a-input-singleline');
+        if (!this.element) return;
 
-        this.placeholder = this.element.placeholder || '';
+        this.initialPlaceholder = this.element.placeholder;
 
         this.init();
     }
@@ -47,12 +46,14 @@ export default class MInputSingleline extends Component implements Observer {
     }
 
     private onFocusIn(): void {
+        if (!this.element) return;
+
         if (
             this.element.placeholder.length &&
-            this.element.placeholder !== this.placeholder
+            this.element.placeholder !== this.initialPlaceholder
         ) {
             this.element.value = this.element.placeholder;
-            this.element.placeholder = this.placeholder;
+            this.element.placeholder = this.initialPlaceholder;
             this.broadcastChange();
         }
     }
@@ -84,6 +85,8 @@ export default class MInputSingleline extends Component implements Observer {
 
     // Clears the value when an exclusive option is enabled.
     private exclusiveClear(e: CustomEvent): void {
+        if (!this.element) return;
+
         if (e.target === this) {
             return;
         }
