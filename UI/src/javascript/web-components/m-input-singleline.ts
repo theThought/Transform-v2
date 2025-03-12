@@ -115,10 +115,12 @@ export default class MInputSingleline extends Component implements Observer {
 
     // Handle (global) event listeners which are not part of this web component.
     public connectedCallback(): void {
-        this.question.addObserver(this);
+        if (!this.response) return;
+        this.response.addObserver(this);
     }
 
     public disconnectedCallback(): void {
-        this.question.removeObserver(this);
+        if (!this.response) return;
+        this.response.removeObserver(this);
     }
 }

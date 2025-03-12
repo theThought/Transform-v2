@@ -5,12 +5,12 @@
  * custom components. If you've written the same method twice ask whether
  * it belongs in this class instead of an individual component!
  */
-import OQuestion from './o-question';
+import OResponse from './o-response';
 
 export default class Component extends HTMLElement {
     protected readonly qid: string | undefined;
     protected readonly qgroup: string | undefined;
-    protected readonly question: OQuestion;
+    protected readonly response: OResponse | null;
     protected properties: Record<string, unknown>;
 
     constructor() {
@@ -18,7 +18,7 @@ export default class Component extends HTMLElement {
 
         this.qid = this.dataset.questionId;
         this.qgroup = this.dataset.questionGroup;
-        this.question = this.closest('o-question') || new OQuestion();
+        this.response = this.closest('o-response');
 
         this.properties = {};
 
