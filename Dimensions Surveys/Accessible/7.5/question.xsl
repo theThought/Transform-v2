@@ -200,7 +200,7 @@
                     </xsl:if>
                 </xsl:attribute>
                 <xsl:call-template name="insert-common-labelstyle-attributes" />
-            
+                
                 <xsl:call-template name="insert-label-text" />      
             </xsl:element>
         </xsl:element>
@@ -240,6 +240,7 @@
                 <xsl:attribute name="class">
                     <xsl:text>a-label-option</xsl:text>
                 </xsl:attribute>
+                
                 <xsl:call-template name="insert-common-labelstyle-attributes" />
             
                 <xsl:call-template name="insert-label-text">
@@ -269,6 +270,9 @@
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:attribute>
+            <xsl:comment>
+                <xsl:text>Icon</xsl:text>
+            </xsl:comment>
         </xsl:element> 
     </xsl:template>
 
@@ -573,6 +577,7 @@
 
     <!-- Control Types -->
     <!-- ============== -->
+
     <xsl:template name="m-input-singleline-number">
         <!-- inserts a basic edit box -->
         <xsl:param name="qGroup" />
@@ -753,6 +758,7 @@
             </xsl:choose>
         </xsl:attribute>
     </xsl:template>
+
     <!-- Functions -->
     <!-- ========= -->
 
