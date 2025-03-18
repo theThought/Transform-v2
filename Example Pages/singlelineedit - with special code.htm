@@ -25,37 +25,44 @@
 		<meta name="theme-color" content="#ffffff"/>
 	</head>
 	<body>
-		<form name="mrForm" id="mrForm" action="./" method="post"><input type="hidden" name="I.Engine" value="Server"/><input type="hidden" name="I.Project" value="Accessible"/><input type="hidden" name="I.Session" value="yujf6jdomz1u4edmbra564wk6yaqaaaa"/><input type="hidden" name="I.SavePoint" value="PageSix"/><input type="hidden" name="I.Language" value="en-US"/><input type="hidden" name="I.Renderer" value="HTMLPlayer"/><header class="header">
+		<form name="mrForm" id="mrForm" action="./" method="post"><input type="hidden" name="I.Engine" value="Server"/><input type="hidden" name="I.Project" value="Accessible"/><input type="hidden" name="I.Session" value="usy2npjmv51erkku514sr136neaqaaaa"/><input type="hidden" name="I.SavePoint" value="PageSix"/><input type="hidden" name="I.Language" value="en-US"/><input type="hidden" name="I.Renderer" value="HTMLPlayer"/><header class="header">
 				<img class="site-logo" alt="Ipsos Logo" title="Ipsos Logo" src="https://cdn.ipsosinteractive.com/sandbox/kevin.gray/healthcare/staging/images/formal/ipsoslogo192.png"/>
 			</header>
 			<main class="surroundcontent">
 				<!--elementID: -->
 				<label>two single line edit (number) questions</label>
-				<o-question>
+				<div class="l-question">
 					<div class="l-cover"><!-- cover --></div>
 					<div class="l-row">
 						<div class="l-column">
 							<!-- Error -->
+						</div>
+						<div class="l-column">
+							<!-- Spacer -->
 						</div>
 					</div>
 					<div class="l-row">
 						<div class="l-column">
 							<!-- Warning -->
 						</div>
+						<div class="l-column">
+							<!-- Spacer -->
+						</div>
 					</div>
 					<div class="l-row">
 						<div class="l-column">
 							<!-- Instruction -->
 						</div>
-					</div>
-					<div class="l-row">
 						<div class="l-column">
-							<!-- Quesiton Label -->
-							<!--elementID: _Q0-->
-							<label for="_Q0" id="_Q0_label_question">provide the cost of the purchase</label>
+							<!-- Spacer -->
 						</div>
 					</div>
 					<div class="l-row">
+						<div class="l-column">
+							<!-- Question Label -->
+							<!--elementID: _Q0-->
+							<label for="_Q0" id="_Q0_label_question">provide the cost of the purchase</label>
+						</div>
 						<div class="l-column">
 							<!-- Question Controls -->
 							<o-response data-question-group="_QPageSix_QPaymentmade" data-properties="{&quot;labels&quot;:{&quot;pre&quot;:&quot;$&quot;}}" data-position="below">
@@ -73,35 +80,45 @@
 					</div>
 					<div class="l-row">
 						<div class="l-column">
-							<!-- Information -->
+							<!-- Instruction -->
+						</div>
+						<div class="l-column">
+							<!-- Spacer -->
 						</div>
 					</div>
-				</o-question>
-				<o-question>
+				</div>
+				<div class="l-question">
 					<div class="l-cover"><!-- cover --></div>
 					<div class="l-row">
 						<div class="l-column">
 							<!-- Error -->
+						</div>
+						<div class="l-column">
+							<!-- Spacer -->
 						</div>
 					</div>
 					<div class="l-row">
 						<div class="l-column">
 							<!-- Warning -->
 						</div>
+						<div class="l-column">
+							<!-- Spacer -->
+						</div>
 					</div>
 					<div class="l-row">
 						<div class="l-column">
 							<!-- Instruction -->
 						</div>
-					</div>
-					<div class="l-row">
 						<div class="l-column">
-							<!-- Quesiton Label -->
-							<!--elementID: _Q1-->
-							<label for="_Q1" id="_Q1_label_question">provide the amount of cashback requested</label>
+							<!-- Spacer -->
 						</div>
 					</div>
 					<div class="l-row">
+						<div class="l-column">
+							<!-- Question Label -->
+							<!--elementID: _Q1-->
+							<label for="_Q1" id="_Q1_label_question">provide the amount of cashback requested</label>
+						</div>
 						<div class="l-column">
 							<!-- Question Controls -->
 							<o-response data-question-group="_QPageSix_Qcashback" data-properties="{&quot;labels&quot;:{&quot;pre&quot;:&quot;$&quot;}}" data-position="below">
@@ -135,22 +152,23 @@
 					</div>
 					<div class="l-row">
 						<div class="l-column">
-							<!-- Information -->
+							<!-- Instruction -->
+						</div>
+						<div class="l-column">
+							<!-- Spacer -->
 						</div>
 					</div>
-				</o-question>
+				</div>
 			</main>
 			<footer class="footer">
-				<div id="nav-controls" class="btn-container nav-center">
-					<div id="nextonly">
-						<input type="submit" name="_NNext" class="a-button-next" style="" value="Next"></input>
-					</div>
-					<div id="prevstop">
+				<div class="m-button-group">
+					<input type="submit" name="_NNext" class="a-button-next" style="" value="Next"></input>
+					<div class="m-button-group">
 						<input type="submit" name="_NPrev" class="a-button-prev" style="" value="Previous"></input>
 						<input tabindex="-1" type="submit" name="_NStop" class="a-button-stop" style="" value="Stop"></input>
 					</div>
 				</div>
-				<div class="page-links"><a href="#">Privacy Policy</a><a href="#">Terms and Conditions</a><a href="#">Unsubscribe</a></div>
+				<nav class="m-page-links" aria-lable="Links to supporting documents"><a href="#">Privacy Policy</a><a href="#">Terms and Conditions</a><a href="#">Unsubscribe</a></nav>
 			</footer>
 		</form><!-- The following script causes the page to be automatically reloaded if it changes in Professional.  This can be removed by disabling the "External browser automatic page update" setting. -->
 		<script type="text/javascript" src="SharedResources/javascript/auto-page-update/auto-page-update.js" defer="true"></script>
