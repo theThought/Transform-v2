@@ -16,7 +16,7 @@ ${style}
 
     <main class="surroundcontent">
 
-        <div class="l-question l-stack">
+        <o-question class="l-stack">
             <div class="l-row">
                 <div class="l-column">
                     <div>QUESTION GOES HERE...</div>
@@ -31,7 +31,7 @@ ${style}
                 </div>
             </div>
 
-        </div>
+        </o-question>
 
     </main>
 

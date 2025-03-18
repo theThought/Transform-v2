@@ -7,6 +7,7 @@ import MInputSinglelineNumber from './web-components/m-input-singleline-number';
 import MOptionBase from './web-components/m-option-base';
 import OCombobox from './web-components/o-combobox';
 import ODropdown from './web-components/o-dropdown';
+import OQuestion from './web-components/o-question';
 import OResponse from './web-components/o-response';
 
 export const uiInit = (): void => {
@@ -21,6 +22,8 @@ export const uiInit = (): void => {
     // which belongs to a question and may require the question to be present.
 
     // Outer containers.
+    !customElements.get('o-question') &&
+        customElements.define('o-question', OQuestion);
     !customElements.get('o-response') &&
         customElements.define('o-response', OResponse);
 
