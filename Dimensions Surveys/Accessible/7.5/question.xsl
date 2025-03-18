@@ -762,7 +762,7 @@
                                 <xsl:call-template name='m-option-base'>
                                     <xsl:with-param name="qType" select="$qType" />
                                     <xsl:with-param name="qGroup" select="$qGroup" />
-                                </xsl:call-template>                    
+                                </xsl:call-template>
                             </xsl:for-each>
                     </xsl:element>
                 </xsl:when>
