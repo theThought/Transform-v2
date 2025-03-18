@@ -8,7 +8,7 @@ ${htmlFragmentCustomProperties}
 
 <main class="surroundcontent">
 
-        <o-question class="l-stack">
+        <div class="l-question l-stack">
             <div class="l-cover"><!-- cover --></div>
 
             ${htmlFragmentMessageError}
@@ -44,7 +44,7 @@ ${htmlFragmentCustomProperties}
                     </div>
                 </div>
             </div>
-        </o-question>
+        </div>
 
 </main>
 `;

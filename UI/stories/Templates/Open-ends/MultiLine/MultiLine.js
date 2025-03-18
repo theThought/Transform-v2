@@ -6,7 +6,7 @@ import {
 export const MultiLineHtml = () => `
 <main class="surroundcontent">
 
-        <o-question class="l-stack">
+        <div class="l-question l-stack">
             <div class="l-cover"><!-- cover --></div>
 
             ${htmlFragmentMessageError}
@@ -51,7 +51,7 @@ export const MultiLineHtml = () => `
 
 
             ${htmlFragmentMessageInformation}
-        </o-question>
+        </div>
 
 </main>
 `;

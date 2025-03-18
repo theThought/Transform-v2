@@ -1,11 +1,10 @@
 import {
-    htmlFragmentCustomProperties,
     htmlFragmentMessageError,
     htmlFragmentMessageInformation,
 } from '../../_htmlFragments';
 
-export const OQuestionHtml = () => `
-<o-question class="l-stack">
+export const QuestionHtml = () => `
+<div class="l-question l-stack">
     <div class="l-cover"><!-- cover --></div>
 
     ${htmlFragmentMessageError}
@@ -24,5 +23,5 @@ export const OQuestionHtml = () => `
 
     ${htmlFragmentMessageInformation}
 
-</o-question>
+</div>
 `;

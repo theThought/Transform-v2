@@ -9,7 +9,7 @@ ${htmlFragmentCustomProperties}
 
 <main class="surroundcontent">
 
-        <o-question class="l-stack">
+        <div class="l-question l-stack">
             <div class="l-cover"><!-- cover --></div>
 
             ${htmlFragmentMessageError}
@@ -47,7 +47,7 @@ ${htmlFragmentCustomProperties}
             </div>
 
             ${htmlFragmentMessageInformation}
-        </o-question>
+        </div>
 
 </main>
 `;
@@ -55,7 +55,7 @@ ${htmlFragmentCustomProperties}
 export const SingleLineSpecialCodesHtml = () => `
 <main class="surroundcontent">
 
-        <o-question class="l-stack">
+        <div class="l-question l-stack">
             <div class="l-cover"><!-- cover --></div>
 
             ${htmlFragmentMessageError}
@@ -108,7 +108,7 @@ export const SingleLineSpecialCodesHtml = () => `
             </div>
 
             ${htmlFragmentMessageInformation}
-        </o-question>
+        </div>
 
 </main>
 `;
