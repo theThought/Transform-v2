@@ -16,8 +16,4 @@
     border: var(--border-thickness) solid var(--color-border);
     cursor: default;
     padding: var(--space-2) var(--space-4);
-
-    &:empty {
-        display: none;
-    }
 }
