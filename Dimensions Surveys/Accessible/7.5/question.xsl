@@ -737,10 +737,13 @@
         <xsl:element name="o-option-sublist">
             <xsl:attribute name='aria-describedby'>
                 <xsl:value-of select="$questionId" />
+                <xsl:text>_label_question</xsl:text>
             </xsl:attribute>
 
             <xsl:choose>
                 <xsl:when test="$optionCount &gt; 0 and $optionCount &lt; 2">
+                    <xsl:attribute name="role"><xsl:text>Group</xsl:text></xsl:attribute>
+                    
                     <xsl:for-each select="Control[not(@Type='SingleLineEdit')]">
                         <xsl:call-template name='m-option-base'>
                             <xsl:with-param name="qType" select="$qType" />
