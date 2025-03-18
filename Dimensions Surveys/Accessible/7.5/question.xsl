@@ -539,6 +539,10 @@
         <xsl:param name="qGroup" />
         <xsl:param name="Hidden" />
 
+        <xsl:variable name="questionId">
+            <xsl:value-of select="Control[@Type='SingleLineEdit'][1]/@ElementID" />
+        </xsl:variable>
+
         <xsl:for-each select="Control[@Type='SingleLineEdit']">
             <xsl:call-template name='m-input-singleline-number'>
                 <xsl:with-param name="qGroup">
@@ -547,10 +551,16 @@
             </xsl:call-template>
         </xsl:for-each>
 
-        <xsl:if test="count(Control[not(@Type='SingleLineEdit')]) > 0">
+        <xsl:variable name="optionCount">
+            <xsl:value-of select="count(Control[not(@Type='SingleLineEdit')])" />
+        </xsl:variable>
+
+        <xsl:if test="$optionCount > 0">
             <xsl:call-template name="o-option-sublist">
                 <xsl:with-param name="qType" select="$qType" />
                 <xsl:with-param name="qGroup" select="$qGroup" />
+                <xsl:with-param name="questionId" select="$questionId" />
+                <xsl:with-param name="optionCount" select="$optionCount" />
             </xsl:call-template>
         </xsl:if>
 
@@ -721,23 +731,48 @@
     <xsl:template name="o-option-sublist">
         <xsl:param name="qType" />
         <xsl:param name="qGroup" />
-        <xsl:element name="o-option-sublist">
-            <xsl:element name="fieldset">
-                <xsl:element name="legend">
-                    <xsl:call-template name="insert-label">
-                        <xsl:with-param name="subType" select="heading-sublist" />
-                    </xsl:call-template>
+        <xsl:param name="questionId" />
+        <xsl:param name="optionCount" />
+
+        <xsl:choose>
+            <xsl:when test="$optionCount &gt; 0 and $optionCount &lt; 2">
+                <xsl:element name="div">
+                    <xsl:attribute name="aria-describedby">
+                        <xsl:value-of select="$questionId" />
+                    </xsl:attribute>
+                    
+                    <xsl:for-each select="Control[not(@Type='SingleLineEdit')]">
+                        <xsl:call-template name='m-option-base'>
+                            <xsl:with-param name="qType" select="$qType" />
+                            <xsl:with-param name="qGroup" select="$qGroup" />
+                        </xsl:call-template>                    
+                    </xsl:for-each>
                 </xsl:element>
+            </xsl:when>
+            <xsl:when test="$optionCount > 1">
+                <xsl:element name="o-option-sublist">
+                    <xsl:attribute name='aria-describedby'>
+                        <xsl:value-of select="$questionId" />
+                    </xsl:attribute>
 
-                <xsl:for-each select="Control[not(@Type='SingleLineEdit')]">
-                    <xsl:call-template name='m-option-base'>
-                        <xsl:with-param name="qType" select="$qType" />
-                        <xsl:with-param name="qGroup" select="$qGroup" />
-                    </xsl:call-template>                    
-                </xsl:for-each>
+                    <!--
+                    Don't think this is required as legends in complex option lists are built in a different way
+                        <xsl:element name="legend">
+                            <xsl:call-template name="insert-label">
+                                <xsl:with-param name="subType" select="heading-sublist" />
+                            </xsl:call-template>
+                        </xsl:element>
+                    -->
+                        <xsl:for-each select="Control[not(@Type='SingleLineEdit')]">
+                            <xsl:call-template name='m-option-base'>
+                                <xsl:with-param name="qType" select="$qType" />
+                                <xsl:with-param name="qGroup" select="$qGroup" />
+                            </xsl:call-template>                    
+                        </xsl:for-each>
+                </xsl:element>
+            </xsl:when>
+        </xsl:choose>
 
-            </xsl:element>
-        </xsl:element>
     </xsl:template>
 
     <!-- Common Attributes -->
