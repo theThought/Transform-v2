@@ -66,8 +66,8 @@
 						</div>
 						<div class="l-column">
 							<!-- Question Controls -->
-							<o-response data-question-group="_QPageSix_QPaymentmade" data-position="below">
-								<m-input-singleline-number data-question-group="_QPageSix_QPaymentmade" data-question-id="_Q0" data-properties="{&quot;labels&quot;:{&quot;pre&quot;:&quot;$&quot;}}">
+							<o-response data-question-group="_QPageSix_QPaymentmade" data-properties="{&quot;labels&quot;:{&quot;pre&quot;:&quot;$&quot;}}" data-position="below">
+								<m-input-singleline-number data-question-group="_QPageSix_QPaymentmade" data-question-id="_Q0">
 									<span class="a-label-pre">
 										<!--pre label-->
 									</span>
@@ -122,8 +122,8 @@
 						</div>
 						<div class="l-column">
 							<!-- Question Controls -->
-							<o-response data-question-group="_QPageSix_Qcashback" data-position="below">
-								<m-input-singleline-number data-question-group="_QPageSix_Qcashback" data-question-id="_Q1" data-properties="{&quot;labels&quot;:{&quot;pre&quot;:&quot;$&quot;}}">
+							<o-response data-question-group="_QPageSix_Qcashback" data-properties="{&quot;labels&quot;:{&quot;pre&quot;:&quot;$&quot;}}" data-position="below">
+								<m-input-singleline-number data-question-group="_QPageSix_Qcashback" data-question-id="_Q1">
 									<span class="a-label-pre">
 										<!--pre label-->
 									</span>
@@ -132,24 +132,17 @@
 										<!--post label-->
 									</span>
 								</m-input-singleline-number>
-								<o-option-sublist>
-									<fieldset>
-										<legend>
-											<label for="">
-												<span class="a-label"></span>
-											</label>
-										</legend>
-										<m-option-base data-exclusive="true" data-question-id="_Q1_X0" data-question-group="_QPageSix_Qcashback" class=" below " data-hidden="false" data-position="below">
-											<input data-question-group="_QPageSix_Qcashback" name="_QPageSix_Qcashback_X" id="_Q1_X0" type="radio"/>
-											<label for="_Q1_X0">
-												<span class="a-icon-multistate" data-icon-type="radio">
-													<!--Icon-->
-												</span>
-												<span class="a-label-option">I did not request cashback</span>
-											</label>
-										</m-option-base>
-									</fieldset>
-								</o-option-sublist>
+								<div aria-describedby="_Q1">
+									<m-option-base data-exclusive="true" data-question-id="_Q1_X0" data-question-group="_QPageSix_Qcashback" class=" below " data-hidden="false" data-position="below">
+										<input data-question-group="_QPageSix_Qcashback" name="_QPageSix_Qcashback_X" id="_Q1_X0" type="radio"/>
+										<label for="_Q1_X0">
+											<span class="a-icon-multistate" data-icon-type="radio">
+												<!--Icon-->
+											</span>
+											<span class="a-label-option">I did not request cashback</span>
+										</label>
+									</m-option-base>
+								</div>
 							</o-response>
 						</div>
 					</div>
@@ -171,7 +164,7 @@
 						<input tabindex="-1" type="submit" name="_NStop" class="a-button-stop" style="" value="Stop"></input>
 					</div>
 				</div>
-				<nav class="m-page-links" aria-lable="Links to supporting documents"><a href="#">Privacy Policy</a><a href="#">Terms and Conditions</a><a href="#">Unsubscribe</a></nav>
+				<nav class="m-page-links" aria-label="Links to supporting documents"><a href="#">Privacy Policy</a><a href="#">Terms and Conditions</a><a href="#">Unsubscribe</a></nav>
 			</footer>
 		</form><!-- The following script causes the page to be automatically reloaded if it changes in Professional.  This can be removed by disabling the "External browser automatic page update" setting. -->
 <script defer type="module" src="index.js"></script>
