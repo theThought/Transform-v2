@@ -37,11 +37,3 @@ Utilities.
 ----------------------------------------------------------------------------
 */
 @import 'utilities/index' screen;
-
-/*
-----------------------------------------------------------------------------
-Shame.
-- Temporary hacks, until we resolve what HTML structure we use (e.g. for layout, footer, etc).
-----------------------------------------------------------------------------
-*/
-@import 'shame' screen;
