@@ -1,4 +1,7 @@
 .footer {
+    border-block-start: var(--border-thickness) solid var(--color-border);
+    padding-block-start: var(--space-4);
+
     > .m-button-group {
         flex-direction: row-reverse;
 

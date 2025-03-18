@@ -57,7 +57,7 @@ Page.
 */
 form {
     display: grid;
-    gap: var(--space-4);
+    gap: 0;
     grid-template-areas:
         'header'
         'main'

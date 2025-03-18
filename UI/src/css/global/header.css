@@ -1,6 +1,8 @@
 .header {
     align-items: end;
+    border-block-end: var(--border-thickness) solid var(--color-border);
     display: flex;
+    padding-block-end: var(--space-4);
 
     img {
         inline-size: 75px;
