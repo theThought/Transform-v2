@@ -6,10 +6,14 @@ import {
 export const MultiLineHtml = () => `
 <main class="surroundcontent">
 
-    <o-question class="l-stack">
+    <o-question>
         <div class="l-cover"><!-- cover --></div>
 
-        ${htmlFragmentMessageError}
+        <div class="l-row">
+            <div class="l-column">
+                ${htmlFragmentMessageError}
+            </div>
+        </div>
 
         <div class="l-row">
             <div class="l-column">
@@ -23,7 +27,7 @@ export const MultiLineHtml = () => `
                 >
                     <textarea id="_Q0" class="a-input-multilineedit"></textarea>
 
-                    <o-option-sublist  role="group" aria-describedby="question-id">
+                    <o-option-sublist role="group" aria-describedby="question-id">
                         <m-option-base class="m-option-single-answer" data-exclusive="true">
                             <input type="radio" id="radio1" name="radios" />
                             <label for="radio1">
@@ -47,8 +51,12 @@ export const MultiLineHtml = () => `
             </div>
         </div>
 
+        <div class="l-row">
+            <div class="l-column">
+                ${htmlFragmentMessageInformation}
+            </div>
+        </div>
 
-        ${htmlFragmentMessageInformation}
     </o-question>
 
 </main>

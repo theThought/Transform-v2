@@ -4,10 +4,14 @@ import {
 } from '../../_htmlFragments';
 
 export const OQuestionHtml = () => `
-<o-question class="l-stack">
+<o-question>
     <div class="l-cover"><!-- cover --></div>
 
-    ${htmlFragmentMessageError}
+    <div class="l-row">
+        <div class="l-column">
+            ${htmlFragmentMessageError}
+        </div>
+    </div>
 
     <div class="l-row">
         <div class="l-column">
@@ -22,7 +26,11 @@ export const OQuestionHtml = () => `
         </div>
     </div>
 
-    ${htmlFragmentMessageInformation}
+    <div class="l-row">
+        <div class="l-column">
+            ${htmlFragmentMessageInformation}
+        </div>
+    </div>
 
 </o-question>
 `;

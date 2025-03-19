@@ -1,24 +1,5 @@
 /*
 ----------------------------------------------------------------------------
-Stack.
-
-See https://every-layout.dev/layouts/stack/.
-----------------------------------------------------------------------------
-*/
-.l-stack {
-    --stack-gutter: 1em;
-
-    > * + * {
-        margin-block-start: var(--stack-gutter);
-    }
-
-    > * {
-        margin-block-end: 0;
-    }
-}
-
-/*
-----------------------------------------------------------------------------
 Row.
 
 Based on https://every-layout.dev/layouts/sidebar/.

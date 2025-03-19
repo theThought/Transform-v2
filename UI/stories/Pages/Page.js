@@ -16,7 +16,7 @@ ${style}
 
     <main class="surroundcontent">
 
-        <o-question class="l-stack">
+        <o-question>
             <div class="l-row">
                 <div class="l-column">
                     <div>QUESTION GOES HERE...</div>
@@ -36,7 +36,7 @@ ${style}
 
     </main>
 
-    <footer class="footer l-stack">
+    <footer class="footer">
         <div class="m-button-group">
             <input type="submit" class="a-button-next" value="Next" />
             <div class="m-button-group">

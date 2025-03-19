@@ -8,7 +8,7 @@
     overflow-block: auto;
     padding: var(--space-3) var(--space-4);
 
-    &.l-stack {
-        --stack-gutter: 0.5em;
+    > * + * {
+        margin-block-start: 1em;
     }
 }

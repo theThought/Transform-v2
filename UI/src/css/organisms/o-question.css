@@ -2,6 +2,10 @@ o-question {
     display: block;
     padding: var(--space-4);
 
+    > * + * {
+        margin-block-start: 1em;
+    }
+
     &:has(o-response:focus-within) {
         background: var(--color-white);
         box-shadow: var(--box-shadow);
