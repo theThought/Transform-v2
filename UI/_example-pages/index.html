@@ -132,7 +132,7 @@
 										<!--post label-->
 									</span>
 								</m-input-singleline-number>
-								<div aria-describedby="_Q1">
+								<o-option-sublist aria-describedby="_Q1_label_question" role="Group">
 									<m-option-base data-exclusive="true" data-question-id="_Q1_X0" data-question-group="_QPageSix_Qcashback" class=" below " data-hidden="false" data-position="below">
 										<input data-question-group="_QPageSix_Qcashback" name="_QPageSix_Qcashback_X" id="_Q1_X0" type="radio"/>
 										<label for="_Q1_X0">
@@ -142,7 +142,94 @@
 											<span class="a-label-option">I did not request cashback</span>
 										</label>
 									</m-option-base>
-								</div>
+								</o-option-sublist>
+							</o-response>
+						</div>
+					</div>
+					<div class="l-row">
+						<div class="l-column">
+							<!-- Instruction -->
+						</div>
+						<div class="l-column">
+							<!-- Spacer -->
+						</div>
+					</div>
+				</o-question>
+				<o-question>
+					<div class="l-cover"><!-- cover --></div>
+					<div class="l-row">
+						<div class="l-column">
+							<!-- Error -->
+						</div>
+						<div class="l-column">
+							<!-- Spacer -->
+						</div>
+					</div>
+					<div class="l-row">
+						<div class="l-column">
+							<!-- Warning -->
+						</div>
+						<div class="l-column">
+							<!-- Spacer -->
+						</div>
+					</div>
+					<div class="l-row">
+						<div class="l-column">
+							<!-- Instruction -->
+						</div>
+						<div class="l-column">
+							<!-- Spacer -->
+						</div>
+					</div>
+					<div class="l-row">
+						<div class="l-column">
+							<!-- Question Label -->
+							<!--elementID: _Q2-->
+							<label for="_Q2" id="_Q2_label_question">Indicate the amount of tip (gratuity) you gave the waiter</label>
+						</div>
+						<div class="l-column">
+							<!-- Question Controls -->
+							<o-response data-question-group="_QPageSix_QTipGiven" data-position="below">
+								<m-input-singleline-number data-question-group="_QPageSix_QTipGiven" data-question-id="_Q2">
+									<span class="a-label-pre">
+										<!--pre label-->
+									</span>
+									<input data-question-group="_QPageSix_QTipGiven" name="_QPageSix_QTipGiven" value="" id="_Q2" type="number" class="a-input-singleline" min="1" max="9999" maxlength="4"/>
+									<span class="a-label-post">
+										<!--post label-->
+									</span>
+								</m-input-singleline-number>
+								<o-option-sublist aria-describedby="_Q2_label_question">
+									<fieldset>
+										<m-option-base data-exclusive="true" data-question-id="_Q2_X0" data-question-group="_QPageSix_QTipGiven" class=" below " data-hidden="false" data-position="below">
+											<input data-question-group="_QPageSix_QTipGiven" name="_QPageSix_QTipGiven_X" id="_Q2_X0" type="radio"/>
+											<label for="_Q2_X0">
+												<span class="a-icon-multistate" data-icon-type="radio">
+													<!--Icon-->
+												</span>
+												<span class="a-label-option">I did not give a tip</span>
+											</label>
+										</m-option-base>
+										<m-option-base data-exclusive="true" data-question-id="_Q2_X1" data-question-group="_QPageSix_QTipGiven" class=" below " data-hidden="false" data-position="below">
+											<input data-question-group="_QPageSix_QTipGiven" name="_QPageSix_QTipGiven_X" id="_Q2_X1" type="radio"/>
+											<label for="_Q2_X1">
+												<span class="a-icon-multistate" data-icon-type="radio">
+													<!--Icon-->
+												</span>
+												<span class="a-label-option">A gratuity was included</span>
+											</label>
+										</m-option-base>
+										<m-option-base data-exclusive="true" data-question-id="_Q2_X2" data-question-group="_QPageSix_QTipGiven" class=" below " data-hidden="false" data-position="below">
+											<input data-question-group="_QPageSix_QTipGiven" name="_QPageSix_QTipGiven_X" id="_Q2_X2" type="radio"/>
+											<label for="_Q2_X2">
+												<span class="a-icon-multistate" data-icon-type="radio">
+													<!--Icon-->
+												</span>
+												<span class="a-label-option">I cannot remember</span>
+											</label>
+										</m-option-base>
+									</fieldset>
+								</o-option-sublist>
 							</o-response>
 						</div>
 					</div>
@@ -156,7 +243,7 @@
 					</div>
 				</o-question>
 			</main>
-			<footer class="footer l-stack">
+			<footer class="footer">
 				<div class="m-button-group">
 					<input type="submit" name="_NNext" class="a-button-next" style="" value="Next"></input>
 					<div class="m-button-group">
