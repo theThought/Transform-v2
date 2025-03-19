@@ -25,7 +25,8 @@ ${style}
                 <div class="l-column">
                     <o-response>
                         <div>
-                            FORM CONTROL(S) GO HERE...
+                            FORM CONTROL(S) GO HERE... e.g.<br>
+                            <input type="text" />
                         </div>
                     </o-response>
                 </div>

@@ -16,7 +16,8 @@ export const OQuestionHtml = () => `
 
         <div class="l-column">
             <o-response>
-                FORM CONTROL(S) GO HERE...
+                FORM CONTROL(S) GO HERE... e.g.<br>
+                <input type="text" />
             </o-response>
         </div>
     </div>
