@@ -735,43 +735,19 @@
         <xsl:param name="optionCount" />
 
         <xsl:element name="o-option-sublist">
-            <xsl:attribute name="role"><xsl:text>Group</xsl:text></xsl:attribute>
-            
+            <xsl:attribute name="role"><xsl:text>group</xsl:text></xsl:attribute>
+
             <xsl:attribute name='aria-describedby'>
                 <xsl:value-of select="$questionId" />
                 <xsl:text>_label_question</xsl:text>
             </xsl:attribute>
 
-            <xsl:choose>
-                <xsl:when test="$optionCount &gt; 0 and $optionCount &lt; 2">
-
-                    
-                    <xsl:for-each select="Control[not(@Type='SingleLineEdit')]">
-                        <xsl:call-template name='m-option-base'>
-                            <xsl:with-param name="qType" select="$qType" />
-                            <xsl:with-param name="qGroup" select="$qGroup" />
-                        </xsl:call-template>
-                    </xsl:for-each>
-                </xsl:when>
-                <xsl:when test="$optionCount > 1">
-                    <xsl:element name="fieldset">
-                        <!--
-                        Don't think this is required as legends in complex option lists are built in a different way
-                            <xsl:element name="legend">
-                                <xsl:call-template name="insert-label">
-                                    <xsl:with-param name="subType" select="heading-sublist" />
-                                </xsl:call-template>
-                            </xsl:element>
-                        -->
-                            <xsl:for-each select="Control[not(@Type='SingleLineEdit')]">
-                                <xsl:call-template name='m-option-base'>
-                                    <xsl:with-param name="qType" select="$qType" />
-                                    <xsl:with-param name="qGroup" select="$qGroup" />
-                                </xsl:call-template>
-                            </xsl:for-each>
-                    </xsl:element>
-                </xsl:when>
-            </xsl:choose>
+            <xsl:for-each select="Control[not(@Type='SingleLineEdit')]">
+                <xsl:call-template name='m-option-base'>
+                    <xsl:with-param name="qType" select="$qType" />
+                    <xsl:with-param name="qGroup" select="$qGroup" />
+                </xsl:call-template>
+            </xsl:for-each>
         </xsl:element>  
     </xsl:template>
 
