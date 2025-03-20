@@ -18,21 +18,31 @@ export default class Component extends HTMLElement {
 
         this.qid = this.dataset.questionId;
         this.qgroup = this.dataset.questionGroup;
-        this.response = this.closest('o-response');
-
+        if (this.parentElement) {
+            this.response = this.parentElement.closest('o-response');
+        } else {
+            this.response = null;
+        }
         this.properties = {};
 
         this.parseProperties();
     }
 
-    private parseProperties(): void {
-        const properties = this.dataset.properties;
+    protected parseProperties(): void {
+        const properties = this.dataset.properties ?? '{}';
+        const propertiesAsJson: Record<string, unknown> = JSON.parse(
+            properties.toString(),
+        );
 
-        if (!properties) {
-            return;
+        if (this.response) {
+            Object.assign(
+                this.properties,
+                this.response.properties,
+                propertiesAsJson,
+            );
+        } else {
+            this.properties = propertiesAsJson;
         }
-
-        this.properties = JSON.parse(properties.toString());
     }
 
     protected broadcastChange(): void {

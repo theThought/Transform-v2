@@ -1,9 +1,7 @@
 import { Subject, Observer } from '../interfaces';
+import Component from './component';
 
-export default class OResponse
-    extends HTMLElement
-    implements Subject, Observer
-{
+export default class OResponse extends Component implements Subject, Observer {
     private observers: Observer[] = [];
 
     constructor() {
