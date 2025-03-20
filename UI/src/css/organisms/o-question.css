@@ -1,6 +1,11 @@
 o-question {
+    border-block-end: var(--border-thickness) solid var(--color-light2);
     display: block;
     padding: var(--space-4);
+
+    &:last-child {
+        border: 0;
+    }
 
     > * + * {
         margin-block-start: 1em;
