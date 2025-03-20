@@ -1,4 +1,5 @@
 import Component from './component';
+import { removeHTMLWhitespace } from './util';
 import { Observer } from '../interfaces';
 
 export default class MInputSingleline extends Component implements Observer {
@@ -60,6 +61,14 @@ export default class MInputSingleline extends Component implements Observer {
 
     // Set pre-/post-labels.
     private setLabels(): void {
+        const elemPre = this.querySelector('.a-label-pre');
+        const elemPost = this.querySelector('.a-label-post');
+
+        if (elemPre && elemPost) {
+            elemPre.innerHTML = removeHTMLWhitespace(elemPre.innerHTML);
+            elemPost.innerHTML = removeHTMLWhitespace(elemPost.innerHTML);
+        }
+
         if (!this.properties.hasOwnProperty('labels')) {
             return;
         }
@@ -68,14 +77,12 @@ export default class MInputSingleline extends Component implements Observer {
 
         for (const [key, value] of Object.entries(labels)) {
             if (key === 'pre' && value) {
-                const elemPre = this.querySelector('.a-label-pre');
                 if (elemPre) {
                     elemPre.textContent = value as string;
                 }
             }
 
             if (key === 'post' && value) {
-                const elemPost = this.querySelector('.a-label-post');
                 if (elemPost) {
                     elemPost.textContent = value as string;
                 }
