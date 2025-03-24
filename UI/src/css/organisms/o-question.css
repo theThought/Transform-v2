@@ -13,6 +13,7 @@ o-question {
 
     &:has(o-response:focus-within) {
         background: var(--color-white);
+        border-block-end: 0;
         box-shadow: var(--box-shadow);
     }
 }

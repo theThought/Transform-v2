@@ -19,14 +19,60 @@ ${style}
         <o-question>
             <div class="l-row">
                 <div class="l-column">
-                    <div>QUESTION GOES HERE...</div>
+                    <div>
+                        <label for="_Q0" id="_Q0_label" class="a-label-question">
+                            Q0 - using a <code>&lt;label&gt;</code> - with additional <code>id</code> for use with <code>ARIA</code>.
+                        </label>
+                    </div>
                 </div>
 
                 <div class="l-column">
                     <o-response>
                         <div>
-                            FORM CONTROL(S) GO HERE... e.g.<br>
-                            <input type="text" />
+                            <m-input-singleline
+                                data-question-id="_Q0"
+                                data-question-group="_Q0_Text"
+                            >
+                                <span class="a-label-pre"></span>
+                                <input
+                                    type="text"
+                                    id="_Q0"
+                                    class="a-input-singleline"
+                                />
+                                <span class="a-label-post"></span>
+                            </m-input-singleline>
+                        </div>
+                    </o-response>
+                </div>
+            </div>
+
+        </o-question>
+
+        <o-question>
+            <div class="l-row">
+                <div class="l-column">
+                    <div>
+                        <label for="_Q1" id="_Q1_label" class="a-label-question">
+                            Q1 - using a <code>&lt;label&gt;</code> - with additional <code>id</code> for use with <code>ARIA</code>.
+                        </label>
+                    </div>
+                </div>
+
+                <div class="l-column">
+                    <o-response>
+                        <div>
+                            <m-input-singleline
+                                data-question-id="_Q1"
+                                data-question-group="_Q1_Text"
+                            >
+                                <span class="a-label-pre"></span>
+                                <input
+                                    type="text"
+                                    id="_Q1"
+                                    class="a-input-singleline"
+                                />
+                                <span class="a-label-post"></span>
+                            </m-input-singleline>
                         </div>
                     </o-response>
                 </div>

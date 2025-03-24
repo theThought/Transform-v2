@@ -2,7 +2,7 @@ export const MInputSinglelineHtml = (args) => `
 <m-input-singleline
     data-question-id="_Q0"
     data-question-group="_QText"
-    ='{
+    data-properties='{
         "labels":{
             "pre":"${args.PreLabel}",
             "post":"${args.PostLabel}"

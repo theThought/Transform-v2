@@ -58,6 +58,5 @@
     --theme-space-4: 1rem;
 
     /* Box shadows */
-    --theme-box-shadow: 0 11px 11px -9px rgb(0 0 0 / 25%),
-        0 -11px 11px -9px rgb(49 46 46 / 25%);
+    --theme-box-shadow: 0 0 11px 4px rgb(0 0 0 / 25%);
 }
