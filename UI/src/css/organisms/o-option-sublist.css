@@ -10,6 +10,13 @@ o-option-sublist {
     }
 }
 
+/* Special codes can follow many different question type controls, inside <o-response>. */
+o-response {
+    > * + o-option-sublist {
+        margin-block-start: var(--space-2);
+    }
+}
+
 /*
     TODO:
     1. "balance" and "onesize".
