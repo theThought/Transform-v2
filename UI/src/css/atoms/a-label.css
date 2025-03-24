@@ -14,6 +14,7 @@
 
 :is(.a-label-pre, .a-label-post) {
     border: var(--border-thickness) solid var(--color-border);
+    color: var(--color-dark2);
     cursor: default;
     padding: var(--space-2) var(--space-4);
 
