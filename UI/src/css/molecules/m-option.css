@@ -3,10 +3,10 @@ m-option-base {
 
     position: relative;
 
+    /* Not using flex-gap for layout as it doesn't match designs. Use padding on a-label-option to nudge it away from input. */
     label {
         align-items: center;
         display: inline-flex;
-        gap: calc(var(--space-1) * 1.5);
         padding-block: calc(var(--space-1) / 2);
     }
 
