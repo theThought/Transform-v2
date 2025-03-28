@@ -29,6 +29,16 @@ Based on https://every-layout.dev/layouts/sidebar/.
         flex-grow: 999;
         min-inline-size: var(--column2-min-width);
     }
+
+    &:empty {
+        display: none;
+    }
+}
+
+.l-column {
+    &:empty {
+        display: none;
+    }
 }
 
 /*
