@@ -1,6 +1,6 @@
 import {
-    AInputSinglelineHtml,
-    InputMultilineHtml
+    ASinglelineHtml,
+    AMultilineHtml
 } from './Input';
 
 export default {
@@ -10,12 +10,12 @@ export default {
     },
 };
 
-export const AInputSingleline = {
-    render: () => AInputSinglelineHtml(),
+export const ASingleline = {
+    render: () => ASinglelineHtml(),
 };
-AInputSingleline.storyName = 'a-input-singleline';
+ASingleline.storyName = 'a-singleline';
 
-export const InputMultiline = {
-    render: () => InputMultilineHtml(),
+export const AMultiline = {
+    render: () => AMultilineHtml(),
 };
-InputMultiline.storyName = 'a-input-multiline';
+AMultiline.storyName = 'a-multiline';
