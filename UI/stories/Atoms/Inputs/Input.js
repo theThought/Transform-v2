@@ -1,7 +1,7 @@
-export const AInputSinglelineHtml = () => `
-<input type="text" id="q-text" class="a-input-singleline" />
+export const ASinglelineHtml = () => `
+<input type="text" id="q-text" class="a-singleline" />
 `;
 
-export const InputMultilineHtml = () => `
-<textarea id="q-text" class="a-input-multiline"></textarea>
+export const AMultilineHtml = () => `
+<textarea id="q-text" class="a-multiline"></textarea>
 `;
