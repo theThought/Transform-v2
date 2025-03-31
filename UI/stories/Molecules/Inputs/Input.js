@@ -1,4 +1,4 @@
-export const MInputSinglelineHtml = (args) => `
+export const MSinglelineHtml = (args) => `
 <m-input-singleline
     data-question-id="_Q0"
     data-question-group="_QText"
@@ -13,14 +13,14 @@ export const MInputSinglelineHtml = (args) => `
     <input
         type="text"
         id="_Q0"
-        class="a-input-singleline"
+        class="a-singleline"
     />
     <span class="a-label-post"></span>
 </m-input-singleline>
 `;
 
-export const MInputSinglelineNumberHtml = (args) => `
-<m-input-singleline-number
+export const MSinglelineNumberHtml = (args) => `
+<m-singleline-number
     data-question-id="_Q0"
     data-question-group="_QText"
     data-properties='{
@@ -34,17 +34,17 @@ export const MInputSinglelineNumberHtml = (args) => `
     <input
         type="number"
         id="_Q0"
-        class="a-input-singleline"
+        class="a-singleline"
         min="1"
         max="9999"
         step="1"
     />
     <span class="a-label-post"></span>
-</m-input-singleline-number>
+</m-singleline-number>
 `;
 
-export const MInputSinglelineDateHtml = (args) => `
-<m-input-singleline-date
+export const MSinglelineDateHtml = (args) => `
+<m-singleline-date
     data-question-id="_Q0"
     data-question-group="_QText"
     data-properties='{
@@ -58,8 +58,8 @@ export const MInputSinglelineDateHtml = (args) => `
     <input
         type="date"
         id="_Q0"
-        class="a-input-singleline"
+        class="a-singleline"
     />
     <span class="a-label-post"></span>
-</m-input-singleline-date>
+</m-singleline-date>
 `;

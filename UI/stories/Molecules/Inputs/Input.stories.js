@@ -1,7 +1,7 @@
 import {
-    MInputSinglelineHtml,
-    MInputSinglelineNumberHtml,
-    MInputSinglelineDateHtml
+    MSinglelineHtml,
+    MSinglelineNumberHtml,
+    MSinglelineDateHtml
 } from './Input';
 
 export default {
@@ -31,29 +31,22 @@ export default {
     }
 };
 
-export const MInputSingleline = {
+export const MSingleline = {
     args: {
         PreLabel: '',
         PostLabel: ''
     },
-    render: (args) => MInputSinglelineHtml(args),
+    render: (args) => MSinglelineHtml(args),
 };
-MInputSingleline.storyName = '<m-input-singleline>';
+MInputSingleline.storyName = '<m-singleline-text>';
 
-export const MInputSinglelineNumber = {
+export const MSinglelineNumber = {
     args: {
         PreLabel: '',
-        PostLabel: ''
+        PostLabel: '',
+        Step:''
     },
-    render: (args) => MInputSinglelineNumberHtml(args),
+    render: (args) => MSinglelineNumberHtml(args),
 };
-MInputSinglelineNumber.storyName = '<m-input-singleline-number>';
+MSinglelineNumber.storyName = '<m-singleline-number>';
 
-export const MInputSinglelineDate = {
-    args: {
-        PreLabel: '',
-        PostLabel: ''
-    },
-    render: (args) => MInputSinglelineDateHtml(args),
-};
-MInputSinglelineDate.storyName = '<m-input-singleline-date>';
