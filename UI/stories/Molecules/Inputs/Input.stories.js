@@ -38,7 +38,7 @@ export const MSingleline = {
     },
     render: (args) => MSinglelineHtml(args),
 };
-MInputSingleline.storyName = '<m-singleline-text>';
+MSingleline.storyName = '<m-singleline-text>';
 
 export const MSinglelineNumber = {
     args: {
