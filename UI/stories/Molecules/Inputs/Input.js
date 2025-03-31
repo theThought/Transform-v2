@@ -1,5 +1,5 @@
 export const MSinglelineHtml = (args) => `
-<m-input-singleline
+<m-singleline
     data-question-id="_Q0"
     data-question-group="_QText"
     data-properties='{
@@ -16,7 +16,7 @@ export const MSinglelineHtml = (args) => `
         class="a-singleline"
     />
     <span class="a-label-post"></span>
-</m-input-singleline>
+</m-singleline>
 `;
 
 export const MSinglelineNumberHtml = (args) => `
