@@ -28,7 +28,7 @@ ${htmlFragmentCustomProperties}
                     data-question-id="_Q0"
                     data-question-group="_QText"
                 >
-                    <m-input-singleline
+                    <m-singleline
                         data-question-id="_Q0"
                         data-question-group="_QText"
                         data-properties='{
@@ -42,10 +42,10 @@ ${htmlFragmentCustomProperties}
                         <input
                             type="text"
                             id="_Q0"
-                            class="a-input-singleline"
+                            class="a-singleline"
                         />
                         <span class="a-label-post"></span>
-                    </m-input-singleline>
+                    </m-singleline>
                 </o-response>
             </div>
         </div>
@@ -82,7 +82,7 @@ export const SingleLineSpecialCodesHtml = () => `
                     data-question-id="_Q0"
                     data-question-group="_QText"
                 >
-                    <m-input-singleline
+                    <m-singleline
                         data-question-id="_Q0"
                         data-question-group="_QText"
                     >
@@ -91,7 +91,7 @@ export const SingleLineSpecialCodesHtml = () => `
                             id="_Q0"
                             class="a-input-singleline"
                         />
-                    </m-input-singleline>
+                    </m-singleline>
 
                     <o-option-sublist role="group" aria-describedby="question-id">
                         <m-option-base class="m-option-single-answer" data-exclusive="true">
