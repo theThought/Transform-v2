@@ -2,7 +2,7 @@ import {
     MSinglelineHtml,
     MSinglelineNumberHtml,
     MSinglelineDateHtml,
-} from './m-singleline';
+} from './singleline';
 
 export default {
     title: 'Molecules/singleline',
