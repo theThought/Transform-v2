@@ -2,7 +2,7 @@ import {
     MSinglelineHtml,
     MSinglelineNumberHtml,
     MSinglelineDateHtml,
-} from './Input';
+} from './m-singleline';
 
 export default {
     title: 'Molecules/Inputs',
@@ -55,14 +55,14 @@ export default {
     },
 };
 
-export const MSingleLine = {
+export const MSingleline = {
     args: {
         PreLabel: '',
         PostLabel: '',
     },
     render: (args) => MSinglelineHtml(args),
 };
-MSingleLine.storyName = '<m-singleline>';
+MSingleline.storyName = '<m-singleline>';
 
 export const MSinglelineNumber = {
     args: {
