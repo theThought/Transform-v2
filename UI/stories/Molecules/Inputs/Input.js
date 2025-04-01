@@ -21,23 +21,23 @@ export const MSinglelineHtml = (args) => `
 
 export const MSinglelineNumberHtml = (args) => `
 <m-singleline-number
-    data-question-id="_Q0"
+    data-question-id="_Q1"
     data-question-group="_QText"
     data-properties='{
         "labels":{
             "pre":"${args.PreLabel}",
             "post":"${args.PostLabel}"
-        }
+        },
+        "min": "${args.min}",
+        "max": "${args.max}",
+        "step": "${args.step}"
     }'
 >
     <span class="a-label-pre"></span>
     <input
         type="number"
-        id="_Q0"
+        id="_Q1"
         class="a-singleline"
-        min="1"
-        max="9999"
-        step="1"
     />
     <span class="a-label-post"></span>
 </m-singleline-number>
@@ -45,7 +45,7 @@ export const MSinglelineNumberHtml = (args) => `
 
 export const MSinglelineDateHtml = (args) => `
 <m-singleline-date
-    data-question-id="_Q0"
+    data-question-id="_Q2"
     data-question-group="_QText"
     data-properties='{
         "labels":{
@@ -57,7 +57,7 @@ export const MSinglelineDateHtml = (args) => `
     <span class="a-label-pre"></span>
     <input
         type="date"
-        id="_Q0"
+        id="_Q2"
         class="a-singleline"
     />
     <span class="a-label-post"></span>

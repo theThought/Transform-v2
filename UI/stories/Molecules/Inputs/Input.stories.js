@@ -28,6 +28,30 @@ export default {
                 defaultValue: { summary: 'n/a' },
             },
         },
+        min: {
+            control: 'number',
+            description: 'Specifies the minimum value for a number input.',
+            table: {
+                type: { summary: 'text' },
+                defaultValue: { summary: '' },
+            },
+        },
+        max: {
+            control: 'number',
+            description: 'Specifies the maximum value for a number input.',
+            table: {
+                type: { summary: 'number' },
+                defaultValue: { summary: '' },
+            },
+        },
+        step: {
+            control: 'text',
+            description: 'Specifies the step interval for a number input.',
+            table: {
+                type: { summary: 'text' },
+                defaultValue: { summary: 'any' },
+            },
+        },
     },
 };
 
@@ -44,6 +68,9 @@ export const MSinglelineNumber = {
     args: {
         PreLabel: '',
         PostLabel: '',
+        min: '',
+        max: '',
+        step: '',
     },
     render: (args) => MSinglelineNumberHtml(args),
 };
@@ -53,7 +80,6 @@ export const MSinglelineDate = {
     args: {
         PreLabel: '',
         PostLabel: '',
-        Step: '',
     },
     render: (args) => MSinglelineDateHtml(args),
 };

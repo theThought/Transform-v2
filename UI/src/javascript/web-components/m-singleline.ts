@@ -18,7 +18,7 @@ export default class MSingleline extends Component implements Observer {
         this.init();
     }
 
-    private init(): void {
+    protected init(): void {
         this.addLocalEventListeners();
         this.setLabels();
     }
