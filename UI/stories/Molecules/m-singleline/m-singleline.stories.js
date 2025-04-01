@@ -5,7 +5,7 @@ import {
 } from './m-singleline';
 
 export default {
-    title: 'Molecules/Inputs',
+    title: 'Molecules/m-singleline',
     parameters: {
         status: { type: 'beta' },
         controls: { sort: 'alpha' },
