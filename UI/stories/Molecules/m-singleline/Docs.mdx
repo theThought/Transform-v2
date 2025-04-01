@@ -1,0 +1,21 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Molecules/Inputs" />
+# m-singleline
+Used to present a singleline input to the user for completion.  The singleline input types current supported as a direct method of input are:
+- text
+- number
+
+Other singleline input types are used in the background to support other question types, but are not supported as a front-end UI component.
+
+## m-singleline-text
+Sets the type to "text"
+Supports maxlength property to define the maximum number of characters that can be typed into the input
+
+## m-singleline-number
+Sets the type property to "number" 
+Supports min/max properties to define the smallest and largest values
+Supports the step property (applied via custom properties) to indicate the change for each click of the stepper and the number of decimal places allowed.
+
+## Special codes
+m-singleline supports the use of special codes with the selection of a special code dismissing the value entered into the input.  If a new value is entered after a special code is selected then the special code is dismissed.
