@@ -1,7 +1,7 @@
 import {
     MSinglelineHtml,
     MSinglelineNumberHtml,
-    MSinglelineDateHtml
+    MSinglelineDateHtml,
 } from './Input';
 
 export default {
@@ -9,7 +9,7 @@ export default {
     parameters: {
         status: { type: 'beta' },
         controls: { sort: 'alpha' },
-        docs: { controls: { sort: 'alpha' } }
+        docs: { controls: { sort: 'alpha' } },
     },
     argTypes: {
         PreLabel: {
@@ -17,7 +17,7 @@ export default {
             description: 'Specifies the text to be placed before the input.',
             table: {
                 type: { summary: 'text' },
-                defaultValue: { summary: 'n/a' }
+                defaultValue: { summary: 'n/a' },
             },
         },
         PostLabel: {
@@ -25,28 +25,36 @@ export default {
             description: 'Specifies the text to be placed after the input.',
             table: {
                 type: { summary: 'text' },
-                defaultValue: { summary: 'n/a' }
+                defaultValue: { summary: 'n/a' },
             },
         },
-    }
+    },
 };
 
-export const MSingleline = {
+export const MSingleLine = {
     args: {
         PreLabel: '',
-        PostLabel: ''
+        PostLabel: '',
     },
     render: (args) => MSinglelineHtml(args),
 };
-MSingleline.storyName = '<m-singleline-text>';
+MSingleLine.storyName = '<m-singleline>';
 
 export const MSinglelineNumber = {
     args: {
         PreLabel: '',
         PostLabel: '',
-        Step:''
     },
     render: (args) => MSinglelineNumberHtml(args),
 };
 MSinglelineNumber.storyName = '<m-singleline-number>';
 
+export const MSinglelineDate = {
+    args: {
+        PreLabel: '',
+        PostLabel: '',
+        Step: '',
+    },
+    render: (args) => MSinglelineDateHtml(args),
+};
+MSinglelineDate.storyName = '<m-singleline-date>';

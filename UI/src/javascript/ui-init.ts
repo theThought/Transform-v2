@@ -2,8 +2,9 @@
 import WCExample from './web-components/wc-example';
 
 // Import modules for web components.
-import MInputSingleline from './web-components/m-input-singleline';
-import MInputSinglelineNumber from './web-components/m-input-singleline-number';
+import MSingleline from './web-components/m-singleline';
+import MSinglelineNumber from './web-components/m-singleline-number';
+import MSinglelineDate from './web-components/m-singleline-date';
 import MOptionBase from './web-components/m-option-base';
 import OCombobox from './web-components/o-combobox';
 import ODropdown from './web-components/o-dropdown';
@@ -28,13 +29,12 @@ export const uiInit = (): void => {
         customElements.define('o-response', OResponse);
 
     // Inner components.
-    !customElements.get('m-input-singleline') &&
-        customElements.define('m-input-singleline', MInputSingleline);
-    !customElements.get('m-input-singleline-number') &&
-        customElements.define(
-            'm-input-singleline-number',
-            MInputSinglelineNumber,
-        );
+    !customElements.get('m-singleline') &&
+        customElements.define('m-singleline', MSingleline);
+    !customElements.get('m-singleline-number') &&
+        customElements.define('m-singleline-number', MSinglelineNumber);
+    !customElements.get('m-singleline-date') &&
+        customElements.define('m-singleline-date', MSinglelineDate);
     !customElements.get('m-option-base') &&
         customElements.define('m-option-base', MOptionBase);
     !customElements.get('o-combobox') &&

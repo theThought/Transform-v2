@@ -29,7 +29,7 @@ ${style}
                 <div class="l-column">
                     <o-response>
                         <div>
-                            <m-input-singleline
+                            <m-singleline
                                 data-question-id="_Q0"
                                 data-question-group="_Q0_Text"
                             >
@@ -37,10 +37,10 @@ ${style}
                                 <input
                                     type="text"
                                     id="_Q0"
-                                    class="a-input-singleline"
+                                    class="a-singleline"
                                 />
                                 <span class="a-label-post"></span>
-                            </m-input-singleline>
+                            </m-singleline>
                         </div>
                     </o-response>
                 </div>
@@ -61,7 +61,7 @@ ${style}
                 <div class="l-column">
                     <o-response>
                         <div>
-                            <m-input-singleline
+                            <m-singleline
                                 data-question-id="_Q1"
                                 data-question-group="_Q1_Text"
                             >
@@ -69,10 +69,10 @@ ${style}
                                 <input
                                     type="text"
                                     id="_Q1"
-                                    class="a-input-singleline"
+                                    class="a-singleline"
                                 />
                                 <span class="a-label-post"></span>
-                            </m-input-singleline>
+                            </m-singleline>
                         </div>
                     </o-response>
                 </div>

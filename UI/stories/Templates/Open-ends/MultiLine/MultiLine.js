@@ -25,7 +25,7 @@ export const MultiLineHtml = () => `
                     data-question-id="_Q0"
                     data-question-group="_QText"
                 >
-                    <textarea id="_Q0" class="a-input-multilineedit"></textarea>
+                    <textarea id="_Q0" class="a-multilineedit"></textarea>
 
                     <o-option-sublist role="group" aria-describedby="question-id">
                         <m-option-base class="m-option-single-answer" data-exclusive="true">
@@ -47,7 +47,7 @@ export const MultiLineHtml = () => `
                             </label>
                         </m-option-base>
                     </o-option-sublist>
-                </o--response>
+                </o-response>
             </div>
         </div>
 

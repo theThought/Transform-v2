@@ -2,7 +2,7 @@ import Component from './component';
 import { removeHTMLWhitespace } from './util';
 import { Observer } from '../interfaces';
 
-export default class MInputSingleline extends Component implements Observer {
+export default class MSingleline extends Component implements Observer {
     protected readonly element: HTMLInputElement | null;
     private readonly initialPlaceholder: string = '';
     private allowPaste = false;
@@ -10,7 +10,7 @@ export default class MInputSingleline extends Component implements Observer {
     constructor() {
         super();
 
-        this.element = this.querySelector('.a-input-singleline');
+        this.element = this.querySelector('.a-singleline');
         if (!this.element) return;
 
         this.initialPlaceholder = this.element.placeholder;

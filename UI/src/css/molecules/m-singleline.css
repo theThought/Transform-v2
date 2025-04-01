@@ -1,6 +1,6 @@
-m-input-singleline,
-m-input-singleline-number,
-m-input-singleline-date {
+m-singleline,
+m-singleline-number,
+m-singleline-date {
     align-items: center;
     display: inline-flex;
     flex-wrap: wrap;

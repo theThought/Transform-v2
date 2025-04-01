@@ -1,7 +1,4 @@
-import {
-    ASinglelineHtml,
-    AMultilineHtml
-} from './Input';
+import { ASinglelineHtml, AMultilineHtml } from './Input';
 
 export default {
     title: 'Atoms/Inputs',

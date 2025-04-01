@@ -89,7 +89,7 @@ export const SingleLineSpecialCodesHtml = () => `
                         <input
                             type="text"
                             id="_Q0"
-                            class="a-input-singleline"
+                            class="a-singleline"
                         />
                     </m-singleline>
 

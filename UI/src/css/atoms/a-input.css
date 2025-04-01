@@ -1,11 +1,13 @@
-[class^='a-input'] {
+[class^='a-input'],
+[class^='a-singleline'],
+[class^='a-multiline'] {
     &::placeholder {
         color: var(--color-placeholder);
     }
 }
 
 /* Textarea */
-.a-input-multiline {
+.a-multiline {
     inline-size: 100%;
     min-block-size: 6.25rem;
     padding: 0.5em;
