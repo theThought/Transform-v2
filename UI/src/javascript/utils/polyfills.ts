@@ -5,3 +5,4 @@
 */
 
 // import somePolyfill from 'some-polyfill';
+export default class polyfills {}
