@@ -5,11 +5,11 @@ export default {
     parameters: {
         status: { type: 'beta' },
         controls: { sort: 'alpha' },
-        docs: { controls: { sort: 'alpha' } }
+        docs: { controls: { sort: 'alpha' } },
     },
 };
 
 export const OQuestion = {
     render: () => OQuestionHtml(),
 };
-OQuestion.storyName = '<o-question>';
+OQuestion.storyName = 'o-question';

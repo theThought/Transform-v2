@@ -5,15 +5,16 @@ export default {
     parameters: {
         status: { type: 'beta' },
         controls: { sort: 'alpha' },
-        docs: { controls: { sort: 'alpha' } }
+        docs: { controls: { sort: 'alpha' } },
     },
     argTypes: {
         ListSize: {
             control: { type: 'number', min: 0 },
-            description: 'Configures how many options should be displayed in the list.',
+            description:
+                'Configures how many options should be displayed in the list.',
             table: {
                 type: { summary: 'number', min: 0 },
-                defaultValue: { summary: 'n/a' }
+                defaultValue: { summary: 'n/a' },
             },
         },
         ListSource: {
@@ -21,23 +22,25 @@ export default {
             description: 'Identifier for an existing list to re-use data.',
             table: {
                 type: { summary: 'text' },
-                defaultValue: { summary: 'n/a' }
+                defaultValue: { summary: 'n/a' },
             },
         },
         Placeholder: {
             control: 'text',
-            description: 'Defines the text to be displayed if no option is selected.',
+            description:
+                'Defines the text to be displayed if no option is selected.',
             table: {
                 type: { summary: 'text' },
-                defaultValue: { summary: 'n/a' }
+                defaultValue: { summary: 'n/a' },
             },
         },
         Exact: {
             control: 'boolean',
-            description: 'Automatically selects an option if it exactly matches the respondent\'s input.',
+            description:
+                "Automatically selects an option if it exactly matches the respondent's input.",
             table: {
                 type: { summary: 'boolean' },
-                defaultValue: { summary: 'true' }
+                defaultValue: { summary: 'true' },
             },
         },
         FilterType: {
@@ -46,34 +49,37 @@ export default {
             description: 'Determines how options are filtered.',
             table: {
                 type: { summary: 'select' },
-                defaultValue: { summary: 'contains' }
+                defaultValue: { summary: 'contains' },
             },
         },
         MinCharactersForList: {
             control: { type: 'number', min: 0 },
-            description: 'Defines how many characters must be typed before the list is displayed.',
+            description:
+                'Defines how many characters must be typed before the list is displayed.',
             table: {
                 type: { summary: 'number', min: 0 },
-                defaultValue: { summary: 0 }
+                defaultValue: { summary: 0 },
             },
         },
         NotEnoughCharacters: {
             control: 'text',
-            description: 'Defines a message to be displayed before "mincharactersforlist" is met.',
+            description:
+                'Defines a message to be displayed before "mincharactersforlist" is met.',
             table: {
                 type: { summary: 'text' },
-                defaultValue: { summary: 'n/a' }
+                defaultValue: { summary: 'n/a' },
             },
         },
         NoItemsInList: {
             control: 'text',
-            description: 'Defines a message to be displayed if there are no matching options.',
+            description:
+                'Defines a message to be displayed if there are no matching options.',
             table: {
                 type: { summary: 'text' },
-                defaultValue: { summary: 'n/a' }
+                defaultValue: { summary: 'n/a' },
             },
         },
-    }
+    },
 };
 
 export const Combobox = {
@@ -83,8 +89,8 @@ export const Combobox = {
         MinCharactersForList: 1,
         NotEnoughCharacters: 'You need to type at least one character',
         NoItemsInList: 'No items match this filter',
-        Placeholder: 'Placeholder for combobox'
+        Placeholder: 'Placeholder for combobox',
     },
     render: (args) => ComboboxHtml(args),
 };
-Combobox.storyName = '<o-combobox>';
+Combobox.storyName = 'o-combobox';

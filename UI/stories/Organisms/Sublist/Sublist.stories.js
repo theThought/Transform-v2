@@ -5,8 +5,8 @@ export default {
     parameters: {
         status: { type: 'beta' },
         controls: { sort: 'alpha' },
-        docs: { controls: { sort: 'alpha' } }
-    }
+        docs: { controls: { sort: 'alpha' } },
+    },
 };
 
 export const Sublist = {
