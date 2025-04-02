@@ -28,9 +28,7 @@ export const SinglelineNumberHtml = (args) => `
             "pre":"${args.PreLabel}",
             "post":"${args.PostLabel}"
         },
-        "min": "${args.min}",
-        "max": "${args.max}",
-        "step": "${args.step}"
+        "step": "${args.StepInterval}"
     }'
 >
     <span class="a-label-pre"></span>

@@ -28,23 +28,7 @@ export default {
                 defaultValue: { summary: 'n/a' },
             },
         },
-        min: {
-            control: 'number',
-            description: 'Specifies the minimum value for a number input.',
-            table: {
-                type: { summary: 'text' },
-                defaultValue: { summary: '' },
-            },
-        },
-        max: {
-            control: 'number',
-            description: 'Specifies the maximum value for a number input.',
-            table: {
-                type: { summary: 'number' },
-                defaultValue: { summary: '' },
-            },
-        },
-        step: {
+        StepInterval: {
             control: 'text',
             description: 'Specifies the step interval for a number input.',
             table: {
@@ -68,9 +52,7 @@ export const MSinglelineNumber = {
     args: {
         PreLabel: '',
         PostLabel: '',
-        min: '',
-        max: '',
-        step: '',
+        StepInterval: '',
     },
     render: (args) => SinglelineNumberHtml(args),
 };
