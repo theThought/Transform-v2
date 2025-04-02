@@ -2,7 +2,7 @@ import {
     SinglelineHtml,
     SinglelineNumberHtml,
     SinglelineDateHtml,
-} from './singleline';
+} from './Singleline';
 
 export default {
     title: 'Molecules/Text',
@@ -28,14 +28,6 @@ export default {
                 defaultValue: { summary: 'n/a' },
             },
         },
-        StepInterval: {
-            control: 'text',
-            description: 'Specifies the step interval for a number input.',
-            table: {
-                type: { summary: 'text' },
-                defaultValue: { summary: 'any' },
-            },
-        },
     },
 };
 
@@ -49,6 +41,16 @@ export const MSingleline = {
 MSingleline.storyName = 'm-singleline';
 
 export const MSinglelineNumber = {
+    argTypes: {
+        StepInterval: {
+            control: 'text',
+            description: 'Specifies the step interval for a number input.',
+            table: {
+                type: { summary: 'text' },
+                defaultValue: { summary: 'any' },
+            },
+        },
+    },
     args: {
         PreLabel: '',
         PostLabel: '',
