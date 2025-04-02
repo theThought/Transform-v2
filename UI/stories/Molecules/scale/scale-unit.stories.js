@@ -3,7 +3,7 @@ import {
 } from './scale';
 
 export default {
-    title: 'Molecules/Scale',
+    title: 'Molecules/scale',
     parameters: {
         status: { type: 'beta' },
         controls: { sort: 'alpha' },
