@@ -1,4 +1,4 @@
-:where([type='text'], [type='date'], [type='number'], textarea) {
+:where([type=''], [type='text'], [type='date'], [type='number'], textarea) {
     background: var(--color-background);
     border: var(--border-thickness) solid var(--color-border);
     border-radius: var(--border-radius-s);
