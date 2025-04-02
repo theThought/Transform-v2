@@ -4,7 +4,7 @@ import {
     htmlFragmentMessageInformation,
 } from '../../../_htmlFragments';
 
-export const SingleLineCustomPropertiesHtml = (args) => `
+export const SingleLineCustomPropertiesHtml = (args): string => `
 ${htmlFragmentCustomProperties}
 
 <main class="surroundcontent">
@@ -60,7 +60,7 @@ ${htmlFragmentCustomProperties}
 </main>
 `;
 
-export const SingleLineSpecialCodesHtml = () => `
+export const SingleLineSpecialCodesHtml = (): string => `
 <main class="surroundcontent">
 
     <o-question>

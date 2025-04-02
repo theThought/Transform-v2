@@ -3,7 +3,7 @@ import {
     htmlFragmentMessageError,
 } from '../../_htmlFragments';
 
-export const ExampleHtml = (args) => `
+export const ExampleHtml = (args): string => `
 ${htmlFragmentCustomProperties}
 
 <main class="surroundcontent">

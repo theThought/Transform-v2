@@ -6,7 +6,7 @@ const style = `
 </style>
 `;
 
-export const PageHtml = () => `
+export const PageHtml = (): string => `
 ${style}
 
 <form action="#">

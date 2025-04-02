@@ -1,13 +1,14 @@
-export const DropdownHtml = (args) => `
-<o-dropdown
+export const ComboboxHtml = (args): string => `
+<o-combobox
     class="o-select-custom"
     data-question-id="_Q0"
-    data-question-group="_QDropdown"
+    data-question-group="_QCombobox"
     data-customprops='{
-        "jumptofirstletter":${args.JumpToFirstLetter}
+        "exact":${args.Exact},
+        "filtertype":"${args.FilterType}"
     }'
 >
-    <input type="text" class="a-input-dropdown" placeholder="placeholder" />
+    <input type="text" class="a-input-combobox" placeholder="placeholder" />
     <ul class="m-list">
         <li class="a-option-list">I am first option in dropdown or combobox</li>
         <li class="a-option-list">I am an option in dropdown or combobox</li>
@@ -15,7 +16,7 @@ export const DropdownHtml = (args) => `
         <li class="a-option-list">I am a much longer option in dropdown or combobox</li>
         <li class="a-option-list">I am last option in dropdown or combobox</li>
     </ul>
-</o-dropdown>
+</o-combobox>
 
 <br /><br />
 <p>TODO:</p>

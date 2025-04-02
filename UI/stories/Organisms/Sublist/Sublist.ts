@@ -1,4 +1,4 @@
-export const SublistHtml = () => `
+export const SublistHtml = (): string => `
 <o-option-sublist role="group" aria-describedby="question-id">
     <legend class="a-label-heading-sublist">
         Sublist heading is a <code>&lt;legend&gt;</code>

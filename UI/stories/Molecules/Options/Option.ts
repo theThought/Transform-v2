@@ -1,4 +1,4 @@
-export const OptionSingleHtml = () => `
+export const OptionSingleHtml = (): string => `
 <m-option-base class="m-option-single-answer">
     <input type="radio" id="radio1" name="radios" />
     <label for="radio1">
@@ -10,7 +10,7 @@ export const OptionSingleHtml = () => `
 </m-option-base>
 `;
 
-export const OptionMultiHtml = () => `
+export const OptionMultiHtml = (): string => `
 <m-option-base class="m-option-multi-answer">
     <input type="checkbox" id="check1" />
     <label for="check1">

@@ -1,4 +1,4 @@
-export const RowHtml = (args) => `
+export const RowHtml = (args): string => `
 <div class="l-row" style="--column1-width: ${args.SideBySide}%;">
     <div class="l-column">
         1st column:
@@ -18,7 +18,7 @@ export const RowHtml = (args) => `
 </div>
 `;
 
-export const RowSingleColumnHtml = () => `
+export const RowSingleColumnHtml = (): string => `
 <div class="l-row">
     <div class="l-column">
         Single column:
@@ -28,4 +28,3 @@ export const RowSingleColumnHtml = () => `
     </div>
 </div>
 `;
-

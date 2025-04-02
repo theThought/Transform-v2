@@ -3,7 +3,7 @@ import {
     htmlFragmentMessageInformation,
 } from '../../_htmlFragments';
 
-export const OQuestionHtml = () => `
+export const OQuestionHtml = (): string => `
 <o-question>
     <div class="l-cover"><!-- cover --></div>
 

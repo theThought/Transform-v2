@@ -3,7 +3,7 @@ import {
     htmlFragmentMessageInformation,
 } from '../../../_htmlFragments';
 
-export const MultiLineHtml = () => `
+export const MultiLineHtml = (): string => `
 <main class="surroundcontent">
 
     <o-question>

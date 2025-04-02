@@ -1,4 +1,4 @@
-export const MessageErrorHtml = () => `
+export const MessageErrorHtml = (): string => `
 <div class="m-message-error">
     <div>
         Error message(s).
@@ -10,7 +10,7 @@ export const MessageErrorHtml = () => `
 </div>
 `;
 
-export const MessageWarningHtml = () => `
+export const MessageWarningHtml = (): string => `
 <div class="m-message-warning">
     <div>
         Warning message(s).
@@ -22,7 +22,7 @@ export const MessageWarningHtml = () => `
 </div>
 `;
 
-export const MessageSuccessHtml = () => `
+export const MessageSuccessHtml = (): string => `
 <div class="m-message-success">
     <div>
         Success message(s).
@@ -34,7 +34,7 @@ export const MessageSuccessHtml = () => `
 </div>
 `;
 
-export const MessageInformationHtml = () => `
+export const MessageInformationHtml = (): string => `
 <div class="m-message-information">
     <div>
         Information message(s).
