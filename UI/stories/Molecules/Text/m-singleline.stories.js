@@ -1,11 +1,11 @@
 import {
-    MSinglelineHtml,
-    MSinglelineNumberHtml,
-    MSinglelineDateHtml,
+    SinglelineHtml,
+    SinglelineNumberHtml,
+    SinglelineDateHtml,
 } from './singleline';
 
 export default {
-    title: 'Molecules/singleline',
+    title: 'Molecules/Text',
     parameters: {
         status: { type: 'beta' },
         controls: { sort: 'alpha' },
@@ -60,9 +60,9 @@ export const MSingleline = {
         PreLabel: '',
         PostLabel: '',
     },
-    render: (args) => MSinglelineHtml(args),
+    render: (args) => SinglelineHtml(args),
 };
-MSingleline.storyName = '<m-singleline>';
+MSingleline.storyName = 'm-singleline';
 
 export const MSinglelineNumber = {
     args: {
@@ -72,15 +72,15 @@ export const MSinglelineNumber = {
         max: '',
         step: '',
     },
-    render: (args) => MSinglelineNumberHtml(args),
+    render: (args) => SinglelineNumberHtml(args),
 };
-MSinglelineNumber.storyName = '<m-singleline-number>';
+MSinglelineNumber.storyName = 'm-singleline-number';
 
 export const MSinglelineDate = {
     args: {
         PreLabel: '',
         PostLabel: '',
     },
-    render: (args) => MSinglelineDateHtml(args),
+    render: (args) => SinglelineDateHtml(args),
 };
-MSinglelineDate.storyName = '<m-singleline-date>';
+MSinglelineDate.storyName = 'm-singleline-date';

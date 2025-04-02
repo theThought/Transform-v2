@@ -1,4 +1,4 @@
-export const MSinglelineHtml = (args) => `
+export const SinglelineHtml = (args) => `
 <m-singleline
     data-question-id="_Q0"
     data-question-group="_QText"
@@ -19,7 +19,7 @@ export const MSinglelineHtml = (args) => `
 </m-singleline>
 `;
 
-export const MSinglelineNumberHtml = (args) => `
+export const SinglelineNumberHtml = (args) => `
 <m-singleline-number
     data-question-id="_Q1"
     data-question-group="_QText"
@@ -43,7 +43,7 @@ export const MSinglelineNumberHtml = (args) => `
 </m-singleline-number>
 `;
 
-export const MSinglelineDateHtml = (args) => `
+export const SinglelineDateHtml = (args) => `
 <m-singleline-date
     data-question-id="_Q2"
     data-question-group="_QText"

@@ -1,13 +1,10 @@
-import {
-    OptionSingleHtml,
-    OptionMultiHtml
-} from './Option';
+import { OptionSingleHtml, OptionMultiHtml } from './Option';
 
 export default {
     title: 'Molecules/Options',
     parameters: {
         status: { type: 'beta' },
-    }
+    },
 };
 
 export const OptionSingle = {
