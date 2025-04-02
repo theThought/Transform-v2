@@ -5,7 +5,7 @@ export default {
     parameters: {
         status: { type: 'beta' },
         controls: { sort: 'alpha' },
-        docs: { controls: { sort: 'alpha' } }
+        docs: { controls: { sort: 'alpha' } },
     },
     argTypes: {
         PreLabel: {
@@ -13,7 +13,7 @@ export default {
             description: 'Specifies the text to be placed before the input.',
             table: {
                 type: { summary: 'text' },
-                defaultValue: { summary: 'n/a' }
+                defaultValue: { summary: 'n/a' },
             },
         },
         PostLabel: {
@@ -21,16 +21,16 @@ export default {
             description: 'Specifies the text to be placed after the input.',
             table: {
                 type: { summary: 'text' },
-                defaultValue: { summary: 'n/a' }
+                defaultValue: { summary: 'n/a' },
             },
         },
-    }
+    },
 };
 
 export const SingleLineCustomProperties = {
     args: {
         PreLabel: '',
-        PostLabel: ''
+        PostLabel: '',
     },
     render: (args) => SingleLineCustomPropertiesHtml(args),
 };

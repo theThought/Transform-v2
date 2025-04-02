@@ -82,6 +82,7 @@ export const SingleLineSpecialCodesHtml = () => `
                     data-question-id="_Q0"
                     data-question-group="_QText"
                 >
+                <fieldset>
                     <m-singleline
                         data-question-id="_Q0"
                         data-question-group="_QText"
@@ -113,6 +114,7 @@ export const SingleLineSpecialCodesHtml = () => `
                             </label>
                         </m-option-base>
                     </o-option-sublist>
+                    </fieldset>
                 </o-response>
             </div>
         </div>
