@@ -1,6 +1,4 @@
-import {
-    ScaleUnitHtml
-} from './scale';
+import { ScaleUnitHtml } from './scale-unit';
 
 export default {
     title: 'Molecules/scale',
@@ -13,9 +11,7 @@ export default {
 };
 
 export const MScaleUnit = {
-    args: {
-        
-    },
+    args: {},
     render: (args) => ScaleUnitHtml(args),
 };
 MScaleUnit.storyName = 'm-scale-unit';
