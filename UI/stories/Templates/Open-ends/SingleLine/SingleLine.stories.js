@@ -1,4 +1,4 @@
-import { SingleLineCustomPropertiesHtml } from './SingleLine';
+import { SingleLineSpecialCodesHtml } from './SingleLine';
 
 export default {
     title: 'Templates/Open-ends/t-singleline',
@@ -24,13 +24,31 @@ export default {
                 defaultValue: { summary: 'n/a' },
             },
         },
+        Balance: {
+            control: 'boolean',
+            description: 'Places options in a horizontal layout.',
+            table: {
+                type: { summary: 'boolean' },
+                defaultValue: { summary: 'false' },
+            },
+        },
+        MinWidth: {
+            control: 'text',
+            description: 'The minimum width of items in a balanced layout.',
+            table: {
+                type: { summary: 'em/px' },
+                defaultValue: { summary: '0' },
+            },
+        },
     },
 };
 
-export const SingleLineCustomProperties = {
+export const SingleLineSpecialCodesStories = {
     args: {
         PreLabel: '',
         PostLabel: '',
+        Balance: '',
+        MinWidth: '',
     },
-    render: (args) => SingleLineCustomPropertiesHtml(args),
+    render: (args) => SingleLineSpecialCodesHtml(args),
 };

@@ -5,8 +5,8 @@ o-option-sublist {
     flex-wrap: wrap;
     row-gap: var(--space-1);
 
-    .a-label-heading-sublist + * {
-        margin-block-start: var(--space-2);
+    &.balance {
+        flex-direction: row;
     }
 }
 

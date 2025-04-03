@@ -1,9 +1,23 @@
-export const SublistHtml = (): string => `
-<o-option-sublist role="group" aria-describedby="question-id">
+export const SublistHtml = (args): string => `
+<o-option-sublist
+    role="group"
+    aria-describedby="question-id"
+    data-properties='{
+        "balance":{
+            "state":${args.Balance}
+        }
+    }'
+>
     <legend class="a-label-heading-sublist">
         Sublist heading is a <code>&lt;legend&gt;</code>
     </legend>
-    <m-option-base class="m-option-single-answer">
+    <m-option-base class="m-option-single-answer"
+        data-properties='{
+            "balance":{
+                "minwidth":"${args.MinWidth}"
+            }
+        }'
+    >
         <input type="radio" id="radio1" name="radios" />
         <label for="radio1">
             <span class="a-icon-multistate" data-icon-type="single"></span>
@@ -12,7 +26,13 @@ export const SublistHtml = (): string => `
             </span>
         </label>
     </m-option-base>
-    <m-option-base class="m-option-single-answer">
+    <m-option-base class="m-option-single-answer"
+        data-properties='{
+            "balance":{
+                "minwidth":"${args.MinWidth}"
+            }
+        }'
+    >
         <input type="radio" id="radio2" name="radios" />
         <label for="radio2">
             <span class="a-icon-multistate" data-icon-type="single"></span>
@@ -21,7 +41,13 @@ export const SublistHtml = (): string => `
             </span>
         </label>
     </m-option-base>
-    <m-option-base class="m-option-single-answer">
+    <m-option-base class="m-option-single-answer"
+        data-properties='{
+            "balance":{
+                "minwidth":"${args.MinWidth}"
+            }
+        }'
+    >
         <input type="radio" id="radio3" name="radios" />
         <label for="radio3">
             <span class="a-icon-multistate" data-icon-type="single"></span>

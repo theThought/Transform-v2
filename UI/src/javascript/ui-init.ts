@@ -8,6 +8,7 @@ import MSinglelineDate from './web-components/m-singleline-date';
 import MOptionBase from './web-components/m-option-base';
 import OCombobox from './web-components/o-combobox';
 import ODropdown from './web-components/o-dropdown';
+import OOptionSublist from './web-components/o-option-sublist';
 import OQuestion from './web-components/o-question';
 import OResponse from './web-components/o-response';
 
@@ -28,6 +29,13 @@ export const uiInit = (): void => {
     !customElements.get('o-response') &&
         customElements.define('o-response', OResponse);
 
+    !customElements.get('o-option-sublist') &&
+        customElements.define('o-option-sublist', OOptionSublist);
+    !customElements.get('o-combobox') &&
+        customElements.define('o-combobox', OCombobox);
+    !customElements.get('o-dropdown') &&
+        customElements.define('o-dropdown', ODropdown);
+
     // Inner components.
     !customElements.get('m-singleline') &&
         customElements.define('m-singleline', MSingleline);
@@ -37,8 +45,4 @@ export const uiInit = (): void => {
         customElements.define('m-singleline-date', MSinglelineDate);
     !customElements.get('m-option-base') &&
         customElements.define('m-option-base', MOptionBase);
-    !customElements.get('o-combobox') &&
-        customElements.define('o-combobox', OCombobox);
-    !customElements.get('o-dropdown') &&
-        customElements.define('o-dropdown', ODropdown);
 };

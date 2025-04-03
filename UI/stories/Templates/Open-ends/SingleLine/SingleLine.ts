@@ -4,63 +4,9 @@ import {
     htmlFragmentMessageInformation,
 } from '../../../_htmlFragments';
 
-export const SingleLineCustomPropertiesHtml = (args): string => `
+export const SingleLineSpecialCodesHtml = (args): string => `
 ${htmlFragmentCustomProperties}
 
-<main class="surroundcontent">
-
-    <o-question>
-        <div class="l-cover"><!-- cover --></div>
-
-        <div class="l-row">
-            <div class="l-column">
-                ${htmlFragmentMessageError}
-            </div>
-        </div>
-
-        <div class="l-row">
-            <div class="l-column">
-                <div>This is a singleline question with custom properties (e.g. pre/post labels)</div>
-            </div>
-
-            <div class="l-column">
-                <o-response
-                    data-question-id="_Q0"
-                    data-question-group="_QText"
-                >
-                    <m-singleline
-                        data-question-id="_Q0"
-                        data-question-group="_QText"
-                        data-properties='{
-                            "labels":{
-                                "pre":"${args.PreLabel}",
-                                "post":"${args.PostLabel}"
-                            }
-                        }'
-                    >
-                        <span class="a-label-pre"></span>
-                        <input
-                            type="text"
-                            id="_Q0"
-                            class="a-singleline"
-                        />
-                        <span class="a-label-post"></span>
-                    </m-singleline>
-                </o-response>
-            </div>
-        </div>
-
-        <div class="l-row">
-            <div class="l-column">
-                ${htmlFragmentMessageInformation}
-            </div>
-        </div>
-    </o-question>
-
-</main>
-`;
-
-export const SingleLineSpecialCodesHtml = (): string => `
 <main class="surroundcontent">
 
     <o-question>
@@ -86,16 +32,36 @@ export const SingleLineSpecialCodesHtml = (): string => `
                     <m-singleline
                         data-question-id="_Q0"
                         data-question-group="_QText"
+                        data-properties='{
+                            "labels":{
+                                "pre":"${args.PreLabel}",
+                                "post":"${args.PostLabel}"
+                            }
+                        }'
                     >
+                        <span class="a-label-pre"></span>
                         <input
                             type="text"
                             id="_Q0"
                             class="a-singleline"
                         />
+                        <span class="a-label-post"></span>
                     </m-singleline>
 
-                    <o-option-sublist role="group" aria-describedby="question-id">
-                        <m-option-base class="m-option-single-answer" data-exclusive="true">
+                    <o-option-sublist role="group" aria-describedby="question-id"
+                        data-properties='{
+                            "balance":{
+                                "state":${args.Balance}
+                            }
+                        }'
+                    >
+                        <m-option-base class="m-option-single-answer" data-exclusive="true"
+                            data-properties='{
+                                "balance":{
+                                    "minwidth":"${args.MinWidth}"
+                                }
+                            }'
+                        >
                             <input type="radio" id="radio1" name="radios" />
                             <label for="radio1">
                                 <span class="a-icon-multistate" data-icon-type="single"></span>
@@ -104,7 +70,13 @@ export const SingleLineSpecialCodesHtml = (): string => `
                                 </span>
                             </label>
                         </m-option-base>
-                        <m-option-base class="m-option-single-answer" data-exclusive="true">
+                        <m-option-base class="m-option-single-answer" data-exclusive="true"
+                            data-properties='{
+                                "balance":{
+                                    "minwidth":"${args.MinWidth}"
+                                }
+                            }'
+                        >
                             <input type="radio" id="radio2" name="radios" />
                             <label for="radio2">
                                 <span class="a-icon-multistate" data-icon-type="single"></span>

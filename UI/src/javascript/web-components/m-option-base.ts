@@ -13,14 +13,14 @@ export default class MOptionBase extends Component implements Observer {
 
         this.checkbox = this.querySelector('input');
 
-        this.isExclusive =
-            this.getAttribute('data-exclusive') === 'true' || false;
+        this.isExclusive = this.getAttribute('data-exclusive') === 'true';
 
         this.init();
     }
 
     private init(): void {
         this.addLocalEventListeners();
+        this.setBalanceWidth();
     }
 
     private addLocalEventListeners(): void {
@@ -117,6 +117,18 @@ export default class MOptionBase extends Component implements Observer {
             }
 
             //this.broadcastChange();
+        }
+    }
+
+    private setBalanceWidth(): void {
+        if (!this.properties.hasOwnProperty('balance')) {
+            return;
+        }
+
+        const minWidth: string = this.properties.balance.minwidth ?? '0';
+
+        if (minWidth && this.element) {
+            this.element.style.minWidth = `${minWidth}`;
         }
     }
 

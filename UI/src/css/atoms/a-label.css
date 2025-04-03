@@ -8,9 +8,11 @@
 }
 
 .a-label-heading-sublist {
+    flex-basis: 100%;
     color: var(--color-primary);
     cursor: default;
     font-family: var(--font-family-secondary);
+    margin-block-end: var(--space-2);
 }
 
 :is(.a-label-pre, .a-label-post) {
