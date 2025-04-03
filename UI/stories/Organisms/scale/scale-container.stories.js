@@ -10,8 +10,8 @@ export default {
     argTypes: {},
 };
 
-export const MScaleContainer = {
+export const OScaleContainer = {
     args: {},
     render: (args) => ScaleContainerHtml(args),
 };
-MScaleUnit.storyName = 'm-scale-container';
+OScaleContainer.storyName = 'o-scale-container';
