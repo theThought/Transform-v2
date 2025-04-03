@@ -11,34 +11,54 @@
 <script>
     /**
      * Function to generate sanitised custom properties.
-    */
+     */
     const parseCustomProperties = () => {
-        const questionControl = document.querySelector('o-response [data-properties]');
-        let customProps = questionControl?.dataset.properties;
+        const customPropControls = document.querySelectorAll('* [data-properties]');
+        let customProps = {};
 
-        if (!customProps) return;
+        customPropControls.forEach(node => {
+            const controlCustomProps = JSON.parse(
+                node?.dataset.properties,
+            );
+            deepMerge(customProps, controlCustomProps)
 
-        // Remove any unwanted strings.
-        ignoredStrings.map(string => {
-            if (customProps.includes(string)) {
-                customProps = customProps.replace(string, '');
-            }
         });
 
-        // Sanitise custom properties for use in ZeroHeight.
-        customProps = customProps.replace(/\);/gm, ''); // Remove );
-        customProps = customProps.replace(/"/gm, '\''); // Replace " with '
-        customProps = customProps.replace(/\s+/gm, ' '); // Whitespace
-        customProps = customProps.replace(/( ,)/gm, ','); // Rogue commas
-        customProps = customProps.replace(/,+/gm, ','); // Rogue commas
-        customProps = customProps.replace(/, }/gm, ' }'); // Rogue commas
-        customProps = customProps.replace(/{,/gm, '{'); // Rogue commas
+        if (!customProps) return;
+        return JSON.stringify(customProps);
+    };
 
-        // Add line break between each set of custom properties.
-        customProps = customProps.replace(/}{/gm, '\n\n{');
-
-        return customProps;
+    function isObject(item) {
+        return (item && typeof item === 'object' && !Array.isArray(item) && !(item instanceof Date))
     }
+
+    function deepMerge(target, ...sources) {
+        if (!sources.length) return target
+
+        // Iterate through each source object without modifying the sources array
+        sources.forEach(source => {
+            if (isObject(target) && isObject(source)) {
+                for (const key in source) {
+                    if (isObject(source[key])) {
+                        if (key === '__proto__' || key === 'constructor' || key === 'prototype') {
+                            continue // Skip potentially dangerous keys to prevent prototype pollution.
+                        }
+
+                        if (!target[key] || !isObject(target[key])) {
+                            target[key] = {}
+                        }
+
+                        deepMerge(target[key], source[key])
+                    } else {
+                        target[key] = source[key]
+                    }
+                }
+            }
+        })
+
+        return target
+    }
+
 
     /**
      * Custom properties map to Storybook controls which, when updated, trigger the survey JS to re-render the DOM, causing Storybook to fire the "DOMContentLoaded" event.
@@ -59,7 +79,7 @@
     /**
      * Array of custom properties strings to be removed.
      * Keep adding to array as required...
-    */
+     */
     const ignoredStrings = [
         // Choice questions
         '"balance":{"state":false}',

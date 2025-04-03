@@ -1,4 +1,8 @@
+import { htmlFragmentCustomProperties } from '../../_htmlFragments';
+
 export const SublistHtml = (args): string => `
+${htmlFragmentCustomProperties}
+
 <o-option-sublist
     role="group"
     aria-describedby="question-id"
