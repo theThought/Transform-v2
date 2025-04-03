@@ -47,7 +47,7 @@ export const SingleLineSpecialCodesStories = {
     args: {
         PreLabel: '',
         PostLabel: '',
-        Balance: '',
+        Balance: 'false',
         MinWidth: '',
     },
     render: (args) => SingleLineSpecialCodesHtml(args),

@@ -29,7 +29,7 @@ export default {
 
 export const Sublist = {
     args: {
-        Balance: '',
+        Balance: 'false',
         MinWidth: '',
     },
     render: (args) => SublistHtml(args),
