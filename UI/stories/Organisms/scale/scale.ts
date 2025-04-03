@@ -18,7 +18,7 @@ export const ScaleHtml = (args): string => `
 
 export const ScaleVerticalHtml = (): string => `
 <o-scale-vertical 
-    data-question-id="_Q1"
+    data-question-id="_Q0"
     data-question-group="_QText"
     data-properties='{
         "labels":{
@@ -26,8 +26,8 @@ export const ScaleVerticalHtml = (): string => `
             "post":"${args.PostLabel}"
         }
     }'>
-    <span class="a-label-pre">${args.PreLabel}</span>
-    <o-scale-container />
     <span class="a-label-post">${args.PostLabel}</span>
-</o-scale-vertical>
+    <o-scale-container>
+    <span class="a-label-pre">${args.PreLabel}</span>
+</o-scale>
 `;
