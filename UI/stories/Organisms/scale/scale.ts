@@ -12,7 +12,7 @@ export const ScaleHtml = (args): string => `
         <span class="a-label-pre">${args.PreLabel}</span>
         <span class="a-label-post">${args.PostLabel}</span>
     </div>
-    <o-scale-container>
+    <o-scale-container />
 </o-scale>
 `;
 
@@ -27,7 +27,7 @@ export const ScaleVerticalHtml = (): string => `
         }
     }'>
     <span class="a-label-post">${args.PostLabel}</span>
-    <o-scale-container>
+    <o-scale-container />
     <span class="a-label-pre">${args.PreLabel}</span>
-</o-scale>
+</o-scale-vertical>
 `;
