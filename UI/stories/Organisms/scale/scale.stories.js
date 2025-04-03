@@ -40,9 +40,6 @@ export const OScale = {
 OScale.storyName = 'o-scale';
 
 export const OScaleVertical = {
-    argTypes: {
-        
-    },
     args: {
         PreLabel: '',
         PostLabel: '',
