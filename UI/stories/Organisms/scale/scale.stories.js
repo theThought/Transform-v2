@@ -44,6 +44,6 @@ export const OScaleVertical = {
         PreLabel: '',
         PostLabel: '',
     },
-    render: (args) => ScaleVerticalHTML(args),
+    render: (args) => ScaleVerticalHtml(args),
 };
 OScaleVertical.storyName = 'o-scale-vertical';
