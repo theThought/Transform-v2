@@ -5,7 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="ie=edge"/>
 		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
 		<link rel="stylesheet" type="text/css" href="https://cdn.ipsosinteractive.com/sandbox/kevin.gray/transform/v2.0/staging/css/index.css" title="Formal"/>
-		<title>PageNine</title>
+		<title>PageSix</title>
 		<link rel="apple-touch-icon" sizes="57x57" href="https://cdn.ipsosinteractive.com/sandbox/kevin.gray/transform/v2.0/staging/favicons/formal/apple-icon-57x57.png"/>
 		<link rel="apple-touch-icon" sizes="60x60" href="https://cdn.ipsosinteractive.com/sandbox/kevin.gray/transform/v2.0/staging/favicons/formal/apple-icon-60x60.png"/>
 		<link rel="apple-touch-icon" sizes="72x72" href="https://cdn.ipsosinteractive.com/sandbox/kevin.gray/transform/v2.0/staging/favicons/formal/apple-icon-72x72.png"/>
@@ -25,12 +25,12 @@
 		<meta name="theme-color" content="#ffffff"/>
 	</head>
 	<body>
-		<form name="mrForm" id="mrForm" action="./" method="post"><input type="hidden" name="I.Engine" value="Server"/><input type="hidden" name="I.Project" value="Accessible"/><input type="hidden" name="I.Session" value="kyxvigxqnxzulojcocyteamusqaqaaaa"/><input type="hidden" name="I.SavePoint" value="PageNine"/><input type="hidden" name="I.Language" value="en-US"/><input type="hidden" name="I.Renderer" value="HTMLPlayer"/><header class="header">
+		<form name="mrForm" id="mrForm" action="./" method="post"><input type="hidden" name="I.Engine" value="Server"/><input type="hidden" name="I.Project" value="Accessible"/><input type="hidden" name="I.Session" value="owvqowhuu2aebgzajiifg255eeaqaaaa"/><input type="hidden" name="I.SavePoint" value="PageSix"/><input type="hidden" name="I.Language" value="en-US"/><input type="hidden" name="I.Renderer" value="HTMLPlayer"/><header class="header">
 				<img class="site-logo" alt="Ipsos Logo" title="Ipsos Logo" src="https://cdn.ipsosinteractive.com/sandbox/kevin.gray/healthcare/staging/images/formal/ipsoslogo192.png"/>
 			</header>
 			<main class="surroundcontent">
 				<!--elementID: -->
-				<label>Balancing special codes</label>
+				<label>three single line edit (number) questions</label>
 				<o-question>
 					<div class="l-cover"><!-- cover --></div>
 					<div class="l-row">
@@ -61,51 +61,20 @@
 						<div class="l-column">
 							<!-- Question Label -->
 							<!--elementID: _Q0-->
-							<label for="_Q0" id="_Q0_label_question">Indicate the amount of tip (gratuity) you gave the waiter</label>
+							<label for="_Q0" id="_Q0_label_question">provide the cost of the purchase</label>
 						</div>
 						<div class="l-column">
 							<!-- Question Controls -->
-							<o-response data-question-group="_QPageNine_QTipGiven" data-position="below">
-								<fieldset aria-describedby="_Q0_label_question">
-									<m-input-singleline-number data-question-group="_QPageNine_QTipGiven" data-question-id="_Q0">
-										<span class="a-label-pre">
-											<!--pre label-->
-										</span>
-										<input data-question-group="_QPageNine_QTipGiven" name="_QPageNine_QTipGiven" value="" id="_Q0" type="number" class="a-input-singleline" min="1" max="9999" maxlength="4" width="7em"/>
-										<span class="a-label-post">
-											<!--post label-->
-										</span>
-									</m-input-singleline-number>
-									<o-option-sublist role="group" aria-describedby="_Q0_label_question">
-										<m-option-base data-exclusive="true" data-question-id="_Q0_X0" data-question-group="_QPageNine_QTipGiven" class=" below " data-hidden="false" data-position="below">
-											<input data-question-group="_QPageNine_QTipGiven" name="_QPageNine_QTipGiven_X" id="_Q0_X0" type="checkbox"/>
-											<label for="_Q0_X0">
-												<span class="a-icon-multistate" data-icon-type="radio">
-													<!--Icon-->
-												</span>
-												<span class="a-label-option">I did not give a tip</span>
-											</label>
-										</m-option-base>
-										<m-option-base data-exclusive="true" data-question-id="_Q0_X1" data-question-group="_QPageNine_QTipGiven" class=" below " data-hidden="false" data-position="below">
-											<input data-question-group="_QPageNine_QTipGiven" name="_QPageNine_QTipGiven_X" id="_Q0_X1" type="checkbox"/>
-											<label for="_Q0_X1">
-												<span class="a-icon-multistate" data-icon-type="radio">
-													<!--Icon-->
-												</span>
-												<span class="a-label-option">A gratuity was included</span>
-											</label>
-										</m-option-base>
-										<m-option-base data-exclusive="true" data-question-id="_Q0_X2" data-question-group="_QPageNine_QTipGiven" class=" below " data-hidden="false" data-position="below">
-											<input data-question-group="_QPageNine_QTipGiven" name="_QPageNine_QTipGiven_X" id="_Q0_X2" type="checkbox"/>
-											<label for="_Q0_X2">
-												<span class="a-icon-multistate" data-icon-type="radio">
-													<!--Icon-->
-												</span>
-												<span class="a-label-option">I cannot remember</span>
-											</label>
-										</m-option-base>
-									</o-option-sublist>
-								</fieldset>
+							<o-response data-question-group="_QPageSix_QPaymentmade" data-properties="{&quot;labels&quot;:{&quot;pre&quot;:&quot;$&quot;}}" data-position="below">
+								<m-singleline-number data-question-group="_QPageSix_QPaymentmade" data-question-id="_Q0">
+									<span class="a-label-pre">
+										<!--pre label-->
+									</span>
+									<input data-question-group="_QPageSix_QPaymentmade" name="_QPageSix_QPaymentmade" value="" id="_Q0" type="number" class="a-singleline" min="1" max="999" maxlength="3"/>
+									<span class="a-label-post">
+										<!--post label-->
+									</span>
+								</m-singleline-number>
 							</o-response>
 						</div>
 					</div>
@@ -148,47 +117,29 @@
 						<div class="l-column">
 							<!-- Question Label -->
 							<!--elementID: _Q1-->
-							<label for="_Q1" id="_Q1_label_question">Indicate the amount of tip (gratuity) you gave the waiter</label>
+							<label for="_Q1" id="_Q1_label_question">provide the amount of cashback requested</label>
 						</div>
 						<div class="l-column">
 							<!-- Question Controls -->
-							<o-response data-question-group="_QPageNine_QTipGiven__Balance" data-properties="{&quot;balance&quot;:{&quot;state&quot;:true}}" data-position="below">
+							<o-response data-question-group="_QPageSix_Qcashback" data-properties="{&quot;labels&quot;:{&quot;pre&quot;:&quot;$&quot;}}" data-position="below">
 								<fieldset aria-describedby="_Q1_label_question">
-									<m-input-singleline-number data-question-group="_QPageNine_QTipGiven__Balance" data-question-id="_Q1">
+									<m-singleline-number data-question-group="_QPageSix_Qcashback" data-question-id="_Q1">
 										<span class="a-label-pre">
 											<!--pre label-->
 										</span>
-										<input data-question-group="_QPageNine_QTipGiven__Balance" name="_QPageNine_QTipGiven__Balance" value="" id="_Q1" type="number" class="a-input-singleline" min="1" max="9999" maxlength="4" width="7em"/>
+										<input data-question-group="_QPageSix_Qcashback" name="_QPageSix_Qcashback" value="" id="_Q1" type="number" class="a-singleline" min="1" max="9999" maxlength="4" style="width:5em;"/>
 										<span class="a-label-post">
 											<!--post label-->
 										</span>
-									</m-input-singleline-number>
+									</m-singleline-number>
 									<o-option-sublist role="group" aria-describedby="_Q1_label_question">
-										<m-option-base data-exclusive="true" data-question-id="_Q1_X0" data-question-group="_QPageNine_QTipGiven__Balance" class=" below " data-hidden="false" data-position="below">
-											<input data-question-group="_QPageNine_QTipGiven__Balance" name="_QPageNine_QTipGiven__Balance_X" id="_Q1_X0" type="checkbox"/>
+										<m-option-base data-exclusive="true" data-question-id="_Q1_X0" data-question-group="_QPageSix_Qcashback" class=" below " data-hidden="false" data-position="below">
+											<input data-question-group="_QPageSix_Qcashback" name="_QPageSix_Qcashback_X" id="_Q1_X0" type="checkbox"/>
 											<label for="_Q1_X0">
 												<span class="a-icon-multistate" data-icon-type="radio">
 													<!--Icon-->
 												</span>
-												<span class="a-label-option">I did not give a tip</span>
-											</label>
-										</m-option-base>
-										<m-option-base data-exclusive="true" data-question-id="_Q1_X1" data-question-group="_QPageNine_QTipGiven__Balance" class=" below " data-hidden="false" data-position="below">
-											<input data-question-group="_QPageNine_QTipGiven__Balance" name="_QPageNine_QTipGiven__Balance_X" id="_Q1_X1" type="checkbox"/>
-											<label for="_Q1_X1">
-												<span class="a-icon-multistate" data-icon-type="radio">
-													<!--Icon-->
-												</span>
-												<span class="a-label-option">A gratuity was included</span>
-											</label>
-										</m-option-base>
-										<m-option-base data-exclusive="true" data-question-id="_Q1_X2" data-question-group="_QPageNine_QTipGiven__Balance" class=" below " data-hidden="false" data-position="below">
-											<input data-question-group="_QPageNine_QTipGiven__Balance" name="_QPageNine_QTipGiven__Balance_X" id="_Q1_X2" type="checkbox"/>
-											<label for="_Q1_X2">
-												<span class="a-icon-multistate" data-icon-type="radio">
-													<!--Icon-->
-												</span>
-												<span class="a-label-option">I cannot remember</span>
+												<span class="a-label-option">I did not request cashback</span>
 											</label>
 										</m-option-base>
 									</o-option-sublist>
@@ -239,20 +190,20 @@
 						</div>
 						<div class="l-column">
 							<!-- Question Controls -->
-							<o-response data-question-group="_QPageNine_QTipGiven__OneSize" data-properties="{&quot;balance&quot;:{&quot;state&quot;:true},&quot;onesize&quot;:{&quot;state&quot;:true}}" data-position="below">
+							<o-response data-question-group="_QPageSix_QTipGiven" data-position="below">
 								<fieldset aria-describedby="_Q2_label_question">
-									<m-input-singleline-number data-question-group="_QPageNine_QTipGiven__OneSize" data-question-id="_Q2">
+									<m-singleline-number data-question-group="_QPageSix_QTipGiven" data-question-id="_Q2">
 										<span class="a-label-pre">
 											<!--pre label-->
 										</span>
-										<input data-question-group="_QPageNine_QTipGiven__OneSize" name="_QPageNine_QTipGiven__OneSize" value="" id="_Q2" type="number" class="a-input-singleline" min="1" max="9999" maxlength="4" width="7em"/>
+										<input data-question-group="_QPageSix_QTipGiven" name="_QPageSix_QTipGiven" value="" id="_Q2" type="number" class="a-singleline" min="1" max="9999" maxlength="4" style="width:7em;"/>
 										<span class="a-label-post">
 											<!--post label-->
 										</span>
-									</m-input-singleline-number>
+									</m-singleline-number>
 									<o-option-sublist role="group" aria-describedby="_Q2_label_question">
-										<m-option-base data-exclusive="true" data-question-id="_Q2_X0" data-question-group="_QPageNine_QTipGiven__OneSize" class=" below " data-hidden="false" data-position="below">
-											<input data-question-group="_QPageNine_QTipGiven__OneSize" name="_QPageNine_QTipGiven__OneSize_X" id="_Q2_X0" type="checkbox"/>
+										<m-option-base data-exclusive="true" data-question-id="_Q2_X0" data-question-group="_QPageSix_QTipGiven" class=" below " data-hidden="false" data-position="below">
+											<input data-question-group="_QPageSix_QTipGiven" name="_QPageSix_QTipGiven_X" id="_Q2_X0" type="checkbox"/>
 											<label for="_Q2_X0">
 												<span class="a-icon-multistate" data-icon-type="radio">
 													<!--Icon-->
@@ -260,8 +211,8 @@
 												<span class="a-label-option">I did not give a tip</span>
 											</label>
 										</m-option-base>
-										<m-option-base data-exclusive="true" data-question-id="_Q2_X1" data-question-group="_QPageNine_QTipGiven__OneSize" class=" below " data-hidden="false" data-position="below">
-											<input data-question-group="_QPageNine_QTipGiven__OneSize" name="_QPageNine_QTipGiven__OneSize_X" id="_Q2_X1" type="checkbox"/>
+										<m-option-base data-exclusive="true" data-question-id="_Q2_X1" data-question-group="_QPageSix_QTipGiven" class=" below " data-hidden="false" data-position="below">
+											<input data-question-group="_QPageSix_QTipGiven" name="_QPageSix_QTipGiven_X" id="_Q2_X1" type="checkbox"/>
 											<label for="_Q2_X1">
 												<span class="a-icon-multistate" data-icon-type="radio">
 													<!--Icon-->
@@ -269,13 +220,151 @@
 												<span class="a-label-option">A gratuity was included</span>
 											</label>
 										</m-option-base>
-										<m-option-base data-exclusive="true" data-question-id="_Q2_X2" data-question-group="_QPageNine_QTipGiven__OneSize" class=" below " data-hidden="false" data-position="below">
-											<input data-question-group="_QPageNine_QTipGiven__OneSize" name="_QPageNine_QTipGiven__OneSize_X" id="_Q2_X2" type="checkbox"/>
+										<m-option-base data-exclusive="true" data-question-id="_Q2_X2" data-question-group="_QPageSix_QTipGiven" class=" below " data-hidden="false" data-position="below">
+											<input data-question-group="_QPageSix_QTipGiven" name="_QPageSix_QTipGiven_X" id="_Q2_X2" type="checkbox"/>
 											<label for="_Q2_X2">
 												<span class="a-icon-multistate" data-icon-type="radio">
 													<!--Icon-->
 												</span>
 												<span class="a-label-option">I cannot remember</span>
+											</label>
+										</m-option-base>
+									</o-option-sublist>
+								</fieldset>
+							</o-response>
+						</div>
+					</div>
+					<div class="l-row">
+						<div class="l-column">
+							<!-- Instruction -->
+						</div>
+						<div class="l-column">
+							<!-- Spacer -->
+						</div>
+					</div>
+				</o-question>
+				<o-question>
+					<div class="l-cover"><!-- cover --></div>
+					<div class="l-row">
+						<div class="l-column">
+							<!-- Error -->
+						</div>
+						<div class="l-column">
+							<!-- Spacer -->
+						</div>
+					</div>
+					<div class="l-row">
+						<div class="l-column">
+							<!-- Warning -->
+						</div>
+						<div class="l-column">
+							<!-- Spacer -->
+						</div>
+					</div>
+					<div class="l-row">
+						<div class="l-column">
+							<!-- Instruction -->
+						</div>
+						<div class="l-column">
+							<!-- Spacer -->
+						</div>
+					</div>
+					<div class="l-row">
+						<div class="l-column">
+							<!-- Question Label -->
+							<!--elementID: _Q3-->
+							<label for="_Q3" id="_Q3_label_question"><p>When entering a coffee shop, how long are you willing to wait in the queue?<br/>Provide your answer to the nearest 20 seconds.</p></label>
+						</div>
+						<div class="l-column">
+							<!-- Question Controls -->
+							<o-response data-question-group="_QPageSix_QHowlong" data-properties="{&quot;step&quot;:20}" data-position="below">
+								<fieldset aria-describedby="_Q3_label_question">
+									<m-singleline-number data-question-group="_QPageSix_QHowlong" data-question-id="_Q3">
+										<span class="a-label-pre">
+											<!--pre label-->
+										</span>
+										<input data-question-group="_QPageSix_QHowlong" name="_QPageSix_QHowlong" value="" id="_Q3" type="number" class="a-singleline" min="1" max="600" maxlength="3" style="width:5em;"/>
+										<span class="a-label-post">
+											<!--post label-->
+										</span>
+									</m-singleline-number>
+									<o-option-sublist role="group" aria-describedby="_Q3_label_question">
+										<m-option-base data-exclusive="true" data-question-id="_Q3_X0" data-question-group="_QPageSix_QHowlong" class=" below " data-hidden="false" data-position="below">
+											<input data-question-group="_QPageSix_QHowlong" name="_QPageSix_QHowlong_X" id="_Q3_X0" type="checkbox"/>
+											<label for="_Q3_X0">
+												<span class="a-icon-multistate" data-icon-type="radio">
+													<!--Icon-->
+												</span>
+												<span class="a-label-option">I am not willing to wait</span>
+											</label>
+										</m-option-base>
+									</o-option-sublist>
+								</fieldset>
+							</o-response>
+						</div>
+					</div>
+					<div class="l-row">
+						<div class="l-column">
+							<!-- Instruction -->
+						</div>
+						<div class="l-column">
+							<!-- Spacer -->
+						</div>
+					</div>
+				</o-question>
+				<o-question>
+					<div class="l-cover"><!-- cover --></div>
+					<div class="l-row">
+						<div class="l-column">
+							<!-- Error -->
+						</div>
+						<div class="l-column">
+							<!-- Spacer -->
+						</div>
+					</div>
+					<div class="l-row">
+						<div class="l-column">
+							<!-- Warning -->
+						</div>
+						<div class="l-column">
+							<!-- Spacer -->
+						</div>
+					</div>
+					<div class="l-row">
+						<div class="l-column">
+							<!-- Instruction -->
+						</div>
+						<div class="l-column">
+							<!-- Spacer -->
+						</div>
+					</div>
+					<div class="l-row">
+						<div class="l-column">
+							<!-- Question Label -->
+							<!--elementID: _Q4-->
+							<label for="_Q4" id="_Q4_label_question"><p>Provide the price per litre of the last petrol that you purchased.</p></label>
+						</div>
+						<div class="l-column">
+							<!-- Question Controls -->
+							<o-response data-question-group="_QPageSix_QCurrentPrice" data-properties="{&quot;step&quot;:0.01}" data-position="below">
+								<fieldset aria-describedby="_Q4_label_question">
+									<m-singleline-number data-question-group="_QPageSix_QCurrentPrice" data-question-id="_Q4">
+										<span class="a-label-pre">
+											<!--pre label-->
+										</span>
+										<input data-question-group="_QPageSix_QCurrentPrice" name="_QPageSix_QCurrentPrice" value="" id="_Q4" type="number" class="a-singleline" min="0.01" max="200" maxlength="16"/>
+										<span class="a-label-post">
+											<!--post label-->
+										</span>
+									</m-singleline-number>
+									<o-option-sublist role="group" aria-describedby="_Q4_label_question">
+										<m-option-base data-exclusive="true" data-question-id="_Q4_X0" data-question-group="_QPageSix_QCurrentPrice" class=" below " data-hidden="false" data-position="below">
+											<input data-question-group="_QPageSix_QCurrentPrice" name="_QPageSix_QCurrentPrice_X" id="_Q4_X0" type="checkbox"/>
+											<label for="_Q4_X0">
+												<span class="a-icon-multistate" data-icon-type="radio">
+													<!--Icon-->
+												</span>
+												<span class="a-label-option">I don't know the price</span>
 											</label>
 										</m-option-base>
 									</o-option-sublist>
@@ -304,7 +393,6 @@
 				<nav class="m-page-links" aria-label="Links to supporting documents"><a href="#">Privacy Policy</a><a href="#">Terms and Conditions</a><a href="#">Unsubscribe</a></nav>
 			</footer>
 		</form><!-- The following script causes the page to be automatically reloaded if it changes in Professional.  This can be removed by disabling the "External browser automatic page update" setting. -->
-		<script type="text/javascript" src="SharedResources/javascript/auto-page-update/auto-page-update.js" defer="true"></script>
 	</body>
 	<script type="module" src="https://cdn.ipsosinteractive.com/sandbox/kevin.gray/transform/v2.0/staging/javascript/index.js"><!-- core code --></script>
 </html>
