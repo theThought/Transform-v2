@@ -16,9 +16,16 @@ export default class OOptionSublist extends Component {
             return;
         }
 
-        const state: boolean = this.properties.balance.state === true;
+        if (
+            typeof this.properties.balance !== 'object' ||
+            !this.properties.balance ||
+            !('state' in this.properties.balance) ||
+            typeof this.properties.balance.state !== 'boolean'
+        ) {
+            return;
+        }
 
-        if (state) {
+        if (this.properties.balance.state) {
             this.classList.add('balance');
         } else {
             this.classList.remove('balance');

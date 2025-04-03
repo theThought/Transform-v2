@@ -125,11 +125,18 @@ export default class MOptionBase extends Component implements Observer {
             return;
         }
 
-        const minWidth: string = this.properties.balance.minwidth ?? '0';
-
-        if (minWidth && this.element) {
-            this.element.style.minWidth = `${minWidth}`;
+        if (
+            !this.element ||
+            typeof this.properties.balance !== 'object' ||
+            !this.properties.balance ||
+            !('minwidth' in this.properties.balance) ||
+            typeof this.properties.balance.minwidth !== 'string'
+        ) {
+            return;
         }
+
+        const minWidth: string = this.properties.balance.minwidth ?? '0';
+        this.element.style.minWidth = `${minWidth}`;
     }
 
     // Handle (global) event listeners which are not part of this web component.
