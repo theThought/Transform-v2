@@ -1,0 +1,31 @@
+import { Canvas, Controls, Meta } from '@storybook/blocks';
+import * as ScaleStories from './scale.stories';
+import * as ScaleContainerStories from './scale-container.stories';
+
+<Meta of={ScaleStories} title="Organisms/scale" />
+# o-scale
+Scale questions are an alternative way of selecting from a range of distinct values between a predefined min and max value.  They are only suitable for small ranges, up to 10 units.  By default each unit is represented by a Square containing the value it represents.  This can be augmented with a background image for each unit.
+The scale itself can also have a background image within which the scale container sits.
+
+## structure
+- o-scale-container
+- m-label-prepost
+
+<Canvas of={ScaleStories.OScale} />
+<Controls of={ScaleStories.OScale} />
+
+# o-scale-vertical
+This is a sub-variant of o-scale providing a vertical version of the scale.  This is more suitable for mobile phones with a preference for just one question on the page.
+This uses a similar structure to o-scale, however as the pre/post label are before and after the scale and so separated, the structure does change. 
+
+## structure
+- a-label-pre
+- o-scale-container
+- a-label-post
+
+<Canvas of={ScaleStories.OScaleVertical} />
+<Controls of={ScaleStories.OScaleVertical} />
+
+
+## Special codes
+m-singleline supports the use of [special codes with the selection of a special code dismissing the value entered into the input](?path=/docs/templates-open-ends-t-singleline-special-codes--docs).  If a new value is entered after a special code is selected then the special code is dismissed.
