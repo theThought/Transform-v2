@@ -1,10 +1,15 @@
-import { Canvas, Controls, Meta } from '@storybook/blocks';
+import { Canvas, Controls, Meta, StoryObj } from '@storybook/blocks';
 import * as ScaleUnitStories from './scale-unit.stories';
 
-<Meta of={ScaleUnitStories} title="Molecules/scale" />
+<Meta title="Molecules/scale" />
+
 # m-scale-unit
 Used to present a single unit on a scale question.  The base functionality is a square block inside of which is the data label.  However augmentations include the ability to assign a background image to the unit and to change the position of the data label to before, after, inside or none.
 
-<Canvas of={ScaleUnitStories.MScaleUnit} />
-<Controls of={ScaleUnitStories.MScaleUnit} />
+<Canvas>
+  <StoryObj story={ScaleUnitStories.Default} /> 
+</Canvas>
 
+<Controls>
+  <StoryObj story={ScaleUnitStories.Default} /> 
+</Controls>
