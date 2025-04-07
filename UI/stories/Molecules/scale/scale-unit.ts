@@ -21,7 +21,11 @@ class MScaleUnit extends HTMLElement {
         this.innerHTML = value;
     }
 
-    render() {}
+    render() {
+        this.shadowRoot.innerHTML = `
+        $(this.dataValue)
+        `;
+    }
 }
 
 // Export the class
