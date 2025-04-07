@@ -28,8 +28,13 @@ export default meta;
 
 type Story = StoryObj<typeof MScaleUnit>;
 export const Default: Story = {
-    args: {
-        dataValue: '0',
-    },
-    render: (args) => MScaleUnit(args),
+  args: {
+    dataValue: '0',
+  },
+  render: (args) => {
+    // Create a new instance of the MScaleUnit class
+    const scaleUnit = new MScaleUnit();
+    scaleUnit.dataValue = args.dataValue;
+    return scaleUnit;
+  },
 };
