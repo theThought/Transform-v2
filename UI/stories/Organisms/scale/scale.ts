@@ -16,7 +16,7 @@ export const ScaleHtml = (args): string => `
 </o-scale>
 `;
 
-export const ScaleVerticalHtml = (): string => `
+export const ScaleVerticalHtml = (args): string => `
 <o-scale-vertical 
     data-question-id="_Q0"
     data-question-group="_QText"
