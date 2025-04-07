@@ -22,7 +22,7 @@ class MScaleUnit extends HTMLElement {
     }
 
     render() {
-        
+        this.shadowRoot.textContent = this.dataValue
     }
 }
 
