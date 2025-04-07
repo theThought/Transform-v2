@@ -18,14 +18,11 @@ class MScaleUnit extends HTMLElement {
             value = '1';
         }
         this.setAttribute('data-value', value);
-        this.innerHTML = value;
+        this.textContent = value;
     }
 
     render() {
-        this.shadowRoot.innerHTML = `
-      <span>${this.dataValue}</span> 
-    `;
-        ;
+        
     }
 }
 
