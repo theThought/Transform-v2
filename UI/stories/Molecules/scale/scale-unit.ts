@@ -3,7 +3,6 @@ class MScaleUnit extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
-        this.setAttribute('class', 'a-scale-unit');
     }
 
     connectedCallback() {
