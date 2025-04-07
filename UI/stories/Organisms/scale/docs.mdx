@@ -26,6 +26,13 @@ This uses a similar structure to o-scale, however as the pre/post label are befo
 <Canvas of={ScaleStories.OScaleVertical} />
 <Controls of={ScaleStories.OScaleVertical} />
 
+##o-scale-container
+Within scale questions there is a container for the actual scale./
+This provides the wrapper for the m-scale-unit elements that make up the scale.  This container is positioned via custom properties to ensure that the background image for the response and the scale are aligned.
+
+<Canvas of={ScaleContainerStories.OScaleContainer} />
+<Controls of={ScaleContainerStories.OScaleContainer} />
+
 
 ## Special codes
 m-singleline supports the use of [special codes with the selection of a special code dismissing the value entered into the input](?path=/docs/templates-open-ends-t-singleline-special-codes--docs).  If a new value is entered after a special code is selected then the special code is dismissed.
