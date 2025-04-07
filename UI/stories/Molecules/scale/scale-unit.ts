@@ -23,8 +23,9 @@ class MScaleUnit extends HTMLElement {
 
     render() {
         this.shadowRoot.innerHTML = `
-        $(this.dataValue)
-        `;
+      <span>${this.dataValue}</span> 
+    `;
+        ;
     }
 }
 
