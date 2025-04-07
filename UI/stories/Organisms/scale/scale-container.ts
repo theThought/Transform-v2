@@ -1,7 +1,11 @@
 
 import MScaleUnit from '../../Molecules/scale/scale-unit.stories';
 
-export const ScaleContainerHtml = (): string => `
+
+import { html } from 'lit';
+
+
+export const ScaleContainerHtml = (): render => html `
 <o-scale-container>
     $(MScaleUnit.ScaleUnitHtml({ dataValue: 1 }))
     $(MScaleUnit.ScaleUnitHtml({ dataValue: 2 }))
