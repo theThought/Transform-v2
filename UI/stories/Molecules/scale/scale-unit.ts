@@ -23,5 +23,7 @@ class MScaleUnit extends HTMLElement {
     `;
 }
 }
-// Register the custom element
-customElements.define('m-scale-unit', MScaleUnit);
+
+// Export the class
+export default MScaleUnit; 
+
