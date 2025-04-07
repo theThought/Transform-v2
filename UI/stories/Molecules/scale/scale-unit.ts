@@ -1,5 +1,7 @@
-export const ScaleUnitHtml = (args): string => `
-<m-scale-unit data-value="1" style="background-position-x: 0;">
-    <span class="a-label" data-value="${args.dataValue}">${args.dataValue}</span>
-</m-scale-unit>
-`;
+export const ScaleUnitHtml = (args): HTMLElement => {
+    const elementScaleUnit = document.createElement('m-scale-unit');
+    elementScaleUnit.setAttribute('data-value', args.dataValue);
+    elementScaleUnit.setAttribute('class', 'a-scale-unit');
+    return elementScaleUnit;
+}
+
