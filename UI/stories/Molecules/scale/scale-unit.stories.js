@@ -11,7 +11,9 @@ export default {
 };
 
 export const MScaleUnit = {
-    args: {},
+    args: {
+        dataValue: '0'
+    },
     render: (args) => ScaleUnitHtml(args),
 };
 MScaleUnit.storyName = 'm-scale-unit';
