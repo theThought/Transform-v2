@@ -3,6 +3,7 @@ class MScaleUnit extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
+        this.setAttribute('class', 'a-scale-unit');
     }
 
     connectedCallback() {
@@ -14,14 +15,14 @@ class MScaleUnit extends HTMLElement {
     }
 
     set dataValue(value) {
+        if (!value) {
+            value = '1';
+        }
         this.setAttribute('data-value', value);
+        this.innerHTML = value;
     }
 
-    render() {
-    this.shadowRoot.innerHTML = `
-        <class 'a-scale-unit' />
-    `;
-}
+    render() {}
 }
 
 // Export the class
