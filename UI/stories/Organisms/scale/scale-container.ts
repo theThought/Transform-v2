@@ -1,4 +1,4 @@
-import MScaleUnit from '../..Molecules/scale/scale-unit';
+import MScaleUnit from '../../Molecules/scale/scale-unit';
 class MScaleContainer extends HTMLElement {
     private minValue: number;
     private maxValue: number;
