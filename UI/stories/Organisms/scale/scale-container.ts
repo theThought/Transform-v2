@@ -1,17 +1,49 @@
+import MScaleUnit from '../..Molecules/scale/scale-unit';
+class MScaleContainer extends HTMLElement {
+    private minValue: number;
+    private maxValue: number;
 
-import { title } from 'process';
-import MScaleUnit from '../../Molecules/scale/scale-unit.stories';
+    constructor() {
+        super();
+        this.attachShadow({ mode: 'open' });
+    }
 
-const meta: Meta = {
-    title: 'Organisms/Scale/ScaleContainer',
-    component: 'o-scale-container',
-    subcomponents:{ MScaleUnit: 'm-scale-unit'},
-    tags: ['autodocs'],
+    connectedCallback() {
+        this.render();
+    }
+
+    get minimum() {
+        return this.minValue;
+    }
+
+    set minimum(value:number) {
+        if (!value) {
+            value = 1;
+        }
+        this.minValue = value;
+    }
+
+    get maximum() {
+        return this.maxValue;
+    }
+
+    set maximum(value:number) {
+        if (!value) {
+            value = 1;
+        }
+        this.maxValue = value
+    }
+
+    render() {
+        this.shadowRoot.innerHTML = ''; // Clear previous content
+
+        for (let counter = this.minimum; counter <= this.maximum; counter++) {
+            const scaleUnit = new MScaleUnit();
+            scaleUnit.dataValue = counter.toString(); // Set dataValue as string
+            this.shadowRoot.appendChild(scaleUnit);
+        }
+    }
 }
-export const ScaleContainerHtml = (): render => html `
-<o-scale-container>
-    <m-scale-unit data-value="1" />
-    <m-scale-unit data-value="2" />
-    <m-scale-unit data-value="3" />
-</o-scale-container>
-`;
+
+// Export the class
+export default MScaleContainer;
