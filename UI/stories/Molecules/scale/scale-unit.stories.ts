@@ -1,11 +1,9 @@
 import { Meta, StoryObj } from '@storybook/blocks';
-import MScaleUnit from './scale-unit';
+import AScaleUnit from '../../../src/javascript/web-components/a-scale-unit';
 
- customElements.define('m-scale-unit', MScaleUnit);
-
- const meta: Meta= {
+const meta: Meta = {
     title: 'Molecules/scale-unit',
-    component: MScaleUnit,
+    component: AScaleUnit,
     tags: ['autodocs'],
     parameters: {
         status: { type: 'beta' },
@@ -26,15 +24,15 @@ import MScaleUnit from './scale-unit';
 
 export default meta;
 
-type Story = StoryObj<typeof MScaleUnit>;
+type Story = StoryObj<typeof AScaleUnit>;
 export const Default: Story = {
-  args: {
-    dataValue: '0',
-  },
-  render: (args) => {
-    // Create a new instance of the MScaleUnit class
-    const scaleUnit = new MScaleUnit();
-    scaleUnit.dataValue = args.dataValue;
-    return scaleUnit;
-  },
+    args: {
+        dataValue: '0',
+    },
+    render: (args) => {
+        // Create a new instance of the MScaleUnit class
+        const scaleUnit: AScaleUnit = document.createElement('a-scale-unit');
+        scaleUnit.dataValue = args.dataValue;
+        return scaleUnit;
+    },
 };

@@ -11,6 +11,7 @@ import ODropdown from './web-components/o-dropdown';
 import OOptionSublist from './web-components/o-option-sublist';
 import OQuestion from './web-components/o-question';
 import OResponse from './web-components/o-response';
+import AScaleUnit from './web-components/a-scale-unit';
 
 export const uiInit = (): void => {
     // DEMO web component for Storybook introduction.
@@ -37,6 +38,9 @@ export const uiInit = (): void => {
         customElements.define('o-dropdown', ODropdown);
 
     // Inner components.
+    !customElements.get('a-scale-unit') &&
+        customElements.define('a-scale-unit', AScaleUnit);
+
     !customElements.get('m-singleline') &&
         customElements.define('m-singleline', MSingleline);
     !customElements.get('m-singleline-number') &&
