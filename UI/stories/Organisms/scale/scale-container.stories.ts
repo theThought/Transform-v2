@@ -33,8 +33,8 @@ const meta: Meta= {
 
 export default meta;
 
-type Story = StoryObj<typeof MScaleContainer>;
-export const Default: Story = {
+type StoryTen = StoryObj<typeof MScaleContainer>;
+export const Default: StoryTen = {
     name: '10-point container',
     args: {
         minimum: 1,
@@ -49,8 +49,8 @@ export const Default: Story = {
     },
 };
 
-type Story = StoryObj<typeof MScaleContainer>;
-export const SevenPoint: Story = {
+type StorySeven = StoryObj<typeof MScaleContainer>;
+export const SevenPoint: StorySeven = {
     name: '7-point container',
     args: {
         minimum: 1,
