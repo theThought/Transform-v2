@@ -13,11 +13,10 @@ const meta: Meta = {
 
 export default meta;
 
-type Pre = StoryObj; 
-
+type PreLabel = StoryObj<typeof ALabelPre>;
 export const PreLabel: Pre = {
   args: {
-    content: '',
+    content: 'prelabel',
   },
   render: (args) => ALabelPre(args.content),
 };
