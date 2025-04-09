@@ -1,26 +1,23 @@
-import ALabelPre from './Label';
+import { Meta } from '@storybook/addon-docs';
+import { createLabelPre } from './Label';
 
- customElements.define('span', ALabelPre);
+const meta: Meta = {
+  title: 'Atoms/Labels',
+  tags: ['autodocs'],
+  parameters: {
+    status: { type: 'beta' },
+    controls: { sort: 'alpha' },
+    docs: { controls: { sort: 'alpha' } },
+  },
+};
 
-  const meta: Meta= {
-     title: 'Atoms/Labels',
-     tags: ['autodocs'],
-     parameters: {
-         status: { type: 'beta' },
-         controls: { sort: 'alpha' },
-         docs: { controls: { sort: 'alpha' } },
-     },
- };
+export default meta;
 
- type Pre = StoryObj<typeof ALabelPre>;
- export const Default: Pre = {
-   args: {
-     content: '',
-   },
-   render: (args) => {
-     // Create a new instance of the MScaleUnit class
-     const preLabel = new ALabelPre();
-     pre.content = args.content;
-     return preLabel;
-   },
- };
+type Pre = StoryObj: <typeof MScaleUnit>; 
+
+export const PreLabel: Pre = {
+  args: {
+    content: '',
+  },
+  render: (args) => createLabelPre(args.content),
+};

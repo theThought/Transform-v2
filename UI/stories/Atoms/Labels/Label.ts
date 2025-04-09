@@ -1,29 +1,7 @@
-class ALabelPre extends HTMLElement {
-    constructor() {
-        super();
-        this.attachShadow({ mode: 'open' });
-    }
-
-    connectedCallback() {
-        this.render();
-    }
-
-    get content() {
-        return this.getAttribute('data-value');
-    }
-
-    set content(value) {
-        if (!value) {
-            value = '';
-        }
-        this.textContent = value;
-    }
-
-    render() {
-        this.shadowRoot.textContent = this.content
-    }
-}
-
-// Export the class
-export default ALabelPre; 
-
+// label.ts
+export function createLabelPre(content: string = ''): HTMLSpanElement {
+    const span: HTMLSpanElement = document.createElement('span');
+    span.textContent = content;
+    span.classList.add('a-label-pre'); 
+    return span;
+  }
