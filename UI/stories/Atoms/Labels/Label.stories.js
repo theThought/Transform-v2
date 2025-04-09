@@ -43,3 +43,4 @@ export const LabelPost = {
     render: () => LabelPostHtml(),
 };
 LabelPost.storyName = 'a-label-post';
+
