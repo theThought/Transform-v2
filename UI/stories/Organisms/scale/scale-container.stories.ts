@@ -1,11 +1,11 @@
 import { Meta, StoryObj } from '@storybook/blocks';
-import MScaleContainer from './scale-container';
+import OScaleContainer from './scale-container';
 
-customElements.define('m-scale-container', MScaleContainer);
+customElements.define('m-scale-container', OScaleContainer);
 
 const meta: Meta= {
     title: 'Organisms/scale-container',
-    component: MScaleContainer,
+    component: OScaleContainer,
     tags: ['autodocs'],
     parameters: {
         status: { type: 'beta' },
@@ -33,7 +33,7 @@ const meta: Meta= {
 
 export default meta;
 
-type StoryTen = StoryObj<typeof MScaleContainer>;
+type StoryTen = StoryObj<typeof OScaleContainer>;
 export const Default: StoryTen = {
     name: '10-point container',
     args: {
@@ -42,14 +42,14 @@ export const Default: StoryTen = {
     },
     render: (args) => {
         // Create a new instance of the MScaleUnit class
-        const scaleContainer = new MScaleContainer();
+        const scaleContainer = new OScaleContainer();
         scaleContainer.minimum = args.minimum;
         scaleContainer.maximum = args.maximum;
         return scaleContainer;
     },
 };
 
-type StorySeven = StoryObj<typeof MScaleContainer>;
+type StorySeven = StoryObj<typeof OScaleContainer>;
 export const SevenPoint: StorySeven = {
     name: '7-point container',
     args: {
@@ -58,7 +58,7 @@ export const SevenPoint: StorySeven = {
     },
     render: (args) => {
         // Create a new instance of the MScaleUnit class
-        const scaleContainer = new MScaleContainer();
+        const scaleContainer = new OScaleContainer();
         scaleContainer.minimum = args.minimum;
         scaleContainer.maximum = args.maximum;
         return scaleContainer;
