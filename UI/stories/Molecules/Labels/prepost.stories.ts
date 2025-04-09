@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/blocks';
-import MLabelPrePost from './prepost';
+import { MLabelPrePost } from './prepost';
 
 const meta: Meta = {
     title: 'Molecules/Labels/prepost',
