@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/blocks';
-import MScaleContainer, { ScaleContainerHtml } from './scale-container';
+import MScaleContainer from './scale-container';
 
 customElements.define('m-scale-container', MScaleContainer);
 
