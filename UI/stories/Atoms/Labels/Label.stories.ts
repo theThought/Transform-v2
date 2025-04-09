@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/blocks';
-import { ALabelPre } from './Label';
+import { ALabelPre, ALabelPost } from './Label';
 
 const meta: Meta = {
   title: 'Atoms/Labels',
@@ -19,4 +19,12 @@ export const PreLabel: Pre = {
     content: 'prelabel',
   },
   render: (args) => ALabelPre(args.content),
+};
+
+type PostLabel = StoryObj<typeof ALabelPost>;
+export const PostLabel: Post = {
+  args: {
+    content: 'prelabel',
+  },
+  render: (args) => ALabelPost(args.content),
 };
