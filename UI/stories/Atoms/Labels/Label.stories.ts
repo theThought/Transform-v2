@@ -1,5 +1,5 @@
-import { Meta } from '@storybook/addon-docs';
-import { createLabelPre } from './Label';
+import { Meta, StoryObj } from '@storybook/blocks';
+import { ALabelPre } from './Label';
 
 const meta: Meta = {
   title: 'Atoms/Labels',
@@ -13,11 +13,11 @@ const meta: Meta = {
 
 export default meta;
 
-type Pre = StoryObj: <typeof MScaleUnit>; 
+type Pre = StoryObj; 
 
 export const PreLabel: Pre = {
   args: {
     content: '',
   },
-  render: (args) => createLabelPre(args.content),
+  render: (args) => ALabelPre(args.content),
 };
