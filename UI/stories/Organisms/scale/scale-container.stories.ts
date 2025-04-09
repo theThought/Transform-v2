@@ -35,15 +35,32 @@ export default meta;
 
 type Story = StoryObj<typeof MScaleContainer>;
 export const Default: Story = {
-  args: {
-    minimum: 1,
-    maximum: 10,
-  },
-  render: (args) => {
-    // Create a new instance of the MScaleUnit class
-    const scaleContainer = new MScaleContainer();
-    scaleContainer.minimum = args.minimum;
-    scaleContainer.maximum = args.maximum;
-    return scaleContainer;
-  },
+    name: '10-point container',
+    args: {
+        minimum: 1,
+        maximum: 10,
+    },
+    render: (args) => {
+        // Create a new instance of the MScaleUnit class
+        const scaleContainer = new MScaleContainer();
+        scaleContainer.minimum = args.minimum;
+        scaleContainer.maximum = args.maximum;
+        return scaleContainer;
+    },
+};
+
+type Story = StoryObj<typeof MScaleContainer>;
+export const SevenPoint: Story = {
+    name: '7-point container',
+    args: {
+        minimum: 1,
+        maximum: 7,
+    },
+    render: (args) => {
+        // Create a new instance of the MScaleUnit class
+        const scaleContainer = new MScaleContainer();
+        scaleContainer.minimum = args.minimum;
+        scaleContainer.maximum = args.maximum;
+        return scaleContainer;
+    },
 };
