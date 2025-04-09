@@ -3,7 +3,7 @@ import ALabelPre from './Label';
  customElements.define('span', ALabelPre);
 
   const meta: Meta= {
-     title: 'Atoms/labels',
+     title: 'Atoms/Labels',
      tags: ['autodocs'],
      parameters: {
          status: { type: 'beta' },
