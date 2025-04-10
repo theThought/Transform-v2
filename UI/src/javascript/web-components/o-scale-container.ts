@@ -1,41 +1,35 @@
-import MScaleUnit from '../../Molecules/scale/scale-unit';
-class OScaleContainer extends HTMLElement {
-    private minValue: number;
-    private maxValue: number;
+export default class OScaleContainer extends HTMLElement {
+    private minValue = 0;
+    private maxValue = 10;
 
     constructor() {
         super();
-        this.attachShadow({ mode: 'open' });
     }
 
-    connectedCallback() {
-        this.render();
-    }
-
-    get minimum() {
+    public get minimum(): number {
         return this.minValue;
     }
 
-    set minimum(value:number) {
+    public set minimum(value: number) {
         if (!value) {
             value = 1;
         }
         this.minValue = value;
     }
 
-    get maximum() {
+    public get maximum(): number {
         return this.maxValue;
     }
 
-    set maximum(value:number) {
+    public set maximum(value: number) {
         if (!value) {
             value = 1;
         }
-        this.maxValue = value
+        this.maxValue = value;
     }
 
     render() {
-        this.shadowRoot.innerHTML = ''; // Clear previous content
+        this.innerHTML = ''; // Clear previous content
 
         for (let counter = this.minimum; counter <= this.maximum; counter++) {
             const scaleUnit = new MScaleUnit();
@@ -44,6 +38,3 @@ class OScaleContainer extends HTMLElement {
         }
     }
 }
-
-// Export the class
-export default OScaleContainer;

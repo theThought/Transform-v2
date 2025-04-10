@@ -1,9 +1,7 @@
 import { Meta, StoryObj } from '@storybook/blocks';
-import OScale from './scale';
+import OScale from '../../../src/javascript/web-components/o-scale';
 
-customElements.define('o-scale', OScale);
-
-const meta: Meta= {
+export default {
     title: 'Organisms/scale',
     component: OScale,
     tags: ['autodocs'],
@@ -40,7 +38,13 @@ export const Default: ScaleTen = {
     },
     render: (args) => {
         // Create a new instance of the MScaleUnit class
-        const scaleContainer = new OScale();
+        const scaleContainer = document.createElement('o-scale');
+        scaleContainer.setAttribute('data-question-id', '_Q0');
+        scaleContainer.setAttribute('data-question-group', '_QText');
+        scaleContainer.setAttribute(
+            'data-properties',
+            '{"labels":{"pre":"preLabel","post":"PostLabel"}}',
+        );
         return scaleContainer;
     },
 };

@@ -1,8 +1,8 @@
 import { Meta, StoryObj } from '@storybook/blocks';
 import AScaleUnit from '../../../src/javascript/web-components/a-scale-unit';
 
-const meta: Meta = {
-    title: 'Molecules/scale-unit',
+export default {
+    title: 'Atoms/Scale',
     component: AScaleUnit,
     tags: ['autodocs'],
     parameters: {
@@ -22,8 +22,6 @@ const meta: Meta = {
     },
 };
 
-export default meta;
-
 type Story = StoryObj<typeof AScaleUnit>;
 export const Default: Story = {
     args: {
@@ -31,8 +29,9 @@ export const Default: Story = {
     },
     render: (args) => {
         // Create a new instance of the MScaleUnit class
-        const scaleUnit: AScaleUnit = document.createElement('a-scale-unit');
+        const scaleUnit = document.createElement('a-scale-unit');
         scaleUnit.dataValue = args.dataValue;
         return scaleUnit;
     },
 };
+Default.storyName = 'a-scale-unit';

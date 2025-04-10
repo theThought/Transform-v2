@@ -2,6 +2,7 @@
 import WCExample from './web-components/wc-example';
 
 // Import modules for web components.
+import AScaleUnit from './web-components/a-scale-unit';
 import MSingleline from './web-components/m-singleline';
 import MSinglelineNumber from './web-components/m-singleline-number';
 import MSinglelineDate from './web-components/m-singleline-date';
@@ -11,7 +12,8 @@ import ODropdown from './web-components/o-dropdown';
 import OOptionSublist from './web-components/o-option-sublist';
 import OQuestion from './web-components/o-question';
 import OResponse from './web-components/o-response';
-import AScaleUnit from './web-components/a-scale-unit';
+import OScale from './web-components/o-scale';
+import OScaleContainer from './web-components/o-scale-container';
 
 export const uiInit = (): void => {
     // DEMO web component for Storybook introduction.
@@ -36,6 +38,9 @@ export const uiInit = (): void => {
         customElements.define('o-combobox', OCombobox);
     !customElements.get('o-dropdown') &&
         customElements.define('o-dropdown', ODropdown);
+    !customElements.get('o-scale') && customElements.define('o-scale', OScale);
+    !customElements.get('o-scale-container') &&
+        customElements.define('o-scale-container', OScaleContainer);
 
     // Inner components.
     !customElements.get('a-scale-unit') &&

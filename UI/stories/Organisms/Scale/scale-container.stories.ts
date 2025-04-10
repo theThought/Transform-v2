@@ -1,9 +1,7 @@
 import { Meta, StoryObj } from '@storybook/blocks';
-import OScaleContainer from './scale-container';
+import OScaleContainer from '../../../src/javascript/web-components/o-scale-container';
 
-customElements.define('m-scale-container', OScaleContainer);
-
-const meta: Meta= {
+export default {
     title: 'Organisms/scale-container',
     component: OScaleContainer,
     tags: ['autodocs'],
@@ -30,8 +28,6 @@ const meta: Meta= {
         },
     },
 };
-
-export default meta;
 
 type StoryTen = StoryObj<typeof OScaleContainer>;
 export const Default: StoryTen = {
