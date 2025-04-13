@@ -39,3 +39,10 @@ export function ALabelPre(content: string = ''): HTMLSpanElement {
     return container;
   }
 
+  export function ALabelThumb(content: string = ''): HTMLLabelElement {
+    const container: HTMLLabelElement = document.createElement('label');
+    container.classList.add('a-label-thumb');
+
+    container.textContent = content;
+    return container;
+  }

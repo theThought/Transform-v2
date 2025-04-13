@@ -30,7 +30,7 @@ export default {
 };
 
 type StoryTen = StoryObj<typeof OScaleContainer>;
-export const Default: StoryTen = {
+export const TenPoint: StoryTen = {
     name: '10-point container',
     args: {
         minimum: 1,
