@@ -11,8 +11,12 @@ The scale itself can also have a background image within which the scale contain
 - o-scale-container
 - m-label-prepost
 
-<Canvas of={ScaleStories.OScale} />
-<Controls of={ScaleStories.OScale} />
+<Canvas of={ScaleStories.TenPoint} />
+<Controls of={ScaleStories.TenPoint} />
+
+## Min/Max range
+The min and max properties of the number input are used to define the start and end values of the scale. The step value is always 1.
+Therefore a min=1 and a max=10 provides a ten point scale
 
 # o-scale-vertical
 This is a sub-variant of o-scale providing a vertical version of the scale.  This is more suitable for mobile phones with a preference for just one question on the page.
