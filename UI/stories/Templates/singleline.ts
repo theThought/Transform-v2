@@ -1,8 +1,7 @@
-import MSingleLineDate from '../../../../src/javascript/web-components/m-singleline-date';
-import MSingleLineNumber from '../../../../src/javascript/web-components/m-singleline-number';
-import MSingleLine from '../../../../src/javascript/web-components/m-singleline';
-import MOptionBase from '../../../../src/javascript/web-components/m-option-base';
-import OOptionSublist from '../../../../src/javascript/web-components/o-option-sublist';
+import MSinglelineDate from '../../src/javascript/web-components/m-singleline-date';
+import MSinglelineNumber from '../../src/javascript/web-components/m-singleline-number';
+import MSingleline from '../../src/javascript/web-components/m-singleline';
+import OOptionSublist from '../../src/javascript/web-components/o-option-sublist';
 
 export default class TSingleline extends HTMLElement {
     private jsonBalance = {"state":true, "minWidth":-1};
@@ -19,7 +18,7 @@ export default class TSingleline extends HTMLElement {
     private subVariant:string = ""
     private specialCodeCount = 0;
 
-    private oInput: MSingleLine | MSingleLineDate | MSingleLineNumber;
+    private oInput: MSingleline | MSinglelineDate | MSinglelineNumber;
     private oSpecial: OOptionSublist;
 
 

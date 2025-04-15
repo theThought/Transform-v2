@@ -2,7 +2,7 @@ import { Meta, StoryObj } from '@storybook/blocks';
 import TSingleline from './singleline';
 
 export default {
-    title: '../Templates/singleline',
+    title: 'Templates/singleline',
     component: TSingleline,
     tags: ['autodocs'],
     parameters: {
@@ -24,7 +24,7 @@ export default {
         },
         minimum: {
             control: 'number',
-            description: 'the smallest value in the scale.',
+            description: 'the smallest value allowed.',
             table: {
                 type: { summary: 'number' },
                 defaultValue: { summary: '1' },
@@ -33,7 +33,7 @@ export default {
         },
         maximum: {
             control: 'number',
-            description: 'the largest value in the scale.',
+            description: 'the largest value allowed.',
             table: {
                 type: { summary: 'number' },
                 category: 'parameters'
@@ -41,7 +41,7 @@ export default {
         },
         prelabel: {
             control: 'string',
-            description: 'a string placed before the input',
+            description: 'a string placed BEFORE the input',
             table: {
                 type: { summary: 'string' },
                 category: 'properties'
@@ -49,7 +49,7 @@ export default {
         },
         postlabel: {
             control: 'string',
-            description: 'a string placed after the input',
+            description: 'a string placed AFTER the input',
             table: {
                 type: { summary: 'string' },
                 category: 'properties'
@@ -84,7 +84,8 @@ export const TenPoint: Playground = {
         singleline.balanceMinWidth = args.balanceMinWidth;
         singleline.oneSizeMaxWidth = args.oneSizeMaxWidth;
 
-        return scaleContainer;
+
+        return singleline;
     },
 };
 
