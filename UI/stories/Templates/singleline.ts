@@ -186,6 +186,6 @@ export default class TSingleline extends HTMLElement {
         responseElement.setAttribute('data-question-id', '_Q0');
         responseElement.setAttribute('data-question-group', '_QSingleline');
         responseElement.setAttribute('data-properties', JSON.stringify(this.jsonlabels)); 
-        document.appendChild(responseElement);
+        this.appendChild(responseElement);
     }
 }
