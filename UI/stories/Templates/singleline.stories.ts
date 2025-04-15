@@ -13,7 +13,7 @@ export default {
     argTypes: {
         rtype: {
             name: 'Sub-variant',
-            control: 'string',
+            control: 'select',
             options: ['text', 'number', 'date'],
             description: 'input type required',
             table: {
@@ -23,7 +23,7 @@ export default {
                  },
             },        
         align: {
-            control: 'string',
+            control: 'select',
             options: ['Left', 'Right', 'Center'],
             description: 'alignment of the content within the input',
 
@@ -34,7 +34,7 @@ export default {
                 },
             },
         width: {
-                control: 'string',
+                control: 'text',
                 description: 'input width using a value and a measurement (eg px, em, %)',
                 table: {
                     type: { summary: 'string' },
@@ -61,7 +61,7 @@ export default {
             },
         },
         prelabel: {
-            control: 'string',
+            control: 'text',
             description: 'a string placed BEFORE the input',
             table: {
                 type: { summary: 'string' },
@@ -71,9 +71,8 @@ export default {
             },
         },
         postlabel: {
-            control: 'string',
+            control: 'text',
             description: 'a string placed AFTER the input',
-            default: '',
             table: {
                 type: { summary: 'string' },
                 defaultValue: { summary: '' },
@@ -92,7 +91,7 @@ export default {
             },
         },
         balanceMinWidth: {
-            control: 'string',
+            control: 'text',
             description: 'Minimum width for a balanced item',
             table: {
                 type: { summary: 'string' },
@@ -112,7 +111,7 @@ export default {
             },
         },
         oneSizeMaxWidth: {
-            control: 'string',
+            control: 'text',
             description: 'Maximum width for a sized item',
             table: {
                 type: { summary: 'string' },
@@ -129,7 +128,8 @@ type Playground = StoryObj<typeof TSingleline>;
 export const TenPoint: Playground = {
     name: 'Singleline (text)',
     args: {
-
+        balanceState: true,
+        oneSizeState: true
     },
     render: (args) => {
         // Create a new instance of the MScaleUnit class
