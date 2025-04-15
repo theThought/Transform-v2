@@ -134,7 +134,7 @@ export default class MSingleline extends Component implements Observer {
         this.response.removeObserver(this);
     }
 
-    render() {
+    public render() {
             this.textContent = ''; // Clear previous content
     
             const preLabel = document.createElement('span');
