@@ -157,9 +157,9 @@ export const TenPoint: Playground = {
     },
     render: (args) => {
         // Create the <o-response> element
-        const oResponse = document.createElement('o-response');
-        oResponse.setAttribute('data-question-id', '_Q0');
-        oResponse.setAttribute('data-question-group', '_QSingleline');
+        const OResponse = document.createElement('o-response');
+        OResponse.setAttribute('data-question-id', '_Q0');
+        OResponse.setAttribute('data-question-group', '_QSingleline');
 
     // Set the JSON data-properties for <o-response>
     /*    const properties = {
@@ -179,18 +179,26 @@ export const TenPoint: Playground = {
         oResponse.setAttribute('data-properties', JSON.stringify(properties));
         */
 
-        // Create the <o-singleline> element
+        const tSingleline = document.createElement('t-singleline') as TSingleline;
+
+        // Explicitly set the args as properties on the <t-singleline> instance
+        tSingleline.balanceState = args.balanceState;
+        tSingleline.oneSizeState = args.oneSizeState;
+        tSingleline.type = args.rtype;
+        tSingleline.preLabel = args.prelabel;
+        tSingleline.postLabel = args.postlabel;
+        tSingleline.minimum = args.minimum;
+        tSingleline.maximum = args.maximum;
+        tSingleline.width = args.width;
+        tSingleline.align = args.align;
+
         const oSingleline = document.createElement('o-singleline');
-        oSingleline.setAttribute('type', args.rtype);
-        oSingleline.setAttribute('min', args.minimum.toString());
-        oSingleline.setAttribute('max', args.maximum.toString());
-        oSingleline.setAttribute('step', '1'); // Default step value
-        oSingleline.setAttribute('style', `width: ${args.width}; text-align: ${args.align.toLowerCase()};`);
-
+        
         // Append <o-singleline> to <o-response>
-        oResponse.appendChild(oSingleline);
+        OResponse.appendChild(oSingleline);
 
-        return oResponse;
+        return OResponse;
+
     },
 };
 
