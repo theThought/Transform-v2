@@ -17,7 +17,7 @@ export default class TSingleline {
     private subVariant: string = "";
     private specialCodeCount = 0;
 
-    private elementResponse: OResponse;;
+    private elementResponse: OResponse;
     private elementSingleline: MSingleline | MSinglelineDate | MSinglelineNumber;
     private elementPreLabel: HTMLSpanElement;
     private elementPostLabel: HTMLSpanElement;
@@ -112,8 +112,8 @@ export default class TSingleline {
         this.elementInput.setAttribute("name", "_QSingleline");
         this.elementInput.setAttribute("id", "_Q0");
 
-        this.elementSingleline.appendChild(this.elementInput);
         this.elementSingleline.appendChild(this.elementPreLabel);
+        this.elementSingleline.appendChild(this.elementInput);
         this.elementSingleline.appendChild(this.elementPostLabel);
 
         this.elementInput.setAttribute("type", this.subVariant);
