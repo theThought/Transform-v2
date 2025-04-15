@@ -95,7 +95,7 @@ export default class TSingleline {
 
         this.elementResponse.setAttribute("data-properties", JSON.stringify(newJSON));
     }
-    
+
     public setupStory() {
         this.elementInput = document.createElement('input');
         this.elementPreLabel = document.createElement('span');
@@ -113,5 +113,6 @@ export default class TSingleline {
             "style",
             `width: ${this.inputWidth}; text-align: ${this.alignment.toLowerCase()};`
         );
+        this.updateProperties();
     }
 }
