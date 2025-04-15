@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/blocks';
 import TSingleline from './singleline';
 import OResponse from '../../src/javascript/web-components/o-response';
-import MSingleLine from '../../src/javascript/web-components/m-singleline';
+import MSingleline from '../../src/javascript/web-components/m-singleline';
 import MSinglelineDate from '../../src/javascript/web-components/m-singleline-date';
 import MSinglelineNumber from '../../src/javascript/web-components/m-singleline-number';
 import OOptionSublist from '../../src/javascript/web-components/o-option-sublist';
@@ -163,8 +163,8 @@ export const TenPoint: Playground = {
     render: (args) => {
         // Create an instance of TSingleline
         const tSingleline = new TSingleline();
-        const oResponse : HTMLElement = document.createElement('o-response');
-        const mSingleLine : HTMLElement = document.createElement('m-singleline');
+        const oResponse : OResponse = document.createElement('o-response');
+        const mSingleLine : MSingleline = document.createElement('m-singleline');
         
 
         oResponse.appendChild(mSingleLine);
