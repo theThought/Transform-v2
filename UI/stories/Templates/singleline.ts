@@ -99,9 +99,9 @@ export default class TSingleline {
     public setupStory() {
         this.elementResponse.setAttribute("data-questionId", "_Q0");
         this.elementResponse.setAttribute("data-questionGroup", "_QSingleline");
-        
-        this.elementInput = document.createElement('input');
+
         this.elementPreLabel = document.createElement('span');
+        this.elementInput = document.createElement('input');
         this.elementPostLabel = document.createElement('span');
 
         this.elementPreLabel.setAttribute("class", "a-label-pre")
