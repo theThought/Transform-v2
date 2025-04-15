@@ -1,102 +1,184 @@
-import {
-    htmlFragmentCustomProperties,
-    htmlFragmentMessageError,
-    htmlFragmentMessageInformation,
-} from '../../../_htmlFragments';
+import MSingleLineDate from '../../../../src/javascript/web-components/m-singleline-date';
+import MSingleLineNumber from '../../../../src/javascript/web-components/m-singleline-number';
+import MSingleLine from '../../../../src/javascript/web-components/m-singleline';
+import MOptionBase from '../../../../src/javascript/web-components/m-option-base';
+import OOptionSublist from '../../../../src/javascript/web-components/o-option-sublist';
 
-export const SingleLineSpecialCodesHtml = (args): string => `
-${htmlFragmentCustomProperties}
+export default class TSingleline extends HTMLElement {
+    private jsonBalance = {"state":true, "minWidth":-1};
+    private jsonOneSize = {"state":true, "maxWidth":-1};
+    private jsonlabels = {"labels": {"pre":"preLabel","post":"PostLabel"}};
 
-<main class="surroundcontent">
+    private minValue = 1;
+    private maxValue = 10;
 
-    <o-question>
-        <div class="l-cover"><!-- cover --></div>
+    private stepValue = 1;
+    private inputWidth = "";
+    private alignment = "left";
 
-        <div class="l-row">
-            <div class="l-column">
-                ${htmlFragmentMessageError}
-            </div>
-        </div>
+    private subVariant:string = ""
+    private specialCodeCount = 0;
 
-        <div class="l-row">
-            <div class="l-column">
-                <div>This is a singleline question with special codes</div>
-            </div>
+    private oInput: MSingleLine | MSingleLineDate | MSingleLineNumber;
+    private oSpecial: OOptionSublist;
 
-            <div class="l-column">
-                <o-response
-                    data-question-id="_Q0"
-                    data-question-group="_QText"
-                >
-                <fieldset>
-                    <m-singleline
-                        data-question-id="_Q0"
-                        data-question-group="_QText"
-                        data-properties='{
-                            "labels":{
-                                "pre":"${args.PreLabel}",
-                                "post":"${args.PostLabel}"
-                            }
-                        }'
-                    >
-                        <span class="a-label-pre"></span>
-                        <input
-                            type="text"
-                            id="_Q0"
-                            class="a-singleline"
-                        />
-                        <span class="a-label-post"></span>
-                    </m-singleline>
 
-                    <o-option-sublist role="group" aria-describedby="question-id"
-                        data-properties='{
-                            "balance":{
-                                "state":${args.Balance}
-                            }
-                        }'
-                    >
-                        <m-option-base class="m-option-single-answer" data-exclusive="true"
-                            data-properties='{
-                                "balance":{
-                                    "minwidth":"${args.MinWidth}"
-                                }
-                            }'
-                        >
-                            <input type="radio" id="radio1" name="radios" />
-                            <label for="radio1">
-                                <span class="a-icon-multistate" data-icon-type="single"></span>
-                                <span class="a-label-option">
-                                    Special code 1
-                                </span>
-                            </label>
-                        </m-option-base>
-                        <m-option-base class="m-option-single-answer" data-exclusive="true"
-                            data-properties='{
-                                "balance":{
-                                    "minwidth":"${args.MinWidth}"
-                                }
-                            }'
-                        >
-                            <input type="radio" id="radio2" name="radios" />
-                            <label for="radio2">
-                                <span class="a-icon-multistate" data-icon-type="single"></span>
-                                <span class="a-label-option">
-                                    Special code 2
-                                </span>
-                            </label>
-                        </m-option-base>
-                    </o-option-sublist>
-                    </fieldset>
-                </o-response>
-            </div>
-        </div>
+    constructor() {
+        super();
+    }
 
-        <div class="l-row">
-            <div class="l-column">
-                ${htmlFragmentMessageInformation}
-            </div>
-        </div>
-    </o-question>
+    public get specialCodes() : number {
+        return this.specialCodeCount;
+    }
 
-</main>
-`;
+    public get preLabel(): string {
+        return this.jsonlabels.labels.pre;
+    }
+
+    public get postLabel(): string {
+        return this.jsonlabels.labels.post;
+    }
+    
+    public get balanceState(): boolean {
+        return this.jsonBalance.state;
+    }
+
+    public get balanceMinWidth(): number {
+        return this.jsonBalance.minWidth;
+    }
+
+    public get oneSizeState(): boolean {
+        return this.jsonOneSize.state;
+    }
+
+    public get oneSizeBalance(): number {
+        return this.jsonOneSize.maxWidth
+    }
+
+    public get minimum(): number {
+        return this.minValue;
+    }
+
+    public get maximum(): number {
+        return this.maxValue;
+    }
+
+    public get type(): string {
+        return this.subVariant
+    } 
+
+    public get step(): number {
+        return this.stepValue;
+    }
+
+    public get width(): string {
+        return this.inputWidth;
+    }
+
+    public set specialCodes(theValue:number) {
+        if (theValue < 0) {
+            theValue = 0;
+        }
+        this.specialCodeCount = theValue;
+    }
+
+    public set balanceState(theState:boolean) {
+        this.jsonBalance.state = theState;
+    }
+
+    public set oneSizeState(theState:boolean) {
+        this.jsonOneSize.state = theState;
+    }
+
+    public set balanceMinWidth(theWidth:number) {
+        if (!theWidth) {
+            this.jsonBalance["minWidth"] = -1;
+        }
+        this.jsonBalance["minWidth"] = theWidth;
+    }
+
+    public set oneSizeMaxWidth(theWidth:number) {
+        if (!theWidth) {
+            this.jsonOneSize["maxWidth"] = -1;
+        }
+        this.jsonOneSize["maxWidth"] = theWidth;
+    }   
+
+    public set type (theType:string) {
+        switch (theType) {
+            case "number" :
+            case "date" :
+                this.subVariant = theType;
+            default:
+                this.subVariant = "";
+        }
+    }
+
+    public set preLabel(theValue:string) {
+        if (!theValue) {
+            theValue = "";
+        }
+        this.jsonlabels.labels.pre = theValue;
+    }
+
+    public set postLabel(theValue:string) {
+        if (!theValue) {
+            theValue = "";
+        }
+        this.jsonlabels.labels.post = theValue;
+    }
+
+    public set minimum(value: number) {
+        if (!value) {
+            value = 1;
+        }
+        this.minValue = value;
+    }
+
+    public set maximum(value: number) {
+        if (!value) {
+            value = 1;
+        }
+        this.maxValue = value;
+    }
+
+    public set width(theValue: string) {
+        if (!theValue) {
+            theValue = "";
+        }
+        this.inputWidth = theValue;
+    }
+
+    public set step(theValue: number) {
+        if (!theValue) {
+            theValue = 1;
+        }
+        this.stepValue = theValue;
+    }
+
+    public set align(theValue: string) {
+        if (!theValue) {
+            theValue = "left";
+        }
+        this.alignment = theValue;
+    }
+
+    render() {
+        this.innerHTML = ''; // Clear previous content
+        switch (this.subVariant) {
+            case "number":
+                this.oInput = new MSingleLineNumber();
+                break;
+            case "date":
+                this.oInput = new MSingleLineDate();
+                break;
+            default:
+                this.oInput = new MSingleLine();
+                break;
+        }
+        if (this.specialCodeCount>0) {
+            this.oSpecial = new OOptionSublist();
+        }
+
+    }
+}
