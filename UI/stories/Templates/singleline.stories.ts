@@ -157,28 +157,11 @@ export const TenPoint: Playground = {
     },
     render: (args) => {
         // Create the <o-response> element
-        const OResponse = document.createElement('o-response');
-        OResponse.setAttribute('data-question-id', '_Q0');
-        OResponse.setAttribute('data-question-group', '_QSingleline');
+        const oResponse = document.createElement('o-response');
+        oResponse.setAttribute('data-question-id', '_Q0');
+        oResponse.setAttribute('data-question-group', '_QSingleline');
 
-    // Set the JSON data-properties for <o-response>
-    /*    const properties = {
-            labels: {
-                pre: args.prelabel,
-                post: args.postlabel,
-            },
-            balance: {
-                state: args.balanceState,
-                minWidth: args.balanceMinWidth || -1,
-            },
-            oneSize: {
-                state: args.oneSizeState,
-                maxWidth: args.oneSizeMaxWidth || -1,
-            },
-        };
-        oResponse.setAttribute('data-properties', JSON.stringify(properties));
-        */
-
+        // Create the <t-singleline> element
         const tSingleline = document.createElement('t-singleline') as TSingleline;
 
         // Explicitly set the args as properties on the <t-singleline> instance
@@ -192,13 +175,11 @@ export const TenPoint: Playground = {
         tSingleline.width = args.width;
         tSingleline.align = args.align;
 
-        const oSingleline = document.createElement('o-singleline');
-        
-        // Append <o-singleline> to <o-response>
-        OResponse.appendChild(oSingleline);
+        // Append <t-singleline> to <o-response>
+        oResponse.appendChild(tSingleline);
 
-        return OResponse;
-
+        // Return <o-response> as the root element
+        return oResponse;
     },
 };
 

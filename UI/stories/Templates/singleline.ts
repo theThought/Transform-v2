@@ -1,9 +1,9 @@
 /** */
- import OResponse from '../../src/javascript/web-components/o-response';
- import MSinglelineDate from '../../src/javascript/web-components/m-singleline-date';
- import MSinglelineNumber from '../../src/javascript/web-components/m-singleline-number';
- import MSingleline from '../../src/javascript/web-components/m-singleline';
- import OOptionSublist from '../../src/javascript/web-components/o-option-sublist';
+import OResponse from '../../src/javascript/web-components/o-response';
+import MSinglelineDate from '../../src/javascript/web-components/m-singleline-date';
+import MSinglelineNumber from '../../src/javascript/web-components/m-singleline-number';
+import MSingleline from '../../src/javascript/web-components/m-singleline';
+import OOptionSublist from '../../src/javascript/web-components/o-option-sublist';
 
 /** */
 
@@ -186,20 +186,31 @@ export default class TSingleline extends HTMLElement {
 
     render() {
         this.innerHTML = ''; // Clear previous content
-        switch (this.subVariant) {
-            case "number":
-                this.oInput = new MSinglelineNumber();
-                break;
-            case "date":
-                this.oInput = new MSinglelineDate();
-                break;
-            default:
-                this.oInput = new MSingleline();
-                break;
+
+        // Locate the parent <o-response>
+        const parentResponse = this.closest('o-response');
+        if (!parentResponse) {
+            console.error('TSingleline must be used within an <o-response> element.');
+            return;
         }
+
+        // Create the <o-singleline> element
+        const oSingleline = document.createElement('o-singleline');
+        oSingleline.setAttribute('type', this.subVariant || 'text');
+        oSingleline.setAttribute('min', this.minValue.toString());
+        oSingleline.setAttribute('max', this.maxValue.toString());
+        oSingleline.setAttribute('step', this.stepValue.toString());
+        oSingleline.setAttribute('style', `width: ${this.inputWidth}; text-align: ${this.alignment};`);
+
+        // Append <o-singleline> to <o-response>
+        parentResponse.innerHTML = ''; // Clear previous content in <o-response>
+        parentResponse.appendChild(oSingleline);
+
+        // Update parent properties
+        this.updateParentProperties();
+
         if (this.specialCodeCount>0) {
             this.oSpecial = new OOptionSublist();
         }
-
     }
 }
