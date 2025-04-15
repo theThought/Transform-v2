@@ -151,18 +151,7 @@ export const TenPoint: Playground = {
     render: (args) => {
         // Create a new instance of the MScaleUnit class
         const singleline = new TSingleline();
-        singleline.minimum = args.minimum;
-        singleline.maximum = args.maximum;
-        singleline.preLabel = args.prelabel;
-        singleline.postLabel = args.postlabel;
-        singleline.align = args.align;
-        singleline.type = args.type;
-        singleline.width = args.width;
-        singleline.step = args.step;
-        singleline.balanceMinWidth = args.balanceMinWidth;
-        singleline.oneSizeMaxWidth = args.oneSizeMaxWidth;
 
-        singleline.render()
         return singleline;
     },
 };
