@@ -11,14 +11,15 @@ export default {
         docs: { controls: { sort: 'alpha' } },
     },
     argTypes: {
-        type: {
+        rtype: {
             name: 'Sub-variant',
             control: 'string',
             options: ['text', 'number', 'date'],
             description: 'input type required',
             default: 'text',
             table: {
-                type: { summary: 'string'
+                type: { summary: 'string',
+                    category: 'general'
                  },
             },
         },        
@@ -33,7 +34,7 @@ export default {
                  },
             },
         },
-            width: {
+        width: {
                 control: 'string',
                 description: 'input width using a value and a measurement (eg px, em, %)',
                 default: '15em',
@@ -79,23 +80,6 @@ export default {
                 subcategory: 'labels'
             },
         },
-        balanceState: {
-            control: 'boolean',
-            description: 'whether balance should be applied',
-            table: {
-                type: { summary: 'string' },
-                category: 'properties',
-                subcategory: 'balance'
-            },
-        },
-        balanceMinWidth: {
-            control: 'string',
-            description: 'Minimum width for a balanced item',
-            table: {
-                type: { summary: 'string' },
-                category: 'properties',
-                subcategory: 'balance'
-            },
         balanceState: {
             control: 'boolean',
             description: 'whether balance should be applied',
