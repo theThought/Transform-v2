@@ -111,7 +111,7 @@ export default class TSingleline {
 
         this.elementPreLabel.setAttribute("class", "a-label-pre")
         this.elementPostLabel.setAttribute("class", "a-label-post")
-        this.elementInput.setAttribute("class", "a-Singleline");
+        this.elementInput.setAttribute("class", "a-singleline");
         this.elementInput.setAttribute("name", "_QSingleline");
         this.elementInput.setAttribute("id", "_Q0");
 
