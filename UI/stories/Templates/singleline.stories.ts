@@ -165,20 +165,13 @@ export const TenPoint: Playground = {
         const tSingleline = new TSingleline();
         const oResponse : HTMLElement = document.createElement('o-response');
         const mSingleLine : HTMLElement = document.createElement('m-singleline');
-        const aInput: HTMLInputElement = document.createElement('input');
-        const aPreLabel: HTMLSpanElement = document.createElement('span');
-        const aPostLabel: HTMLSpanElement = document.createElement('span');
+        
 
         oResponse.appendChild(mSingleLine);
-        mSingleLine.appendChild(aInput);
-        mSingleLine.appendChild(aPreLabel);
-        mSingleLine.appendChild(aInput);
-        mSingleLine.appendChild(aPostLabel);
+
         // Set properties based on args
         tSingleline.responseHTML = oResponse;
-        tSingleline.inputHTML = aInput;
-        tSingleline.prelabelHTML = aPreLabel;
-        tSingleline.postlabelHTML = aPostLabel;
+        tSingleline.singlelineHTML = mSingleLine;
 
         tSingleline.balanceState = args.balanceState;
         tSingleline.oneSizeState = args.oneSizeState;

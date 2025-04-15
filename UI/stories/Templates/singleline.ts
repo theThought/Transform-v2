@@ -22,26 +22,30 @@ export default class TSingleline {
 
     private elementResponse: HTMLElement;
     private elementSingleline: HTMLElement;
-    private elementPrelabel: HTMLSpanElement;
-    private elementPostlabel: HTMLSpanElement;
+    private elementPreLabel: HTMLSpanElement;
+    private elementPostLabel: HTMLSpanElement;
     private elementInput: HTMLInputElement;
 
     constructor() {}
 
     public set balanceState(theState: boolean) {
         this.jsonBalance.state = theState;
+        this.updateProperties();
     }
 
     public set oneSizeState(theState: boolean) {
         this.jsonOneSize.state = theState;
+        this.updateProperties();
     }
 
     public set balanceMinWidth(theWidth: number) {
         this.jsonBalance.minWidth = theWidth || -1;
+        this.updateProperties
     }
 
     public set oneSizeMaxWidth(theWidth: number) {
         this.jsonOneSize.maxWidth = theWidth || -1;
+        this.updateProperties();
     }
 
     public set type(theType: string) {
@@ -76,23 +80,31 @@ export default class TSingleline {
         this.elementResponse = theValue
     }
 
-    public set SinglelineHTML(theValue: HTMLElement) {
+    public set singlelineHTML(theValue: HTMLElement) {
         this.elementSingleline = theValue;
     }
 
-    public set inputHTML(theValue: HTMLInputElement) {
-        this.elementInput = theValue;
-    }
+    private updateProperties() {
+    var newJSON = {labels: {}, balance: {}, oneSize: {}};
+        if (!this.elementResponse) {
+            return;
+        }
+        newJSON.balance = this.jsonBalance;
+        newJSON.oneSize = this.jsonOneSize;
+        newJSON.labels = this.jsonlabels;
 
-    public set prelabelHTML(theValue: HTMLSpanElement) {
-        this.elementPrelabel = theValue;
+        this.elementResponse.setAttribute("data-properties", JSON.stringify(newJSON));
     }
-
-    public set postlabelHTML(theValue: HTMLSpanElement) {
-        this.elementPostlabel = theValue;
-    }
-
+    
     public setupStory() {
+        this.elementInput = document.createElement('input');
+        this.elementPreLabel = document.createElement('span');
+        this.elementPostLabel = document.createElement('span');
+
+        this.elementSingleline.appendChild(this.elementInput);
+        this.elementSingleline.appendChild(this.elementPreLabel);
+        this.elementSingleline.appendChild(this.elementPostLabel);
+
         this.elementInput.setAttribute("type", this.subVariant);
         this.elementInput.setAttribute("min", this.minValue.toString());
         this.elementInput.setAttribute("max", this.maxValue.toString());
