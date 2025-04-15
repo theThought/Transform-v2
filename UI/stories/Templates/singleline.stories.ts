@@ -7,7 +7,24 @@ export default {
     tags: ['autodocs'],
     parameters: {
         status: { type: 'beta' },
-        controls: { sort: 'alpha' },
+        controls: {             
+        sort: (theFirst, theSecond) => {
+            const categoryOrder = ['general', 'parameters', 'properties']; // Desired order
+            const categoryFirst = theFirst.table?.category || '';
+            const categorySecond = theSecond.table?.category || '';
+
+            // Sort by category order first
+            const categoryIndexFirst = categoryOrder.indexOf(categoryFirst);
+            const categoryIndexSecond = categoryOrder.indexOf(categorySecond);
+
+            if (categoryIndexFirst !== categoryIndexSecond) {
+                return categoryIndexFirst - categoryIndexSecond;
+            }
+
+            // If categories are the same, sort alphabetically by name
+            return theFirst.name.localeCompare(theSecond.name);
+            }, 
+        },
         docs: { controls: { sort: 'alpha' } },
     },
     argTypes: {
