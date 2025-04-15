@@ -1,7 +1,11 @@
-import MSinglelineDate from '../../src/javascript/web-components/m-singleline-date';
-import MSinglelineNumber from '../../src/javascript/web-components/m-singleline-number';
-import MSingleline from '../../src/javascript/web-components/m-singleline';
-import OOptionSublist from '../../src/javascript/web-components/o-option-sublist';
+/** */
+ import OResponse from '../../src/javascript/web-components/o-response';
+ import MSinglelineDate from '../../src/javascript/web-components/m-singleline-date';
+ import MSinglelineNumber from '../../src/javascript/web-components/m-singleline-number';
+ import MSingleline from '../../src/javascript/web-components/m-singleline';
+ import OOptionSublist from '../../src/javascript/web-components/o-option-sublist';
+
+/** */
 
 export default class TSingleline extends HTMLElement {
     private jsonBalance = {"state":true, "minWidth":-1};
@@ -178,6 +182,10 @@ export default class TSingleline extends HTMLElement {
         if (this.specialCodeCount>0) {
             this.oSpecial = new OOptionSublist();
         }
-
+        var responseElement = new HTMLDivElement();
+        responseElement.setAttribute('data-question-id', '_Q0');
+        responseElement.setAttribute('data-question-group', '_QSingleline');
+        responseElement.setAttribute('data-properties', JSON.stringify(this.jsonlabels)); 
+        document.appendChild(responseElement);
     }
 }
