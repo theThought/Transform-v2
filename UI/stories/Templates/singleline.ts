@@ -10,7 +10,7 @@
 export default class TSingleline extends HTMLElement {
     private jsonBalance = {"state":true, "minWidth":-1};
     private jsonOneSize = {"state":true, "maxWidth":-1};
-    private jsonlabels = {"labels": {"pre":"preLabel","post":"PostLabel"}};
+    private jsonlabels = {"pre":"preLabel","post":"PostLabel"};
 
     private minValue = 1;
     private maxValue = 10;
@@ -34,7 +34,7 @@ export default class TSingleline extends HTMLElement {
         const parentResponse = this.closest('o-response');
         if (parentResponse) {
             const properties = {
-                labels: this.jsonlabels.labels,
+                labels: this.jsonlabels,
                 balance: this.jsonBalance,
                 oneSize: this.jsonOneSize,
             };
@@ -47,11 +47,11 @@ export default class TSingleline extends HTMLElement {
     }
 
     public get preLabel(): string {
-        return this.jsonlabels.labels.pre;
+        return this.jsonlabels.pre;
     }
 
     public get postLabel(): string {
-        return this.jsonlabels.labels.post;
+        return this.jsonlabels.post;
     }
     
     public get balanceState(): boolean {
@@ -200,10 +200,6 @@ export default class TSingleline extends HTMLElement {
         if (this.specialCodeCount>0) {
             this.oSpecial = new OOptionSublist();
         }
-        var responseElement = new HTMLDivElement();
-        responseElement.setAttribute('data-question-id', '_Q0');
-        responseElement.setAttribute('data-question-group', '_QSingleline');
-        responseElement.setAttribute('data-properties', JSON.stringify(this.jsonlabels)); 
-        this.appendChild(responseElement);
+
     }
 }
