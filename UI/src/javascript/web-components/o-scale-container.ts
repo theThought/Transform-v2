@@ -1,3 +1,4 @@
+import AScaleUnit from "./a-scale-unit";
 export default class OScaleContainer extends HTMLElement {
     private minValue = 0;
     private maxValue = 10;
@@ -32,7 +33,7 @@ export default class OScaleContainer extends HTMLElement {
         this.innerHTML = ''; // Clear previous content
 
         for (let counter = this.minimum; counter <= this.maximum; counter++) {
-            const scaleUnit = new MScaleUnit();
+            const scaleUnit = new AScaleUnit();
             scaleUnit.dataValue = counter.toString(); // Set dataValue as string
             this.shadowRoot.appendChild(scaleUnit);
         }
