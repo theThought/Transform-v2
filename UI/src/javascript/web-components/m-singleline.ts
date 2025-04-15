@@ -133,4 +133,21 @@ export default class MSingleline extends Component implements Observer {
         if (!this.response) return;
         this.response.removeObserver(this);
     }
+
+    render() {
+            this.textContent = ''; // Clear previous content
+    
+            const preLabel = document.createElement('span');
+            preLabel.className = 'a-label-pre';
+            this.shadowRoot.appendChild(preLabel);
+    
+            const input = document.createElement('input');
+            input.className = 'a-singleline';
+            this.shadowRoot.appendChild(input);
+
+            const postLabel = document.createElement('span');
+            preLabel.className = 'a-label-post';
+            this.shadowRoot.appendChild(postLabel);
+
+        }
 }
