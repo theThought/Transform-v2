@@ -12,6 +12,17 @@ export default {
     },
     argTypes: {
         align: {
+            name: 'Sub-variant',
+            control: 'string',
+            options: ['text', 'number', 'date'],
+            description: 'input type required',
+            default: 'text',
+            table: {
+                type: { summary: 'string'
+                 },
+            },
+        },        
+        align: {
             control: 'string',
             options: ['Left', 'Right', 'Center'],
             description: 'alignment of the content within the input',
@@ -20,6 +31,17 @@ export default {
                 type: { summary: 'string',
                     category: 'parameters'
                  },
+            },
+        },
+            width: {
+                control: 'string',
+                description: 'input width using a value and a measurement (eg px, em, %)',
+                default: '15em',
+                table: {
+                    type: { summary: 'string',
+                        category: 'parameters'
+                     },
+                },
             },
         },
         minimum: {
@@ -44,7 +66,8 @@ export default {
             description: 'a string placed BEFORE the input',
             table: {
                 type: { summary: 'string' },
-                category: 'properties'
+                category: 'properties',
+                subcategory: 'labels'
             },
         },
         postlabel: {
@@ -52,9 +75,62 @@ export default {
             description: 'a string placed AFTER the input',
             table: {
                 type: { summary: 'string' },
-                category: 'properties'
+                category: 'properties',
+                subcategory: 'labels'
             },
         },
+        balanceState: {
+            control: 'boolean',
+            description: 'whether balance should be applied',
+            table: {
+                type: { summary: 'string' },
+                category: 'properties',
+                subcategory: 'balance'
+            },
+        },
+        balanceMinWidth: {
+            control: 'string',
+            description: 'Minimum width for a balanced item',
+            table: {
+                type: { summary: 'string' },
+                category: 'properties',
+                subcategory: 'balance'
+            },
+        balanceState: {
+            control: 'boolean',
+            description: 'whether balance should be applied',
+            table: {
+                type: { summary: 'string' },
+                category: 'properties',
+                subcategory: 'balance'
+            },
+        },
+        balanceMinWidth: {
+            control: 'string',
+            description: 'Minimum width for a balanced item',
+            table: {
+                type: { summary: 'string' },
+                category: 'properties',
+                subcategory: 'balance'
+            },
+        },
+        onsSizeState: {
+            control: 'boolean',
+            description: 'whether OneSize should be applied',
+            table: {
+                type: { summary: 'string' },
+                category: 'properties',
+                subcategory: 'onesize'
+            },
+        },
+        oneSizeMaxWidth: {
+            control: 'string',
+            description: 'Maximum width for a sized item',
+            table: {
+                type: { summary: 'string' },
+                category: 'properties',
+                subcategory: 'onesize'
+            },
     }
 };
 
