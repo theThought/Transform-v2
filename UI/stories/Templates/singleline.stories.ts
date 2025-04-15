@@ -156,15 +156,10 @@ export const TenPoint: Playground = {
         align: 'Left',
     },
     render: (args) => {
-        // Create the <o-response> element
-        const oResponse = document.createElement('o-response');
-        oResponse.setAttribute('data-question-id', '_Q0');
-        oResponse.setAttribute('data-question-group', '_QSingleline');
+        // Create an instance of TSingleline
+        const tSingleline = new TSingleline();
 
-        // Create the <t-singleline> element
-        const tSingleline = document.createElement('t-singleline') as TSingleline;
-
-        // Explicitly set the args as properties on the <t-singleline> instance
+        // Set properties based on args
         tSingleline.balanceState = args.balanceState;
         tSingleline.oneSizeState = args.oneSizeState;
         tSingleline.type = args.rtype;
@@ -175,11 +170,8 @@ export const TenPoint: Playground = {
         tSingleline.width = args.width;
         tSingleline.align = args.align;
 
-        // Append <t-singleline> to <o-response>
-        oResponse.appendChild(tSingleline);
-
         // Return <o-response> as the root element
-        return oResponse;
+        return tSingleline.render();
     },
 };
 
