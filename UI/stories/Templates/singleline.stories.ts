@@ -11,7 +11,7 @@ export default {
         docs: { controls: { sort: 'alpha' } },
     },
     argTypes: {
-        align: {
+        type: {
             name: 'Sub-variant',
             control: 'string',
             options: ['text', 'number', 'date'],
