@@ -38,7 +38,6 @@ export default {
                         category: 'parameters'
                      },
             },
-        },
         minimum: {
             control: 'number',
             description: 'the smallest value allowed.',
@@ -50,6 +49,7 @@ export default {
         maximum: {
             control: 'number',
             description: 'the largest value allowed.',
+            default: 39,
             table: {
                 category: 'parameters'
             },
@@ -57,6 +57,7 @@ export default {
         prelabel: {
             control: 'string',
             description: 'a string placed BEFORE the input',
+            default: '',
             table: {
                 category: 'properties',
                 subcategory: 'labels'
@@ -65,6 +66,7 @@ export default {
         postlabel: {
             control: 'string',
             description: 'a string placed AFTER the input',
+            default: '',
             table: {
                 category: 'properties',
                 subcategory: 'labels'
@@ -73,6 +75,7 @@ export default {
         balanceState: {
             control: 'boolean',
             description: 'whether balance should be applied',
+            default: true,
             table: {
                 category: 'properties',
                 subcategory: 'balance'
@@ -89,6 +92,7 @@ export default {
         onsSizeState: {
             control: 'boolean',
             description: 'whether OneSize should be applied',
+            default: true,
             table: {
                 category: 'properties',
                 subcategory: 'onesize'
@@ -102,18 +106,15 @@ export default {
                 subcategory: 'onesize'
             },
         },
-    };
+    },
+} as Meta<typeof TSingleline>;
+
 
 type Playground = StoryObj<typeof TSingleline>;
 export const TenPoint: Playground = {
     name: 'Singleline (text)',
     args: {
-        source: 'storybook',
-        prelabel: 'PreLabel',
-        postlabel: 'PostLabel',
-        align: 'Left',
-        type: 'text',
-        width: '15em'
+
     },
     render: (args) => {
         // Create a new instance of the MScaleUnit class
