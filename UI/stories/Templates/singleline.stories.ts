@@ -170,7 +170,7 @@ export const TenPoint: Playground = {
         tSingleline.width = args.width;
         tSingleline.align = args.align;
 
-        // Return <o-response> as the root element
+        // Render and return the <o-response> element
         return tSingleline.render();
     },
 };

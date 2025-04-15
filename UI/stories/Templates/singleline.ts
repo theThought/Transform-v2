@@ -7,21 +7,20 @@ import OOptionSublist from '../../src/javascript/web-components/o-option-sublist
 
 /** */
 
-export default class TSingleline extends OResponse {
-    private jsonBalance = {"state":true, "minWidth":-1};
-    private jsonOneSize = {"state":true, "maxWidth":-1};
-    private jsonlabels = {"pre":"preLabel","post":"PostLabel"};
+export default class TSingleline {
+    private jsonBalance = { state: true, minWidth: -1 };
+    private jsonOneSize = { state: true, maxWidth: -1 };
+    private jsonlabels = { pre: "preLabel", post: "PostLabel" };
 
     private minValue = 1;
     private maxValue = 10;
-
     private stepValue = 1;
     private inputWidth = "";
     private alignment = "left";
     private subVariant: string = "";
     private specialCodeCount = 0;
 
-    super() {}
+    constructor() {}
 
     public set balanceState(theState: boolean) {
         this.jsonBalance.state = theState;
