@@ -1,5 +1,10 @@
 import { Meta, StoryObj } from '@storybook/blocks';
 import TSingleline from './singleline';
+import OResponse from '../../src/javascript/web-components/o-response';
+import MSingleLine from '../../src/javascript/web-components/m-singleline';
+import MSinglelineDate from '../../src/javascript/web-components/m-singleline-date';
+import MSinglelineNumber from '../../src/javascript/web-components/m-singleline-number';
+import OOptionSublist from '../../src/javascript/web-components/o-option-sublist';
 
 export default {
     title: 'Templates/singleline',
@@ -158,8 +163,23 @@ export const TenPoint: Playground = {
     render: (args) => {
         // Create an instance of TSingleline
         const tSingleline = new TSingleline();
+        const oResponse : HTMLElement = document.createElement('o-response');
+        const mSingleLine : HTMLElement = document.createElement('m-singleline');
+        const aInput: HTMLInputElement = document.createElement('input');
+        const aPreLabel: HTMLSpanElement = document.createElement('span');
+        const aPostLabel: HTMLSpanElement = document.createElement('span');
 
+        oResponse.appendChild(mSingleLine);
+        mSingleLine.appendChild(aInput);
+        mSingleLine.appendChild(aPreLabel);
+        mSingleLine.appendChild(aInput);
+        mSingleLine.appendChild(aPostLabel);
         // Set properties based on args
+        tSingleline.responseHTML = oResponse;
+        tSingleline.inputHTML = aInput;
+        tSingleline.prelabelHTML = aPreLabel;
+        tSingleline.postlabelHTML = aPostLabel;
+
         tSingleline.balanceState = args.balanceState;
         tSingleline.oneSizeState = args.oneSizeState;
         tSingleline.type = args.rtype;
@@ -170,8 +190,9 @@ export const TenPoint: Playground = {
         tSingleline.width = args.width;
         tSingleline.align = args.align;
 
+        tSingleline.setupStory();
         // Render and return the <o-response> element
-        return tSingleline.render();
+        return oResponse;
     },
 };
 

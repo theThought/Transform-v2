@@ -20,6 +20,12 @@ export default class TSingleline {
     private subVariant: string = "";
     private specialCodeCount = 0;
 
+    private elementResponse: HTMLElement;
+    private elementSingleline: HTMLElement;
+    private elementPrelabel: HTMLSpanElement;
+    private elementPostlabel: HTMLSpanElement;
+    private elementInput: HTMLInputElement;
+
     constructor() {}
 
     public set balanceState(theState: boolean) {
@@ -66,34 +72,34 @@ export default class TSingleline {
         this.alignment = theValue || "left";
     }
 
-    public render(): HTMLElement {
-        // Create the <o-response> element
-        const oResponse = document.createElement("o-response");
-        oResponse.setAttribute("data-question-id", "_Q0");
-        oResponse.setAttribute("data-question-group", "_QSingleline");
+    public set responseHTML(theValue: HTMLElement) {
+        this.elementResponse = theValue
+    }
 
-        // Set the JSON data-properties for <o-response>
-        const properties = {
-            labels: this.jsonlabels,
-            balance: this.jsonBalance,
-            oneSize: this.jsonOneSize,
-        };
-        oResponse.setAttribute("data-properties", JSON.stringify(properties));
+    public set SinglelineHTML(theValue: HTMLElement) {
+        this.elementSingleline = theValue;
+    }
 
-        // Create the <o-singleline> element
-        const mSingleline = document.createElement("m-singleline");
-        mSingleline.setAttribute("type", this.subVariant);
-        mSingleline.setAttribute("min", this.minValue.toString());
-        mSingleline.setAttribute("max", this.maxValue.toString());
-        mSingleline.setAttribute("step", this.stepValue.toString());
-        mSingleline.setAttribute(
+    public set inputHTML(theValue: HTMLInputElement) {
+        this.elementInput = theValue;
+    }
+
+    public set prelabelHTML(theValue: HTMLSpanElement) {
+        this.elementPrelabel = theValue;
+    }
+
+    public set postlabelHTML(theValue: HTMLSpanElement) {
+        this.elementPostlabel = theValue;
+    }
+
+    public setupStory() {
+        this.elementInput.setAttribute("type", this.subVariant);
+        this.elementInput.setAttribute("min", this.minValue.toString());
+        this.elementInput.setAttribute("max", this.maxValue.toString());
+        this.elementInput.setAttribute("step", this.stepValue.toString());
+        this.elementInput.setAttribute(
             "style",
             `width: ${this.inputWidth}; text-align: ${this.alignment.toLowerCase()};`
         );
-
-        // Append <o-singleline> to <o-response>
-        oResponse.appendChild(mSingleline);
-
-        return oResponse;
     }
 }
