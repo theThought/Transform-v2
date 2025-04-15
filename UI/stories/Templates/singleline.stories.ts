@@ -100,7 +100,7 @@ export default {
                 subcategory: 'balance',
             },
         },
-        onsSizeState: {
+        oneSizeState: {
             control: 'boolean',
             description: 'whether OneSize should be applied',
             table: {
