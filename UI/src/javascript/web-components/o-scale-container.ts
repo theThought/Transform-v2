@@ -34,7 +34,7 @@ export default class OScaleContainer extends HTMLElement {
         this.innerHTML = ''; // Clear previous content
 
         for (let counter = this.minimum; counter <= this.maximum; counter++) {
-            const scaleUnit = new AScaleUnit();
+            const scaleUnit = document.createElement('a-scale-unit') as AScaleUnit;
             scaleUnit.dataValue = counter.toString(); // Set dataValue as string
             this.shadowRoot.appendChild(scaleUnit);
         }
