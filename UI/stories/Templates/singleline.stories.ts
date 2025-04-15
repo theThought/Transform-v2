@@ -131,6 +131,7 @@ export default {
                 category: 'properties',
                 subcategory: 'onesize'
             },
+        },
     }
 };
 
@@ -138,8 +139,7 @@ type Playground = StoryObj<typeof TSingleline>;
 export const TenPoint: Playground = {
     name: 'Singleline (text)',
     args: {
-        minimum: 1,
-        maximum: 10,
+        source: 'storybook',
         prelabel: 'PreLabel',
         postlabel: 'PostLabel',
         align: 'Left',
