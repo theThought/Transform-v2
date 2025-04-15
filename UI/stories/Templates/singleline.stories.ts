@@ -16,51 +16,58 @@ export default {
             control: 'string',
             options: ['text', 'number', 'date'],
             description: 'input type required',
-            default: 'text',
             table: {
+                    type: { summary: 'string' },
+                    defaultValue: { summary: 'text' },
                     category: 'general'
                  },
-        },        
+            },        
         align: {
             control: 'string',
             options: ['Left', 'Right', 'Center'],
             description: 'alignment of the content within the input',
-            default: 'Left',
+
             table: {
-                    category: 'parameters'
-                 },
-        },
+                type: { summary: 'string' },
+                defaultValue: { summary: 'Left' },
+                category: 'parameters',
+                },
+            },
         width: {
                 control: 'string',
                 description: 'input width using a value and a measurement (eg px, em, %)',
-                default: '15em',
                 table: {
-                        category: 'parameters'
+                    type: { summary: 'string' },
+                    defaultValue: { summary: '15em' },
+                    category: 'parameters',
                      },
             },
         minimum: {
             control: 'number',
             description: 'the smallest value allowed.',
-            default: 1,
             table: {
+                type: { summary: 'number' },
+                defaultValue: { summary: '1' },
                 category: 'parameters',
             },
         },
         maximum: {
             control: 'number',
             description: 'the largest value allowed.',
-            default: 39,
             table: {
-                category: 'parameters'
+                type: { summary: 'number' },
+                defaultValue: { summary: '39' },
+                category: 'parameters',
             },
         },
         prelabel: {
             control: 'string',
             description: 'a string placed BEFORE the input',
-            default: '',
             table: {
+                type: { summary: 'string' },
+                defaultValue: { summary: '' },
                 category: 'properties',
-                subcategory: 'labels'
+                subcategory: 'labels',
             },
         },
         postlabel: {
@@ -68,42 +75,50 @@ export default {
             description: 'a string placed AFTER the input',
             default: '',
             table: {
+                type: { summary: 'string' },
+                defaultValue: { summary: '' },
                 category: 'properties',
-                subcategory: 'labels'
+                subcategory: 'labels',
             },
         },
         balanceState: {
             control: 'boolean',
             description: 'whether balance should be applied',
-            default: true,
             table: {
+                type: { summary: 'boolean' },
+                defaultValue: { summary: 'true' },
                 category: 'properties',
-                subcategory: 'balance'
+                subcategory: 'balance',
             },
         },
         balanceMinWidth: {
             control: 'string',
             description: 'Minimum width for a balanced item',
             table: {
+                type: { summary: 'string' },
+                defaultValue: { summary: '' },
                 category: 'properties',
-                subcategory: 'balance'
+                subcategory: 'balance',
             },
         },
         onsSizeState: {
             control: 'boolean',
             description: 'whether OneSize should be applied',
-            default: true,
             table: {
+                type: { summary: 'boolean' },
+                defaultValue: { summary: 'true' },
                 category: 'properties',
-                subcategory: 'onesize'
+                subcategory: 'onesize',
             },
         },
         oneSizeMaxWidth: {
             control: 'string',
             description: 'Maximum width for a sized item',
             table: {
+                type: { summary: 'string' },
+                defaultValue: { summary: '' },
                 category: 'properties',
-                subcategory: 'onesize'
+                subcategory: 'onesize',
             },
         },
     },
