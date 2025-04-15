@@ -5,6 +5,7 @@ export default class OScaleContainer extends HTMLElement {
 
     constructor() {
         super();
+        this.attachShadow({ mode: 'open' });
     }
 
     public get minimum(): number {
