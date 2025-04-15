@@ -107,10 +107,13 @@ export default class TSingleline {
         this.elementInput = document.createElement('input');
         this.elementPostLabel = document.createElement('span');
         this.elementInput.setAttribute("data-question-group","_QSingleline");
+        this.elementInput.setAttribute("data-hidden", "false");
 
         this.elementPreLabel.setAttribute("class", "a-label-pre")
         this.elementPostLabel.setAttribute("class", "a-label-post")
         this.elementInput.setAttribute("class", "a-Singleline");
+        this.elementInput.setAttribute("name", "_QSingleline");
+        this.elementInput.setAttribute("id", "_Q0");
 
         this.elementSingleline.appendChild(this.elementInput);
         this.elementSingleline.appendChild(this.elementPreLabel);
