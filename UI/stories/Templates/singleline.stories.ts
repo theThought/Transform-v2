@@ -18,10 +18,8 @@ export default {
             description: 'input type required',
             default: 'text',
             table: {
-                type: { summary: 'string',
                     category: 'general'
                  },
-            },
         },        
         align: {
             control: 'string',
@@ -29,28 +27,23 @@ export default {
             description: 'alignment of the content within the input',
             default: 'Left',
             table: {
-                type: { summary: 'string',
                     category: 'parameters'
                  },
-            },
         },
         width: {
                 control: 'string',
                 description: 'input width using a value and a measurement (eg px, em, %)',
                 default: '15em',
                 table: {
-                    type: { summary: 'string',
                         category: 'parameters'
                      },
-                },
             },
         },
         minimum: {
             control: 'number',
             description: 'the smallest value allowed.',
+            default: 1,
             table: {
-                type: { summary: 'number' },
-                defaultValue: { summary: '1' },
                 category: 'parameters',
             },
         },
@@ -58,7 +51,6 @@ export default {
             control: 'number',
             description: 'the largest value allowed.',
             table: {
-                type: { summary: 'number' },
                 category: 'parameters'
             },
         },
@@ -66,7 +58,6 @@ export default {
             control: 'string',
             description: 'a string placed BEFORE the input',
             table: {
-                type: { summary: 'string' },
                 category: 'properties',
                 subcategory: 'labels'
             },
@@ -75,7 +66,6 @@ export default {
             control: 'string',
             description: 'a string placed AFTER the input',
             table: {
-                type: { summary: 'string' },
                 category: 'properties',
                 subcategory: 'labels'
             },
@@ -84,7 +74,6 @@ export default {
             control: 'boolean',
             description: 'whether balance should be applied',
             table: {
-                type: { summary: 'string' },
                 category: 'properties',
                 subcategory: 'balance'
             },
@@ -93,7 +82,6 @@ export default {
             control: 'string',
             description: 'Minimum width for a balanced item',
             table: {
-                type: { summary: 'string' },
                 category: 'properties',
                 subcategory: 'balance'
             },
@@ -102,7 +90,6 @@ export default {
             control: 'boolean',
             description: 'whether OneSize should be applied',
             table: {
-                type: { summary: 'string' },
                 category: 'properties',
                 subcategory: 'onesize'
             },
@@ -111,13 +98,11 @@ export default {
             control: 'string',
             description: 'Maximum width for a sized item',
             table: {
-                type: { summary: 'string' },
                 category: 'properties',
                 subcategory: 'onesize'
             },
         },
-    }
-};
+    };
 
 type Playground = StoryObj<typeof TSingleline>;
 export const TenPoint: Playground = {
