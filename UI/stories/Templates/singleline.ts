@@ -1,11 +1,8 @@
-/** */
 import OResponse from '../../src/javascript/web-components/o-response';
 import MSinglelineDate from '../../src/javascript/web-components/m-singleline-date';
 import MSinglelineNumber from '../../src/javascript/web-components/m-singleline-number';
 import MSingleline from '../../src/javascript/web-components/m-singleline';
 import OOptionSublist from '../../src/javascript/web-components/o-option-sublist';
-
-/** */
 
 export default class TSingleline {
     private jsonBalance = { state: true, minWidth: -1 };
@@ -20,8 +17,8 @@ export default class TSingleline {
     private subVariant: string = "";
     private specialCodeCount = 0;
 
-    private elementResponse: HTMLElement;
-    private elementSingleline: HTMLElement;
+    private elementResponse: OResponse;;
+    private elementSingleline: MSingleline | MSinglelineDate | MSinglelineNumber;
     private elementPreLabel: HTMLSpanElement;
     private elementPostLabel: HTMLSpanElement;
     private elementInput: HTMLInputElement;
