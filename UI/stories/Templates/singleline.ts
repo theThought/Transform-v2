@@ -30,6 +30,18 @@ export default class TSingleline extends HTMLElement {
         super();
     }
 
+    private updateParentProperties() {
+        const parentResponse = this.closest('o-response');
+        if (parentResponse) {
+            const properties = {
+                labels: this.jsonlabels.labels,
+                balance: this.jsonBalance,
+                oneSize: this.jsonOneSize,
+            };
+            parentResponse.setAttribute('data-properties', JSON.stringify(properties));
+        }
+    }
+
     public get specialCodes() : number {
         return this.specialCodeCount;
     }
@@ -87,10 +99,12 @@ export default class TSingleline extends HTMLElement {
 
     public set balanceState(theState:boolean) {
         this.jsonBalance.state = theState;
+        this.updateParentProperties();
     }
 
     public set oneSizeState(theState:boolean) {
         this.jsonOneSize.state = theState;
+        this.updateParentProperties();
     }
 
     public set balanceMinWidth(theWidth:number) {
@@ -98,6 +112,7 @@ export default class TSingleline extends HTMLElement {
             this.jsonBalance["minWidth"] = -1;
         }
         this.jsonBalance["minWidth"] = theWidth;
+        this.updateParentProperties();
     }
 
     public set oneSizeMaxWidth(theWidth:number) {
@@ -105,6 +120,7 @@ export default class TSingleline extends HTMLElement {
             this.jsonOneSize["maxWidth"] = -1;
         }
         this.jsonOneSize["maxWidth"] = theWidth;
+        this.updateParentProperties();
     }   
 
     public set type (theType:string) {
@@ -122,6 +138,7 @@ export default class TSingleline extends HTMLElement {
             theValue = "";
         }
         this.jsonlabels.labels.pre = theValue;
+        this.updateParentProperties();
     }
 
     public set postLabel(theValue:string) {
@@ -129,6 +146,7 @@ export default class TSingleline extends HTMLElement {
             theValue = "";
         }
         this.jsonlabels.labels.post = theValue;
+        this.updateParentProperties();
     }
 
     public set minimum(value: number) {

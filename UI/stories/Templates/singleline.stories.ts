@@ -146,13 +146,51 @@ export const TenPoint: Playground = {
     name: 'Singleline (text)',
     args: {
         balanceState: true,
-        oneSizeState: true
+        oneSizeState: true,
+        rtype: 'text',
+        prelabel: '',
+        postlabel: '',
+        minimum: 0,
+        maximum: 39,
+        width: '15em',
+        align: 'Left',
     },
     render: (args) => {
-        // Create a new instance of the MScaleUnit class
-        const singleline = new TSingleline();
+        // Create the <o-response> element
+        const oResponse = document.createElement('o-response');
+        oResponse.setAttribute('data-question-id', '_Q0');
+        oResponse.setAttribute('data-question-group', '_QSingleline');
 
-        return singleline;
+    // Set the JSON data-properties for <o-response>
+    /*    const properties = {
+            labels: {
+                pre: args.prelabel,
+                post: args.postlabel,
+            },
+            balance: {
+                state: args.balanceState,
+                minWidth: args.balanceMinWidth || -1,
+            },
+            oneSize: {
+                state: args.oneSizeState,
+                maxWidth: args.oneSizeMaxWidth || -1,
+            },
+        };
+        oResponse.setAttribute('data-properties', JSON.stringify(properties));
+        */
+
+        // Create the <o-singleline> element
+        const oSingleline = document.createElement('o-singleline');
+        oSingleline.setAttribute('type', args.rtype);
+        oSingleline.setAttribute('min', args.minimum.toString());
+        oSingleline.setAttribute('max', args.maximum.toString());
+        oSingleline.setAttribute('step', '1'); // Default step value
+        oSingleline.setAttribute('style', `width: ${args.width}; text-align: ${args.align.toLowerCase()};`);
+
+        // Append <o-singleline> to <o-response>
+        oResponse.appendChild(oSingleline);
+
+        return oResponse;
     },
 };
 
