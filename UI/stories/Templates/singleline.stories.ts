@@ -129,7 +129,7 @@ export const TenPoint: Playground = {
         singleline.balanceMinWidth = args.balanceMinWidth;
         singleline.oneSizeMaxWidth = args.oneSizeMaxWidth;
 
-
+        singleline.render()
         return singleline;
     },
 };

@@ -166,13 +166,13 @@ export default class TSingleline extends HTMLElement {
         this.innerHTML = ''; // Clear previous content
         switch (this.subVariant) {
             case "number":
-                this.oInput = new MSingleLineNumber();
+                this.oInput = new MSinglelineNumber();
                 break;
             case "date":
-                this.oInput = new MSingleLineDate();
+                this.oInput = new MSinglelineDate();
                 break;
             default:
-                this.oInput = new MSingleLine();
+                this.oInput = new MSingleline();
                 break;
         }
         if (this.specialCodeCount>0) {
