@@ -81,18 +81,18 @@ export default class TSingleline {
         oResponse.setAttribute("data-properties", JSON.stringify(properties));
 
         // Create the <o-singleline> element
-        const oSingleline = document.createElement("o-singleline");
-        oSingleline.setAttribute("type", this.subVariant);
-        oSingleline.setAttribute("min", this.minValue.toString());
-        oSingleline.setAttribute("max", this.maxValue.toString());
-        oSingleline.setAttribute("step", this.stepValue.toString());
-        oSingleline.setAttribute(
+        const mSingleline = document.createElement("m-singleline");
+        mSingleline.setAttribute("type", this.subVariant);
+        mSingleline.setAttribute("min", this.minValue.toString());
+        mSingleline.setAttribute("max", this.maxValue.toString());
+        mSingleline.setAttribute("step", this.stepValue.toString());
+        mSingleline.setAttribute(
             "style",
             `width: ${this.inputWidth}; text-align: ${this.alignment.toLowerCase()};`
         );
 
         // Append <o-singleline> to <o-response>
-        oResponse.appendChild(oSingleline);
+        oResponse.appendChild(mSingleline);
 
         return oResponse;
     }
