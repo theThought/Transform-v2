@@ -97,12 +97,16 @@ export default class TSingleline {
     }
 
     public setupStory() {
-        this.elementResponse.setAttribute("data-questionId", "_Q0");
-        this.elementResponse.setAttribute("data-questionGroup", "_QSingleline");
+        this.elementResponse.setAttribute("data-question-group", "_QSingleline");
+        this.elementResponse.setAttribute("data-position", "below");
+
+        this.elementSingleline.setAttribute("data-question-group", "_QSingleline");
+        this.elementSingleline.setAttribute("data-question-id", "_Q0");
 
         this.elementPreLabel = document.createElement('span');
         this.elementInput = document.createElement('input');
         this.elementPostLabel = document.createElement('span');
+        this.elementInput.setAttribute("data-question-group","_QSingleline");
 
         this.elementPreLabel.setAttribute("class", "a-label-pre")
         this.elementPostLabel.setAttribute("class", "a-label-post")
