@@ -1,4 +1,6 @@
+const path = require('path');
+
 module.exports = {
     // ...existing code...
-    staticDirs: ['../UI/stories/Templates'], // Ensure this directory contains singleline_v2.xml and question.xsl
+    staticDirs: [path.resolve(__dirname, '../UI/stories/Templates')], // Use path.resolve to ensure absolute paths
 };
