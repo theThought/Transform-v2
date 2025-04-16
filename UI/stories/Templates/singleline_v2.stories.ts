@@ -1,6 +1,7 @@
 import { Meta, StoryObj } from '@storybook/blocks';
 import TransformComponent from '../../components/TransformComponent';
 
+
 export default {
     title: 'Templates/singlelineV2',
     tags: ['autodocs'],
@@ -29,7 +30,7 @@ export default {
                 try {
                     // Dynamically resolve file paths relative to this story file
                     const storyUrl = new URL(import.meta.url);
-                    const xmlUrl = new URL('./singleline_v2.xml', storyUrl).href;
+                    const xmlUrl = new URL('./XML/singleline_v2.xml', storyUrl).href;
                     const xsltUrl = new URL('./question.xsl', storyUrl).href;
 console.log('XML URL:', xmlUrl);
                     // Fetch the files
