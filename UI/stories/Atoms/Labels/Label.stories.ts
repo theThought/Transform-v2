@@ -1,11 +1,6 @@
-import { Meta, StoryObj } from '@storybook/blocks';
-import {
-    ALabelPre,
-    ALabelPost,
-    ALabelQuestion,
-    ALabelOption,
-    ALabelHeadingSublist,
-} from './Label';
+import type { StoryObj } from '@storybook/html';
+
+import * as LabelStories from './Label';
 
 export default {
     title: 'Atoms/Labels',
@@ -17,20 +12,18 @@ export default {
     },
 };
 
-type PreLabel = StoryObj<typeof ALabelPre>;
-export const PreLabel: Pre = {
+export const PreLabel = {
     args: {
         content: 'prelabel',
     },
-    render: (args) => ALabelPre(args.content),
+    render: (args) => LabelStories.ALabelPre(args),
 };
 
-type PostLabel = StoryObj<typeof ALabelPost>;
-export const PostLabel: Post = {
+export const PostLabel = {
     args: {
         content: 'postlabel',
     },
-    render: (args) => ALabelPost(args.content),
+    render: (args) => LabelStories.ALabelPost(args),
 };
 
 type QuestionLabel = StoryObj<typeof ALabelQuestion>;
@@ -38,7 +31,7 @@ export const QuestionLabel: Question = {
     args: {
         content: 'This is the question',
     },
-    render: (args) => ALabelQuestion(args.content),
+    render: (args) => LabelStories.ALabelQuestion(args.content),
 };
 
 type OptionLabel = StoryObj<typeof ALabelOption>;
@@ -46,7 +39,7 @@ export const OptionLabel: Option = {
     args: {
         content: 'This is the option',
     },
-    render: (args) => ALabelOption(args.content),
+    render: (args) => LabelStories.ALabelOption(args.content),
 };
 
 type HeadingSublistLabel = StoryObj<typeof ALabelHeadingSublist>;
@@ -54,5 +47,5 @@ export const HeadingSublistLabel: HeadingSublist = {
     args: {
         content: 'sublist heading',
     },
-    render: (args) => ALabelHeadingSublist(args.content),
+    render: (args) => LabelStories.ALabelHeadingSublist(args.content),
 };

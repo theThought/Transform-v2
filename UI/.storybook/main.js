@@ -1,11 +1,10 @@
 /* Github Flavoured Markdown */
 import remarkGfm from 'remark-gfm';
 
-/** @type { import('@storybook/html-webpack5').StorybookConfig } */
 const config = {
     stories: [
         '../stories/**/*.mdx',
-        '../stories/**/*.stories.@(js|jsx|ts|tsx)'
+        '../stories/**/*.stories.@(js|jsx|ts|tsx)',
     ],
     staticDirs: ['../public'],
     addons: [
@@ -13,11 +12,11 @@ const config = {
         {
             name: '@storybook/addon-docs',
             options: {
-            mdxPluginOptions: {
-                mdxCompileOptions: {
-                remarkPlugins: [remarkGfm],
+                mdxPluginOptions: {
+                    mdxCompileOptions: {
+                        remarkPlugins: [remarkGfm],
+                    },
                 },
-            },
             },
         },
         {
@@ -25,7 +24,7 @@ const config = {
             options: {
                 actions: false,
                 backgrounds: false,
-            }
+            },
         },
         '@etchteam/storybook-addon-status',
     ],

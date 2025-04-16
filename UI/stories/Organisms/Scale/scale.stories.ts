@@ -51,7 +51,7 @@ export const TenPoint: ScaleTen = {
 
 type ScaleSeven = StoryObj<typeof OScale>;
 export const SevenPoint: ScaleTen = {
-    name: '10-point scale',
+    name: '7-point scale',
     args: {
         minimum: 1,
         maximum: 7,

@@ -31,4 +31,32 @@ export default class OOptionSublist extends Component {
             this.classList.remove('balance');
         }
     }
+
+    private setOneSize(): void {
+        const children = this.querySelectorAll(':scope > *');
+
+        let tallest = 0;
+        let widest = 0;
+
+        for (let i = 0; i < children.length; i++) {
+            const element = children[i];
+            const dims = getComputedStyle(element);
+            const elementHeight = parseFloat(dims.height);
+            const elementWidth = parseFloat(dims.width);
+            const contentHeight = Math.ceil(elementHeight);
+            const contentWidth = Math.ceil(elementWidth);
+
+            if (isNaN(contentWidth) || isNaN(contentHeight)) {
+                continue;
+            }
+
+            if (contentHeight > tallest) {
+                tallest = contentHeight;
+            }
+
+            if (contentWidth > widest) {
+                widest = contentWidth;
+            }
+        }
+    }
 }

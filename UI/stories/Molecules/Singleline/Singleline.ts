@@ -4,18 +4,11 @@ export const SinglelineHtml = (args): string => `
     data-question-group="_QText"
     data-properties='{
         "labels":{
-            "pre":"${args.PreLabel}",
-            "post":"${args.PostLabel}"
         }
     }'
 >
-    <span class="a-label-pre"></span>
-    <input
-        type="text"
-        id="_Q0"
-        class="a-singleline"
-    />
-    <span class="a-label-post"></span>
+${args.PreLabel}
+${args.PostLabel}
 </m-singleline>
 `;
 
@@ -31,13 +24,6 @@ export const SinglelineNumberHtml = (args): string => `
         "step": "${args.StepInterval}"
     }'
 >
-    <span class="a-label-pre"></span>
-    <input
-        type="number"
-        id="_Q1"
-        class="a-singleline"
-    />
-    <span class="a-label-post"></span>
 </m-singleline-number>
 `;
 
@@ -52,12 +38,5 @@ export const SinglelineDateHtml = (args): string => `
         }
     }'
 >
-    <span class="a-label-pre"></span>
-    <input
-        type="date"
-        id="_Q2"
-        class="a-singleline"
-    />
-    <span class="a-label-post"></span>
 </m-singleline-date>
 `;

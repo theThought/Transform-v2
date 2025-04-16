@@ -1,19 +1,13 @@
 // label.ts
-export function ALabelPre(content: string = ''): HTMLSpanElement {
-    const container: HTMLSpanElement = document.createElement('span');
-    container.textContent = content;
-    container.classList.add('a-label-pre'); 
-    return container;
-  }
+export function ALabelPre(args): string {
+    return `<span class="a-label-pre">${args.content}</span>`;
+}
 
-  export function ALabelPost(content: string = ''): HTMLSpanElement {
-    const container: HTMLSpanElement = document.createElement('span');
-    container.textContent = content;
-    container.classList.add('a-label-post'); 
-    return container;
-  }
+export const ALabelPost = (args): string => `
+<span class="a-label-post">${args.content}</span>
+`;
 
-  export function ALabelQuestion(content: string = ''): HTMLLabelElement {
+export function ALabelQuestion(content = ''): HTMLLabelElement {
     const container: HTMLLabelElement = document.createElement('label');
     container.setAttribute('for', 'q-text');
     container.setAttribute('id', 'q-label');
@@ -21,28 +15,28 @@ export function ALabelPre(content: string = ''): HTMLSpanElement {
 
     container.textContent = content;
     return container;
-  }
+}
 
-  export function ALabelOption(content: string = ''): HTMLLabelElement {
+export function ALabelOption(content = ''): HTMLLabelElement {
     const container: HTMLLabelElement = document.createElement('label');
     container.classList.add('a-label-option');
 
     container.textContent = content;
     return container;
-  }
+}
 
-  export function ALabelHeadingSublist(content: string = ''): HTMLDivElement {
+export function ALabelHeadingSublist(content = ''): HTMLDivElement {
     const container: HTMLDivElement = document.createElement('div');
     container.classList.add('a-label-sublist');
 
     container.textContent = content;
     return container;
-  }
+}
 
-  export function ALabelThumb(content: string = ''): HTMLLabelElement {
+export function ALabelThumb(content = ''): HTMLLabelElement {
     const container: HTMLLabelElement = document.createElement('label');
     container.classList.add('a-label-thumb');
 
     container.textContent = content;
     return container;
-  }
+}

@@ -1,8 +1,8 @@
-import {
-    SinglelineHtml,
-    SinglelineNumberHtml,
-    SinglelineDateHtml,
-} from './Singleline';
+import * as SingleLineStories from './Singleline';
+import * as LabelStories from '../../Atoms/Labels/Label.stories';
+import { StoryObj } from '@storybook/html';
+
+type Story = StoryObj;
 
 export default {
     title: 'Molecules/Singleline',
@@ -31,12 +31,19 @@ export default {
     },
 };
 
-export const MSingleline = {
-    args: {
-        PreLabel: '',
-        PostLabel: '',
-    },
-    render: (args) => SinglelineHtml(args),
+export const MSingleline: Story = {
+    render: (args) => `
+    <m-singleline
+    data-question-id="_Q0"
+    data-question-group="_QText"
+    data-properties='{
+        "labels":{
+        }
+    }'
+>
+${LabelStories.PreLabel}
+</m-singleline>
+    `,
 };
 MSingleline.storyName = 'm-singleline';
 
@@ -56,15 +63,15 @@ export const MSinglelineNumber = {
         PostLabel: '',
         StepInterval: '',
     },
-    render: (args) => SinglelineNumberHtml(args),
+    render: (args) => SingleLineStories.SinglelineNumberHtml(args),
 };
 MSinglelineNumber.storyName = 'm-singleline-number';
 
-export const MSinglelineDate = {
+export const MSinglelineDate: Story = {
     args: {
         PreLabel: '',
         PostLabel: '',
     },
-    render: (args) => SinglelineDateHtml(args),
+    render: (args) => SingleLineStories.SinglelineDateHtml(args),
 };
 MSinglelineDate.storyName = 'm-singleline-date';

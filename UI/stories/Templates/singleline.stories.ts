@@ -12,23 +12,24 @@ export default {
     tags: ['autodocs'],
     parameters: {
         status: { type: 'beta' },
-        controls: {             
-        sort: (theFirst, theSecond) => {
-            const categoryOrder = ['general', 'parameters', 'properties']; // Desired order
-            const categoryFirst = theFirst.table?.category || '';
-            const categorySecond = theSecond.table?.category || '';
+        controls: {
+            sort: (theFirst, theSecond) => {
+                const categoryOrder = ['general', 'parameters', 'properties']; // Desired order
+                const categoryFirst = theFirst.table?.category || '';
+                const categorySecond = theSecond.table?.category || '';
 
-            // Sort by category order first
-            const categoryIndexFirst = categoryOrder.indexOf(categoryFirst);
-            const categoryIndexSecond = categoryOrder.indexOf(categorySecond);
+                // Sort by category order first
+                const categoryIndexFirst = categoryOrder.indexOf(categoryFirst);
+                const categoryIndexSecond =
+                    categoryOrder.indexOf(categorySecond);
 
-            if (categoryIndexFirst !== categoryIndexSecond) {
-                return categoryIndexFirst - categoryIndexSecond;
-            }
+                if (categoryIndexFirst !== categoryIndexSecond) {
+                    return categoryIndexFirst - categoryIndexSecond;
+                }
 
-            // If categories are the same, sort alphabetically by name
-            return theFirst.name.localeCompare(theSecond.name);
-            }, 
+                // If categories are the same, sort alphabetically by name
+                return theFirst.name.localeCompare(theSecond.name);
+            },
         },
         docs: { controls: { sort: 'alpha' } },
     },
@@ -39,11 +40,11 @@ export default {
             options: ['text', 'number', 'date'],
             description: 'input type required',
             table: {
-                    type: { summary: 'string' },
-                    defaultValue: { summary: 'text' },
-                    category: 'general'
-                 },
-            },        
+                type: { summary: 'string' },
+                defaultValue: { summary: 'text' },
+                category: 'general',
+            },
+        },
         align: {
             control: 'select',
             options: ['Left', 'Right', 'Center'],
@@ -53,17 +54,18 @@ export default {
                 type: { summary: 'string' },
                 defaultValue: { summary: 'Left' },
                 category: 'parameters',
-                },
             },
+        },
         width: {
-                control: 'text',
-                description: 'input width using a value and a measurement (eg px, em, %)',
-                table: {
-                    type: { summary: 'string' },
-                    defaultValue: { summary: '15em' },
-                    category: 'parameters',
-                     },
+            control: 'text',
+            description:
+                'input width using a value and a measurement (eg px, em, %)',
+            table: {
+                type: { summary: 'string' },
+                defaultValue: { summary: '15em' },
+                category: 'parameters',
             },
+        },
         minimum: {
             control: 'number',
             description: 'the smallest value allowed.',
@@ -145,7 +147,6 @@ export default {
     },
 } as Meta<typeof TSingleline>;
 
-
 type Playground = StoryObj<typeof TSingleline>;
 export const TenPoint: Playground = {
     name: 'Singleline (text)',
@@ -163,9 +164,8 @@ export const TenPoint: Playground = {
     render: (args) => {
         // Create an instance of TSingleline
         const tSingleline = new TSingleline();
-        const oResponse : OResponse = document.createElement('o-response');
-        const mSingleLine : MSingleline = document.createElement('m-singleline');
-        
+        const oResponse: OResponse = document.createElement('o-response');
+        const mSingleLine: MSingleline = document.createElement('m-singleline');
 
         oResponse.appendChild(mSingleLine);
 
@@ -188,4 +188,3 @@ export const TenPoint: Playground = {
         return oResponse;
     },
 };
-
