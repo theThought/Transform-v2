@@ -1,7 +1,8 @@
 /* Github Flavoured Markdown */
 import remarkGfm from 'remark-gfm';
+import { StorybookConfig } from '@storybook/web-components-vite';
 
-const config = {
+const config: StorybookConfig = {
     stories: [
         '../stories/**/*.mdx',
         '../stories/**/*.stories.@(js|jsx|ts|tsx)',
@@ -29,11 +30,10 @@ const config = {
         '@etchteam/storybook-addon-status',
     ],
     framework: {
-        name: '@storybook/html-vite',
+        name: '@storybook/web-components-vite',
         options: {},
     },
-    docs: {
-        autodocs: true,
-    },
+    docs: {},
 };
+
 export default config;

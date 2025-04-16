@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/blocks';
+import { StoryObj } from '@storybook/blocks';
 import AScaleUnit from '../../../src/javascript/web-components/a-scale-unit';
 
 export default {

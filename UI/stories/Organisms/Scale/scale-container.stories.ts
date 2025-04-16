@@ -1,8 +1,8 @@
-import { Meta, StoryObj } from '@storybook/blocks';
+import { StoryObj } from '@storybook/blocks';
 import OScaleContainer from '../../../src/javascript/web-components/o-scale-container';
 
 export default {
-    title: 'Organisms/scale-container',
+    title: 'Organisms/Scale Container',
     component: OScaleContainer,
     tags: ['autodocs'],
     parameters: {

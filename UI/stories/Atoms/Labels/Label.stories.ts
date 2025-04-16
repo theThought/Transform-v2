@@ -1,5 +1,4 @@
 import type { StoryObj } from '@storybook/html';
-
 import * as LabelStories from './Label';
 
 export default {

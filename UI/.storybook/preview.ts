@@ -1,5 +1,6 @@
-/** @type { import('@storybook/html').Preview } */
-const preview = {
+import { Preview } from '@storybook/web-components';
+
+const preview: Preview = {
     parameters: {
         options: {
             storySort: {
@@ -7,6 +8,8 @@ const preview = {
             },
         },
     },
+
+    tags: ['autodocs']
 };
 
 export default preview;
