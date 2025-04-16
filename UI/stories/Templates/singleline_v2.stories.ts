@@ -35,10 +35,10 @@ export default {
                     console.log('XSLT Response Status:', xsltResponse.status);
         
                     if (!xmlResponse.ok) {
-                        throw new Error(`Failed to fetch XML file: ${xmlResponse.statusText}`);
+                        throw new Error(`Failed to fetch data XML file: ${xmlResponse.statusText}`);
                     }
                     if (!xsltResponse.ok) {
-                        throw new Error(`Failed to fetch XSLT file: ${xsltResponse.statusText}`);
+                        throw new Error(`Failed to fetch question XSLT file: ${xsltResponse.statusText}`);
                     }
         
                     const xmlData = await xmlResponse.text();
