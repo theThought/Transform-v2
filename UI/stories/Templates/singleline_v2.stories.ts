@@ -1,5 +1,4 @@
 import { Meta, StoryObj } from '@storybook/web-components-vite';
-
 import TransformComponent from '../../components/TransformComponent';
 
 export const loaders = [
@@ -163,64 +162,13 @@ export const Default: Story = {
         console.log('Resolved XML Data:', xmlData || 'No XML Data');
         console.log('Resolved XSLT Data:', xslData || 'No XSLT Data');
 
-        return `
-            <div>
-                <h3>Debug Information</h3>
-                <p><strong>XML Data:</strong> ${xmlData || 'No XML Data'}</p>
-                <p><strong>XSLT Data:</strong> ${xslData || 'No XSLT Data'}</p>
-            </div>
-        `;
+        // Create an instance of TransformComponent
+        const transformComponent = new TransformComponent(xmlData, xslData);
+
+        // Perform the transformation and return the resulting DOM element
+        const transformedElement = transformComponent.transform();
+
+        // Return the DOM element to Storybook
+        return transformedElement;
     },
 };
-/**
-    render: async ((args), { loaded: {xmlData, xslData} })) => {
-        // Log the resolved URLs and data for debugging
-        console.log('loaded object:', xmlData, xslData);
-
-        console.log('Resolved XML URL:', xmlUrl);
-        console.log('Resolved XSLT URL:', xsltUrl);
-        console.log('Resolved XML Data:', xmlData);
-        console.log('Resolved XSLT Data:', xsltData);
-
-        //const transformComponent = new TransformComponent(xmlData, xsltData);
-        //return transformComponent.transform();
-        return;
-    },
-};
-*/
-
-/**
-               try {
-                    // Dynamically resolve file paths relative to this story file
-                    
-                    const xmlUrl = '/storybook/XML/singleline_v2.xml';
-                    const xsltUrl = '/storybook/XML/question.xsl';
-
-                    console.log('XML URL:', xmlUrl);
-                    console.log('XSLT URL:', xsltUrl);
-
-                    // Fetch the files
-
-                    /**
-                    const xmlResponse = await fetch(xmlUrl);
-                    const xsltResponse = await fetch(xsltUrl);
-
-                    // Check if the files were fetched successfully
-
-                    if (!xmlResponse.ok) {
-                        console.error('XML file not found. Ensure singleline_v2.xml is accessible next to the story.');
-                        throw new Error(`Failed to fetch XML file: ${xmlResponse.statusText}`);
-                    }
-                    if (!xsltResponse.ok) {
-                        console.error('XSLT file not found. Ensure question.xsl is accessible next to the story.');
-                        throw new Error(`Failed to fetch XSLT file: ${xsltResponse.statusText}`);
-                    }
-
-                    const xmlData = await xmlResponse.text();
-                    const xsltData = await xsltResponse.text();
-
-                    // Log the loaded data for debugging
-                    console.log('Loaded XML Data:', xmlData);
-                    console.log('Loaded XSLT Data:', xsltData);
-             }),
- */
