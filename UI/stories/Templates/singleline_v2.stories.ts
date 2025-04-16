@@ -27,8 +27,8 @@ export default {
         loaders: [
             async () => {
                 try {
-                    const xmlResponse = await fetch('./singleline_v2.xml');
-                    const xsltResponse = await fetch('./question.xsl');
+                    const xmlResponse = await fetch('singleline_v2.xml');
+                    const xsltResponse = await fetch('question.xsl');
 
                     // Check if the files were fetched successfully
                     if (!xmlResponse.ok) {
