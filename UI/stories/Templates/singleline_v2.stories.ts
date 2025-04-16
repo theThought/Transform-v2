@@ -27,16 +27,17 @@ export default {
         loaders: [
             async () => {
                 try {
-                    const xmlResponse = await fetch('singleline_v2.xml');
-                    const xsltResponse = await fetch('question.xsl');
+                    // Use absolute paths for fetching the files
+                    const xmlResponse = await fetch('/singleline_v2.xml');
+                    const xsltResponse = await fetch('/question.xsl');
 
                     // Check if the files were fetched successfully
                     if (!xmlResponse.ok) {
-                        console.error('XML file not found. Ensure singleline_v2.xml is in the correct directory.');
+                        console.error('XML file not found. Ensure singleline_v2.xml is accessible at the root of the static directory.');
                         throw new Error(`Failed to fetch XML file: ${xmlResponse.statusText}`);
                     }
                     if (!xsltResponse.ok) {
-                        console.error('XSLT file not found. Ensure question.xsl is in the correct directory.');
+                        console.error('XSLT file not found. Ensure question.xsl is accessible at the root of the static directory.');
                         throw new Error(`Failed to fetch XSLT file: ${xsltResponse.statusText}`);
                     }
 
