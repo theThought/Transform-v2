@@ -93,6 +93,9 @@ export default class TSingleline {
         this.elementResponse.setAttribute("data-properties", JSON.stringify(newJSON));
     }
 
+    public setProperties() {
+        this.updateProperties();
+    }
     public setupStory() {
         this.elementResponse.setAttribute("data-question-group", "_QSingleline");
         this.elementResponse.setAttribute("data-position", "below");

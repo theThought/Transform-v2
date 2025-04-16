@@ -166,10 +166,6 @@ export const TenPoint: Playground = {
         const oResponse : OResponse = document.createElement('o-response');
         const mSingleLine : MSingleline = document.createElement('m-singleline');
         
-        // Add <o-response> to the page early
-        document.body.appendChild(oResponse);
-
-        // Set properties based on args
         tSingleline.responseHTML = oResponse;
         tSingleline.singlelineHTML = mSingleLine;
 
@@ -182,8 +178,14 @@ export const TenPoint: Playground = {
         tSingleline.maximum = args.maximum;
         tSingleline.width = args.width;
         tSingleline.align = args.align;
+        tSingleline.setupProperties();
+        // Add <o-response> to the page early
+        document.body.appendChild(oResponse);
 
-        tSingleline.setupStory();
+        // Set properties based on args
+        
+
+        //tSingleline.setupStory();
         oResponse.appendChild(mSingleLine);
         // Render and return the <o-response> element
         return oResponse;
