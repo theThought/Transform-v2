@@ -12,6 +12,10 @@ export default class TransformComponent {
         const xmlDoc = parser.parseFromString(this.xmlData, "application/xml");
         const xsltDoc = parser.parseFromString(this.xsltData, "application/xml");
 
+        // Log the parsed XML and XSLT documents
+        console.log("Parsed XML Document:", xmlDoc);
+        console.log("Parsed XSLT Document:", xsltDoc);
+
         const xsltProcessor = new XSLTProcessor();
         xsltProcessor.importStylesheet(xsltDoc);
 
@@ -20,12 +24,14 @@ export default class TransformComponent {
 
         // Check if the transformation was successful
         if (!transformedDoc) {
+            console.error("XSLT Transformation Failed. XML or XSLT might be invalid.");
             throw new Error("XSLT transformation failed. Please check the XML and XSLT inputs.");
         }
 
         // Extract the content inside the <question> root element
         const questionElement = transformedDoc.querySelector("question");
         if (!questionElement) {
+            console.error("The transformed document does not contain a <question> root element.");
             throw new Error("The transformed document does not contain a <question> root element.");
         }
 
