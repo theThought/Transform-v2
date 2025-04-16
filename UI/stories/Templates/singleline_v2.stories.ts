@@ -27,17 +27,22 @@ export default {
         loaders: [
             async () => {
                 try {
-                    // Use absolute paths for fetching the files
-                    const xmlResponse = await fetch('/singleline_v2.xml');
-                    const xsltResponse = await fetch('/question.xsl');
+                    // Dynamically resolve file paths relative to this story file
+                    const storyUrl = new URL(import.meta.url);
+                    const xmlUrl = new URL('./singleline_v2.xml', storyUrl).href;
+                    const xsltUrl = new URL('./question.xsl', storyUrl).href;
+console.log('XML URL:', xmlUrl);
+                    // Fetch the files
+                    const xmlResponse = await fetch(xmlUrl);
+                    const xsltResponse = await fetch(xsltUrl);
 
                     // Check if the files were fetched successfully
                     if (!xmlResponse.ok) {
-                        console.error('XML file not found. Ensure singleline_v2.xml is accessible at the root of the static directory.');
+                        console.error('XML file not found. Ensure singleline_v2.xml is accessible next to the story.');
                         throw new Error(`Failed to fetch XML file: ${xmlResponse.statusText}`);
                     }
                     if (!xsltResponse.ok) {
-                        console.error('XSLT file not found. Ensure question.xsl is accessible at the root of the static directory.');
+                        console.error('XSLT file not found. Ensure question.xsl is accessible next to the story.');
                         throw new Error(`Failed to fetch XSLT file: ${xsltResponse.statusText}`);
                     }
 
