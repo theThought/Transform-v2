@@ -14,6 +14,7 @@ export const loaders = [
 ];
 export default {
     title: 'Templates/singlelineV2',
+    component: TransformComponent,
     tags: ['autodocs'],
     parameters: {
         loaders: loaders,
