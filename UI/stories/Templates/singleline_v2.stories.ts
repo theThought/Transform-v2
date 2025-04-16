@@ -29,6 +29,7 @@ export default {
             async () => {
                 try {
                     // Dynamically resolve file paths relative to this story file
+                    const metaUrl = import.meta.url;
                     const storyUrl = new URL(import.meta.url);
                     const xmlUrl = new URL('./XML/singleline_v2.xml', storyUrl).href;
                     const xsltUrl = new URL('./question.xsl', storyUrl).href;
@@ -54,7 +55,7 @@ console.log('XML URL:', xmlUrl);
                     console.log('Loaded XML Data:', xmlData);
                     console.log('Loaded XSLT Data:', xsltData);
 
-                    return { storyUrl, xmlUrl, xsltUrl, xmlData, xsltData };
+                    return { metaUrl , xmlUrl, xsltUrl, xmlData, xsltData };
                 } catch (error) {
                     console.error('Error in loader:', error);
                     throw error;
