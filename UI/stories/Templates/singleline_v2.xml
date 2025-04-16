@@ -17,7 +17,7 @@
                     <Style ElementAlign="Right">
                         <Font IsBold="true"></Font>
                     </Style>
-                    <Text>I did not give a tip</Text>
+                    <Text>I did not give a tip yes </Text>
                 </Label>
             </Category>
         </Control>
