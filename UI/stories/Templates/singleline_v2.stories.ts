@@ -14,7 +14,7 @@ export const loaders = [
             const xslPath = xslResponse.url;
             // Check if the files were fetched successfully
             if (!xmlResponse.ok) {
-                throw new Error(`Failed to fetch XML file: ${xmlResponse.statusText}`);
+                throw new Error(`Failed to fetch XML file at [${xmlResponse.url}]: ${xmlResponse.statusText}`);
             }
             if (!xslResponse.ok) {
                 throw new Error(`Failed to fetch XSLT file: ${xslResponse.statusText}`);
