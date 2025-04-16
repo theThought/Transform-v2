@@ -6,44 +6,47 @@ export default {
     tags: ['autodocs'],
     parameters: {
         status: { type: 'beta' },
-        controls: {              
-        sort: (theFirst, theSecond) => {
-            const categoryOrder = ['general', 'parameters', 'properties']; // Desired order
-            const categoryFirst = theFirst.table?.category || '';
-            const categorySecond = theSecond.table?.category || '';
+        controls: {
+            sort: (theFirst, theSecond) => {
+                const categoryOrder = ['general', 'parameters', 'properties']; // Desired order
+                const categoryFirst = theFirst.table?.category || '';
+                const categorySecond = theSecond.table?.category || '';
 
-            // Sort by category order first
-            const categoryIndexFirst = categoryOrder.indexOf(categoryFirst);
-            const categoryIndexSecond = categoryOrder.indexOf(categorySecond);
+                // Sort by category order first
+                const categoryIndexFirst = categoryOrder.indexOf(categoryFirst);
+                const categoryIndexSecond = categoryOrder.indexOf(categorySecond);
 
-            if (categoryIndexFirst !== categoryIndexSecond) {
-                return categoryIndexFirst - categoryIndexSecond;
-            }
+                if (categoryIndexFirst !== categoryIndexSecond) {
+                    return categoryIndexFirst - categoryIndexSecond;
+                }
 
-            // If categories are the same, sort alphabetically by name
-            return theFirst.name.localeCompare(theSecond.name);
-            }, 
+                // If categories are the same, sort alphabetically by name
+                return theFirst.name.localeCompare(theSecond.name);
+            },
         },
         loaders: [
             async () => {
                 try {
                     const xmlResponse = await fetch('./singleline_v2.xml');
                     const xsltResponse = await fetch('./question.xsl');
-        
-                    // Log the status of the fetch calls
-                    console.log('XML Response Status:', xmlResponse.status);
-                    console.log('XSLT Response Status:', xsltResponse.status);
-        
+
+                    // Check if the files were fetched successfully
                     if (!xmlResponse.ok) {
-                        throw new Error(`Failed to fetch data XML file: ${xmlResponse.statusText}`);
+                        console.error('XML file not found. Ensure singleline_v2.xml is in the correct directory.');
+                        throw new Error(`Failed to fetch XML file: ${xmlResponse.statusText}`);
                     }
                     if (!xsltResponse.ok) {
-                        throw new Error(`Failed to fetch question XSLT file: ${xsltResponse.statusText}`);
+                        console.error('XSLT file not found. Ensure question.xsl is in the correct directory.');
+                        throw new Error(`Failed to fetch XSLT file: ${xsltResponse.statusText}`);
                     }
-        
+
                     const xmlData = await xmlResponse.text();
                     const xsltData = await xsltResponse.text();
-        
+
+                    // Log the loaded data for debugging
+                    console.log('Loaded XML Data:', xmlData);
+                    console.log('Loaded XSLT Data:', xsltData);
+
                     return { xmlData, xsltData };
                 } catch (error) {
                     console.error('Error in loader:', error);
@@ -58,36 +61,35 @@ export default {
             name: 'Sub-variant',
             control: 'select',
             options: ['text', 'number', 'date'],
-            description: 'input type required',
+            description: 'Input type required',
             table: {
-                    type: { summary: 'string' },
-                    defaultValue: { summary: 'text' },
-                    category: 'general'
-                 },
-            },        
+                type: { summary: 'string' },
+                defaultValue: { summary: 'text' },
+                category: 'general',
+            },
+        },
         align: {
             control: 'select',
             options: ['Left', 'Right', 'Center'],
-            description: 'alignment of the content within the input',
-
+            description: 'Alignment of the content within the input',
             table: {
                 type: { summary: 'string' },
                 defaultValue: { summary: 'Left' },
                 category: 'parameters',
-                },
             },
+        },
         width: {
-                control: 'text',
-                description: 'input width using a value and a measurement (eg px, em, %)',
-                table: {
-                    type: { summary: 'string' },
-                    defaultValue: { summary: '15em' },
-                    category: 'parameters',
-                     },
+            control: 'text',
+            description: 'Input width using a value and a measurement (e.g., px, em, %)',
+            table: {
+                type: { summary: 'string' },
+                defaultValue: { summary: '15em' },
+                category: 'parameters',
             },
+        },
         minimum: {
             control: 'number',
-            description: 'the smallest value allowed.',
+            description: 'The smallest value allowed',
             table: {
                 type: { summary: 'number' },
                 defaultValue: { summary: '1' },
@@ -96,7 +98,7 @@ export default {
         },
         maximum: {
             control: 'number',
-            description: 'the largest value allowed.',
+            description: 'The largest value allowed',
             table: {
                 type: { summary: 'number' },
                 defaultValue: { summary: '39' },
@@ -105,7 +107,7 @@ export default {
         },
         prelabel: {
             control: 'text',
-            description: 'a string placed BEFORE the input',
+            description: 'A string placed BEFORE the input',
             table: {
                 type: { summary: 'string' },
                 defaultValue: { summary: '' },
@@ -115,7 +117,7 @@ export default {
         },
         postlabel: {
             control: 'text',
-            description: 'a string placed AFTER the input',
+            description: 'A string placed AFTER the input',
             table: {
                 type: { summary: 'string' },
                 defaultValue: { summary: '' },
@@ -125,7 +127,7 @@ export default {
         },
         balanceState: {
             control: 'boolean',
-            description: 'whether balance should be applied',
+            description: 'Whether balance should be applied',
             table: {
                 type: { summary: 'boolean' },
                 defaultValue: { summary: 'true' },
@@ -145,7 +147,7 @@ export default {
         },
         oneSizeState: {
             control: 'boolean',
-            description: 'whether OneSize should be applied',
+            description: 'Whether OneSize should be applied',
             table: {
                 type: { summary: 'boolean' },
                 defaultValue: { summary: 'true' },
@@ -165,7 +167,6 @@ export default {
         },
     },
 } as Meta;
-
 
 type Story = StoryObj;
 
