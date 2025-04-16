@@ -15,7 +15,13 @@ export default class TransformComponent {
         const xsltProcessor = new XSLTProcessor();
         xsltProcessor.importStylesheet(xsltDoc);
 
+        // Perform the transformation
         const transformedDoc = xsltProcessor.transformToFragment(xmlDoc, document);
+
+        // Check if the transformation was successful
+        if (!transformedDoc) {
+            throw new Error("XSLT transformation failed. Please check the XML and XSLT inputs.");
+        }
 
         // Extract the content inside the <question> root element
         const questionElement = transformedDoc.querySelector("question");

@@ -26,13 +26,29 @@ export default {
         },
         loaders: [
             async () => {
-                const xmlResponse = await fetch('singleline_v2.xml');
-                const xsltResponse = await fetch('question.xsl');
-    
-                const xmlData = await xmlResponse.text();
-                const xsltData = await xsltResponse.text();
-    
-                return { xmlData, xsltData };
+                try {
+                    const xmlResponse = await fetch('./singleline_v2.xml');
+                    const xsltResponse = await fetch('./question.xsl');
+        
+                    // Log the status of the fetch calls
+                    console.log('XML Response Status:', xmlResponse.status);
+                    console.log('XSLT Response Status:', xsltResponse.status);
+        
+                    if (!xmlResponse.ok) {
+                        throw new Error(`Failed to fetch XML file: ${xmlResponse.statusText}`);
+                    }
+                    if (!xsltResponse.ok) {
+                        throw new Error(`Failed to fetch XSLT file: ${xsltResponse.statusText}`);
+                    }
+        
+                    const xmlData = await xmlResponse.text();
+                    const xsltData = await xsltResponse.text();
+        
+                    return { xmlData, xsltData };
+                } catch (error) {
+                    console.error('Error in loader:', error);
+                    throw error;
+                }
             },
         ],
         docs: { controls: { sort: 'alpha' } },
