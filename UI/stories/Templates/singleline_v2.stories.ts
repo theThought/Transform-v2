@@ -1,6 +1,9 @@
 import { Meta, StoryObj } from '@storybook/web-components-vite';
 import TransformComponent from '../../components/TransformComponent';
 
+// Define the custom element tag name
+customElements.define('transform-component', TransformComponent);
+
 export const loaders = [
     async () => {
         const xmlData = '<Questions><Question></Question></Questions>';
@@ -11,9 +14,10 @@ export const loaders = [
         return { xmlData, xslData };
     },
 ];
+
 export default {
     title: 'Templates/singlelineV2',
-    component: TransformComponent,
+    component: 'transform-component', // Use the tag name of the custom element
     tags: ['autodocs'],
     parameters: {
         loaders: loaders,
