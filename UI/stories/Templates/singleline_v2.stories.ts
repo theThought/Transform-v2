@@ -187,14 +187,16 @@ export default {
 type Story = StoryObj;
 
 export const Default: Story = {
-    render: (_, { loaded: { xmlUrl, xsltUrl, xmlData, xsltData } }) => {
+    render: (_, { loaded }) => {
         // Log the resolved URLs and data for debugging
+        console.log('loaded object:', loaded);
+        /**
         console.log('Resolved XML URL:', xmlUrl);
         console.log('Resolved XSLT URL:', xsltUrl);
         console.log('Resolved XML Data:', xmlData);
         console.log('Resolved XSLT Data:', xsltData);
-
-        const transformComponent = new TransformComponent(xmlData, xsltData);
-        return transformComponent.transform();
+ */
+        'const transformComponent = new TransformComponent(xmlData, xsltData);
+        'return transformComponent.transform();
     },
 };
