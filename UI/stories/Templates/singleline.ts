@@ -93,7 +93,7 @@ export default class TSingleline {
         this.elementResponse.setAttribute("data-properties", JSON.stringify(newJSON));
     }
 
-    public setProperties() {
+    public setupProperties() {
         this.updateProperties();
     }
     public setupStory() {
