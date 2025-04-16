@@ -196,7 +196,8 @@ export const Default: Story = {
         console.log('Resolved XML Data:', xmlData);
         console.log('Resolved XSLT Data:', xsltData);
  */
-        'const transformComponent = new TransformComponent(xmlData, xsltData);
-        'return transformComponent.transform();
+        //const transformComponent = new TransformComponent(xmlData, xsltData);
+        //return transformComponent.transform();
+        return;
     },
 };
