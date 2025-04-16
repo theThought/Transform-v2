@@ -54,7 +54,7 @@ console.log('XML URL:', xmlUrl);
                     console.log('Loaded XML Data:', xmlData);
                     console.log('Loaded XSLT Data:', xsltData);
 
-                    return { xmlUrl, xsltUrl, xmlData, xsltData };
+                    return { storyUrl, xmlUrl, xsltUrl, xmlData, xsltData };
                 } catch (error) {
                     console.error('Error in loader:', error);
                     throw error;
@@ -178,8 +178,9 @@ console.log('XML URL:', xmlUrl);
 type Story = StoryObj;
 
 export const Default: Story = {
-    render: (_, { loaded: { xmlURL, xsltURL, xmlData, xsltData } }) => {
+    render: (_, { loaded: { storyURL, xmlURL, xsltURL, xmlData, xsltData } }) => {
 
+        console.log('Resolved Story URL:', storyURL);
         console.log('Resolved XML URL:', xmlURL);
         console.log('Resolved XSLT URL:', xsltURL);
 
