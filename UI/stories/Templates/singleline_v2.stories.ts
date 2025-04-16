@@ -6,12 +6,30 @@ customElements.define('transform-component', TransformComponent);
 
 export const loaders = [
     async () => {
-        const xmlData = '<Questions><Question></Question></Questions>';
-        const xslData = '<?xml version="1.0" encoding="UTF-8"?><xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format" version="1.0"></xsl:stylesheet>';
+        try {
+            // Fetch the XML and XSLT files
+            const xmlResponse = await fetch('./singleline_v2.xml');
+            const xslResponse = await fetch('./question.xsl');
 
-        console.log('Loader is returning:', { xmlData, xslData });
+            // Check if the files were fetched successfully
+            if (!xmlResponse.ok) {
+                throw new Error(`Failed to fetch XML file: ${xmlResponse.statusText}`);
+            }
+            if (!xslResponse.ok) {
+                throw new Error(`Failed to fetch XSLT file: ${xslResponse.statusText}`);
+            }
 
-        return { xmlData, xslData };
+            // Read the file contents
+            const xmlData = await xmlResponse.text();
+            const xslData = await xslResponse.text();
+
+            console.log('Loader is returning:', { xmlData, xslData });
+
+            return { xmlData, xslData };
+        } catch (error) {
+            console.error('Error in loader:', error);
+            throw error;
+        }
     },
 ];
 
