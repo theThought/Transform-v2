@@ -26,49 +26,11 @@ export default {
             },
         },
         loaders: [
-            async () => {
-                try {
-                    // Dynamically resolve file paths relative to this story file
-                    
-                    const xmlUrl = '/storybook/XML/singleline_v2.xml';
-                    const xsltUrl = '/storybook/XML/question.xsl';
+            async () => ({
 
-                    console.log('XML URL:', xmlUrl);
-                    console.log('XSLT URL:', xsltUrl);
-
-                    // Fetch the files
-                    const xmlData = '<xml>Example XML Data</xml>';
-                    const xsltData = '<xsl>Example XSLT Data</xsl>';
-
-                    /**
-                    const xmlResponse = await fetch(xmlUrl);
-                    const xsltResponse = await fetch(xsltUrl);
-
-                    // Check if the files were fetched successfully
-
-                    if (!xmlResponse.ok) {
-                        console.error('XML file not found. Ensure singleline_v2.xml is accessible next to the story.');
-                        throw new Error(`Failed to fetch XML file: ${xmlResponse.statusText}`);
-                    }
-                    if (!xsltResponse.ok) {
-                        console.error('XSLT file not found. Ensure question.xsl is accessible next to the story.');
-                        throw new Error(`Failed to fetch XSLT file: ${xsltResponse.statusText}`);
-                    }
-
-                    const xmlData = await xmlResponse.text();
-                    const xsltData = await xsltResponse.text();
-
-                    // Log the loaded data for debugging
-                    console.log('Loaded XML Data:', xmlData);
-                    console.log('Loaded XSLT Data:', xsltData);
- */
-
-                    return { xmlUrl, xsltUrl, xmlData, xsltData };
-                } catch (error) {
-                    console.error('Error in loader:', error);
-                    throw error;
-                }
-            },
+                xmlData: '<Questions><Question></Question></Questions>',
+                xslData: '<?xml version="1.0" encoding="UTF-8"?><xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format" version="1.0"></stylesheet>'
+            }),
         ],
         docs: { controls: { sort: 'alpha' } },
     },
@@ -187,9 +149,9 @@ export default {
 type Story = StoryObj;
 
 export const Default: Story = {
-    render: (_, { loaded }) => {
+    render: (_, { loaded: {xmlData, xslData} }) => {
         // Log the resolved URLs and data for debugging
-        console.log('loaded object:', loaded);
+        console.log('loaded object:', xmlData, xslData);
         /**
         console.log('Resolved XML URL:', xmlUrl);
         console.log('Resolved XSLT URL:', xsltUrl);
@@ -201,3 +163,39 @@ export const Default: Story = {
         return;
     },
 };
+
+/**
+               try {
+                    // Dynamically resolve file paths relative to this story file
+                    
+                    const xmlUrl = '/storybook/XML/singleline_v2.xml';
+                    const xsltUrl = '/storybook/XML/question.xsl';
+
+                    console.log('XML URL:', xmlUrl);
+                    console.log('XSLT URL:', xsltUrl);
+
+                    // Fetch the files
+
+                    /**
+                    const xmlResponse = await fetch(xmlUrl);
+                    const xsltResponse = await fetch(xsltUrl);
+
+                    // Check if the files were fetched successfully
+
+                    if (!xmlResponse.ok) {
+                        console.error('XML file not found. Ensure singleline_v2.xml is accessible next to the story.');
+                        throw new Error(`Failed to fetch XML file: ${xmlResponse.statusText}`);
+                    }
+                    if (!xsltResponse.ok) {
+                        console.error('XSLT file not found. Ensure question.xsl is accessible next to the story.');
+                        throw new Error(`Failed to fetch XSLT file: ${xsltResponse.statusText}`);
+                    }
+
+                    const xmlData = await xmlResponse.text();
+                    const xsltData = await xsltResponse.text();
+
+                    // Log the loaded data for debugging
+                    console.log('Loaded XML Data:', xmlData);
+                    console.log('Loaded XSLT Data:', xsltData);
+             }),
+ */
