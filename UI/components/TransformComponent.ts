@@ -17,8 +17,16 @@ export default class TransformComponent {
 
         const transformedDoc = xsltProcessor.transformToFragment(xmlDoc, document);
 
+        // Extract the content inside the <question> root element
+        const questionElement = transformedDoc.querySelector("question");
+        if (!questionElement) {
+            throw new Error("The transformed document does not contain a <question> root element.");
+        }
+
         const container = document.createElement("div");
-        container.appendChild(transformedDoc);
+        Array.from(questionElement.childNodes).forEach((child) => {
+            container.appendChild(child.cloneNode(true));
+        });
 
         return container;
     }
