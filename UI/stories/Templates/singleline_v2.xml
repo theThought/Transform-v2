@@ -1,0 +1,51 @@
+<Questions>
+    <Question>
+        <Style BgColor="singleline-number:_QPageSix_QTipGiven" ElementAlign="NewLine" Indent="1" ZIndex="-20" Width="7em">
+            <Control Type="SingleLineEdit"></Control>
+        </Style>
+        <Control Type="SingleLineEdit" QuestionName="_QPageSix_QTipGiven" ElementID="_Q2" Value="" MaxValue="9999" MinValue="1" Length="4">
+            <Style BgColor="singleline-number:_QPageSix_QTipGiven" ElementAlign="NewLine" Indent="1" ZIndex="-20" Width="7em">
+                <Control Type="SingleLineEdit"></Control>
+            </Style>
+        </Control>
+        <Control Type="CheckButton" QuestionName="_QPageSix_QTipGiven_X" ElementID="_Q2_X">
+            <Style ElementAlign="NewLine" Indent="1">
+                <Control Type="CheckButton"></Control>
+            </Style>
+            <Category Name="nocashback" CategoryID="0">
+                <Label>
+                    <Style ElementAlign="Right">
+                        <Font IsBold="true"></Font>
+                    </Style>
+                    <Text>I did not give a tip</Text>
+                </Label>
+            </Category>
+        </Control>
+        <Control Type="CheckButton" QuestionName="_QPageSix_QTipGiven_X" ElementID="_Q2_X">
+            <Style ElementAlign="NewLine" Indent="1">
+                <Control Type="CheckButton"></Control>
+            </Style>
+            <Category Name="included" CategoryID="1">
+                <Label>
+                    <Style ElementAlign="Right">
+                        <Font IsBold="true"></Font>
+                    </Style>
+                    <Text>A gratuity was included</Text>
+                </Label>
+            </Category>
+        </Control>
+        <Control Type="CheckButton" QuestionName="_QPageSix_QTipGiven_X" ElementID="_Q2_X">
+            <Style ElementAlign="NewLine" Indent="1">
+                <Control Type="CheckButton"></Control>
+            </Style>
+            <Category Name="nomemory" CategoryID="2">
+                <Label>
+                    <Style ElementAlign="Right">
+                        <Font IsBold="true"></Font>
+                    </Style>
+                    <Text>I cannot remember</Text>
+                </Label>
+            </Category>
+        </Control>
+    </Question>
+</Questions>
