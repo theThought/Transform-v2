@@ -3,15 +3,20 @@ import { Meta, StoryObj } from '@storybook/web-components-vite';
 import TransformComponent from '../../components/TransformComponent';
 
 export const loaders = [
-    async () => ({
-        xmlData: '<Questions><Question></Question></Questions>',
-        xslData: '<?xml version="1.0" encoding="UTF-8"?><xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format" version="1.0"></stylesheet>'
-    }),
-]
+    async () => {
+        const xmlData = '<Questions><Question></Question></Questions>';
+        const xslData = '<?xml version="1.0" encoding="UTF-8"?><xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format" version="1.0"></xsl:stylesheet>';
+
+        console.log('Loader is returning:', { xmlData, xslData });
+
+        return { xmlData, xslData };
+    },
+];
 export default {
     title: 'Templates/singlelineV2',
     tags: ['autodocs'],
     parameters: {
+        loaders: loaders,
         status: { type: 'beta' },
         controls: {
             sort: (theFirst, theSecond) => {
@@ -149,20 +154,39 @@ type Story = StoryObj;
 
 export const Default: Story = {
     loaders: loaders,
+    render: (_, { loaded }) => {
+        console.log('Loaded Object:', loaded);
+
+        const { xmlData, xslData } = loaded || {};
+
+        console.log('Resolved XML Data:', xmlData || 'No XML Data');
+        console.log('Resolved XSLT Data:', xslData || 'No XSLT Data');
+
+        return `
+            <div>
+                <h3>Debug Information</h3>
+                <p><strong>XML Data:</strong> ${xmlData || 'No XML Data'}</p>
+                <p><strong>XSLT Data:</strong> ${xslData || 'No XSLT Data'}</p>
+            </div>
+        `;
+    },
+};
+/**
     render: async ((args), { loaded: {xmlData, xslData} })) => {
         // Log the resolved URLs and data for debugging
         console.log('loaded object:', xmlData, xslData);
-        /**
+
         console.log('Resolved XML URL:', xmlUrl);
         console.log('Resolved XSLT URL:', xsltUrl);
         console.log('Resolved XML Data:', xmlData);
         console.log('Resolved XSLT Data:', xsltData);
- */
+
         //const transformComponent = new TransformComponent(xmlData, xsltData);
         //return transformComponent.transform();
         return;
     },
 };
+*/
 
 /**
                try {
