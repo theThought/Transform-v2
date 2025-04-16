@@ -37,10 +37,15 @@ export default {
                     console.log('XSLT URL:', xsltUrl);
 
                     // Fetch the files
+                    const xmlData = '<xml>Example XML Data</xml>';
+                    const xsltData = '<xsl>Example XSLT Data</xsl>';
+
+                    /**
                     const xmlResponse = await fetch(xmlUrl);
                     const xsltResponse = await fetch(xsltUrl);
 
                     // Check if the files were fetched successfully
+
                     if (!xmlResponse.ok) {
                         console.error('XML file not found. Ensure singleline_v2.xml is accessible next to the story.');
                         throw new Error(`Failed to fetch XML file: ${xmlResponse.statusText}`);
@@ -56,6 +61,7 @@ export default {
                     // Log the loaded data for debugging
                     console.log('Loaded XML Data:', xmlData);
                     console.log('Loaded XSLT Data:', xsltData);
+ */
 
                     return { xmlUrl, xsltUrl, xmlData, xsltData };
                 } catch (error) {
