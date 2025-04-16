@@ -10,7 +10,8 @@ export const loaders = [
             // Fetch the XML and XSLT files
             const xmlResponse = await fetch('./singleline_v2.xml');
             const xslResponse = await fetch('./question.xsl');
-
+            const xmlPath = xmlResponse.url;
+            const xslPath = xslResponse.url;
             // Check if the files were fetched successfully
             if (!xmlResponse.ok) {
                 throw new Error(`Failed to fetch XML file: ${xmlResponse.statusText}`);
@@ -25,7 +26,7 @@ export const loaders = [
 
             console.log('Loader is returning:', { xmlData, xslData });
 
-            return { xmlData, xslData };
+            return { xmlPath, xslPath, xmlData, xslData };
         } catch (error) {
             console.error('Error in loader:', error);
             throw error;
@@ -179,8 +180,10 @@ export const Default: Story = {
     render: (_, { loaded }) => {
         console.log('Loaded Object:', loaded);
 
-        const { xmlData, xslData } = loaded || {};
+        const { xmlPath, xslPath, xmlData, xslData } = loaded || {};
 
+        console.log("xml location:", xmlPath);
+        console.log("xsl location:", xslPath);
         console.log('Resolved XML Data:', xmlData || 'No XML Data');
         console.log('Resolved XSLT Data:', xslData || 'No XSLT Data');
 
