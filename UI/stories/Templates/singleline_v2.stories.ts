@@ -1,7 +1,13 @@
-import { Meta, StoryObj } from '@storybook/blocks';
-import TransformComponent from '../../components/TransformComponent';
-import path from 'path';
+import { Meta, StoryObj } from '@storybook/web-components-vite';
 
+import TransformComponent from '../../components/TransformComponent';
+
+export const loaders = [
+    async () => ({
+        xmlData: '<Questions><Question></Question></Questions>',
+        xslData: '<?xml version="1.0" encoding="UTF-8"?><xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format" version="1.0"></stylesheet>'
+    }),
+]
 export default {
     title: 'Templates/singlelineV2',
     tags: ['autodocs'],
@@ -25,13 +31,6 @@ export default {
                 return theFirst.name.localeCompare(theSecond.name);
             },
         },
-        loaders: [
-            async () => ({
-
-                xmlData: '<Questions><Question></Question></Questions>',
-                xslData: '<?xml version="1.0" encoding="UTF-8"?><xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format" version="1.0"></stylesheet>'
-            }),
-        ],
         docs: { controls: { sort: 'alpha' } },
     },
     argTypes: {
@@ -149,7 +148,8 @@ export default {
 type Story = StoryObj;
 
 export const Default: Story = {
-    render: (_, { loaded: {xmlData, xslData} }) => {
+    loaders: loaders,
+    render: async ((args), { loaded: {xmlData, xslData} })) => {
         // Log the resolved URLs and data for debugging
         console.log('loaded object:', xmlData, xslData);
         /**
