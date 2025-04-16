@@ -1,5 +1,6 @@
 import { Meta, StoryObj } from '@storybook/blocks';
 import TransformComponent from '../../components/TransformComponent';
+import path from 'path';
 
 export default {
     title: 'Templates/singlelineV2',
@@ -28,8 +29,8 @@ export default {
             async () => {
                 try {
                     // Dynamically resolve file paths relative to this story file
-                    const storyUrl = new URL(import.meta.url);
-                    const xmlUrl = new URL('./singleline_v2.xml', storyUrl).href;
+                    
+                    const xmlUrl = new URL('/XML/singleline_v2.xml', storyUrl).href;
                     const xsltUrl = new URL('./question.xsl', storyUrl).href;
 
                     console.log('Story URL:', storyUrl);
