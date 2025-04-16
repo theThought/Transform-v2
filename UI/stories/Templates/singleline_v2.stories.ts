@@ -30,10 +30,9 @@ export default {
                 try {
                     // Dynamically resolve file paths relative to this story file
                     
-                    const xmlUrl = new URL('/XML/singleline_v2.xml', storyUrl).href;
-                    const xsltUrl = new URL('./question.xsl', storyUrl).href;
+                    const xmlUrl = '/storybook/XML/singleline_v2.xml';
+                    const xsltUrl = '/storybook/XML/question.xsl';
 
-                    console.log('Story URL:', storyUrl);
                     console.log('XML URL:', xmlUrl);
                     console.log('XSLT URL:', xsltUrl);
 
