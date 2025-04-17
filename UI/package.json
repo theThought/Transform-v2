@@ -79,8 +79,5 @@
       "stylelint",
       "prettier --write"
     ]
-  },
-  "dependencies": {
-    "@storybook/addon-console": "^3.0.0"
   }
 }
