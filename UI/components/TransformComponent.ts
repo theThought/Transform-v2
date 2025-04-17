@@ -8,8 +8,6 @@ export default class TransformComponent {
     }
 
     public transform(): HTMLElement {
-        // Log the raw XML and XSLT data
-
         // Check if the XML or XSLT data is empty
         if (!this.xmlData || !this.xmlData.trim()) {
             throw new Error("XML data is empty or invalid.");
@@ -46,6 +44,34 @@ export default class TransformComponent {
             container.appendChild(child.cloneNode(true));
         });
 
+        // Upgrade all custom elements in the container
+        this.upgradeCustomElements(container);
+
         return container;
+    }
+
+    // Private method to upgrade custom elements
+    private upgradeCustomElements(container: HTMLElement): void {
+        const allElements = container.querySelectorAll('*'); // Select all elements in the container
+
+        allElements.forEach((el) => {
+            const tagName = el.tagName.toLowerCase();
+
+            // Check if the element is a custom element and is registered
+            if (customElements.get(tagName)) {
+                const upgradedElement = document.createElement(tagName);
+
+                // Copy attributes
+                Array.from(el.attributes).forEach((attr) => {
+                    upgradedElement.setAttribute(attr.name, attr.value);
+                });
+
+                // Copy innerHTML
+                upgradedElement.innerHTML = el.innerHTML;
+
+                // Replace the original element with the upgraded one
+                el.replaceWith(upgradedElement);
+            }
+        });
     }
 }

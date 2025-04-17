@@ -190,10 +190,6 @@ export const Default: Story = {
 
         // Perform the transformation and return the resulting DOM element
         const transformedElement = transformComponent.transform();
-        document.body.appendChild(transformedElement);
-
-        const testElement = document.createElement('o-response');
-        document.body.appendChild(testElement);
 
         // Return the DOM element to Storybook
         return transformedElement;
