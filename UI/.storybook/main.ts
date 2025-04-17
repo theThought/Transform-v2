@@ -1,6 +1,5 @@
 /* Github Flavoured Markdown */
 import remarkGfm from 'remark-gfm';
-import '@storybook/addon-console';
 import { StorybookConfig } from '@storybook/web-components-vite';
 
 const config: StorybookConfig = {
