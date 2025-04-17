@@ -189,8 +189,8 @@ export const Default: Story = {
 
         // Perform the transformation and return the resulting DOM element
         const transformedElement = transformComponent.transform();
-        console.log(transformedElement.outerHTML);
-        
+        document.body.appendChild(transformedElement);
+
         // Return the DOM element to Storybook
         return transformedElement;
     },
