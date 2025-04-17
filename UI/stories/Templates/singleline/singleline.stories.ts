@@ -21,40 +21,70 @@ if (!customElements.get('m-singleline-date')) {
 customElements.define('transform-component', TransformComponent);
 
 console.log('Custom element transform-component defined');
+// Define loaders for each story
+const numberLoader = async () => {
+    try {
+    const xmlResponse = await fetch('./build/static/Dimensions/singleline-number.xml');
+    const xslResponse = await fetch('./build/static/Dimensions/question.xsl');
 
-export const loaders = [
-    async () => {
-        try {
-            // Fetch the XML and XSLT files
-            const xmlResponse = await fetch('./build/static/Dimensions/singleline_v2.xml');
-            const xslResponse = await fetch('./build/static/Dimensions/question.xsl');
+    if (!xmlResponse.ok || !xslResponse.ok) {
+        throw new Error('Failed to fetch XML or XSLT files.');
+    }
 
-            // Check if the files were fetched successfully
-            if (!xmlResponse.ok) {
-                throw new Error(`Failed to fetch XML file at [${xmlResponse.url}]: ${xmlResponse.statusText}`);
-            }
-            if (!xslResponse.ok) {
-                throw new Error(`Failed to fetch XSLT file: ${xslResponse.statusText}`);
-            }
+    const xmlData = await xmlResponse.text();
+    const xslData = await xslResponse.text();
 
-            // Read the file contents
-            const xmlData = await xmlResponse.text();
-            const xslData = await xslResponse.text();
+    return { xmlData, xslData };
+    }
+    catch (error) {
+        console.error('Error in number loader:', error);
+        throw error;
+    }
+};
 
-            return { xmlData, xslData };
-        } catch (error) {
-            console.error('Error in loader:', error);
+const dateLoader = async () => {
+    const xmlResponse = await fetch('./build/static/Dimensions/singleline-date.xml');
+    const xslResponse = await fetch('./build/static/Dimensions/question.xsl');
+    try {
+    if (!xmlResponse.ok || !xslResponse.ok) {
+        throw new Error('Failed to fetch XML or XSLT files.');
+    }
+
+    const xmlData = await xmlResponse.text();
+    const xslData = await xslResponse.text();
+
+    return { xmlData, xslData };
+    }
+    catch (error) {
+            console.error('Error in date loader:', error);
             throw error;
         }
-    },
-];
+};
+
+const textLoader = async () => {
+    const xmlResponse = await fetch('./build/static/Dimensions/singleline.xml');
+    const xslResponse = await fetch('./build/static/Dimensions/question.xsl');
+    try {
+    if (!xmlResponse.ok || !xslResponse.ok) {
+        throw new Error('Failed to fetch XML or XSLT files.');
+    }
+
+    const xmlData = await xmlResponse.text();
+    const xslData = await xslResponse.text();
+
+    return { xmlData, xslData };
+    }
+    catch (error) {
+            console.error('Error in text loader:', error);
+            throw error;
+        }
+};
 
 export default {
-    title: 'Templates/singlelineV2',
+    title: 'Templates/singleline',
     component: 'transform-component', // Use the tag name of the custom element
     tags: ['autodocs'],
     parameters: {
-        loaders: loaders,
         status: { type: 'beta' },
         controls: {
             sort: (theFirst, theSecond) => {
@@ -190,8 +220,42 @@ export default {
 
 type Story = StoryObj;
 
-export const Default: Story = {
-    loaders: loaders,
+export const text: Story = {
+    loaders: [textLoader],
+    render: (_, { loaded }) => {
+
+        const { xmlData, xslData } = loaded || {};
+
+        // Create an instance of TransformComponent
+        const transformComponent = new TransformComponent(xmlData, xslData);
+
+        // Perform the transformation and return the resulting DOM element
+        const transformedElement = transformComponent.transform();
+
+        // Return the DOM element to Storybook
+        return transformedElement;
+    },
+};
+
+export const number: Story = {
+    loaders: [numberLoader],
+    render: (_, { loaded }) => {
+
+        const { xmlData, xslData } = loaded || {};
+
+        // Create an instance of TransformComponent
+        const transformComponent = new TransformComponent(xmlData, xslData);
+
+        // Perform the transformation and return the resulting DOM element
+        const transformedElement = transformComponent.transform();
+
+        // Return the DOM element to Storybook
+        return transformedElement;
+    },
+};
+
+export const date: Story = {
+    loaders: [dateLoader],
     render: (_, { loaded }) => {
 
         const { xmlData, xslData } = loaded || {};

@@ -1,0 +1,25 @@
+<Questions>
+    <Question>
+        <Style BgColor="singleline-date:_QPageFourteen_QFirstTrip" ElementAlign="NewLine" Indent="1">
+            <Control Type="SingleLineEdit"></Control>
+        </Style>
+        <Control Type="Edit" QuestionName="_QPageFourteen_QFirstTrip" ElementID="_Q1" Value="" MinValue="1/1/100" MaxValue="12/31/9999" Length="40">
+            <Style BgColor="singleline-date:_QPageFourteen_QFirstTrip" ElementAlign="NewLine" Indent="1">
+                <Control Type="SingleLineEdit"></Control>
+            </Style>
+        </Control>
+        <Control Type="CheckButton" QuestionName="_QPageFourteen_QFirstTrip_X" ElementID="_Q1_X">
+            <Style ElementAlign="NewLine" Indent="1">
+                <Control Type="CheckButton"></Control>
+            </Style>
+            <Category Name="Noholiday" CategoryID="0">
+                <Label>
+                    <Style ElementAlign="Right">
+                        <Font IsBold="true"></Font>
+                    </Style>
+                    <Text>I have not yet booked my next holiday</Text>
+                </Label>
+            </Category>
+        </Control>
+    </Question>
+</Questions>
