@@ -1,4 +1,4 @@
-import TransformUtils from '../utils/TransformUtils';
+import TransformUtils from '../../../utils/TransformUtils';
 import OResponse from '../../../src/javascript/web-components/o-response';
 import MSingleline from '../../../src/javascript/web-components/m-singleline';
 import MSinglelineDate from '../../../src/javascript/web-components/m-singleline-date';
