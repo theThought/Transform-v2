@@ -1,10 +1,10 @@
 <Questions>
     <Question>
-        <Style BgColor="singleline-number:_QPageSix_QTipGiven" ElementAlign="NewLine" Indent="1" ZIndex="-20" Width="7em">
+        <Style Color="{&quot;labels&quot;:{&quot;pre&quot;:&quot;$&quot;}}" BgColor="singleline-number:_QPageSix_QTipGiven" ElementAlign="NewLine" Indent="1" ZIndex="-20" Width="7em">
             <Control Type="SingleLineEdit"></Control>
         </Style>
         <Control Type="SingleLineEdit" QuestionName="_QPageSix_QTipGiven" ElementID="_Q2" Value="" MaxValue="9999" MinValue="1" Length="4">
-            <Style BgColor="singleline-number:_QPageSix_QTipGiven" ElementAlign="NewLine" Indent="1" ZIndex="-20" Width="7em">
+            <Style Color="{&quot;labels&quot;:{&quot;pre&quot;:&quot;$&quot;}} BgColor="singleline-number:_QPageSix_QTipGiven" ElementAlign="NewLine" Indent="1" ZIndex="-20" Width="7em">
                 <Control Type="SingleLineEdit"></Control>
             </Style>
         </Control>
