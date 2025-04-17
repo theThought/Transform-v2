@@ -2,10 +2,14 @@ import { Meta, StoryObj } from '@storybook/web-components-vite';
 import TransformComponent from '../../components/TransformComponent';
 import OResponse
  from '../../src/javascript/web-components/o-response';
+import MSingleLine from '../../src/javascript/web-components/m-singleline';
 
 // Define the custom element tag name
 if (!customElements.get('o-response')) {
     customElements.define('o-response', OResponse);
+}
+if (!customElements.get('m-singleline')) {
+    customElements.define('m-singleline', MSingleLine);
 }
 customElements.define('transform-component', TransformComponent);
 
