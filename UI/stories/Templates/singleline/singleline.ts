@@ -1,8 +1,8 @@
-import OResponse from '../../src/javascript/web-components/o-response';
-import MSinglelineDate from '../../src/javascript/web-components/m-singleline-date';
-import MSinglelineNumber from '../../src/javascript/web-components/m-singleline-number';
-import MSingleline from '../../src/javascript/web-components/m-singleline';
-import OOptionSublist from '../../src/javascript/web-components/o-option-sublist';
+import OResponse from '../../../src/javascript/web-components/o-response';
+import MSinglelineDate from '../../../src/javascript/web-components/m-singleline-date';
+import MSinglelineNumber from '../../../src/javascript/web-components/m-singleline-number';
+import MSingleline from '../../../src/javascript/web-components/m-singleline';
+import OOptionSublist from '../../../src/javascript/web-components/o-option-sublist';
 
 export default class TSingleline {
     private jsonBalance = { state: true, minWidth: -1 };
