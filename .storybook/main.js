@@ -8,7 +8,6 @@ module.exports = {
   ],
   staticDirs: [
     '../UI/src/static', // Include the static folder
-    '../UI/src/static/Dimensions', // Explicitly include the Dimensions folder
   ], // Correct path to your static folder
   framework: {
     name: '@storybook/web-components-vite',
