@@ -4,10 +4,11 @@ import OResponse
  from '../../src/javascript/web-components/o-response';
 
 // Define the custom element tag name
-customElements.define('transform-component', TransformComponent);
 if (!customElements.get('o-response')) {
     customElements.define('o-response', OResponse);
 }
+customElements.define('transform-component', TransformComponent);
+
 console.log('Custom element transform-component defined');
 
 export const loaders = [
@@ -190,6 +191,9 @@ export const Default: Story = {
         // Perform the transformation and return the resulting DOM element
         const transformedElement = transformComponent.transform();
         document.body.appendChild(transformedElement);
+
+        const testElement = document.createElement('o-response');
+        document.body.appendChild(testElement);
 
         // Return the DOM element to Storybook
         return transformedElement;
