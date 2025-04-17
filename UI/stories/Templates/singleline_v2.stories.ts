@@ -8,6 +8,7 @@ customElements.define('transform-component', TransformComponent);
 if (!customElements.get('o-response')) {
     customElements.define('o-response', OResponse);
 }
+console.log('Custom element transform-component defined');
 
 export const loaders = [
     async () => {
@@ -188,7 +189,8 @@ export const Default: Story = {
 
         // Perform the transformation and return the resulting DOM element
         const transformedElement = transformComponent.transform();
-
+        console.log(transformedElement.outerHTML);
+        
         // Return the DOM element to Storybook
         return transformedElement;
     },
