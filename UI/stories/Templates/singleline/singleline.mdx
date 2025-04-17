@@ -1,0 +1,25 @@
+import { Canvas, Controls, Meta } from '@storybook/addon-docs';
+
+import * as SinglelineStories from './singleline.stories';
+
+<Meta of={SinglelineStories} title="Templates/singleline" />
+
+# SingleLine Playground
+
+## singleline
+Questions that utilise a text input to capture the answer.  The min/max define the number of characters that can be entered
+<Canvas of={ScaleUnitStories.text} />
+<Controls of={ScaleUnitStories.text} />
+
+## singleline-number
+Questions that utilise a number style input to capture the answer. The min/max define the range of numbers that can be entered.
+This option has additional parameters that can be set: Step, which manages precision and is required for the entry of decimals.
+<Canvas of={ScaleUnitStories.number} />
+<Controls of={ScaleUnitStories.number} />
+
+## singleline-date
+Questions that utilise a number style input to capture the answer. The min/max define the range of dates that can be entered.  
+There are various types of date entry (eg month), but they are not all supported by all browsers and so are not currently available.
+
+<Canvas of={ScaleUnitStories.date} />
+<Controls of={ScaleUnitStories.date} />
