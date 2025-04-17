@@ -9,8 +9,6 @@ export default class TransformComponent {
 
     public transform(): HTMLElement {
         // Log the raw XML and XSLT data
-        console.log("Raw XML Data:", this.xmlData);
-        console.log("Raw XSLT Data:", this.xsltData);
 
         // Check if the XML or XSLT data is empty
         if (!this.xmlData || !this.xmlData.trim()) {
@@ -23,10 +21,6 @@ export default class TransformComponent {
         const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(this.xmlData, "application/xml");
         const xsltDoc = parser.parseFromString(this.xsltData, "application/xml");
-
-        // Log the parsed XML and XSLT documents
-        console.log("Parsed XML Document:", xmlDoc);
-        console.log("Parsed XSLT Document:", xsltDoc);
 
         const xsltProcessor = new XSLTProcessor();
         xsltProcessor.importStylesheet(xsltDoc);
