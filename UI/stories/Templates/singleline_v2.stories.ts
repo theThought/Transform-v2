@@ -1,8 +1,13 @@
 import { Meta, StoryObj } from '@storybook/web-components-vite';
 import TransformComponent from '../../components/TransformComponent';
+import OResponse
+ from '../../src/javascript/web-components/o-response';
 
 // Define the custom element tag name
 customElements.define('transform-component', TransformComponent);
+if (!customElements.get('o-response')) {
+    customElements.define('o-response', OResponse);
+}
 
 export const loaders = [
     async () => {
@@ -175,7 +180,6 @@ type Story = StoryObj;
 export const Default: Story = {
     loaders: loaders,
     render: (_, { loaded }) => {
-        console.log('Loaded Object:', loaded);
 
         const { xmlData, xslData } = loaded || {};
 
