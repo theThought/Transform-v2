@@ -1,8 +1,9 @@
 import { Meta, StoryObj } from '@storybook/web-components-vite';
 import TransformComponent from '../../components/TransformComponent';
-import OResponse
- from '../../src/javascript/web-components/o-response';
+import OResponse from '../../src/javascript/web-components/o-response';
 import MSingleLine from '../../src/javascript/web-components/m-singleline';
+import MSinglelineNumber from '../../src/javascript/web-components/m-singleline-number';
+import MSinglelineDate from '../../src/javascript/web-components/m-singleline-date';
 
 // Define the custom element tag name
 if (!customElements.get('o-response')) {
@@ -10,6 +11,12 @@ if (!customElements.get('o-response')) {
 }
 if (!customElements.get('m-singleline')) {
     customElements.define('m-singleline', MSingleLine);
+}
+if (!customElements.get('m-singleline-number')) {
+    customElements.define('m-singleline-number', MSinglelineNumber);
+}
+if (!customElements.get('m-singleline-date')) {
+    customElements.define('m-singleline-date', MSinglelineDate);
 }
 customElements.define('transform-component', TransformComponent);
 
