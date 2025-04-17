@@ -13,6 +13,7 @@ const config: StorybookConfig = {
         '../src/static', // Include the static folder
     ],
     addons: [
+        "@storybook/addon-actions/register",
         '@storybook/addon-a11y',
         {
             name: '@storybook/addon-docs',
