@@ -6,7 +6,10 @@ module.exports = {
     '@storybook/addon-links',
     '@storybook/addon-essentials',
   ],
-  staticDirs: ['../UI/src/static'], // Correct path to your static folder
+  staticDirs: [
+    '../UI/src/static', // Include the static folder
+    '../UI/src/static/Dimensions', // Explicitly include the Dimensions folder
+  ], // Correct path to your static folder
   framework: {
     name: '@storybook/web-components-vite',
     options: {},
