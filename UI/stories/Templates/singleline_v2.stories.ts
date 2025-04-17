@@ -8,7 +8,7 @@ export const loaders = [
     async () => {
         try {
             // Fetch the XML and XSLT files
-            const xmlResponse = await fetch('./build/static/XML/singleline_v2.xml');
+            const xmlResponse = await fetch('./build/static/Dimensions/singleline_v2.xml');
             const xslResponse = await fetch('./build/static/Dimensions/question.xsl');
             const xmlPath = xmlResponse.url;
             const xslPath = xslResponse.url;
