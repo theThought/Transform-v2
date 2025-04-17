@@ -1,22 +1,25 @@
 <Questions>
     <Question>
-        <Style ElementAlign="NewLine" Indent="1" ZIndex="-20">
+        <Style BgColor="singleline:_QPageEight_QMainReason" ElementAlign="NewLine" Indent="1" Width="50%">
             <Control Type="SingleLineEdit"></Control>
         </Style>
-        <Control Type="SingleLineEdit" QuestionName="_Qcash" ElementID="_Q0" Value="" Length="6">
-            <Style ElementAlign="NewLine" Indent="1" ZIndex="-20">
+        <Control Type="SingleLineEdit" QuestionName="_QPageEight_QMainReason" ElementID="_Q2" Value="" Length="150">
+            <Style BgColor="singleline:_QPageEight_QMainReason" ElementAlign="NewLine" Indent="1" Width="50%">
                 <Control Type="SingleLineEdit"></Control>
             </Style>
         </Control>
-    </Question>
-    <Question>
-        <Style ElementAlign="NewLine" Indent="1" ZIndex="-20">
-            <Control Type="SingleLineEdit"></Control>
-        </Style>
-        <Control Type="SingleLineEdit" QuestionName="_QcashPage_Qlastweekcash" ElementID="_Q1" Value="" Length="6">
-            <Style ElementAlign="NewLine" Indent="1" ZIndex="-20">
-                <Control Type="SingleLineEdit"></Control>
+        <Control Type="CheckButton" QuestionName="_QPageEight_QMainReason_X" ElementID="_Q2_X">
+            <Style ElementAlign="NewLine" Indent="1">
+                <Control Type="CheckButton"></Control>
             </Style>
+            <Category Name="noissue" CategoryID="0">
+                <Label>
+                    <Style ElementAlign="Right">
+                        <Font IsBold="true"></Font>
+                    </Style>
+                    <Text>No issue, I just did not like it</Text>
+                </Label>
+            </Category>
         </Control>
     </Question>
 </Questions>
