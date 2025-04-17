@@ -12,6 +12,7 @@ export default class OResponse extends Component implements Subject, Observer {
 
     private init(): void {
         this.addLocalEventListeners();
+        console.log('OResponse initialized');
     }
 
     private addLocalEventListeners(): void {
