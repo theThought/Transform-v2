@@ -1,132 +1,56 @@
+import TransformUtils from '../utils/TransformUtils';
 import OResponse from '../../../src/javascript/web-components/o-response';
+import MSingleline from '../../../src/javascript/web-components/m-singleline';
 import MSinglelineDate from '../../../src/javascript/web-components/m-singleline-date';
 import MSinglelineNumber from '../../../src/javascript/web-components/m-singleline-number';
-import MSingleline from '../../../src/javascript/web-components/m-singleline';
-import OOptionSublist from '../../../src/javascript/web-components/o-option-sublist';
 
 export default class TSingleline {
-    private jsonBalance = { state: true, minWidth: -1 };
-    private jsonOneSize = { state: true, maxWidth: -1 };
-    private jsonlabels = { pre: "preLabel", post: "PostLabel" };
-
-    private minValue = 1;
-    private maxValue = 10;
-    private stepValue = 1;
-    private inputWidth = "";
-    private alignment = "left";
-    private subVariant: string = "";
-    private specialCodeCount = 0;
-
     private elementResponse: OResponse;
     private elementSingleline: MSingleline | MSinglelineDate | MSinglelineNumber;
-    private elementPreLabel: HTMLSpanElement;
-    private elementPostLabel: HTMLSpanElement;
     private elementInput: HTMLInputElement;
 
-    constructor() {}
+    constructor(private xmlData: string, private xsltData: string) {}
 
-    public set balanceState(theState: boolean) {
-        this.jsonBalance.state = theState;
-        this.updateProperties();
+    public render(): HTMLElement {
+        const container = TransformUtils.transform(this.xmlData, this.xsltData);
+
+        this.elementResponse = container.querySelector('o-response') as OResponse;
+        this.elementSingleline = container.querySelector('m-singleline') as MSingleline;
+        this.elementInput = container.querySelector('.a-singleline') as HTMLInputElement;
+
+        return container;
     }
 
-    public set oneSizeState(theState: boolean) {
-        this.jsonOneSize.state = theState;
-        this.updateProperties();
-    }
-
-    public set balanceMinWidth(theWidth: number) {
-        this.jsonBalance.minWidth = theWidth || -1;
-        this.updateProperties
-    }
-
-    public set oneSizeMaxWidth(theWidth: number) {
-        this.jsonOneSize.maxWidth = theWidth || -1;
-        this.updateProperties();
-    }
-
-    public set type(theType: string) {
-        this.subVariant = ["number", "date"].includes(theType) ? theType : "text";
-    }
-
-    public set preLabel(theValue: string) {
-        this.jsonlabels.pre = theValue || "";
-    }
-
-    public set postLabel(theValue: string) {
-        this.jsonlabels.post = theValue || "";
-    }
-
-    public set minimum(value: number) {
-        this.minValue = value || 1;
-    }
-
-    public set maximum(value: number) {
-        this.maxValue = value || 1;
-    }
-
-    public set width(theValue: string) {
-        this.inputWidth = theValue || "";
-    }
-
-    public set align(theValue: string) {
-        this.alignment = theValue || "left";
-    }
-
-    public set responseHTML(theValue: HTMLElement) {
-        this.elementResponse = theValue
-    }
-
-    public set singlelineHTML(theValue: HTMLElement) {
-        this.elementSingleline = theValue;
-    }
-
-    private updateProperties() {
-    var newJSON = {labels: {}, balance: {}, oneSize: {}};
-        if (!this.elementResponse) {
+    public updateProperties(argTypes: Record<string, any>): void {
+        if (!this.elementResponse || !this.elementSingleline || !this.elementInput) {
+            console.warn("Elements not initialized. Call render() first.");
             return;
         }
-        newJSON.balance = this.jsonBalance;
-        newJSON.oneSize = this.jsonOneSize;
-        newJSON.labels = this.jsonlabels;
 
-        this.elementResponse.setAttribute("data-properties", JSON.stringify(newJSON));
-    }
+        // Update data-properties for OResponse
+        const dataProperties = {
+            labels: {
+                pre: argTypes.prelabel || '',
+                post: argTypes.postlabel || '',
+            },
+            balance: {
+                state: argTypes.balanceState || false,
+                minWidth: argTypes.balanceMinWidth || '',
+            },
+            oneSize: {
+                state: argTypes.oneSizeState || false,
+                maxWidth: argTypes.oneSizeMaxWidth || '',
+            },
+        };
+        this.elementResponse.setAttribute('data-properties', JSON.stringify(dataProperties));
 
-    public setupProperties() {
-        this.updateProperties();
-    }
-    public setupStory() {
-        this.elementResponse.setAttribute("data-question-group", "_QSingleline");
-        this.elementResponse.setAttribute("data-position", "below");
-
-        this.elementSingleline.setAttribute("data-question-group", "_QSingleline");
-        this.elementSingleline.setAttribute("data-question-id", "_Q0");
-
-        this.elementPreLabel = document.createElement('span');
-        this.elementInput = document.createElement('input');
-        this.elementPostLabel = document.createElement('span');
-        this.elementInput.setAttribute("data-question-group","_QSingleline");
-        this.elementInput.setAttribute("data-hidden", "false");
-
-        this.elementPreLabel.setAttribute("class", "a-label-pre")
-        this.elementPostLabel.setAttribute("class", "a-label-post")
-        this.elementInput.setAttribute("class", "a-singleline");
-        this.elementInput.setAttribute("name", "_QSingleline");
-        this.elementInput.setAttribute("id", "_Q0");
-
-        this.elementSingleline.appendChild(this.elementPreLabel);
-        this.elementSingleline.appendChild(this.elementInput);
-        this.elementSingleline.appendChild(this.elementPostLabel);
-
-        this.elementInput.setAttribute("type", this.subVariant);
-        this.elementInput.setAttribute("min", this.minValue.toString());
-        this.elementInput.setAttribute("max", this.maxValue.toString());
-        this.elementInput.setAttribute("step", this.stepValue.toString());
+        // Update input element attributes
+        this.elementInput.setAttribute('type', argTypes.rtype || 'text');
+        this.elementInput.setAttribute('min', argTypes.minimum?.toString() || '1');
+        this.elementInput.setAttribute('max', argTypes.maximum?.toString() || '10');
         this.elementInput.setAttribute(
-            "style",
-            `width: ${this.inputWidth}; text-align: ${this.alignment.toLowerCase()};`
+            'style',
+            `width: ${argTypes.width || '15em'}; text-align: ${argTypes.align || 'left'};`
         );
-        this.updateProperties();
     }
 }

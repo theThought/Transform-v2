@@ -4,6 +4,7 @@ import OResponse from '../../../src/javascript/web-components/o-response';
 import MSingleLine from '../../../src/javascript/web-components/m-singleline';
 import MSinglelineNumber from '../../../src/javascript/web-components/m-singleline-number';
 import MSinglelineDate from '../../../src/javascript/web-components/m-singleline-date';
+import TSingleline from './singleline';
 
 // Define the custom element tag name
 if (!customElements.get('o-response')) {
@@ -18,6 +19,7 @@ if (!customElements.get('m-singleline-number')) {
 if (!customElements.get('m-singleline-date')) {
     customElements.define('m-singleline-date', MSinglelineDate);
 }
+
 customElements.define('transform-component', TransformComponent);
 
 console.log('Custom element transform-component defined');
@@ -220,53 +222,44 @@ export default {
 
 type Story = StoryObj;
 
-export const text: Story = {
+export const Text: Story = {
     loaders: [textLoader],
-    render: (_, { loaded }) => {
-
+    render: (_, { loaded, args }) => {
         const { xmlData, xslData } = loaded || {};
+        const singleline = new TSingleline(xmlData, xslData);
 
-        // Create an instance of TransformComponent
-        const transformComponent = new TransformComponent(xmlData, xslData);
+        const container = singleline.render();
+        singleline.updateProperties(args);
 
-        // Perform the transformation and return the resulting DOM element
-        const transformedElement = transformComponent.transform();
-
-        // Return the DOM element to Storybook
-        return transformedElement;
+        return container;
     },
 };
 
 export const number: Story = {
     loaders: [numberLoader],
-    render: (_, { loaded }) => {
+    render: (_, { loaded, args }) => {
 
         const { xmlData, xslData } = loaded || {};
+        const singleline = new TSingleline(xmlData, xslData);
 
-        // Create an instance of TransformComponent
-        const transformComponent = new TransformComponent(xmlData, xslData);
+        const container = singleline.render();
+        singleline.updateProperties(args);
 
-        // Perform the transformation and return the resulting DOM element
-        const transformedElement = transformComponent.transform();
-
-        // Return the DOM element to Storybook
-        return transformedElement;
+        return container;
     },
 };
 
 export const date: Story = {
     loaders: [dateLoader],
-    render: (_, { loaded }) => {
+    render: (_, { loaded, args }) => {
 
         const { xmlData, xslData } = loaded || {};
 
-        // Create an instance of TransformComponent
-        const transformComponent = new TransformComponent(xmlData, xslData);
+        const singleline = new TSingleline(xmlData, xslData);
 
-        // Perform the transformation and return the resulting DOM element
-        const transformedElement = transformComponent.transform();
+        const container = singleline.render();
+        singleline.updateProperties(args);
 
-        // Return the DOM element to Storybook
-        return transformedElement;
+        return container;
     },
 };
