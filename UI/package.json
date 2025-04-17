@@ -68,7 +68,9 @@
     "stylelint-config-standard": "^36.0.1",
     "stylelint-order": "^6.0.4",
     "stylelint-prettier": "^5.0.2",
-    "typescript": "^5.7.3"
+    "typescript": "^5.7.3",
+    "@storybook/addon-actions": "^8.6.12",
+    "@storybook/addon-console": "^3.0.0"
   },
   "lint-staged": {
     "src/**/*.ts": [
