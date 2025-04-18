@@ -26,7 +26,8 @@ console.log('Custom element transform-component defined');
 
 // Define a decorator to handle `updateArgs`
 const withDynamicArgs: DecoratorFn = (storyFn, context) => {
-    const { args, loaded, updateArgs } = context;
+    const { args, loaded } = context;
+    const updateArgs = context.updateArgs || (() => {}); // Ensure updateArgs is callable
     const { xmlData, xslData } = loaded || {};
     const singleline = new TSingleline(xmlData, xslData, args.rtype || 'text');
 
