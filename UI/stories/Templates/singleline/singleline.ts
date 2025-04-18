@@ -8,8 +8,11 @@ export default class TSingleline {
     private elementResponse: OResponse;
     private elementSingleline: MSingleline | MSinglelineDate | MSinglelineNumber;
     private elementInput: HTMLInputElement;
+    private singelineType: string;
 
-    constructor(private xmlData: string, private xsltData: string) {}
+    constructor(private xmlData: string, private xsltData: string, private singlelineType: string) {
+        this.singelineType = singlelineType;
+    }
 
     public render(): HTMLElement {
         const container = TransformUtils.transform(this.xmlData, this.xsltData);
@@ -17,12 +20,16 @@ export default class TSingleline {
         this.elementResponse = container.querySelector('o-response') as OResponse;
 
         // Dynamically locate and set the type of elementSingleline
-        if (this.xmlData.includes('<SinglelineNumber>')) {
-            this.elementSingleline = container.querySelector('m-singleline-number') as MSinglelineNumber;
-        } else if (this.xmlData.includes('<SinglelineDate>')) {
-            this.elementSingleline = container.querySelector('m-singleline-date') as MSinglelineDate;
-        } else {
-            this.elementSingleline = container.querySelector('m-singleline') as MSingleline;
+        switch (this.singelineType) {
+            case 'number':
+                this.elementSingleline = container.querySelector('m-singleline-number') as MSinglelineNumber;
+                break;
+            case 'date':
+                this.elementSingleline = container.querySelector('m-singleline-date') as MSinglelineDate;
+                break;
+            default:
+                this.elementSingleline = container.querySelector('m-singleline') as MSingleline;
+                break;
         }
 
         this.elementInput = container.querySelector('.a-singleline') as HTMLInputElement;

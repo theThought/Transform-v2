@@ -226,7 +226,7 @@ export const text: Story = {
     loaders: [textLoader],
     render: (_, { loaded, args }) => {
         const { xmlData, xslData } = loaded || {};
-        const singleline = new TSingleline(xmlData, xslData);
+        const singleline = new TSingleline(xmlData, xslData, 'text');
 
         const container = singleline.render();
         singleline.updateProperties(args);
@@ -240,7 +240,7 @@ export const number: Story = {
     render: (_, { loaded, args }) => {
 
         const { xmlData, xslData } = loaded || {};
-        const singleline = new TSingleline(xmlData, xslData);
+        const singleline = new TSingleline(xmlData, xslData, 'number');
 
         const container = singleline.render();
         singleline.updateProperties(args);
@@ -255,7 +255,7 @@ export const date: Story = {
 
         const { xmlData, xslData } = loaded || {};
 
-        const singleline = new TSingleline(xmlData, xslData);
+        const singleline = new TSingleline(xmlData, xslData, 'date');
 
         const container = singleline.render();
         singleline.updateProperties(args);
