@@ -1,5 +1,4 @@
-import { Meta, StoryObj } from '@storybook/web-components-vite';
-import { useArgs } from '@storybook/preview-api';
+import { Meta, StoryObj, DecoratorFn } from '@storybook/web-components-vite';
 import TransformComponent from '../../../components/TransformComponent';
 import OResponse from '../../../src/javascript/web-components/o-response';
 import MSingleLine from '../../../src/javascript/web-components/m-singleline';
@@ -24,63 +23,26 @@ if (!customElements.get('m-singleline-date')) {
 customElements.define('transform-component', TransformComponent);
 
 console.log('Custom element transform-component defined');
-// Define loaders for each story
-const numberLoader = async () => {
-    try {
-    const xmlResponse = await fetch('./build/static/Dimensions/singleline-number.xml');
-    const xslResponse = await fetch('./build/static/Dimensions/question.xsl');
 
-    if (!xmlResponse.ok || !xslResponse.ok) {
-        throw new Error('Failed to fetch XML or XSLT files.');
-    }
+// Define a decorator to handle `updateArgs`
+const withDynamicArgs: DecoratorFn = (storyFn, context) => {
+    const { args, loaded, updateArgs } = context;
+    const { xmlData, xslData } = loaded || {};
+    const singleline = new TSingleline(xmlData, xslData, args.rtype || 'text');
 
-    const xmlData = await xmlResponse.text();
-    const xslData = await xslResponse.text();
+    // Render the transformed HTML
+    const container = singleline.render();
 
-    return { xmlData, xslData };
-    }
-    catch (error) {
-        console.error('Error in number loader:', error);
-        throw error;
-    }
-};
+    // Synchronize args with the transformed HTML
+    singleline.syncArgTypes(args);
 
-const dateLoader = async () => {
-    const xmlResponse = await fetch('./build/static/Dimensions/singleline-date.xml');
-    const xslResponse = await fetch('./build/static/Dimensions/question.xsl');
-    try {
-    if (!xmlResponse.ok || !xslResponse.ok) {
-        throw new Error('Failed to fetch XML or XSLT files.');
-    }
+    // Dynamically update Storybook controls
+    updateArgs(args);
 
-    const xmlData = await xmlResponse.text();
-    const xslData = await xslResponse.text();
+    // Update properties based on the synchronized args
+    singleline.updateProperties(args);
 
-    return { xmlData, xslData };
-    }
-    catch (error) {
-            console.error('Error in date loader:', error);
-            throw error;
-        }
-};
-
-const textLoader = async () => {
-    const xmlResponse = await fetch('./build/static/Dimensions/singleline.xml');
-    const xslResponse = await fetch('./build/static/Dimensions/question.xsl');
-    try {
-    if (!xmlResponse.ok || !xslResponse.ok) {
-        throw new Error('Failed to fetch XML or XSLT files.');
-    }
-
-    const xmlData = await xmlResponse.text();
-    const xslData = await xslResponse.text();
-
-    return { xmlData, xslData };
-    }
-    catch (error) {
-            console.error('Error in text loader:', error);
-            throw error;
-        }
+    return container;
 };
 
 export default {
@@ -208,72 +170,70 @@ export default {
             },
         },
     },
+    decorators: [withDynamicArgs], // Add the decorator
 } as Meta;
 
 type Story = StoryObj;
 
 export const text: Story = {
-    loaders: [textLoader],
-    render: (_, { loaded, args, updateArgs }) => {
-        const { xmlData, xslData } = loaded || {};
-        const singleline = new TSingleline(xmlData, xslData, 'text');
+    loaders: [async () => {
+        try {
+            const xmlResponse = await fetch('./build/static/Dimensions/singleline.xml');
+            const xslResponse = await fetch('./build/static/Dimensions/question.xsl');
 
-        // Render the transformed HTML
-        const container = singleline.render();
+            if (!xmlResponse.ok || !xslResponse.ok) {
+                throw new Error('Failed to fetch XML or XSLT files.');
+            }
 
-        // Synchronize args with the transformed HTML
-        singleline.syncArgTypes(args);
+            const xmlData = await xmlResponse.text();
+            const xslData = await xslResponse.text();
 
-        // Dynamically update Storybook controls
-        updateArgs(args);
-
-        // Update properties based on the synchronized args
-        singleline.updateProperties(args);
-
-        return container;
-    },
+            return { xmlData, xslData };
+        } catch (error) {
+            console.error('Error in text loader:', error);
+            throw error;
+        }
+    }],
 };
 
 export const number: Story = {
-    loaders: [numberLoader],
-    render: (_, { loaded, args, updateArgs }) => {
-        const { xmlData, xslData } = loaded || {};
-        const singleline = new TSingleline(xmlData, xslData, 'number');
+    loaders: [async () => {
+        try {
+            const xmlResponse = await fetch('./build/static/Dimensions/singleline-number.xml');
+            const xslResponse = await fetch('./build/static/Dimensions/question.xsl');
 
-        // Render the transformed HTML
-        const container = singleline.render();
+            if (!xmlResponse.ok || !xslResponse.ok) {
+                throw new Error('Failed to fetch XML or XSLT files.');
+            }
 
-        // Synchronize args with the transformed HTML
-        singleline.syncArgTypes(args);
+            const xmlData = await xmlResponse.text();
+            const xslData = await xslResponse.text();
 
-        // Dynamically update Storybook controls
-        updateArgs(args);
-
-        // Update properties based on the synchronized args
-        singleline.updateProperties(args);
-
-        return container;
-    },
+            return { xmlData, xslData };
+        } catch (error) {
+            console.error('Error in number loader:', error);
+            throw error;
+        }
+    }],
 };
 
 export const date: Story = {
-    loaders: [dateLoader],
-    render: (_, { loaded, args, updateArgs }) => {
-        const { xmlData, xslData } = loaded || {};
-        const singleline = new TSingleline(xmlData, xslData, 'date');
+    loaders: [async () => {
+        try {
+            const xmlResponse = await fetch('./build/static/Dimensions/singleline-date.xml');
+            const xslResponse = await fetch('./build/static/Dimensions/question.xsl');
 
-        // Render the transformed HTML
-        const container = singleline.render();
+            if (!xmlResponse.ok || !xslResponse.ok) {
+                throw new Error('Failed to fetch XML or XSLT files.');
+            }
 
-        // Synchronize args with the transformed HTML
-        singleline.syncArgTypes(args);
+            const xmlData = await xmlResponse.text();
+            const xslData = await xslResponse.text();
 
-        // Dynamically update Storybook controls
-        updateArgs(args);
-
-        // Update properties based on the synchronized args
-        singleline.updateProperties(args);
-
-        return container;
-    },
+            return { xmlData, xslData };
+        } catch (error) {
+            console.error('Error in date loader:', error);
+            throw error;
+        }
+    }],
 };
