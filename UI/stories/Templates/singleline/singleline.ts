@@ -66,8 +66,16 @@ export default class TSingleline {
 
         // Update input element attributes
         this.elementInput.setAttribute('type', argTypes.rtype || 'text');
-        this.elementInput.setAttribute('min', argTypes.minimum?.toString() || '1');
-        this.elementInput.setAttribute('max', argTypes.maximum?.toString() || '10');
+
+        // Handle minimum and maximum based on singlelineType
+        if (this.singlelineType === 'number' || this.singlelineType === 'date') {
+            this.elementInput.setAttribute('min', argTypes.minimum?.toString() || '1');
+            this.elementInput.setAttribute('max', argTypes.maximum?.toString() || '10');
+        } else if (this.singlelineType === 'text') {
+            this.elementInput.removeAttribute('min');
+            this.elementInput.removeAttribute('max');
+            this.elementInput.setAttribute('maxlength', argTypes.maximum?.toString() || '100');
+        }
 
         // Apply the width and alignment styles
         const width = argTypes.width || '15em';
