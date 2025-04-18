@@ -86,25 +86,25 @@ export default class TSingleline {
         );
     }
 
-    public syncArgTypes(argTypes: Record<string, any>): void {
+    public syncArgTypes(args: Record<string, any>): void {
         if (!this.elementInput) {
             console.warn("Input element not initialized. Call render() first.");
             return;
         }
 
-        // Update argTypes based on the attributes in the transformed HTML
-        argTypes.rtype = this.elementInput.getAttribute('type') || argTypes.rtype || 'text';
+        // Update args based on the attributes in the transformed HTML
+        args.rtype = this.elementInput.getAttribute('type') || args.rtype || 'text';
 
         if (this.singlelineType === 'number' || this.singlelineType === 'date') {
-            argTypes.minimum = this.elementInput.getAttribute('min') || argTypes.minimum || '1';
-            argTypes.maximum = this.elementInput.getAttribute('max') || argTypes.maximum || '10';
+            args.minimum = parseInt(this.elementInput.getAttribute('min') || args.minimum || '1', 10);
+            args.maximum = parseInt(this.elementInput.getAttribute('max') || args.maximum || '10', 10);
         } else if (this.singlelineType === 'text') {
-            argTypes.maximum = this.elementInput.getAttribute('maxlength') || argTypes.maximum || '100';
+            args.maximum = parseInt(this.elementInput.getAttribute('maxlength') || args.maximum || '100', 10);
         }
 
-        argTypes.width = this.elementInput.style.width || argTypes.width || '15em';
-        argTypes.align = this.elementInput.style.textAlign || argTypes.align || 'left';
+        args.width = this.elementInput.style.width || args.width || '15em';
+        args.align = this.elementInput.style.textAlign || args.align || 'left';
 
-        console.log("Synchronized argTypes:", argTypes);
+        console.log("Synchronized args:", args);
     }
 }
