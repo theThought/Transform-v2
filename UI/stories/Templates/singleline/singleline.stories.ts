@@ -116,7 +116,6 @@ export default {
             description: 'Input type required',
             table: {
                 type: { summary: 'string' },
-                defaultValue: { summary: 'text' },
                 category: 'general',
             },
         },
@@ -126,7 +125,6 @@ export default {
             description: 'Alignment of the content within the input',
             table: {
                 type: { summary: 'string' },
-                defaultValue: { summary: 'Left' },
                 category: 'parameters',
             },
         },
@@ -135,7 +133,6 @@ export default {
             description: 'Input width using a value and a measurement (e.g., px, em, %)',
             table: {
                 type: { summary: 'string' },
-                defaultValue: { summary: '15em' },
                 category: 'parameters',
             },
         },
@@ -144,7 +141,6 @@ export default {
             description: 'The smallest value allowed',
             table: {
                 type: { summary: 'number' },
-                defaultValue: { summary: '1' },
                 category: 'parameters',
             },
         },
@@ -153,7 +149,6 @@ export default {
             description: 'The largest value allowed',
             table: {
                 type: { summary: 'number' },
-                defaultValue: { summary: '39' },
                 category: 'parameters',
             },
         },
@@ -162,7 +157,6 @@ export default {
             description: 'A string placed BEFORE the input',
             table: {
                 type: { summary: 'string' },
-                defaultValue: { summary: '' },
                 category: 'properties',
                 subcategory: 'labels',
             },
@@ -172,7 +166,6 @@ export default {
             description: 'A string placed AFTER the input',
             table: {
                 type: { summary: 'string' },
-                defaultValue: { summary: '' },
                 category: 'properties',
                 subcategory: 'labels',
             },
@@ -182,7 +175,6 @@ export default {
             description: 'Whether balance should be applied',
             table: {
                 type: { summary: 'boolean' },
-                defaultValue: { summary: 'true' },
                 category: 'properties',
                 subcategory: 'balance',
             },
@@ -192,7 +184,6 @@ export default {
             description: 'Minimum width for a balanced item',
             table: {
                 type: { summary: 'string' },
-                defaultValue: { summary: '' },
                 category: 'properties',
                 subcategory: 'balance',
             },
@@ -202,7 +193,6 @@ export default {
             description: 'Whether OneSize should be applied',
             table: {
                 type: { summary: 'boolean' },
-                defaultValue: { summary: 'true' },
                 category: 'properties',
                 subcategory: 'onesize',
             },
@@ -212,7 +202,6 @@ export default {
             description: 'Maximum width for a sized item',
             table: {
                 type: { summary: 'string' },
-                defaultValue: { summary: '' },
                 category: 'properties',
                 subcategory: 'onesize',
             },
