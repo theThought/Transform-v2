@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from '@storybook/web-components-vite';
+import { useArgs } from '@storybook/preview-api';
 import TransformComponent from '../../../components/TransformComponent';
 import OResponse from '../../../src/javascript/web-components/o-response';
 import MSingleLine from '../../../src/javascript/web-components/m-singleline';
@@ -213,17 +214,20 @@ type Story = StoryObj;
 
 export const text: Story = {
     loaders: [textLoader],
-    render: (_, { loaded, args }) => {
+    render: (_, { loaded, args, updateArgs }) => {
         const { xmlData, xslData } = loaded || {};
         const singleline = new TSingleline(xmlData, xslData, 'text');
 
         // Render the transformed HTML
         const container = singleline.render();
 
-        // Synchronize argTypes with the transformed HTML
+        // Synchronize args with the transformed HTML
         singleline.syncArgTypes(args);
 
-        // Update properties based on the synchronized argTypes
+        // Dynamically update Storybook controls
+        updateArgs(args);
+
+        // Update properties based on the synchronized args
         singleline.updateProperties(args);
 
         return container;
@@ -232,17 +236,20 @@ export const text: Story = {
 
 export const number: Story = {
     loaders: [numberLoader],
-    render: (_, { loaded, args }) => {
+    render: (_, { loaded, args, updateArgs }) => {
         const { xmlData, xslData } = loaded || {};
         const singleline = new TSingleline(xmlData, xslData, 'number');
 
         // Render the transformed HTML
         const container = singleline.render();
 
-        // Synchronize argTypes with the transformed HTML
+        // Synchronize args with the transformed HTML
         singleline.syncArgTypes(args);
 
-        // Update properties based on the synchronized argTypes
+        // Dynamically update Storybook controls
+        updateArgs(args);
+
+        // Update properties based on the synchronized args
         singleline.updateProperties(args);
 
         return container;
@@ -251,17 +258,20 @@ export const number: Story = {
 
 export const date: Story = {
     loaders: [dateLoader],
-    render: (_, { loaded, args }) => {
+    render: (_, { loaded, args, updateArgs }) => {
         const { xmlData, xslData } = loaded || {};
         const singleline = new TSingleline(xmlData, xslData, 'date');
 
         // Render the transformed HTML
         const container = singleline.render();
 
-        // Synchronize argTypes with the transformed HTML
+        // Synchronize args with the transformed HTML
         singleline.syncArgTypes(args);
 
-        // Update properties based on the synchronized argTypes
+        // Dynamically update Storybook controls
+        updateArgs(args);
+
+        // Update properties based on the synchronized args
         singleline.updateProperties(args);
 
         return container;
