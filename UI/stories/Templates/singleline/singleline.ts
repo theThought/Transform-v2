@@ -15,8 +15,21 @@ export default class TSingleline {
         const container = TransformUtils.transform(this.xmlData, this.xsltData);
 
         this.elementResponse = container.querySelector('o-response') as OResponse;
-        this.elementSingleline = container.querySelector('m-singleline') as MSingleline;
+
+        // Dynamically locate and set the type of elementSingleline
+        if (this.xmlData.includes('<SinglelineNumber>')) {
+            this.elementSingleline = container.querySelector('m-singleline-number') as MSinglelineNumber;
+        } else if (this.xmlData.includes('<SinglelineDate>')) {
+            this.elementSingleline = container.querySelector('m-singleline-date') as MSinglelineDate;
+        } else {
+            this.elementSingleline = container.querySelector('m-singleline') as MSingleline;
+        }
+
         this.elementInput = container.querySelector('.a-singleline') as HTMLInputElement;
+
+        if (!this.elementResponse || !this.elementSingleline || !this.elementInput) {
+            throw new Error("The transformed document does not contain the required elements.");
+        }
 
         return container;
     }
@@ -48,9 +61,13 @@ export default class TSingleline {
         this.elementInput.setAttribute('type', argTypes.rtype || 'text');
         this.elementInput.setAttribute('min', argTypes.minimum?.toString() || '1');
         this.elementInput.setAttribute('max', argTypes.maximum?.toString() || '10');
+
+        // Apply the width and alignment styles
+        const width = argTypes.width || '15em';
+        const align = argTypes.align || 'left';
         this.elementInput.setAttribute(
             'style',
-            `width: ${argTypes.width || '15em'}; text-align: ${argTypes.align || 'left'};`
+            `width: ${width}; text-align: ${align.toLowerCase()};`
         );
     }
 }

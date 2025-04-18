@@ -222,7 +222,7 @@ export default {
 
 type Story = StoryObj;
 
-export const Text: Story = {
+export const text: Story = {
     loaders: [textLoader],
     render: (_, { loaded, args }) => {
         const { xmlData, xslData } = loaded || {};
