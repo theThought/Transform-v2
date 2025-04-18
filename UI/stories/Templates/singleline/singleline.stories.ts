@@ -228,7 +228,13 @@ export const text: Story = {
         const { xmlData, xslData } = loaded || {};
         const singleline = new TSingleline(xmlData, xslData, 'text');
 
+        // Render the transformed HTML
         const container = singleline.render();
+
+        // Synchronize argTypes with the transformed HTML
+        singleline.syncArgTypes(args);
+
+        // Update properties based on the synchronized argTypes
         singleline.updateProperties(args);
 
         return container;
@@ -238,11 +244,16 @@ export const text: Story = {
 export const number: Story = {
     loaders: [numberLoader],
     render: (_, { loaded, args }) => {
-
         const { xmlData, xslData } = loaded || {};
         const singleline = new TSingleline(xmlData, xslData, 'number');
 
+        // Render the transformed HTML
         const container = singleline.render();
+
+        // Synchronize argTypes with the transformed HTML
+        singleline.syncArgTypes(args);
+
+        // Update properties based on the synchronized argTypes
         singleline.updateProperties(args);
 
         return container;
@@ -252,12 +263,16 @@ export const number: Story = {
 export const date: Story = {
     loaders: [dateLoader],
     render: (_, { loaded, args }) => {
-
         const { xmlData, xslData } = loaded || {};
-
         const singleline = new TSingleline(xmlData, xslData, 'date');
 
+        // Render the transformed HTML
         const container = singleline.render();
+
+        // Synchronize argTypes with the transformed HTML
+        singleline.syncArgTypes(args);
+
+        // Update properties based on the synchronized argTypes
         singleline.updateProperties(args);
 
         return container;

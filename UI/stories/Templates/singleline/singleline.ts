@@ -85,4 +85,26 @@ export default class TSingleline {
             `width: ${width}; text-align: ${align.toLowerCase()};`
         );
     }
+
+    public syncArgTypes(argTypes: Record<string, any>): void {
+        if (!this.elementInput) {
+            console.warn("Input element not initialized. Call render() first.");
+            return;
+        }
+
+        // Update argTypes based on the attributes in the transformed HTML
+        argTypes.rtype = this.elementInput.getAttribute('type') || argTypes.rtype || 'text';
+
+        if (this.singlelineType === 'number' || this.singlelineType === 'date') {
+            argTypes.minimum = this.elementInput.getAttribute('min') || argTypes.minimum || '1';
+            argTypes.maximum = this.elementInput.getAttribute('max') || argTypes.maximum || '10';
+        } else if (this.singlelineType === 'text') {
+            argTypes.maximum = this.elementInput.getAttribute('maxlength') || argTypes.maximum || '100';
+        }
+
+        argTypes.width = this.elementInput.style.width || argTypes.width || '15em';
+        argTypes.align = this.elementInput.style.textAlign || argTypes.align || 'left';
+
+        console.log("Synchronized argTypes:", argTypes);
+    }
 }
