@@ -26,7 +26,7 @@ console.log('Custom element transform-component defined');
 
 // Define a decorator to handle `updateArgs`
 const withDynamicArgs: DecoratorFn = (storyFn, context) => {
-    const { args, loaded, updateArgs } = context;
+    const { args, loaded } = context;
     const { xmlData, xslData } = loaded || {};
     const singleline = new TSingleline(xmlData, xslData, args.rtype || 'text');
 
@@ -35,21 +35,6 @@ const withDynamicArgs: DecoratorFn = (storyFn, context) => {
 
     // Synchronize args with the transformed HTML
     singleline.syncArgTypes(args);
-
-    // Listen for changes in the controls and update the HTML
-    container.addEventListener('change', (event) => {
-        const { name, value } = event.target;
-        const updatedArgs = { ...args, [name]: value };
-        updateArgs(updatedArgs);
-
-        // Update properties and re-render the component
-        singleline.updateProperties(updatedArgs);
-        const updatedContainer = singleline.render();
-
-        // Replace the old container content with the updated content
-        container.replaceChildren(...updatedContainer.children);
-    });
-    console.log("change event")
 
     return container;
 };
@@ -185,19 +170,6 @@ export default {
 type Story = StoryObj;
 
 export const text: Story = {
-    args: {
-        rtype: 'text',
-        align: 'Left',
-        width: '15em',
-        minimum: 1,
-        maximum: 100,
-        prelabel: '',
-        postlabel: '',
-        balanceState: true,
-        balanceMinWidth: '',
-        oneSizeState: true,
-        oneSizeMaxWidth: '',
-    },
     loaders: [async () => {
         try {
             const xmlResponse = await fetch('./build/static/Dimensions/singleline.xml');
@@ -219,19 +191,6 @@ export const text: Story = {
 };
 
 export const number: Story = {
-    args: {
-        rtype: 'number',
-        align: 'Right',
-        width: '10em',
-        minimum: 1,
-        maximum: 10,
-        prelabel: '',
-        postlabel: '',
-        balanceState: true,
-        balanceMinWidth: '',
-        oneSizeState: true,
-        oneSizeMaxWidth: '',
-    },
     loaders: [async () => {
         try {
             const xmlResponse = await fetch('./build/static/Dimensions/singleline-number.xml');
@@ -253,19 +212,6 @@ export const number: Story = {
 };
 
 export const date: Story = {
-    args: {
-        rtype: 'date',
-        align: 'Center',
-        width: '20em',
-        minimum: 1,
-        maximum: 31,
-        prelabel: '',
-        postlabel: '',
-        balanceState: true,
-        balanceMinWidth: '',
-        oneSizeState: true,
-        oneSizeMaxWidth: '',
-    },
     loaders: [async () => {
         try {
             const xmlResponse = await fetch('./build/static/Dimensions/singleline-date.xml');
