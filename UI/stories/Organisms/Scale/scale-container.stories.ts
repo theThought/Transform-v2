@@ -1,9 +1,13 @@
 import { StoryObj } from '@storybook/blocks';
 import OScaleContainer from '../../../src/javascript/web-components/o-scale-container';
 
+if (!customElements.get('o-scale-container')) {
+    customElements.define('o-scale-container', OScaleContainer);
+}
+
 export default {
     title: 'Organisms/Scale Container',
-    component: OScaleContainer,
+    component: "O-scale-container",
     tags: ['autodocs'],
     parameters: {
         status: { type: 'beta' },
