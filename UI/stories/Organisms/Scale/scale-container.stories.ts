@@ -61,6 +61,8 @@ export const SevenPoint: StorySeven = {
         const scaleContainer: OScaleContainer = document.createElement('o-scale-container')
         scaleContainer.minimum = args.minimum;
         scaleContainer.maximum = args.maximum;
+        
+        scaleContainer.render();
         return scaleContainer;
     },
 };
