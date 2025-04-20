@@ -7,7 +7,7 @@ if (!customElements.get('a-scale-unit')) {
 
 export default {
     title: 'Atoms/Scale',
-    component: AScaleUnit,
+    component: 'a-scale-unit', // Use the tag name of the custom element
     tags: ['autodocs'],
     parameters: {
         status: { type: 'beta' },
