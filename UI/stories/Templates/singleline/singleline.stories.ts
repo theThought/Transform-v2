@@ -43,6 +43,14 @@ const withDynamicArgs: DecoratorFn = (storyFn, context) => {
     // Update properties based on the synchronized args
     singleline.updateProperties(args);
 
+    // Listen for changes in the controls and update the HTML
+    container.addEventListener('change', (event) => {
+        const { name, value } = event.target;
+        const updatedArgs = { ...args, [name]: value };
+        updateArgs(updatedArgs);
+        singleline.updateProperties(updatedArgs);
+    });
+
     return container;
 };
 
