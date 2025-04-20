@@ -1,9 +1,12 @@
-import { Meta, StoryObj } from '@storybook/blocks';
+import { Meta, StoryObj } from '@storybook/web-components-vite';
 import OScale from '../../../src/javascript/web-components/o-scale';
 
+if (!customElements.get('o-scale')) {
+    customElements.define('o-scale', OScale);
+}
 export default {
     title: 'Organisms/scale',
-    component: OScale,
+    component: "o-scale",
     tags: ['autodocs'],
     parameters: {
         status: { type: 'beta' },
@@ -38,13 +41,14 @@ export const TenPoint: ScaleTen = {
     },
     render: (args) => {
         // Create a new instance of the MScaleUnit class
-        const scaleContainer = document.createElement('o-scale');
+        const scaleContainer: OScale = document.createElement('o-scale');
         scaleContainer.setAttribute('data-question-id', '_Q0');
         scaleContainer.setAttribute('data-question-group', '_QText');
         scaleContainer.setAttribute(
             'data-properties',
             '{"labels":{"pre":"preLabel","post":"PostLabel"}}',
         );
+        scaleContainer.render();
         return scaleContainer;
     },
 };
@@ -58,13 +62,14 @@ export const SevenPoint: ScaleTen = {
     },
     render: (args) => {
         // Create a new instance of the MScaleUnit class
-        const scaleContainer = document.createElement('o-scale');
+        const scaleContainer: OScale = document.createElement('o-scale');
         scaleContainer.setAttribute('data-question-id', '_Q0');
         scaleContainer.setAttribute('data-question-group', '_QText');
         scaleContainer.setAttribute(
             'data-properties',
             '{"labels":{"pre":"preLabel","post":"PostLabel"}}',
         );
+        scaleContainer.render();
         return scaleContainer;
     },
 };

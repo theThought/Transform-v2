@@ -6,7 +6,7 @@ if (!customElements.get('o-scale-container')) {
 }
 
 export default {
-    title: 'Organisms/Scale Container',
+    title: 'Organisms/scale',
     component: "o-scale-container",
     tags: ['autodocs'],
     parameters: {
