@@ -1,4 +1,4 @@
-import { Meta, StoryObj, DecoratorFn } from '@storybook/web-components-vite';
+import { Meta, StoryObj } from '@storybook/web-components-vite';
 import OScaleContainer from '../../../src/javascript/web-components/o-scale-container';
 
 if (!customElements.get('o-scale-container')) {
@@ -31,7 +31,7 @@ export default {
             },
         },
     },
-};
+} as Meta;
 
 type StoryTen = StoryObj<typeof OScaleContainer>;
 export const TenPoint: StoryTen = {

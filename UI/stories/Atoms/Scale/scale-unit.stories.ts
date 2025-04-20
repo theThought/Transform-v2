@@ -1,4 +1,4 @@
-import { Meta, StoryObj, DecoratorFn } from '@storybook/web-components-vite';
+import { Meta, StoryObj } from '@storybook/web-components-vite';
 import AScaleUnit from '../../../src/javascript/web-components/a-scale-unit';
 
 if (!customElements.get('a-scale-unit')) {
@@ -24,7 +24,7 @@ export default {
             },
         },
     },
-};
+} as Meta;
 
 type Story = StoryObj<typeof AScaleUnit>;
 export const Default: Story = {
