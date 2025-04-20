@@ -1,8 +1,13 @@
 import { Meta, StoryObj, DecoratorFn } from '@storybook/web-components-vite';
 import OScaleContainer from '../../../src/javascript/web-components/o-scale-container';
+import AScaleUnit from '../../../src/javascript/web-components/a-scale-unit';
 
 if (!customElements.get('o-scale-container')) {
     customElements.define('o-scale-container', OScaleContainer);
+}
+
+if (!customElements.get('a-scale-unit')) {
+    customElements.define('a-scale-unit', AScaleUnit);
 }
 
 export default {
@@ -61,7 +66,7 @@ export const SevenPoint: StorySeven = {
         const scaleContainer: OScaleContainer = document.createElement('o-scale-container')
         scaleContainer.minimum = args.minimum;
         scaleContainer.maximum = args.maximum;
-        
+
         scaleContainer.render();
         return scaleContainer;
     },
