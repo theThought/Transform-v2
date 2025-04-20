@@ -34,7 +34,7 @@ export default {
 } as Meta;
 
 type StoryTenContainer = StoryObj<typeof OScaleContainer>;
-export const TenPoint: StoryTenContainer = {
+export const TenPointContainer: StoryTenContainer = {
     name: '10-point container',
     args: {
         minimum: 1,
@@ -51,7 +51,7 @@ export const TenPoint: StoryTenContainer = {
 };
 
 type StorySevenContainer = StoryObj<typeof OScaleContainer>;
-export const SevenPoint: StorySevenContainer = {
+export const SevenPointContainer: StorySevenContainer = {
     name: '7-point container',
     args: {
         minimum: 1,
