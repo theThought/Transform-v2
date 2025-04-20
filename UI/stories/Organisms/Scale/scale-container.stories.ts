@@ -58,7 +58,7 @@ export const SevenPoint: StorySeven = {
     },
     render: (args) => {
         // Create a new instance of the OScaleContainer using document.createElement
-        const scaleContainer = document.createElement('o-scale-container');
+        const scaleContainer: OScaleContainer = document.createElement('o-scale-container')
         scaleContainer.minimum = args.minimum;
         scaleContainer.maximum = args.maximum;
         return scaleContainer;
