@@ -41,7 +41,13 @@ const withDynamicArgs: DecoratorFn = (storyFn, context) => {
         const { name, value } = event.target;
         const updatedArgs = { ...args, [name]: value };
         updateArgs(updatedArgs);
+
+        // Update properties and re-render the component
         singleline.updateProperties(updatedArgs);
+        const updatedContainer = singleline.render();
+
+        // Replace the old container content with the updated content
+        container.replaceChildren(...updatedContainer.children);
     });
     console.log("change event")
 
