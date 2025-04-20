@@ -41,8 +41,8 @@ export const TenPoint: StoryTen = {
         maximum: 10,
     },
     render: (args) => {
-        // Create a new instance of the MScaleUnit class
-        const scaleContainer = new OScaleContainer();
+        // Create a new instance of the OScaleContainer using document.createElement
+        const scaleContainer = document.createElement('o-scale-container');
         scaleContainer.minimum = args.minimum;
         scaleContainer.maximum = args.maximum;
         return scaleContainer;
@@ -57,8 +57,8 @@ export const SevenPoint: StorySeven = {
         maximum: 7,
     },
     render: (args) => {
-        // Create a new instance of the MScaleUnit class
-        const scaleContainer = new OScaleContainer();
+        // Create a new instance of the OScaleContainer using document.createElement
+        const scaleContainer = document.createElement('o-scale-container');
         scaleContainer.minimum = args.minimum;
         scaleContainer.maximum = args.maximum;
         return scaleContainer;
