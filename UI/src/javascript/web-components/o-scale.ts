@@ -9,13 +9,13 @@ class OScale extends HTMLElement {
     }
 
     render() {
-        this.shadowRoot.textContent = ''; // Clear previous content
+        this.textContent = ''; // Clear previous content
 
         const prepostLabels = MLabelPrePost();
-        this.shadowRoot.appendChild(prepostLabels);
+        this.appendChild(prepostLabels);
 
         const scaleContainer = new OScaleContainer();
-        this.shadowRoot.appendChild(scaleContainer);
+        this.appendChild(scaleContainer);
     }
 }
 
