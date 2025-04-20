@@ -1,6 +1,6 @@
 import { Meta, StoryObj, DecoratorFn } from '@storybook/web-components-vite';
 import OScaleContainer from '../../../src/javascript/web-components/o-scale-container';
-/
+
 if (!customElements.get('o-scale-container')) {
     customElements.define('o-scale-container', OScaleContainer);
 }
