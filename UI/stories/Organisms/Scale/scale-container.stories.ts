@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/blocks';
+import { Meta, StoryObj, DecoratorFn } from '@storybook/web-components-vite';
 import OScaleContainer from '../../../src/javascript/web-components/o-scale-container';
 
 if (!customElements.get('o-scale-container')) {
@@ -7,7 +7,7 @@ if (!customElements.get('o-scale-container')) {
 
 export default {
     title: 'Organisms/Scale Container',
-    component: "O-scale-container",
+    component: "o-scale-container",
     tags: ['autodocs'],
     parameters: {
         status: { type: 'beta' },
