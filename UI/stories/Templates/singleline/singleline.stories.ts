@@ -26,8 +26,7 @@ console.log('Custom element transform-component defined');
 
 // Define a decorator to handle `updateArgs`
 const withDynamicArgs: DecoratorFn = (storyFn, context) => {
-    const { args, loaded } = context;
-    const updateArgs = context.updateArgs || (() => {}); // Ensure updateArgs is callable
+    const { args, loaded, updateArgs } = context;
     const { xmlData, xslData } = loaded || {};
     const singleline = new TSingleline(xmlData, xslData, args.rtype || 'text');
 
@@ -36,12 +35,6 @@ const withDynamicArgs: DecoratorFn = (storyFn, context) => {
 
     // Synchronize args with the transformed HTML
     singleline.syncArgTypes(args);
-
-    // Dynamically update Storybook controls
-    updateArgs(args);
-
-    // Update properties based on the synchronized args
-    singleline.updateProperties(args);
 
     // Listen for changes in the controls and update the HTML
     container.addEventListener('change', (event) => {
