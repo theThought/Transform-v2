@@ -43,6 +43,7 @@ const withDynamicArgs: DecoratorFn = (storyFn, context) => {
         updateArgs(updatedArgs);
         singleline.updateProperties(updatedArgs);
     });
+    console.log("change event")
 
     return container;
 };
