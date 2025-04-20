@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/blocks';
+import { Meta, StoryObj, DecoratorFn } from '@storybook/web-components-vite';
 import AScaleUnit from '../../../src/javascript/web-components/a-scale-unit';
 
 if (!customElements.get('a-scale-unit')) {
