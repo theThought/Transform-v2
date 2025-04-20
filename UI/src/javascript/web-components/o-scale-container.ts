@@ -5,7 +5,6 @@ export default class OScaleContainer extends HTMLElement {
 
     constructor() {
         super();
-    //    this.attachShadow({ mode: 'open' });
     }
 
     public get minimum(): number {
@@ -32,7 +31,6 @@ export default class OScaleContainer extends HTMLElement {
 
     render() {
         this.innerHTML = ''; // Clear previous content
-        console.log("Rendering scale container with minimum:", this.minimum, "and maximum:", this.maximum);
         for (let counter = this.minimum; counter <= this.maximum; counter++) {
             const scaleUnit: AScaleUnit = document.createElement('a-scale-unit') as AScaleUnit;
             scaleUnit.dataValue = counter.toString(); // Set dataValue as string
