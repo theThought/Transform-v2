@@ -1,6 +1,7 @@
 import { Canvas, Controls, Meta } from '@storybook/blocks';
 import * as SinglelineStories from './Singleline.stories';
 
+<Meta of={SinglelineStories} title="Molecules/Singleline" />
 
 # m-singleline
 Used to present a singleline input to the user for completion.  The singleline input types current supported as a direct method of input are:
@@ -17,13 +18,15 @@ Other singleline input types are used in the background to support other questio
 ## m-singleline
 Sets the type to "text" \
 Supports maxlength property to define the maximum number of characters that can be typed into the input
-
+<Canvas of={SinglelineStories.Singleline} />
+<Controls of={SinglelineStories.Singleline} />
 
 ## m-singleline-number
 Sets the type property to "number" \
 Supports min/max properties to define the smallest and largest values \
 Supports the step property (applied via custom properties) to indicate the change for each click of the stepper and the number of decimal places allowed.
-
+<Canvas of={SinglelineStories.SinglelineNumber} />
+<Controls of={SinglelineStories.SinglelineNumber} />
 
 ## Special codes
 m-singleline supports the use of [special codes with the selection of a special code dismissing the value entered into the input](?path=/docs/templates-open-ends-t-singleline-special-codes--docs).  If a new value is entered after a special code is selected then the special code is dismissed.

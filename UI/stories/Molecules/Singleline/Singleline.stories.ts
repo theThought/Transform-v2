@@ -96,3 +96,41 @@ export const Singleline = {
     },
     render: (args) => SingleLineStories.MSingleLine_Story(args),
 };
+
+type SinglelineNumber = StoryObj<typeof SingleLineStories.MSingleLine_Story>;
+export const SinglelineNumber = {
+
+    args: {
+        type: 'text',
+        minimum: 1,
+        maximum: 40,
+        prelabel: 'before',
+        postlabel: 'after',
+        align: 'Left',
+        width: '100%',
+    },
+    render: (args) => SingleLineStories.MSingleLine_Story(args),
+};
+
+type SinglelineDate = StoryObj<typeof SingleLineStories.MSingleLine_Story>;
+export const SinglelineDate = {
+
+    args: {
+        type: 'text',
+        minimum: (() => {
+            const yesterday = new Date();
+            yesterday.setDate(yesterday.getDate() - 1);
+            return yesterday.toISOString().split('T')[0]; // Format as YYYY-MM-DD
+        })(),
+        maximum: (() => {
+            const tenDaysFromNow = new Date();
+            tenDaysFromNow.setDate(tenDaysFromNow.getDate() + 10);
+            return tenDaysFromNow.toISOString().split('T')[0]; // Format as YYYY-MM-DD
+        })(),
+        prelabel: 'before',
+        postlabel: 'after',
+        align: 'Left',
+        width: '100%',
+    },
+    render: (args) => SingleLineStories.MSingleLine_Story(args),
+};
