@@ -79,6 +79,9 @@ export default {
 
 type PreLabel = StoryObj<typeof LabelStories.ALabelPre>;
 export const PreLabel = {
+    parameters: {
+        controls: { include: ['prelabel'] }, // Fixed syntax error
+    },
     render: (args) => LabelStories.ALabelPre(args.prelabel),
     argTypes: {
         prelabel: { control: 'text' }, // Only include prelabel
@@ -87,6 +90,9 @@ export const PreLabel = {
 
 type PostLabel = StoryObj<typeof LabelStories.ALabelPost>;
 export const PostLabel = {
+    parameters: {
+        controls: { include: ['postlabel'] }, // Added include for postlabel
+    },
     render: (args) => LabelStories.ALabelPost(args.postlabel),
     argTypes: {
         postlabel: { control: 'text' }, // Only include postlabel
@@ -95,6 +101,9 @@ export const PostLabel = {
 
 type QuestionLabel = StoryObj<typeof LabelStories.ALabelQuestion>;
 export const QuestionLabel: QuestionLabel = {
+    parameters: {
+        controls: { include: ['questionlabel'] }, // Fixed syntax error
+    },
     render: (args) => LabelStories.ALabelQuestion(args.questionlabel),
     argTypes: {
         questionlabel: { control: 'text' }, // Only include questionlabel
@@ -103,6 +112,9 @@ export const QuestionLabel: QuestionLabel = {
 
 type OptionLabel = StoryObj<typeof LabelStories.ALabelOption>;
 export const OptionLabel: OptionLabel = {
+    parameters: {
+        controls: { include: ['optionlabel'] }, // Fixed syntax error
+    },
     render: (args) => LabelStories.ALabelOption(args.optionlabel),
     argTypes: {
         optionlabel: { control: 'text' }, // Only include optionlabel
@@ -111,6 +123,9 @@ export const OptionLabel: OptionLabel = {
 
 type HeadingSublistLabel = StoryObj<typeof LabelStories.ALabelHeadingSublist>;
 export const HeadingSublistLabel: HeadingSublistLabel = {
+    parameters: {
+        controls: { include: ['sublistlabel'] }, // Fixed syntax error
+    },
     render: (args) => LabelStories.ALabelHeadingSublist(args.sublistlabel),
     argTypes: {
         sublistlabel: { control: 'text' }, // Only include sublistlabel
