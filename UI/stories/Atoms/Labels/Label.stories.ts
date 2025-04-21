@@ -83,9 +83,6 @@ export const PreLabel = {
         controls: { include: ['prelabel'] }, // Fixed syntax error
     },
     render: (args) => LabelStories.ALabelPre(args.prelabel),
-    argTypes: {
-        prelabel: { control: 'text' }, // Only include prelabel
-    },
 };
 
 type PostLabel = StoryObj<typeof LabelStories.ALabelPost>;
