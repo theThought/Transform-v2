@@ -9,11 +9,10 @@ export default {
         controls: { sort: 'alpha' },
         docs: { controls: { sort: 'alpha' } },
     },
-    argTypes: { // Fixed casing from ArgTypes to argTypes
+    argTypes: {
         prelabel: {
             control: 'text',
             description: 'A string placed BEFORE the input',
-            defaultValue: { summary: 'before' },
             table: {
                 type: { summary: 'string' },
                 category: 'properties',
@@ -24,7 +23,6 @@ export default {
         postlabel: {
             control: 'text',
             description: 'A string placed AFTER the input',
-            defaultValue: { summary: 'after' },
             table: {
                 type: { summary: 'string' },
                 category: 'properties',
@@ -68,14 +66,14 @@ export default {
                 defaultValue: { summary: '10' },
             },
         },
-        args: { // Added args to set default values for controls
-            prelabel: 'before',
-            postlabel: 'after',
-            questionlabel: 'This is the question being asked',
-            optionlabel: 'option text',
-            sublistlabel: 'SubList' ,
-            thumblabel: 10,
-        },
+    },
+    args: { // Moved args to the root level
+        prelabel: 'before',
+        postlabel: 'after',
+        questionlabel: 'This is the question being asked',
+        optionlabel: 'option text',
+        sublistlabel: 'SubList',
+        thumblabel: 10,
     },
 } as Meta;
 
@@ -101,5 +99,5 @@ export const OptionLabel: OptionLabel = {
 
 type HeadingSublistLabel = StoryObj<typeof LabelStories.ALabelHeadingSublist>;
 export const HeadingSublistLabel: HeadingSublistLabel = {
-    render: (args) => LabelStories.ALabelHeadingSublist(args.sublistlabel), // Ensure alignment with argTypes
+    render: (args) => LabelStories.ALabelHeadingSublist(args.sublistlabel),
 };
