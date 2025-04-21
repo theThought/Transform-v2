@@ -81,7 +81,7 @@ type PreLabel = StoryObj<typeof LabelStories.ALabelPre>;
 export const PreLabel = {
     render: (args) => LabelStories.ALabelPre(args.prelabel),
     argTypes: {
-        prelabel: { control: 'text' }, 
+        prelabel: { control: 'text' }, // Only include prelabel
     },
 };
 
@@ -89,7 +89,7 @@ type PostLabel = StoryObj<typeof LabelStories.ALabelPost>;
 export const PostLabel = {
     render: (args) => LabelStories.ALabelPost(args.postlabel),
     argTypes: {
-        postlabel: { control: 'text' }, 
+        postlabel: { control: 'text' }, // Only include postlabel
     },
 };
 
@@ -97,7 +97,7 @@ type QuestionLabel = StoryObj<typeof LabelStories.ALabelQuestion>;
 export const QuestionLabel: QuestionLabel = {
     render: (args) => LabelStories.ALabelQuestion(args.questionlabel),
     argTypes: {
-        QuestionLabel: { control: 'text' }, 
+        questionlabel: { control: 'text' }, // Only include questionlabel
     },
 };
 
@@ -105,7 +105,7 @@ type OptionLabel = StoryObj<typeof LabelStories.ALabelOption>;
 export const OptionLabel: OptionLabel = {
     render: (args) => LabelStories.ALabelOption(args.optionlabel),
     argTypes: {
-        OptionLabel: { control: 'text' }, 
+        optionlabel: { control: 'text' }, // Only include optionlabel
     },
 };
 
@@ -113,6 +113,6 @@ type HeadingSublistLabel = StoryObj<typeof LabelStories.ALabelHeadingSublist>;
 export const HeadingSublistLabel: HeadingSublistLabel = {
     render: (args) => LabelStories.ALabelHeadingSublist(args.sublistlabel),
     argTypes: {
-        HeadingSublistLabel: { control: 'text' }, 
+        sublistlabel: { control: 'text' }, // Only include sublistlabel
     },
 };
