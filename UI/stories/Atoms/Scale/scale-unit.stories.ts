@@ -1,5 +1,5 @@
-import { Meta, StoryObj } from '@storybook/web-components-vite';
-import AScaleUnit from '../../../src/javascript/web-components/a-scale-unit';
+import { Meta, StoryObj } from '@storybook/web-components';
+import { AScaleUnit_Story } from './scale-unit';
 
 if (!customElements.get('a-scale-unit')) {
     customElements.define('a-scale-unit', AScaleUnit);
@@ -8,11 +8,8 @@ if (!customElements.get('a-scale-unit')) {
 export default {
     title: 'Atoms/Scale',
     component: 'a-scale-unit', // Use the tag name of the custom element
-    tags: ['autodocs'],
     parameters: {
         status: { type: 'beta' },
-        controls: { sort: 'alpha' },
-        docs: { controls: { sort: 'alpha' } },
     },
     argTypes: {
         dataValue: {
@@ -20,22 +17,25 @@ export default {
             description: 'Specifies the value of the scale unit.',
             table: {
                 type: { summary: 'text' },
-                defaultValue: { summary: '0' },
+                category: 'Dimensions',
+                defaultValue: { summary: '10' },
             },
         },
     },
 } as Meta;
 
-type Story = StoryObj<typeof AScaleUnit>;
-export const Default: Story = {
+type TenPoint = StoryObj<typeof AScaleUnit_Story>;
+export const TenPoint: TenPoint = {
     args: {
-        dataValue: '0',
+        dataValue: '10',
     },
-    render: (args) => {
-        // Create a new instance of the MScaleUnit class
-        const scaleUnit = document.createElement('a-scale-unit');
-        scaleUnit.dataValue = args.dataValue;
-        return scaleUnit;
+    render: (args) => AScaleUnit_Story(args),
+    /**
+        const container: AScaleUnit = document.createElement('a-scale-unit');
+        container.setAttribute('data-value', args.dataValue);
+        container.textContent = args.dataValue;
+        return container;
     },
+     */
 };
-Default.storyName = 'a-scale-unit';
+TenPoint.storyName = 'a-scale-unit';
