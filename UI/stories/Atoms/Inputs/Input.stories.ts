@@ -7,45 +7,45 @@ export default {
         status: { type: 'beta' },
     },
     argTypes: {
-            type: {
-                control: 'select',
-                options: ['text', 'number', 'range', 'number', 'date'],
-                description: 'Type of input required',
-                table: {
-                    type: { summary: 'string' },
-                    category: 'Dimensions',
-                    subcategory: 'input',
-                    defaultValue: { summary: 'text' },
-                },
-            },
-            minimum: {
-                control: 'number',
-                description: 'Smallest value allowed',
-                table: {
-                    type: { summary: 'number' },
-                    category: 'Dimensions',
-                    subcategory: 'input',
-                    defaultValue: { summary: '1' },
-                },
-            },
-            maximum: { 
-                control: 'number',
-                description: 'Largest value allowed',
-                table: {
-                    type: { summary: 'number' },
-                    category: 'Dimensions',
-                    subcategory: 'input',
-                    defaultValue: { summary: '100' },
-                },
+        type: {
+            control: 'select',
+            options: ['text', 'number', 'range', 'number', 'date'],
+            description: 'Type of input required',
+            table: {
+                type: { summary: 'string' },
+                category: 'Dimensions',
+                subcategory: 'input',
+                defaultValue: { summary: 'text' },
             },
         },
+        minimum: {
+            control: 'number',
+            description: 'Smallest value allowed',
+            table: {
+                type: { summary: 'number' },
+                category: 'Dimensions',
+                subcategory: 'input',
+                defaultValue: { summary: '1' },
+            },
+        },
+        maximum: { 
+            control: 'number',
+            description: 'Largest value allowed',
+            table: {
+                type: { summary: 'number' },
+                category: 'Dimensions', // Ensure this matches "minimum"
+                subcategory: 'input',  // Ensure this matches "minimum"
+                defaultValue: { summary: '100' },
+            },
+        },
+    },
 } as Meta;
 
 
 type Singleline = StoryObj<typeof InputStories.ASingleline>;
 export const Singleline = {
     parameters: {
-        controls: { include: ['type','minimum','maximum'] }, // Fixed syntax error
+        controls: { include: ['type', 'minimum', 'maximum'] }, // Fixed syntax error
     },
     args: {
         type: 'text',
@@ -61,7 +61,7 @@ export const Singleline = {
 type SinglelineNumber = StoryObj<typeof InputStories.ASingleline>;
 export const SinglelineNumber = {
     parameters: {
-        controls: { include: ['type','minimum','maximum'] }, // Fixed syntax error
+        controls: { include: ['type', 'minimum', 'maximum'] }, // Fixed syntax error
     },
     args: {
         type: 'number',
