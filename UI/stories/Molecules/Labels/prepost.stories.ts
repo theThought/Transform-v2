@@ -13,6 +13,7 @@ const meta: Meta = {
         prelabel: {
             control: 'text',
             description: 'A string placed BEFORE the input',
+            defaultValue: { summary: 'before' },
             table: {
                 type: { summary: 'string' },
                 category: 'properties',
@@ -23,20 +24,12 @@ const meta: Meta = {
         postlabel: {
             control: 'text',
             description: 'A string placed AFTER the input',
+            defaultValue: { summary: 'after' },
             table: {
                 type: { summary: 'string' },
                 category: 'properties',
                 subcategory: 'labels',
                 defaultValue: { summary: 'after' },
-            },
-        },
-        thumblabel: {
-            control: 'number',
-            description: 'The current value for a slider',
-            table: {
-                type: { summary: 'number' },
-                category: 'other',
-                defaultValue: { summary: '10' }, // Convert number to string
             },
         },
     },

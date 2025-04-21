@@ -13,6 +13,7 @@ export default {
         prelabel: {
             control: 'text',
             description: 'A string placed BEFORE the input',
+            defaultValue: { summary: 'before' },
             table: {
                 type: { summary: 'string' },
                 category: 'properties',
@@ -23,6 +24,7 @@ export default {
         postlabel: {
             control: 'text',
             description: 'A string placed AFTER the input',
+            defaultValue: { summary: 'after' },
             table: {
                 type: { summary: 'string' },
                 category: 'properties',
@@ -33,6 +35,7 @@ export default {
         questionlabel: {
             control: 'text',
             description: 'The question being asked',
+            defaultValue: { summary: 'This is the question being asked' },
             table: {
                 type: { summary: 'string' },
                 category: 'Dimensions',
@@ -42,6 +45,7 @@ export default {
         optionlabel: {
             control: 'text',
             description: 'The text describing the choice',
+            defaultValue: { summary: 'option text' },
             table: {
                 type: { summary: 'string' },
                 category: 'Dimensions',
@@ -51,6 +55,7 @@ export default {
         sublistlabel: {
             control: 'text',
             description: 'The heading for a sublist',
+            defaultValue: { summary: 'SubList' },
             table: {
                 type: { summary: 'string' },
                 category: 'Dimensions',
@@ -60,6 +65,7 @@ export default {
         thumblabel: {
             control: 'number',
             description: 'The current value for a slider',
+            defaultValue: { summary: 10 },
             table: {
                 type: { summary: 'number' },
                 category: 'other',
