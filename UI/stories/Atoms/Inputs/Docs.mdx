@@ -1,0 +1,25 @@
+import { Canvas, Controls, Meta } from '@storybook/addon-docs';
+import * as InputStories from './Input.stories';
+
+<Meta of={InputStories} title="Atoms/Inputs" />
+
+# Inputs
+An input is used in almost all question types, its the way that the data is passed between Dimenisons and the from.  Some of the types can be exposed to the respondent to allow them to make an entry, the others are hidden with the response type interacting to generate the relevant content.
+
+## text
+These are placed before or after an input
+<Canvas of={InputStories.ASingleline} />
+<Controls of={InputStories.ASingleline} />
+
+## number
+<Canvas of={InputStories.ASinglelineNumber} />
+<Controls of={InputStories.ASinglelineNumber} />
+
+## date
+<Canvas of={InputStories.ASinglelineDate} />
+<Controls of={InputStories.ASinglelineDate} />
+
+## range
+The question text of a stand alone question or a grid
+<Canvas of={InputStories.ASinglelineRange} />
+<Controls of={InputStories.ASinglelineRange} />

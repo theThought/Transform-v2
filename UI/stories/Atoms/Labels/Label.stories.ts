@@ -91,9 +91,6 @@ export const PostLabel = {
         controls: { include: ['postlabel'] }, // Added include for postlabel
     },
     render: (args) => LabelStories.ALabelPost(args.postlabel),
-    argTypes: {
-        postlabel: { control: 'text' }, // Only include postlabel
-    },
 };
 
 type QuestionLabel = StoryObj<typeof LabelStories.ALabelQuestion>;
@@ -102,9 +99,6 @@ export const QuestionLabel: QuestionLabel = {
         controls: { include: ['questionlabel'] }, // Fixed syntax error
     },
     render: (args) => LabelStories.ALabelQuestion(args.questionlabel),
-    argTypes: {
-        questionlabel: { control: 'text' }, // Only include questionlabel
-    },
 };
 
 type OptionLabel = StoryObj<typeof LabelStories.ALabelOption>;
@@ -113,9 +107,6 @@ export const OptionLabel: OptionLabel = {
         controls: { include: ['optionlabel'] }, // Fixed syntax error
     },
     render: (args) => LabelStories.ALabelOption(args.optionlabel),
-    argTypes: {
-        optionlabel: { control: 'text' }, // Only include optionlabel
-    },
 };
 
 type HeadingSublistLabel = StoryObj<typeof LabelStories.ALabelHeadingSublist>;
@@ -124,7 +115,4 @@ export const HeadingSublistLabel: HeadingSublistLabel = {
         controls: { include: ['sublistlabel'] }, // Fixed syntax error
     },
     render: (args) => LabelStories.ALabelHeadingSublist(args.sublistlabel),
-    argTypes: {
-        sublistlabel: { control: 'text' }, // Only include sublistlabel
-    },
 };
