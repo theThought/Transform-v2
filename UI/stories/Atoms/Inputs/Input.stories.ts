@@ -68,6 +68,8 @@ export const Singleline = {
         type: 'text',
         minimum: 1,
         maximum: 40,
+        align: 'Left',
+        width: '15em',
     },
     render: (args) => InputStories.ASingleline(args),
 };
@@ -81,6 +83,8 @@ export const SinglelineNumber = {
         type: 'number',
         minimum: 1,
         maximum: 100,
+        align: 'Right',
+        width: '4em',
     },
     render: (args) => InputStories.ASingleline(args),
 };
@@ -92,6 +96,8 @@ export const SinglelineDate = {
     },
     args: {
         type: 'date',
+        width: '10em',
+        align: 'Center',
         minimum: (() => {
             const yesterday = new Date();
             yesterday.setDate(yesterday.getDate() - 1);
