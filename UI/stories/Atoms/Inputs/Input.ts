@@ -3,6 +3,10 @@ export function ASingleline(args:any): HTMLInputElement {
     const container: HTMLInputElement = document.createElement('input');
     container.setAttribute('type', 'text');
     container.classList.add('a-singleine');
+    console.log("args")
+    console.log(args)
+    console.log("type")
+    console.log(args.type)
     switch (args.type) {
         case 'text':
             container.setAttribute('type', 'text');

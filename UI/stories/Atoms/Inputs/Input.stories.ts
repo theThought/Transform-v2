@@ -53,9 +53,6 @@ export const Singleline = {
         maximum: 40,
     },
     render: (args) => InputStories.ASingleline(args),
-    argTypes: {
-        prelabel: { control: 'text' }, // Only include prelabel
-    },
 };
 
 type SinglelineNumber = StoryObj<typeof InputStories.ASingleline>;
