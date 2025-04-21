@@ -38,6 +38,23 @@ export default {
                 defaultValue: { summary: '100' },
             },
         },
+        align: {
+            control: 'select',
+            options: ['Left', 'Right', 'Center'],
+            description: 'Alignment of the content within the input',
+            table: {
+                type: { summary: 'string' },
+                category: 'parameters',
+            },
+        },
+        width: {
+            control: 'text',
+            description: 'Input width using a value and a measurement (e.g., px, em, %)',
+            table: {
+                type: { summary: 'string' },
+                category: 'parameters',
+            },
+        },
     },
 } as Meta;
 
@@ -45,7 +62,7 @@ export default {
 type Singleline = StoryObj<typeof InputStories.ASingleline>;
 export const Singleline = {
     parameters: {
-        controls: { include: ['type', 'minimum', 'maximum'] }, // Fixed syntax error
+        controls: { include: ['type', 'align', 'width', 'minimum', 'maximum'] }, // Fixed syntax error
     },
     args: {
         type: 'text',
@@ -58,7 +75,7 @@ export const Singleline = {
 type SinglelineNumber = StoryObj<typeof InputStories.ASingleline>;
 export const SinglelineNumber = {
     parameters: {
-        controls: { include: ['type', 'minimum', 'maximum'] }, // Fixed syntax error
+        controls: { include: ['type', 'align', 'width', 'minimum', 'maximum'] }, // Fixed syntax error
     },
     args: {
         type: 'number',
@@ -71,7 +88,7 @@ export const SinglelineNumber = {
 type SinglelineDate = StoryObj<typeof InputStories.ASingleline>;
 export const SinglelineDate = {
     parameters: {
-        controls: { include: ['type', 'minimum', 'maximum'] }, // Fixed syntax error
+        controls: { include: ['type', 'align', 'width', 'minimum', 'maximum'] }, // Fixed syntax error
     },
     args: {
         type: 'date',
@@ -92,7 +109,7 @@ export const SinglelineDate = {
 type SinglelineRange = StoryObj<typeof InputStories.ASingleline>;
 export const SinglelineRange = {
     parameters: {
-        controls: { include: ['type', 'minimum', 'maximum'] }, // Fixed syntax error
+        controls: { include: ['type', 'align', 'width', 'minimum', 'maximum'] }, // Fixed syntax error
     },
     args: {
         type: 'range',

@@ -1,5 +1,7 @@
 // input.ts
 export function ASingleline(args: any): HTMLInputElement {
+    var setWidth = args.width;
+    var setAlign = args.align;
     const container: HTMLInputElement = document.createElement('input');
 
 
@@ -9,6 +11,7 @@ export function ASingleline(args: any): HTMLInputElement {
         case 'text':
             container.setAttribute('type', 'text');
             container.classList.add('a-singleine');
+            
             if (args.maximum) {
                 container.setAttribute('maxlength', args.maximum.toString());
             }
@@ -48,7 +51,12 @@ export function ASingleline(args: any): HTMLInputElement {
             console.warn("Unsupported type:", args.type);
     }
 
-    console.log("Generated input element:", container); // Log the generated element for debugging
+    // Apply the width and alignment styles
+    container.setAttribute(
+        'style',
+        `width: ${setWidth}; text-align: ${setAlign.toLowerCase()};`
+    );
+
     return container;
 }
 
