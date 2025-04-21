@@ -62,6 +62,23 @@ export default {
                 defaultValue: { summary: '100' },
             },
         },
+        align: {
+            control: 'select',
+            options: ['Left', 'Right', 'Center'],
+            description: 'Alignment of the content within the input',
+            table: {
+                type: { summary: 'string' },
+                category: 'parameters',
+            },
+        },
+        width: {
+            control: 'text',
+            description: 'Input width using a value and a measurement (e.g., px, em, %)',
+            table: {
+                type: { summary: 'string' },
+                category: 'parameters',
+            },
+        },
     },
 };
 
@@ -74,6 +91,8 @@ export const Singleline = {
         maximum: 40,
         prelabel: 'before',
         postlabel: 'after',
+        align: 'Left',
+        width: '100%',
     },
     render: (args) => SingleLineStories.MSingleLine_Story(args),
 };

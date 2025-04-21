@@ -121,6 +121,8 @@ export const SinglelineRange = {
         type: 'range',
         minimum: 1,
         maximum: 15,
+        width: '20em',
+        align: 'Left',
     },
     render: (args) => InputStories.ASingleline(args),
 };
