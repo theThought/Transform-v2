@@ -80,24 +80,39 @@ export default {
 type PreLabel = StoryObj<typeof LabelStories.ALabelPre>;
 export const PreLabel = {
     render: (args) => LabelStories.ALabelPre(args.prelabel),
+    argTypes: {
+        prelabel: { control: 'text' }, 
+    },
 };
 
 type PostLabel = StoryObj<typeof LabelStories.ALabelPost>;
 export const PostLabel = {
     render: (args) => LabelStories.ALabelPost(args.postlabel),
+    argTypes: {
+        postlabel: { control: 'text' }, 
+    },
 };
 
 type QuestionLabel = StoryObj<typeof LabelStories.ALabelQuestion>;
 export const QuestionLabel: QuestionLabel = {
     render: (args) => LabelStories.ALabelQuestion(args.questionlabel),
+    argTypes: {
+        QuestionLabel: { control: 'text' }, 
+    },
 };
 
 type OptionLabel = StoryObj<typeof LabelStories.ALabelOption>;
 export const OptionLabel: OptionLabel = {
     render: (args) => LabelStories.ALabelOption(args.optionlabel),
+    argTypes: {
+        OptionLabel: { control: 'text' }, 
+    },
 };
 
 type HeadingSublistLabel = StoryObj<typeof LabelStories.ALabelHeadingSublist>;
 export const HeadingSublistLabel: HeadingSublistLabel = {
     render: (args) => LabelStories.ALabelHeadingSublist(args.sublistlabel),
+    argTypes: {
+        HeadingSublistLabel: { control: 'text' }, 
+    },
 };
