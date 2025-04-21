@@ -1,4 +1,4 @@
-import type { StoryObj } from '@storybook/html';
+import { Meta, StoryObj } from '@storybook/web-components';
 import * as LabelStories from './Label';
 
 export default {
@@ -9,42 +9,87 @@ export default {
         controls: { sort: 'alpha' },
         docs: { controls: { sort: 'alpha' } },
     },
-};
+    argTypes: { // Fixed casing from ArgTypes to argTypes
+        prelabel: {
+            control: 'text',
+            description: 'A string placed BEFORE the input',
+            table: {
+                type: { summary: 'string' },
+                category: 'properties',
+                subcategory: 'labels',
+                defaultValue: { summary: 'before' },
+            },
+        },
+        postlabel: {
+            control: 'text',
+            description: 'A string placed AFTER the input',
+            table: {
+                type: { summary: 'string' },
+                category: 'properties',
+                subcategory: 'labels',
+                defaultValue: { summary: 'after' },
+            },
+        },
+        questionlabel: {
+            control: 'text',
+            description: 'The question being asked',
+            table: {
+                type: { summary: 'string' },
+                category: 'Dimensions',
+                defaultValue: { summary: 'This is the question being asked' },
+            },
+        },
+        optionlabel: {
+            control: 'text',
+            description: 'The text describing the choice',
+            table: {
+                type: { summary: 'string' },
+                category: 'Dimensions',
+                defaultValue: { summary: 'option text' },
+            },
+        },
+        sublistlabel: {
+            control: 'text',
+            description: 'The heading for a sublist',
+            table: {
+                type: { summary: 'string' },
+                category: 'Dimensions',
+                defaultValue: { summary: 'SubList' },
+            },
+        },
+        thumblabel: {
+            control: 'number',
+            description: 'The current value for a slider',
+            table: {
+                type: { summary: 'number' },
+                category: 'other',
+                defaultValue: { summary: '10' },
+            },
+        },
+    },
+} as Meta;
 
+type PreLabel = StoryObj<typeof LabelStories.ALabelPre>;
 export const PreLabel = {
-    args: {
-        content: 'prelabel',
-    },
-    render: (args) => LabelStories.ALabelPre(args),
+    render: (args) => LabelStories.ALabelPre(args.prelabel),
 };
 
+type PostLabel = StoryObj<typeof LabelStories.ALabelPost>;
 export const PostLabel = {
-    args: {
-        content: 'postlabel',
-    },
-    render: (args) => LabelStories.ALabelPost(args),
+    render: (args) => LabelStories.ALabelPost(args.postlabel),
 };
 
-type QuestionLabel = StoryObj<typeof ALabelQuestion>;
-export const QuestionLabel: Question = {
-    args: {
-        content: 'This is the question',
-    },
-    render: (args) => LabelStories.ALabelQuestion(args.content),
+type QuestionLabel = StoryObj<typeof LabelStories.ALabelQuestion>;
+export const QuestionLabel: QuestionLabel = {
+    render: (args) => LabelStories.ALabelQuestion(args.questionlabel),
 };
 
-type OptionLabel = StoryObj<typeof ALabelOption>;
-export const OptionLabel: Option = {
-    args: {
-        content: 'This is the option',
-    },
-    render: (args) => LabelStories.ALabelOption(args.content),
+type OptionLabel = StoryObj<typeof LabelStories.ALabelOption>;
+export const OptionLabel: OptionLabel = {
+    render: (args) => LabelStories.ALabelOption(args.optionlabel),
 };
 
-type HeadingSublistLabel = StoryObj<typeof ALabelHeadingSublist>;
-export const HeadingSublistLabel: HeadingSublist = {
-    args: {
-        content: 'sublist heading',
-    },
-    render: (args) => LabelStories.ALabelHeadingSublist(args.content),
+type HeadingSublistLabel = StoryObj<typeof LabelStories.ALabelHeadingSublist>;
+export const HeadingSublistLabel: HeadingSublistLabel = {
+    render: (args) => LabelStories.ALabelHeadingSublist(args.sublistlabel), // Ensure alignment with argTypes
 };

@@ -30,6 +30,15 @@ const meta: Meta = {
                 defaultValue: { summary: 'after' },
             },
         },
+        thumblabel: {
+            control: 'number',
+            description: 'The current value for a slider',
+            table: {
+                type: { summary: 'number' },
+                category: 'other',
+                defaultValue: { summary: '10' }, // Convert number to string
+            },
+        },
     },
 };
 
@@ -38,8 +47,4 @@ export default meta;
 type PrePostLabel = StoryObj<{ prelabel: string; postlabel: string }>;
 export const PrePostLabel: PrePostLabel = {
     render: (args) => MLabelPrePost(args.prelabel, args.postlabel),
-    args: {
-        prelabel: 'Default Prelabel',
-        postlabel: 'Default Postlabel',
-    },
 };
