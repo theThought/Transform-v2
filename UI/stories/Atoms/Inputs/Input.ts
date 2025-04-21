@@ -1,20 +1,21 @@
 // input.ts
 export function ASingleline(args: any): HTMLInputElement {
     const container: HTMLInputElement = document.createElement('input');
-    container.setAttribute('type', 'text');
-    container.classList.add('a-singleine');
+
 
     console.log("ASingleline args:", args); // Log the args object for debugging
 
     switch (args.type) {
         case 'text':
             container.setAttribute('type', 'text');
+            container.classList.add('a-singleine');
             if (args.maximum) {
                 container.setAttribute('maxlength', args.maximum.toString());
             }
             break;
         case 'number':
             container.setAttribute('type', 'number');
+            container.classList.add('a-singleine-number');
             if (args.minimum) {
                 container.setAttribute('min', args.minimum.toString());
             }
@@ -25,6 +26,7 @@ export function ASingleline(args: any): HTMLInputElement {
             break;
         case 'date':
             container.setAttribute('type', 'date');
+            container.classList.add('a-singleine-date');
             if (args.minimum) {
                 container.setAttribute('min', args.minimum);
             }
@@ -34,6 +36,7 @@ export function ASingleline(args: any): HTMLInputElement {
             break;
         case 'range':
             container.setAttribute('type', 'range');
+            container.classList.add('a-singleine-range');
             if (args.minimum) {
                 container.setAttribute('min', args.minimum.toString());
             }
