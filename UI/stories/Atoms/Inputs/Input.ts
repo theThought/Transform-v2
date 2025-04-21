@@ -3,10 +3,6 @@ export function ASingleline(args:any): HTMLInputElement {
     const container: HTMLInputElement = document.createElement('input');
     container.setAttribute('type', 'text');
     container.classList.add('a-singleine');
-    console.log("args")
-    console.log(args)
-    console.log("type")
-    console.log(args.type)
     switch (args.type) {
         case 'text':
             container.setAttribute('type', 'text');
@@ -28,9 +24,11 @@ export function ASingleline(args:any): HTMLInputElement {
             container.setAttribute('min', args.minimum);
             container.setAttribute('max', args.maximum);
             break
+        default:
+            console.log("type")
+            console.log(args.type)
     }
-
-    container.setAttribute('min', args.minimum);
+    this.appendChild(container);
     return container;
 }
 
