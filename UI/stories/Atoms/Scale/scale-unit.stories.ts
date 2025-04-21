@@ -24,8 +24,8 @@ export default {
     },
 } as Meta;
 
-type TenPoint = StoryObj<typeof AScaleUnit_Story>;
-export const TenPoint: TenPoint = {
+type TenValue = StoryObj<typeof AScaleUnit_Story>;
+export const TenValue: TenValue = {
     args: {
         dataValue: '10',
     },
@@ -38,4 +38,4 @@ export const TenPoint: TenPoint = {
     },
      */
 };
-TenPoint.storyName = 'a-scale-unit';
+TenValue.storyName = 'a-scale-unit';
