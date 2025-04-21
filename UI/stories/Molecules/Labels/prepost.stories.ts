@@ -13,7 +13,6 @@ const meta: Meta = {
         prelabel: {
             control: 'text',
             description: 'A string placed BEFORE the input',
-            defaultValue: { summary: 'before' },
             table: {
                 type: { summary: 'string' },
                 category: 'properties',
@@ -24,7 +23,6 @@ const meta: Meta = {
         postlabel: {
             control: 'text',
             description: 'A string placed AFTER the input',
-            defaultValue: { summary: 'after' },
             table: {
                 type: { summary: 'string' },
                 category: 'properties',
@@ -32,6 +30,10 @@ const meta: Meta = {
                 defaultValue: { summary: 'after' },
             },
         },
+    },
+    args: { // Added args to set default values for controls
+        prelabel: 'before',
+        postlabel: 'after',
     },
 };
 

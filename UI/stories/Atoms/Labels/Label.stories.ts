@@ -35,7 +35,6 @@ export default {
         questionlabel: {
             control: 'text',
             description: 'The question being asked',
-            defaultValue: { summary: 'This is the question being asked' },
             table: {
                 type: { summary: 'string' },
                 category: 'Dimensions',
@@ -45,7 +44,6 @@ export default {
         optionlabel: {
             control: 'text',
             description: 'The text describing the choice',
-            defaultValue: { summary: 'option text' },
             table: {
                 type: { summary: 'string' },
                 category: 'Dimensions',
@@ -55,7 +53,6 @@ export default {
         sublistlabel: {
             control: 'text',
             description: 'The heading for a sublist',
-            defaultValue: { summary: 'SubList' },
             table: {
                 type: { summary: 'string' },
                 category: 'Dimensions',
@@ -65,12 +62,19 @@ export default {
         thumblabel: {
             control: 'number',
             description: 'The current value for a slider',
-            defaultValue: { summary: 10 },
             table: {
                 type: { summary: 'number' },
                 category: 'other',
                 defaultValue: { summary: '10' },
             },
+        },
+        args: { // Added args to set default values for controls
+            prelabel: 'before',
+            postlabel: 'after',
+            questionlabel: 'This is the question being asked',
+            optionlabel: 'option text',
+            sublistlabel: 'SubList' ,
+            thumblabel: 10,
         },
     },
 } as Meta;
