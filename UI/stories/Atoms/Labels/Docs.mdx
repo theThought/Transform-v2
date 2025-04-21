@@ -5,7 +5,31 @@ import * as LabelStories from './Label.stories';
 
 # Labels
 Labels are used in a range of different situations from a simple text element included in a control through to the text of a question.
+
+## Pre/Post Labels
+These are placed before or after an input
+
+### prelabel
 <Canvas of={LabelStories.PreLabel} />
 <Controls of={LabelStories.PreLabel} />
+
+### postlabel
 <Canvas of={LabelStories.PostLabel} />
 <Controls of={LabelStories.PostLabel} />
+
+## Question
+The question text of a stand alone question or a grid
+<Canvas of={LabelStories.QuestionLabel} />
+<Controls of={LabelStories.QuestionLabel} />
+
+## Option
+The text for an option in a choice question or a special code option
+<Canvas of={LabelStories.OptionLabel} />
+<Controls of={LabelStories.OptionLabel} />
+
+## Headings
+### Sub List
+A group of related options can be provided with a title
+<Canvas of={LabelStories.HeadingSublistLabel} />
+<Controls of={LabelStories.HeadingSublistLabel} />
+
