@@ -11,25 +11,25 @@ These are placed before or after an input
 
 ### prelabel
 <Canvas of={LabelStories.PreLabel} />
-<Controls of={LabelStories.PreLabel} />
+<Controls of={LabelStories.PreLabel} controls={{ include: ['prelabel'] }} />
 
 ### postlabel
 <Canvas of={LabelStories.PostLabel} />
-<Controls of={LabelStories.PostLabel} />
+<Controls of={LabelStories.PostLabel} controls={{ include: ['postlabel'] }} />
 
 ## Question
 The question text of a stand alone question or a grid
 <Canvas of={LabelStories.QuestionLabel} />
-<Controls of={LabelStories.QuestionLabel} />
+<Controls of={LabelStories.QuestionLabel} controls={{ include: ['questionlabel'] }} />
 
 ## Option
 The text for an option in a choice question or a special code option
 <Canvas of={LabelStories.OptionLabel} />
-<Controls of={LabelStories.OptionLabel} />
+<Controls of={LabelStories.OptionLabel} controls={{ include: ['optionlabel'] }} />
 
 ## Headings
 ### Sub List
 A group of related options can be provided with a title
 <Canvas of={LabelStories.HeadingSublistLabel} />
-<Controls of={LabelStories.HeadingSublistLabel} />
+<Controls of={LabelStories.HeadingSublistLabel} controls={{ include: ['sublistlabel'] }} />
 
