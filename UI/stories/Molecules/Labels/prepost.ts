@@ -7,8 +7,8 @@ export function MLabelPrePost(): HTMLDivElement {
     const postLabel = ALabelPost('postlabel');
 
     container.classList.add('m-label-prepost');
-    container.appendChild(preLabel);
-    container.appendChild(postLabel);
+    container.textContent = preLabel;
+    container.textContent = postLabel;
 
     return container;
   }
