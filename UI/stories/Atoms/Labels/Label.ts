@@ -1,11 +1,17 @@
 // label.ts
-export function ALabelPre(args): string {
-    return `<span class="a-label-pre">${args.content}</span>`;
+export function ALabelPre(theLabel:string): HTMLSpanElement {
+    const container: HTMLSpanElement = document.createElement('span');
+    container.textContent = theLabel;
+    container.classList.add('a-label-pre');
+    return container;
 }
 
-export const ALabelPost = (args): string => `
-<span class="a-label-post">${args.content}</span>
-`;
+export function ALabelPost(theLabel:string): HTMLSpanElement {
+    const container: HTMLSpanElement = document.createElement('span');
+    container.textContent = theLabel;
+    container.classList.add('a-label-pre');
+    return container;
+};
 
 export function ALabelQuestion(content = ''): HTMLLabelElement {
     const container: HTMLLabelElement = document.createElement('label');
