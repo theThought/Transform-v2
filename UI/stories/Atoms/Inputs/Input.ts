@@ -52,7 +52,7 @@ export function ASingleline(args: any): HTMLInputElement {
     return container;
 }
 
-export function AMultline(args: any): HTMLTextAreaElement {
+export function AMultiline(args: any): HTMLTextAreaElement {
     const container: HTMLTextAreaElement = document.createElement('textarea');
     container.classList.add('a-multiline');
     return container;

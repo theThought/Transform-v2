@@ -1,6 +1,5 @@
+import { Meta, StoryObj } from '@storybook/web-components';
 import * as SingleLineStories from './Singleline';
-import * as LabelStories from '../../Atoms/Labels/Label.stories';
-import { StoryObj } from '@storybook/html';
 
 type Story = StoryObj;
 
@@ -12,66 +11,69 @@ export default {
         docs: { controls: { sort: 'alpha' } },
     },
     argTypes: {
-        PreLabel: {
+        prelabel: {
             control: 'text',
             description: 'Specifies the text to be placed before the input.',
             table: {
                 type: { summary: 'text' },
+                category: 'Properties',
+                subCategory: 'Labels',
                 defaultValue: { summary: 'n/a' },
             },
         },
-        PostLabel: {
+        postlabel: {
             control: 'text',
             description: 'Specifies the text to be placed after the input.',
             table: {
                 type: { summary: 'text' },
+                category: 'Properties',
+                subCategory: 'Labels',
                 defaultValue: { summary: 'n/a' },
             },
         },
-    },
-};
-
-export const MSingleline: Story = {
-    render: (args) => `
-    <m-singleline
-    data-question-id="_Q0"
-    data-question-group="_QText"
-    data-properties='{
-        "labels":{
-        }
-    }'
->
-${LabelStories.PreLabel}
-</m-singleline>
-    `,
-};
-MSingleline.storyName = 'm-singleline';
-
-export const MSinglelineNumber = {
-    argTypes: {
-        StepInterval: {
-            control: 'text',
-            description: 'Specifies the step interval for a number input.',
+        type: {
+            control: 'select',
+            options: ['text', 'number', 'range', 'number', 'date'],
+            description: 'Type of input required',
             table: {
-                type: { summary: 'text' },
-                defaultValue: { summary: 'any' },
+                type: { summary: 'string' },
+                category: 'Dimensions',
+                subcategory: 'input',
+                defaultValue: { summary: 'text' },
+            },
+        },
+        minimum: {
+            control: 'number',
+            description: 'Smallest value allowed',
+            table: {
+                type: { summary: 'number' },
+                category: 'Dimensions',
+                subcategory: 'input',
+                defaultValue: { summary: '1' },
+            },
+        },
+        maximum: { 
+            control: 'number',
+            description: 'Largest value allowed',
+            table: {
+                type: { summary: 'number' },
+                category: 'Dimensions', // Ensure this matches "minimum"
+                subcategory: 'input',  // Ensure this matches "minimum"
+                defaultValue: { summary: '100' },
             },
         },
     },
-    args: {
-        PreLabel: '',
-        PostLabel: '',
-        StepInterval: '',
-    },
-    render: (args) => SingleLineStories.SinglelineNumberHtml(args),
 };
-MSinglelineNumber.storyName = 'm-singleline-number';
 
-export const MSinglelineDate: Story = {
+type Singleline = StoryObj<typeof SingleLineStories.MSingleLine_Story>;
+export const Singleline = {
+
     args: {
-        PreLabel: '',
-        PostLabel: '',
+        type: 'text',
+        minimum: 1,
+        maximum: 40,
+        prelabel: 'before',
+        postlabel: 'after',
     },
-    render: (args) => SingleLineStories.SinglelineDateHtml(args),
+    render: (args) => SingleLineStories.MSingleLine_Story(args),
 };
-MSinglelineDate.storyName = 'm-singleline-date';
