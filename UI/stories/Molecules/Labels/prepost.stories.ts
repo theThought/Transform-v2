@@ -17,6 +17,7 @@ const meta: Meta = {
                 type: { summary: 'string' },
                 category: 'properties',
                 subcategory: 'labels',
+                defaultValue: { summary: 'before' },
             },
         },
         postlabel: {
@@ -26,6 +27,7 @@ const meta: Meta = {
                 type: { summary: 'string' },
                 category: 'properties',
                 subcategory: 'labels',
+                defaultValue: { summary: 'after' },
             },
         },
     },
