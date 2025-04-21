@@ -1,38 +1,55 @@
 // input.ts
-export function ASingleline(args:any): HTMLInputElement {
+export function ASingleline(args: any): HTMLInputElement {
     const container: HTMLInputElement = document.createElement('input');
     container.setAttribute('type', 'text');
     container.classList.add('a-singleine');
+
+    console.log("ASingleline args:", args); // Log the args object for debugging
+
     switch (args.type) {
         case 'text':
             container.setAttribute('type', 'text');
-            container.setAttribute('maxlength', args.maximum);
+            if (args.maximum) {
+                container.setAttribute('maxlength', args.maximum.toString());
+            }
             break;
         case 'number':
             container.setAttribute('type', 'number');
-            container.setAttribute('min', args.minimum);
-            container.setAttribute('max', args.maximum);
+            if (args.minimum) {
+                container.setAttribute('min', args.minimum.toString());
+            }
+            if (args.maximum) {
+                container.setAttribute('max', args.maximum.toString());
+            }
             container.setAttribute('step', '1');
             break;
-        case "date":
+        case 'date':
             container.setAttribute('type', 'date');
-            container.setAttribute('min', args.minimum);
-            container.setAttribute('max', args.maximum);
+            if (args.minimum) {
+                container.setAttribute('min', args.minimum);
+            }
+            if (args.maximum) {
+                container.setAttribute('max', args.maximum);
+            }
             break;
-        case "range":
+        case 'range':
             container.setAttribute('type', 'range');
-            container.setAttribute('min', args.minimum);
-            container.setAttribute('max', args.maximum);
-            break
+            if (args.minimum) {
+                container.setAttribute('min', args.minimum.toString());
+            }
+            if (args.maximum) {
+                container.setAttribute('max', args.maximum.toString());
+            }
+            break;
         default:
-            console.log("type")
-            console.log(args.type)
+            console.warn("Unsupported type:", args.type);
     }
-    this.appendChild(container);
+
+    console.log("Generated input element:", container); // Log the generated element for debugging
     return container;
 }
 
-export function AMultline(args:any): HTMLTextAreaElement {
+export function AMultline(args: any): HTMLTextAreaElement {
     const container: HTMLTextAreaElement = document.createElement('textarea');
     container.classList.add('a-multiline');
     return container;
