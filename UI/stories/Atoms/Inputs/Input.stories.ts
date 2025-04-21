@@ -27,6 +27,7 @@ export default {
                     subcategory: 'input',
                     defaultValue: { summary: '1' },
                 },
+            },
             maximum: { 
                 control: 'number',
                 description: 'Largest value allowed',
