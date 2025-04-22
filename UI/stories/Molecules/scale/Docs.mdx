@@ -1,0 +1,22 @@
+import { Canvas, Controls, Meta } from '@storybook/blocks';
+import * as ScaleContainerStories from './scale-container.stories';
+
+<Meta of={ScaleContainerStories} title="Molecules/Scale" />
+
+# m-scale-container
+This holds the elements of a scale.  Each element is an a-scale-unit.  The number of units is defined by the min and max values of the associated input.
+
+Other singleline input types are used in the background to support other question types, but are not supported as a front-end UI component.
+
+## Structure
+- a-scale-unit
+
+## Ten point scale 
+This example has the minimum set to 1 and the maximum set to 10.  The width defines how long the scale is.
+<Canvas of={ScaleContainerStories.TenContainer} />
+<Controls of={ScaleContainerStories.TenContainer} />
+
+## Seven point scale 
+In this example the minimum is 1 and the maximum is 7.  The width defines how long the scale is.
+<Canvas of={ScaleContainerStories.SevenContainer} />
+<Controls of={ScaleContainerStories.SevenContainer} />

@@ -1,4 +1,4 @@
-import AScaleUnit from "./a-scale-unit";
+
 export default class MScaleContainer extends HTMLElement {
     private minValue = 0;
     private maxValue = 10;
@@ -7,19 +7,11 @@ export default class MScaleContainer extends HTMLElement {
         super();
     }
 
-    public get minimum(): number {
-        return this.minValue;
-    }
-
     public set minimum(value: number) {
         if (!value) {
             value = 1;
         }
         this.minValue = value;
-    }
-
-    public get maximum(): number {
-        return this.maxValue;
     }
 
     public set maximum(value: number) {
@@ -30,11 +22,5 @@ export default class MScaleContainer extends HTMLElement {
     }
 
     render() {
-        this.innerHTML = ''; // Clear previous content
-        for (let counter = this.minimum; counter <= this.maximum; counter++) {
-            const scaleUnit: AScaleUnit = document.createElement('a-scale-unit') as AScaleUnit;
-            scaleUnit.dataValue = counter.toString(); // Set dataValue as string
-            this.appendChild(scaleUnit);
-        }
     }
 }
