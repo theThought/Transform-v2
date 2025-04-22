@@ -36,6 +36,15 @@ export default {
                 category: 'Dimensions',
             },
         },
+        orientation: {
+            control: 'select',
+            options: ['horizontal', 'vertical'],
+            description: 'Orientation of the scale',
+            table: {
+                type: { summary: 'string' },
+                category: 'Dimensions',
+            },
+        },
         prelabel: {
             control: 'text',
             description: 'A string placed BEFORE the input',
@@ -69,6 +78,7 @@ export const TenPointScale: ScaleStory = {
         width: '15em',
         prelabel: 'Before',
         postlabel: 'After',
+        orientation: 'horizontal',
     },
     render: (args) => OScale_Story(args),
 };
@@ -81,6 +91,7 @@ export const SevenPointScale: ScaleStory = {
         width: '10em',
         prelabel: 'Before',
         postlabel: 'After',
+        orientation: 'vertical',
     },
     render: (args) => OScale_Story(args),
 };

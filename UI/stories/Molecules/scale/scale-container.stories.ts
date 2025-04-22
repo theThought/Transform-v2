@@ -41,6 +41,15 @@ export default {
                 category: 'Dimensions',
             },
         },
+        orientation: {
+            control: 'select',
+            options: ['horizontal', 'vertical'],
+            description: 'Orientation of the scale',
+            table: {
+                type: { summary: 'string' },
+                category: 'Dimensions',
+            },
+        },
     },
 } as Meta;
 
@@ -50,6 +59,7 @@ export const TenPointContainer: TenContainer = {
         minimum: 1,
         maximum: 10,
         width: "15em",
+        orientation: 'horizontal',
     },
     render: (args) => MScaleContainer_Story(args),
 };
@@ -61,6 +71,7 @@ export const SevenPointContainer: SevenContainer = {
         minimum: 1,
         maximum: 7,
         width: "10em",
+        orientation: 'horizontal',
     },
     render: (args) => MScaleContainer_Story(args),
 };
