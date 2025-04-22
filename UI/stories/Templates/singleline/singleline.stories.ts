@@ -4,7 +4,7 @@ import OResponse from '../../../src/javascript/web-components/o-response';
 import MSingleLine from '../../../src/javascript/web-components/m-singleline';
 import MSinglelineNumber from '../../../src/javascript/web-components/m-singleline-number';
 import MSinglelineDate from '../../../src/javascript/web-components/m-singleline-date';
-import TSingleline from './singleline';
+import * as TSingleline from './singleline';
 
 // Define the custom element tag name
 if (!customElements.get('o-response')) {
