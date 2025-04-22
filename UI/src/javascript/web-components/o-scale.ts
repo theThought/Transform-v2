@@ -1,8 +1,6 @@
 import OScaleContainer from './m-scale-container';
 // import { MLabelPrePost } from '../../../stories/Molecules/Label/prepost';
 class OScale extends HTMLElement {
-    private minValue: number;
-    private maxValue: number;
 
     constructor() {
         super();
@@ -15,8 +13,10 @@ class OScale extends HTMLElement {
         const prepostLabels = MLabelPrePost();  
         this.appendChild(prepostLabels);
          */
-        const scaleContainer = new OScaleContainer();
+        /**
+         * const scaleContainer = new OScaleContainer();
         this.appendChild(scaleContainer);
+        */
     }
 }
 

@@ -1,75 +1,86 @@
-import { Meta, StoryObj } from '@storybook/web-components-vite';
-import OScale from '../../../src/javascript/web-components/o-scale';
+import { Meta, StoryObj } from '@storybook/web-components';
+import { OScale_Story } from './scale';
 
-if (!customElements.get('o-scale')) {
-    customElements.define('o-scale', OScale);
-}
 export default {
     title: 'Organisms/scale',
     component: "o-scale",
-    tags: ['autodocs'],
     parameters: {
         status: { type: 'beta' },
-        controls: { sort: 'alpha' },
-        docs: { controls: { sort: 'alpha' } },
     },
     argTypes: {
         minimum: {
             control: 'number',
-            description: 'the smallest value in the scale.',
+            description: 'Smallest value allowed',
             table: {
                 type: { summary: 'number' },
+                category: 'Dimensions',
+                subcategory: 'input',
                 defaultValue: { summary: '1' },
             },
         },
-        maximum: {
+        maximum: { 
             control: 'number',
-            description: 'the largest value in the scale.',
+            description: 'Largest value allowed',
             table: {
                 type: { summary: 'number' },
+                category: 'Dimensions', // Ensure this matches "minimum"
+                subcategory: 'input',  // Ensure this matches "minimum"
+                defaultValue: { summary: '100' },
+            },
+        },
+        width: {
+            control: 'text',
+            description: 'Input width using a value and a measurement (e.g., px, em, %)',
+            table: {
+                type: { summary: 'string' },
+                category: 'Dimensions',
+            },
+        },
+        prelabel: {
+            control: 'text',
+            description: 'A string placed BEFORE the input',
+            table: {
+                type: { summary: 'string' },
+                category: 'properties',
+                subcategory: 'labels',
+                defaultValue: { summary: 'before' },
+            },
+        },
+        postlabel: {
+            control: 'text',
+            description: 'A string placed AFTER the input',
+            table: {
+                type: { summary: 'string' },
+                category: 'properties',
+                subcategory: 'labels',
+                defaultValue: { summary: 'after' },
             },
         },
     },
 };
 
-type ScaleTen = StoryObj<typeof OScale>;
-export const TenPoint: ScaleTen = {
+type ScaleTenStory = StoryObj<typeof OScale_Story>;
+export const TenPointScale: ScaleTenStory = {
     name: '10-point scale',
     args: {
         minimum: 1,
         maximum: 10,
+        width: '15em',
+        prelabel: 'Before',
+        postlabel: 'After',
     },
-    render: (args) => {
-        // Create a new instance of the MScaleUnit class
-        const scaleContainer: OScale = document.createElement('o-scale');
-        scaleContainer.setAttribute('data-question-id', '_Q0');
-        scaleContainer.setAttribute('data-question-group', '_QText');
-        scaleContainer.setAttribute(
-            'data-properties',
-            '{"labels":{"pre":"preLabel","post":"PostLabel"}}',
-        );
-        scaleContainer.render();
-        return scaleContainer;
-    },
+    render: (args) => OScale_Story(args),
 };
 
-type ScaleSeven = StoryObj<typeof OScale>;
-export const SevenPoint: ScaleSeven = {
+type ScaleSevenStory = StoryObj<typeof OScale_Story>;
+export const SevenPointScale: ScaleSevenStory = {
     name: '7-point scale',
     args: {
         minimum: 1,
         maximum: 7,
+        width: '10em',
+        prelabel: 'Before',
+        postlabel: 'After',
     },
-    render: (args) => {
-        // Create a new instance of the MScaleUnit class
-        const scaleContainer: OScale = document.createElement('o-scale');
-        scaleContainer.setAttribute('data-question-id', '_Q0');
-        scaleContainer.setAttribute('data-question-group', '_QText');
-        scaleContainer.setAttribute(
-            'data-properties',
-            '{"labels":{"pre":"preLabel","post":"PostLabel"}}',
-        );
-        scaleContainer.render();
-        return scaleContainer;
-    },
+    render: (args) => OScale_Story(args),
 };
