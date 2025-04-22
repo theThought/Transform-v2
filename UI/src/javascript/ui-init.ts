@@ -13,7 +13,7 @@ import OOptionSublist from './web-components/o-option-sublist';
 import OQuestion from './web-components/o-question';
 import OResponse from './web-components/o-response';
 import OScale from './web-components/o-scale';
-import OScaleContainer from './web-components/o-scale-container';
+import OScaleContainer from './web-components/m-scale-container';
 
 export const uiInit = (): void => {
     // DEMO web component for Storybook introduction.

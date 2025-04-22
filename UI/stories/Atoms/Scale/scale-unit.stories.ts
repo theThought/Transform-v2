@@ -1,9 +1,10 @@
 import { Meta, StoryObj } from '@storybook/web-components';
 import { AScaleUnit_Story } from './scale-unit';
-
+/**
 if (!customElements.get('a-scale-unit')) {
     customElements.define('a-scale-unit', AScaleUnit);
 }
+*/
 
 export default {
     title: 'Atoms/Scale',
@@ -13,10 +14,10 @@ export default {
     },
     argTypes: {
         dataValue: {
-            control: 'text',
+            control: 'number',
             description: 'Specifies the value of the scale unit.',
             table: {
-                type: { summary: 'text' },
+                type: { summary: 'number' },
                 category: 'Dimensions',
                 defaultValue: { summary: '10' },
             },
@@ -30,12 +31,5 @@ export const TenValue: TenValue = {
         dataValue: '10',
     },
     render: (args) => AScaleUnit_Story(args),
-    /**
-        const container: AScaleUnit = document.createElement('a-scale-unit');
-        container.setAttribute('data-value', args.dataValue);
-        container.textContent = args.dataValue;
-        return container;
-    },
-     */
 };
 TenValue.storyName = 'a-scale-unit';

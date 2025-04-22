@@ -1,5 +1,5 @@
 import AScaleUnit from "./a-scale-unit";
-export default class OScaleContainer extends HTMLElement {
+export default class MScaleContainer extends HTMLElement {
     private minValue = 0;
     private maxValue = 10;
 

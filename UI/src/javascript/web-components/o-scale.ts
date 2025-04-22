@@ -1,4 +1,4 @@
-import OScaleContainer from './o-scale-container';
+import OScaleContainer from './m-scale-container';
 // import { MLabelPrePost } from '../../../stories/Molecules/Label/prepost';
 class OScale extends HTMLElement {
     private minValue: number;

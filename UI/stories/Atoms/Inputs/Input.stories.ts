@@ -44,7 +44,7 @@ export default {
             description: 'Alignment of the content within the input',
             table: {
                 type: { summary: 'string' },
-                category: 'parameters',
+                category: 'Dimensions',
             },
         },
         width: {
@@ -52,7 +52,7 @@ export default {
             description: 'Input width using a value and a measurement (e.g., px, em, %)',
             table: {
                 type: { summary: 'string' },
-                category: 'parameters',
+                category: 'Dimensions',
             },
         },
     },
