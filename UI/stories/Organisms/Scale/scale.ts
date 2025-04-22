@@ -9,6 +9,7 @@ export function OScale_Story(args: any): HTMLElement {
     const postLabel = ALabel.ALabelPost(args.postlabel);
     const scaleContainer = MScaleContainer.MScaleContainer_Story(args);
     args.type = 'range';
+    args.align = 'Left';
     args.hidden = true;
     const rangeInput = ASingleline(args);
     container.appendChild(preLabel);
