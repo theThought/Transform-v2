@@ -7,7 +7,7 @@ if (!customElements.get('a-scale-unit')) {
 */
 
 export default {
-    title: 'Moledules/Scale',
+    title: 'Molecules/Scale',
     component: 'm-scale-container', // Use the tag name of the custom element
     parameters: {
         status: { type: 'beta' },
