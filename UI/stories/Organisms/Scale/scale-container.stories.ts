@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/web-components-vite';
-import OScaleContainer from '../../../src/javascript/web-components/o-scale-container';
+import OScaleContainer from '../../../src/javascript/web-components/m-scale-container';
 
 if (!customElements.get('o-scale-container')) {
     customElements.define('o-scale-container', OScaleContainer);
