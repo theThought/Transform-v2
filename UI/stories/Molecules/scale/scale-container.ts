@@ -6,7 +6,7 @@ export function MScaleContainer_Story(args: any): HTMLElement {
     for (let counter: number = args.minimum; counter <= args.maximum; counter++) {
         const scaleUnit: AScaleUnit = document.createElement('a-scale-unit') as AScaleUnit;
         scaleUnit.dataValue = counter.toString(); // Set dataValue as string
-        this.appendChild(scaleUnit);
+        container.appendChild(scaleUnit);
     }
     return container;
 }
