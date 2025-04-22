@@ -2,7 +2,7 @@ import { Meta, StoryObj } from '@storybook/web-components';
 import * as LabelStories from './Label';
 
 export default {
-    title: 'Atoms/Labels',
+    title: 'Atoms/Label',
     tags: ['autodocs'],
     parameters: {
         status: { type: 'beta' },
