@@ -1,5 +1,4 @@
 import { Canvas, Controls, Meta } from '@storybook/addon-docs';
-
 import * as SinglelineStories from './singleline.stories';
 
 <Meta of={SinglelineStories} title="Templates/singleline" />
@@ -10,18 +9,18 @@ singleline exposes a singleline editbox to the respondent to allow an open-ended
 
 ## singleline
 Questions that utilise a text input to capture the answer.  The min/max define the number of characters that can be entered
-<Canvas of={SinglelineStories.text} />
-<Controls of={SinglelineStories.text} />
+<Canvas of={SinglelineStories.TextStory} />
+<Controls of={SinglelineStories.TextStory} />
 
 ## singleline-number
 Questions that utilise a number style input to capture the answer. The min/max define the range of numbers that can be entered.
 This option has additional parameters that can be set: Step, which manages precision and is required for the entry of decimals.
-<Canvas of={SinglelineStories.number} />
-<Controls of={SinglelineStories.number} />
+<Canvas of={SinglelineStories.NumberStory} />
+<Controls of={SinglelineStories.NumberStory} />
 
 ## singleline-date
 Questions that utilise a number style input to capture the answer. The min/max define the range of dates that can be entered.  
 There are various types of date entry (eg month), but they are not all supported by all browsers and so are not currently available.
 
-<Canvas of={SinglelineStories.date} />
-<Controls of={SinglelineStories.date} />
+<Canvas of={SinglelineStories.DateStory} />
+<Controls of={SinglelineStories.DateStory} />

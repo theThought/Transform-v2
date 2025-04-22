@@ -1,4 +1,4 @@
-import { Meta, StoryObj, DecoratorFn } from '@storybook/web-components-vite';
+import { Meta, StoryObj } from '@storybook/web-components';
 import TransformComponent from '../../../components/TransformComponent';
 import OResponse from '../../../src/javascript/web-components/o-response';
 import MSingleLine from '../../../src/javascript/web-components/m-singleline';
@@ -22,58 +22,42 @@ if (!customElements.get('m-singleline-date')) {
 
 customElements.define('transform-component', TransformComponent);
 
-console.log('Custom element transform-component defined');
-
-// Define a decorator to handle `updateArgs`
-const withDynamicArgs: DecoratorFn = (storyFn, context) => {
-    const { args, loaded } = context;
-    const { xmlData, xslData } = loaded || {};
-    const singleline = new TSingleline(xmlData, xslData, args.rtype || 'text');
-
-    // Render the transformed HTML
-    const container = singleline.render();
-
-    // Synchronize args with the transformed HTML
-    singleline.syncArgTypes(args);
-
-    return container;
-};
-
 export default {
     title: 'Templates/singleline',
     component: 'transform-component', // Use the tag name of the custom element
-    tags: ['autodocs'],
     parameters: {
         status: { type: 'beta' },
-        controls: {
-            sort: (theFirst, theSecond) => {
-                const categoryOrder = ['general', 'parameters', 'properties']; // Desired order
-                const categoryFirst = theFirst.table?.category || '';
-                const categorySecond = theSecond.table?.category || '';
-
-                // Sort by category order first
-                const categoryIndexFirst = categoryOrder.indexOf(categoryFirst);
-                const categoryIndexSecond = categoryOrder.indexOf(categorySecond);
-
-                if (categoryIndexFirst !== categoryIndexSecond) {
-                    return categoryIndexFirst - categoryIndexSecond;
-                }
-
-                // If categories are the same, sort alphabetically by name
-                return theFirst.name.localeCompare(theSecond.name);
-            },
         },
-        docs: { controls: { sort: 'alpha' } },
-    },
     argTypes: {
-        rtype: {
-            name: 'Sub-variant',
+        type: {
             control: 'select',
-            options: ['text', 'number', 'date'],
-            description: 'Input type required',
+            options: ['text', 'number', 'range', 'number', 'date'],
+            description: 'Type of input required',
             table: {
                 type: { summary: 'string' },
-                category: 'general',
+                category: 'Dimensions',
+                subcategory: 'input',
+                defaultValue: { summary: 'text' },
+            },
+        },
+        minimum: {
+            control: 'number',
+            description: 'Smallest value allowed',
+            table: {
+                type: { summary: 'number' },
+                category: 'Dimensions',
+                subcategory: 'input',
+                defaultValue: { summary: '1' },
+            },
+        },
+        maximum: { 
+            control: 'number',
+            description: 'Largest value allowed',
+            table: {
+                type: { summary: 'number' },
+                category: 'Dimensions', // Ensure this matches "minimum"
+                subcategory: 'input',  // Ensure this matches "minimum"
+                defaultValue: { summary: '100' },
             },
         },
         align: {
@@ -82,7 +66,7 @@ export default {
             description: 'Alignment of the content within the input',
             table: {
                 type: { summary: 'string' },
-                category: 'parameters',
+                category: 'Dimensions',
             },
         },
         width: {
@@ -90,41 +74,15 @@ export default {
             description: 'Input width using a value and a measurement (e.g., px, em, %)',
             table: {
                 type: { summary: 'string' },
-                category: 'parameters',
+                category: 'Dimensions',
             },
         },
-        minimum: {
-            control: 'number',
-            description: 'The smallest value allowed',
-            table: {
-                type: { summary: 'number' },
-                category: 'parameters',
-            },
-        },
-        maximum: {
-            control: 'number',
-            description: 'The largest value allowed',
-            table: {
-                type: { summary: 'number' },
-                category: 'parameters',
-            },
-        },
-        prelabel: {
-            control: 'text',
-            description: 'A string placed BEFORE the input',
+        hidden: {
+            control: 'boolean',
+            description: 'Is the input hidden?',
             table: {
                 type: { summary: 'string' },
-                category: 'properties',
-                subcategory: 'labels',
-            },
-        },
-        postlabel: {
-            control: 'text',
-            description: 'A string placed AFTER the input',
-            table: {
-                type: { summary: 'string' },
-                category: 'properties',
-                subcategory: 'labels',
+                category: 'Internal',
             },
         },
         balanceState: {
@@ -164,13 +122,14 @@ export default {
             },
         },
     },
-    decorators: [withDynamicArgs], // Add the decorator
 } as Meta;
 
-type Story = StoryObj;
-
-export const text: Story = {
-    loaders: [async () => {
+type TextStory = StoryObj<typeof TSingleline.TSingleLine_Story>;
+export const textStory = {
+    parameters: {
+        controls: { include: ['align', 'width', 'minimum', 'maximum'] }, // Fixed syntax error
+    },
+    loaders: [async () => { 
         try {
             const xmlResponse = await fetch('./build/static/Dimensions/singleline.xml');
             const xslResponse = await fetch('./build/static/Dimensions/question.xsl');
@@ -188,9 +147,21 @@ export const text: Story = {
             throw error;
         }
     }],
+    args: {
+        type: 'text',
+        minimum: 1,
+        maximum: 40,
+        align: 'Left',
+        width: '15em',
+    },
+    render: (args) => TSingleline.TSingleLine_Story(args),
 };
 
-export const number: Story = {
+type NumberStory = StoryObj<typeof TSingleline.TSingleLine_Story>;
+export const NumberStory = {
+    parameters: {
+        controls: { include: ['type', 'align', 'width', 'minimum', 'maximum'] }, // Fixed syntax error
+    },
     loaders: [async () => {
         try {
             const xmlResponse = await fetch('./build/static/Dimensions/singleline-number.xml');
@@ -209,9 +180,21 @@ export const number: Story = {
             throw error;
         }
     }],
+    args: {
+        type: 'number',
+        minimum: 1,
+        maximum: 100,
+        align: 'Right',
+        width: '4em',
+    },
+    render: (args) => TSingleline.TSingleLine_Story(args),
 };
 
-export const date: Story = {
+type DateStory = StoryObj<typeof TSingleline.TSingleLine_Story>;
+export const DateStory = {
+    parameters: {
+        controls: { include: ['type', 'align', 'width', 'minimum', 'maximum'] }, // Fixed syntax error
+    },
     loaders: [async () => {
         try {
             const xmlResponse = await fetch('./build/static/Dimensions/singleline-date.xml');
@@ -230,4 +213,20 @@ export const date: Story = {
             throw error;
         }
     }],
+    args: {
+        type: 'date',
+        width: '10em',
+        align: 'Center',
+        minimum: (() => {
+            const yesterday = new Date();
+            yesterday.setDate(yesterday.getDate() - 1);
+            return yesterday.toISOString().split('T')[0]; // Format as YYYY-MM-DD
+        })(),
+        maximum: (() => {
+            const tenDaysFromNow = new Date();
+            tenDaysFromNow.setDate(tenDaysFromNow.getDate() + 10);
+            return tenDaysFromNow.toISOString().split('T')[0]; // Format as YYYY-MM-DD
+        })(),
+    },
+    render: (args) => TSingleline.TSingleLine_Story(args),
 };
