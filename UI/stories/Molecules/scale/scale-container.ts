@@ -7,6 +7,11 @@ export function MScaleContainer_Story(args: any): HTMLElement {
         const scaleUnit: AScaleUnit = document.createElement('a-scale-unit') as AScaleUnit;
         scaleUnit.dataValue = counter.toString(); // Set dataValue as string
         container.appendChild(scaleUnit);
+
+        container.setAttribute(
+            'style',
+            `width: ${args.width};`
+        );
     }
     return container;
 }
