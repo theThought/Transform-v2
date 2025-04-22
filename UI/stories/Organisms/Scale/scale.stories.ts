@@ -23,8 +23,8 @@ export default {
             description: 'Largest value allowed',
             table: {
                 type: { summary: 'number' },
-                category: 'Dimensions', // Ensure this matches "minimum"
-                subcategory: 'input',  // Ensure this matches "minimum"
+                category: 'Dimensions',
+                subcategory: 'input',
                 defaultValue: { summary: '100' },
             },
         },
@@ -57,10 +57,11 @@ export default {
             },
         },
     },
-};
+} as Meta;
 
-type ScaleTenStory = StoryObj<typeof OScale_Story>;
-export const TenPointScale: ScaleTenStory = {
+type ScaleStory = StoryObj<typeof OScale_Story>;
+
+export const TenPointScale: ScaleStory = {
     name: '10-point scale',
     args: {
         minimum: 1,
@@ -72,8 +73,7 @@ export const TenPointScale: ScaleTenStory = {
     render: (args) => OScale_Story(args),
 };
 
-type ScaleSevenStory = StoryObj<typeof OScale_Story>;
-export const SevenPointScale: ScaleSevenStory = {
+export const SevenPointScale: ScaleStory = {
     name: '7-point scale',
     args: {
         minimum: 1,
