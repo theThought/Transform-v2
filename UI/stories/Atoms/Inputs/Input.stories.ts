@@ -55,6 +55,14 @@ export default {
                 category: 'Dimensions',
             },
         },
+        hidden: {
+            control: 'boolean',
+            description: 'Is the input hidden?',
+            table: {
+                type: { summary: 'string' },
+                category: 'Internal',
+            },
+        },
     },
 } as Meta;
 

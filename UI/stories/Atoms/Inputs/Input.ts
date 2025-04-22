@@ -54,6 +54,10 @@ export function ASingleline(args: any): HTMLInputElement {
         `width: ${setWidth}; text-align: ${setAlign.toLowerCase()};`
     );
 
+    if (args.hidden) {
+        container.setAttribute('hidden', 'true');
+    }
+    
     return container;
 }
 
