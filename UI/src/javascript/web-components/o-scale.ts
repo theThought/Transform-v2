@@ -7,13 +7,14 @@ class OScale extends HTMLElement {
     }
 
     render() {
-        this.textContent = ''; // Clear previous content
         /**
+        this.textContent = ''; // Clear previous content
+        
          * MLabelPrePost should not refer to a story
         const prepostLabels = MLabelPrePost();  
         this.appendChild(prepostLabels);
-         */
-        /**
+        
+        
          * const scaleContainer = new OScaleContainer();
         this.appendChild(scaleContainer);
         */
