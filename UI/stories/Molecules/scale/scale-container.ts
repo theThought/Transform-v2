@@ -11,16 +11,17 @@ export function MScaleContainer_Story(args: any): HTMLElement {
         scaleUnit.dataValue = counter.toString(); // Set dataValue as string
         container.appendChild(scaleUnit);
 
-        args.align = 'Left';
-        args.type = 'number';
-        args.hidden = true;
-        const rangeInput = ASingleline(args);
-
         container.setAttribute(
             'style',
             `width: ${args.width};`
         );
     }
+
+    args.align = 'Left';
+    args.type = 'number';
+    args.hidden = true;
+    const rangeInput = ASingleline(args);
+    
     container.appendChild(rangeInput);
     return container;
 }
