@@ -1,7 +1,7 @@
 import OScale from "../../../src/javascript/web-components/o-scale";
 import * as MScaleContainer from "../../Molecules/scale/scale-container";
 import * as ALabel from "../../Atoms/Label/Label";
-
+import { ASingleline } from "../../Atoms/Inputs/Input";
 
 export function OScale_Story(args: any): HTMLElement {
     const container: OScale = document.createElement('o-scale');
@@ -12,8 +12,14 @@ export function OScale_Story(args: any): HTMLElement {
     args.align = 'Left';
     args.hidden = true;
 
+    args.align = 'Left';
+    args.type = 'number';
+    args.hidden = true;
+    const rangeInput = ASingleline(args);
+    
     container.appendChild(preLabel);
     container.appendChild(scaleContainer);
+    container.appendChild(rangeInput);
     container.appendChild(postLabel);
 
     return container;

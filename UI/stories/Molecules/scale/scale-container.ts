@@ -1,6 +1,5 @@
 import MScaleContainer from "../../../src/javascript/web-components/m-scale-container";
 import AScaleUnit from "../../../src/javascript/web-components/a-scale-unit";
-import { ASingleline } from "../../Atoms/Inputs/Input";
 
 export function MScaleContainer_Story(args: any): HTMLElement {
     
@@ -17,11 +16,5 @@ export function MScaleContainer_Story(args: any): HTMLElement {
         );
     }
 
-    args.align = 'Left';
-    args.type = 'number';
-    args.hidden = true;
-    const rangeInput = ASingleline(args);
-    
-    container.appendChild(rangeInput);
     return container;
 }
