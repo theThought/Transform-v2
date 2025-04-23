@@ -131,9 +131,9 @@ export const textStory = {
     },
     loaders: [async () => { 
         try {
-            const xmlResponse = await fetch('./build/static/Dimensions/singleline.xml');
-            const xslResponse = await fetch('./build/static/Dimensions/question.xsl');
-
+            const xmlResponse = await fetch('../../../src/static/Dimensions/singleline.xml');
+            const xslResponse = await fetch('../../../src/static/Dimensions/question.xsl');
+            
             if (!xmlResponse.ok || !xslResponse.ok) {
                 throw new Error('Failed to fetch XML or XSLT files.');
             }
@@ -164,8 +164,8 @@ export const NumberStory = {
     },
     loaders: [async () => {
         try {
-            const xmlResponse = await fetch('./build/static/Dimensions/singleline-number.xml');
-            const xslResponse = await fetch('./build/static/Dimensions/question.xsl');
+            const xmlResponse = await fetch('../../../src/static/Dimensions/singleline-number.xml');
+            const xslResponse = await fetch('../../../src/static/Dimensions/question.xsl');
 
             if (!xmlResponse.ok || !xslResponse.ok) {
                 throw new Error('Failed to fetch XML or XSLT files.');
@@ -197,8 +197,8 @@ export const DateStory = {
     },
     loaders: [async () => {
         try {
-            const xmlResponse = await fetch('./build/static/Dimensions/singleline-date.xml');
-            const xslResponse = await fetch('./build/static/Dimensions/question.xsl');
+            const xmlResponse = await fetch('../../../src/static/Dimensions/singleline-date.xml');
+            const xslResponse = await fetch('../../../src/static/Dimensions/question.xsl');
 
             if (!xmlResponse.ok || !xslResponse.ok) {
                 throw new Error('Failed to fetch XML or XSLT files.');
