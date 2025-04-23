@@ -11,7 +11,21 @@ export function TSingleLine_Story(args: any, loaded: { xmlData: string; xslData:
         throw new Error("Missing required XML or XSLT data.");
     }
 
-    const container = TransformUtils.transform(xmlData, xslData);
+    // Parse the XML and update the Width attribute
+    const parser = new DOMParser();
+    const xmlDoc = parser.parseFromString(xmlData, "application/xml");
+    const styleElements = xmlDoc.querySelectorAll('Questions > Question > Control > Style');
+
+    styleElements.forEach((styleElement) => {
+        if (args.width) {
+            styleElement.setAttribute('Width', args.width);
+        }
+    });
+
+    const serializer = new XMLSerializer();
+    const updatedXmlData = serializer.serializeToString(xmlDoc);
+
+    const container = TransformUtils.transform(updatedXmlData, xslData);
 
     const elementResponse = container.querySelector('o-response') as OResponse;
     let elementSingleline: MSingleline | MSinglelineDate | MSinglelineNumber;
