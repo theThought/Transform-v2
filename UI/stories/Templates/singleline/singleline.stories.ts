@@ -118,10 +118,10 @@ export const TextStory = {
         async () => {
             try {
                 const xmlResponse = await fetch(
-                    '../../../src/static/Dimensions/singleline.xml',
+                    './build/static/Dimensions/singleline.xml',
                 );
                 const xslResponse = await fetch(
-                    '../../../src/static/Dimensions/question.xsl',
+                    './build/static/Dimensions/question.xsl',
                 );
 
                 if (!xmlResponse.ok || !xslResponse.ok) {
@@ -157,10 +157,10 @@ export const NumberStory = {
         async () => {
             try {
                 const xmlResponse = await fetch(
-                    '../../../src/static/Dimensions/singleline-number.xml',
+                    './build/static/Dimensions/singleline-number.xml',
                 );
                 const xslResponse = await fetch(
-                    '../../../src/static/Dimensions/question.xsl',
+                    './build/static/Dimensions/question.xsl',
                 );
 
                 if (!xmlResponse.ok || !xslResponse.ok) {
@@ -196,10 +196,10 @@ export const DateStory = {
         async () => {
             try {
                 const xmlResponse = await fetch(
-                    '../../../src/static/Dimensions/singleline-date.xml',
+                    './build/static/Dimensions/singleline-date.xml',
                 );
                 const xslResponse = await fetch(
-                    '../../../src/static/Dimensions/question.xsl',
+                    './build/static/Dimensions/question.xsl',
                 );
 
                 if (!xmlResponse.ok || !xslResponse.ok) {
