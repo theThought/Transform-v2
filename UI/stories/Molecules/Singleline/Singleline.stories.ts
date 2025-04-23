@@ -52,13 +52,13 @@ export default {
                 defaultValue: { summary: '1' },
             },
         },
-        maximum: { 
+        maximum: {
             control: 'number',
             description: 'Largest value allowed',
             table: {
                 type: { summary: 'number' },
                 category: 'Dimensions', // Ensure this matches "minimum"
-                subcategory: 'input',  // Ensure this matches "minimum"
+                subcategory: 'input', // Ensure this matches "minimum"
                 defaultValue: { summary: '100' },
             },
         },
@@ -73,7 +73,8 @@ export default {
         },
         width: {
             control: 'text',
-            description: 'Input width using a value and a measurement (e.g., px, em, %)',
+            description:
+                'Input width using a value and a measurement (e.g., px, em, %)',
             table: {
                 type: { summary: 'string' },
                 category: 'parameters',
@@ -84,7 +85,6 @@ export default {
 
 type Singleline = StoryObj<typeof SingleLineStories.MSingleLine_Story>;
 export const Singleline = {
-
     args: {
         type: 'text',
         minimum: 1,
@@ -99,7 +99,6 @@ export const Singleline = {
 
 type SinglelineNumber = StoryObj<typeof SingleLineStories.MSingleLine_Story>;
 export const SinglelineNumber = {
-
     args: {
         type: 'text',
         minimum: 1,
@@ -114,7 +113,6 @@ export const SinglelineNumber = {
 
 type SinglelineDate = StoryObj<typeof SingleLineStories.MSingleLine_Story>;
 export const SinglelineDate = {
-
     args: {
         type: 'text',
         minimum: (() => {
