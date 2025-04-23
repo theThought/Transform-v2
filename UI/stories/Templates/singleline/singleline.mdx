@@ -1,7 +1,7 @@
 import { Canvas, Controls, Meta } from '@storybook/addon-docs';
 import * as SinglelineStories from './singleline.stories';
 
-<Meta of={SinglelineStories} title="Templates/singleline" />
+<Meta of={SinglelineStories.default} title="Templates/singleline" />
 
 # SingleLine Playground
 There are three singleline examples shown here reflecting the the type input types currently supported.  
@@ -9,8 +9,8 @@ singleline exposes a singleline editbox to the respondent to allow an open-ended
 
 ## singleline
 Questions that utilise a text input to capture the answer.  The min/max define the number of characters that can be entered
-<Canvas of={SinglelineStories.TextStory} />
-<Controls of={SinglelineStories.TextStory} />
+<Canvas of={SinglelineStories.textStory} />
+<Controls of={SinglelineStories.textStory} />
 
 ## singleline-number
 Questions that utilise a number style input to capture the answer. The min/max define the range of numbers that can be entered.
