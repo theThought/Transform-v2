@@ -10,6 +10,10 @@ export function MScaleContainer_Story(args: any): HTMLElement {
         scaleUnit.dataValue = counter.toString(); // Set dataValue as string
         container.appendChild(scaleUnit);
 
+        args.align = 'Left';
+        args.type = 'range';
+        args.hidden = true;
+
         container.setAttribute(
             'style',
             `width: ${args.width};`
