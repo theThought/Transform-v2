@@ -3,7 +3,7 @@ m-singleline-number,
 m-singleline-date {
     align-items: center;
     display: inline-flex;
-    flex-wrap: wrap;
+    width: 100%;
 
     .a-label-pre {
         border-inline-end-width: 0;
