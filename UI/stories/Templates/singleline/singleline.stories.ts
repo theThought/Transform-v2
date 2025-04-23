@@ -6,28 +6,12 @@ import MSinglelineNumber from '../../../src/javascript/web-components/m-singleli
 import MSinglelineDate from '../../../src/javascript/web-components/m-singleline-date';
 import * as TSingleline from './singleline';
 
-// Define the custom element tag name
-if (!customElements.get('o-response')) {
-    customElements.define('o-response', OResponse);
-}
-if (!customElements.get('m-singleline')) {
-    customElements.define('m-singleline', MSingleLine);
-}
-if (!customElements.get('m-singleline-number')) {
-    customElements.define('m-singleline-number', MSinglelineNumber);
-}
-if (!customElements.get('m-singleline-date')) {
-    customElements.define('m-singleline-date', MSinglelineDate);
-}
-
-customElements.define('transform-component', TransformComponent);
-
 export default {
     title: 'Templates/singleline',
     component: 'transform-component', // Use the tag name of the custom element
     parameters: {
         status: { type: 'beta' },
-        },
+    },
     argTypes: {
         type: {
             control: 'select',
@@ -50,13 +34,13 @@ export default {
                 defaultValue: { summary: '1' },
             },
         },
-        maximum: { 
+        maximum: {
             control: 'number',
             description: 'Largest value allowed',
             table: {
                 type: { summary: 'number' },
                 category: 'Dimensions', // Ensure this matches "minimum"
-                subcategory: 'input',  // Ensure this matches "minimum"
+                subcategory: 'input', // Ensure this matches "minimum"
                 defaultValue: { summary: '100' },
             },
         },
@@ -71,7 +55,8 @@ export default {
         },
         width: {
             control: 'text',
-            description: 'Input width using a value and a measurement (e.g., px, em, %)',
+            description:
+                'Input width using a value and a measurement (e.g., px, em, %)',
             table: {
                 type: { summary: 'string' },
                 category: 'Dimensions',
@@ -129,25 +114,30 @@ export const TextStory = {
     parameters: {
         controls: { include: ['align', 'width', 'minimum', 'maximum'] }, // Fixed syntax error
     },
-    loaders: [async () => { 
-        console.log('does file exist' + new URL('../../../src/static/Dimensions/singleline.xml').href);
-        try {
-            const xmlResponse = await fetch('../../../src/static/Dimensions/singleline.xml');
-            const xslResponse = await fetch('../../../src/static/Dimensions/question.xsl');
-            
-            if (!xmlResponse.ok || !xslResponse.ok) {
-                throw new Error('Failed to fetch XML or XSLT files.');
+    loaders: [
+        async () => {
+            try {
+                const xmlResponse = await fetch(
+                    '../../../src/static/Dimensions/singleline.xml',
+                );
+                const xslResponse = await fetch(
+                    '../../../src/static/Dimensions/question.xsl',
+                );
+
+                if (!xmlResponse.ok || !xslResponse.ok) {
+                    throw new Error('Failed to fetch XML or XSLT files.');
+                }
+
+                const xmlData = await xmlResponse.text();
+                const xslData = await xslResponse.text();
+
+                return { xmlData, xslData };
+            } catch (error) {
+                console.error('Error in text loader:', error);
+                throw error;
             }
-
-            const xmlData = await xmlResponse.text();
-            const xslData = await xslResponse.text();
-
-            return { xmlData, xslData };
-        } catch (error) {
-            console.error('Error in text loader:', error);
-            throw error;
-        }
-    }],
+        },
+    ],
     args: {
         type: 'text',
         minimum: 1,
@@ -163,24 +153,30 @@ export const NumberStory = {
     parameters: {
         controls: { include: ['type', 'align', 'width', 'minimum', 'maximum'] }, // Fixed syntax error
     },
-    loaders: [async () => {
-        try {
-            const xmlResponse = await fetch('../../../src/static/Dimensions/singleline-number.xml');
-            const xslResponse = await fetch('../../../src/static/Dimensions/question.xsl');
+    loaders: [
+        async () => {
+            try {
+                const xmlResponse = await fetch(
+                    '../../../src/static/Dimensions/singleline-number.xml',
+                );
+                const xslResponse = await fetch(
+                    '../../../src/static/Dimensions/question.xsl',
+                );
 
-            if (!xmlResponse.ok || !xslResponse.ok) {
-                throw new Error('Failed to fetch XML or XSLT files.');
+                if (!xmlResponse.ok || !xslResponse.ok) {
+                    throw new Error('Failed to fetch XML or XSLT files.');
+                }
+
+                const xmlData = await xmlResponse.text();
+                const xslData = await xslResponse.text();
+
+                return { xmlData, xslData };
+            } catch (error) {
+                console.error('Error in number loader:', error);
+                throw error;
             }
-
-            const xmlData = await xmlResponse.text();
-            const xslData = await xslResponse.text();
-
-            return { xmlData, xslData };
-        } catch (error) {
-            console.error('Error in number loader:', error);
-            throw error;
-        }
-    }],
+        },
+    ],
     args: {
         type: 'number',
         minimum: 1,
@@ -196,24 +192,30 @@ export const DateStory = {
     parameters: {
         controls: { include: ['type', 'align', 'width', 'minimum', 'maximum'] }, // Fixed syntax error
     },
-    loaders: [async () => {
-        try {
-            const xmlResponse = await fetch('../../../src/static/Dimensions/singleline-date.xml');
-            const xslResponse = await fetch('../../../src/static/Dimensions/question.xsl');
+    loaders: [
+        async () => {
+            try {
+                const xmlResponse = await fetch(
+                    '../../../src/static/Dimensions/singleline-date.xml',
+                );
+                const xslResponse = await fetch(
+                    '../../../src/static/Dimensions/question.xsl',
+                );
 
-            if (!xmlResponse.ok || !xslResponse.ok) {
-                throw new Error('Failed to fetch XML or XSLT files.');
+                if (!xmlResponse.ok || !xslResponse.ok) {
+                    throw new Error('Failed to fetch XML or XSLT files.');
+                }
+
+                const xmlData = await xmlResponse.text();
+                const xslData = await xslResponse.text();
+
+                return { xmlData, xslData };
+            } catch (error) {
+                console.error('Error in date loader:', error);
+                throw error;
             }
-
-            const xmlData = await xmlResponse.text();
-            const xslData = await xslResponse.text();
-
-            return { xmlData, xslData };
-        } catch (error) {
-            console.error('Error in date loader:', error);
-            throw error;
-        }
-    }],
+        },
+    ],
     args: {
         type: 'date',
         width: '10em',
