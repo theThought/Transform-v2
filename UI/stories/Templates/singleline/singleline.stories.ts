@@ -130,6 +130,7 @@ export const textStory = {
         controls: { include: ['align', 'width', 'minimum', 'maximum'] }, // Fixed syntax error
     },
     loaders: [async () => { 
+        console.log('does file exist' + new URL('../../../src/static/Dimensions/singleline.xml').href);
         try {
             const xmlResponse = await fetch('../../../src/static/Dimensions/singleline.xml');
             const xslResponse = await fetch('../../../src/static/Dimensions/question.xsl');
