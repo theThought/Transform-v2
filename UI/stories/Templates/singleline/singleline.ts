@@ -4,14 +4,14 @@ import MSingleline from '../../../src/javascript/web-components/m-singleline';
 import MSinglelineDate from '../../../src/javascript/web-components/m-singleline-date';
 import MSinglelineNumber from '../../../src/javascript/web-components/m-singleline-number';
 
-export function TSingleLine_Story(args: any, loaded: { xmlData: string; xsltData: string }): HTMLElement {
-    const { xmlData, xsltData } = loaded;
+export function TSingleLine_Story(args: any, loaded: { xmlData: string; xslData: string }): HTMLElement {
+    const { xmlData, xslData } = loaded;
 
-    if (!xmlData || !xsltData) {
+    if (!xmlData || !xslData) {
         throw new Error("Missing required XML or XSLT data.");
     }
 
-    const container = TransformUtils.transform(xmlData, xsltData);
+    const container = TransformUtils.transform(xmlData, xslData);
 
     const elementResponse = container.querySelector('o-response') as OResponse;
     let elementSingleline: MSingleline | MSinglelineDate | MSinglelineNumber;
