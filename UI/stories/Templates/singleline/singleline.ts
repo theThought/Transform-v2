@@ -34,7 +34,7 @@ export function TSingleLine_Story(args: any): HTMLElement {
     }
 
     return container;
-}
+};
 /**
 export default class TSingleline {
     private elementResponse: OResponse;
@@ -140,4 +140,5 @@ export default class TSingleline {
         console.log("Synchronized args:", args);
     }
 }
+    */
      
