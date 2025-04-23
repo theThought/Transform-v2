@@ -125,7 +125,7 @@ export default {
 } as Meta;
 
 type TextStory = StoryObj<typeof TSingleline.TSingleLine_Story>;
-export const textStory = {
+export const TextStory = {
     parameters: {
         controls: { include: ['align', 'width', 'minimum', 'maximum'] }, // Fixed syntax error
     },
