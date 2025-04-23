@@ -154,7 +154,7 @@ export const textStory = {
         align: 'Left',
         width: '15em',
     },
-    render: (args) => TSingleline.TSingleLine_Story(args),
+    render: (args, { loaded }) => TSingleline.TSingleLine_Story({ ...args, ...loaded }),
 };
 
 type NumberStory = StoryObj<typeof TSingleline.TSingleLine_Story>;
@@ -187,7 +187,7 @@ export const NumberStory = {
         align: 'Right',
         width: '4em',
     },
-    render: (args) => TSingleline.TSingleLine_Story(args),
+    render: (args, { loaded }) => TSingleline.TSingleLine_Story({ ...args, ...loaded }),
 };
 
 type DateStory = StoryObj<typeof TSingleline.TSingleLine_Story>;
@@ -228,5 +228,5 @@ export const DateStory = {
             return tenDaysFromNow.toISOString().split('T')[0]; // Format as YYYY-MM-DD
         })(),
     },
-    render: (args) => TSingleline.TSingleLine_Story(args),
+    render: (args, { loaded }) => TSingleline.TSingleLine_Story({ ...args, ...loaded }),
 };

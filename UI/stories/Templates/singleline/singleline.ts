@@ -5,34 +5,36 @@ import MSinglelineDate from '../../../src/javascript/web-components/m-singleline
 import MSinglelineNumber from '../../../src/javascript/web-components/m-singleline-number';
 
 export function TSingleLine_Story(args: any): HTMLElement {
-    var elementSingleline: MSingleline | MSinglelineDate | MSinglelineNumber;
-    var elementInput: HTMLInputElement;
-    var elementResponse: OResponse;
+    const { xmlData, xsltData } = args;
 
-    const container = TransformUtils.transform(this.xmlData, this.xsltData);
-
-    elementResponse = container.querySelector('o-response') as OResponse;
-        // Dynamically locate and set the type of elementSingleline
-        switch (args.type) {
-            case 'number':
-                elementSingleline = container.querySelector('m-singleline-number') as MSinglelineNumber;
-                break;
-            case 'date':
-                elementSingleline = container.querySelector('m-singleline-date') as MSinglelineDate;
-                break;
-            default:
-                elementSingleline = container.querySelector('m-singleline') as MSingleline;
-                break;
-        }
-
-        elementInput = container.querySelector('.a-singleline') as HTMLInputElement;
-
-        if (!elementResponse || !elementSingleline || !elementInput) {
-            throw new Error("The transformed document does not contain the required elements.");
-        }
-
-        return container;
+    if (!xmlData || !xsltData) {
+        throw new Error("Missing required XML or XSLT data.");
     }
+
+    const container = TransformUtils.transform(xmlData, xsltData);
+
+    const elementResponse = container.querySelector('o-response') as OResponse;
+    let elementSingleline: MSingleline | MSinglelineDate | MSinglelineNumber;
+    const elementInput = container.querySelector('.a-singleline') as HTMLInputElement;
+
+    switch (args.type) {
+        case 'number':
+            elementSingleline = container.querySelector('m-singleline-number') as MSinglelineNumber;
+            break;
+        case 'date':
+            elementSingleline = container.querySelector('m-singleline-date') as MSinglelineDate;
+            break;
+        default:
+            elementSingleline = container.querySelector('m-singleline') as MSingleline;
+            break;
+    }
+
+    if (!elementResponse || !elementSingleline || !elementInput) {
+        throw new Error("The transformed document does not contain the required elements.");
+    }
+
+    return container;
+}
 /**
 export default class TSingleline {
     private elementResponse: OResponse;
@@ -138,4 +140,4 @@ export default class TSingleline {
         console.log("Synchronized args:", args);
     }
 }
-     */
+     
