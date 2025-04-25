@@ -6,7 +6,7 @@ export default class OResponse extends Component implements Subject, Observer {
 
     constructor() {
         super();
-
+        console.log('OResponse constructor');
         this.init();
     }
 
