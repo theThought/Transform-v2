@@ -11,11 +11,34 @@ export function TSingleLine_Story(args: any, loaded: { xmlData: string; xslData:
         throw new Error("Missing required XML or XSLT data.");
     }
 
-    // Parse the XML and update the Width attribute
+    // Parse the XML and update attributes based on args
     const parser = new DOMParser();
     const xmlDoc = parser.parseFromString(xmlData, "application/xml");
+    const controlElements = xmlDoc.querySelectorAll('Questions > Question > Control');
     const styleElements = xmlDoc.querySelectorAll('Questions > Question > Control > Style');
 
+    // Update attributes based on args.type, args.minimum, args.maximum, and args.width
+    controlElements.forEach((controlElement) => {
+        if (args.type === 'text') {
+            if (args.maximum) {
+                controlElement.setAttribute('Length', args.maximum.toString());
+            }
+        } else if (args.type === 'number' || args.type === 'date') {
+            if (args.minimum) {
+                controlElement.setAttribute('MinValue', args.minimum.toString());
+            }
+            if (args.maximum) {
+                controlElement.setAttribute('MaxValue', args.maximum.toString());
+                if (args.type === 'number') {
+                    controlElement.setAttribute('Length', args.maximum.toString().length.toString());
+                } else if (args.type === 'date') {
+                    controlElement.setAttribute('Length', '40');
+                }
+            }
+        }
+    });
+
+    // Update the Width attribute in Style elements
     styleElements.forEach((styleElement) => {
         if (args.width) {
             styleElement.setAttribute('Width', args.width);

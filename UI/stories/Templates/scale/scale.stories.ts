@@ -1,6 +1,5 @@
 import { Meta, StoryObj } from '@storybook/web-components';
-import TransformComponent from '../../../components/TransformComponent';
-import OResponse from '../../../src/javascript/web-components/o-response';
+
 import * as TScale from './scale';
 
 export default {
@@ -100,7 +99,7 @@ export const TenPointScale = {
         },
     ],
     args: {
-        type: 'text',
+        type: 'number',
         minimum: 1,
         maximum: 10,
         orientation: 'horizontal',
