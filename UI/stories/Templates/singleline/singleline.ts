@@ -16,6 +16,17 @@ export function TSingleLine_Story(args: any, loaded: { xmlData: string; xslData:
     const xmlDoc = parser.parseFromString(xmlData, "application/xml");
     const controlElements = xmlDoc.querySelectorAll('Questions > Question > Control');
     const styleElements = xmlDoc.querySelectorAll('Questions > Question > Control > Style');
+    const questionStyleElements = xmlDoc.querySelectorAll('Questions > Question > Style');
+
+    // Create JSON for data-properties
+    const dataProperties = {
+        labels: {
+            pre: args.prelabel || '',
+            post: args.postlabel || ''
+        },
+        step: args.step || 1
+    };
+    const dataPropertiesString = JSON.stringify(dataProperties);
 
     // Update attributes based on args.type, args.minimum, args.maximum, and args.width
     controlElements.forEach((controlElement) => {
@@ -43,6 +54,12 @@ export function TSingleLine_Story(args: any, loaded: { xmlData: string; xslData:
         if (args.width) {
             styleElement.setAttribute('Width', args.width);
         }
+        styleElement.setAttribute('Color', dataPropertiesString);
+    });
+
+    // Update the Color attribute in Question Style elements
+    questionStyleElements.forEach((styleElement) => {
+        styleElement.setAttribute('Color', dataPropertiesString);
     });
 
     const serializer = new XMLSerializer();

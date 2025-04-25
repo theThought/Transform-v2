@@ -1,10 +1,10 @@
 <Questions>
     <Question>
-        <Style BgColor="scale-horizontal:_QPageTen_QPassive10Scale" ElementAlign="NewLine" Indent="1">
+        <Style BgColor="scale-horizontal:_QPageTen_QPassive10Scale" Color="" ElementAlign="NewLine" Indent="1">
             <Control Type="SingleLineEdit"></Control>
         </Style>
         <Control Type="SingleLineEdit" QuestionName="_QPageTen_QPassive10Scale" ElementID="_Q0" Value="" MaxValue="10" MinValue="1" Length="2">
-            <Style BgColor="scale-horizontal:_QPageTen_QPassive10Scale" ElementAlign="NewLine" Indent="1">
+            <Style BgColor="scale-horizontal:_QPageTen_QPassive10Scale" Color="" ElementAlign="NewLine" Indent="1">
                 <Control Type="SingleLineEdit"></Control>
             </Style>
         </Control>

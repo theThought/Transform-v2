@@ -16,6 +16,16 @@ export function TScale_Story(args: any, loaded: { xmlData: string; xslData: stri
     const xmlDoc = parser.parseFromString(xmlData, "application/xml");
     const controlElements = xmlDoc.querySelectorAll('Questions > Question > Control');
     const styleElements = xmlDoc.querySelectorAll('Questions > Question > Control > Style');
+    const questionStyleElements = xmlDoc.querySelectorAll('Questions > Question > Style');
+
+    // Create JSON for data-properties
+    const dataProperties = {
+        labels: {
+            pre: args.prelabel || '',
+            post: args.postlabel || ''
+        }
+    };
+    const dataPropertiesString = JSON.stringify(dataProperties);
 
     // Update attributes for Control elements
     controlElements.forEach((controlElement) => {
@@ -33,6 +43,12 @@ export function TScale_Story(args: any, loaded: { xmlData: string; xslData: stri
         if (args.width) {
             styleElement.setAttribute('Width', args.width);
         }
+        styleElement.setAttribute('Color', dataPropertiesString);
+    });
+
+    // Update the Color attribute in Question Style elements
+    questionStyleElements.forEach((styleElement) => {
+        styleElement.setAttribute('Color', dataPropertiesString);
     });
 
     const serializer = new XMLSerializer();
