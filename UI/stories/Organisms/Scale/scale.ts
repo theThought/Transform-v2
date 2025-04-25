@@ -5,15 +5,18 @@ import { ASingleline } from "../../Atoms/Inputs/Input";
 
 export function OScale_Story(args: any): HTMLElement {
     const container: OScale = document.createElement('o-scale');
-    const prepostlabel = MLabel.MLabelPrePost(args.prelabel, args.postlabel);
+    const prepostLabel = MLabel.MLabelPrePost(args.prelabel, args.postlabel);
     const scaleContainer = MScaleContainer.MScaleContainer_Story(args);
 
-    args.align = 'Left';
-    args.type = 'number';
-    args.hidden = true;
-    const rangeInput = ASingleline(args);
+    // Clone args and modify the clone
+    const clonedArgs = { ...args };
+    clonedArgs.align = 'Left';
+    clonedArgs.type = 'number';
+    clonedArgs.hidden = true;
+
+    const rangeInput = ASingleline(clonedArgs);
     
-    container.appendChild(prepostlabel);
+    container.appendChild(prepostLabel);
     container.appendChild(scaleContainer);
     container.appendChild(rangeInput);
 
