@@ -33,7 +33,7 @@ export default class Component extends HTMLElement {
         const propertiesAsJson: Record<string, unknown> = JSON.parse(
             properties.toString(),
         );
-
+console.log('Properties:', propertiesAsJson);
         if (this.response) {
             Object.assign(
                 this.properties,
