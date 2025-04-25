@@ -66,13 +66,12 @@ export default {
                 category: 'Internal',
             },
         },
-        balanceState: {
-            control: 'boolean',
-            description: 'Whether balance should be applied',
+        step: {
+            control: 'number',
+            description: 'increment and precision of the number',
             table: {
-                type: { summary: 'boolean' },
+                type: { summary: 'number' },
                 category: 'properties',
-                subcategory: 'balance',
             },
         },
         balanceMinWidth: {
@@ -102,13 +101,33 @@ export default {
                 subcategory: 'onesize',
             },
         },
+        prelabel: {
+            control: 'text',
+            description: 'A string placed to the left of the scale',
+            table: {
+                type: { summary: 'string' },
+                category: 'properties',
+                subcategory: 'labels',
+                defaultValue: { summary: 'before' },
+            },
+        },
+        postlabel: {
+            control: 'text',
+            description: 'A string placed to the right of the scale',
+            table: {
+                type: { summary: 'string' },
+                category: 'properties',
+                subcategory: 'labels',
+                defaultValue: { summary: 'after' },
+            },
+        },
     },
 } as Meta;
 
 type TextStory = StoryObj<typeof TSingleline.TSingleLine_Story>;
 export const TextStory = {
     parameters: {
-        controls: { include: ['align', 'width', 'minimum', 'maximum'] }, // Fixed syntax error
+        controls: { include: ['align', 'width', 'minimum', 'maximum', 'prelabel', 'postlabel'] }, // Fixed syntax error
     },
     loaders: [
         async () => {
@@ -147,7 +166,7 @@ export const TextStory = {
 type NumberStory = StoryObj<typeof TSingleline.TSingleLine_Story>;
 export const NumberStory = {
     parameters: {
-        controls: { include: ['align', 'width', 'minimum', 'maximum'] }, // Fixed syntax error
+        controls: { include: ['align', 'width', 'minimum', 'maximum', 'prelabel', 'postlabel', 'step'] }, // Fixed syntax error
     },
     loaders: [
         async () => {
@@ -186,7 +205,7 @@ export const NumberStory = {
 type DateStory = StoryObj<typeof TSingleline.TSingleLine_Story>;
 export const DateStory = {
     parameters: {
-        controls: { include: ['align', 'width', 'minimum', 'maximum'] }, // Fixed syntax error
+        controls: { include: ['align', 'width', 'minimum', 'maximum', 'prelabel', 'postlabel'] }, // Fixed syntax error
     },
     loaders: [
         async () => {
