@@ -11,7 +11,7 @@ export default {
     argTypes: {
         minimum: {
             control: 'number',
-            description: 'Smallest value allowed',
+            description: 'Smallest value in the scale',
             table: {
                 type: { summary: 'number' },
                 category: 'Dimensions',
@@ -21,12 +21,12 @@ export default {
         },
         maximum: { 
             control: 'number',
-            description: 'Largest value allowed',
+            description: 'Largest value in the scale',
             table: {
                 type: { summary: 'number' },
                 category: 'Dimensions',
                 subcategory: 'input',
-                defaultValue: { summary: '100' },
+                defaultValue: { summary: '10' },
             },
         },
         width: {
@@ -48,7 +48,7 @@ export default {
         },
         prelabel: {
             control: 'text',
-            description: 'A string placed BEFORE the input',
+            description: 'A string placed to the left of the scale',
             table: {
                 type: { summary: 'string' },
                 category: 'properties',
@@ -58,7 +58,7 @@ export default {
         },
         postlabel: {
             control: 'text',
-            description: 'A string placed AFTER the input',
+            description: 'A string placed to the right of the scale',
             table: {
                 type: { summary: 'string' },
                 category: 'properties',
