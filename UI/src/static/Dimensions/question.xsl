@@ -730,7 +730,7 @@
                     </xsl:call-template>
 
                     <xsl:call-template name="insert-input">
-                            <xsl:with-param name="inputType" select="'range'" />
+                            <xsl:with-param name="inputType" select="'number'" />
                             <xsl:with-param name="qGroup" select="$qGroup" />
                             <xsl:with-param name="isHidden" select="true()" />
                     </xsl:call-template>
@@ -745,7 +745,7 @@
                     </xsl:call-template>
 
                     <xsl:call-template name="insert-input">
-                            <xsl:with-param name="inputType" select="'range'" />
+                            <xsl:with-param name="inputType" select="'number'" />
                             <xsl:with-param name="qGroup" select="$qGroup" />
                             <xsl:with-param name="isHidden" select="true()" />
                     </xsl:call-template>
@@ -774,8 +774,13 @@
     </xsl:template>
 
     <xsl:template name="m-label-prepost">
-        <xsl:call-template name="a-label-pre" />
-        <xsl:call-template name="a-label-post" />
+        <xsl:element name="div">
+            <xsl:attribute name="class">
+                <xsl:text>m-label-prepost</xsl:text>
+            </xsl:attribute>
+            <xsl:call-template name="a-label-pre" />
+            <xsl:call-template name="a-label-post" />
+        </xsl:element>
     </xsl:template>
 
     <xsl:template name="m-singleline">
