@@ -1,6 +1,6 @@
 :where([type='text'], [type='date'], [type='number'], textarea) {
     background: var(--color-background);
-    border: var(--border-thickness) solid var(--color-border);
+    border: calc(var(--border-thickness) * 2) solid var(--color-border);
     border-radius: var(--border-radius-s);
 
     /* TODO: fix a11y contrast with color */
