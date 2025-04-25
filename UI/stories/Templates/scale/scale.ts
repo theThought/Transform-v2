@@ -56,7 +56,7 @@ export function TScale_Story(args: any, loaded: { xmlData: string; xslData: stri
 
     const container = TransformUtils.transform(updatedXmlData, xslData);
 
-    const elementResponse = container.querySelector('o-response') as OResponse;
+//   const elementResponse = container.querySelector('o-response') as OResponse;
     const elementScale = container.querySelector('o-scale') as OScale;
     const elementScaleContainer = container.querySelector('.o-scale-container') as MScaleContainer;
     const elementUnits = container.querySelector('.a-scale-unit') as AScaleUnit;
