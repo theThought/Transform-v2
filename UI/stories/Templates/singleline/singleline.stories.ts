@@ -40,6 +40,26 @@ export default {
                 defaultValue: { summary: '100' },
             },
         },
+        minimumDate: {
+            control: 'date',
+            description: 'Earliest acceptable date',
+            table: {
+                type: { summary: 'date' },
+                category: 'Dimensions',
+                subcategory: 'input',
+                defaultValue: { summary: '1' },
+            },
+        },
+        maximumDate: {
+            control: 'date',
+            description: 'latest acceptable date',
+            table: {
+                type: { summary: 'date' },
+                category: 'Dimensions', // Ensure this matches "minimum"
+                subcategory: 'input', // Ensure this matches "minimum"
+                defaultValue: { summary: '100' },
+            },
+        },
         align: {
             control: 'select',
             options: ['Left', 'Right', 'Center'],
@@ -127,7 +147,17 @@ export default {
 type TextStory = StoryObj<typeof TSingleline.TSingleLine_Story>;
 export const TextStory = {
     parameters: {
-        controls: { include: ['align', 'width', 'minimum', 'maximum', 'prelabel', 'postlabel'] }, // Fixed syntax error
+        controls: {
+            include: [
+                'align',
+                'width',
+                'minimum',
+                'maximum',
+                'prelabel',
+                'postlabel',
+                'step',
+            ],
+        },
     },
     loaders: [
         async () => {
@@ -161,12 +191,22 @@ export const TextStory = {
         width: '15em',
     },
     render: (args, { loaded }) => TSingleline.TSingleLine_Story(args, loaded),
-};
+    };
 
 type NumberStory = StoryObj<typeof TSingleline.TSingleLine_Story>;
 export const NumberStory = {
     parameters: {
-        controls: { include: ['align', 'width', 'minimum', 'maximum', 'prelabel', 'postlabel', 'step'] }, // Fixed syntax error
+        controls: {
+            include: [
+                'align',
+                'width',
+                'minimum',
+                'maximum',
+                'prelabel',
+                'postlabel',
+                'step',
+            ],
+        }, 
     },
     loaders: [
         async () => {
@@ -202,11 +242,20 @@ export const NumberStory = {
     render: (args, { loaded }) => TSingleline.TSingleLine_Story(args, loaded),
 };
 
+
 type DateStory = StoryObj<typeof TSingleline.TSingleLine_Story>;
 export const DateStory = {
     parameters: {
-        controls: { include: ['align', 'width', 'minimum', 'maximum', 'prelabel', 'postlabel'] }, // Fixed syntax error
-    },
+        controls: {
+            include: [
+                'align',
+                'width',
+                'minimumDate',
+                'maximumDate',
+                'prelabel',
+                'postlabel',
+                'step',
+            ],
     loaders: [
         async () => {
             try {
