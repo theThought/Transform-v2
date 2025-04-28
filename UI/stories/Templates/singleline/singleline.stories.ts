@@ -256,6 +256,8 @@ export const DateStory = {
                 'postlabel',
                 'step',
             ],
+        },
+    },
     loaders: [
         async () => {
             try {
@@ -284,12 +286,12 @@ export const DateStory = {
         type: 'date',
         width: '10em',
         align: 'Center',
-        minimum: (() => {
+        minimumDate: ((): string => {
             const yesterday = new Date();
             yesterday.setDate(yesterday.getDate() - 1);
             return yesterday.toISOString().split('T')[0]; // Format as YYYY-MM-DD
         })(),
-        maximum: (() => {
+        maximumDate: ((): string => {
             const tenDaysFromNow = new Date();
             tenDaysFromNow.setDate(tenDaysFromNow.getDate() + 10);
             return tenDaysFromNow.toISOString().split('T')[0]; // Format as YYYY-MM-DD
