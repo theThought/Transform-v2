@@ -11,7 +11,7 @@ export default {
     argTypes: {
         type: {
             control: 'select',
-            options: ['text', 'number', 'range', 'number', 'date'],
+            options: ['text', 'number', 'range', 'date'], // Removed duplicate 'number'
             description: 'Type of input required',
             table: {
                 type: { summary: 'string' },
@@ -191,7 +191,7 @@ export const TextStory = {
         width: '15em',
     },
     render: (args, { loaded }) => TSingleline.TSingleLine_Story(args, loaded),
-    };
+};
 
 type NumberStory = StoryObj<typeof TSingleline.TSingleLine_Story>;
 export const NumberStory = {
@@ -206,7 +206,7 @@ export const NumberStory = {
                 'postlabel',
                 'step',
             ],
-        }, 
+        },
     },
     loaders: [
         async () => {
