@@ -18,7 +18,8 @@ Color settings.
     --color-light4: var(--theme-color-neutral-600);
     --color-dark1: var(--theme-color-neutral-700);
     --color-dark2: var(--theme-color-neutral-800);
-    --color-darkest: var(--theme-color-neutral-900);
+    --color-dark3: var(--theme-color-neutral-900);
+    --color-darkest: var(--theme-color-neutral-1000);
     --color-placeholder: var(--theme-color-placeholder);
     --color-error: var(--theme-color-accent-error);
     --color-warning: var(--theme-color-accent-warning);
@@ -27,8 +28,8 @@ Color settings.
 
     /* Semantic names. */
     --color-background: var(--color-white);
-    --color-text: var(--color-darkest);
+    --color-text: var(--color-dark3);
     --color-input: var(--color-secondary);
-    --color-border: var(--color-light4);
+    --color-border: var(--color-darkest);
     --color-border-active: var(--color-primary);
 }

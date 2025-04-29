@@ -24,6 +24,7 @@
     --theme-color-neutral-700: #57699c;
     --theme-color-neutral-800: #324371;
     --theme-color-neutral-900: #212c4c;
+    --theme-color-neutral-1000: #002554;
     --theme-color-placeholder: #6b5b72;
 
     /* Defined as RGB so we can use rgba() function */
