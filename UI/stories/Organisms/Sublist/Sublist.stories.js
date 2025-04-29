@@ -24,6 +24,14 @@ export default {
                 defaultValue: { summary: '0' },
             },
         },
+        OneSize: {
+            control: 'boolean',
+            description: 'Make all controls the same height and width.',
+            table: {
+                type: { summary: 'boolean' },
+                defaultValue: { summary: 'false' },
+            },
+        },
     },
 };
 
@@ -31,6 +39,7 @@ export const Sublist = {
     args: {
         Balance: 'false',
         MinWidth: '',
+        OneSize: 'false',
     },
     render: (args) => SublistHtml(args),
 };

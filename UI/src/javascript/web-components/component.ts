@@ -43,7 +43,6 @@ export default class Component extends HTMLElement {
         } else {
             this.properties = propertiesAsJson;
         }
-        console.log('Properties:', this.properties);
     }
 
     protected broadcastChange(): void {

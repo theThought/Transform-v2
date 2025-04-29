@@ -9,6 +9,7 @@ export default class OOptionSublist extends Component {
 
     private init(): void {
         this.setBalance();
+        this.setOneSize();
     }
 
     private setBalance(): void {
@@ -33,7 +34,20 @@ export default class OOptionSublist extends Component {
     }
 
     private setOneSize(): void {
-        const children = this.querySelectorAll(':scope > *');
+        if (!this.properties.hasOwnProperty('onesize')) {
+            return;
+        }
+
+        if (
+            typeof this.properties.onesize !== 'object' ||
+            !this.properties.onesize ||
+            !('state' in this.properties.onesize) ||
+            typeof this.properties.onesize.state !== 'boolean'
+        ) {
+            return;
+        }
+
+        const children = this.querySelectorAll(':scope > *:not(legend)');
 
         let tallest = 0;
         let widest = 0;
@@ -58,5 +72,6 @@ export default class OOptionSublist extends Component {
                 widest = contentWidth;
             }
         }
+        console.log(`Widest ${widest}, tallest ${tallest}`);
     }
 }

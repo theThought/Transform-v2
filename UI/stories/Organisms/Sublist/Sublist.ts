@@ -9,6 +9,9 @@ ${htmlFragmentCustomProperties}
     data-properties='{
         "balance":{
             "state":${args.Balance}
+        },
+        "onesize":{
+            "state":${args.OneSize}
         }
     }'
 >
