@@ -1,6 +1,11 @@
 import Component from './component';
+import { Observer, Subject } from '../interfaces';
 
-export default class OOptionSublist extends Component {
+export default class OOptionSublist extends Component implements Subject {
+    private observers: Observer[] = [];
+    public tallest = 0;
+    public widest = 0;
+
     constructor() {
         super();
 
@@ -10,6 +15,29 @@ export default class OOptionSublist extends Component {
     private init(): void {
         this.setBalance();
         this.setOneSize();
+    }
+
+    addObserver(observer: Observer): void {
+        this.observers.push(observer);
+    }
+
+    removeObserver(observer: Observer): void {
+        const obsIndex = this.observers.findIndex(
+            (obs: Observer): boolean => observer === obs,
+        );
+
+        if (obsIndex < 0) {
+            console.error('Observer does not exist!');
+            return;
+        }
+
+        this.observers.splice(obsIndex, 1);
+    }
+
+    notifyObservers(method: string, detail: CustomEvent): void {
+        for (const observer of this.observers) {
+            observer.update(method, detail);
+        }
     }
 
     private setBalance(): void {
@@ -47,6 +75,12 @@ export default class OOptionSublist extends Component {
             return;
         }
 
+        if (this.properties.onesize.state) {
+            this.classList.add('onesize');
+        } else {
+            this.classList.remove('onesize');
+        }
+
         const children = this.querySelectorAll(':scope > *:not(legend)');
 
         let tallest = 0;
@@ -72,6 +106,8 @@ export default class OOptionSublist extends Component {
                 widest = contentWidth;
             }
         }
-        console.log(`Widest ${widest}, tallest ${tallest}`);
+
+        this.tallest = tallest;
+        this.widest = widest;
     }
 }

@@ -1,26 +1,36 @@
 import Component from './component';
+import OOptionSublist from './o-option-sublist';
 import { Observer } from '../interfaces';
 
 export default class MOptionBase extends Component implements Observer {
     private readonly element: HTMLElement | null;
     private readonly checkbox: HTMLInputElement | null;
+    private readonly sublist: OOptionSublist | null;
     private readonly isExclusive: boolean = false;
 
     constructor() {
         super();
 
         this.element = this.querySelector('label');
-
         this.checkbox = this.querySelector('input');
-
+        this.sublist = this.closest('o-option-sublist');
         this.isExclusive = this.getAttribute('data-exclusive') === 'true';
 
         this.init();
+        this.checkOnesize();
     }
 
     private init(): void {
         this.addLocalEventListeners();
         this.setBalanceWidth();
+    }
+
+    private checkOnesize(): void {
+        if (!this.element) return;
+        if (!this.sublist) return;
+
+        this.style.width = `${this.sublist.widest}px`;
+        this.style.height = `${this.sublist.tallest}px`;
     }
 
     private addLocalEventListeners(): void {
@@ -47,6 +57,13 @@ export default class MOptionBase extends Component implements Observer {
         if (method === 'exclusiveClear') {
             this.exclusiveClear(data);
         }
+        if (method === 'sizeChange') {
+            this.setOnesize(data);
+        }
+    }
+
+    private setOnesize(e: CustomEvent): void {
+        if (!this.element) return;
     }
 
     private changeState(check: boolean): void {
@@ -141,12 +158,22 @@ export default class MOptionBase extends Component implements Observer {
 
     // Handle (global) event listeners which are not part of this web component.
     public connectedCallback(): void {
-        if (!this.response) return;
-        this.response.addObserver(this);
+        if (this.response) {
+            this.response.addObserver(this);
+        }
+
+        if (this.sublist) {
+            this.sublist.addObserver(this);
+        }
     }
 
     public disconnectedCallback(): void {
-        if (!this.response) return;
-        this.response.removeObserver(this);
+        if (this.response) {
+            this.response.removeObserver(this);
+        }
+
+        if (this.sublist) {
+            this.sublist.removeObserver(this);
+        }
     }
 }

@@ -63,5 +63,21 @@ ${htmlFragmentCustomProperties}
             </span>
         </label>
     </m-option-base>
+    <m-option-base class="m-option-single-answer"
+        data-properties='{
+            "balance":{
+                "minwidth":"${args.MinWidth}"
+            }
+        }'
+    >
+        <input type="radio" id="radio3" name="radios" />
+        <label for="radio3">
+            <span class="a-icon-multistate" data-icon-type="single"></span>
+            <span class="a-label-option">
+                This is a particularly long entry which is included to 
+                assist in testing the onesize and balance options.
+            </span>
+        </label>
+    </m-option-base>
 </o-option-sublist>
 `;
