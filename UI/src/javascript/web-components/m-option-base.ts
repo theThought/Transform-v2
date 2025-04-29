@@ -17,20 +17,12 @@ export default class MOptionBase extends Component implements Observer {
         this.isExclusive = this.getAttribute('data-exclusive') === 'true';
 
         this.init();
-        this.checkOnesize();
     }
 
     private init(): void {
         this.addLocalEventListeners();
         this.setBalanceWidth();
-    }
-
-    private checkOnesize(): void {
-        if (!this.element) return;
-        if (!this.sublist) return;
-
-        this.style.width = `${this.sublist.widest}px`;
-        this.style.height = `${this.sublist.tallest}px`;
+        this.checkOnesize();
     }
 
     private addLocalEventListeners(): void {
@@ -138,10 +130,6 @@ export default class MOptionBase extends Component implements Observer {
     }
 
     private setBalanceWidth(): void {
-        if (!this.properties.hasOwnProperty('balance')) {
-            return;
-        }
-
         if (
             !this.element ||
             typeof this.properties.balance !== 'object' ||
@@ -154,6 +142,23 @@ export default class MOptionBase extends Component implements Observer {
 
         const minWidth: string = this.properties.balance.minwidth ?? '0';
         this.element.style.minWidth = `${minWidth}`;
+    }
+
+    private checkOnesize(): void {
+        if (
+            !this.element ||
+            !this.sublist ||
+            typeof this.properties.onesize !== 'object' ||
+            !this.properties.onesize ||
+            !('state' in this.properties.onesize) ||
+            typeof this.properties.onesize.state !== 'boolean' ||
+            !this.properties.onesize.state
+        ) {
+            return;
+        }
+
+        this.style.width = `${this.sublist.widest}px`;
+        this.style.height = `${this.sublist.tallest}px`;
     }
 
     // Handle (global) event listeners which are not part of this web component.

@@ -85,6 +85,14 @@ export default class OOptionSublist extends Component implements Subject {
 
         let tallest = 0;
         let widest = 0;
+        let maxwidth = 0;
+
+        if (
+            'maxwidth' in this.properties.onesize &&
+            typeof this.properties.onesize.maxwidth == 'string'
+        ) {
+            maxwidth = <number>(<unknown>this.properties.onesize.maxwidth);
+        }
 
         for (let i = 0; i < children.length; i++) {
             const element = children[i];
@@ -108,6 +116,6 @@ export default class OOptionSublist extends Component implements Subject {
         }
 
         this.tallest = tallest;
-        this.widest = widest;
+        this.widest = maxwidth > 0 && widest > maxwidth ? maxwidth : widest;
     }
 }

@@ -11,7 +11,8 @@ ${htmlFragmentCustomProperties}
             "state":${args.Balance}
         },
         "onesize":{
-            "state":${args.OneSize}
+            "state":${args.OneSize},
+            "maxwidth":"${args.MaxWidth}"
         }
     }'
 >
@@ -22,6 +23,10 @@ ${htmlFragmentCustomProperties}
         data-properties='{
             "balance":{
                 "minwidth":"${args.MinWidth}"
+            },
+            "onesize":{
+                "state":${args.OneSize},
+                "maxwidth":"${args.MaxWidth}"
             }
         }'
     >
@@ -37,6 +42,10 @@ ${htmlFragmentCustomProperties}
         data-properties='{
             "balance":{
                 "minwidth":"${args.MinWidth}"
+            },
+            "onesize":{
+                "state":${args.OneSize},
+                "maxwidth":"${args.MaxWidth}"
             }
         }'
     >
@@ -52,6 +61,10 @@ ${htmlFragmentCustomProperties}
         data-properties='{
             "balance":{
                 "minwidth":"${args.MinWidth}"
+            },
+            "onesize":{
+                "state":${args.OneSize},
+                "maxwidth":"${args.MaxWidth}"
             }
         }'
     >
@@ -67,6 +80,10 @@ ${htmlFragmentCustomProperties}
         data-properties='{
             "balance":{
                 "minwidth":"${args.MinWidth}"
+            },
+            "onesize":{
+                "state":${args.OneSize},
+                "maxwidth":"${args.MaxWidth}"
             }
         }'
     >
