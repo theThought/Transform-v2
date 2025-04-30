@@ -159,6 +159,7 @@ export default class MOptionBase extends Component implements Observer {
         this.isExclusive = this.getAttribute('data-exclusive') === 'true';
 
         this.init();
+
         if (this.response) {
             this.response.addObserver(this);
         }

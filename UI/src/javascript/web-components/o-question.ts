@@ -3,8 +3,6 @@ import { removeHTMLWhitespace } from './util';
 export default class OQuestion extends HTMLElement {
     constructor() {
         super();
-
-        this.init();
     }
 
     private init(): void {
@@ -22,5 +20,9 @@ export default class OQuestion extends HTMLElement {
             (element) =>
                 (element.innerHTML = removeHTMLWhitespace(element.innerHTML)),
         );
+    }
+
+    public connectedCallback(): void {
+        this.init();
     }
 }

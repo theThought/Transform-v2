@@ -18,11 +18,13 @@ export default class Component extends HTMLElement {
 
         this.qid = this.dataset.questionId;
         this.qgroup = this.dataset.questionGroup;
+
         if (this.parentElement) {
             this.response = this.parentElement.closest('o-response');
         } else {
             this.response = null;
         }
+
         this.properties = {};
     }
 

@@ -1,4 +1,3 @@
-
 export default class MScaleContainer extends HTMLElement {
     private minValue = 0;
     private maxValue = 10;
@@ -19,8 +18,5 @@ export default class MScaleContainer extends HTMLElement {
             value = 1;
         }
         this.maxValue = value;
-    }
-
-    render() {
     }
 }

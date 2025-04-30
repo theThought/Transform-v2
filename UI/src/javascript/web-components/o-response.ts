@@ -6,8 +6,6 @@ export default class OResponse extends Component implements Subject, Observer {
 
     constructor() {
         super();
-
-        this.init();
     }
 
     private init(): void {
@@ -65,5 +63,10 @@ export default class OResponse extends Component implements Subject, Observer {
 
     public update(event: string): void {
         console.log(event);
+    }
+
+    public connectedCallback(): void {
+        super.connectedCallback();
+        this.init();
     }
 }

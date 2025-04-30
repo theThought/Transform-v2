@@ -3,13 +3,6 @@ import MSingleline from './m-singleline';
 export default class MSinglelineNumber extends MSingleline {
     constructor() {
         super();
-
-        this.init();
-    }
-
-    protected init(): void {
-        super.init();
-        this.setStep();
     }
 
     private setStep(): void {
@@ -18,5 +11,11 @@ export default class MSinglelineNumber extends MSingleline {
         }
 
         this.element.step = <string>this.properties.step;
+    }
+
+    public connectedCallback(): void {
+        super.connectedCallback();
+        super.init();
+        this.setStep();
     }
 }
