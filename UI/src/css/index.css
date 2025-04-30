@@ -3,14 +3,14 @@
 "Primitive" CSS design tokens.
 ----------------------------------------------------------------------------
 */
-@import 'tokens' screen;
+@import 'tokens.css' screen;
 
 /*
 ----------------------------------------------------------------------------
 Base scaffold, containing "semantic" design tokens.
 ----------------------------------------------------------------------------
 */
-@import 'base/index' screen;
+@import 'base/index.css' screen;
 
 /*
 ----------------------------------------------------------------------------
@@ -20,20 +20,20 @@ Globals (including reset):
 - Layouts
 ----------------------------------------------------------------------------
 */
-@import 'global/index' screen;
+@import 'global/index.css' screen;
 
 /*
 ----------------------------------------------------------------------------
 Atomic components.
 ----------------------------------------------------------------------------
 */
-@import 'atoms/index' screen;
-@import 'molecules/index' screen;
-@import 'organisms/index' screen;
+@import 'atoms/index.css' screen;
+@import 'molecules/index.css' screen;
+@import 'organisms/index.css' screen;
 
 /*
 ----------------------------------------------------------------------------
 Utilities.
 ----------------------------------------------------------------------------
 */
-@import 'utilities/index' screen;
+@import 'utilities/index.css' screen;

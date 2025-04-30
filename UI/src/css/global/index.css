@@ -5,10 +5,10 @@ Global HTML element styles.
 */
 
 /* Import 'reset' first. */
-@import 'reset';
-@import 'footer';
-@import 'forms';
-@import 'header';
-@import 'layout';
-@import 'surroundcontent';
-@import 'typography';
+@import 'reset.css';
+@import 'footer.css';
+@import 'forms.css';
+@import 'header.css';
+@import 'layout.css';
+@import 'surroundcontent.css';
+@import 'typography.css';

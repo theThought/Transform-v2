@@ -1,7 +1,7 @@
-@import 'm-button-group';
-@import 'm-singleline';
-@import 'm-list';
-@import 'm-message';
-@import 'm-option';
-@import 'm-page-links';
-@import 'm-scale-container';
+@import 'm-button-group.css';
+@import 'm-singleline.css';
+@import 'm-list.css';
+@import 'm-message.css';
+@import 'm-option.css';
+@import 'm-page-links.css';
+@import 'm-scale-container.css';

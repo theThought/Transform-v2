@@ -3,6 +3,6 @@
 "Semantic" design tokens for dynamic theming.
 ----------------------------------------------------------------------------
 */
-@import 'colors';
-@import 'typography';
-@import 'config';
+@import 'colors.css';
+@import 'typography.css';
+@import 'config.css';
