@@ -41,14 +41,33 @@ export default class AScaleUnit extends Component {
         this.textContent = this.dataValue ?? '0';
     }
 
-    public update(): void {
-        console.log('updating');
+    public update(method: string, e: CustomEvent): void {
+        if (method === 'newValue') {
+            this.updateSelectedClasses(e.detail.dataValue);
+        }
+    }
+
+    private updateSelectedClasses(dataValue: string): void {
+        if (dataValue === this.dataValue) {
+            this.classList.add('selected');
+        } else {
+            this.classList.remove('selected');
+        }
     }
 
     public connectedCallback(): void {
+        super.connectedCallback();
+
         this.scale = this.closest('o-scale');
+
         if (!this.scale) return;
         this.scale.addObserver(this);
+
         this.init();
+    }
+
+    public disconnectedCallback(): void {
+        if (!this.scale) return;
+        this.scale.removeObserver(this);
     }
 }

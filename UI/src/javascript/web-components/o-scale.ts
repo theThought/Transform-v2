@@ -1,7 +1,7 @@
 import Component from './component';
-import { Observer, Subject } from '../interfaces';
+import { Observer } from '../interfaces';
 
-export default class OScale extends Component implements Observer, Subject {
+export default class OScale extends Component implements Observer {
     private observers: Observer[] = [];
     private unitContainer: HTMLElement | null = null;
     private element: HTMLInputElement | null = null;
@@ -18,7 +18,6 @@ export default class OScale extends Component implements Observer, Subject {
         this.addLocalEventListeners();
         this.setUnitBackground();
         this.configureWidth();
-        this.setClasses();
         this.setLabels();
     }
 
@@ -39,9 +38,9 @@ export default class OScale extends Component implements Observer, Subject {
         this.observers.splice(obsIndex, 1);
     }
 
-    notifyObservers(method: string, detail: CustomEvent): void {
+    notifyObservers(method: string, e: CustomEvent): void {
         for (const observer of this.observers) {
-            observer.update(method, detail);
+            observer.update(method, e);
         }
     }
 
@@ -52,43 +51,15 @@ export default class OScale extends Component implements Observer, Subject {
 
     public handleEvent(e: Event): void {
         switch (e.type) {
-            case 'click':
-                this.onClick(e);
-                break;
             case 'broadcastChange':
-                this.onChange(<CustomEvent>e);
+                this.onClick(<CustomEvent>e);
         }
     }
 
-    private onChange(e: CustomEvent): void {
+    private onClick(e: CustomEvent): void {
         e.stopPropagation();
-        console.log(e);
-    }
-
-    public update(method: string, data: CustomEvent): void {
-        if (method === 'exclusiveClear') {
-            this.exclusiveClear(data);
-        }
-    }
-
-    private exclusiveClear(e: CustomEvent): void {
-        if (e.target === this.element) {
-            return;
-        }
-
-        this.setValue('');
-    }
-
-    private onClick(e: Event): void {
-        if (!this.unitContainer) return;
-
-        this.unitContainer
-            .querySelectorAll('.m-scale-unit')
-            .forEach(function (unit) {
-                unit.classList.remove('current-value');
-            });
-        const value = parseInt(e.target.getAttribute('data-value'));
-        this.setValue(value);
+        this.setValue(e.detail.dataValue);
+        this.notifyObservers('newValue', e);
     }
 
     private configureWidth(): void {
@@ -154,46 +125,6 @@ export default class OScale extends Component implements Observer, Subject {
         }
 
         this.element.value = value;
-        this.setClasses();
-
-        if (this.isExclusive) {
-            const enableExclusive = new CustomEvent(
-                this.qgroup + '_enableExclusive',
-                {
-                    bubbles: true,
-                    detail: this,
-                },
-            );
-            this.element.dispatchEvent(enableExclusive);
-        }
-
-        this.broadcastChange();
-    }
-
-    private setClasses(): void {
-        if (!this.element || !this.unitContainer) return;
-
-        const value = parseInt(this.element.value);
-        const self = this;
-
-        this.unitContainer
-            .querySelectorAll('.m-scale-unit')
-            .forEach(function (unit) {
-                const currentUnitValue = parseInt(
-                    unit.getAttribute('data-value'),
-                );
-
-                if (currentUnitValue <= value) {
-                    unit.classList.add('current-value');
-                    if (typeof self.properties.unit !== 'undefined') {
-                        unit.style.backgroundPositionX =
-                            '-' + self.properties.unit.image.width;
-                    }
-                } else {
-                    unit.classList.remove('current-value');
-                    unit.style.backgroundPositionX = '0';
-                }
-            });
     }
 
     private setLabels(): void {
@@ -278,57 +209,11 @@ export default class OScale extends Component implements Observer, Subject {
         }
     }
 
-    private background(backgroundProperties): void {
-        if (!this.response) return;
-
-        const imageProperties = backgroundProperties.image;
-        if (typeof imageProperties === 'undefined') {
-            return;
-        }
-        const imageURL = imageProperties.url;
-        if (typeof imageURL === 'undefined') {
-            return;
-        }
-        const imageWidth =
-            typeof imageProperties.width === 'undefined'
-                ? ''
-                : imageProperties.width;
-        const imageHeight =
-            typeof imageProperties.height === 'undefined'
-                ? ''
-                : imageProperties.height;
-        let imageOffsetX = '0';
-        let imageOffsetY = '0';
-        const caption =
-            typeof imageProperties.caption === 'undefined'
-                ? ''
-                : backgroundProperties.caption;
-        if (typeof imageProperties.offset !== 'undefined') {
-            imageOffsetX =
-                typeof imageProperties.offset.x === 'undefined'
-                    ? '0'
-                    : backgroundProperties.offset.x;
-            imageOffsetY =
-                typeof imageProperties.offset.y === 'undefined'
-                    ? '0'
-                    : backgroundProperties.offset.y;
-        }
-
-        this.response.classList.add('has-container-background');
-        this.response.style.height = imageHeight;
-        this.response.style.width = imageWidth;
-        this.response.style.backgroundImage = 'url("' + imageURL + '")';
-        this.response.style.backgroundPositionX = imageOffsetX + 'px';
-        this.response.style.backgroundPositionY = imageOffsetY + 'px';
-        this.response.ariaLabel = caption;
-    }
-
     public connectedCallback(): void {
         this.unitContainer = this.querySelector('.o-scale-unitcontainer');
         this.element = this.querySelector('input');
         if (!this.element) return;
 
-        this.isExclusive = this.getAttribute('data-exclusive') === 'true';
         this.min = this.element.min ? parseInt(this.element.min) : this.min;
         this.max = this.element.max ? parseInt(this.element.max) : this.max;
         this.step = this.element.step ? parseInt(this.element.step) : this.step;
