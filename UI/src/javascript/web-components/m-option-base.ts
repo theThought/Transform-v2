@@ -22,7 +22,6 @@ export default class MOptionBase extends Component implements Observer {
     private init(): void {
         this.addLocalEventListeners();
         this.setBalanceWidth();
-        this.checkOnesize();
     }
 
     private addLocalEventListeners(): void {
@@ -50,12 +49,12 @@ export default class MOptionBase extends Component implements Observer {
             this.exclusiveClear(data);
         }
         if (method === 'sizeChange') {
-            this.setOnesize(data);
+            this.setOnesize(data.detail.width);
         }
     }
 
-    private setOnesize(e: CustomEvent): void {
-        if (!this.element) return;
+    private setOnesize(width: number): void {
+        this.style.minWidth = `${width}px`;
     }
 
     private changeState(check: boolean): void {
@@ -144,21 +143,9 @@ export default class MOptionBase extends Component implements Observer {
         this.element.style.minWidth = `${minWidth}`;
     }
 
-    private checkOnesize(): void {
-        if (
-            !this.element ||
-            !this.sublist ||
-            typeof this.properties.onesize !== 'object' ||
-            !this.properties.onesize ||
-            !('state' in this.properties.onesize) ||
-            typeof this.properties.onesize.state !== 'boolean' ||
-            !this.properties.onesize.state
-        ) {
-            return;
-        }
-
-        this.style.width = `${this.sublist.widest}px`;
-        this.style.height = `${this.sublist.tallest}px`;
+    private informSizeChange(width: number): void {
+        width = Math.ceil(width);
+        this.sublist?.checkOnesize(width);
     }
 
     // Handle (global) event listeners which are not part of this web component.
@@ -167,9 +154,24 @@ export default class MOptionBase extends Component implements Observer {
             this.response.addObserver(this);
         }
 
-        if (this.sublist) {
-            this.sublist.addObserver(this);
+        if (
+            !this.sublist ||
+            typeof this.properties.onesize !== 'object' ||
+            !this.properties.onesize ||
+            !('state' in this.properties.onesize) ||
+            !this.properties.onesize.state
+        ) {
+            return;
         }
+        this.sublist.addObserver(this);
+
+        const observer = new ResizeObserver((entries) => {
+            const e = entries[0]; // should be only one
+            this.informSizeChange(e.contentRect.width);
+        });
+
+        // start listening for size changes
+        observer.observe(this);
     }
 
     public disconnectedCallback(): void {

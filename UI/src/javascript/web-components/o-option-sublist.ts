@@ -5,6 +5,7 @@ export default class OOptionSublist extends Component implements Subject {
     private observers: Observer[] = [];
     public tallest = 0;
     public widest = 0;
+    public maxwidth = 0;
 
     constructor() {
         super();
@@ -14,7 +15,6 @@ export default class OOptionSublist extends Component implements Subject {
 
     private init(): void {
         this.setBalance();
-        this.setOneSize();
     }
 
     addObserver(observer: Observer): void {
@@ -61,61 +61,16 @@ export default class OOptionSublist extends Component implements Subject {
         }
     }
 
-    private setOneSize(): void {
-        if (!this.properties.hasOwnProperty('onesize')) {
-            return;
-        }
-
+    public checkOnesize(width: number): void {
         if (
-            typeof this.properties.onesize !== 'object' ||
-            !this.properties.onesize ||
-            !('state' in this.properties.onesize) ||
-            typeof this.properties.onesize.state !== 'boolean'
+            width > this.widest &&
+            (this.maxwidth === 0 || width <= this.maxwidth)
         ) {
-            return;
+            this.widest = width;
+            const event = new CustomEvent('sizeChange', {
+                detail: { width: width },
+            });
+            this.notifyObservers('sizeChange', event);
         }
-
-        if (this.properties.onesize.state) {
-            this.classList.add('onesize');
-        } else {
-            this.classList.remove('onesize');
-        }
-
-        const children = this.querySelectorAll(':scope > *:not(legend)');
-
-        let tallest = 0;
-        let widest = 0;
-        let maxwidth = 0;
-
-        if (
-            'maxwidth' in this.properties.onesize &&
-            typeof this.properties.onesize.maxwidth == 'string'
-        ) {
-            maxwidth = <number>(<unknown>this.properties.onesize.maxwidth);
-        }
-
-        for (let i = 0; i < children.length; i++) {
-            const element = children[i];
-            const dims = getComputedStyle(element);
-            const elementHeight = parseFloat(dims.height);
-            const elementWidth = parseFloat(dims.width);
-            const contentHeight = Math.ceil(elementHeight);
-            const contentWidth = Math.ceil(elementWidth);
-
-            if (isNaN(contentWidth) || isNaN(contentHeight)) {
-                continue;
-            }
-
-            if (contentHeight > tallest) {
-                tallest = contentHeight;
-            }
-
-            if (contentWidth > widest) {
-                widest = contentWidth;
-            }
-        }
-
-        this.tallest = tallest;
-        this.widest = maxwidth > 0 && widest > maxwidth ? maxwidth : widest;
     }
 }
