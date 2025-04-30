@@ -31,9 +31,9 @@ export function TSingleLine_Story(
     const dataProperties = {
         labels: {
             pre: args.prelabel || '',
-            post: args.postlabel || ''
+            post: args.postlabel || '',
         },
-        step: args.step || 1
+        step: args.step || 1,
     };
     const dataPropertiesString = JSON.stringify(dataProperties);
 
@@ -89,7 +89,7 @@ export function TSingleLine_Story(
 
     const container = TransformUtils.transform(updatedXmlData, xslData);
 
-    const elementResponse = container.querySelector('o-response') as OResponse;
+    /*/!*const elementResponse = container.querySelector('o-response') as OResponse;
     let elementSingleline: MSingleline | MSinglelineDate | MSinglelineNumber;
     const elementInput = container.querySelector(
         '.a-singleline',
@@ -111,13 +111,13 @@ export function TSingleLine_Story(
                 'm-singleline',
             ) as MSingleline;
             break;
-    }
+    }*!/
 
     if (!elementResponse || !elementSingleline || !elementInput) {
         throw new Error(
             'The transformed document does not contain the required elements.',
         );
-    }
+    }*/
 
     return container;
 }
