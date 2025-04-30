@@ -33,3 +33,7 @@
         outline: var(--focus-outline);
     }
 }
+
+:where([data-hidden='true']) {
+    display: none;
+}

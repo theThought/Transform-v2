@@ -1,6 +1,35 @@
-export default class AScaleUnit extends HTMLElement {
+import Component from './component';
+import OScale from './o-scale';
+
+export default class AScaleUnit extends Component {
+    protected readonly scale: OScale | null;
+
     constructor() {
         super();
+
+        this.init();
+        this.scale = this.closest('o-scale');
+    }
+
+    private init(): void {
+        this.addLocalEventListeners();
+    }
+
+    private addLocalEventListeners(): void {
+        this.addEventListener('click', this);
+    }
+
+    public handleEvent(e: Event): void {
+        switch (e.type) {
+            case 'click':
+                this.onClick(e);
+                break;
+        }
+    }
+
+    private onClick(e: Event): void {
+        e.preventDefault();
+        this.broadcastChange();
     }
 
     get dataValue(): null | string {
@@ -13,5 +42,14 @@ export default class AScaleUnit extends HTMLElement {
         }
         this.setAttribute('data-value', value);
         this.textContent = this.dataValue ?? '0';
+    }
+
+    public update(): void {
+        console.log('updating');
+    }
+
+    public connectedCallback(): void {
+        if (!this.scale) return;
+        this.scale.addObserver(this);
     }
 }
