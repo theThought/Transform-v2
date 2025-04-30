@@ -48,13 +48,20 @@ export default class MOptionBase extends Component implements Observer {
         if (method === 'exclusiveClear') {
             this.exclusiveClear(data);
         }
-        if (method === 'sizeChange') {
-            this.setOnesize(data.detail.width);
+        if (method === 'sizeChangeWidth') {
+            this.setOnesizeWidth(data.detail.width);
+        }
+        if (method === 'sizeChangeHeight') {
+            this.setOnesizeHeight(data.detail.height);
         }
     }
 
-    private setOnesize(width: number): void {
+    private setOnesizeWidth(width: number): void {
         this.style.minWidth = `${width}px`;
+    }
+
+    private setOnesizeHeight(height: number): void {
+        this.style.minHeight = `${height}px`;
     }
 
     private changeState(check: boolean): void {
@@ -143,9 +150,10 @@ export default class MOptionBase extends Component implements Observer {
         this.element.style.minWidth = `${minWidth}`;
     }
 
-    private informSizeChange(width: number): void {
+    private informSizeChange(width: number, height: number): void {
         width = Math.ceil(width);
-        this.sublist?.checkOnesize(width);
+        height = Math.ceil(height);
+        this.sublist?.checkOnesize(width, height);
     }
 
     // Handle (global) event listeners which are not part of this web component.
@@ -167,7 +175,7 @@ export default class MOptionBase extends Component implements Observer {
 
         const observer = new ResizeObserver((entries) => {
             const e = entries[0]; // should be only one
-            this.informSizeChange(e.contentRect.width);
+            this.informSizeChange(e.contentRect.width, e.contentRect.height);
         });
 
         // start listening for size changes

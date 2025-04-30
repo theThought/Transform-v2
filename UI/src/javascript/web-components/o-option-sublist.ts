@@ -61,7 +61,7 @@ export default class OOptionSublist extends Component implements Subject {
         }
     }
 
-    public checkOnesize(width: number): void {
+    public checkOnesize(width: number, height: number): void {
         if (
             width > this.widest &&
             (this.maxwidth === 0 || width <= this.maxwidth)
@@ -70,7 +70,15 @@ export default class OOptionSublist extends Component implements Subject {
             const event = new CustomEvent('sizeChange', {
                 detail: { width: width },
             });
-            this.notifyObservers('sizeChange', event);
+            this.notifyObservers('sizeChangeWidth', event);
+        }
+
+        if (height > this.tallest) {
+            this.tallest = height;
+            const event = new CustomEvent('sizeChange', {
+                detail: { height: height },
+            });
+            this.notifyObservers('sizeChangeHeight', event);
         }
     }
 }
