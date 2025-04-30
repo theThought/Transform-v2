@@ -57,7 +57,7 @@ export default class MOptionBase extends Component implements Observer {
     }
 
     private setOnesizeWidth(width: number): void {
-        this.style.minWidth = `${width}px`;
+        this.style.width = `${width}px`;
     }
 
     private setOnesizeHeight(height: number): void {
@@ -174,8 +174,12 @@ export default class MOptionBase extends Component implements Observer {
         this.sublist.addObserver(this);
 
         const observer = new ResizeObserver((entries) => {
-            const e = entries[0]; // should be only one
-            this.informSizeChange(e.contentRect.width, e.contentRect.height);
+            for (const entry of entries) {
+                this.informSizeChange(
+                    entry.borderBoxSize[0].inlineSize,
+                    entry.borderBoxSize[0].blockSize,
+                );
+            }
         });
 
         // start listening for size changes
