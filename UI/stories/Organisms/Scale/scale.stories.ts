@@ -3,7 +3,7 @@ import { OScale_Story } from './scale';
 
 export default {
     title: 'Organisms/scale',
-    component: "o-scale",
+    component: 'o-scale',
     parameters: {
         status: { type: 'beta' },
     },
@@ -18,7 +18,7 @@ export default {
                 defaultValue: { summary: '1' },
             },
         },
-        maximum: { 
+        maximum: {
             control: 'number',
             description: 'Largest value allowed',
             table: {
@@ -30,7 +30,8 @@ export default {
         },
         width: {
             control: 'text',
-            description: 'Input width using a value and a measurement (e.g., px, em, %)',
+            description:
+                'Input width using a value and a measurement (e.g., px, em, %)',
             table: {
                 type: { summary: 'string' },
                 category: 'Dimensions',
@@ -75,7 +76,7 @@ export const TenPointScale: ScaleStory = {
     args: {
         minimum: 1,
         maximum: 10,
-        width: '15em',
+        width: '100%',
         prelabel: 'Before',
         postlabel: 'After',
         orientation: 'horizontal',
@@ -88,7 +89,7 @@ export const SevenPointScale: ScaleStory = {
     args: {
         minimum: 1,
         maximum: 7,
-        width: '10em',
+        width: '100%',
         prelabel: 'Before',
         postlabel: 'After',
         orientation: 'vertical',

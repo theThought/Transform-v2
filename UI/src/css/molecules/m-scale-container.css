@@ -1,4 +1,7 @@
 m-scale-container {
+    border: var(--border-thickness) solid var(--color-border);
+    border-radius: var(--border-radius);
     display: flex;
     justify-content: space-between;
+    padding: var(--space-1);
 }

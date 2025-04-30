@@ -1,5 +1,3 @@
-@import 'o-option-sublist';
-@import 'o-question';
-@import 'o-select-custom';
-
-/* TODO: Do we need specific imports for <o-combobox> and <o-dropdown>? */
+@import 'o-option-sublist.css';
+@import 'o-question.css';
+@import 'o-select-custom.css';

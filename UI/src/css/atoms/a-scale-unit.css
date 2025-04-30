@@ -1,5 +1,30 @@
 a-scale-unit {
-    border: var(--border-thickness) solid var(--color-light2);
-    display: inline-block;
-    padding: 1em;
+    align-content: center;
+    background-position: left center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    flex: 1 0 0;
+    height: 52px;
+    position: relative;
+    text-align: center;
+
+    &::before {
+        background-color: var(--color-light3);
+        border-radius: var(--border-radius);
+        content: ' ';
+        display: block;
+        height: calc(100% - 8px);
+        left: 4px;
+        position: absolute;
+        opacity: 0.4;
+        top: 4px;
+        width: calc(100% - 8px);
+    }
+
+    &.selected,
+    &:has(~ .selected) {
+        &::before {
+            background: var(--color-secondary);
+        }
+    }
 }
