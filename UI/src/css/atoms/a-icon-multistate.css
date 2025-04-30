@@ -2,6 +2,7 @@
     background-position-y: -28px;
     block-size: var(--option-icon-height);
     inline-size: var(--option-icon-width);
+    flex-shrink: 0;
 }
 
 [type='checkbox'] + label > .a-icon-multistate {
