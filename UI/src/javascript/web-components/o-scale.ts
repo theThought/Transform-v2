@@ -3,26 +3,15 @@ import { Observer, Subject } from '../interfaces';
 
 export default class OScale extends Component implements Observer, Subject {
     private observers: Observer[] = [];
-    private readonly unitContainer: HTMLElement | null;
-    private readonly element: HTMLInputElement | null;
-    private readonly isExclusive: boolean = false;
-    private readonly min: number = 1;
-    private readonly max: number = 10;
-    private readonly step: number = 1;
+    private unitContainer: HTMLElement | null = null;
+    private element: HTMLInputElement | null = null;
+    private isExclusive = false;
+    private min = 1;
+    private max = 10;
+    private step = 1;
 
     constructor() {
         super();
-
-        this.unitContainer = this.querySelector('.o-scale-unitcontainer');
-        this.element = this.querySelector('input');
-        if (!this.element) return;
-
-        this.isExclusive = this.getAttribute('data-exclusive') === 'true';
-        this.min = this.element.min ? parseInt(this.element.min) : this.min;
-        this.max = this.element.max ? parseInt(this.element.max) : this.max;
-        this.step = this.element.step ? parseInt(this.element.step) : this.step;
-
-        this.init();
     }
 
     private init(): void {
@@ -332,5 +321,18 @@ export default class OScale extends Component implements Observer, Subject {
         this.response.style.backgroundPositionX = imageOffsetX + 'px';
         this.response.style.backgroundPositionY = imageOffsetY + 'px';
         this.response.ariaLabel = caption;
+    }
+
+    public connectedCallback(): void {
+        this.unitContainer = this.querySelector('.o-scale-unitcontainer');
+        this.element = this.querySelector('input');
+        if (!this.element) return;
+
+        this.isExclusive = this.getAttribute('data-exclusive') === 'true';
+        this.min = this.element.min ? parseInt(this.element.min) : this.min;
+        this.max = this.element.max ? parseInt(this.element.max) : this.max;
+        this.step = this.element.step ? parseInt(this.element.step) : this.step;
+
+        this.init();
     }
 }

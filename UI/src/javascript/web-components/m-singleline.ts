@@ -3,19 +3,12 @@ import { removeHTMLWhitespace } from './util';
 import { Observer } from '../interfaces';
 
 export default class MSingleline extends Component implements Observer {
-    protected readonly element: HTMLInputElement | null;
-    private readonly initialPlaceholder: string = '';
+    protected element: HTMLInputElement | null = null;
+    private initialPlaceholder = '';
     private allowPaste = false;
 
     constructor() {
         super();
-
-        this.element = this.querySelector('.a-singleline');
-        if (!this.element) return;
-
-        this.initialPlaceholder = this.element.placeholder;
-
-        this.init();
     }
 
     protected init(): void {
@@ -125,6 +118,15 @@ export default class MSingleline extends Component implements Observer {
 
     // Handle (global) event listeners which are not part of this web component.
     public connectedCallback(): void {
+        super.connectedCallback();
+
+        this.element = this.querySelector('.a-singleline');
+        if (!this.element) return;
+
+        this.initialPlaceholder = this.element.placeholder;
+
+        this.init();
+
         if (!this.response) return;
         this.response.addObserver(this);
     }

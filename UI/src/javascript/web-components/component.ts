@@ -24,8 +24,6 @@ export default class Component extends HTMLElement {
             this.response = null;
         }
         this.properties = {};
-
-        this.parseProperties();
     }
 
     protected parseProperties(): void {
@@ -51,5 +49,9 @@ export default class Component extends HTMLElement {
             detail: this,
         });
         this.dispatchEvent(broadcastChange);
+    }
+
+    public connectedCallback(): void {
+        this.parseProperties();
     }
 }
