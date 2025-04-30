@@ -2,13 +2,10 @@ import Component from './component';
 import OScale from './o-scale';
 
 export default class AScaleUnit extends Component {
-    protected readonly scale: OScale | null;
+    protected scale: OScale | null = null;
 
     constructor() {
         super();
-
-        this.init();
-        this.scale = this.closest('o-scale');
     }
 
     private init(): void {
@@ -49,7 +46,9 @@ export default class AScaleUnit extends Component {
     }
 
     public connectedCallback(): void {
+        this.scale = this.closest('o-scale');
         if (!this.scale) return;
         this.scale.addObserver(this);
+        this.init();
     }
 }

@@ -3,20 +3,13 @@ import OOptionSublist from './o-option-sublist';
 import { Observer } from '../interfaces';
 
 export default class MOptionBase extends Component implements Observer {
-    private readonly element: HTMLElement | null;
-    private readonly checkbox: HTMLInputElement | null;
-    private readonly sublist: OOptionSublist | null;
-    private readonly isExclusive: boolean = false;
+    private element: HTMLElement | null = null;
+    private checkbox: HTMLInputElement | null = null;
+    private sublist: OOptionSublist | null = null;
+    private isExclusive = false;
 
     constructor() {
         super();
-
-        this.element = this.querySelector('label');
-        this.checkbox = this.querySelector('input');
-        this.sublist = this.closest('o-option-sublist');
-        this.isExclusive = this.getAttribute('data-exclusive') === 'true';
-
-        this.init();
     }
 
     private init(): void {
@@ -158,6 +151,14 @@ export default class MOptionBase extends Component implements Observer {
 
     // Handle (global) event listeners which are not part of this web component.
     public connectedCallback(): void {
+        super.connectedCallback();
+
+        this.element = this.querySelector('label');
+        this.checkbox = this.querySelector('input');
+        this.sublist = this.closest('o-option-sublist');
+        this.isExclusive = this.getAttribute('data-exclusive') === 'true';
+
+        this.init();
         if (this.response) {
             this.response.addObserver(this);
         }

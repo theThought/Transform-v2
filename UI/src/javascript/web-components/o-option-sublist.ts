@@ -9,8 +9,6 @@ export default class OOptionSublist extends Component implements Subject {
 
     constructor() {
         super();
-
-        this.init();
     }
 
     private init(): void {
@@ -98,5 +96,10 @@ export default class OOptionSublist extends Component implements Subject {
         }
 
         this.maxwidth = parseInt(String(this.properties.onesize.maxwidth));
+    }
+
+    public connectedCallback(): void {
+        super.connectedCallback();
+        this.init();
     }
 }
