@@ -4,7 +4,7 @@ a-scale-unit {
     background-repeat: no-repeat;
     cursor: pointer;
     flex: 1 0 0;
-    height: 52px;
+    height: 4rem;
     position: relative;
     text-align: center;
 
@@ -13,12 +13,12 @@ a-scale-unit {
         border-radius: var(--border-radius);
         content: ' ';
         display: block;
-        height: calc(100% - 8px);
-        left: 4px;
+        height: calc(100% - var(--space-2));
+        left: var(--space-1);
         opacity: 0.4;
         position: absolute;
-        top: 4px;
-        width: calc(100% - 8px);
+        top: var(--space-1);
+        width: calc(100% - var(--space-2));
     }
 
     &.selected,

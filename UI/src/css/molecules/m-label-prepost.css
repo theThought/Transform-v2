@@ -2,4 +2,9 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
+
+    .a-label-pre,
+    .a-label-post {
+        border: none;
+    }
 }
