@@ -61,11 +61,16 @@ export function TSingleLine_Story(
                 );
             }
         } else if (args.type === 'date') {
+            const formatISODate = (date: string): string => {
+                const parsedDate = new Date(date);
+                return parsedDate.toISOString().split('T')[0]; // Format as YYYY-MM-DD
+            };
+
             if (args.minimumDate) {
-                controlElement.setAttribute('MinValue', args.minimumDate);
+                controlElement.setAttribute('MinValue', formatISODate(args.minimumDate));
             }
             if (args.maximumDate) {
-                controlElement.setAttribute('MaxValue', args.maximumDate);
+                controlElement.setAttribute('MaxValue', formatISODate(args.maximumDate));
                 controlElement.setAttribute('Length', '40');
             }
         }

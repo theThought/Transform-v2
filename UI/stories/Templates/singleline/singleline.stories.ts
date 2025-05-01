@@ -47,7 +47,6 @@ export default {
                 type: { summary: 'date' },
                 category: 'Dimensions',
                 subcategory: 'input',
-                defaultValue: { summary: '1' },
             },
         },
         maximumDate: {
@@ -57,7 +56,6 @@ export default {
                 type: { summary: 'date' },
                 category: 'Dimensions', // Ensure this matches "minimum"
                 subcategory: 'input', // Ensure this matches "minimum"
-                defaultValue: { summary: '100' },
             },
         },
         align: {
