@@ -3,10 +3,10 @@ m-scale-container {
     border-radius: var(--border-radius);
     display: flex;
     justify-content: space-between;
-    overflow: scroll;
+    overflow: auto;
     padding: var(--space-1);
 
     &.orientation-vertical {
-        flex-direction: column;
+        flex-direction: column-reverse;
     }
 }
