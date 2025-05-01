@@ -1,0 +1,129 @@
+<o-response data-question-group="_QPageSeven_Qmethodsimple" data-properties="{&quot;balance&quot;:{&quot;state&quot;:true},&quot;onesize&quot;:{&quot;state&quot;:true}}" data-position="below">
+    <o-choice data-question-group="_QPageSeven_Qmethodsimple" data-question-id=""/>Create New Sublist wrapper<o-option-sublist>
+        <m-option-base data-exclusive="false" data-question-id="_Q0_C0" data-question-group="_QPageSeven_Qmethodsimple" class=" below " data-hidden="false" data-position="below">
+            <input data-question-group="_QPageSeven_Qmethodsimple" name="_QPageSeven_Qmethodsimple_C" id="_Q0_C0" type="radio"/>
+            <label for="_Q0_C0">
+                <span class="a-icon-multistate" data-icon-type="checkbox">
+                    <!--Icon-->
+                </span>
+                <span class="a-label-option">Cash</span>
+            </label>
+        </m-option-base>15<m-option-base data-exclusive="false" data-question-id="_Q0_C1" data-question-group="_QPageSeven_Qmethodsimple" class=" below " data-hidden="false" data-position="below">
+            <input data-question-group="_QPageSeven_Qmethodsimple" name="_QPageSeven_Qmethodsimple_C" id="_Q0_C1" type="radio"/>
+            <label for="_Q0_C1">
+                <span class="a-icon-multistate" data-icon-type="checkbox">
+                    <!--Icon-->
+                </span>
+                <span class="a-label-option">Debit card</span>
+            </label>
+        </m-option-base>
+        <m-option-base data-exclusive="false" data-question-id="_Q0_C2" data-question-group="_QPageSeven_Qmethodsimple" class=" below " data-hidden="false" data-position="below">
+            <input data-question-group="_QPageSeven_Qmethodsimple" name="_QPageSeven_Qmethodsimple_C" id="_Q0_C2" type="radio"/>
+            <label for="_Q0_C2">
+                <span class="a-icon-multistate" data-icon-type="checkbox">
+                    <!--Icon-->
+                </span>
+                <span class="a-label-option">Visa credit card</span>
+            </label>
+        </m-option-base>
+        <m-option-base data-exclusive="false" data-question-id="_Q0_C3" data-question-group="_QPageSeven_Qmethodsimple" class=" below " data-hidden="false" data-position="below">
+            <input data-question-group="_QPageSeven_Qmethodsimple" name="_QPageSeven_Qmethodsimple_C" id="_Q0_C3" type="radio"/>
+            <label for="_Q0_C3">
+                <span class="a-icon-multistate" data-icon-type="checkbox">
+                    <!--Icon-->
+                </span>
+                <span class="a-label-option">MasterCard credit card</span>
+            </label>
+        </m-option-base>
+        <m-option-base data-exclusive="false" data-question-id="_Q0_C4" data-question-group="_QPageSeven_Qmethodsimple" class=" below " data-hidden="false" data-position="below">
+            <input data-question-group="_QPageSeven_Qmethodsimple" name="_QPageSeven_Qmethodsimple_C" id="_Q0_C4" type="radio"/>
+            <label for="_Q0_C4">
+                <span class="a-icon-multistate" data-icon-type="checkbox">
+                    <!--Icon-->
+                </span>
+                <span class="a-label-option">Amex credit card</span>
+            </label>
+        </m-option-base>
+        <m-option-base data-exclusive="false" data-question-id="_Q0_C5" data-question-group="_QPageSeven_Qmethodsimple" class=" below " data-hidden="false" data-position="below">
+            <input data-question-group="_QPageSeven_Qmethodsimple" name="_QPageSeven_Qmethodsimple_C" id="_Q0_C5" type="radio"/>
+            <label for="_Q0_C5">
+                <span class="a-icon-multistate" data-icon-type="checkbox">
+                    <!--Icon-->
+                </span>
+                <span class="a-label-option">Other credit card</span>
+            </label>
+        </m-option-base>
+        <m-option-base data-exclusive="false" data-question-id="_Q0_C6" data-question-group="_QPageSeven_Qmethodsimple" class=" below " data-hidden="false" data-position="below">
+            <input data-question-group="_QPageSeven_Qmethodsimple" name="_QPageSeven_Qmethodsimple_C" id="_Q0_C6" type="radio"/>
+            <label for="_Q0_C6">
+                <span class="a-icon-multistate" data-icon-type="checkbox">
+                    <!--Icon-->
+                </span>
+                <span class="a-label-option">Interac e-transfer</span>
+            </label>
+        </m-option-base>
+        <m-option-base data-exclusive="false" data-question-id="_Q0_C7" data-question-group="_QPageSeven_Qmethodsimple" class=" below " data-hidden="false" data-position="below">
+            <input data-question-group="_QPageSeven_Qmethodsimple" name="_QPageSeven_Qmethodsimple_C" id="_Q0_C7" type="radio"/>
+            <label for="_Q0_C7">
+                <span class="a-icon-multistate" data-icon-type="checkbox">
+                    <!--Icon-->
+                </span>
+                <span class="a-label-option">Prepaid Visa, MasterCard, or AMEX card</span>
+            </label>
+        </m-option-base>
+        <m-option-base data-exclusive="false" data-question-id="_Q0_C8" data-question-group="_QPageSeven_Qmethodsimple" class=" below " data-hidden="false" data-position="below">
+            <input data-question-group="_QPageSeven_Qmethodsimple" name="_QPageSeven_Qmethodsimple_C" id="_Q0_C8" type="radio"/>
+            <label for="_Q0_C8">
+                <span class="a-icon-multistate" data-icon-type="checkbox">
+                    <!--Icon-->
+                </span>
+                <span class="a-label-option">Store branded prepaid card</span>
+            </label>
+        </m-option-base>
+        <m-option-base data-exclusive="false" data-question-id="_Q0_C9" data-question-group="_QPageSeven_Qmethodsimple" class=" below " data-hidden="false" data-position="below">
+            <input data-question-group="_QPageSeven_Qmethodsimple" name="_QPageSeven_Qmethodsimple_C" id="_Q0_C9" type="radio"/>
+            <label for="_Q0_C9">
+                <span class="a-icon-multistate" data-icon-type="checkbox">
+                    <!--Icon-->
+                </span>
+                <span class="a-label-option">Mobile payment app</span>
+            </label>
+        </m-option-base>
+        <m-option-base data-exclusive="false" data-question-id="_Q0_C10" data-question-group="_QPageSeven_Qmethodsimple" class=" below " data-hidden="false" data-position="below">
+            <input data-question-group="_QPageSeven_Qmethodsimple" name="_QPageSeven_Qmethodsimple_C" id="_Q0_C10" type="radio"/>
+            <label for="_Q0_C10">
+                <span class="a-icon-multistate" data-icon-type="checkbox">
+                    <!--Icon-->
+                </span>
+                <span class="a-label-option">Online payment account (e.g. PayPal)</span>
+            </label>
+        </m-option-base>
+        <m-option-base data-exclusive="false" data-question-id="_Q0_C11" data-question-group="_QPageSeven_Qmethodsimple" class=" below " data-hidden="false" data-position="below">
+            <input data-question-group="_QPageSeven_Qmethodsimple" name="_QPageSeven_Qmethodsimple_C" id="_Q0_C11" type="radio"/>
+            <label for="_Q0_C11">
+                <span class="a-icon-multistate" data-icon-type="checkbox">
+                    <!--Icon-->
+                </span>
+                <span class="a-label-option">Personal cheque</span>
+            </label>
+        </m-option-base>
+        <m-option-base data-exclusive="false" data-question-id="_Q0_C12" data-question-group="_QPageSeven_Qmethodsimple" class=" below " data-hidden="false" data-position="below">
+            <input data-question-group="_QPageSeven_Qmethodsimple" name="_QPageSeven_Qmethodsimple_C" id="_Q0_C12" type="radio"/>
+            <label for="_Q0_C12">
+                <span class="a-icon-multistate" data-icon-type="checkbox">
+                    <!--Icon-->
+                </span>
+                <span class="a-label-option">Bitcoin or other cryptocurrency</span>
+            </label>
+        </m-option-base>
+        <m-option-base data-exclusive="false" data-question-id="_Q0_C13" data-question-group="_QPageSeven_Qmethodsimple" class=" below " data-hidden="false" data-position="below">
+            <input data-question-group="_QPageSeven_Qmethodsimple" name="_QPageSeven_Qmethodsimple_C" id="_Q0_C13" type="radio"/>
+            <label for="_Q0_C13">
+                <span class="a-icon-multistate" data-icon-type="checkbox">
+                    <!--Icon-->
+                </span>
+                <span class="a-label-option">Redeemed coupon or store points</span>
+            </label>
+        </m-option-base>
+    </o-option-sublist>
+</o-response>
