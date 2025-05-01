@@ -19,7 +19,6 @@ export default class MOptionBase extends Component implements Observer {
 
     private addLocalEventListeners(): void {
         this.addEventListener('click', this);
-        this.addEventListener('exclusiveClear', this, true);
         this.addEventListener('keydown', this);
     }
 
@@ -28,9 +27,6 @@ export default class MOptionBase extends Component implements Observer {
             case 'click':
                 this.onClick(e);
                 break;
-            case 'exclusiveClear':
-                this.clearExclusives(<CustomEvent>e);
-                break;
             case 'keydown':
                 this.onKeydown(<KeyboardEvent>e);
                 break;
@@ -38,14 +34,16 @@ export default class MOptionBase extends Component implements Observer {
     }
 
     public update(method: string, data: CustomEvent): void {
-        if (method === 'clearExclusives') {
-            this.clearExclusives(data);
-        }
-        if (method === 'sizeChangeWidth') {
-            this.setOnesizeWidth(data.detail.width);
-        }
-        if (method === 'sizeChangeHeight') {
-            this.setOnesizeHeight(data.detail.height);
+        switch (method) {
+            case 'clearExclusives':
+                this.clearExclusives(data);
+                break;
+            case 'sizeChangeWidth':
+                this.setOnesizeWidth(data.detail.width);
+                break;
+            case 'sizeChangeHeight':
+                this.setOnesizeHeight(data.detail.height);
+                break;
         }
     }
 
@@ -95,6 +93,8 @@ export default class MOptionBase extends Component implements Observer {
             });
             this.dispatchEvent(exclusiveOff);
         }
+
+        this.broadcastChange();
     }
 
     private onClick(e: Event): void {
