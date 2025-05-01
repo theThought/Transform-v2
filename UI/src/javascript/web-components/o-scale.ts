@@ -16,7 +16,6 @@ export default class OScale extends Component implements Subject, Observer {
     private init(): void {
         this.addLocalEventListeners();
         this.setUnitBackground();
-        this.configureWidth();
     }
 
     addObserver(observer: Observer): void {
@@ -75,14 +74,6 @@ export default class OScale extends Component implements Subject, Observer {
     private onClick(e: CustomEvent): void {
         e.stopPropagation();
         this.setValue(e);
-    }
-
-    private configureWidth(): void {
-        if (!this.element) return;
-
-        if (this.element.style.width) {
-            this.style.maxWidth = this.element.style.width;
-        }
     }
 
     private setUnitBackground(): void {
