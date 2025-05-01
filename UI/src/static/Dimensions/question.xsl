@@ -1,4 +1,4 @@
- <?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format" version="1.0">
     <xsl:output method="xml" indent="yes" />
     <xsl:param name="bIncludeCSSStyles" select="true()" />
@@ -458,7 +458,7 @@
                                         <xsl:with-param name="theRows" select="$theRows" />
                                     </xsl:call-template>
                                 </xsl:variable>
-
+<!--
                                 <xsl:choose>
                                     <xsl:when test="$staticRow &gt; 0">
                                         <xsl:value-of select="$staticRow" />
@@ -467,7 +467,7 @@
                                         <xsl:value-of select="count($theRows)+1" />
                                     </xsl:otherwise>
                                 </xsl:choose>
-
+-->
                                 <xsl:if test="(not(contains($theRows[2]/Cell/Control/Category/@CategoryID, '_S')) or $theRows[2]/Cell/Control/@Type='Static')">
                                     <!-- next row has to be in the same sublist -->
                                     <xsl:call-template name="process-option-rows">
