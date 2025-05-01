@@ -1,5 +1,6 @@
 import Component from './component';
 import { Subject, Observer } from '../interfaces';
+import { removeHTMLWhitespace } from './util';
 
 export default class OScale extends Component implements Subject, Observer {
     private observers: Observer[] = [];
@@ -15,6 +16,7 @@ export default class OScale extends Component implements Subject, Observer {
 
     private init(): void {
         this.addLocalEventListeners();
+        this.setLabels();
         this.setUnitBackground();
     }
 
@@ -74,6 +76,37 @@ export default class OScale extends Component implements Subject, Observer {
     private onClick(e: CustomEvent): void {
         e.stopPropagation();
         this.setValue(e);
+    }
+
+    // Set pre-/post-labels.
+    private setLabels(): void {
+        const elemPre = this.querySelector('.a-label-pre');
+        const elemPost = this.querySelector('.a-label-post');
+
+        if (elemPre && elemPost) {
+            elemPre.innerHTML = removeHTMLWhitespace(elemPre.innerHTML);
+            elemPost.innerHTML = removeHTMLWhitespace(elemPost.innerHTML);
+        }
+
+        if (!this.properties.hasOwnProperty('labels')) {
+            return;
+        }
+
+        const labels = this.properties.labels as Record<string, unknown>;
+
+        for (const [key, value] of Object.entries(labels)) {
+            if (key === 'pre' && value) {
+                if (elemPre) {
+                    elemPre.textContent = value as string;
+                }
+            }
+
+            if (key === 'post' && value) {
+                if (elemPost) {
+                    elemPost.textContent = value as string;
+                }
+            }
+        }
     }
 
     private setUnitBackground(): void {
@@ -160,6 +193,8 @@ export default class OScale extends Component implements Subject, Observer {
     }
 
     public connectedCallback(): void {
+        super.connectedCallback();
+
         if (this.response) {
             this.response.addObserver(this);
         }
