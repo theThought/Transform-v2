@@ -88,6 +88,13 @@ export default class MOptionBase extends Component implements Observer {
             });
             this.dispatchEvent(exclusiveOn);
         }
+
+        if (this.isExclusive && !this.checkbox.checked) {
+            const exclusiveOff = new CustomEvent('exclusiveOff', {
+                bubbles: true,
+            });
+            this.dispatchEvent(exclusiveOff);
+        }
     }
 
     private onClick(e: Event): void {

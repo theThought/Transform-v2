@@ -1,7 +1,7 @@
 import { Subject, Observer } from '../interfaces';
 import Component from './component';
 
-export default class OResponse extends Component implements Subject, Observer {
+export default class OResponse extends Component implements Subject {
     private observers: Observer[] = [];
 
     constructor() {
@@ -14,6 +14,7 @@ export default class OResponse extends Component implements Subject, Observer {
 
     private addLocalEventListeners(): void {
         this.addEventListener('exclusiveOn', this);
+        this.addEventListener('exclusiveOff', this);
         this.addEventListener('broadcastChange', this);
     }
 
@@ -21,6 +22,9 @@ export default class OResponse extends Component implements Subject, Observer {
         switch (e.type) {
             case 'exclusiveOn':
                 this.exclusiveOn(<CustomEvent>e);
+                break;
+            case 'exclusiveOff':
+                this.exclusiveOff(<CustomEvent>e);
                 break;
             case 'broadcastChange':
                 this.handleChange(<CustomEvent>e);
@@ -31,6 +35,11 @@ export default class OResponse extends Component implements Subject, Observer {
     private exclusiveOn(e: CustomEvent): void {
         e.stopPropagation();
         this.notifyObservers('exclusiveClear', e);
+    }
+
+    private exclusiveOff(e: CustomEvent): void {
+        e.stopPropagation();
+        this.notifyObservers('exclusiveRestore', e);
     }
 
     private handleChange(e: CustomEvent): void {
@@ -59,10 +68,6 @@ export default class OResponse extends Component implements Subject, Observer {
         for (const observer of this.observers) {
             observer.update(method, detail);
         }
-    }
-
-    public update(event: string): void {
-        console.log(event);
     }
 
     public connectedCallback(): void {

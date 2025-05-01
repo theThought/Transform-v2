@@ -14,8 +14,6 @@ export function MScaleContainer_Story(args): HTMLElement {
         scaleUnit.dataValue = counter.toString(); // Set dataValue as string
         container.appendChild(scaleUnit);
 
-        container.setAttribute('style', `width: ${args.width};`);
-
         container.classList.add(`orientation-${args.orientation}`);
     }
 

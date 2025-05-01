@@ -41,14 +41,14 @@ export default class AScaleUnit extends Component {
         this.textContent = this.dataValue ?? '0';
     }
 
-    public update(method: string, e: CustomEvent): void {
+    public update(method: string, value: string): void {
         if (method === 'newValue') {
-            this.updateSelectedClasses(e.detail.dataValue);
+            this.updateSelectedClasses(value);
         }
     }
 
-    private updateSelectedClasses(dataValue: string): void {
-        if (dataValue === this.dataValue) {
+    private updateSelectedClasses(value: string): void {
+        if (value === this.dataValue) {
             this.classList.add('selected');
         } else {
             this.classList.remove('selected');

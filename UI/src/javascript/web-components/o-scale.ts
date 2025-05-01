@@ -1,11 +1,10 @@
 import Component from './component';
-import { Observer } from '../interfaces';
+import { Subject, Observer } from '../interfaces';
 
-export default class OScale extends Component implements Observer {
+export default class OScale extends Component implements Subject, Observer {
     private observers: Observer[] = [];
     private unitContainer: HTMLElement | null = null;
     private element: HTMLInputElement | null = null;
-    private isExclusive = false;
     private min = 1;
     private max = 10;
     private step = 1;
@@ -18,7 +17,6 @@ export default class OScale extends Component implements Observer {
         this.addLocalEventListeners();
         this.setUnitBackground();
         this.configureWidth();
-        this.setLabels();
     }
 
     addObserver(observer: Observer): void {
@@ -38,14 +36,32 @@ export default class OScale extends Component implements Observer {
         this.observers.splice(obsIndex, 1);
     }
 
-    notifyObservers(method: string, e: CustomEvent): void {
+    notifyObservers(method: string, value: string): void {
         for (const observer of this.observers) {
-            observer.update(method, e);
+            observer.update(method, value);
         }
     }
 
+    public update(method: string): void {
+        if (method === 'exclusiveClear') {
+            this.exclusiveClear();
+        }
+        if (method === 'exclusiveRestore') {
+            this.exclusiveRestore();
+        }
+    }
+
+    private exclusiveClear(): void {
+        if (!this.element) return;
+        this.clearValue();
+    }
+
+    private exclusiveRestore(): void {
+        if (!this.element) return;
+        this.restoreValue();
+    }
+
     private addLocalEventListeners(): void {
-        this.addEventListener('click', this);
         this.addEventListener('broadcastChange', this);
     }
 
@@ -58,15 +74,14 @@ export default class OScale extends Component implements Observer {
 
     private onClick(e: CustomEvent): void {
         e.stopPropagation();
-        this.setValue(e.detail.dataValue);
-        this.notifyObservers('newValue', e);
+        this.setValue(e);
     }
 
     private configureWidth(): void {
-        if (!this.element || !this.unitContainer) return;
+        if (!this.element) return;
 
         if (this.element.style.width) {
-            this.unitContainer.style.maxWidth = this.element.style.width;
+            this.style.maxWidth = this.element.style.width;
         }
     }
 
@@ -117,100 +132,48 @@ export default class OScale extends Component implements Observer {
         });
     }
 
-    private setValue(value: string): void {
+    private setValue(e: CustomEvent): void {
         if (!this.element) return;
 
-        if (this.element.value === value) {
+        if (this.element.value === e.detail.dataValue) {
             return;
         }
 
-        this.element.value = value;
+        this.element.placeholder = e.detail.dataValue;
+        this.element.value = e.detail.dataValue;
+        this.notifyObservers('newValue', e.detail.dataValue);
     }
 
-    private setLabels(): void {
-        if (!this.properties.hasOwnProperty('labels')) {
+    private clearValue(): void {
+        if (!this.element) return;
+
+        if (this.element.value === '') {
             return;
         }
 
-        const labelProperties = this.properties.labels;
+        this.element.placeholder = this.element.value;
+        this.element.value = '';
+        this.notifyObservers('newValue', '');
+    }
 
-        const preLabel = labelProperties.pre || '';
-        const postLabel = labelProperties.post || '';
+    private restoreValue(): void {
+        if (!this.element) return;
 
-        if (!preLabel && !postLabel) {
+        if (this.element.placeholder === '') {
             return;
         }
 
-        const isVertical = this.response.classList.contains(
-            'o-question-scale-vertical',
-        );
-
-        if (isVertical) {
-            if (postLabel) {
-                const postElement = document.createElement('div');
-                postElement.className = 'a-label-postlabel';
-                postElement.innerHTML = postLabel
-                    .replace(/%lt%/g, '<')
-                    .replace(/%gt%/g, '>');
-                this.response.insertBefore(
-                    postElement,
-                    this.response.firstChild,
-                );
-            }
-
-            if (preLabel) {
-                const preElement = document.createElement('div');
-                preElement.className = 'a-label-prelabel';
-                preElement.innerHTML = preLabel
-                    .replace(/%lt%/g, '<')
-                    .replace(/%gt%/g, '>');
-                this.response.appendChild(preElement);
-            }
-        } else {
-            const labelContainer = document.createElement('div');
-            labelContainer.classList.add('o-label-container');
-
-            if (preLabel) {
-                const preElement = document.createElement('div');
-                preElement.className = 'a-label-prelabel';
-                preElement.innerHTML = preLabel
-                    .replace(/%lt%/g, '<')
-                    .replace(/%gt%/g, '>');
-                labelContainer.appendChild(preElement);
-            }
-
-            if (postLabel) {
-                const postElement = document.createElement('div');
-                postElement.className = 'a-label-postlabel';
-                postElement.innerHTML = postLabel
-                    .replace(/%lt%/g, '<')
-                    .replace(/%gt%/g, '>');
-                labelContainer.appendChild(postElement);
-            }
-
-            const unitContainerWidth = this.element.style.width.length
-                ? this.element.style.width
-                : this.unitContainer.offsetWidth + 'px';
-            labelContainer.style.width = unitContainerWidth;
-            labelContainer.style.display = 'flex';
-            labelContainer.style.justifyContent = 'space-between';
-            labelContainer.style.marginBottom = '20px';
-
-            this.response.appendChild(labelContainer);
-
-            const specialCheckbox = this.response.querySelector(
-                'div[data-exclusive="true"][data-questiongroup="' +
-                    this.group +
-                    '"]',
-            );
-            if (specialCheckbox) {
-                this.response.appendChild(specialCheckbox);
-            }
-        }
+        this.element.value = this.element.placeholder;
+        this.notifyObservers('newValue', this.element.value);
     }
 
     public connectedCallback(): void {
+        if (this.response) {
+            this.response.addObserver(this);
+        }
+
         this.unitContainer = this.querySelector('.o-scale-unitcontainer');
+
         this.element = this.querySelector('input');
         if (!this.element) return;
 

@@ -1,5 +1,5 @@
 export interface Observer {
-    update(method: string, detail: CustomEvent): void;
+    update(method: string, detail: CustomEvent | string): void;
 }
 
 export interface Subject {
@@ -7,5 +7,5 @@ export interface Subject {
 
     removeObserver(observer: Observer): void;
 
-    notifyObservers(method: string, detail: CustomEvent): void;
+    notifyObservers(method: string, detail: CustomEvent | string): void;
 }
