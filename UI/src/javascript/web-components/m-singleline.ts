@@ -37,6 +37,9 @@ export default class MSingleline extends Component implements Observer {
         if (method === 'exclusiveClear') {
             this.exclusiveClear(data);
         }
+        if (method === 'exclusiveRestore') {
+            this.onFocusIn();
+        }
     }
 
     private onFocusIn(): void {
