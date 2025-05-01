@@ -719,6 +719,14 @@
                 <xsl:value-of select="$subType" />
             </xsl:attribute>
 
+            <xsl:if test="Style/@Width">
+                <xsl:attribute name="style">
+                    <xsl:text>width: </xsl:text>
+                    <xsl:value-of select="Style/@Width" />
+                    <xsl:text>;</xsl:text>
+                </xsl:attribute>
+            </xsl:if>
+            
             <xsl:choose>
                 <xsl:when test="$subType='horizontal'">
                     <xsl:call-template name="m-label-prepost" />
@@ -765,13 +773,6 @@
         <xsl:param name="maximum" select="10" />
         <xsl:element name="m-scale-container">
 
-            <xsl:if test="Style/@Width">
-                <xsl:attribute name="style">
-                    <xsl:text>width: </xsl:text>
-                    <xsl:value-of select="Style/@Width" />
-                    <xsl:text>;</xsl:text>
-                </xsl:attribute>
-            </xsl:if>
             <xsl:call-template name="loop-between">
                 <xsl:with-param name="start" select="$minimum" />
                 <xsl:with-param name="end" select="$maximum" />
