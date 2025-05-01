@@ -26,7 +26,12 @@ export default class AScaleUnit extends Component {
 
     private onClick(e: Event): void {
         e.preventDefault();
-        this.broadcastChange();
+
+        const scaleUnitClick = new CustomEvent('scaleUnitClick', {
+            bubbles: true,
+            detail: this,
+        });
+        this.dispatchEvent(scaleUnitClick);
     }
 
     get dataValue(): null | string {

@@ -29,7 +29,7 @@ export default class MOptionBase extends Component implements Observer {
                 this.onClick(e);
                 break;
             case 'exclusiveClear':
-                this.exclusiveClear(<CustomEvent>e);
+                this.clearExclusives(<CustomEvent>e);
                 break;
             case 'keydown':
                 this.onKeydown(<KeyboardEvent>e);
@@ -38,8 +38,8 @@ export default class MOptionBase extends Component implements Observer {
     }
 
     public update(method: string, data: CustomEvent): void {
-        if (method === 'exclusiveClear') {
-            this.exclusiveClear(data);
+        if (method === 'clearExclusives') {
+            this.clearExclusives(data);
         }
         if (method === 'sizeChangeWidth') {
             this.setOnesizeWidth(data.detail.width);
@@ -69,7 +69,7 @@ export default class MOptionBase extends Component implements Observer {
         }
     }
 
-    private exclusiveClear(e: CustomEvent): void {
+    private clearExclusives(e: CustomEvent): void {
         if (!this.checkbox) return;
 
         if (e.target === this || !this.checkbox.checked) {

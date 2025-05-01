@@ -62,12 +62,12 @@ export default class OScale extends Component implements Subject, Observer {
     }
 
     private addLocalEventListeners(): void {
-        this.addEventListener('broadcastChange', this);
+        this.addEventListener('scaleUnitClick', this);
     }
 
     public handleEvent(e: Event): void {
         switch (e.type) {
-            case 'broadcastChange':
+            case 'scaleUnitClick':
                 this.onClick(<CustomEvent>e);
         }
     }
@@ -142,6 +142,7 @@ export default class OScale extends Component implements Subject, Observer {
         this.element.placeholder = e.detail.dataValue;
         this.element.value = e.detail.dataValue;
         this.notifyObservers('newValue', e.detail.dataValue);
+        this.broadcastChange();
     }
 
     private clearValue(): void {

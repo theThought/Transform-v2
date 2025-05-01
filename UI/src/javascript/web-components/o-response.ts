@@ -44,7 +44,7 @@ export default class OResponse extends Component implements Subject {
 
     private handleChange(e: CustomEvent): void {
         e.stopPropagation();
-        this.notifyObservers('exclusiveClear', e);
+        this.notifyObservers('clearExclusives', e);
     }
 
     addObserver(observer: Observer): void {
