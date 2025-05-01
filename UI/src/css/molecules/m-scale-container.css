@@ -4,4 +4,8 @@ m-scale-container {
     display: flex;
     justify-content: space-between;
     padding: var(--space-1);
+
+    &.orientation-vertical {
+        flex-direction: column;
+    }
 }
