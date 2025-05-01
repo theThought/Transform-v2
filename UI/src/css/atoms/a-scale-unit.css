@@ -5,6 +5,7 @@ a-scale-unit {
     cursor: pointer;
     flex: 1 0 0;
     height: 4rem;
+    min-width: calc(var(--space-4) * 2);
     position: relative;
     text-align: center;
 
