@@ -256,6 +256,10 @@
                     <xsl:value-of select="Style/Control/@Accelerator" />
                 </xsl:attribute>
             </xsl:if>
+
+            <xsl:attribute name="value">
+                <xsl:value-of select="Category/@Name" />
+            </xsl:attribute>
         </xsl:element>
     </xsl:template>
 
@@ -441,7 +445,7 @@
              
                     <xsl:choose>
                         <xsl:when test="not($sublistCategory)">
-                            <xsl:text>Create New Sublist wrapper</xsl:text>
+                            
                             <!-- there is not a sublist so make one and then add the option -->
                             <xsl:element name="o-option-sublist">
                                 <xsl:for-each select="$currentRow/Cell/Control">
@@ -458,7 +462,7 @@
                                         <xsl:with-param name="theRows" select="$theRows" />
                                     </xsl:call-template>
                                 </xsl:variable>
-
+<!--
                                 <xsl:choose>
                                     <xsl:when test="$staticRow &gt; 0">
                                         <xsl:value-of select="$staticRow" />
@@ -467,7 +471,7 @@
                                         <xsl:value-of select="count($theRows)+1" />
                                     </xsl:otherwise>
                                 </xsl:choose>
-
+-->
                                 <xsl:if test="(not(contains($theRows[2]/Cell/Control/Category/@CategoryID, '_S')) or $theRows[2]/Cell/Control/@Type='Static')">
                                     <!-- next row has to be in the same sublist -->
                                     <xsl:call-template name="process-option-rows">
