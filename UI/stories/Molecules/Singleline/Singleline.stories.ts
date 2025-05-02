@@ -80,11 +80,50 @@ export default {
                 category: 'parameters',
             },
         },
+        step: {
+            control: 'number',
+            description: 'Precision of the input',
+            table: {
+                type: { summary: 'number' },
+                category: 'Properties',
+                defaultValue: { summary: '1' },
+            },
+        },
+        minimumDate: {
+            control: 'date',
+            description: 'Earliest acceptable date',
+            table: {
+                type: { summary: 'date' },
+                category: 'Dimensions',
+                subcategory: 'input',
+            },
+        },
+        maximumDate: {
+            control: 'date',
+            description: 'latest acceptable date',
+            table: {
+                type: { summary: 'date' },
+                category: 'Dimensions', // Ensure this matches "minimum"
+                subcategory: 'input', // Ensure this matches "minimum"
+            },
+        },
     },
 };
 
 type Singleline = StoryObj<typeof SingleLineStories.MSingleLine_Story>;
 export const Singleline = {
+    parameters: {
+        controls: {
+            include: [
+                'align',
+                'width',
+                'minimum',
+                'maximum',
+                'prelabel',
+                'postlabel',
+            ],
+        }, // Fixed syntax error
+    },
     args: {
         type: 'text',
         minimum: 1,
@@ -99,6 +138,20 @@ export const Singleline = {
 
 type SinglelineNumber = StoryObj<typeof SingleLineStories.MSingleLine_Story>;
 export const SinglelineNumber = {
+    parameters: {
+        controls: {
+            include: [
+                'align',
+                'width',
+                'minimum',
+                'maximum',
+                'step',
+                ,
+            'prelabel',
+            'postlabel'
+            ],
+        }, // Fixed syntax error
+    },
     args: {
         type: 'text',
         minimum: 1,
@@ -113,6 +166,18 @@ export const SinglelineNumber = {
 
 type SinglelineDate = StoryObj<typeof SingleLineStories.MSingleLine_Story>;
 export const SinglelineDate = {
+    parameters: {
+        controls: {
+            include: [
+                'align',
+                'width',
+                'minimumDate',
+                'maximumDate',
+                'prelabel',
+                'postlabel',
+            ],
+        }, // Fixed syntax error
+    },
     args: {
         type: 'text',
         minimum: (() => {
