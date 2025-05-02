@@ -4,6 +4,7 @@ export function ASingleline(args: any): HTMLInputElement {
     var setAlign = args.align || 'Left';
     const container: HTMLInputElement = document.createElement('input');
 
+    console.log("type:", args.type);
     switch (args.type) {
         case 'text':
             container.setAttribute('type', 'text');
