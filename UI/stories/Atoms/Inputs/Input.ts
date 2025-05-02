@@ -39,6 +39,8 @@ export function ASingleline(args: any): HTMLInputElement {
             if (args.maximum) {
                 container.setAttribute('max', formatISODate(args.maximum));
             }
+            console.log("Min:", container.getAttribute('min'));
+            console.log("Max:", container.getAttribute('max'));
             break;
         case 'range':
             container.setAttribute('type', 'range');
