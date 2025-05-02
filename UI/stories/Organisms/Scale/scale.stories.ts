@@ -16,6 +16,7 @@ export default {
                 category: 'Dimensions',
                 subcategory: 'input',
                 defaultValue: { summary: '1' },
+                order: 1, // Ensure minimum appears before maximum
             },
         },
         maximum: {
@@ -26,6 +27,7 @@ export default {
                 category: 'Dimensions',
                 subcategory: 'input',
                 defaultValue: { summary: '100' },
+                order: 2, // Ensure maximum appears after minimum
             },
         },
         width: {
@@ -35,6 +37,7 @@ export default {
             table: {
                 type: { summary: 'string' },
                 category: 'Dimensions',
+                order: 3,
             },
         },
         orientation: {
@@ -54,6 +57,7 @@ export default {
                 category: 'properties',
                 subcategory: 'labels',
                 defaultValue: { summary: 'before' },
+                order: 1,
             },
         },
         postlabel: {
@@ -64,6 +68,7 @@ export default {
                 category: 'properties',
                 subcategory: 'labels',
                 defaultValue: { summary: 'after' },
+                order: 2,
             },
         },
     },
@@ -72,6 +77,11 @@ export default {
 type ScaleStory = StoryObj<typeof OScale_Story>;
 
 export const TenPointScale: ScaleStory = {
+    parameters: {
+        controls: {
+            exclude: ['orientation'],
+        }, // Fixed syntax error
+    },
     name: '10-point scale',
     args: {
         minimum: 1,
@@ -85,6 +95,11 @@ export const TenPointScale: ScaleStory = {
 };
 
 export const SevenPointScale: ScaleStory = {
+    parameters: {
+        controls: {
+            exclude: ['orientation'],
+        }, // Fixed syntax error
+    },
     name: '7-point scale',
     args: {
         minimum: 1,
@@ -92,7 +107,7 @@ export const SevenPointScale: ScaleStory = {
         width: '100%',
         prelabel: 'Before',
         postlabel: 'After',
-        orientation: 'vertical',
+        orientation: 'horizontal',
     },
     render: (args) => OScale_Story(args),
 };
