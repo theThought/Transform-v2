@@ -14,6 +14,7 @@ import OQuestion from './web-components/o-question';
 import OResponse from './web-components/o-response';
 import OScale from './web-components/o-scale';
 import OScaleContainer from './web-components/m-scale-container';
+import OSlider from './web-components/o-slider';
 
 export const uiInit = (): void => {
     // DEMO web component for Storybook introduction.
@@ -41,6 +42,8 @@ export const uiInit = (): void => {
     !customElements.get('o-scale') && customElements.define('o-scale', OScale);
     !customElements.get('o-scale-container') &&
         customElements.define('o-scale-container', OScaleContainer);
+    !customElements.get('o-slider') &&
+        customElements.define('o-slider', OSlider);
 
     // Inner components.
     !customElements.get('a-scale-unit') &&
