@@ -156,6 +156,11 @@ export const TextStory = {
                 'step',
             ],
         },
+        docs: {
+            description: {
+                story: 'This is a text input story.',
+            },
+        },
     },
     loaders: [
         async () => {
@@ -204,6 +209,11 @@ export const NumberStory = {
                 'postlabel',
                 'step',
             ],
+        },
+        docs: {
+            description: {
+                story: 'This is a number input story.',
+            },
         },
     },
     loaders: [
@@ -254,6 +264,11 @@ export const DateStory = {
                 'postlabel',
                 'step',
             ],
+        },
+        docs: {
+            description: {
+                story: 'This is a date input story.',
+            },
         },
     },
     loaders: [
