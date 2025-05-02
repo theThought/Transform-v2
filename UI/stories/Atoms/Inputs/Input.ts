@@ -34,11 +34,11 @@ export function ASingleline(args: any): HTMLInputElement {
                 return parsedDate.toISOString().split('T')[0]; // Format as yyyy-mm-dd
             };
 
-            if (args.minimum) {
-                container.setAttribute('min', formatISODate(args.minimum));
+            if (args.minimumDate) {
+                container.setAttribute('min', formatISODate(args.minimumDate));
             }
-            if (args.maximum) {
-                container.setAttribute('max', formatISODate(args.maximum));
+            if (args.maximumDate) {
+                container.setAttribute('max', formatISODate(args.maximumDate));
             }
             console.log("Min:", container.getAttribute('min'));
             console.log("Max:", container.getAttribute('max'));
