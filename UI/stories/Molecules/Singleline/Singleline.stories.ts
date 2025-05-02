@@ -19,6 +19,7 @@ export default {
                 category: 'Properties',
                 subCategory: 'Labels',
                 defaultValue: { summary: 'n/a' },
+                order: 1,
             },
         },
         postlabel: {
@@ -29,6 +30,7 @@ export default {
                 category: 'Properties',
                 subCategory: 'Labels',
                 defaultValue: { summary: 'n/a' },
+                order: 2,
             },
         },
         type: {
@@ -50,6 +52,7 @@ export default {
                 category: 'Dimensions',
                 subcategory: 'input',
                 defaultValue: { summary: '1' },
+                order: 1,
             },
         },
         maximum: {
@@ -60,6 +63,7 @@ export default {
                 category: 'Dimensions', // Ensure this matches "minimum"
                 subcategory: 'input', // Ensure this matches "minimum"
                 defaultValue: { summary: '100' },
+                order: 2,
             },
         },
         align: {
@@ -96,6 +100,7 @@ export default {
                 type: { summary: 'date' },
                 category: 'Dimensions',
                 subcategory: 'input',
+                order: 1,
             },
         },
         maximumDate: {
@@ -105,6 +110,7 @@ export default {
                 type: { summary: 'date' },
                 category: 'Dimensions', // Ensure this matches "minimum"
                 subcategory: 'input', // Ensure this matches "minimum"
+                order: 2,
             },
         },
     },
@@ -147,13 +153,13 @@ export const SinglelineNumber = {
                 'maximum',
                 'step',
                 ,
-            'prelabel',
-            'postlabel'
+                'prelabel',
+                'postlabel',
             ],
         }, // Fixed syntax error
     },
     args: {
-        type: 'text',
+        type: 'number',
         minimum: 1,
         maximum: 40,
         prelabel: 'before',

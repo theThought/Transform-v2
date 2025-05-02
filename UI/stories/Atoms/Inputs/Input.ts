@@ -3,7 +3,7 @@ export function ASingleline(args: any): HTMLInputElement {
     const setWidth = args.width || '15em';
     const setAlign = args.align || 'Left';
     const container: HTMLInputElement = document.createElement('input');
-console.log('ASingleline args:', args);
+
     switch (args.type) {
         case 'text':
             container.setAttribute('type', 'text');

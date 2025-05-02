@@ -28,6 +28,7 @@ export default {
                 category: 'Dimensions',
                 subcategory: 'input',
                 defaultValue: { summary: '1' },
+                order: 1, // Ensure minimum appears before maximum
             },
         },
         maximum: {
@@ -38,6 +39,7 @@ export default {
                 category: 'Dimensions', // Ensure this matches "minimum"
                 subcategory: 'input', // Ensure this matches "minimum"
                 defaultValue: { summary: '100' },
+                order: 2, // Ensure maximum appears after minimum
             },
         },
         minimumDate: {
@@ -47,6 +49,7 @@ export default {
                 type: { summary: 'date' },
                 category: 'Dimensions',
                 subcategory: 'input',
+                order: 1, // Ensure minimumDate appears before maximumDate
             },
         },
         maximumDate: {
@@ -56,6 +59,7 @@ export default {
                 type: { summary: 'date' },
                 category: 'Dimensions', // Ensure this matches "minimum"
                 subcategory: 'input', // Ensure this matches "minimum"
+                order: 2, // Ensure maximumDate appears after minimumDate
             },
         },
         align: {
