@@ -25,6 +25,8 @@ export function ASingleline(args: any): HTMLInputElement {
             container.setAttribute('step', '1');
             break;
         case 'date':
+            console.log('MinDate:', args.minimumDate);
+            console.log('MaxDate:', args.maximumDate);
             container.setAttribute('type', 'date');
             container.classList.add('a-singleline-date');
             if (args.minimum) {
