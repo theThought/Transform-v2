@@ -25,15 +25,19 @@ export function ASingleline(args: any): HTMLInputElement {
             container.setAttribute('step', '1');
             break;
         case 'date':
-            console.log('MinDate:', args.minimumDate);
-            console.log('MaxDate:', args.maximumDate);
             container.setAttribute('type', 'date');
             container.classList.add('a-singleline-date');
+
+            const formatISODate = (date: number): string => {
+                const parsedDate = new Date(date);
+                return parsedDate.toISOString().split('T')[0]; // Format as yyyy-mm-dd
+            };
+
             if (args.minimum) {
-                container.setAttribute('min', args.minimum);
+                container.setAttribute('min', formatISODate(args.minimum));
             }
             if (args.maximum) {
-                container.setAttribute('max', args.maximum);
+                container.setAttribute('max', formatISODate(args.maximum));
             }
             break;
         case 'range':
