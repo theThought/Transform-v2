@@ -4,12 +4,10 @@ export function ASingleline(args: any): HTMLInputElement {
     var setAlign = args.align || 'Left';
     const container: HTMLInputElement = document.createElement('input');
 
-    console.log("type:", args.type);
     switch (args.type) {
         case 'text':
             container.setAttribute('type', 'text');
             container.classList.add('a-singleline');
-            
             if (args.maximum) {
                 container.setAttribute('maxlength', args.maximum.toString());
             }
@@ -40,8 +38,6 @@ export function ASingleline(args: any): HTMLInputElement {
             if (args.maximumDate) {
                 container.setAttribute('max', formatISODate(args.maximumDate));
             }
-            console.log("Min:", container.getAttribute('min'));
-            console.log("Max:", container.getAttribute('max'));
             break;
         case 'range':
             container.setAttribute('type', 'range');
@@ -54,19 +50,19 @@ export function ASingleline(args: any): HTMLInputElement {
             }
             break;
         default:
-            console.warn("Unsupported type:", args.type);
+            console.warn('Unsupported type:', args.type);
     }
 
     // Apply the width and alignment styles
     container.setAttribute(
         'style',
-        `width: ${setWidth}; text-align: ${setAlign.toLowerCase()};`
+        `width: ${setWidth}; text-align: ${setAlign.toLowerCase()};`,
     );
 
     if (args.hidden) {
         container.setAttribute('hidden', 'true');
     }
-    
+
     return container;
 }
 

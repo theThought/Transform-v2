@@ -298,7 +298,7 @@ export const DateStory = {
     args: {
         type: 'date',
         width: '10em',
-        align: 'Center',
+        align: 'Left',
         minimumDate: ((): string => {
             const yesterday = new Date();
             yesterday.setDate(yesterday.getDate() - 1);
