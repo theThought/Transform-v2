@@ -1,10 +1,10 @@
-import MOptionBase from '../../../src/javascript/web-components/m-option-base';
+import MOptionTab from '../../../src/javascript/web-components/m-option-tab';
 
 export function MOptionTab_Story(args: any): HTMLElement {
     const container: MOptionTab = document.createElement('m-option-tab');
     if (args.exclusive || args.type === 'radio') {
         container.setAttribute('class', 'm-option-single-answer');
-        const inputElement = document
+        const inputElement: HTMLInputElement = document
             .createElement('input')
             .setAttribute('type', 'radio')
             .setAttribute('id', args.id)

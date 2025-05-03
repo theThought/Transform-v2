@@ -4,17 +4,17 @@ export function MOptionBase_Story(args: any): HTMLElement {
     const container: MOptionBase = document.createElement('m-option-base');
     if (args.exclusive || args.type === 'radio') {
         container.setAttribute('class', 'm-option-single-answer');
-        const inputElement = document
+        const inputElement: HTMLInputElement = document
             .createElement('input')
             .setAttribute('type', 'radio')
-            .setAttribute('id', args.id)
-            .setAttribute('name', args.name);
+            .setAttribute('id', args.questionId + args.categoryId)
+            .setAttribute('name', args.questionName);
         container.appendChild(inputElement);
         const labelElement = document.createElement('label');
-        labelElement.setAttribute('for', args.id);
+        labelElement.setAttribute('for', args.questionId + args.categoryId);
         const iconElement = document.createElement('span');
         iconElement.setAttribute('class', 'a-icon-multistate');
-        iconElement.setAttribute('data-icon-type', 'single');
+        iconElement.setAttribute('data-icon-type', args.iconType);
         labelElement.appendChild(iconElement);
         const textElement = document.createElement('span');
         textElement.setAttribute('class', 'a-label-option');
@@ -26,14 +26,14 @@ export function MOptionBase_Story(args: any): HTMLElement {
         const inputElement = document
             .createElement('input')
             .setAttribute('type', 'checkbox')
-            .setAttribute('id', args.id)
-            .setAttribute('name', args.name);
+            .setAttribute('id', args.questionId + args.categoryId)
+            .setAttribute('name', args.questionName);
         container.appendChild(inputElement);
         const labelElement = document.createElement('label');
-        labelElement.setAttribute('for', args.id);
+        labelElement.setAttribute('for', args.questionId + args.categoryId);
         const iconElement = document.createElement('span');
         iconElement.setAttribute('class', 'a-icon-multistate');
-        iconElement.setAttribute('data-icon-type', 'multiple');
+        iconElement.setAttribute('data-icon-type', args.iconType);
         labelElement.appendChild(iconElement);
         const textElement = document.createElement('span');
         textElement.setAttribute('class', 'a-label-option');
