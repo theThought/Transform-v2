@@ -84,7 +84,7 @@ export const StandardRadio: SingleAnswer = {
         categoryId: '_C0',
         questionName: 'RadioExample',
         optionLabel: 'This is standard single-choice option',
-        icon: 'single',
+        iconType: 'radio',
     },
     render: (args) => MOptionBase_Story(args),
 };
@@ -103,7 +103,7 @@ export const StandardCheck: MultiAnswer = {
         categoryId: '_C1',
         questionName: 'CheckExample',
         optionLabel: 'This is standard multi-choice option',
-        icon: 'multi',
+        iconType: 'check',
     },
     render: (args) => MOptionBase_Story(args),
 };

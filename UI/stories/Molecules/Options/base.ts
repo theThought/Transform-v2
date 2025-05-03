@@ -2,7 +2,7 @@ import MOptionBase from '../../../src/javascript/web-components/m-option-base';
 
 export function MOptionBase_Story(args: any): HTMLElement {
     const container: MOptionBase = document.createElement('m-option-base');
-    if (args.exclusive || args.type === 'radio') {
+    if (args.exclusive || args.iconType === 'radio') {
         container.setAttribute('class', 'm-option-single-answer');
 
         const inputElement: HTMLInputElement = document.createElement('input');
@@ -24,7 +24,7 @@ export function MOptionBase_Story(args: any): HTMLElement {
         textElement.textContent = args.optionLabel;
         labelElement.appendChild(textElement);
         container.appendChild(labelElement);
-    } else if (args.type === 'checkbox') {
+    } else if (args.iconType === 'check') {
         container.setAttribute('class', 'm-option-multiple-answer');
 
         const inputElement = document.createElement('input');
