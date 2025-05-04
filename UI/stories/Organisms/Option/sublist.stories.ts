@@ -165,6 +165,7 @@ export const ListNoHeading: Simplelist = {
         questionName: 'SimpleList',
         optionLabel: 'Simple list option ',
         heading: '',
+        optionCount: 5,
     },
     render: (args) => OOptionSublist_Story(args),
 };
@@ -191,6 +192,7 @@ export const ListWithHeading: Sublist = {
         questionId: '_Q0',
         questionName: 'SimpleList',
         optionLabel: 'Simple list option ',
+        optionCount: 5,
     },
     render: (args) => OOptionSublist_Story(args),
 };
