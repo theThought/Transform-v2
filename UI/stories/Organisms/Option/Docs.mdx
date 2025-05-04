@@ -1,0 +1,28 @@
+import { Canvas, Controls, Meta } from '@storybook/blocks';
+import * as SublistStories from './sublist.stories';
+
+<Meta of={SublistStories} title="Molecules/Scale" />
+
+# o-option-sublist
+One or more options usually are contained within a sublist.  The exception would be a boolean question which only ever has one checkbox and so does not require a sublit.
+The sublist groups the items together with an option for a heading. Even lists that don't have a heading have a sublist.
+
+## Structure
+- legend
+- m-option-base
+
+Option lists can be wrapped in a fieldset if the sublist represensts all the controls for the question.  In more complex situations (where there is at least one sublist or the list is being used for special codes) then then option list does not have its own fieldset.  This is because it is necessary to avoid nested sublists.
+## Simple list with no heading 
+A group of options that have no heading
+<Canvas of={SublistStories.SimpleList} />
+<Controls of={SublistStories.SimpleList} />
+
+## Simple list with a heading 
+A group of options with a heading
+<Canvas of={SublistStories.Sublist} />
+<Controls of={SublistStories.Sublist} />
+
+## Simple list of special codes
+In this example the minimum is 1 and the maximum is 7.  The width defines how long the scale is.
+<Canvas of={SublistStories.Sublist} />
+<Controls of={SublistStories.Sublist} />
