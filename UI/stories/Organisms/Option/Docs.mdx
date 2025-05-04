@@ -4,25 +4,26 @@ import * as SublistStories from './sublist.stories';
 <Meta of={SublistStories} title="Organisms/Option" />
 
 # o-option-sublist
-One or more options usually are contained within a sublist.  The exception would be a boolean question which only ever has one checkbox and so does not require a sublit.
+One or more options usually are contained within a sublist.  The exception would be a boolean question which only ever has one checkbox and so does not require a sublist.
 The sublist groups the items together with an option for a heading. Even lists that don't have a heading have a sublist.
 
 ## Structure
 - legend
 - m-option-base
 
-Option lists can be wrapped in a fieldset if the sublist represensts all the controls for the question.  In more complex situations (where there is at least one sublist or the list is being used for special codes) then then option list does not have its own fieldset.  This is because it is necessary to avoid nested sublists.
+Option lists can be wrapped in a fieldset if the sublist represents all the controls for the question.  In more complex situations (where there is at least one sublist or the list is being used for special codes) then the option list does not have its own fieldset.  This is because it is necessary to avoid nested sublists.
+
 ## Simple list with no heading 
 A group of options that have no heading
-<Canvas of={SublistStories.Simplelist} />
-<Controls of={SublistStories.Simplelist} />
+<Canvas of={SublistStories.ListNoHeading} />
+<Controls of={SublistStories.ListNoHeading} />
 
 ## Simple list with a heading 
 A group of options with a heading
-<Canvas of={SublistStories.Sublist} />
-<Controls of={SublistStories.Sublist} />
+<Canvas of={SublistStories.ListWithHeading} />
+<Controls of={SublistStories.ListWithHeading} />
 
 ## Simple list of special codes
 In this example the minimum is 1 and the maximum is 7.  The width defines how long the scale is.
-<Canvas of={SublistStories.Sublist} />
-<Controls of={SublistStories.Sublist} />
+<Canvas of={SublistStories.ListNoHeading} />
+<Controls of={SublistStories.ListNoHeading} />

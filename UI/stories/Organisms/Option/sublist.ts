@@ -28,11 +28,13 @@ export function OOptionSublist_Story(args): HTMLElement {
         sublistContainer.appendChild(headingElement);
     }
 
-    console.log('args.optionCount' + args.optionCount);
+    // Debugging args.optionCount in a lint-friendly way
+    console.debug(`args.optionCount: ${args.optionCount}`);
 
     for (let counter = 0; counter < args.optionCount; counter++) {
         args.categoryId = '_C' + counter;
         const singleOption = MOptionBase.MOptionBase_Story(args);
+
         sublistContainer.appendChild(singleOption);
     }
     container.appendChild(sublistContainer);
