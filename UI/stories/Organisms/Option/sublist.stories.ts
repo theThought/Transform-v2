@@ -2,7 +2,7 @@ import { Meta, StoryObj } from '@storybook/web-components';
 import { OOptionSublist_Story } from './sublist';
 
 export default {
-    title: 'Organisms/Option/Sublist',
+    title: 'Organisms/Option/sublist',
     component: 'o-option-sublist', // Use the tag name of the custom element
     parameters: {
         status: { type: 'beta' },
@@ -16,6 +16,7 @@ export default {
                 category: 'Properties',
                 subcategory: 'sublist',
                 order: 1,
+                defaultValue: { summary: 'false' },
             },
         },
         balanceState: {
@@ -26,6 +27,7 @@ export default {
                 category: 'Properties',
                 subcategory: 'balance',
                 order: 1,
+                defaultValue: { summary: 'false' },
             },
         },
         balanceMinWidth: {
@@ -46,6 +48,7 @@ export default {
                 category: 'Properties',
                 subcategory: 'onesize',
                 order: 1,
+                defaultValue: { summary: 'false' },
             },
         },
         onesizeMaxWidth: {
@@ -65,6 +68,7 @@ export default {
                 type: { summary: 'boolean' },
                 category: 'Dimensions',
                 order: 2,
+                defaultValue: { summary: 'false' },
             },
         },
         iconType: {
@@ -74,6 +78,7 @@ export default {
                 type: { summary: 'string' },
                 category: 'Dimensions',
                 order: 3,
+                defaultValue: { summary: 'Radio' },
             },
         },
         optionLabel: {
@@ -83,8 +88,8 @@ export default {
                 type: { summary: 'string' },
                 category: 'Dimensions',
                 order: 4,
+                defaultValue: { summary: 'This is the option label' },
             },
-            defaultValue: 'This is the option label',
         },
         categoryId: {
             control: 'text',
@@ -93,8 +98,8 @@ export default {
                 type: { summary: 'string' },
                 category: 'Dimensions',
                 order: 5,
+                defaultValue: { summary: '_C0' },
             },
-            defaultValue: '_C0',
         },
         questionId: {
             control: 'text',
@@ -103,8 +108,8 @@ export default {
                 type: { summary: 'string' },
                 category: 'Dimensions',
                 order: 6,
+                defaultValue: { summary: '_Q0' },
             },
-            defaultValue: '_Q0',
         },
         questionName: {
             control: 'text',
@@ -113,8 +118,8 @@ export default {
                 type: { summary: 'string' },
                 category: 'Dimensions',
                 order: 7,
+                defaultValue: { summary: 'Example' },
             },
-            defaultValue: 'Example',
         },
         heading: {
             control: 'text',
@@ -124,7 +129,6 @@ export default {
                 category: 'Dimensions',
                 order: 8,
             },
-            defaultValue: 'This is a sublist heading',
         },
         IncludeNone: {
             control: 'boolean',
@@ -133,6 +137,7 @@ export default {
                 type: { summary: 'boolean' },
                 category: 'Dimensions',
                 order: 9,
+                defaultValue: { summary: 'false' },
             },
         },
         optionCount: {
@@ -142,8 +147,8 @@ export default {
                 type: { summary: 'number' },
                 category: 'Dimensions',
                 order: 10,
+                defaultValue: { summary: '5' },
             },
-            defaultValue: 5,
         },
     },
 } as Meta;
@@ -152,24 +157,14 @@ type Simplelist = StoryObj<typeof OOptionSublist_Story>;
 export const ListNoHeading: Simplelist = {
     parameters: {
         controls: {
-            include: [
-                'optionLabel',
-                'IncludeNone',
-                'exclusive',
-                'optionCount',
-                'balanceState',
-                'balanceMinWidth',
-                'onesizeState',
-                'onesizeMaxWidth',
-            ],
-        }, // Fixed syntax error
+            include: ['optionLabel', 'IncludeNone', 'exclusive', 'optionCount'],
+        },
     },
     args: {
         questionId: '_Q0',
         questionName: 'SimpleList',
         optionLabel: 'Simple list option ',
         heading: '',
-        isSublist: false,
     },
     render: (args) => OOptionSublist_Story(args),
 };
@@ -190,7 +185,7 @@ export const ListWithHeading: Sublist = {
                 'onesizeState',
                 'onesizeMaxWidth',
             ],
-        }, // Fixed syntax error
+        },
     },
     args: {
         questionId: '_Q0',
