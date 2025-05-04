@@ -33,7 +33,7 @@ export function OOptionSublist_Story(args): HTMLElement {
 
     for (let counter = 0; counter < args.optionCount; counter++) {
         args.categoryId = '_C' + counter;
-        const singleOption = MOptionBase.MOptionBase_Story(args);
+        const singleOption: HTMLElement = MOptionBase.MOptionBase_Story(args);
 
         sublistContainer.appendChild(singleOption);
     }
