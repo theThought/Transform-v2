@@ -30,7 +30,9 @@ export function MOptionBase_Story(args: any): HTMLElement {
         textElement.textContent = args.optionLabel;
         labelElement.appendChild(textElement);
         container.appendChild(labelElement);
-    } else if (args.iconType === 'check') {
+    }
+
+    if (!args.exclusive || args.iconType === 'check') {
         container.setAttribute('class', 'm-option-multiple-answer');
 
         const inputElement = document.createElement('input');
