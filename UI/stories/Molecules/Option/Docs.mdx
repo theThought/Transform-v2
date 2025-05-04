@@ -1,0 +1,17 @@
+import { Canvas, Controls, Meta } from '@storybook/blocks';
+import * as OptionBaseStories from './base.stories';
+
+<Meta of={OptionBaseStories} title="Molecules/Scale" />
+
+# m-option-base
+One component is used for exclusive and non-exclusive options.  There are default icons for each.
+
+## Single-Answer
+Exclusive options are traditionally shown as circles.  When selected they are filled, they can only be deselected by selecting one of the other options.
+<Canvas of={OptionBaseStories.StandardRadio} />
+<Controls of={OptionBaseStories.StandardRadio} />
+
+## Multi-Answer 
+Non-exclusive options are traditionallly shown as squares.  When selected they are ticked.  The user can select or deselect an option by tapping on it
+<Canvas of={OptionBaseStories.StandardCheck} />
+<Controls of={OptionBaseStories.StandardCheck} />
