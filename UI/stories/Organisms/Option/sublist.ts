@@ -2,6 +2,7 @@ import * as MOptionBase from '../../Molecules/Option/base';
 
 export function OOptionSublist_Story(args): HTMLElement {
     const container = document.createElement('fieldset');
+    const baseLabel = args.optionLabel;
     const sublistContainer: HTMLElement =
         document.createElement('o-option-sublist');
 
@@ -28,11 +29,9 @@ export function OOptionSublist_Story(args): HTMLElement {
         sublistContainer.appendChild(headingElement);
     }
 
-    // Debugging args.optionCount in a lint-friendly way
-    console.debug(`args.optionCount: ${args.optionCount}`);
-
     for (let counter = 0; counter < args.optionCount; counter++) {
         args.categoryId = '_C' + counter;
+        args.optionLabel = baseLabel + ' ' + counter;
         const singleOption: HTMLElement = MOptionBase.MOptionBase_Story(args);
 
         sublistContainer.appendChild(singleOption);
