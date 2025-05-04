@@ -27,7 +27,9 @@ export function OOptionSublist_Story(args): HTMLElement {
         headingElement.textContent = args.heading;
         sublistContainer.appendChild(headingElement);
     }
-    console.log('args.optionCount', args.optionCount);
+
+    console.log('args.optionCount' + args.optionCount);
+
     for (let counter = 0; counter < args.optionCount; counter++) {
         args.categoryId = '_C' + counter;
         const singleOption = MOptionBase.MOptionBase_Story(args);
