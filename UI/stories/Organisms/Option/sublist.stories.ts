@@ -152,7 +152,16 @@ type Simplelist = StoryObj<typeof OOptionSublist_Story>;
 export const ListNoHeading: Simplelist = {
     parameters: {
         controls: {
-            include: ['optionLabel', 'IncludeNone', 'exclusive', 'optionCount'],
+            include: [
+                'optionLabel',
+                'IncludeNone',
+                'exclusive',
+                'optionCount',
+                'balanceState',
+                'balanceMinWidth',
+                'onesizeState',
+                'onesizeMaxWidth',
+            ],
         }, // Fixed syntax error
     },
     args: {
@@ -160,6 +169,7 @@ export const ListNoHeading: Simplelist = {
         questionName: 'SimpleList',
         optionLabel: 'Simple list option ',
         heading: '',
+        isSublist: false,
     },
     render: (args) => OOptionSublist_Story(args),
 };
@@ -175,6 +185,10 @@ export const ListWithHeading: Sublist = {
                 'exclusive',
                 'optionCount',
                 'heading',
+                'balanceState',
+                'balanceMinWidth',
+                'onesizeState',
+                'onesizeMaxWidth',
             ],
         }, // Fixed syntax error
     },
