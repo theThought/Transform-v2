@@ -1,7 +1,8 @@
 import MOptionBase from '../../../src/javascript/web-components/m-option-base';
 
 export function MOptionBase_Story(args: any): HTMLElement {
-    const container = document.createElement('m-option-base') as MOptionBase;
+    const container: HTMLElement = document.createElement('m-option-base');
+    console.debug('MOptionBase_Story');
     if (args.exclusive || args.iconType === 'radio') {
         container.setAttribute('data-exclusive', args.exclusive);
         container.setAttribute('data-question-id', args.questionId);
