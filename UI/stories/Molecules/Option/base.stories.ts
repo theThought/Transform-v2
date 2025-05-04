@@ -88,7 +88,7 @@ export const StandardRadio: SingleAnswer = {
     },
     render: (args) => MOptionBase_Story(args),
 };
-StandardRadio.storyName = 'Exclusive option (single choice)';
+StandardRadio.storyName = 'Exclusive option (single-choice)';
 
 type MultiAnswer = StoryObj<typeof MOptionBase_Story>;
 export const StandardCheck: MultiAnswer = {
@@ -107,4 +107,4 @@ export const StandardCheck: MultiAnswer = {
     },
     render: (args) => MOptionBase_Story(args),
 };
-StandardCheck.storyName = 'Exclusive option (single choice)';
+StandardCheck.storyName = 'Non-exclusive option (multi-choice)';
