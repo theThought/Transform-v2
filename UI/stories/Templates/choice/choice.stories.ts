@@ -66,7 +66,8 @@ export default {
 type Simplelist = StoryObj<typeof TChoice.TChoice_Story>;
 export const ASimpleList: Simplelist = {
     loaders: [
-        async (args) => {
+        async (context) => {
+            const { args } = context; // Extract args from context
             console.log('optionType:', args.optionType);
             try {
                 const xmlFileName =
