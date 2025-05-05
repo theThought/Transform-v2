@@ -67,6 +67,7 @@ type Simplelist = StoryObj<typeof TChoice.TChoice_Story>;
 export const ASimpleList: Simplelist = {
     loaders: [
         async (args) => {
+            console.log('args in loader:', args);
             try {
                 const xmlFileName =
                     args.optionType === 'multi-answer'
@@ -83,7 +84,7 @@ export const ASimpleList: Simplelist = {
                 if (!xmlResponse.ok || !xslResponse.ok) {
                     throw new Error('Failed to fetch XML or XSLT files.');
                 }
-
+                console.log('xml data:', xmlFileName);
                 const xmlData = await xmlResponse.text();
                 const xslData = await xslResponse.text();
 
