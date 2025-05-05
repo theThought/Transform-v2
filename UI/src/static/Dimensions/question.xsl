@@ -913,7 +913,7 @@
                         </xsl:when>
                         <xsl:otherwise>
                             <xsl:choose>
-                                <xsl:when test="$isExclusive">
+                                <xsl:when test="$isExclusive='true'">
                                     <xsl:text>radio</xsl:text>
                                 </xsl:when>
                                 <xsl:otherwise>
