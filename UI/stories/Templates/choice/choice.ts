@@ -1,6 +1,6 @@
 import TransformUtils from '../../../utils/TransformUtils';
 
-export function TScale_Story(
+export function TChoice_Story(
     args: any,
     loaded: { xmlData: string; xslData: string },
 ): HTMLElement {
@@ -22,14 +22,23 @@ export function TScale_Story(
     const questionStyleElements = xmlDoc.querySelectorAll(
         'Questions > Question > Style',
     );
-
-    // Create JSON for data-properties
-    const dataProperties = {
-        labels: {
-            pre: args.prelabel || '',
-            post: args.postlabel || ''
-        }
+    const dataProperties: any = {
+        balance: {
+            state: args.balanceState || false,
+        },
+        onesize: {
+            state: args.onesizeState || false,
+        },
     };
+
+    if (args.balanceMinWidth !== '') {
+        dataProperties.balance.minWidth = args.balanceMinWidth;
+    }
+
+    if (args.onesizeMaxWidth !== '') {
+        dataProperties.onesize.maxWidth = args.onesizeMaxWidth;
+    }
+    // Create JSON for data-properties
     const dataPropertiesString = JSON.stringify(dataProperties);
 
     // Update attributes for Control elements
@@ -39,7 +48,10 @@ export function TScale_Story(
         }
         if (args.maximum) {
             controlElement.setAttribute('MaxValue', args.maximum.toString());
-            controlElement.setAttribute('Length', args.maximum.toString().length.toString());
+            controlElement.setAttribute(
+                'Length',
+                args.maximum.toString().length.toString(),
+            );
         }
     });
 

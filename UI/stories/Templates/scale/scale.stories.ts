@@ -70,9 +70,11 @@ export default {
 } as Meta;
 
 type TenPointScale = StoryObj<typeof TScale.TScale_Story>;
-export const TenPointScale = {
+export const TenPointScale: TenPointScale = {
     parameters: {
-        controls: { include: ['width', 'minimum', 'maximum','prelabel','postlabel'] }, // Fixed syntax error
+        controls: {
+            include: ['width', 'minimum', 'maximum', 'prelabel', 'postlabel'],
+        }, // Fixed syntax error
     },
     loaders: [
         async () => {
@@ -109,3 +111,4 @@ export const TenPointScale = {
     },
     render: (args, { loaded }) => TScale.TScale_Story(args, loaded),
 };
+TenPointScale.storyName = 'A 10-point scale';

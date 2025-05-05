@@ -1,6 +1,6 @@
 <Questions>
 <Question>
-    <Style Color="{&quot;balance&quot;:{&quot;state&quot;:true},&quot;onesize&quot;:{&quot;state&quot;:true}}" BgColor="choice:_QPageSeven_Qmethodsimple" ElementAlign="NewLine" Indent="1" ZIndex="-40"></Style>
+    <Style BgColor="choice:_QPageSeven_Qmethodsimple" ElementAlign="NewLine" Indent="1"></Style>
     <Table UseTablesLayout="0" Summary="indicate the method of payment used" TableName="_QPageSeven_Qmethodsimple" TableID="_Q0">
         <Row Y="0">
             <Cell X="0" Y="0">
