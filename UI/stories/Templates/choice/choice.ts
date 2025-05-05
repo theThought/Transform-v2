@@ -9,7 +9,7 @@ export function TChoice_Story(
     if (!xmlData || !xslData) {
         throw new Error('Missing required XML or XSLT data.');
     }
-
+console.log('xmlData:', xmlData);
     // Parse the XML and update attributes based on args
     const parser = new DOMParser();
     const xmlDoc = parser.parseFromString(xmlData, 'application/xml');
