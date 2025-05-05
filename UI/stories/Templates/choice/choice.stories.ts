@@ -9,6 +9,15 @@ export default {
         status: { type: 'beta' },
     },
     argTypes: {
+        optionType: {
+            control: 'select',
+            options: ['single-answer', 'multi-answer'],
+            description: 'Sinlge or multi-answer question',
+            table: {
+                type: { summary: 'string' },
+                defaultValue: { summary: 'single-answer' },
+            },
+        },
         balanceState: {
             control: 'boolean',
             description: 'Options are balanced to optimize horizontal space',
@@ -57,10 +66,15 @@ export default {
 type Simplelist = StoryObj<typeof TChoice.TChoice_Story>;
 export const ASimpleList: Simplelist = {
     loaders: [
-        async () => {
+        async (args) => {
             try {
+                const xmlFileName =
+                    args.optionType === 'multi-answer'
+                        ? 'choice - simple - multi.xml'
+                        : 'choice - simple - single.xml';
+
                 const xmlResponse = await fetch(
-                    './build/static/Dimensions/choice - simple list.xml',
+                    `./build/static/Dimensions/${xmlFileName}`,
                 );
                 const xslResponse = await fetch(
                     './build/static/Dimensions/question.xsl',
@@ -80,15 +94,6 @@ export const ASimpleList: Simplelist = {
             }
         },
     ],
-    args: {
-        type: 'number',
-        minimum: 1,
-        maximum: 10,
-        orientation: 'horizontal',
-        prelabel: 'Before',
-        postlabel: 'After',
-        width: '15em',
-    },
     render: (args, { loaded }) => TChoice.TChoice_Story(args, loaded),
 };
 ASimpleList.storyName = 'A simple list with a heading';
