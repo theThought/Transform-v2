@@ -67,7 +67,7 @@ type Simplelist = StoryObj<typeof TChoice.TChoice_Story>;
 export const ASimpleList: Simplelist = {
     loaders: [
         async (args) => {
-            console.log('args in loader:', args);
+            console.log('optionType:', args.optionType);
             try {
                 const xmlFileName =
                     args.optionType === 'multi-answer'
