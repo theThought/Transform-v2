@@ -95,6 +95,9 @@ export const ASimpleList: Simplelist = {
             }
         },
     ],
+    args: {
+        optionType: 'single-answer',
+    },
     render: (args, { loaded }) => TChoice.TChoice_Story(args, loaded),
 };
 ASimpleList.storyName = 'A simple list with a heading';
