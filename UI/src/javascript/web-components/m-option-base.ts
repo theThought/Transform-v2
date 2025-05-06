@@ -69,6 +69,7 @@ export default class MOptionBase extends Component implements Observer {
 
     private clearExclusives(e: CustomEvent): void {
         if (!this.checkbox) return;
+        if (!this.isExclusive) return;
 
         if (e.target === this || !this.checkbox.checked) {
             return;
