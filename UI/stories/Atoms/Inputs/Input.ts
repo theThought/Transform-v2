@@ -21,7 +21,11 @@ export function ASingleline(args: any): HTMLInputElement {
             if (args.maximum) {
                 container.setAttribute('max', args.maximum.toString());
             }
-            container.setAttribute('step', '1');
+            if (args.step) {
+                container.setAttribute('step', args.step.toString());
+            } else {
+                container.setAttribute('step', '1');
+            }
             break;
         case 'date':
             container.setAttribute('type', 'date');
