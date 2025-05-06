@@ -28,6 +28,7 @@ const config: StorybookConfig = {
             options: {
                 actions: false,
                 backgrounds: false,
+                docs: false,
             },
         },
         '@etchteam/storybook-addon-status',
