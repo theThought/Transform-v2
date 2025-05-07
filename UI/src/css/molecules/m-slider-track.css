@@ -1,0 +1,18 @@
+m-slider-track {
+    display: block;
+    position: relative;
+
+    &.has-value {
+        input[type='range']::-webkit-slider-thumb {
+            visibility: visible;
+        }
+
+        input[type='range']::-moz-range-thumb {
+            visibility: visible;
+        }
+
+        input[type='range']::-ms-thumb {
+            visibility: visible;
+        }
+    }
+}

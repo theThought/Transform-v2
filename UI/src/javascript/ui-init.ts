@@ -6,6 +6,7 @@ import AScaleUnit from './web-components/a-scale-unit';
 import MSingleline from './web-components/m-singleline';
 import MSinglelineNumber from './web-components/m-singleline-number';
 import MSinglelineDate from './web-components/m-singleline-date';
+import MSliderTrack from './web-components/m-slider-track';
 import MOptionBase from './web-components/m-option-base';
 import MOptionTab from './web-components/m-option-tab';
 import OCombobox from './web-components/o-combobox';
@@ -60,4 +61,6 @@ export const uiInit = (): void => {
         customElements.define('m-option-base', MOptionBase);
     !customElements.get('m-option-tab') &&
         customElements.define('m-option-tab', MOptionTab);
+    !customElements.get('m-slider-track') &&
+        customElements.define('m-slider-track', MSliderTrack);
 };

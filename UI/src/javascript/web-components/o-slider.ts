@@ -1,27 +1,35 @@
-export default class OSlider extends HTMLElement {
-    // Triggers attributeChangedCallback() lifecycle method whenever attributes listed here change.
-    static observedAttributes = ['attribute'];
+import Component from './component';
+
+export default class OSlider extends Component {
+    private element: HTMLInputElement | null = null;
 
     constructor() {
         super();
     }
 
-    // Handle attribute changes.
-    public attributeChangedCallback(
-        name: string,
-        oldValue: string,
-        newValue: string,
-    ): void {
-        console.log(
-            `Attribute ${name} changed from ${oldValue} to ${newValue}.`,
-        );
-    }
-
     // Handle constructor() event listeners.
     public handleEvent(e: Event): void {
         switch (e.type) {
-            case 'click':
+            case 'broadcastChange':
+                this.onSliderValueChange(<CustomEvent>e);
                 break;
         }
+    }
+
+    private onSliderValueChange(e: CustomEvent): void {
+        e.stopPropagation();
+        if (!this.element) return;
+
+        this.element.value = e.detail.element.value;
+    }
+
+    private init(): void {
+        this.addEventListener('broadcastChange', this);
+    }
+
+    public connectedCallback(): void {
+        super.connectedCallback();
+        this.element = this.querySelector('input[type="hidden"]');
+        this.init();
     }
 }
