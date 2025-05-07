@@ -32,14 +32,15 @@
 }
 
 input[type='range'] {
+    appearance: none;
     background: transparent;
     border: var(--border-thickness) solid var(--color-primary);
-    border-radius: var(--border-radius);
+    border-radius: 10px;
     box-shadow: none;
-    height: var(--space-4);
+    height: 24px;
     margin: 0;
     padding: 0;
-    width: calc(100% - 12px);
+    width: calc(100%);
     z-index: 3;
 }
 
@@ -49,43 +50,80 @@ input[type='range']:focus {
 
 input[type='range']::-webkit-slider-runnable-track {
     background: transparent;
-    border: 0;
-    border-radius: 24px;
-    height: 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    height: 16.6px;
     width: 100%;
 }
 
+input[type='range']::-moz-range-track {
+    background: transparent;
+    border-radius: 10px;
+    cursor: pointer;
+    height: 16.6px;
+    width: 100%;
+}
+
+input[type='range']:focus::-webkit-slider-runnable-track {
+    background: transparent;
+}
+
+input[type='range']::-ms-track {
+    background: transparent;
+    border-color: transparent;
+    border-width: 6.7px 0;
+    color: transparent;
+    cursor: pointer;
+    height: 16.6px;
+    width: 100%;
+}
+
+input[type='range']::-ms-fill-lower {
+    background: transparent;
+    border-radius: 10px;
+}
+
+input[type='range']::-ms-fill-upper {
+    background: transparent;
+    border-radius: 10px;
+}
+
 input[type='range']::-webkit-slider-thumb {
-    background: var(--color-primary);
-    border: none;
-    border-radius: 50%;
-    box-shadow: none;
-    height: calc(var(--space-4) * 2);
-    margin-top: -11px;
-    visibility: hidden;
-    width: calc(var(--space-4) * 2);
-    z-index: 4;
+    appearance: none;
+    background: white;
+    border: var(--theme-space-2) solid var(--theme-color-accent);
+    border-radius: 50px;
+    cursor: pointer;
+    height: 32px;
+    margin-top: -7.7px;
+    width: 32px;
 }
 
 input[type='range']::-moz-range-thumb {
-    background: var(--color-primary);
-    border: none;
-    border-radius: 50%;
-    box-shadow: none;
-    height: calc(var(--space-4) * 2);
-    visibility: hidden;
-    width: calc(var(--space-4) * 2);
-    z-index: 4;
+    background: white;
+    border: var(--theme-space-2) solid var(--theme-color-accent);
+    border-radius: 50px;
+    cursor: pointer;
+    height: 32px;
+    width: 32px;
 }
 
 input[type='range']::-ms-thumb {
-    background: var(--color-primary);
-    border: none;
-    border-radius: 50%;
-    box-shadow: none;
-    height: calc(var(--space-4) * 2);
+    background: white;
+    border: var(--theme-space-2) solid var(--theme-color-accent);
+    border-radius: 50px;
+    cursor: pointer;
+    height: 32px;
     margin-top: 0;
-    visibility: hidden;
-    width: calc(var(--space-4) * 2);
-    z-index: 4;
+    width: 32px;
+
+    /* Needed to keep the Edge thumb centred */
+}
+
+input[type='range']:focus::-ms-fill-lower {
+    background: #98ffd6;
+}
+
+input[type='range']:focus::-ms-fill-upper {
+    background: #9dffd8;
 }

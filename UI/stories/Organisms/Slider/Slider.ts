@@ -17,6 +17,9 @@ export function OSlider(args): HTMLElement {
 
     rangeInput.id = 'input_Q0';
     rangeInput.type = 'range';
+    rangeInput.min = args.minimum;
+    rangeInput.max = args.maximum;
+    rangeInput.step = args.step;
     rangeInput.classList.add('a-slider-input');
     input.type = 'hidden';
     thumb.className = 'a-label-thumb';

@@ -26,6 +26,7 @@
     --theme-color-neutral-900: #212c4c;
     --theme-color-neutral-1000: #002554;
     --theme-color-placeholder: #6b5b72;
+    --theme-color-accent: #7a3996;
 
     /* Defined as RGB so we can use rgba() function */
     --theme-color-accent-error: 218, 41, 17;
