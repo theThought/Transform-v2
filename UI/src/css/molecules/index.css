@@ -3,7 +3,8 @@
 @import 'm-label-prepost.css';
 @import 'm-list.css';
 @import 'm-message.css';
-@import 'm-option.css';
+@import 'm-option-base.css';
+@import 'm-option-tab.css';
 @import 'm-page-links.css';
 @import 'm-scale-container.css';
 @import 'm-slider-track.css';

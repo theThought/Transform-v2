@@ -8,9 +8,9 @@
 }
 
 .a-label-heading-sublist {
-    flex-basis: 100%;
     color: var(--color-primary);
     cursor: default;
+    flex-basis: 100%;
     font-family: var(--font-family-secondary);
     margin-block-end: var(--space-2);
 }

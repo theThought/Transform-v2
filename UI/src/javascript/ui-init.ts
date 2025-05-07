@@ -12,6 +12,7 @@ import MOptionTab from './web-components/m-option-tab';
 import OCombobox from './web-components/o-combobox';
 import ODropdown from './web-components/o-dropdown';
 import OOptionSublist from './web-components/o-option-sublist';
+import OOptionTabStrip from './web-components/o-option-tabstrip';
 import OQuestion from './web-components/o-question';
 import OResponse from './web-components/o-response';
 import OScale from './web-components/o-scale';
@@ -37,6 +38,8 @@ export const uiInit = (): void => {
 
     !customElements.get('o-option-sublist') &&
         customElements.define('o-option-sublist', OOptionSublist);
+    !customElements.get('o-option-tabstrip') &&
+        customElements.define('o-option-tabstrip', OOptionTabStrip);
     !customElements.get('o-combobox') &&
         customElements.define('o-combobox', OCombobox);
     !customElements.get('o-dropdown') &&

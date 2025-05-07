@@ -1,0 +1,30 @@
+m-option-tab {
+    --color-checked: var(--color-secondary);
+
+    position: relative;
+
+    /* Not using flex-gap for layout as it doesn't match designs. Use padding on a-label-option to nudge it away from input. */
+    label {
+        align-items: center;
+        display: inline-flex;
+        padding-block: calc(var(--space-1) / 2);
+    }
+
+    /* See https://www.sarasoueidan.com/blog/inclusively-hiding-and-styling-checkboxes-and-radio-buttons/ */
+    input {
+        block-size: var(--option-icon-height);
+        inline-size: var(--option-icon-width);
+        opacity: 0;
+        position: absolute;
+        z-index: -1;
+
+        &:focus + label {
+            box-shadow: var(--box-shadow);
+            outline: var(--focus-outline);
+        }
+    }
+
+    &:has(:checked) .a-label-option {
+        color: var(--color-checked);
+    }
+}

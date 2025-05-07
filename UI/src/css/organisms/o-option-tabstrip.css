@@ -1,0 +1,19 @@
+o-option-tabstrip {
+    align-items: flex-start;
+    column-gap: 1em;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    row-gap: var(--space-1);
+
+    &.balance {
+        flex-direction: row;
+    }
+}
+
+/* Special codes can follow many different question type controls, inside <o-response>. */
+o-response {
+    > fieldset > * + o-option-tabstrip {
+        margin-block-start: var(--space-2);
+    }
+}
