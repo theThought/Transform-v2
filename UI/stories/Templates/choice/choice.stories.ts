@@ -68,7 +68,7 @@ export const ASimpleList: Simplelist = {
     loaders: [
         async (context) => {
             const { args } = context; // Extract args from context
-            console.log('optionType:', args.optionType);
+
             try {
                 const xmlFileName =
                     args.optionType === 'multi-answer'
@@ -85,7 +85,7 @@ export const ASimpleList: Simplelist = {
                 if (!xmlResponse.ok || !xslResponse.ok) {
                     throw new Error('Failed to fetch XML or XSLT files.');
                 }
-                console.log('xml data:', xmlFileName);
+
                 const xmlData = await xmlResponse.text();
                 const xslData = await xslResponse.text();
 

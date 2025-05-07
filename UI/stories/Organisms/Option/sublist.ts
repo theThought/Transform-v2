@@ -36,6 +36,22 @@ export function OOptionSublist_Story(args): HTMLElement {
 
         sublistContainer.appendChild(singleOption);
     }
+
+    // Add "None of the above" option if IncludeNone is true
+    if (args.IncludeNone) {
+        const noneArgs = {
+            ...args,
+            exclusive: true,
+            iconType: args.optionType,
+            optionLabel: 'None of the above',
+            categoryId: args.questionId + '_C' + args.optionCount,
+            questionName: args.questionName,
+        };
+
+        const noneOption: HTMLElement = MOptionBase.MOptionBase_Story(noneArgs);
+        sublistContainer.appendChild(noneOption);
+    }
+
     container.appendChild(sublistContainer);
     return container;
 }
