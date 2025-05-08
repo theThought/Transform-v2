@@ -1,10 +1,10 @@
 <Questions>
     <Question>
         <Style BgColor="choice:_QPageSeven_Qmethodsimplesublist" ElementAlign="NewLine" Indent="1" ZIndex="-40"></Style>
-        <Table UseTablesLayout="0" Summary="indicate the method of payment used" TableName="_QPageSeven_Qmethodsimplesublist" TableID="_Q1">
+        <Table UseTablesLayout="0" Summary="indicate the method of payment used" TableName="_QPageSeven_Qmethodsimplesublist" TableID="_Q4">
             <Row Y="0">
                 <Cell X="0" Y="0">
-                    <Control Type="Static" QuestionName="_QPageSeven_Qmethodsimplesublist_C" ElementID="_Q1_C">
+                    <Control Type="Static" QuestionName="_QPageSeven_Qmethodsimplesublist_C" ElementID="_Q4_C">
                         <Style ElementAlign="NewLine"></Style>
                         <Category Name="simplemethodlist" CategoryID="0">
                             <Label>
@@ -17,9 +17,9 @@
             </Row>
             <Row Y="1">
                 <Cell X="0" Y="1">
-                    <Control Type="CheckButton" QuestionName="_QPageSeven_Qmethodsimplesublist_C" ElementID="_Q1_C">
+                    <Control Type="RadioButton" QuestionName="_QPageSeven_Qmethodsimplesublist_C" ElementID="_Q4_C">
                         <Style ElementAlign="NewLine" Indent="1">
-                            <Control Type="CheckButton"></Control>
+                            <Control Type="RadioButton"></Control>
                         </Style>
                         <Category Name="Cash" CategoryID="0_S0">
                             <Label>
@@ -32,9 +32,9 @@
             </Row>
             <Row Y="2">
                 <Cell X="0" Y="2">
-                    <Control Type="CheckButton" QuestionName="_QPageSeven_Qmethodsimplesublist_C" ElementID="_Q1_C">
+                    <Control Type="RadioButton" QuestionName="_QPageSeven_Qmethodsimplesublist_C" ElementID="_Q4_C">
                         <Style ElementAlign="NewLine" Indent="1">
-                            <Control Type="CheckButton"></Control>
+                            <Control Type="RadioButton"></Control>
                         </Style>
                         <Category Name="Debit" CategoryID="0_S1">
                             <Label>
@@ -47,9 +47,9 @@
             </Row>
             <Row Y="3">
                 <Cell X="0" Y="3">
-                    <Control Type="CheckButton" QuestionName="_QPageSeven_Qmethodsimplesublist_C" ElementID="_Q1_C">
+                    <Control Type="RadioButton" QuestionName="_QPageSeven_Qmethodsimplesublist_C" ElementID="_Q4_C">
                         <Style ElementAlign="NewLine" Indent="1">
-                            <Control Type="CheckButton"></Control>
+                            <Control Type="RadioButton"></Control>
                         </Style>
                         <Category Name="visa" CategoryID="0_S2">
                             <Label>
@@ -62,9 +62,9 @@
             </Row>
             <Row Y="4">
                 <Cell X="0" Y="4">
-                    <Control Type="CheckButton" QuestionName="_QPageSeven_Qmethodsimplesublist_C" ElementID="_Q1_C">
+                    <Control Type="RadioButton" QuestionName="_QPageSeven_Qmethodsimplesublist_C" ElementID="_Q4_C">
                         <Style ElementAlign="NewLine" Indent="1">
-                            <Control Type="CheckButton"></Control>
+                            <Control Type="RadioButton"></Control>
                         </Style>
                         <Category Name="mastercard" CategoryID="0_S3">
                             <Label>
@@ -77,9 +77,9 @@
             </Row>
             <Row Y="5">
                 <Cell X="0" Y="5">
-                    <Control Type="CheckButton" QuestionName="_QPageSeven_Qmethodsimplesublist_C" ElementID="_Q1_C">
+                    <Control Type="RadioButton" QuestionName="_QPageSeven_Qmethodsimplesublist_C" ElementID="_Q4_C">
                         <Style ElementAlign="NewLine" Indent="1">
-                            <Control Type="CheckButton"></Control>
+                            <Control Type="RadioButton"></Control>
                         </Style>
                         <Category Name="amex" CategoryID="0_S4">
                             <Label>
@@ -92,9 +92,9 @@
             </Row>
             <Row Y="6">
                 <Cell X="0" Y="6">
-                    <Control Type="CheckButton" QuestionName="_QPageSeven_Qmethodsimplesublist_C" ElementID="_Q1_C">
+                    <Control Type="RadioButton" QuestionName="_QPageSeven_Qmethodsimplesublist_C" ElementID="_Q4_C">
                         <Style ElementAlign="NewLine" Indent="1">
-                            <Control Type="CheckButton"></Control>
+                            <Control Type="RadioButton"></Control>
                         </Style>
                         <Category Name="othercredit" CategoryID="0_S5">
                             <Label>
@@ -107,9 +107,9 @@
             </Row>
             <Row Y="7">
                 <Cell X="0" Y="7">
-                    <Control Type="CheckButton" QuestionName="_QPageSeven_Qmethodsimplesublist_C" ElementID="_Q1_C">
+                    <Control Type="RadioButton" QuestionName="_QPageSeven_Qmethodsimplesublist_C" ElementID="_Q4_C">
                         <Style ElementAlign="NewLine" Indent="1">
-                            <Control Type="CheckButton"></Control>
+                            <Control Type="RadioButton"></Control>
                         </Style>
                         <Category Name="Interac" CategoryID="0_S6">
                             <Label>
@@ -122,9 +122,9 @@
             </Row>
             <Row Y="8">
                 <Cell X="0" Y="8">
-                    <Control Type="CheckButton" QuestionName="_QPageSeven_Qmethodsimplesublist_C" ElementID="_Q1_C">
+                    <Control Type="RadioButton" QuestionName="_QPageSeven_Qmethodsimplesublist_C" ElementID="_Q4_C">
                         <Style ElementAlign="NewLine" Indent="1">
-                            <Control Type="CheckButton"></Control>
+                            <Control Type="RadioButton"></Control>
                         </Style>
                         <Category Name="prepaid" CategoryID="0_S7">
                             <Label>
@@ -137,9 +137,9 @@
             </Row>
             <Row Y="9">
                 <Cell X="0" Y="9">
-                    <Control Type="CheckButton" QuestionName="_QPageSeven_Qmethodsimplesublist_C" ElementID="_Q1_C">
+                    <Control Type="RadioButton" QuestionName="_QPageSeven_Qmethodsimplesublist_C" ElementID="_Q4_C">
                         <Style ElementAlign="NewLine" Indent="1">
-                            <Control Type="CheckButton"></Control>
+                            <Control Type="RadioButton"></Control>
                         </Style>
                         <Category Name="store" CategoryID="0_S8">
                             <Label>
@@ -152,9 +152,9 @@
             </Row>
             <Row Y="10">
                 <Cell X="0" Y="10">
-                    <Control Type="CheckButton" QuestionName="_QPageSeven_Qmethodsimplesublist_C" ElementID="_Q1_C">
+                    <Control Type="RadioButton" QuestionName="_QPageSeven_Qmethodsimplesublist_C" ElementID="_Q4_C">
                         <Style ElementAlign="NewLine" Indent="1">
-                            <Control Type="CheckButton"></Control>
+                            <Control Type="RadioButton"></Control>
                         </Style>
                         <Category Name="mobile" CategoryID="0_S9">
                             <Label>
@@ -167,9 +167,9 @@
             </Row>
             <Row Y="11">
                 <Cell X="0" Y="11">
-                    <Control Type="CheckButton" QuestionName="_QPageSeven_Qmethodsimplesublist_C" ElementID="_Q1_C">
+                    <Control Type="RadioButton" QuestionName="_QPageSeven_Qmethodsimplesublist_C" ElementID="_Q4_C">
                         <Style ElementAlign="NewLine" Indent="1">
-                            <Control Type="CheckButton"></Control>
+                            <Control Type="RadioButton"></Control>
                         </Style>
                         <Category Name="online" CategoryID="0_S10">
                             <Label>
@@ -182,9 +182,9 @@
             </Row>
             <Row Y="12">
                 <Cell X="0" Y="12">
-                    <Control Type="CheckButton" QuestionName="_QPageSeven_Qmethodsimplesublist_C" ElementID="_Q1_C">
+                    <Control Type="RadioButton" QuestionName="_QPageSeven_Qmethodsimplesublist_C" ElementID="_Q4_C">
                         <Style ElementAlign="NewLine" Indent="1">
-                            <Control Type="CheckButton"></Control>
+                            <Control Type="RadioButton"></Control>
                         </Style>
                         <Category Name="cheque" CategoryID="0_S11">
                             <Label>
@@ -197,9 +197,9 @@
             </Row>
             <Row Y="13">
                 <Cell X="0" Y="13">
-                    <Control Type="CheckButton" QuestionName="_QPageSeven_Qmethodsimplesublist_C" ElementID="_Q1_C">
+                    <Control Type="RadioButton" QuestionName="_QPageSeven_Qmethodsimplesublist_C" ElementID="_Q4_C">
                         <Style ElementAlign="NewLine" Indent="1">
-                            <Control Type="CheckButton"></Control>
+                            <Control Type="RadioButton"></Control>
                         </Style>
                         <Category Name="crypto" CategoryID="0_S12">
                             <Label>
@@ -212,9 +212,9 @@
             </Row>
             <Row Y="14">
                 <Cell X="0" Y="14">
-                    <Control Type="CheckButton" QuestionName="_QPageSeven_Qmethodsimplesublist_C" ElementID="_Q1_C">
+                    <Control Type="RadioButton" QuestionName="_QPageSeven_Qmethodsimplesublist_C" ElementID="_Q4_C">
                         <Style ElementAlign="NewLine" Indent="1">
-                            <Control Type="CheckButton"></Control>
+                            <Control Type="RadioButton"></Control>
                         </Style>
                         <Category Name="coupon" CategoryID="0_S13">
                             <Label>
