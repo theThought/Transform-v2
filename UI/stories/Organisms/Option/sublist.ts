@@ -42,7 +42,7 @@ export function OOptionSublist_Story(args): HTMLElement {
         const noneArgs = {
             ...args,
             exclusive: true,
-            iconType: args.optionType,
+            iconType: args.iconType,
             optionLabel: 'None of the above',
             categoryId: args.questionId + '_C' + args.optionCount,
             questionName: args.questionName,
