@@ -56,7 +56,7 @@ export function OOptionSublist_Story(args): HTMLElement {
             categoryId: args.questionId + '_C' + args.optionCount,
             questionName: args.questionName,
         };
-        console.log('noneArgs', noneArgs.iconType);
+        console.log('noneArgs', noneArgs);
 
         const noneOption: HTMLElement = MOptionBase.MOptionBase_Story(noneArgs);
         sublistContainer.appendChild(noneOption);
