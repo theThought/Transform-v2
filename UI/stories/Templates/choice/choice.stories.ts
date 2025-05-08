@@ -173,3 +173,39 @@ export const TSimpleSublist: StoryObj<typeof TChoice.TChoice_Story> = {
     },
     render: (args, { loaded }) => TChoice.TChoice_Story(args, loaded),
 };
+TSimpleSublist.storyName = 'A simple multi-answer with one exclusive';
+
+export const TSublistPlusExclusive: StoryObj<typeof TChoice.TChoice_Story> = {
+    loaders: [
+        async (context) => {
+            const { args } = context; // Extract args from context
+
+            try {
+                const xmlResponse = await fetch(
+                    './build/static/Dimensions/choice - sublist with exclusive.xml',
+                );
+                const xslResponse = await fetch(
+                    './build/static/Dimensions/question.xsl',
+                );
+
+                if (!xmlResponse.ok || !xslResponse.ok) {
+                    throw new Error('Failed to fetch XML or XSLT files.');
+                }
+
+                const xmlData = await xmlResponse.text();
+                const xslData = await xslResponse.text();
+
+                return { xmlData, xslData };
+            } catch (error) {
+                console.error('Error in text loader:', error);
+                throw error;
+            }
+        },
+    ],
+    args: {
+        optionType: 'multi-answer',
+    },
+    render: (args, { loaded }) => TChoice.TChoice_Story(args, loaded),
+};
+TSublistPlusExclusive.storyName =
+    'A multi-answer sublist with one exclusive outside the list';
