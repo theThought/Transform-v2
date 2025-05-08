@@ -174,15 +174,18 @@ export const ListNoHeading: Simplelist = {
         heading: '',
         optionCount: 5,
     },
-    if (args.optionType === 'single-answer') {
-        args.exclusive = true;
-        args.iconType = 'Radio';
-    } else {
-        args.exclusive = false;
-        args.iconType = 'Checkbox';
-    };
+    render: (args) => {
+        // Apply conditional logic for args
+        if (args.optionType === 'single-answer') {
+            args.exclusive = true;
+            args.iconType = 'Radio';
+        } else {
+            args.exclusive = false;
+            args.iconType = 'Checkbox';
+        }
 
-    render: (args) => OOptionSublist_Story(args),
+        return OOptionSublist_Story(args);
+    },
 };
 ListNoHeading.storyName = 'A simple list no heading';
 

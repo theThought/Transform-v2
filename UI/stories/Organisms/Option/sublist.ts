@@ -1,6 +1,7 @@
 import * as MOptionBase from '../../Molecules/Option/base';
 
 export function OOptionSublist_Story(args): HTMLElement {
+
     const container = document.createElement('fieldset');
     const baseLabel = args.optionLabel;
     const sublistContainer: HTMLElement =
@@ -27,6 +28,15 @@ export function OOptionSublist_Story(args): HTMLElement {
         headingElement.setAttribute('class', 'a-label-heading-sublist');
         headingElement.textContent = args.heading;
         sublistContainer.appendChild(headingElement);
+    }
+
+    // Apply conditional logic for args
+    if (args.optionType === 'single-answer') {
+        args.exclusive = true;
+        args.iconType = 'Radio';
+    } else {
+        args.exclusive = false;
+        args.iconType = 'Checkbox';
     }
 
     for (let counter = 0; counter < args.optionCount; counter++) {
