@@ -8,6 +8,15 @@ export default {
         status: { type: 'beta' },
     },
     argTypes: {
+        optionType: {
+            control: 'select',
+            options: ['single-answer', 'multi-answer'],
+            description: 'Sinlge or multi-answer question',
+            table: {
+                type: { summary: 'string' },
+                defaultValue: { summary: 'single-answer' },
+            },
+        },
         isSublist: {
             control: 'boolean',
             description: 'Indicates if the component is a sublist',

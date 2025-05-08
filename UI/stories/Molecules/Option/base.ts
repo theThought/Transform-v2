@@ -3,9 +3,7 @@
 export function MOptionBase_Story(args: any): HTMLElement {
     const container: HTMLElement = document.createElement('m-option-base');
     const inputType: string = args.exclusive ? 'radio' : 'checkbox';
-    const containerClass: string = args.exclusive
-        ? 'm-option-single-answer'
-        : 'm-option-multiple-answer';
+    const containerClass: string = 'm-option-' + 'single-answer';
 
     container.setAttribute('data-exclusive', args.exclusive);
     container.setAttribute('data-question-id', args.questionId);

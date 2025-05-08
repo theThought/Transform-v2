@@ -8,6 +8,15 @@ export default {
         status: { type: 'beta' },
     },
     argTypes: {
+        optionType: {
+            control: 'select',
+            options: ['single-answer', 'multi-answer'],
+            description: 'Sinlge or multi-answer question',
+            table: {
+                type: { summary: 'string' },
+                defaultValue: { summary: 'single-answer' },
+            },
+        },
         exclusive: {
             control: 'boolean',
             description: 'Does selecting this option deselect all others?',
@@ -79,6 +88,7 @@ export const StandardRadio: SingleAnswer = {
         }, // Fixed syntax error
     },
     args: {
+        optionType: 'single-answer',
         exclusive: true,
         questionId: '_Q0',
         categoryId: '_C0',
@@ -98,6 +108,7 @@ export const StandardCheck: MultiAnswer = {
         }, // Fixed syntax error
     },
     args: {
+        optionType: 'multi-answer',
         exclusive: false,
         questionId: '_Q0',
         categoryId: '_C1',
