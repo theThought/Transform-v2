@@ -100,7 +100,7 @@ export const TSimplelist: StoryObj<typeof TChoice.TChoice_Story> = {
     },
     render: (args, { loaded }) => TChoice.TChoice_Story(args, loaded),
 };
-ASimpleList.storyName = 'A simple list with a heading';
+TSimpleList.storyName = 'A simple list with a heading';
 
 export const TSimplePlusExclusive: StoryObj<typeof TChoice.TChoice_Story> = {
     loaders: [
