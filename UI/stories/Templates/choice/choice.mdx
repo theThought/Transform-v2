@@ -9,5 +9,10 @@ singleline exposes a singleline editbox to the respondent to allow an open-ended
 
 ## simple list
 The most basic choice question is a simple list of options, no headings no exclusive options.  This can be either a single-answer or a multi-answer question.
-<Canvas of={ChoiceStories.ASimpleList} />
-<Controls of={ChoiceStories.ASimpleList} />
+<Canvas of={ChoiceStories.TSimpleList} />
+<Controls of={ChoiceStories.TSimpleList} />
+
+## simple multi-choice is exclusive options
+Within a multi-choice question the respondent can select a number of options, however some options are considered exclusive (when selected no other option can be selected).
+<Canvas of={ChoiceStories.TSimplePlusExclusive} />
+<Controls of={ChoiceStories.TSimTSimplePlusExclusivepleList} />

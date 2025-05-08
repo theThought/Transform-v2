@@ -63,8 +63,7 @@ export default {
     },
 } as Meta;
 
-type Simplelist = StoryObj<typeof TChoice.TChoice_Story>;
-export const ASimpleList: Simplelist = {
+export const TSimplelist: StoryObj<typeof TChoice.TChoice_Story> = {
     loaders: [
         async (context) => {
             const { args } = context; // Extract args from context
@@ -102,3 +101,42 @@ export const ASimpleList: Simplelist = {
     render: (args, { loaded }) => TChoice.TChoice_Story(args, loaded),
 };
 ASimpleList.storyName = 'A simple list with a heading';
+
+export const TSimplePlusExclusive: StoryObj<typeof TChoice.TChoice_Story> = {
+    loaders: [
+        async (context) => {
+            const { args } = context; // Extract args from context
+
+            try {
+                const xmlFileName =
+                    args.optionType === 'multi-answer'
+                        ? 'choice - simple - multi.xml'
+                        : 'choice - simple - single.xml';
+
+                const xmlResponse = await fetch(
+                    `./build/static/Dimensions/${xmlFileName}`,
+                );
+                const xslResponse = await fetch(
+                    './build/static/Dimensions/question.xsl',
+                );
+
+                if (!xmlResponse.ok || !xslResponse.ok) {
+                    throw new Error('Failed to fetch XML or XSLT files.');
+                }
+
+                const xmlData = await xmlResponse.text();
+                const xslData = await xslResponse.text();
+
+                return { xmlData, xslData };
+            } catch (error) {
+                console.error('Error in text loader:', error);
+                throw error;
+            }
+        },
+    ],
+    args: {
+        optionType: 'single-answer',
+    },
+    render: (args, { loaded }) => TChoice.TChoice_Story(args, loaded),
+};
+TSimplePlusExclusive.storyName = 'A simple multi-answer with one exclusive';
