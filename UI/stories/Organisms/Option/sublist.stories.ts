@@ -77,17 +77,7 @@ export default {
                 type: { summary: 'boolean' },
                 category: 'Dimensions',
                 order: 2,
-                defaultValue: { summary: 'false' },
-            },
-        },
-        iconType: {
-            control: 'text',
-            description: 'Icon for the option',
-            table: {
-                type: { summary: 'string' },
-                category: 'Dimensions',
-                order: 3,
-                defaultValue: { summary: 'Radio' },
+                defaultValue: { summary: 'true' },
             },
         },
         optionLabel: {
@@ -166,14 +156,14 @@ type Simplelist = StoryObj<typeof OOptionSublist_Story>;
 export const ListNoHeading: Simplelist = {
     parameters: {
         controls: {
-            include: ['optionLabel', 'IncludeNone', 'exclusive', 'optionCount'],
+            include: ['optionType', 'optionLabel', 'IncludeNone', 'optionCount'],
         },
     },
     args: {
+        optionType: 'single-answer',
         questionId: '_Q0',
         questionName: 'SimpleList',
         optionLabel: 'Simple list option ',
-        iconType: 'Radio',
         exclusive: false,
         IncludeNone: false,
         balanceState: false,
@@ -184,6 +174,14 @@ export const ListNoHeading: Simplelist = {
         heading: '',
         optionCount: 5,
     },
+    if (args.optionType === 'single-answer') {
+        args.exclusive = true;
+        args.iconType = 'Radio';
+    } else {
+        args.exclusive = false;
+        args.iconType = 'Checkbox';
+    };
+
     render: (args) => OOptionSublist_Story(args),
 };
 ListNoHeading.storyName = 'A simple list no heading';
