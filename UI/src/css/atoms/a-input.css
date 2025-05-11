@@ -68,26 +68,6 @@ input[type='range']:focus::-webkit-slider-runnable-track {
     background: transparent;
 }
 
-input[type='range']::-ms-track {
-    background: transparent;
-    border-color: transparent;
-    border-width: 6.7px 0;
-    color: transparent;
-    cursor: pointer;
-    height: 16.6px;
-    width: 100%;
-}
-
-input[type='range']::-ms-fill-lower {
-    background: transparent;
-    border-radius: 10px;
-}
-
-input[type='range']::-ms-fill-upper {
-    background: transparent;
-    border-radius: 10px;
-}
-
 input[type='range']::-webkit-slider-thumb {
     appearance: none;
     background: white;
@@ -104,26 +84,6 @@ input[type='range']::-moz-range-thumb {
     border: var(--theme-space-2) solid var(--theme-color-accent);
     border-radius: 50px;
     cursor: pointer;
-    height: 32px;
-    width: 32px;
-}
-
-input[type='range']::-ms-thumb {
-    background: white;
-    border: var(--theme-space-2) solid var(--theme-color-accent);
-    border-radius: 50px;
-    cursor: pointer;
-    height: 32px;
-    margin-top: 0;
-    width: 32px;
-
-    /* Needed to keep the Edge thumb centred */
-}
-
-input[type='range']:focus::-ms-fill-lower {
-    background: #98ffd6;
-}
-
-input[type='range']:focus::-ms-fill-upper {
-    background: #9dffd8;
+    height: 16px;
+    width: 16px;
 }

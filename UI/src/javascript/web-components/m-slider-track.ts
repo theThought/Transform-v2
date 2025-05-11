@@ -34,6 +34,7 @@ export default class MSliderTrack extends Component {
         this.setThumbDisplay(value);
         this.setThumbValue(value);
         this.setThumbLocation(Number(value));
+        this.updateFloodFill(Number(value));
     }
 
     private setValueClass(): void {
@@ -55,7 +56,54 @@ export default class MSliderTrack extends Component {
 
     private setThumbLocation(value: number): void {
         if (!this.output) return;
-        this.output.style.left = `calc(${value}% - (${8 - value * 0.15}px))`;
+        if (!this.element) return;
+
+        const min = this.element.min ? Number(this.element.min) : 0;
+        const max = this.element.max ? Number(this.element.max) : 100;
+        const thumbWidth = 32;
+        const range = max - min;
+
+        const position = Number(((value - min) / range) * 100);
+        const positionOffset =
+            Math.round((thumbWidth * position) / 100) - thumbWidth / 2;
+        const positionPaddingOffset = Math.round((5 * position) / 100) - 2.5;
+
+        this.output.style.left =
+            'calc(' +
+            position +
+            '% - ' +
+            positionOffset +
+            'px - ' +
+            positionPaddingOffset +
+            'px)';
+    }
+
+    private updateFloodFill(value: number): void {
+        if (!this.element) return;
+        if (!this.output) return;
+
+        const min = this.element.min ? Number(this.element.min) : 0;
+        const max = this.element.max ? Number(this.element.max) : 100;
+
+        const percentage = (Math.abs(value - min) / Math.abs(max - min)) * 100;
+        const paddingAdjustmentPx = 20;
+        const adjustmentCalc =
+            paddingAdjustmentPx - 2 * paddingAdjustmentPx * (percentage / 100);
+        const percentageFill =
+            'calc(' + percentage + '% + ' + adjustmentCalc + 'px)';
+
+        this.element.style.setProperty(
+            'background',
+            'linear-gradient(to right, ' +
+                'var(--color-secondary) ' +
+                ' 0%, ' +
+                'var(--color-secondary) ' +
+                ' ' +
+                percentageFill +
+                ', transparent ' +
+                percentageFill +
+                ', transparent 100%)',
+        );
     }
 
     private setDimsValue(): void {
