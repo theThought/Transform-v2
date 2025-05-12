@@ -413,66 +413,105 @@
     <xsl:template name="process-option-rows">
         <xsl:param name="qGroup" />
         <xsl:param name="theRows" />
-        <xsl:param name="sublistCategory" select="false()" />
-        <xsl:param name="filter" />
 
         <xsl:if test="count($theRows) > 0">
-            <xsl:variable name="currentRow" select="$theRows[1]" />
-            <xsl:variable name="categoryID" select="$currentRow/Cell/Control/Category/@CategoryID" />
-
+            <xsl:variable name="firstRow" select="$theRows[1]" />
+            <xsl:variable name="controlType" select="$firstRow/Cell/Control/@Type" />
+            <xsl:variable name="categoryID" select="$firstRow/Cell/Control/Category/@CategoryID" />
+            <xsl:comment>
+                <xsl:text>Recurse: </xsl:text>
+                <xsl:value-of select="count($theRows)" />
+                <xsl:text> theRows: </xsl:text>
+                <xsl:value-of select="count($theRows)" />
+            </xsl:comment>
+            <!-- Determine the rows to include in the current sublist -->
             <xsl:choose>
-                <!-- Handle static rows (start of a sublist) -->
-                <xsl:when test="$currentRow/Cell/Control/@Type='Static'">
-                    <xsl:variable name="theFilter" select="concat(substring-before($categoryID, '_'), '_S')" />
+                <!-- Case 1: Static control -->
+                <xsl:when test="$controlType = 'Static'">
+                    <xsl:variable name="rowsInSublist" select="$theRows[starts-with(Cell/Control/Category/@CategoryID, concat($categoryID, '_S'))]" />   
+                    <xsl:variable name="howManyRows" select="count($rowsInSublist)" />
+                    
+                    <xsl:comment>
+                        <xsl:text>list WITH heading: </xsl:text>
+                        <xsl:text>CategoryID: </xsl:text>
+                        <xsl:value-of select="$categoryID" />
+                        <xsl:text> rowsInSublist: </xsl:text>
+                        <xsl:value-of select="$howManyRows" />
+                    </xsl:comment>
+                    
                     <xsl:element name="o-option-sublist">
                         <xsl:call-template name="insert-label-heading-sublist">
-                            <xsl:with-param name="labelXML" select="$currentRow/Cell/Control/Category/Label" />
+                            <xsl:with-param name="labelXML" select="$firstRow/Cell/Control/Category/Label" />
                         </xsl:call-template>
+                        <xsl:for-each select="$rowsInSublist">
+                            <xsl:comment>
+                                <xsl:text>current position:</xsl:text> 
+                                <xsl:value-of select="position()" />
+                            </xsl:comment>
+
+                            <xsl:call-template name="m-option-base">
+                                <xsl:with-param name="qType" select="Cell/Control/@Type" />
+                                <xsl:with-param name="qGroup" select="$qGroup" />
+                                <xsl:with-param name="currentRow" select="." />
+                            </xsl:call-template>
+                        </xsl:for-each>
+                    </xsl:element>
+
+                    <xsl:call-template name="process-option-rows">
+                        <xsl:with-param name="qGroup" select="$qGroup" />
+                        <xsl:with-param name="theRows" select="$theRows[position() > $howManyRows + 1]" />
+                    </xsl:call-template>
+                </xsl:when>
+                <!-- Case 2: Non-Static control -->
+                <xsl:otherwise>
+                    <xsl:variable name="nextStatic" select="$theRows[Cell/Control/@Type = 'Static'][1]" />
+                    <xsl:variable name="nextStaticPosition" select="count($nextStatic/preceding-sibling::Row) + 1" />
+
+                    <xsl:variable name="nextStaticIncrement">
+                        <xsl:choose>
+                            <xsl:when test="$nextStatic">
+                                <xsl:value-of select="$nextStaticPosition - count($firstRow/preceding-sibling::Row)" />
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:value-of select="count($theRows)" />
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:variable>
+<xsl:comment>
+    <xsl:text>list NO heading: </xsl:text>
+    <xsl:text>nextStatic position: </xsl:text>
+    <xsl:value-of select="nextStaticPosition" />
+    <xsl:text> options to create: </xsl:text>
+    <xsl:value-of select="$nextStaticIncrement -1" />
+</xsl:comment>
+
+                    <xsl:element name="o-option-sublist">
+                        <xsl:for-each select="$theRows[position() &lt; ($nextStaticIncrement + 1)]">
+                            <xsl:comment>
+                                <xsl:text>current position:</xsl:text> 
+                                <xsl:value-of select="position()" />
+                            </xsl:comment>
+
+                            <xsl:call-template name="m-option-base">
+                                <xsl:with-param name="qType" select="Cell/Control/@Type" />
+                                <xsl:with-param name="qGroup" select="$qGroup" />
+                                <xsl:with-param name="currentRow" select="." />
+                            </xsl:call-template>
+                        </xsl:for-each>
+                    </xsl:element>
+                    <!-- Recurse with remaining rows -->
+                    <xsl:comment>recurse</xsl:comment>
+                    <xsl:variable name="remainingRows" select="$theRows[position() > $nextStaticIncrement]" />
+                    <xsl:comment>
+                        <xsl:text>remainingRows: </xsl:text>
+                        <xsl:value-of select="$remainingRows" /> 
+                    </xsl:comment>
+                    <xsl:if test="$remainingRows">
                         <xsl:call-template name="process-option-rows">
                             <xsl:with-param name="qGroup" select="$qGroup" />
-                            <xsl:with-param name="theRows" select="$theRows[position() > 1]" />
-                            <xsl:with-param name="sublistCategory" select="true()" />
-                            <xsl:with-param name="filter" select="$theFilter" />
+                            <xsl:with-param name="theRows" select="$theRows[position() > $nextStaticIncrement - 1]" />
                         </xsl:call-template>
-                    </xsl:element>
-                </xsl:when>
-
-                <!-- Handle non-static rows -->
-                <xsl:otherwise>
-                    <xsl:choose>
-                        <!-- If not in a sublist, create a new sublist -->
-                        <xsl:when test="not($sublistCategory)">
-                            <xsl:element name="o-option-sublist">
-                                <xsl:call-template name="m-option-base">
-                                    <xsl:with-param name="qType" select="$currentRow/Cell/Control/@Type" />
-                                    <xsl:with-param name="qGroup" select="$qGroup" />
-                                    <xsl:with-param name="currentRow" select="$currentRow" />
-                                </xsl:call-template>
-                                <xsl:call-template name="process-option-rows">
-                                    <xsl:with-param name="qGroup" select="$qGroup" />
-                                    <xsl:with-param name="theRows" select="$theRows[position() > 1]" />
-                                    <xsl:with-param name="sublistCategory" select="true()" />
-                                </xsl:call-template>
-                            </xsl:element>
-                        </xsl:when>
-
-                        <!-- If in a sublist, process rows matching the filter -->
-                        <xsl:otherwise>
-                            <xsl:if test="contains($categoryID, $filter)">
-                                <xsl:call-template name="m-option-base">
-                                    <xsl:with-param name="qType" select="$currentRow/Cell/Control/@Type" />
-                                    <xsl:with-param name="qGroup" select="$qGroup" />
-                                    <xsl:with-param name="currentRow" select="$currentRow" />
-                                </xsl:call-template>
-                            </xsl:if>
-                            <xsl:call-template name="process-option-rows">
-                                <xsl:with-param name="qGroup" select="$qGroup" />
-                                <xsl:with-param name="theRows" select="$theRows[position() > 1]" />
-                                <xsl:with-param name="sublistCategory" select="$sublistCategory" />
-                                <xsl:with-param name="filter" select="$filter" />
-                            </xsl:call-template>
-                        </xsl:otherwise>
-                    </xsl:choose>
+                    </xsl:if>
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:if>
