@@ -418,12 +418,7 @@
             <xsl:variable name="firstRow" select="$theRows[1]" />
             <xsl:variable name="controlType" select="$firstRow/Cell/Control/@Type" />
             <xsl:variable name="categoryID" select="$firstRow/Cell/Control/Category/@CategoryID" />
-            <xsl:comment>
-                <xsl:text>Recurse: </xsl:text>
-                <xsl:value-of select="count($theRows)" />
-                <xsl:text> theRows: </xsl:text>
-                <xsl:value-of select="count($theRows)" />
-            </xsl:comment>
+
             <!-- Determine the rows to include in the current sublist -->
             <xsl:choose>
                 <!-- Case 1: Static control -->
@@ -431,30 +426,25 @@
                     <xsl:variable name="rowsInSublist" select="$theRows[starts-with(Cell/Control/Category/@CategoryID, concat($categoryID, '_S'))]" />   
                     <xsl:variable name="howManyRows" select="count($rowsInSublist)" />
                     
-                    <xsl:comment>
-                        <xsl:text>list WITH heading: </xsl:text>
-                        <xsl:text>CategoryID: </xsl:text>
-                        <xsl:value-of select="$categoryID" />
-                        <xsl:text> rowsInSublist: </xsl:text>
-                        <xsl:value-of select="$howManyRows" />
-                    </xsl:comment>
-                    
-                    <xsl:element name="o-option-sublist">
+                    <xsl:element name='fieldset'>
+                        <xsl:attribute name="aria-describedby">
+                            <xsl:value-of select="//@TableID" />
+                            <xsl:text>_label_question</xsl:text>
+                        </xsl:attribute>
+
                         <xsl:call-template name="insert-label-heading-sublist">
                             <xsl:with-param name="labelXML" select="$firstRow/Cell/Control/Category/Label" />
                         </xsl:call-template>
-                        <xsl:for-each select="$rowsInSublist">
-                            <xsl:comment>
-                                <xsl:text>current position:</xsl:text> 
-                                <xsl:value-of select="position()" />
-                            </xsl:comment>
 
-                            <xsl:call-template name="m-option-base">
-                                <xsl:with-param name="qType" select="Cell/Control/@Type" />
-                                <xsl:with-param name="qGroup" select="$qGroup" />
-                                <xsl:with-param name="currentRow" select="." />
-                            </xsl:call-template>
-                        </xsl:for-each>
+                        <xsl:element name="o-option-sublist">
+                            <xsl:for-each select="$rowsInSublist">
+                                <xsl:call-template name="m-option-base">
+                                    <xsl:with-param name="qType" select="Cell/Control/@Type" />
+                                    <xsl:with-param name="qGroup" select="$qGroup" />
+                                    <xsl:with-param name="currentControl" select="Cell/Control" />
+                                </xsl:call-template>
+                            </xsl:for-each>
+                        </xsl:element>
                     </xsl:element>
 
                     <xsl:call-template name="process-option-rows">
@@ -477,35 +467,25 @@
                             </xsl:otherwise>
                         </xsl:choose>
                     </xsl:variable>
-<xsl:comment>
-    <xsl:text>list NO heading: </xsl:text>
-    <xsl:text>nextStatic position: </xsl:text>
-    <xsl:value-of select="nextStaticPosition" />
-    <xsl:text> options to create: </xsl:text>
-    <xsl:value-of select="$nextStaticIncrement -1" />
-</xsl:comment>
+                    <xsl:element name='fieldset'>
+                        <xsl:attribute name="aria-describedby">
+                            <xsl:value-of select="//@TableID" />
+                            <xsl:text>_label_question</xsl:text>
+                        </xsl:attribute>
 
-                    <xsl:element name="o-option-sublist">
-                        <xsl:for-each select="$theRows[position() &lt; ($nextStaticIncrement + 1)]">
-                            <xsl:comment>
-                                <xsl:text>current position:</xsl:text> 
-                                <xsl:value-of select="position()" />
-                            </xsl:comment>
-
-                            <xsl:call-template name="m-option-base">
-                                <xsl:with-param name="qType" select="Cell/Control/@Type" />
-                                <xsl:with-param name="qGroup" select="$qGroup" />
-                                <xsl:with-param name="currentRow" select="." />
-                            </xsl:call-template>
-                        </xsl:for-each>
+                        <xsl:element name="o-option-sublist">
+                            <xsl:for-each select="$theRows[position() &lt; ($nextStaticIncrement + 1)]">
+                                <xsl:call-template name="m-option-base">
+                                    <xsl:with-param name="qType" select="Cell/Control/@Type" />
+                                    <xsl:with-param name="qGroup" select="$qGroup" />
+                                    <xsl:with-param name="currentControl" select="Cell/Control" />
+                                </xsl:call-template>
+                            </xsl:for-each>
+                        </xsl:element>
                     </xsl:element>
                     <!-- Recurse with remaining rows -->
-                    <xsl:comment>recurse</xsl:comment>
                     <xsl:variable name="remainingRows" select="$theRows[position() > $nextStaticIncrement]" />
-                    <xsl:comment>
-                        <xsl:text>remainingRows: </xsl:text>
-                        <xsl:value-of select="$remainingRows" /> 
-                    </xsl:comment>
+
                     <xsl:if test="$remainingRows">
                         <xsl:call-template name="process-option-rows">
                             <xsl:with-param name="qGroup" select="$qGroup" />
@@ -820,21 +800,8 @@
         <xsl:param name="qType" />
         <xsl:param name="qGroup" />
         <xsl:param name="typeOverride" />
-        <xsl:param name="currentRow" />
+        <xsl:param name="currentControl" />
 
-        <!-- Debug: Log current context and parameters as comments 
-        <xsl:comment>
-            Debug: Entering m-option-base
-            qType: <xsl:value-of select="$qType" />
-            qGroup: <xsl:value-of select="$qGroup" />
-            typeOverride: <xsl:value-of select="$typeOverride" />
-            Current Row Position: <xsl:value-of select="position()" />
-            Current Row Y Attribute: <xsl:value-of select="$currentRow/@Y" />
-            Current Row CategoryID: <xsl:value-of select="$currentRow/Cell/Control/Category/@CategoryID" />
-        </xsl:comment>
-        -->
-        <xsl:variable name="currentCell" select="$currentRow/Cell" />
-        <xsl:variable name="currentControl" select="$currentCell/Control" />
         <xsl:variable name="currentCategory" select="$currentControl/Category" />
 
         <xsl:variable name="qCategoryID">
@@ -1028,6 +995,7 @@
                                 <xsl:with-param name="qType" select="$qType" />
                                 <xsl:with-param name="qGroup" select="$qGroup" />
                                 <xsl:with-param name="typeOverride" select="$typeOverride" />
+                                <xsl:with-param name="currentControl" select="." />
                             </xsl:call-template>
                         </xsl:for-each>
                     </xsl:element>
@@ -1045,6 +1013,7 @@
                             <xsl:with-param name="qType" select="$qType" />
                             <xsl:with-param name="qGroup" select="$qGroup" />
                             <xsl:with-param name="typeOverride" select="$typeOverride" />
+                            <xsl:with-param name="currentControl" select="." />
                         </xsl:call-template>
                     </xsl:for-each>
                 </xsl:otherwise>
