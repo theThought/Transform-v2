@@ -1,9 +1,9 @@
 import { Meta } from '@storybook/web-components';
-import { OSlider } from './Slider';
+import { OSliderWithExclusive } from '../../Organisms/Slider/Slider';
 
 export default {
-    title: 'Organisms/Slider',
-    component: 'o-slider', // Use the tag name of the custom element
+    title: 'Templates/Slider',
+    component: 't-slider', // Use the tag name of the custom element
     parameters: {
         status: { type: 'beta' },
     },
@@ -78,6 +78,13 @@ export const Slider = {
             marks: true,
         },
         ticklabels: 10,
+        optionType: 'multi-answer',
+        exclusive: true,
+        questionId: '_Q0',
+        categoryId: '_C1',
+        questionName: 'CheckExample',
+        optionLabel: 'No answer',
+        iconType: 'check',
     },
-    render: (args: object): HTMLElement => OSlider(args),
+    render: (args: object): HTMLElement => OSliderWithExclusive(args),
 };
