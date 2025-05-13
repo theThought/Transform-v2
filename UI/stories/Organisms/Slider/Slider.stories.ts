@@ -54,7 +54,7 @@ export const Slider = {
     args: {
         minimum: 1,
         maximum: 100,
-        step: '1',
+        step: 10,
         width: '100%',
     },
     render: (args: object): HTMLElement => OSlider(args),

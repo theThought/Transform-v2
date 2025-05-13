@@ -2,7 +2,8 @@ export function MSliderMarks(args): HTMLElement {
     const container = document.createElement('m-divider-marks');
     const minimum = args.minimum ?? 0;
     const maximum = args.maximum ?? 100;
-    const step = args.step ?? 10;
+    const step =
+        args.step === 'any' || args.step == '' ? 10 : Number(args.step);
 
     for (
         let counter: number = minimum;
