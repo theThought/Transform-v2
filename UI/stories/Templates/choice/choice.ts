@@ -41,6 +41,10 @@ export function TChoice_Story(
     // Create JSON for data-properties
     const dataPropertiesString = JSON.stringify(dataProperties);
 
+    // Update the Color attribute in Question Style elements
+    questionStyleElements.forEach((styleElement) => {
+        styleElement.setAttribute('Color', dataPropertiesString);
+    });
 
     const serializer = new XMLSerializer();
     const updatedXmlData = serializer.serializeToString(xmlDoc);
