@@ -1,4 +1,4 @@
-m-divider-marks {
+.m-divider-marks {
     display: flex;
     justify-content: space-between;
     padding: 0 1em;
