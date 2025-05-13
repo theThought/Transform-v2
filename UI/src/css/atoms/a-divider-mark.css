@@ -1,0 +1,7 @@
+.a-divider-mark {
+    display: block;
+
+    &::before {
+        content: '|';
+    }
+}
