@@ -10,7 +10,7 @@ import OResponse from './o-response';
 export default class Component extends HTMLElement {
     protected readonly qid: string | undefined;
     protected readonly qgroup: string | undefined;
-    protected readonly response: OResponse | null;
+    protected response: OResponse | null = null;
     protected properties: Record<string, unknown>;
 
     constructor() {
@@ -18,12 +18,6 @@ export default class Component extends HTMLElement {
 
         this.qid = this.dataset.questionId;
         this.qgroup = this.dataset.questionGroup;
-
-        if (this.parentElement) {
-            this.response = this.parentElement.closest('o-response');
-        } else {
-            this.response = null;
-        }
 
         this.properties = {};
     }
@@ -54,6 +48,12 @@ export default class Component extends HTMLElement {
     }
 
     public connectedCallback(): void {
+        if (this.parentElement) {
+            this.response = this.parentElement.closest('o-response');
+        } else {
+            this.response = null;
+        }
+
         this.parseProperties();
     }
 }
