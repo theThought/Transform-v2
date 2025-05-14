@@ -1,16 +1,40 @@
 m-option-tab {
-    --color-checked: var(--color-secondary);
+    --color-checked: var(--color-white);
 
+    border: var(--border-thickness) solid var(--color-secondary);
+    display: inline-block;
     position: relative;
 
-    /* Not using flex-gap for layout as it doesn't match designs. Use padding on a-label-option to nudge it away from input. */
-    label {
+    & + m-option-tab {
+        border-inline-start: none;
+    }
+
+    label.a-label-option {
         align-items: center;
+        color: var(--color-secondary);
         display: inline-flex;
-        padding-block: calc(var(--space-1) / 2);
+        padding: var(--space-4);
+    }
+
+    &[data-checked='true'] {
+        background: var(--color-primary);
+        border-color: var(--color-primary);
+
+        label.a-label-option {
+            color: var(--color-checked);
+        }
+    }
+
+    &[data-checked='true'] ~ & {
+        border-color: var(--color-dark1);
+
+        label.a-label-option {
+            color: var(--color-dark2);
+        }
     }
 
     /* See https://www.sarasoueidan.com/blog/inclusively-hiding-and-styling-checkboxes-and-radio-buttons/ */
+
     input {
         block-size: var(--option-icon-height);
         inline-size: var(--option-icon-width);
@@ -22,9 +46,5 @@ m-option-tab {
             box-shadow: var(--box-shadow);
             outline: var(--focus-outline);
         }
-    }
-
-    &:has(:checked) .a-label-option {
-        color: var(--color-checked);
     }
 }

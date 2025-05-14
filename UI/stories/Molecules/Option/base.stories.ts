@@ -1,5 +1,6 @@
 import { Meta, StoryObj } from '@storybook/web-components';
 import { MOptionBase_Story } from './base';
+import { MOptionTab } from './tab';
 
 export default {
     title: 'Molecules/Option/Base',
@@ -15,6 +16,15 @@ export default {
             table: {
                 type: { summary: 'string' },
                 defaultValue: { summary: 'single-answer' },
+            },
+        },
+        optionStatus: {
+            control: 'select',
+            options: ['unselected', 'selected', 'disabled'],
+            description: 'Display state of the option',
+            table: {
+                type: { summary: 'string' },
+                defaultValue: { summary: 'unselected' },
             },
         },
         exclusive: {
@@ -119,3 +129,20 @@ export const StandardCheck: MultiAnswer = {
     render: (args) => MOptionBase_Story(args),
 };
 StandardCheck.storyName = 'Non-exclusive option (multi-choice)';
+
+type TabstripOption = StoryObj<typeof MOptionTab>;
+export const TabstripOption: TabstripOption = {
+    parameters: {
+        controls: {
+            include: ['optionLabel', 'optionStatus'],
+        },
+    },
+    args: {
+        questionId: '_Q0',
+        categoryId: '_C1',
+        questionName: 'TabExample',
+        optionLabel: 'Tab name',
+    },
+    render: (args) => MOptionTab(args),
+};
+TabstripOption.storyName = 'm-option-tab';

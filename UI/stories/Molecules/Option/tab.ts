@@ -1,61 +1,22 @@
-import MOptionTab from '../../../src/javascript/web-components/m-option-tab';
+export function MOptionTab(args): HTMLElement {
+    const component = document.createElement('m-option-tab');
 
-export function MOptionTab_Story(args: any): HTMLElement {
-    const container: MOptionTab = document.createElement('m-option-tab');
-    if (args.exclusive || args.type === 'radio') {
-        container.setAttribute('class', 'm-option-single-answer');
-        const inputElement: HTMLInputElement = document.createElement('input');
-        inputElement.setAttribute('type', 'radio');
-        inputElement.setAttribute('id', args.id);
-        inputElement.setAttribute('name', args.name);
-        container.appendChild(inputElement);
+    component.setAttribute('data-exclusive', 'true');
+    component.setAttribute('data-question-id', args.questionId);
+    component.setAttribute('data-question-group', args.questionName);
 
-        const labelElement = document.createElement('label');
-        labelElement.setAttribute('for', args.id);
+    const inputElement: HTMLInputElement = document.createElement('input');
+    inputElement.setAttribute('type', 'radio');
+    inputElement.setAttribute('id', args.questionId + args.categoryId);
+    inputElement.setAttribute('name', args.questionName);
+    inputElement.setAttribute('data-question-group', args.questionName);
+    component.appendChild(inputElement);
 
-        const iconElement = document.createElement('span');
-        iconElement.setAttribute('class', 'a-icon-multistate');
-        iconElement.setAttribute('data-icon-type', 'single');
-        labelElement.appendChild(iconElement);
+    const labelElement: HTMLLabelElement = document.createElement('label');
+    labelElement.setAttribute('class', 'a-label-option');
+    labelElement.setAttribute('for', args.questionId + args.categoryId);
+    labelElement.textContent = args.optionLabel;
+    component.appendChild(labelElement);
 
-        const textElement = document.createElement('span');
-        textElement.setAttribute('class', 'a-label-option');
-        textElement.textContent = args.optionLabel;
-        labelElement.appendChild(textElement);
-        container.appendChild(labelElement);
-
-    } else if (args.type === 'checkbox') {
-        container.setAttribute('class', 'm-option-multiple-answer');
-        const inputElement = document.createElement('input');
-        inputElement.setAttribute('type', 'checkbox');
-        inputElement.setAttribute('id', args.id);
-        inputElement.setAttribute('name', args.name);
-        container.appendChild(inputElement);
-
-        const labelElement = document.createElement('label');
-        labelElement.setAttribute('for', args.id);
-
-        const iconElement = document.createElement('span');
-        iconElement.setAttribute('class', 'a-icon-multistate');
-        iconElement.setAttribute('data-icon-type', 'multiple');
-        labelElement.appendChild(iconElement);
-
-        const textElement = document.createElement('span');
-        textElement.setAttribute('class', 'a-label-option');
-        textElement.textContent = args.optionLabel;
-        labelElement.appendChild(textElement);
-        container.appendChild(labelElement);
-    }
-    return container;
+    return component;
 }
-/**
- <m-option-base class="m-option-single-answer">
-    <input type="radio" id="radio1" name="radios" />
-    <label for="radio1">
-        <span class="a-icon-multistate" data-icon-type="single"></span>
-        <span class="a-label-option">
-            Radio label
-        </span>
-    </label>
-</m-option-base>
- */

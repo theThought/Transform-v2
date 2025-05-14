@@ -2,7 +2,7 @@ import Component from './component';
 import { Observer, Subject } from '../interfaces';
 
 export default class OOptionSublist extends Component implements Subject {
-    private observers: Observer[] = [];
+    protected observers: Observer[] = [];
     public tallest = 0;
     public widest = 0;
     public maxwidth = 0;
@@ -16,11 +16,11 @@ export default class OOptionSublist extends Component implements Subject {
         this.setMaxOneSize();
     }
 
-    addObserver(observer: Observer): void {
+    public addObserver(observer: Observer): void {
         this.observers.push(observer);
     }
 
-    removeObserver(observer: Observer): void {
+    public removeObserver(observer: Observer): void {
         const obsIndex = this.observers.findIndex(
             (obs: Observer): boolean => observer === obs,
         );
@@ -33,7 +33,7 @@ export default class OOptionSublist extends Component implements Subject {
         this.observers.splice(obsIndex, 1);
     }
 
-    notifyObservers(method: string, detail: CustomEvent): void {
+    public notifyObservers(method: string, detail: CustomEvent): void {
         for (const observer of this.observers) {
             observer.update(method, detail);
         }

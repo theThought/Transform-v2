@@ -71,7 +71,7 @@ export default class MOptionBase extends Component implements Observer {
         if (!this.checkbox) return;
         if (!this.isExclusive) return;
 
-        if (e.target === this || !this.checkbox.checked) {
+        if (e.target === this) {
             return;
         }
 
@@ -98,7 +98,7 @@ export default class MOptionBase extends Component implements Observer {
         this.broadcastChange();
     }
 
-    private onClick(e: Event): void {
+    protected onClick(e: Event): void {
         e.preventDefault();
         e.stopPropagation();
 
@@ -163,13 +163,19 @@ export default class MOptionBase extends Component implements Observer {
 
         this.element = this.querySelector('label');
         this.checkbox = this.querySelector('input');
-        this.sublist = this.closest('o-option-sublist');
+        this.sublist =
+            this.closest('o-option-sublist') ??
+            this.closest('o-option-tabstrip');
         this.isExclusive = this.getAttribute('data-exclusive') === 'true';
 
         this.init();
 
         if (this.response) {
             this.response.addObserver(this);
+        }
+
+        if (this.sublist) {
+            this.sublist.addObserver(this);
         }
 
         if (
@@ -181,7 +187,6 @@ export default class MOptionBase extends Component implements Observer {
         ) {
             return;
         }
-        this.sublist.addObserver(this);
 
         const observer = new ResizeObserver((entries) => {
             for (const entry of entries) {
