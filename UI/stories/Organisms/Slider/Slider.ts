@@ -24,7 +24,7 @@ export function OSlider(args): HTMLElement {
     input.type = 'hidden';
     thumb.className = 'a-label-thumb';
     thumb.setAttribute('for', 'input_Q0');
-    innerContainer.style.width = args.width;
+    outerContainer.style.width = args.width;
     marksContainer.className = 'm-divider-marks';
     marksLabelContainer.className = 'm-label-marks';
 
@@ -70,7 +70,7 @@ export function OSliderWithExclusive(args): HTMLElement {
     input.type = 'hidden';
     thumb.className = 'a-label-thumb';
     thumb.setAttribute('for', 'input_Q0');
-    innerContainer.style.width = args.width;
+    outerContainer.style.width = args.width;
     marksContainer.className = 'm-divider-marks';
     marksLabelContainer.className = 'm-label-marks';
 

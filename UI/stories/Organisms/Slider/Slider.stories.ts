@@ -56,6 +56,28 @@ export default {
                 defaultValue: { summary: '' },
             },
         },
+        prelabel: {
+            control: 'text',
+            description: 'Specifies the text to be placed before the input.',
+            table: {
+                type: { summary: 'text' },
+                category: 'Properties',
+                subCategory: 'Labels',
+                defaultValue: { summary: 'n/a' },
+                order: 1,
+            },
+        },
+        postlabel: {
+            control: 'text',
+            description: 'Specifies the text to be placed after the input.',
+            table: {
+                type: { summary: 'text' },
+                category: 'Properties',
+                subCategory: 'Labels',
+                defaultValue: { summary: 'n/a' },
+                order: 2,
+            },
+        },
     },
 } as Meta;
 
