@@ -47,22 +47,13 @@ export default {
                 category: 'dimensions',
             },
         },
-        marks: {
-            control: 'boolean',
-            description: 'Display tick marks',
-            table: {
-                type: { summary: 'boolean' },
-                category: 'display',
-                defaultValue: { summary: 'true' },
-            },
-        },
         ticklabels: {
             control: 'number',
             description: 'Display tick labels',
             table: {
                 type: { summary: 'number' },
                 category: 'display',
-                defaultValue: { summary: '10' },
+                defaultValue: { summary: '' },
             },
         },
     },
@@ -77,7 +68,6 @@ export const Slider = {
         show: {
             marks: true,
         },
-        ticklabels: 10,
     },
     render: (args: object): HTMLElement => OSlider(args),
 };
