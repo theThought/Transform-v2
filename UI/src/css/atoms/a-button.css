@@ -21,8 +21,7 @@
     }
 }
 
-a-button-terminator-pre,
-a-button-terminator-post {
+a-button-terminator {
     cursor: default;
     display: none;
     padding: 0 var(--space-2);

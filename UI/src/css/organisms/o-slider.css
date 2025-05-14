@@ -9,8 +9,7 @@ o-slider-container {
 }
 
 .has-terminators {
-    a-button-terminator-pre,
-    a-button-terminator-post {
+    a-button-terminator {
         display: block;
     }
 }

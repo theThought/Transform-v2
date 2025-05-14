@@ -5,8 +5,8 @@ export function OSlider(args): HTMLElement {
     const outerContainer: HTMLElement = document.createElement('o-slider');
     outerContainer.setAttribute('data-properties', JSON.stringify(args));
     const prepostLabel = MLabel.MLabelPrePost(args.prelabel, args.postlabel);
-    const preButton = document.createElement('a-button-terminator-pre');
-    const postButton = document.createElement('a-button-terminator-post');
+    const preButton = document.createElement('a-button-terminator');
+    const postButton = document.createElement('a-button-terminator');
     const innerContainer = document.createElement('o-slider-container');
     const track = document.createElement('m-slider-track');
     track.setAttribute('data-properties', JSON.stringify(args));
@@ -29,6 +29,8 @@ export function OSlider(args): HTMLElement {
     outerContainer.style.width = args.width;
     marksContainer.className = 'm-divider-marks';
     marksLabelContainer.className = 'm-label-marks';
+    preButton.setAttribute('data-behaviour', 'decrement');
+    postButton.setAttribute('data-behaviour', 'increment');
 
     outerContainer.appendChild(prepostLabel);
     outerContainer.appendChild(preButton);
@@ -54,8 +56,8 @@ export function OSliderWithExclusive(args): HTMLElement {
     const option: HTMLElement = MOptionBase_Story(args);
     const outerContainer: HTMLElement = document.createElement('o-slider');
     const prepostLabel = MLabel.MLabelPrePost(args.prelabel, args.postlabel);
-    const preButton = document.createElement('a-button-terminator-pre');
-    const postButton = document.createElement('a-button-terminator-post');
+    const preButton = document.createElement('a-button-terminator');
+    const postButton = document.createElement('a-button-terminator');
     const innerContainer = document.createElement('o-slider-container');
     const track = document.createElement('m-slider-track');
     const rangeInput = document.createElement('input');
@@ -77,6 +79,8 @@ export function OSliderWithExclusive(args): HTMLElement {
     outerContainer.style.width = args.width;
     marksContainer.className = 'm-divider-marks';
     marksLabelContainer.className = 'm-label-marks';
+    preButton.setAttribute('data-behaviour', 'decrement');
+    postButton.setAttribute('data-behaviour', 'increment');
 
     outerContainer.appendChild(prepostLabel);
     outerContainer.appendChild(preButton);
