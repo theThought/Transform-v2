@@ -15,52 +15,31 @@ export default class MSliderTrack extends Component implements Observer {
     // Handle constructor() event listeners.
     public handleEvent(e: Event): void {
         switch (e.type) {
-            case 'focusin':
-                this.onFocusIn(<CustomEvent>e);
-                break;
             case 'input':
                 this.onInput();
         }
     }
 
-    public update(method: string, data: CustomEvent): void {
+    public update(method: string): void {
         if (method === 'exclusiveClear') {
-            this.exclusiveClear(data);
+            this.exclusiveClear();
         }
         if (method === 'exclusiveRestore') {
             this.restoreData();
         }
     }
 
-    private onFocusIn(e: CustomEvent): void {
-        e.stopPropagation();
-        if (!this.element) return;
-        if (!this.output) return;
-        this.restoreData();
-    }
-
-    private exclusiveClear(e: CustomEvent): void {
-        if (!this.element) return;
-
-        if (e.target === this) {
-            return;
-        }
-
-        if (this.element.value) {
-            this.element.placeholder = this.element.value;
-            this.element.value = '';
-        }
-
-        this.setValueClass();
+    private exclusiveClear(): void {
+        this.clearValueClass();
+        this.clearFloodFill();
     }
 
     private restoreData(): void {
         if (!this.element) return;
+        const value = Number(this.element.value);
 
-        if (this.element.placeholder.length) {
-            this.element.value = this.element.placeholder;
-            this.broadcastChange();
-        }
+        this.setValueClass();
+        this.updateFloodFill(value);
     }
 
     private onInput(): void {
@@ -68,7 +47,7 @@ export default class MSliderTrack extends Component implements Observer {
 
         const value = this.element.value;
         this.setValueClass();
-        this.setDimensionsInputValue();
+        this.setSliderInputValue();
         this.setThumbDisplay(value);
         this.setThumbValue(value);
         this.setThumbLocation(Number(value));
@@ -77,9 +56,12 @@ export default class MSliderTrack extends Component implements Observer {
 
     private setValueClass(): void {
         if (!this.element) return;
-        if (this.element.value !== '') {
-            this.classList.add('has-value');
-        }
+        this.classList.add('has-value');
+    }
+
+    private clearValueClass(): void {
+        if (!this.element) return;
+        this.classList.remove('has-value');
     }
 
     private setThumbDisplay(value: string): void {
@@ -139,7 +121,6 @@ export default class MSliderTrack extends Component implements Observer {
 
     private updateFloodFill(value: number): void {
         if (!this.element) return;
-        if (!this.output) return;
 
         const min = this.element.min ? Number(this.element.min) : 0;
         const max = this.element.max ? Number(this.element.max) : 100;
@@ -165,8 +146,17 @@ export default class MSliderTrack extends Component implements Observer {
         );
     }
 
-    private setDimensionsInputValue(): void {
-        this.broadcastChange();
+    private clearFloodFill(): void {
+        if (!this.element) return;
+        this.element.style.setProperty('background', 'none');
+    }
+
+    private setSliderInputValue(): void {
+        const notifySlider = new CustomEvent('notifySlider', {
+            bubbles: true,
+            detail: this,
+        });
+        this.dispatchEvent(notifySlider);
     }
 
     private setProperties(): void {

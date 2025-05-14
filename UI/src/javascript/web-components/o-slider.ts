@@ -1,6 +1,7 @@
 import Component from './component';
+import { Observer } from '../interfaces';
 
-export default class OSlider extends Component {
+export default class OSlider extends Component implements Observer {
     private element: HTMLInputElement | null = null;
     private range: HTMLInputElement | null = null;
     private min = 0;
@@ -11,12 +12,44 @@ export default class OSlider extends Component {
         super();
     }
 
-    // Handle constructor() event listeners.
     public handleEvent(e: Event): void {
         switch (e.type) {
-            case 'broadcastChange':
+            case 'notifySlider':
                 this.onSliderValueChange(<CustomEvent>e);
                 break;
+        }
+    }
+
+    public update(method: string, data: CustomEvent): void {
+        if (method === 'exclusiveClear') {
+            this.exclusiveClear(data);
+        }
+
+        if (method === 'exclusiveRestore') {
+            this.restoreData();
+        }
+    }
+
+    private exclusiveClear(e: CustomEvent): void {
+        if (!this.element) return;
+
+        if (e.target === this) {
+            return;
+        }
+
+        if (this.element.value) {
+            this.element.placeholder = this.element.value;
+            this.element.value = '';
+        }
+    }
+
+    private restoreData(): void {
+        if (!this.element) return;
+
+        if (this.element.placeholder.length) {
+            this.element.value = this.element.placeholder;
+            this.element.placeholder = '';
+            this.broadcastChange();
         }
     }
 
@@ -25,6 +58,8 @@ export default class OSlider extends Component {
         if (!this.element) return;
 
         this.element.value = e.detail.element.value;
+        this.element.placeholder = '';
+        this.broadcastChange();
     }
 
     private tickLabels(): void {
@@ -65,7 +100,7 @@ export default class OSlider extends Component {
     }
 
     private init(): void {
-        this.addEventListener('broadcastChange', this);
+        this.addEventListener('notifySlider', this);
         this.setProperties();
         this.tickLabels();
     }
@@ -75,5 +110,8 @@ export default class OSlider extends Component {
         this.element = this.querySelector('input[type="hidden"]');
         this.range = this.querySelector('input[type="range"]');
         this.init();
+
+        if (!this.response) return;
+        this.response.addObserver(this);
     }
 }
