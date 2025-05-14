@@ -30,6 +30,7 @@
 .a-label-thumb {
     position: absolute;
     transform: translate(-50%, calc(var(--space-4) * -2));
+    visibility: hidden;
 }
 
 .a-label-mark {

@@ -14,5 +14,9 @@ m-slider-track {
         input[type='range']::-ms-thumb {
             visibility: visible;
         }
+
+        output {
+            visibility: visible;
+        }
     }
 }
