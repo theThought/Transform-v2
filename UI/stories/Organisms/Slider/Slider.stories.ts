@@ -89,6 +89,7 @@ export const Slider = {
         width: '100%',
         show: {
             marks: true,
+            terminators: false,
         },
     },
     render: (args: object): HTMLElement => OSlider(args),

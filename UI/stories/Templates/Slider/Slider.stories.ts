@@ -89,6 +89,7 @@ export const Slider = {
         width: '100%',
         show: {
             marks: true,
+            terminators: false,
         },
         optionType: 'multi-answer',
         exclusive: true,

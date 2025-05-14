@@ -89,6 +89,19 @@ export default class OSlider extends Component implements Observer {
         }
     }
 
+    private terminatorButtons(): void {
+        if (
+            typeof this.properties.show !== 'object' ||
+            !this.properties.show ||
+            !('terminators' in this.properties.show) ||
+            !this.properties.show.terminators
+        ) {
+            return;
+        }
+
+        this.classList.add('has-terminators');
+    }
+
     private setProperties(): void {
         if (!this.range) return;
 
@@ -103,6 +116,7 @@ export default class OSlider extends Component implements Observer {
         this.addEventListener('notifySlider', this);
         this.setProperties();
         this.tickLabels();
+        this.terminatorButtons();
     }
 
     public connectedCallback(): void {

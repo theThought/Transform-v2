@@ -1,4 +1,9 @@
-o-slider,
+o-slider {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 o-slider-container {
     display: block;
+    flex: 1;
 }
