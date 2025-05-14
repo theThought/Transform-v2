@@ -884,6 +884,16 @@
         </xsl:element>    
     </xsl:template>
 
+    <xsl:template name="m-label-prepost">
+        <xsl:element name="div">
+            <xsl:attribute name="class">
+                <xsl:text>m-label-prepost</xsl:text>
+            </xsl:attribute>
+            <xsl:call-template name="a-label-pre" />
+            <xsl:call-template name="a-label-post" />
+        </xsl:element>
+    </xsl:template>
+    
     <xsl:template name="m-singleline">
         <!-- inserts a basic edit box -->
         <xsl:param name="qGroup" />
