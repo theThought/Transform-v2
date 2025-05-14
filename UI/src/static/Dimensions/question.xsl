@@ -811,7 +811,11 @@
                     <xsl:text>;</xsl:text>
                 </xsl:attribute>
             </xsl:if>
-            
+            <xsl:element name="a-button-terminator">
+                <xsl:attribute name="data-behaviour">
+                    <xsl:text>decrement</xsl:text>
+                </xsl:attribute>
+            </xsl:element>
             <xsl:choose>
                 <xsl:when test="$subType='horizontal'">
                     <xsl:call-template name="m-label-prepost" />
@@ -829,7 +833,7 @@
                     </xsl:call-template>
                 </xsl:when> 
                 <xsl:when test="$subType='vertical'">
-                    <xsl:call-template name="a-label-post" />               
+                    <xsl:call-template name="a-label-post" />
 
                     <xsl:call-template name="m-slider-container">
                         <xsl:with-param name="qGroup" select="$qGroup" />
@@ -845,7 +849,13 @@
 
                     <xsl:call-template name="a-label-post" />
                 </xsl:when>
-            </xsl:choose>               
+            </xsl:choose>
+            
+            <xsl:element name="a-button-terminator">
+                <xsl:attribute name="data-behaviour">
+                    <xsl:text>increment</xsl:text>
+                </xsl:attribute>
+            </xsl:element>               
         </xsl:element>
     </xsl:template>
     <!-- Molecules -->
@@ -872,10 +882,16 @@
         <xsl:param name="maximum" select="10" />
         <xsl:element name="m-slider-container">
             <xsl:element name="m-slider-track">
+            <xsl:comment>name: 
+                <xsl:value-of select="name()" />
+            </xsl:comment>
                 <xsl:element name="output">
-                    <xsl:attribute name="type" select="'range'" />
+                    <xsl:attribute name="class">
+                        <xsl:text>a-label-thumb</xsl:text>
+                    </xsl:attribute>
+                    <xsl:attribute name="type"><xsl:text>range</xsl:text></xsl:attribute>
                     <xsl:attribute name="id">
-                        <xsl:value-of select="concat($qGroup, '_range')" />
+                        <xsl:value-of select="concat(@ElementID, '_range')" />
                     </xsl:attribute>
                 </xsl:element>
                 <xsl:element name="m-divider-marks" />
@@ -893,7 +909,7 @@
             <xsl:call-template name="a-label-post" />
         </xsl:element>
     </xsl:template>
-    
+
     <xsl:template name="m-singleline">
         <!-- inserts a basic edit box -->
         <xsl:param name="qGroup" />
