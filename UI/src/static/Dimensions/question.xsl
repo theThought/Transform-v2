@@ -884,16 +884,36 @@
         <xsl:param name="maximum" select="10" />
         <xsl:element name="m-slider-container">
             <xsl:element name="m-slider-track">
+
                 <xsl:element name="output">
                     <xsl:attribute name="class">
                         <xsl:text>a-label-thumb</xsl:text>
                     </xsl:attribute>
                     <xsl:attribute name="type"><xsl:text>range</xsl:text></xsl:attribute>
-                    <xsl:attribute name="id">
+                    <xsl:attribute name="for">
                         <xsl:value-of select="concat(@ElementID, '_range')" />
                     </xsl:attribute>
                     <xsl:comment>thumb</xsl:comment>
                 </xsl:element>
+
+                <xsl:element name="input">
+                    <xsl:attribute name="type">
+                        <xsl:text>range</xsl:text>
+                    </xsl:attribute>
+                    <xsl:attribute name="id">
+                        <xsl:value-of select="concat(@ElementID, '_range')" />
+                    </xsl:attribute>
+                    <xsl:attribute name="min">
+                        <xsl:value-of select="$minimum" />
+                    </xsl:attribute>
+                    <xsl:attribute name="max">
+                        <xsl:value-of select="$maximum" />
+                    </xsl:attribute>
+                    <xsl:attribute name="class">
+                        <xsl:text>a-slider-input</xsl:text>
+                    </xsl:attribute>
+                </xsl:element>
+
                 <xsl:element name="m-divider-marks">
                     <xsl:comment>divider marks</xsl:comment>
                 </xsl:element>
