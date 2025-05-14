@@ -109,10 +109,19 @@ export default class MSliderTrack extends Component implements Observer {
         }
 
         const marksContainer = this.querySelector('.m-divider-marks');
-
         if (!marksContainer) return;
 
-        for (let i = this.min; i <= this.max; i = i + this.step) {
+        let step = 10;
+
+        if (
+            this.properties.hasOwnProperty('ticklabels') &&
+            typeof this.properties.ticklabels === 'number' &&
+            this.properties.ticklabels > 0
+        ) {
+            step = this.properties.ticklabels;
+        }
+
+        for (let i = this.min; i <= this.max; i = i + step) {
             const mark = document.createElement('span');
             mark.className = 'a-divider-mark';
             marksContainer.appendChild(mark);
