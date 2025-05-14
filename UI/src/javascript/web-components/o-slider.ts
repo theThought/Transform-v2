@@ -47,8 +47,10 @@ export default class OSlider extends Component {
         }
 
         for (let i = this.min; i <= this.max; i = i + step) {
-            labelsElement.innerHTML =
-                labelsElement.innerHTML + '<span>' + i + '</span>';
+            const labelElement = document.createElement('span');
+            labelElement.className = 'a-label-mark';
+            labelElement.innerHTML = String(i);
+            labelsElement.appendChild(labelElement);
         }
     }
 
