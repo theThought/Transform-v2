@@ -138,6 +138,24 @@
 
                 </xsl:call-template>
             </xsl:when>
+            <xsl:when test="$qType='slider-horizontal'">
+                <xsl:call-template name="slider">
+                    <xsl:with-param name="qType" select="$qType" />
+                    <xsl:with-param name="qGroup" select="$qGroup"/>
+                    <xsl:with-param name="Hidden" select="false()"/>
+                    <xsl:with-param name="subType" select="'horizontal'"/>
+
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="$qType='slider-vertical'">
+                <xsl:call-template name="slider">
+                    <xsl:with-param name="qType" select="$qType" />
+                    <xsl:with-param name="qGroup" select="$qGroup"/>
+                    <xsl:with-param name="Hidden" select="false()"/>
+                    <xsl:with-param name="subType" select="'vertical'"/>
+
+                </xsl:call-template>
+            </xsl:when>
         </xsl:choose>
 
     </xsl:template>
@@ -659,14 +677,63 @@
                 </xsl:for-each>
             </xsl:otherwise>
         </xsl:choose>
-
-
-</xsl:template>
+    </xsl:template>
 
     <xsl:template name="slider">
         <xsl:param name="qType" />
         <xsl:param name="qGroup" />
         <xsl:param name="Hidden" />
+        <xsl:param name="subType" select="'horizontal'" />
+
+        <xsl:variable name="questionId">
+            <xsl:value-of select="Control[./Style/Control/@Type='SingleLineEdit'][1]/@ElementID" />
+        </xsl:variable>
+
+        <xsl:variable name="optionCount">
+            <xsl:value-of select="count(Control[not(./Style/Control/@Type='SingleLineEdit')])" />
+        </xsl:variable>
+
+        <xsl:choose>
+            <xsl:when test="$optionCount > 0">
+                <xsl:element name="fieldset">
+                    <xsl:attribute name="aria-describedby">
+                        <xsl:value-of select="$questionId" />
+                        <xsl:text>_label_question</xsl:text>
+                    </xsl:attribute>
+                
+                    <xsl:for-each select="Control[./Style/Control/@Type='SingleLineEdit']">
+                        <xsl:call-template name='o-slider'>
+                            <xsl:with-param name="qGroup">
+                                <xsl:value-of select="$qGroup" />
+                            </xsl:with-param>
+                            <xsl:with-param name="subType">
+                                <xsl:value-of select="$subType" />
+                            </xsl:with-param>
+                        </xsl:call-template>
+                    </xsl:for-each>
+
+                    <xsl:call-template name="o-option-sublist">
+                        <xsl:with-param name="qType" select="$qType" />
+                        <xsl:with-param name="qGroup" select="$qGroup" />
+                        <xsl:with-param name="questionId" select="$questionId" />
+                        <xsl:with-param name="optionCount" select="$optionCount" />
+                        <xsl:with-param name="typeOverride" select="'checkbox'" />
+                    </xsl:call-template>
+                </xsl:element>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:for-each select="Control[./Style/Control/@Type='SingleLineEdit']">
+                    <xsl:call-template name='o-slider'>
+                        <xsl:with-param name="qGroup">
+                            <xsl:value-of select="$qGroup" />
+                        </xsl:with-param>
+                        <xsl:with-param name="subType">
+                            <xsl:value-of select="$subType" />
+                        </xsl:with-param>
+                    </xsl:call-template>
+                </xsl:for-each>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
 
     <!-- Organisms -->
@@ -727,6 +794,60 @@
         </xsl:element>
     </xsl:template>
 
+    <xsl:template name="o-slider">
+            <!-- inserts a basic edit box -->
+        <xsl:param name="qGroup" />
+        <xsl:param name="subType" select="'horizontal'" />
+
+        <xsl:element name="o-slider">
+            <xsl:attribute name="data-orientation">
+                <xsl:value-of select="$subType" />
+            </xsl:attribute>
+
+            <xsl:if test="Style/@Width">
+                <xsl:attribute name="style">
+                    <xsl:text>width: </xsl:text>
+                    <xsl:value-of select="Style/@Width" />
+                    <xsl:text>;</xsl:text>
+                </xsl:attribute>
+            </xsl:if>
+            
+            <xsl:choose>
+                <xsl:when test="$subType='horizontal'">
+                    <xsl:call-template name="m-label-prepost" />
+
+                    <xsl:call-template name="m-slider-container">
+                        <xsl:with-param name="qGroup" select="$qGroup" />
+                        <xsl:with-param name="minimum" select="@MinValue" />
+                        <xsl:with-param name="maximum" select="@MaxValue" />
+                    </xsl:call-template>
+
+                    <xsl:call-template name="insert-input">
+                            <xsl:with-param name="inputType" select="'number'" />
+                            <xsl:with-param name="qGroup" select="$qGroup" />
+                            <xsl:with-param name="isHidden" select="true()" />
+                    </xsl:call-template>
+                </xsl:when> 
+                <xsl:when test="$subType='vertical'">
+                    <xsl:call-template name="a-label-post" />               
+
+                    <xsl:call-template name="m-slider-container">
+                        <xsl:with-param name="qGroup" select="$qGroup" />
+                        <xsl:with-param name="minimum" select="@MinValue" />
+                        <xsl:with-param name="maximum" select="@MaxValue" />
+                    </xsl:call-template>
+
+                    <xsl:call-template name="insert-input">
+                            <xsl:with-param name="inputType" select="'number'" />
+                            <xsl:with-param name="qGroup" select="$qGroup" />
+                            <xsl:with-param name="isHidden" select="true()" />
+                    </xsl:call-template>
+
+                    <xsl:call-template name="a-label-post" />
+                </xsl:when>
+            </xsl:choose>               
+        </xsl:element>
+    </xsl:template>
     <!-- Molecules -->
     <!-- ============== -->
 
@@ -745,14 +866,22 @@
         </xsl:element>    
     </xsl:template>
 
-    <xsl:template name="m-label-prepost">
-        <xsl:element name="div">
-            <xsl:attribute name="class">
-                <xsl:text>m-label-prepost</xsl:text>
-            </xsl:attribute>
-            <xsl:call-template name="a-label-pre" />
-            <xsl:call-template name="a-label-post" />
-        </xsl:element>
+    <xsl:template name="m-slider-container">
+        <xsl:param name="qGroup" />
+        <xsl:param name="minimum" select="1" />
+        <xsl:param name="maximum" select="10" />
+        <xsl:element name="m-slider-container">
+            <xsl:element name="m-slider-track">
+                <xsl:element name="output">
+                    <xsl:attribute name="type" select="'range'" />
+                    <xsl:attribute name="id">
+                        <xsl:value-of select="concat($qGroup, '_range')" />
+                    </xsl:attribute>
+                </xsl:element>
+                <xsl:element name="m-divider-marks" />
+            </xsl:element>
+            <xsl:element name="m-label-marks" />                        
+        </xsl:element>    
     </xsl:template>
 
     <xsl:template name="m-singleline">

@@ -1,0 +1,25 @@
+<Questions>
+    <Question>
+        <Style Color="{&quot;labels&quot;:{&quot;pre&quot;:&quot;0%&quot;,&quot;Post&quot;:&quot;100%&quot;},&quot;ticklabels&quot;:10,&quot;show&quot;:{&quot;marks&quot;:true}}" BgColor="slider:_QPageEleven_QHowManyMissedSpecial" ElementAlign="NewLine" Indent="1">
+            <Control Type="SingleLineEdit"></Control>
+        </Style>
+        <Control Type="SingleLineEdit" QuestionName="_QPageEleven_QHowManyMissedSpecial" ElementID="_Q1" Value="" MaxValue="100" MinValue="0" Length="3">
+            <Style Color="{&quot;labels&quot;:{&quot;pre&quot;:&quot;0%&quot;,&quot;Post&quot;:&quot;100%&quot;},&quot;ticklabels&quot;:10,&quot;show&quot;:{&quot;marks&quot;:true}}" BgColor="slider:_QPageEleven_QHowManyMissedSpecial" ElementAlign="NewLine" Indent="1">
+                <Control Type="SingleLineEdit"></Control>
+            </Style>
+        </Control>
+        <Control Type="CheckButton" QuestionName="_QPageEleven_QHowManyMissedSpecial_X" ElementID="_Q1_X">
+            <Style ElementAlign="NewLine" Indent="1">
+                <Control Type="CheckButton"></Control>
+            </Style>
+            <Category Name="nonemissed" CategoryID="0">
+                <Label>
+                    <Style ElementAlign="Right">
+                        <Font IsBold="true"></Font>
+                    </Style>
+                    <Text>there were no missed appointments</Text>
+                </Label>
+            </Category>
+        </Control>
+    </Question>
+</Questions>
