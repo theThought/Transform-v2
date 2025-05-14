@@ -2,6 +2,8 @@
 import WCExample from './web-components/wc-example';
 
 // Import modules for web components.
+import AButtonTerminatorPre from './web-components/a-button-terminator-pre';
+import AButtonTerminatorPost from './web-components/a-button-terminator-post';
 import AScaleUnit from './web-components/a-scale-unit';
 import MSingleline from './web-components/m-singleline';
 import MSinglelineNumber from './web-components/m-singleline-number';
@@ -53,6 +55,13 @@ export const uiInit = (): void => {
     // Inner components.
     !customElements.get('a-scale-unit') &&
         customElements.define('a-scale-unit', AScaleUnit);
+    !customElements.get('a-button-terminator-pre') &&
+        customElements.define('a-button-terminator-pre', AButtonTerminatorPre);
+    !customElements.get('a-button-terminator-post') &&
+        customElements.define(
+            'a-button-terminator-post',
+            AButtonTerminatorPost,
+        );
 
     !customElements.get('m-singleline') &&
         customElements.define('m-singleline', MSingleline);

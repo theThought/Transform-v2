@@ -1,9 +1,9 @@
 import Component from './component';
-import { Observer } from '../interfaces';
+import { Observer, Subject } from '../interfaces';
 
-export default class OSlider extends Component implements Observer {
+export default class OSlider extends Component implements Observer, Subject {
+    private observers: Observer[] = [];
     private element: HTMLInputElement | null = null;
-    private range: HTMLInputElement | null = null;
     private min = 0;
     private max = 100;
     private step = 10;
@@ -17,6 +17,35 @@ export default class OSlider extends Component implements Observer {
             case 'notifySlider':
                 this.onSliderValueChange(<CustomEvent>e);
                 break;
+            case 'incrementValue':
+                this.incrementValue();
+                break;
+            case 'decrementValue':
+                this.decrementValue();
+                break;
+        }
+    }
+
+    addObserver(observer: Observer): void {
+        this.observers.push(observer);
+    }
+
+    removeObserver(observer: Observer): void {
+        const obsIndex = this.observers.findIndex(
+            (obs: Observer): boolean => observer === obs,
+        );
+
+        if (obsIndex < 0) {
+            console.error('Observer does not exist!');
+            return;
+        }
+
+        this.observers.splice(obsIndex, 1);
+    }
+
+    notifyObservers(method: string, detail: CustomEvent): void {
+        for (const observer of this.observers) {
+            observer.update(method, detail);
         }
     }
 
@@ -62,6 +91,20 @@ export default class OSlider extends Component implements Observer {
         this.broadcastChange();
     }
 
+    private incrementValue(): void {
+        this.notifyObservers(
+            'incrementValue',
+            new CustomEvent('incrementValue'),
+        );
+    }
+
+    private decrementValue(): void {
+        this.notifyObservers(
+            'decrementValue',
+            new CustomEvent('decrementValue'),
+        );
+    }
+
     private tickLabels(): void {
         if (
             !this.properties.hasOwnProperty('ticklabels') ||
@@ -103,10 +146,13 @@ export default class OSlider extends Component implements Observer {
     }
 
     private setProperties(): void {
-        if (!this.range) return;
+        if (!this.element) return;
 
-        this.min = this.range.min ? Number(this.range.min) : this.min;
-        this.max = this.range.max ? Number(this.range.max) : this.max;
+        this.min = this.element.min ? Number(this.element.min) : this.min;
+        this.max = this.element.max ? Number(this.element.max) : this.max;
+        this.element.step = this.properties.step
+            ? String(this.properties.step)
+            : String(this.step);
         this.step = this.properties.step
             ? Number(this.properties.step)
             : this.step;
@@ -114,6 +160,8 @@ export default class OSlider extends Component implements Observer {
 
     private init(): void {
         this.addEventListener('notifySlider', this);
+        this.addEventListener('incrementValue', this);
+        this.addEventListener('decrementValue', this);
         this.setProperties();
         this.tickLabels();
         this.terminatorButtons();
@@ -122,7 +170,6 @@ export default class OSlider extends Component implements Observer {
     public connectedCallback(): void {
         super.connectedCallback();
         this.element = this.querySelector('input[type="hidden"]');
-        this.range = this.querySelector('input[type="range"]');
         this.init();
 
         if (!this.response) return;

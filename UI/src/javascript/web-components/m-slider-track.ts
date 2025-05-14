@@ -1,9 +1,11 @@
 import Component from './component';
+import OSlider from './o-slider';
 import { Observer } from '../interfaces';
 
 export default class MSliderTrack extends Component implements Observer {
     private element: HTMLInputElement | null = null;
     private output: HTMLOutputElement | null = null;
+    private slider: OSlider | null = null;
     private min = 0;
     private max = 100;
     private step = 10;
@@ -21,11 +23,19 @@ export default class MSliderTrack extends Component implements Observer {
     }
 
     public update(method: string): void {
-        if (method === 'exclusiveClear') {
-            this.exclusiveClear();
-        }
-        if (method === 'exclusiveRestore') {
-            this.restoreData();
+        switch (method) {
+            case 'exclusiveClear':
+                this.exclusiveClear();
+                break;
+            case 'exclusiveRestore':
+                this.restoreData();
+                break;
+            case 'incrementValue':
+                this.incrementValue();
+                break;
+            case 'decrementValue':
+                this.decrementValue();
+                break;
         }
     }
 
@@ -168,6 +178,24 @@ export default class MSliderTrack extends Component implements Observer {
         this.dispatchEvent(notifySlider);
     }
 
+    private incrementValue(): void {
+        if (!this.element) return;
+        const requestedValue = Number(this.element.value) + this.step;
+        if (requestedValue <= this.max) {
+            this.element.value = String(requestedValue);
+        }
+        this.onInput();
+    }
+
+    private decrementValue(): void {
+        if (!this.element) return;
+        const requestedValue = Number(this.element.value) - this.step;
+        if (requestedValue >= this.min) {
+            this.element.value = String(requestedValue);
+        }
+        this.onInput();
+    }
+
     private setProperties(): void {
         if (!this.element) return;
 
@@ -197,9 +225,15 @@ export default class MSliderTrack extends Component implements Observer {
         super.connectedCallback();
         this.element = this.querySelector('.a-slider-input');
         this.output = this.querySelector('output');
+        this.slider = this.closest('o-slider');
         this.init();
 
-        if (!this.response) return;
-        this.response.addObserver(this);
+        if (this.response) {
+            this.response.addObserver(this);
+        }
+
+        if (this.slider) {
+            this.slider.addObserver(this);
+        }
     }
 }

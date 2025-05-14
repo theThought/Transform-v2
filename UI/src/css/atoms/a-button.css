@@ -20,3 +20,10 @@
         }
     }
 }
+
+a-button-terminator-pre,
+a-button-terminator-post {
+    cursor: default;
+    display: none;
+    padding: 0 var(--space-2);
+}

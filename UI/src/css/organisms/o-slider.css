@@ -7,3 +7,10 @@ o-slider-container {
     display: block;
     flex: 1;
 }
+
+.has-terminators {
+    a-button-terminator-pre,
+    a-button-terminator-post {
+        display: block;
+    }
+}
