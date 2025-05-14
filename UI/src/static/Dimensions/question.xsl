@@ -815,6 +815,7 @@
                 <xsl:attribute name="data-behaviour">
                     <xsl:text>decrement</xsl:text>
                 </xsl:attribute>
+                <xsl:comment>Pre-terminator</xsl:comment>
             </xsl:element>
             <xsl:choose>
                 <xsl:when test="$subType='horizontal'">
@@ -855,6 +856,7 @@
                 <xsl:attribute name="data-behaviour">
                     <xsl:text>increment</xsl:text>
                 </xsl:attribute>
+                <xsl:comment>Post-terminator</xsl:comment>
             </xsl:element>               
         </xsl:element>
     </xsl:template>
@@ -882,9 +884,6 @@
         <xsl:param name="maximum" select="10" />
         <xsl:element name="m-slider-container">
             <xsl:element name="m-slider-track">
-            <xsl:comment>name: 
-                <xsl:value-of select="name()" />
-            </xsl:comment>
                 <xsl:element name="output">
                     <xsl:attribute name="class">
                         <xsl:text>a-label-thumb</xsl:text>
@@ -893,10 +892,15 @@
                     <xsl:attribute name="id">
                         <xsl:value-of select="concat(@ElementID, '_range')" />
                     </xsl:attribute>
+                    <xsl:comment>thumb</xsl:comment>
                 </xsl:element>
-                <xsl:element name="m-divider-marks" />
+                <xsl:element name="m-divider-marks">
+                    <xsl:comment>divider marks</xsl:comment>
+                </xsl:element>
             </xsl:element>
-            <xsl:element name="m-label-marks" />                        
+            <xsl:element name="m-label-marks">
+                <xsl:comment>label marks</xsl:comment>
+            </xsl:element>                
         </xsl:element>    
     </xsl:template>
 
