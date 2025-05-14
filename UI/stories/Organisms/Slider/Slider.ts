@@ -16,7 +16,7 @@ export function OSlider(args): HTMLElement {
     const thumb = document.createElement('output');
     const marksLabelContainer = document.createElement('div');
 
-    rangeInput.id = 'input_Q0';
+    rangeInput.id = '_Q0_range';
     rangeInput.type = 'range';
     rangeInput.min = args.minimum;
     rangeInput.max = args.maximum;
@@ -25,7 +25,7 @@ export function OSlider(args): HTMLElement {
     input.min = args.minimum;
     input.max = args.maximum;
     thumb.className = 'a-label-thumb';
-    thumb.setAttribute('for', 'input_Q0');
+    thumb.setAttribute('for', '_Q0_range');
     outerContainer.style.width = args.width;
     marksContainer.className = 'm-divider-marks';
     marksLabelContainer.className = 'm-label-marks';
@@ -64,7 +64,7 @@ export function OSliderWithExclusive(args): HTMLElement {
     const thumb = document.createElement('output');
     const marksLabelContainer = document.createElement('div');
 
-    rangeInput.id = 'input_Q0';
+    rangeInput.id = '_Q0_range';
     rangeInput.type = 'range';
     rangeInput.min = args.minimum;
     rangeInput.max = args.maximum;
@@ -73,7 +73,7 @@ export function OSliderWithExclusive(args): HTMLElement {
     input.min = args.minimum;
     input.max = args.maximum;
     thumb.className = 'a-label-thumb';
-    thumb.setAttribute('for', 'input_Q0');
+    thumb.setAttribute('for', '_Q0_range');
     outerContainer.style.width = args.width;
     marksContainer.className = 'm-divider-marks';
     marksLabelContainer.className = 'm-label-marks';
