@@ -20,7 +20,6 @@ export function OSlider(args): HTMLElement {
     rangeInput.type = 'range';
     rangeInput.min = args.minimum;
     rangeInput.max = args.maximum;
-    rangeInput.step = args.step;
     rangeInput.className = 'a-slider-input';
     input.type = 'hidden';
     thumb.className = 'a-label-thumb';
@@ -67,7 +66,6 @@ export function OSliderWithExclusive(args): HTMLElement {
     rangeInput.type = 'range';
     rangeInput.min = args.minimum;
     rangeInput.max = args.maximum;
-    rangeInput.step = args.step;
     rangeInput.className = 'a-slider-input';
     input.type = 'hidden';
     thumb.className = 'a-label-thumb';

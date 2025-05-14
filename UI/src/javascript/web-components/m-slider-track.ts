@@ -174,6 +174,9 @@ export default class MSliderTrack extends Component implements Observer {
 
         this.min = this.element.min ? Number(this.element.min) : this.min;
         this.max = this.element.max ? Number(this.element.max) : this.max;
+        this.element.step = this.properties.step
+            ? String(this.properties.step)
+            : String(this.step);
         this.step = this.properties.step
             ? Number(this.properties.step)
             : this.step;
