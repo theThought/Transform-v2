@@ -456,10 +456,26 @@
 
                         <xsl:element name="o-option-sublist">
                             <xsl:for-each select="$rowsInSublist">
+
+                                <xsl:variable name="typeOverride">
+                                    <xsl:choose>
+                                        <xsl:when test="Cell/Control/@Type = 'CheckButton'">
+                                            <xsl:text>checkbox</xsl:text>
+                                        </xsl:when>
+                                        <xsl:when test="Cell/Control/@Type = 'RadioButton'">
+                                            <xsl:text>radio</xsl:text>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:text>other</xsl:text>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </xsl:variable>
+
                                 <xsl:call-template name="m-option-base">
                                     <xsl:with-param name="qType" select="Cell/Control/@Type" />
                                     <xsl:with-param name="qGroup" select="$qGroup" />
                                     <xsl:with-param name="currentControl" select="Cell/Control" />
+                                    <xsl:with-param name="typeOverride" select="$typeOverride" />
                                 </xsl:call-template>
                             </xsl:for-each>
                         </xsl:element>
@@ -493,10 +509,26 @@
 
                         <xsl:element name="o-option-sublist">
                             <xsl:for-each select="$theRows[position() &lt; ($nextStaticIncrement + 1)]">
+
+                                <xsl:variable name="typeOverride">
+                                    <xsl:choose>
+                                        <xsl:when test="Cell/Control/@Type = 'CheckButton'">
+                                            <xsl:text>checkbox</xsl:text>
+                                        </xsl:when>
+                                        <xsl:when test="Cell/Control/@Type = 'RadioButton'">
+                                            <xsl:text>radio</xsl:text>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:text>other</xsl:text>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </xsl:variable>
+
                                 <xsl:call-template name="m-option-base">
                                     <xsl:with-param name="qType" select="Cell/Control/@Type" />
                                     <xsl:with-param name="qGroup" select="$qGroup" />
                                     <xsl:with-param name="currentControl" select="Cell/Control" />
+                                    <xsl:with-param name="typeOverride" select="$typeOverride" />
                                 </xsl:call-template>
                             </xsl:for-each>
                         </xsl:element>
@@ -1044,7 +1076,6 @@
                 <xsl:with-param name="position" select="$currentControl/Style/@ElementAlign" />
             </xsl:call-template>
 
-            <!-- hidden input -->
             <xsl:call-template name="insert-input-option">
                 <xsl:with-param name="inputType">
                     <xsl:choose>
