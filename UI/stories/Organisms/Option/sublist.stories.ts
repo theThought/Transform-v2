@@ -156,7 +156,16 @@ type Simplelist = StoryObj<typeof OOptionSublist_Story>;
 export const ListNoHeading: Simplelist = {
     parameters: {
         controls: {
-            include: ['optionType', 'optionLabel', 'IncludeNone', 'optionCount'],
+            include: [
+                'optionType',
+                'optionLabel',
+                'IncludeNone',
+                'optionCount',
+                'balanceState',
+                'balanceMinWidth',
+                'onesizeState',
+                'onesizeMaxWidth',
+            ],
         },
     },
     args: {
