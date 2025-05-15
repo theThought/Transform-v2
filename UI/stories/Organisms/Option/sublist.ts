@@ -1,7 +1,6 @@
 import * as MOptionBase from '../../Molecules/Option/base';
 
 export function OOptionSublist_Story(args): HTMLElement {
-
     const container = document.createElement('fieldset');
     const baseLabel = args.optionLabel;
     const sublistContainer: HTMLElement =
@@ -12,6 +11,28 @@ export function OOptionSublist_Story(args): HTMLElement {
         'aria-labelledby',
         args.questionId + '_label_question',
     );
+
+    const dataProperties: any = {
+        balance: {
+            state: args.balanceState || false,
+        },
+        onesize: {
+            state: args.onesizeState || false,
+        },
+    };
+
+    if (args.balanceMinWidth !== '') {
+        dataProperties.balance.minWidth = args.balanceMinWidth;
+    }
+
+    if (args.onesizeMaxWidth !== '') {
+        dataProperties.onesize.maxWidth = args.onesizeMaxWidth;
+    }
+    // Create JSON for data-properties
+    const dataPropertiesString = JSON.stringify(dataProperties);
+
+    // Update the Color attribute in Question Style elements
+    sublistContainer.setAttribute('data-properties', dataPropertiesString);
 
     sublistContainer.setAttribute('role', 'group');
     sublistContainer.setAttribute(
