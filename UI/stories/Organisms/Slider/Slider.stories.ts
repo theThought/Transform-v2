@@ -85,7 +85,7 @@ export const Slider = {
     args: {
         minimum: 0,
         maximum: 100,
-        step: 10,
+        step: 1,
         width: '100%',
         show: {
             marks: true,
