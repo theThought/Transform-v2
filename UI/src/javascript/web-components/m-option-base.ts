@@ -35,6 +35,9 @@ export default class MOptionBase extends Component implements Observer {
 
     public update(method: string, data: CustomEvent): void {
         switch (method) {
+            case 'exclusiveClear':
+                this.exclusiveClear(data);
+                break;
             case 'clearExclusives':
                 this.clearExclusives(data);
                 break;
@@ -65,6 +68,17 @@ export default class MOptionBase extends Component implements Observer {
             this.checkbox.checked = false;
             this.setAttribute('data-checked', 'false');
         }
+    }
+
+    private exclusiveClear(e: CustomEvent): void {
+        if (!this.checkbox) return;
+        if (this.isExclusive) return;
+
+        if (e.target === this) {
+            return;
+        }
+
+        this.changeState(false);
     }
 
     private clearExclusives(e: CustomEvent): void {
