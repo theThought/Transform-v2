@@ -471,12 +471,14 @@
                                     </xsl:choose>
                                 </xsl:variable>
 
-                                <xsl:call-template name="m-option-base">
-                                    <xsl:with-param name="qType" select="Cell/Control/@Type" />
-                                    <xsl:with-param name="qGroup" select="$qGroup" />
-                                    <xsl:with-param name="currentControl" select="Cell/Control" />
-                                    <xsl:with-param name="typeOverride" select="$typeOverride" />
-                                </xsl:call-template>
+                                <xsl:if test="$typeOverride != 'other'">
+                                    <xsl:call-template name="m-option-base">
+                                        <xsl:with-param name="qType" select="Cell/Control/@Type" />
+                                        <xsl:with-param name="qGroup" select="$qGroup" />
+                                        <xsl:with-param name="currentControl" select="Cell/Control" />
+                                        <xsl:with-param name="typeOverride" select="$typeOverride" />
+                                    </xsl:call-template>
+                                </xsl:if>
                             </xsl:for-each>
                         </xsl:element>
                     </xsl:element>
@@ -523,13 +525,15 @@
                                         </xsl:otherwise>
                                     </xsl:choose>
                                 </xsl:variable>
-
-                                <xsl:call-template name="m-option-base">
-                                    <xsl:with-param name="qType" select="Cell/Control/@Type" />
-                                    <xsl:with-param name="qGroup" select="$qGroup" />
-                                    <xsl:with-param name="currentControl" select="Cell/Control" />
-                                    <xsl:with-param name="typeOverride" select="$typeOverride" />
-                                </xsl:call-template>
+                                
+                                <xsl:if test="$typeOverride != 'other'">
+                                    <xsl:call-template name="m-option-base">
+                                        <xsl:with-param name="qType" select="Cell/Control/@Type" />
+                                        <xsl:with-param name="qGroup" select="$qGroup" />
+                                        <xsl:with-param name="currentControl" select="Cell/Control" />
+                                        <xsl:with-param name="typeOverride" select="$typeOverride" />
+                                    </xsl:call-template>
+                                </xsl:if>
                             </xsl:for-each>
                         </xsl:element>
                     </xsl:element>
