@@ -872,7 +872,7 @@
                 <xsl:when test="$subType='vertical'">
                     <xsl:call-template name="a-label-post" />
 
-                    <xsl:call-template name="m-slider-container">
+                    <xsl:call-template name="o-slider-container">
                         <xsl:with-param name="qGroup" select="$qGroup" />
                         <xsl:with-param name="minimum" select="@MinValue" />
                         <xsl:with-param name="maximum" select="@MaxValue" />
@@ -896,29 +896,12 @@
             </xsl:element>               
         </xsl:element>
     </xsl:template>
-    <!-- Molecules -->
-    <!-- ============== -->
 
-    <xsl:template name="m-scale-container">
+    <xsl:template name="o-slider-container">
         <xsl:param name="qGroup" />
         <xsl:param name="minimum" select="1" />
         <xsl:param name="maximum" select="10" />
-        <xsl:element name="m-scale-container">
-
-            <xsl:call-template name="loop-between">
-                <xsl:with-param name="start" select="$minimum" />
-                <xsl:with-param name="end" select="$maximum" />
-                <xsl:with-param name="increment" select="1" />
-                <xsl:with-param name="sAction" select="'a-scale-unit'" />
-            </xsl:call-template>
-        </xsl:element>    
-    </xsl:template>
-
-    <xsl:template name="m-slider-container">
-        <xsl:param name="qGroup" />
-        <xsl:param name="minimum" select="1" />
-        <xsl:param name="maximum" select="10" />
-        <xsl:element name="m-slider-container">
+        <xsl:element name="o-slider-container">
             <xsl:element name="m-slider-track">
 
                 <xsl:element name="output">
@@ -957,6 +940,24 @@
             <xsl:element name="m-label-marks">
                 <xsl:comment>label marks</xsl:comment>
             </xsl:element>                
+        </xsl:element>    
+    </xsl:template>
+
+    <!-- Molecules -->
+    <!-- ============== -->
+
+    <xsl:template name="m-scale-container">
+        <xsl:param name="qGroup" />
+        <xsl:param name="minimum" select="1" />
+        <xsl:param name="maximum" select="10" />
+        <xsl:element name="m-scale-container">
+
+            <xsl:call-template name="loop-between">
+                <xsl:with-param name="start" select="$minimum" />
+                <xsl:with-param name="end" select="$maximum" />
+                <xsl:with-param name="increment" select="1" />
+                <xsl:with-param name="sAction" select="'a-scale-unit'" />
+            </xsl:call-template>
         </xsl:element>    
     </xsl:template>
 
