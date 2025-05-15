@@ -12,10 +12,12 @@ o-option-sublist {
 }
 
 /* Special codes can follow many different question type controls, inside <o-response>. */
-o-response {
-    > fieldset > * + o-option-sublist {
-        margin-block-start: var(--space-2);
-    }
+fieldset > * + o-option-sublist {
+    margin-block-start: var(--space-2);
+}
+
+fieldset + fieldset {
+    margin-block-start: var(--space-4);
 }
 
 /*
