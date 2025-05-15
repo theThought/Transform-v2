@@ -8,7 +8,7 @@ export default class MSliderTrack extends Component implements Observer {
     private slider: OSlider | null = null;
     private min = 0;
     private max = 100;
-    private step = 10;
+    private step = 1;
 
     constructor() {
         super();
