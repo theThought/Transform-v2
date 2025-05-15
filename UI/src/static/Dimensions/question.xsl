@@ -857,7 +857,7 @@
                 <xsl:when test="$subType='horizontal'">
                     <xsl:call-template name="m-label-prepost" />
 
-                    <xsl:call-template name="m-slider-container">
+                    <xsl:call-template name="o-slider-container">
                         <xsl:with-param name="qGroup" select="$qGroup" />
                         <xsl:with-param name="minimum" select="@MinValue" />
                         <xsl:with-param name="maximum" select="@MaxValue" />
