@@ -13,9 +13,8 @@ export default {
             description: 'Smallest value allowed',
             table: {
                 type: { summary: 'number' },
-                category: 'input',
+                category: 'Dimensions',
                 defaultValue: { summary: '0' },
-                order: 1, // Ensure minimum appears before maximum
             },
         },
         maximum: {
@@ -23,19 +22,19 @@ export default {
             description: 'Largest value allowed',
             table: {
                 type: { summary: 'number' },
-                category: 'input',
+                category: 'Dimensions',
                 defaultValue: { summary: '100' },
-                order: 2, // Ensure maximum appears after minimum
             },
         },
-        step: {
+        'properties.step': {
             control: 'number',
+            name: 'step',
             description:
                 'Stepping interval for incrementing/decrementing the value',
             table: {
                 type: { summary: 'text' },
-                category: 'input',
-                defaultValue: { summary: 'any' },
+                category: 'Custom Properties',
+                defaultValue: { summary: '1' },
             },
         },
         width: {
@@ -44,38 +43,53 @@ export default {
                 'Input width using a value and a measurement (e.g., px, em, %)',
             table: {
                 type: { summary: 'text' },
-                category: 'dimensions',
+                category: 'Dimensions',
             },
         },
-        ticklabels: {
+        'properties.ticklabels': {
             control: 'number',
-            description: 'Display tick labels',
+            name: 'ticklabels',
+            description: 'Interval of tick labels',
             table: {
                 type: { summary: 'number' },
-                category: 'display',
-                defaultValue: { summary: '' },
+                category: 'Custom Properties',
             },
         },
-        prelabel: {
+        'properties.labels.pre': {
             control: 'text',
-            description: 'Specifies the text to be placed before the input.',
+            name: 'labels.pre',
+            description: 'Specifies the text to be placed before the input',
             table: {
                 type: { summary: 'text' },
-                category: 'Properties',
-                subCategory: 'Labels',
-                defaultValue: { summary: 'n/a' },
-                order: 1,
+                category: 'Custom Properties',
             },
         },
-        postlabel: {
+        'properties.labels.post': {
             control: 'text',
-            description: 'Specifies the text to be placed after the input.',
+            name: 'labels.post',
+            description: 'Specifies the text to be placed after the input',
             table: {
                 type: { summary: 'text' },
-                category: 'Properties',
-                subCategory: 'Labels',
-                defaultValue: { summary: 'n/a' },
-                order: 2,
+                category: 'Custom Properties',
+            },
+        },
+        'properties.show.marks': {
+            control: 'boolean',
+            name: 'show.marks',
+            description: 'Display tick marks',
+            table: {
+                type: { summary: 'boolean' },
+                category: 'Custom Properties',
+                defaultValue: { summary: 'true' },
+            },
+        },
+        'properties.show.terminators': {
+            control: 'boolean',
+            name: 'show.terminators',
+            description: 'Display terminator buttons',
+            table: {
+                type: { summary: 'boolean' },
+                category: 'Custom Properties',
             },
         },
     },
@@ -83,13 +97,12 @@ export default {
 
 export const Slider = {
     args: {
-        minimum: 0,
-        maximum: 100,
-        step: 1,
         width: '100%',
-        show: {
-            marks: true,
-            terminators: false,
+        properties: {
+            show: {
+                marks: true,
+                terminators: false,
+            },
         },
     },
     render: (args: object): HTMLElement => OSlider(args),

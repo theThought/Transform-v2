@@ -3,27 +3,37 @@ import { MOptionBase_Story } from '../../Molecules/Option/base';
 
 export function OSlider(args): HTMLElement {
     const outerContainer: HTMLElement = document.createElement('o-slider');
-    outerContainer.setAttribute('data-properties', JSON.stringify(args));
-    const prepostLabel = MLabel.MLabelPrePost(args.prelabel, args.postlabel);
+    const prepostLabel = MLabel.MLabelPrePost();
     const preButton = document.createElement('a-button-terminator');
     const postButton = document.createElement('a-button-terminator');
     const innerContainer = document.createElement('o-slider-container');
     const track = document.createElement('m-slider-track');
-    track.setAttribute('data-properties', JSON.stringify(args));
     const rangeInput = document.createElement('input');
     const input = document.createElement('input');
     const marksContainer = document.createElement('div');
     const thumb = document.createElement('output');
     const marksLabelContainer = document.createElement('div');
 
+    outerContainer.setAttribute(
+        'data-properties',
+        JSON.stringify(args.properties),
+    );
+    track.setAttribute('data-properties', JSON.stringify(args.properties));
+
     rangeInput.id = '_Q0_range';
-    rangeInput.type = 'range';
-    rangeInput.min = args.minimum;
-    rangeInput.max = args.maximum;
     rangeInput.className = 'a-slider-input';
+    rangeInput.type = 'range';
+
+    if (args.minimum) {
+        rangeInput.min = args.minimum;
+        input.min = args.minimum;
+    }
+    if (args.maximum) {
+        rangeInput.max = args.maximum;
+        input.max = args.maximum;
+    }
+
     input.type = 'hidden';
-    input.min = args.minimum;
-    input.max = args.maximum;
     thumb.className = 'a-label-thumb';
     thumb.setAttribute('for', '_Q0_range');
     outerContainer.style.width = args.width;
@@ -55,7 +65,7 @@ export function OSliderWithExclusive(args): HTMLElement {
     const sublist: HTMLElement = document.createElement('o-sublist');
     const option: HTMLElement = MOptionBase_Story(args);
     const outerContainer: HTMLElement = document.createElement('o-slider');
-    const prepostLabel = MLabel.MLabelPrePost(args.prelabel, args.postlabel);
+    const prepostLabel = MLabel.MLabelPrePost();
     const preButton = document.createElement('a-button-terminator');
     const postButton = document.createElement('a-button-terminator');
     const innerContainer = document.createElement('o-slider-container');
@@ -66,14 +76,26 @@ export function OSliderWithExclusive(args): HTMLElement {
     const thumb = document.createElement('output');
     const marksLabelContainer = document.createElement('div');
 
+    outerContainer.setAttribute(
+        'data-properties',
+        JSON.stringify(args.properties),
+    );
+    track.setAttribute('data-properties', JSON.stringify(args.properties));
+
     rangeInput.id = '_Q0_range';
     rangeInput.type = 'range';
-    rangeInput.min = args.minimum;
-    rangeInput.max = args.maximum;
     rangeInput.className = 'a-slider-input';
+
+    if (args.minimum) {
+        rangeInput.min = args.minimum;
+        input.min = args.minimum;
+    }
+    if (args.maximum) {
+        rangeInput.max = args.maximum;
+        input.max = args.maximum;
+    }
+
     input.type = 'hidden';
-    input.min = args.minimum;
-    input.max = args.maximum;
     thumb.className = 'a-label-thumb';
     thumb.setAttribute('for', '_Q0_range');
     outerContainer.style.width = args.width;
