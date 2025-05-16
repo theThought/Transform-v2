@@ -2,6 +2,7 @@ import AScaleUnit from '../../../src/javascript/web-components/a-scale-unit';
 
 export function MScaleContainer_Story(args): HTMLElement {
     const container: HTMLElement = document.createElement('m-scale-container');
+    container.style.width = args.width;
 
     for (
         let counter: number = args.minimum;

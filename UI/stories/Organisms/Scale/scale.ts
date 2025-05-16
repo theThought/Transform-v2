@@ -4,8 +4,11 @@ import { ASingleline } from '../../Atoms/Inputs/Input';
 
 export function OScale_Story(args): HTMLElement {
     const container: HTMLElement = document.createElement('o-scale');
-    const prepostLabel = MLabel.MLabelPrePost(args.prelabel, args.postlabel);
+    const prepostLabel = MLabel.MLabelPrePost();
     const scaleContainer = MScaleContainer.MScaleContainer_Story(args);
+
+    container.setAttribute('data-properties', JSON.stringify(args.properties));
+    container.style.width = args.width;
 
     // Clone args and modify the clone
     const clonedArgs = { ...args };
@@ -13,11 +16,11 @@ export function OScale_Story(args): HTMLElement {
     clonedArgs.type = 'number';
     clonedArgs.hidden = true;
 
-    const rangeInput = ASingleline(clonedArgs);
+    const input = ASingleline(clonedArgs);
 
     container.appendChild(prepostLabel);
     container.appendChild(scaleContainer);
-    container.appendChild(rangeInput);
+    container.appendChild(input);
 
     return container;
 }

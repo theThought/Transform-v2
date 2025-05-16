@@ -14,9 +14,6 @@ export default {
             table: {
                 type: { summary: 'number' },
                 category: 'Dimensions',
-                subcategory: 'input',
-                defaultValue: { summary: '1' },
-                order: 1, // Ensure minimum appears before maximum
             },
         },
         maximum: {
@@ -25,9 +22,6 @@ export default {
             table: {
                 type: { summary: 'number' },
                 category: 'Dimensions',
-                subcategory: 'input',
-                defaultValue: { summary: '100' },
-                order: 2, // Ensure maximum appears after minimum
             },
         },
         width: {
@@ -37,7 +31,6 @@ export default {
             table: {
                 type: { summary: 'string' },
                 category: 'Dimensions',
-                order: 3,
             },
         },
         orientation: {
@@ -49,26 +42,22 @@ export default {
                 category: 'Dimensions',
             },
         },
-        prelabel: {
+        'properties.labels.pre': {
             control: 'text',
+            name: 'labels.pre',
             description: 'A string placed BEFORE the input',
             table: {
                 type: { summary: 'string' },
                 category: 'Custom Properties',
-                subcategory: 'labels',
-                defaultValue: { summary: 'before' },
-                order: 1,
             },
         },
-        postlabel: {
+        'properties.labels.post': {
             control: 'text',
+            name: 'labels.post',
             description: 'A string placed AFTER the input',
             table: {
                 type: { summary: 'string' },
                 category: 'Custom Properties',
-                subcategory: 'labels',
-                defaultValue: { summary: 'after' },
-                order: 2,
             },
         },
     },
@@ -80,15 +69,19 @@ export const TenPointScale: ScaleStory = {
     parameters: {
         controls: {
             exclude: ['orientation'],
-        }, // Fixed syntax error
+        },
     },
     name: '10-point scale',
     args: {
         minimum: 1,
         maximum: 10,
         width: '100%',
-        prelabel: 'Before',
-        postlabel: 'After',
+        properties: {
+            labels: {
+                pre: 'Before',
+                post: 'After',
+            },
+        },
         orientation: 'horizontal',
     },
     render: (args) => OScale_Story(args),
@@ -98,15 +91,19 @@ export const SevenPointScale: ScaleStory = {
     parameters: {
         controls: {
             exclude: ['orientation'],
-        }, // Fixed syntax error
+        },
     },
     name: '7-point scale',
     args: {
         minimum: 1,
         maximum: 7,
         width: '100%',
-        prelabel: 'Before',
-        postlabel: 'After',
+        properties: {
+            labels: {
+                pre: 'Before',
+                post: 'After',
+            },
+        },
         orientation: 'horizontal',
     },
     render: (args) => OScale_Story(args),

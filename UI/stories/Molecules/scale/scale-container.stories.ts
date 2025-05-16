@@ -14,9 +14,6 @@ export default {
             table: {
                 type: { summary: 'number' },
                 category: 'Dimensions',
-                subcategory: 'input',
-                defaultValue: { summary: '1' },
-                order: 1,
             },
         },
         maximum: {
@@ -24,10 +21,7 @@ export default {
             description: 'Largest value allowed',
             table: {
                 type: { summary: 'number' },
-                category: 'Dimensions', // Ensure this matches "minimum"
-                subcategory: 'input', // Ensure this matches "minimum"
-                defaultValue: { summary: '100' },
-                order: 2,
+                category: 'Dimensions',
             },
         },
         width: {
@@ -37,7 +31,6 @@ export default {
             table: {
                 type: { summary: 'string' },
                 category: 'Dimensions',
-                order: 3,
             },
         },
         orientation: {
@@ -62,7 +55,6 @@ export const TenPointContainer: TenContainer = {
     args: {
         minimum: 1,
         maximum: 10,
-        width: '15em',
         orientation: 'horizontal',
     },
     render: (args) => MScaleContainer_Story(args),
@@ -79,7 +71,7 @@ export const SevenPointContainer: SevenContainer = {
     args: {
         minimum: 1,
         maximum: 7,
-        width: '10em',
+        width: '35em',
         orientation: 'horizontal',
     },
     render: (args) => MScaleContainer_Story(args),
