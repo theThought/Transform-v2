@@ -64,6 +64,7 @@
     "prettier": "^3.3.3",
     "remark-gfm": "^4.0.0",
     "storybook": "^8.6.12",
+    "storybook-addon-deep-controls": "^0.9.2",
     "stylelint": "^16.10.0",
     "stylelint-config-standard": "^36.0.1",
     "stylelint-order": "^6.0.4",

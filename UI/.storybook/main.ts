@@ -13,6 +13,7 @@ const config: StorybookConfig = {
     ],
     addons: [
         '@storybook/addon-a11y',
+        'storybook-addon-deep-controls',
         {
             name: '@storybook/addon-docs',
             options: {

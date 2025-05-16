@@ -2,6 +2,7 @@ import { Preview } from '@storybook/web-components';
 
 const preview: Preview = {
     parameters: {
+        deepControls: { enabled: true },
         options: {
             storySort: {
                 order: [
