@@ -51,7 +51,7 @@ export default {
             description: 'A string placed to the left of the scale',
             table: {
                 type: { summary: 'string' },
-                category: 'properties',
+                category: 'Custom Properties',
                 subcategory: 'labels',
                 defaultValue: { summary: 'before' },
             },
@@ -61,7 +61,7 @@ export default {
             description: 'A string placed to the right of the scale',
             table: {
                 type: { summary: 'string' },
-                category: 'properties',
+                category: 'Custom Properties',
                 subcategory: 'labels',
                 defaultValue: { summary: 'after' },
             },

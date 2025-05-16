@@ -93,7 +93,7 @@ export default {
             description: 'increment and precision of the number',
             table: {
                 type: { summary: 'number' },
-                category: 'properties',
+                category: 'Custom Properties',
             },
         },
         balanceMinWidth: {
@@ -101,7 +101,7 @@ export default {
             description: 'Minimum width for a balanced item',
             table: {
                 type: { summary: 'string' },
-                category: 'properties',
+                category: 'Custom Properties',
                 subcategory: 'balance',
             },
         },
@@ -110,7 +110,7 @@ export default {
             description: 'Whether OneSize should be applied',
             table: {
                 type: { summary: 'boolean' },
-                category: 'properties',
+                category: 'Custom Properties',
                 subcategory: 'onesize',
             },
         },
@@ -119,7 +119,7 @@ export default {
             description: 'Maximum width for a sized item',
             table: {
                 type: { summary: 'string' },
-                category: 'properties',
+                category: 'Custom Properties',
                 subcategory: 'onesize',
             },
         },
@@ -128,7 +128,7 @@ export default {
             description: 'A string placed to the left of the scale',
             table: {
                 type: { summary: 'string' },
-                category: 'properties',
+                category: 'Custom Properties',
                 subcategory: 'labels',
                 defaultValue: { summary: 'before' },
             },
@@ -138,7 +138,7 @@ export default {
             description: 'A string placed to the right of the scale',
             table: {
                 type: { summary: 'string' },
-                category: 'properties',
+                category: 'Custom Properties',
                 subcategory: 'labels',
                 defaultValue: { summary: 'after' },
             },

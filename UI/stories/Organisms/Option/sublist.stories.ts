@@ -22,7 +22,7 @@ export default {
             description: 'Indicates if the component is a sublist',
             table: {
                 type: { summary: 'boolean' },
-                category: 'Properties',
+                category: 'Custom Properties',
                 subcategory: 'sublist',
                 order: 1,
                 defaultValue: { summary: 'false' },
@@ -33,7 +33,7 @@ export default {
             description: 'Options are balanced to optimize horizontal space',
             table: {
                 type: { summary: 'boolean' },
-                category: 'Properties',
+                category: 'Custom Properties',
                 subcategory: 'balance',
                 order: 1,
                 defaultValue: { summary: 'false' },
@@ -44,7 +44,7 @@ export default {
             description: 'Minimum width for a balanced item',
             table: {
                 type: { summary: 'string' },
-                category: 'Properties', // Corrected typo
+                category: 'Custom Properties', // Corrected typo
                 subcategory: 'balance',
                 order: 2,
             },
@@ -54,7 +54,7 @@ export default {
             description: 'Options are balanced to optimize horizontal space',
             table: {
                 type: { summary: 'boolean' },
-                category: 'Properties',
+                category: 'Custom Properties',
                 subcategory: 'onesize',
                 order: 1,
                 defaultValue: { summary: 'false' },
@@ -65,7 +65,7 @@ export default {
             description: 'Maximum width for a one-size item',
             table: {
                 type: { summary: 'string' },
-                category: 'Properties',
+                category: 'Custom Properties',
                 subcategory: 'onesize',
                 order: 2,
             },

@@ -54,7 +54,7 @@ export default {
             description: 'A string placed BEFORE the input',
             table: {
                 type: { summary: 'string' },
-                category: 'properties',
+                category: 'Custom Properties',
                 subcategory: 'labels',
                 defaultValue: { summary: 'before' },
                 order: 1,
@@ -65,7 +65,7 @@ export default {
             description: 'A string placed AFTER the input',
             table: {
                 type: { summary: 'string' },
-                category: 'properties',
+                category: 'Custom Properties',
                 subcategory: 'labels',
                 defaultValue: { summary: 'after' },
                 order: 2,
