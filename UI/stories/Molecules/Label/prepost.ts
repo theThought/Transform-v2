@@ -1,6 +1,9 @@
 import { ALabelPre, ALabelPost } from '../../Atoms/Label/Label';
 
-export function MLabelPrePost(prelabel: string, postlabel: string): HTMLDivElement {
+export function MLabelPrePost(
+    prelabel?: string,
+    postlabel?: string,
+): HTMLDivElement {
     const container: HTMLDivElement = document.createElement('div');
     const preLabel: HTMLSpanElement = ALabelPre(prelabel);
     const postLabel: HTMLSpanElement = ALabelPost(postlabel);

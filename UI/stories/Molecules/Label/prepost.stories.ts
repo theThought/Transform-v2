@@ -15,7 +15,7 @@ const meta: Meta = {
             description: 'A string placed BEFORE the input',
             table: {
                 type: { summary: 'string' },
-                category: 'properties',
+                category: 'Custom Properties',
                 subcategory: 'labels',
                 defaultValue: { summary: 'before' },
             },
@@ -25,13 +25,14 @@ const meta: Meta = {
             description: 'A string placed AFTER the input',
             table: {
                 type: { summary: 'string' },
-                category: 'properties',
+                category: 'Custom Properties',
                 subcategory: 'labels',
                 defaultValue: { summary: 'after' },
             },
         },
     },
-    args: { // Added args to set default values for controls
+    args: {
+        // Added args to set default values for controls
         prelabel: 'before',
         postlabel: 'after',
     },
