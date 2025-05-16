@@ -4,12 +4,42 @@ const preview: Preview = {
     parameters: {
         options: {
             storySort: {
-                order: ['Introduction', 'Layout', 'Atoms', 'Molecules', 'Organisms', 'Templates', 'Pages'],
+                order: [
+                    'Introduction',
+                    'Layout',
+                    'Atoms',
+                    'Molecules',
+                    'Organisms',
+                    'Templates',
+                    'Pages',
+                ],
+            },
+        },
+        docs: {
+            source: {
+                transform: (code: string) => {
+                    const translate_re = /&(nbsp|amp|quot|lt|gt);/g;
+                    const translate = {
+                        nbsp: ' ',
+                        amp: '&',
+                        quot: '"',
+                        lt: '<',
+                        gt: '>',
+                    };
+                    return code
+                        .replace(translate_re, function (match, entity) {
+                            return translate[entity];
+                        })
+                        .replace(/&#(\d+);/gi, function (match, numStr) {
+                            const num = parseInt(numStr, 10);
+                            return String.fromCharCode(num);
+                        });
+                },
             },
         },
     },
 
-    tags: ['autodocs']
+    tags: ['autodocs'],
 };
 
 export default preview;
