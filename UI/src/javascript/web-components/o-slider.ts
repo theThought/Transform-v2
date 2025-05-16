@@ -1,5 +1,6 @@
 import Component from './component';
 import { Observer, Subject } from '../interfaces';
+import { removeHTMLWhitespace } from './util';
 
 export default class OSlider extends Component implements Observer, Subject {
     private observers: Observer[] = [];
@@ -145,6 +146,37 @@ export default class OSlider extends Component implements Observer, Subject {
         this.classList.add('has-terminators');
     }
 
+    // Set pre-/post-labels.
+    private setLabels(): void {
+        const elemPre = this.querySelector('.a-label-pre');
+        const elemPost = this.querySelector('.a-label-post');
+
+        if (elemPre && elemPost) {
+            elemPre.innerHTML = removeHTMLWhitespace(elemPre.innerHTML);
+            elemPost.innerHTML = removeHTMLWhitespace(elemPost.innerHTML);
+        }
+
+        if (!this.properties.hasOwnProperty('labels')) {
+            return;
+        }
+
+        const labels = this.properties.labels as Record<string, unknown>;
+
+        for (const [key, value] of Object.entries(labels)) {
+            if (key === 'pre' && value) {
+                if (elemPre) {
+                    elemPre.textContent = value as string;
+                }
+            }
+
+            if (key === 'post' && value) {
+                if (elemPost) {
+                    elemPost.textContent = value as string;
+                }
+            }
+        }
+    }
+
     private setProperties(): void {
         if (!this.element) return;
 
@@ -163,6 +195,7 @@ export default class OSlider extends Component implements Observer, Subject {
         this.addEventListener('incrementValue', this);
         this.addEventListener('decrementValue', this);
         this.setProperties();
+        this.setLabels();
         this.tickLabels();
         this.terminatorButtons();
     }
