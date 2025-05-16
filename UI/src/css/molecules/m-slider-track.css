@@ -2,6 +2,11 @@ m-slider-track {
     display: block;
     position: relative;
 
+    output {
+        position: absolute;
+        visibility: hidden;
+    }
+
     input[type='range']::-webkit-slider-thumb {
         visibility: hidden;
     }
@@ -20,6 +25,7 @@ m-slider-track {
         }
 
         output {
+            transform: translate(-50%, calc(var(--space-4) * -2));
             visibility: visible;
         }
     }

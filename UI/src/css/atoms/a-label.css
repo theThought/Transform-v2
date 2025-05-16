@@ -27,12 +27,6 @@
     }
 }
 
-.a-label-thumb {
-    position: absolute;
-    transform: translate(-50%, calc(var(--space-4) * -2));
-    visibility: hidden;
-}
-
 .a-label-mark {
     display: block;
     flex: 0 1 40px;
