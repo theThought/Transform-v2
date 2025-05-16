@@ -15,7 +15,7 @@ export default {
             description: 'A string placed BEFORE the input',
             table: {
                 type: { summary: 'string' },
-                category: 'properties',
+                category: 'Custom Properties',
                 subcategory: 'labels',
                 defaultValue: { summary: 'before' },
             },
@@ -25,7 +25,7 @@ export default {
             description: 'A string placed AFTER the input',
             table: {
                 type: { summary: 'string' },
-                category: 'properties',
+                category: 'Custom Properties',
                 subcategory: 'labels',
                 defaultValue: { summary: 'after' },
             },
@@ -67,7 +67,7 @@ export default {
             },
         },
     },
-    args: { // Moved args to the root level
+    args: {
         prelabel: 'before',
         postlabel: 'after',
         questionlabel: 'This is the question being asked',
@@ -77,15 +77,13 @@ export default {
     },
 } as Meta;
 
-type PreLabel = StoryObj<typeof LabelStories.ALabelPre>;
 export const PreLabel = {
     parameters: {
-        controls: { include: ['prelabel'] }, // Fixed syntax error
+        controls: { include: ['prelabel'] },
     },
     render: (args) => LabelStories.ALabelPre(args.prelabel),
 };
 
-type PostLabel = StoryObj<typeof LabelStories.ALabelPost>;
 export const PostLabel = {
     parameters: {
         controls: { include: ['postlabel'] }, // Added include for postlabel
@@ -93,26 +91,30 @@ export const PostLabel = {
     render: (args) => LabelStories.ALabelPost(args.postlabel),
 };
 
-type QuestionLabel = StoryObj<typeof LabelStories.ALabelQuestion>;
-export const QuestionLabel: QuestionLabel = {
+export const QuestionLabel = {
     parameters: {
-        controls: { include: ['questionlabel'] }, // Fixed syntax error
+        controls: { include: ['questionlabel'] },
     },
     render: (args) => LabelStories.ALabelQuestion(args.questionlabel),
 };
 
-type OptionLabel = StoryObj<typeof LabelStories.ALabelOption>;
-export const OptionLabel: OptionLabel = {
+export const OptionLabel = {
     parameters: {
-        controls: { include: ['optionlabel'] }, // Fixed syntax error
+        controls: { include: ['optionlabel'] },
     },
     render: (args) => LabelStories.ALabelOption(args.optionlabel),
 };
 
-type HeadingSublistLabel = StoryObj<typeof LabelStories.ALabelHeadingSublist>;
-export const HeadingSublistLabel: HeadingSublistLabel = {
+export const HeadingSublistLabel = {
     parameters: {
-        controls: { include: ['sublistlabel'] }, // Fixed syntax error
+        controls: { include: ['sublistlabel'] },
     },
     render: (args) => LabelStories.ALabelHeadingSublist(args.sublistlabel),
+};
+
+export const ThumbLabel = {
+    parameters: {
+        controls: { include: ['thumblabel'] },
+    },
+    render: (args) => LabelStories.ALabelThumb(args.thumblabel),
 };

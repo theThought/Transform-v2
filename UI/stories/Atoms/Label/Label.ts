@@ -36,16 +36,9 @@ export function ALabelHeadingSublist(theLabel: string): HTMLDivElement {
     return container;
 }
 
-export function ALabelThumb(theLabel: number): HTMLDivElement {
-    const container: HTMLDivElement = document.createElement('div');
+export function ALabelThumb(theLabel: number): HTMLElement {
+    const container: HTMLElement = document.createElement('output');
     container.classList.add('a-label-thumb');
-
-    if (typeof theLabel === 'number') {
-        container.textContent = theLabel.toString();
-    } else {
-        console.warn('ALabelThumb expects a number, but received:', theLabel);
-        container.textContent = '';
-    }
-
+    container.textContent = theLabel.toString();
     return container;
 }
