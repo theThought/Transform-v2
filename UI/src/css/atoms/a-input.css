@@ -77,7 +77,6 @@ input[type='range']::-webkit-slider-thumb {
     cursor: pointer;
     height: 32px;
     margin-top: -7.7px;
-    visibility: hidden;
     width: 32px;
 }
 
@@ -87,6 +86,5 @@ input[type='range']::-moz-range-thumb {
     border-radius: 50px;
     cursor: pointer;
     height: 16px;
-    visibility: hidden;
     width: 16px;
 }

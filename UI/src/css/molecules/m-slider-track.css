@@ -2,16 +2,20 @@ m-slider-track {
     display: block;
     position: relative;
 
+    input[type='range']::-webkit-slider-thumb {
+        visibility: hidden;
+    }
+
+    input[type='range']::-moz-range-thumb {
+        visibility: hidden;
+    }
+
     &.has-value {
         input[type='range']::-webkit-slider-thumb {
             visibility: visible;
         }
 
         input[type='range']::-moz-range-thumb {
-            visibility: visible;
-        }
-
-        input[type='range']::-ms-thumb {
             visibility: visible;
         }
 
