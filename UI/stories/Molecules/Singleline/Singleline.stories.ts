@@ -1,8 +1,6 @@
 import { Meta, StoryObj } from '@storybook/web-components';
 import * as SingleLineStories from './Singleline';
 
-type Story = StoryObj;
-
 export default {
     title: 'Molecules/Singleline',
     parameters: {
@@ -11,26 +9,22 @@ export default {
         docs: { controls: { sort: 'alpha' } },
     },
     argTypes: {
-        prelabel: {
+        'properties.labels.pre': {
             control: 'text',
-            description: 'Specifies the text to be placed before the input.',
+            name: 'labels.pre',
+            description: 'Specifies the text to be placed before the input',
             table: {
                 type: { summary: 'text' },
-                category: 'Properties',
-                subCategory: 'Labels',
-                defaultValue: { summary: 'n/a' },
-                order: 1,
+                category: 'Custom Properties',
             },
         },
-        postlabel: {
+        'properties.labels.post': {
             control: 'text',
-            description: 'Specifies the text to be placed after the input.',
+            name: 'labels.post',
+            description: 'Specifies the text to be placed after the input',
             table: {
                 type: { summary: 'text' },
-                category: 'Properties',
-                subCategory: 'Labels',
-                defaultValue: { summary: 'n/a' },
-                order: 2,
+                category: 'Custom Properties',
             },
         },
         type: {
@@ -40,7 +34,6 @@ export default {
             table: {
                 type: { summary: 'string' },
                 category: 'Dimensions',
-                subcategory: 'input',
                 defaultValue: { summary: 'text' },
             },
         },
@@ -50,9 +43,6 @@ export default {
             table: {
                 type: { summary: 'number' },
                 category: 'Dimensions',
-                subcategory: 'input',
-                defaultValue: { summary: '1' },
-                order: 1,
             },
         },
         maximum: {
@@ -61,18 +51,23 @@ export default {
             table: {
                 type: { summary: 'number' },
                 category: 'Dimensions', // Ensure this matches "minimum"
-                subcategory: 'input', // Ensure this matches "minimum"
-                defaultValue: { summary: '100' },
-                order: 2,
             },
         },
-        align: {
+        maxlength: {
+            control: 'number',
+            description: 'Longest string allowed',
+            table: {
+                type: { summary: 'number' },
+                category: 'Dimensions',
+            },
+        },
+        'text-align': {
             control: 'select',
-            options: ['Left', 'Right', 'Center'],
+            options: ['left', 'right', 'center'],
             description: 'Alignment of the content within the input',
             table: {
                 type: { summary: 'string' },
-                category: 'parameters',
+                category: 'Dimensions',
             },
         },
         width: {
@@ -81,15 +76,16 @@ export default {
                 'Input width using a value and a measurement (e.g., px, em, %)',
             table: {
                 type: { summary: 'string' },
-                category: 'parameters',
+                category: 'Dimensions',
             },
         },
-        step: {
+        'properties.step': {
             control: 'number',
+            name: 'step',
             description: 'Precision of the input',
             table: {
                 type: { summary: 'number' },
-                category: 'Properties',
+                category: 'Custom Properties',
                 defaultValue: { summary: '1' },
             },
         },
@@ -99,8 +95,6 @@ export default {
             table: {
                 type: { summary: 'date' },
                 category: 'Dimensions',
-                subcategory: 'input',
-                order: 1,
             },
         },
         maximumDate: {
@@ -108,98 +102,92 @@ export default {
             description: 'latest acceptable date',
             table: {
                 type: { summary: 'date' },
-                category: 'Dimensions', // Ensure this matches "minimum"
-                subcategory: 'input', // Ensure this matches "minimum"
-                order: 2,
+                category: 'Dimensions',
             },
         },
     },
-};
+} as Meta;
 
 type Singleline = StoryObj<typeof SingleLineStories.MSingleLine_Story>;
-export const Singleline = {
+export const Singleline: Singleline = {
     parameters: {
         controls: {
             include: [
-                'align',
+                'text-align',
                 'width',
-                'minimum',
-                'maximum',
-                'prelabel',
-                'postlabel',
+                'maxlength',
+                'labels.pre',
+                'labels.post',
             ],
-        }, // Fixed syntax error
+        },
     },
     args: {
         type: 'text',
-        minimum: 1,
-        maximum: 40,
-        prelabel: 'before',
-        postlabel: 'after',
-        align: 'Left',
-        width: '100%',
+        properties: {
+            labels: {
+                pre: 'before',
+                post: 'after',
+            },
+        },
     },
-    render: (args) => SingleLineStories.MSingleLine_Story(args),
+    render: (args: object): HTMLElement =>
+        SingleLineStories.MSingleLine_Story(args),
 };
 
-type SinglelineNumber = StoryObj<typeof SingleLineStories.MSingleLine_Story>;
-export const SinglelineNumber = {
+type SinglelineNumber = StoryObj<
+    typeof SingleLineStories.MSingleLineNumber_Story
+>;
+export const SinglelineNumber: SinglelineNumber = {
     parameters: {
         controls: {
             include: [
-                'align',
+                'text-align',
                 'width',
                 'minimum',
                 'maximum',
                 'step',
-                ,
-                'prelabel',
-                'postlabel',
+                'labels.pre',
+                'labels.post',
             ],
-        }, // Fixed syntax error
+        },
     },
     args: {
         type: 'number',
-        minimum: 1,
-        maximum: 40,
-        prelabel: 'before',
-        postlabel: 'after',
-        align: 'Left',
-        width: '100%',
+        properties: {
+            step: '',
+            labels: {
+                pre: 'before',
+                post: 'after',
+            },
+        },
     },
-    render: (args) => SingleLineStories.MSingleLine_Story(args),
+    render: (args: object): HTMLElement =>
+        SingleLineStories.MSingleLineNumber_Story(args),
 };
 
-type SinglelineDate = StoryObj<typeof SingleLineStories.MSingleLine_Story>;
-export const SinglelineDate = {
+type SinglelineDate = StoryObj<typeof SingleLineStories.MSingleLineDate_Story>;
+export const SinglelineDate: SinglelineDate = {
     parameters: {
         controls: {
             include: [
-                'align',
+                'text-align',
                 'width',
                 'minimumDate',
                 'maximumDate',
-                'prelabel',
-                'postlabel',
+                'labels.pre',
+                'labels.post',
             ],
-        }, // Fixed syntax error
+        },
     },
     args: {
         type: 'date',
-        minimumDate: (() => {
-            const yesterday = new Date();
-            yesterday.setDate(yesterday.getDate() - 1);
-            return yesterday.toISOString().split('T')[0]; // Format as YYYY-MM-DD
-        })(),
-        maximumDate: (() => {
-            const tenDaysFromNow = new Date();
-            tenDaysFromNow.setDate(tenDaysFromNow.getDate() + 10);
-            return tenDaysFromNow.toISOString().split('T')[0]; // Format as YYYY-MM-DD
-        })(),
-        prelabel: 'before',
-        postlabel: 'after',
-        align: 'Left',
-        width: '100%',
+        properties: {
+            labels: {
+                pre: 'before',
+                post: 'after',
+            },
+        },
     },
-    render: (args) => SingleLineStories.MSingleLine_Story(args),
+    render: (args: object): HTMLElement =>
+        SingleLineStories.MSingleLineDate_Story(args),
 };

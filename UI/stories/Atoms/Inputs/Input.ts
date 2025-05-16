@@ -1,15 +1,16 @@
 export function ASingleline(args: any): HTMLInputElement {
-    const width = args.width || '15em';
-    const alignment = args.align || 'left';
+    const width = args.width ? `width: ${args.width};` : '';
+    const alignment = args['text-align']
+        ? `text-align: ${args['text-align']};`
+        : '';
     const component: HTMLInputElement = document.createElement('input');
-    component.setAttribute('data-properties', JSON.stringify(args));
 
     switch (args.type) {
         case 'text':
             component.setAttribute('type', 'text');
             component.classList.add('a-singleline');
-            if (args.maximum) {
-                component.setAttribute('maxlength', args.maximum.toString());
+            if (args.maxlength) {
+                component.setAttribute('maxlength', args.maxlength.toString());
             }
             break;
         case 'number':
@@ -20,11 +21,6 @@ export function ASingleline(args: any): HTMLInputElement {
             }
             if (args.maximum) {
                 component.setAttribute('max', args.maximum.toString());
-            }
-            if (args.step) {
-                component.setAttribute('step', args.step.toString());
-            } else {
-                component.setAttribute('step', 'any');
             }
             break;
         case 'date':
@@ -52,19 +48,11 @@ export function ASingleline(args: any): HTMLInputElement {
             if (args.maximum) {
                 component.setAttribute('max', args.maximum.toString());
             }
-            if (args.step) {
-                component.setAttribute('step', args.step.toString());
-            } else {
-                component.setAttribute('step', 'any');
-            }
             break;
     }
 
     // Apply the width and alignment styles
-    component.setAttribute(
-        'style',
-        `width: ${width}; text-align: ${alignment};`,
-    );
+    component.setAttribute('style', `${width} ${alignment}`);
 
     if (args.hidden) {
         component.setAttribute('hidden', 'true');
@@ -74,14 +62,15 @@ export function ASingleline(args: any): HTMLInputElement {
 }
 
 export function AMultiline(args: any): HTMLTextAreaElement {
+    const width = args.width ? `width: ${args.width};` : '';
+    const alignment = args['text-align']
+        ? `text-align: ${args['text-align']};`
+        : '';
     const component: HTMLTextAreaElement = document.createElement('textarea');
     component.classList.add('a-multiline');
 
     // Apply the width and alignment styles
-    component.setAttribute(
-        'style',
-        `width: ${args.width}; text-align: ${args.align};`,
-    );
+    component.setAttribute('style', `${width} ${alignment}`);
 
     if (args.hidden) {
         component.setAttribute('hidden', 'true');
