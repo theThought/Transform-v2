@@ -15,7 +15,6 @@ export default class MSinglelineNumber extends MSingleline {
 
     public connectedCallback(): void {
         super.connectedCallback();
-        super.init();
         this.setStep();
     }
 }
