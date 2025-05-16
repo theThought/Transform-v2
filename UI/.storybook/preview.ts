@@ -34,7 +34,9 @@ const preview: Preview = {
                         .replace(/&#(\d+);/gi, function (match, numStr) {
                             const num = parseInt(numStr, 10);
                             return String.fromCharCode(num);
-                        });
+                        })
+                        .replace(/>/g, '>\n')
+                        .replace(/([a-zA-Z])</g, '$1\n<');
                 },
             },
         },
