@@ -1,35 +1,35 @@
-// input.ts
 export function ASingleline(args: any): HTMLInputElement {
-    const setWidth = args.width || '15em';
-    const setAlign = args.align || 'Left';
-    const container: HTMLInputElement = document.createElement('input');
+    const width = args.width || '15em';
+    const alignment = args.align || 'left';
+    const component: HTMLInputElement = document.createElement('input');
+    component.setAttribute('data-properties', JSON.stringify(args));
 
     switch (args.type) {
         case 'text':
-            container.setAttribute('type', 'text');
-            container.classList.add('a-singleline');
+            component.setAttribute('type', 'text');
+            component.classList.add('a-singleline');
             if (args.maximum) {
-                container.setAttribute('maxlength', args.maximum.toString());
+                component.setAttribute('maxlength', args.maximum.toString());
             }
             break;
         case 'number':
-            container.setAttribute('type', 'number');
-            container.classList.add('a-singleline-number');
+            component.setAttribute('type', 'number');
+            component.classList.add('a-singleline-number');
             if (args.minimum) {
-                container.setAttribute('min', args.minimum.toString());
+                component.setAttribute('min', args.minimum.toString());
             }
             if (args.maximum) {
-                container.setAttribute('max', args.maximum.toString());
+                component.setAttribute('max', args.maximum.toString());
             }
             if (args.step) {
-                container.setAttribute('step', args.step.toString());
+                component.setAttribute('step', args.step.toString());
             } else {
-                container.setAttribute('step', '1');
+                component.setAttribute('step', 'any');
             }
             break;
         case 'date':
-            container.setAttribute('type', 'date');
-            container.classList.add('a-singleline-date');
+            component.setAttribute('type', 'date');
+            component.classList.add('a-singleline-date');
 
             const formatISODate = (date: number): string => {
                 const parsedDate = new Date(date);
@@ -37,41 +37,55 @@ export function ASingleline(args: any): HTMLInputElement {
             };
 
             if (args.minimumDate) {
-                container.setAttribute('min', formatISODate(args.minimumDate));
+                component.setAttribute('min', formatISODate(args.minimumDate));
             }
             if (args.maximumDate) {
-                container.setAttribute('max', formatISODate(args.maximumDate));
+                component.setAttribute('max', formatISODate(args.maximumDate));
             }
             break;
         case 'range':
-            container.setAttribute('type', 'range');
-            container.classList.add('a-singleine-range');
+            component.setAttribute('type', 'range');
+            component.classList.add('a-slider-input');
             if (args.minimum) {
-                container.setAttribute('min', args.minimum.toString());
+                component.setAttribute('min', args.minimum.toString());
             }
             if (args.maximum) {
-                container.setAttribute('max', args.maximum.toString());
+                component.setAttribute('max', args.maximum.toString());
+            }
+            if (args.step) {
+                component.setAttribute('step', args.step.toString());
+            } else {
+                component.setAttribute('step', 'any');
             }
             break;
-        default:
-            console.warn('Unsupported type:', args.type);
     }
 
     // Apply the width and alignment styles
-    container.setAttribute(
+    component.setAttribute(
         'style',
-        `width: ${setWidth}; text-align: ${setAlign.toLowerCase()};`,
+        `width: ${width}; text-align: ${alignment};`,
     );
 
     if (args.hidden) {
-        container.setAttribute('hidden', 'true');
+        component.setAttribute('hidden', 'true');
     }
 
-    return container;
+    return component;
 }
 
 export function AMultiline(args: any): HTMLTextAreaElement {
-    const container: HTMLTextAreaElement = document.createElement('textarea');
-    container.classList.add('a-multiline');
-    return container;
+    const component: HTMLTextAreaElement = document.createElement('textarea');
+    component.classList.add('a-multiline');
+
+    // Apply the width and alignment styles
+    component.setAttribute(
+        'style',
+        `width: ${args.width}; text-align: ${args.align};`,
+    );
+
+    if (args.hidden) {
+        component.setAttribute('hidden', 'true');
+    }
+
+    return component;
 }
