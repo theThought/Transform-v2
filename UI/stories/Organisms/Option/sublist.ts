@@ -22,11 +22,11 @@ export function OOptionSublist_Story(args): HTMLElement {
     };
 
     if (args.balanceMinWidth !== '') {
-        dataProperties.balance.minWidth = args.balanceMinWidth;
+        dataProperties.balance.minwidth = args.balanceMinWidth;
     }
 
     if (args.onesizeMaxWidth !== '') {
-        dataProperties.onesize.maxWidth = args.onesizeMaxWidth;
+        dataProperties.onesize.maxwidth = args.onesizeMaxWidth;
     }
     // Create JSON for data-properties
     const dataPropertiesString = JSON.stringify(dataProperties);
