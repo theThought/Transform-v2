@@ -4,15 +4,15 @@ import { ASingleline } from '../../Atoms/Inputs/Input';
 
 export function OScale_Story(args): HTMLElement {
     const container: HTMLElement = document.createElement('o-scale');
-    const prepostLabel = MLabel.MLabelPrePost();
-    const scaleContainer = MScaleContainer.MScaleContainer_Story(args);
-
     container.setAttribute('data-properties', JSON.stringify(args.properties));
     container.style.width = args.width;
 
+    args.width = ''; // we do not want to pass the width to the molecule as it will compound
+    const prepostLabel = MLabel.MLabelPrePost();
+    const scaleContainer = MScaleContainer.MScaleContainer_Story(args);
+
     // Clone args and modify the clone
     const clonedArgs = { ...args };
-    clonedArgs.align = 'Left';
     clonedArgs.type = 'number';
     clonedArgs.hidden = true;
 
