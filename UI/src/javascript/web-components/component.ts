@@ -11,7 +11,7 @@ export default class Component extends HTMLElement {
     protected readonly qid: string | undefined;
     protected readonly qgroup: string | undefined;
     protected response: OResponse | null = null;
-    protected properties: Record<string, unknown>;
+    protected properties: Record<string, string | number | boolean | object>;
 
     constructor() {
         super();
@@ -24,9 +24,10 @@ export default class Component extends HTMLElement {
 
     protected parseProperties(): void {
         const properties = this.dataset.properties ?? '{}';
-        const propertiesAsJson: Record<string, unknown> = JSON.parse(
-            properties.toString(),
-        );
+        const propertiesAsJson: Record<
+            string,
+            string | number | boolean | object
+        > = JSON.parse(properties.toString());
 
         if (this.response) {
             Object.assign(

@@ -3,6 +3,17 @@ import { Observer, Subject } from '../interfaces';
 
 export default class OOptionSublist extends Component implements Subject {
     protected observers: Observer[] = [];
+    protected properties = {
+        balance: {
+            state: false,
+            minwidth: '',
+        },
+        onesize: {
+            state: false,
+            maxwidth: '',
+        },
+    };
+
     public tallest = 0;
     public widest = 0;
     public maxwidth = 0;
@@ -40,19 +51,6 @@ export default class OOptionSublist extends Component implements Subject {
     }
 
     private setBalance(): void {
-        if (!this.properties.hasOwnProperty('balance')) {
-            return;
-        }
-
-        if (
-            typeof this.properties.balance !== 'object' ||
-            !this.properties.balance ||
-            !('state' in this.properties.balance) ||
-            typeof this.properties.balance.state !== 'boolean'
-        ) {
-            return;
-        }
-
         if (this.properties.balance.state) {
             this.classList.add('balance');
         } else {
@@ -82,20 +80,11 @@ export default class OOptionSublist extends Component implements Subject {
     }
 
     private setMaxOneSize(): void {
-        if (!this.properties.hasOwnProperty('onesize')) {
+        if (!this.properties.onesize.state) {
             return;
         }
 
-        if (
-            typeof this.properties.onesize !== 'object' ||
-            !this.properties.onesize ||
-            !('maxwidth' in this.properties.onesize) ||
-            this.properties.onesize.maxwidth === ''
-        ) {
-            return;
-        }
-
-        this.maxwidth = parseInt(String(this.properties.onesize.maxwidth));
+        this.style.maxWidth = this.properties.onesize.maxwidth;
     }
 
     public connectedCallback(): void {
