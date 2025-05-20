@@ -71,9 +71,7 @@ export default class MOptionBase extends Component implements Observer {
     }
 
     private setMaxOneSize(): void {
-        if (!this.properties.onesize.state) {
-            return;
-        }
+        if (!this.properties.onesize.state) return;
 
         this.style.maxWidth = this.properties.onesize.maxwidth;
     }
@@ -93,10 +91,7 @@ export default class MOptionBase extends Component implements Observer {
     private exclusiveClear(e: CustomEvent): void {
         if (!this.checkbox) return;
         if (this.isExclusive) return;
-
-        if (e.target === this) {
-            return;
-        }
+        if (e.target === this) return;
 
         this.changeState(false);
     }
@@ -104,10 +99,7 @@ export default class MOptionBase extends Component implements Observer {
     private clearExclusives(e: CustomEvent): void {
         if (!this.checkbox) return;
         if (!this.isExclusive) return;
-
-        if (e.target === this) {
-            return;
-        }
+        if (e.target === this) return;
 
         this.changeState(false);
     }
@@ -139,9 +131,7 @@ export default class MOptionBase extends Component implements Observer {
         if (!this.checkbox) return;
 
         // prevent radio buttons from de-selecting
-        if (this.checkbox.checked && this.checkbox.type === 'radio') {
-            return;
-        }
+        if (this.checkbox.checked && this.checkbox.type === 'radio') return;
 
         this.changeState(!this.checkbox.checked);
         this.onChange();
@@ -171,9 +161,7 @@ export default class MOptionBase extends Component implements Observer {
     }
 
     private setBalanceWidth(): void {
-        if (!this.element || !this.properties.balance.state) {
-            return;
-        }
+        if (!this.element || !this.properties.balance.state) return;
 
         const minWidth: string = this.properties.balance.minwidth ?? '0';
         this.element.style.minWidth = `${minWidth}`;
