@@ -24,7 +24,6 @@ export default class OOptionSublist extends Component implements Subject {
 
     private init(): void {
         this.setBalance();
-        this.setMaxOneSize();
     }
 
     public addObserver(observer: Observer): void {
@@ -77,14 +76,6 @@ export default class OOptionSublist extends Component implements Subject {
             });
             this.notifyObservers('sizeChangeHeight', event);
         }
-    }
-
-    private setMaxOneSize(): void {
-        if (!this.properties.onesize.state) {
-            return;
-        }
-
-        this.style.maxWidth = this.properties.onesize.maxwidth;
     }
 
     public connectedCallback(): void {

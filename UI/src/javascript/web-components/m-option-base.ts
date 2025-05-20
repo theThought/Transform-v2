@@ -3,6 +3,17 @@ import OOptionSublist from './o-option-sublist';
 import { Observer } from '../interfaces';
 
 export default class MOptionBase extends Component implements Observer {
+    protected properties = {
+        balance: {
+            state: false,
+            minwidth: '',
+        },
+        onesize: {
+            state: false,
+            maxwidth: '',
+        },
+    };
+
     private element: HTMLElement | null = null;
     private checkbox: HTMLInputElement | null = null;
     private sublist: OOptionSublist | null = null;
@@ -15,6 +26,7 @@ export default class MOptionBase extends Component implements Observer {
     private init(): void {
         this.addLocalEventListeners();
         this.setBalanceWidth();
+        this.setMaxOneSize();
     }
 
     private addLocalEventListeners(): void {
@@ -56,6 +68,14 @@ export default class MOptionBase extends Component implements Observer {
 
     private setOnesizeHeight(height: number): void {
         this.style.minHeight = `${height}px`;
+    }
+
+    private setMaxOneSize(): void {
+        if (!this.properties.onesize.state) {
+            return;
+        }
+
+        this.style.maxWidth = this.properties.onesize.maxwidth;
     }
 
     private changeState(check: boolean): void {
@@ -151,13 +171,7 @@ export default class MOptionBase extends Component implements Observer {
     }
 
     private setBalanceWidth(): void {
-        if (
-            !this.element ||
-            typeof this.properties.balance !== 'object' ||
-            !this.properties.balance ||
-            !('minwidth' in this.properties.balance) ||
-            typeof this.properties.balance.minwidth !== 'string'
-        ) {
+        if (!this.element || !this.properties.balance.state) {
             return;
         }
 
@@ -192,13 +206,7 @@ export default class MOptionBase extends Component implements Observer {
             this.sublist.addObserver(this);
         }
 
-        if (
-            !this.sublist ||
-            typeof this.properties.onesize !== 'object' ||
-            !this.properties.onesize ||
-            !('state' in this.properties.onesize) ||
-            !this.properties.onesize.state
-        ) {
+        if (!this.sublist || !this.properties.onesize.state) {
             return;
         }
 
