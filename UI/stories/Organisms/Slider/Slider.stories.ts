@@ -53,6 +53,7 @@ export default {
             table: {
                 type: { summary: 'number' },
                 category: 'Custom Properties',
+                subcategory: 'Show',
             },
         },
         'properties.labels.pre': {
@@ -77,21 +78,23 @@ export default {
         },
         'properties.show.marks': {
             control: 'boolean',
-            name: 'show.marks',
+            name: 'marks',
             description: 'Display tick marks',
             table: {
                 type: { summary: 'boolean' },
                 category: 'Custom Properties',
+                subcategory: 'Show',
                 defaultValue: { summary: 'true' },
             },
         },
         'properties.show.terminators': {
             control: 'boolean',
-            name: 'show.terminators',
+            name: 'terminators',
             description: 'Display terminator buttons',
             table: {
                 type: { summary: 'boolean' },
                 category: 'Custom Properties',
+                subcategory: 'Show',
             },
         },
     },
