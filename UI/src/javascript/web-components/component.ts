@@ -18,7 +18,6 @@ export default class Component extends HTMLElement {
 
         this.qid = this.dataset.questionId;
         this.qgroup = this.dataset.questionGroup;
-
         this.properties = {};
     }
 
@@ -36,7 +35,7 @@ export default class Component extends HTMLElement {
                 propertiesAsJson,
             );
         } else {
-            this.properties = propertiesAsJson;
+            Object.assign(this.properties, propertiesAsJson);
         }
     }
 
