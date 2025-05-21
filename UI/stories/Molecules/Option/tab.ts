@@ -17,10 +17,18 @@ export function MOptionTab(args): HTMLElement {
     inputElement.defaultChecked = checked;
     component.appendChild(inputElement);
 
-    const labelElement: HTMLLabelElement = document.createElement('label');
-    labelElement.setAttribute('class', 'a-label-option');
+    const labelElement = document.createElement('label');
     labelElement.setAttribute('for', args.questionId + args.categoryId);
-    labelElement.textContent = args.optionLabel;
+
+    const iconElement = document.createElement('span');
+    iconElement.setAttribute('class', 'a-icon-multistate');
+    iconElement.setAttribute('data-icon-type', args.iconType);
+    labelElement.appendChild(iconElement);
+
+    const textElement = document.createElement('span');
+    textElement.setAttribute('class', 'a-label-option');
+    textElement.textContent = args.optionLabel;
+    labelElement.appendChild(textElement);
     component.appendChild(labelElement);
 
     return component;

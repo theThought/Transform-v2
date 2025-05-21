@@ -9,7 +9,7 @@ m-option-tab {
         border-inline-start: none;
     }
 
-    label.a-label-option {
+    span.a-label-option {
         align-items: center;
         color: var(--color-secondary);
         display: inline-flex;
@@ -25,7 +25,7 @@ m-option-tab {
         background: var(--color-primary);
         border-color: var(--color-primary);
 
-        label.a-label-option {
+        span.a-label-option {
             color: var(--color-checked);
         }
     }
@@ -33,7 +33,7 @@ m-option-tab {
     &[data-checked='true'] ~ & {
         border-color: var(--color-dark1);
 
-        label.a-label-option {
+        span.a-label-option {
             color: var(--color-dark2);
         }
     }
