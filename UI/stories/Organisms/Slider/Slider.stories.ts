@@ -57,20 +57,22 @@ export default {
         },
         'properties.labels.pre': {
             control: 'text',
-            name: 'labels.pre',
+            name: 'pre',
             description: 'Specifies the text to be placed before the input',
             table: {
                 type: { summary: 'text' },
                 category: 'Custom Properties',
+                subcategory: 'Labels',
             },
         },
         'properties.labels.post': {
             control: 'text',
-            name: 'labels.post',
+            name: 'post',
             description: 'Specifies the text to be placed after the input',
             table: {
                 type: { summary: 'text' },
                 category: 'Custom Properties',
+                subcategory: 'Labels',
             },
         },
         'properties.show.marks': {
