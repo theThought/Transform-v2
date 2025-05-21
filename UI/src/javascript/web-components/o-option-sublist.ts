@@ -1,7 +1,10 @@
 import Component from './component';
 import { Observer, Subject } from '../interfaces';
 
-export default class OOptionSublist extends Component implements Subject {
+export default class OOptionSublist
+    extends Component
+    implements Subject, Observer
+{
     protected observers: Observer[] = [];
     protected properties = {
         balance: {
@@ -23,7 +26,43 @@ export default class OOptionSublist extends Component implements Subject {
     }
 
     private init(): void {
+        this.addLocalEventListeners();
         this.setBalance();
+    }
+
+    private addLocalEventListeners(): void {
+        this.addEventListener('exclusiveOn', this);
+        this.addEventListener('broadcastChange', this);
+    }
+
+    public handleEvent(e: Event): void {
+        switch (e.type) {
+            case 'exclusiveOn':
+                this.exclusiveOn(<CustomEvent>e);
+                break;
+            case 'broadcastChange':
+                this.handleChange(<CustomEvent>e);
+                break;
+        }
+    }
+
+    private exclusiveOn(e: CustomEvent): void {
+        this.notifyObservers('exclusiveClear', e);
+    }
+
+    private handleChange(e: CustomEvent): void {
+        this.notifyObservers('clearExclusives', e);
+    }
+
+    public update(method: string, data: CustomEvent): void {
+        switch (method) {
+            case 'clearExclusives':
+                this.handleChange(data);
+                break;
+            case 'exclusiveClear':
+                this.notifyObservers('exclusiveClear', data);
+                break;
+        }
     }
 
     public addObserver(observer: Observer): void {
@@ -80,6 +119,11 @@ export default class OOptionSublist extends Component implements Subject {
 
     public connectedCallback(): void {
         super.connectedCallback();
+
+        if (this.response) {
+            this.response.addObserver(this);
+        }
+
         this.init();
     }
 }
