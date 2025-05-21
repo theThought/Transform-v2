@@ -184,15 +184,6 @@ export const ListNoHeading: Simplelist = {
         optionCount: 5,
     },
     render: (args) => {
-        // Apply conditional logic for args
-        if (args.optionType === 'single-answer') {
-            args.exclusive = true;
-            args.iconType = 'Radio';
-        } else {
-            args.exclusive = false;
-            args.iconType = 'Checkbox';
-        }
-
         return OOptionSublist_Story(args);
     },
 };
