@@ -156,8 +156,14 @@
 
                 </xsl:call-template>
             </xsl:when>
+            <xsl:when test="$qType='tabstrip'">
+                <xsl:call-template name="tabstrip">
+                    <xsl:with-param name="qType" select="$qType" />
+                    <xsl:with-param name="qGroup" select="$qGroup"/>
+                    <xsl:with-param name="Hidden" select="false()"/>
+                </xsl:call-template>
+            </xsl:when>
         </xsl:choose>
-
     </xsl:template>
 
     <xsl:template name="insert-input">
@@ -437,19 +443,40 @@
     <xsl:template name="process-option-rows">
         <xsl:param name="qGroup" />
         <xsl:param name="theRows" />
+        <xsl:param name="cType" select="'choice'" />
+
+        <xsl:comment>
+            <xsl:text>count of rows in the table</xsl:text>
+            <xsl:value-of select="count($theRows)" />
+        </xsl:comment>
 
         <xsl:if test="count($theRows) > 0">
             <xsl:variable name="firstRow" select="$theRows[1]" />
             <xsl:variable name="controlType" select="$firstRow/Cell/Control/@Type" />
             <xsl:variable name="categoryID" select="$firstRow/Cell/Control/Category/@CategoryID" />
-
+            <xsl:variable name="oOptionType">
+                <xsl:choose>
+                    <xsl:when test="$cType='choice'">
+                        <xsl:text>sublist</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="$cType='tabstrip'">
+                        <xsl:text>tabstrip</xsl:text>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:variable>
+            <xsl:comment>
+                <xsl:text>cType: </xsl:text>
+                <xsl:value-of select="$cType" />
+                <xsl:text>option Type: </xsl:text>
+                <xsl:value-of select="$oOptionType" />
+            </xsl:comment>
             <!-- Determine the rows to include in the current sublist -->
             <xsl:choose>
                 <!-- Case 1: Static control -->
                 <xsl:when test="$controlType = 'Static'">
                     <xsl:variable name="rowsInSublist" select="$theRows[starts-with(Cell/Control/Category/@CategoryID, concat($categoryID, '_S'))]" />   
                     <xsl:variable name="howManyRows" select="count($rowsInSublist)" />
-                    
+
                     <xsl:element name='fieldset'>
                         <xsl:attribute name="aria-describedby">
                             <xsl:value-of select="//@TableID" />
@@ -460,7 +487,7 @@
                             <xsl:with-param name="labelXML" select="$firstRow/Cell/Control/Category/Label" />
                         </xsl:call-template>
 
-                        <xsl:element name="o-option-sublist">
+                        <xsl:element name="{$oOptionType}">
                             <xsl:for-each select="$rowsInSublist">
 
                                 <xsl:variable name="typeOverride">
@@ -477,13 +504,25 @@
                                     </xsl:choose>
                                 </xsl:variable>
 
-                                <xsl:if test="$typeOverride != 'other'">
-                                    <xsl:call-template name="m-option-base">
-                                        <xsl:with-param name="qType" select="Cell/Control/@Type" />
-                                        <xsl:with-param name="qGroup" select="$qGroup" />
-                                        <xsl:with-param name="currentControl" select="Cell/Control" />
-                                        <xsl:with-param name="typeOverride" select="$typeOverride" />
-                                    </xsl:call-template>
+                                <xsl:if test="$typeOverride != 'other'">   
+                                    <xsl:choose>
+                                        <xsl:when test="$cType='choice'">
+                                            <xsl:call-template name="m-option-base">
+                                                <xsl:with-param name="qType" select="Cell/Control/@Type" />
+                                                <xsl:with-param name="qGroup" select="$qGroup" />
+                                                <xsl:with-param name="currentControl" select="Cell/Control" />
+                                                <xsl:with-param name="typeOverride" select="$typeOverride" />
+                                            </xsl:call-template>
+                                        </xsl:when>
+                                        <xsl:when test="$cType='tabstrip'">
+                                            <xsl:call-template name="m-option-tab">
+                                                <xsl:with-param name="qType" select="Cell/Control/@Type" />
+                                                <xsl:with-param name="qGroup" select="$qGroup" />
+                                                <xsl:with-param name="currentControl" select="Cell/Control" />
+                                                <xsl:with-param name="typeOverride" select="$typeOverride" />
+                                            </xsl:call-template>
+                                        </xsl:when>
+                                    </xsl:choose>
                                 </xsl:if>
                             </xsl:for-each>
                         </xsl:element>
@@ -492,6 +531,7 @@
                     <xsl:call-template name="process-option-rows">
                         <xsl:with-param name="qGroup" select="$qGroup" />
                         <xsl:with-param name="theRows" select="$theRows[position() > $howManyRows + 1]" />
+                        <xsl:with-param name="cType" select="$cType" />
                     </xsl:call-template>
                 </xsl:when>
                 <!-- Case 2: Non-Static control -->
@@ -514,8 +554,7 @@
                             <xsl:value-of select="//@TableID" />
                             <xsl:text>_label_question</xsl:text>
                         </xsl:attribute>
-
-                        <xsl:element name="o-option-sublist">
+                        <xsl:element name="{$oOptionType}">
                             <xsl:for-each select="$theRows[position() &lt; ($nextStaticIncrement + 1)]">
 
                                 <xsl:variable name="typeOverride">
@@ -533,12 +572,24 @@
                                 </xsl:variable>
                                 
                                 <xsl:if test="$typeOverride != 'other'">
-                                    <xsl:call-template name="m-option-base">
-                                        <xsl:with-param name="qType" select="Cell/Control/@Type" />
-                                        <xsl:with-param name="qGroup" select="$qGroup" />
-                                        <xsl:with-param name="currentControl" select="Cell/Control" />
-                                        <xsl:with-param name="typeOverride" select="$typeOverride" />
-                                    </xsl:call-template>
+                                    <xsl:choose>
+                                        <xsl:when test="$cType='choice'">
+                                            <xsl:call-template name="m-option-base">
+                                                <xsl:with-param name="qType" select="Cell/Control/@Type" />
+                                                <xsl:with-param name="qGroup" select="$qGroup" />
+                                                <xsl:with-param name="currentControl" select="Cell/Control" />
+                                                <xsl:with-param name="typeOverride" select="$typeOverride" />
+                                            </xsl:call-template>
+                                        </xsl:when>
+                                        <xsl:when test="$cType='tabstrip'">
+                                            <xsl:call-template name="m-option-tab">
+                                                <xsl:with-param name="qType" select="Cell/Control/@Type" />
+                                                <xsl:with-param name="qGroup" select="$qGroup" />
+                                                <xsl:with-param name="currentControl" select="Cell/Control" />
+                                                <xsl:with-param name="typeOverride" select="$typeOverride" />
+                                            </xsl:call-template>
+                                        </xsl:when>
+                                    </xsl:choose>
                                 </xsl:if>
                             </xsl:for-each>
                         </xsl:element>
@@ -550,6 +601,7 @@
                         <xsl:call-template name="process-option-rows">
                             <xsl:with-param name="qGroup" select="$qGroup" />
                             <xsl:with-param name="theRows" select="$theRows[position() > $nextStaticIncrement - 1]" />
+                            <xsl:with-param name="cType" select="$cType" />
                         </xsl:call-template>
                     </xsl:if>
                 </xsl:otherwise>
@@ -654,14 +706,15 @@
             <xsl:call-template name="insert-common-questiontype-attributes">
                 <xsl:with-param name="qGroup" select="$qGroup" />
             </xsl:call-template>
+
+            <xsl:for-each select="Table">
+                <xsl:call-template name="process-option-rows">
+                    <xsl:with-param name="qGroup" select="$qGroup" />
+                    <xsl:with-param name="theRows" select="Row" />
+                </xsl:call-template>
+            </xsl:for-each>
         </xsl:element>
 
-        <xsl:for-each select="Table">
-            <xsl:call-template name="process-option-rows">
-                <xsl:with-param name="qGroup" select="$qGroup" />
-                <xsl:with-param name="theRows" select="Row" />
-            </xsl:call-template>
-        </xsl:for-each>
     </xsl:template>
 
     <xsl:template name="scale">
@@ -778,6 +831,25 @@
         </xsl:choose>
     </xsl:template>
 
+    <xsl:template name="tabstrip">
+        <xsl:param name="qType" />
+        <xsl:param name="qGroup" />
+        <xsl:param name="Hidden" />
+
+        <xsl:element name="o-tabstrip">
+            <xsl:call-template name="insert-common-questiontype-attributes">
+                <xsl:with-param name="qGroup" select="$qGroup" />
+            </xsl:call-template>
+
+            <xsl:for-each select="Table">
+            <xsl:call-template name="process-option-rows">
+                <xsl:with-param name="qGroup" select="$qGroup" />
+                <xsl:with-param name="theRows" select="Row" />
+                <xsl:with-param name="cType" select="'tabstrip'" />
+            </xsl:call-template>
+            </xsl:for-each>
+        </xsl:element>
+    </xsl:template>
     <!-- Organisms -->
     <!-- ============== -->
 
@@ -1131,6 +1203,118 @@
 
     </xsl:template>
 
+    <xsl:template name="m-option-tab">
+        <xsl:param name="qType" />
+        <xsl:param name="qGroup" />
+        <xsl:param name="typeOverride" />
+        <xsl:param name="currentControl" />
+
+        <xsl:variable name="currentCategory" select="$currentControl/Category" />
+
+        <xsl:variable name="qCategoryID">
+            <xsl:value-of select="concat($currentControl/@ElementID, $currentCategory/@CategoryID)" />
+        </xsl:variable>
+
+        <xsl:element name="m-option-tab">
+            <xsl:variable name="isExclusive">
+                <xsl:choose>
+                    <xsl:when test="$currentControl/@Type='CheckButton'">
+                        <xsl:choose>
+                            <xsl:when test="$currentCategory/Label/Style/Font/@IsBold">
+                                <xsl:text>true</xsl:text>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:text>false</xsl:text>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:when>
+                    <xsl:when test="$currentControl/@Type='RadioButton'">
+                        <xsl:text>true</xsl:text>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:variable>
+
+            <xsl:attribute name="data-exclusive">
+                <xsl:value-of select="$isExclusive" />
+            </xsl:attribute>
+
+            <xsl:attribute name="data-question-id">
+                <xsl:value-of select="$qCategoryID" />
+            </xsl:attribute>
+
+            <xsl:attribute name="data-question-group">
+                <xsl:value-of select="$qGroup" />
+            </xsl:attribute>
+
+            <xsl:attribute name="class">
+                <xsl:choose>
+                    <xsl:when test="$currentControl/Style/@ElementAlign='NewLine'">
+                        <xsl:text> below </xsl:text>
+                    </xsl:when>
+                    <xsl:when test="$currentControl/Style/@ElementAlign='Right'">
+                        <xsl:text> side </xsl:text>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:attribute>
+
+            <xsl:attribute name='data-hidden'>
+                <xsl:choose>
+                <xsl:when test="$currentControl/Style/@Hidden='true'">
+                    <xsl:text>true</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>false</xsl:text>
+                </xsl:otherwise>
+                </xsl:choose>
+            </xsl:attribute>
+
+            <xsl:call-template name="set-data-position">
+                <xsl:with-param name="position" select="$currentControl/Style/@ElementAlign" />
+            </xsl:call-template>
+
+            <xsl:call-template name="insert-input-option">
+                <xsl:with-param name="inputType">
+                    <xsl:choose>
+                        <xsl:when test="$typeOverride">
+                            <xsl:value-of select="$typeOverride" />
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:choose>
+                                <xsl:when test="$isExclusive='true'">
+                                    <xsl:text>radio</xsl:text>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:text>checkbox</xsl:text>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:with-param>
+                <xsl:with-param name="qGroup" select="$qGroup" />
+                <xsl:with-param name="isHidden" select="true()" />
+                <xsl:with-param name="currentControl" select="$currentControl" />
+                <xsl:with-param name="controlId" select="$qCategoryID" />
+            </xsl:call-template>
+
+            <!-- label-option -->
+            <xsl:call-template name="insert-label-option">
+                <xsl:with-param name="subType">
+                    <xsl:choose>
+                        <xsl:when test="$isExclusive='true'">
+                            <xsl:text>radio</xsl:text>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>checkbox</xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:with-param>
+                <xsl:with-param name="currentControl" select="$currentControl" />
+                <xsl:with-param name="controlId" select="$qCategoryID" />
+            </xsl:call-template>
+
+        </xsl:element>
+
+    </xsl:template>
     <!-- Atoms -->
     <!-- ===== -->
 
@@ -1212,11 +1396,11 @@
                         </xsl:attribute>
 
                         <xsl:for-each select="Control[not(./Style/Control/@Type='SingleLineEdit')]">
-                            <xsl:call-template name='m-option-base'>
-                                <xsl:with-param name="qType" select="$qType" />
+                            <xsl:call-template name="m-option-base">
+                                <xsl:with-param name="qType" select="Cell/Control/@Type" />
                                 <xsl:with-param name="qGroup" select="$qGroup" />
+                                <xsl:with-param name="currentControl" select="Cell/Control" />
                                 <xsl:with-param name="typeOverride" select="$typeOverride" />
-                                <xsl:with-param name="currentControl" select="." />
                             </xsl:call-template>
                         </xsl:for-each>
                     </xsl:element>
@@ -1230,11 +1414,11 @@
                     </xsl:attribute>
 
                     <xsl:for-each select="Control[not(./Style/Control/@Type='SingleLineEdit')]">
-                        <xsl:call-template name='m-option-base'>
-                            <xsl:with-param name="qType" select="$qType" />
+                        <xsl:call-template name="m-option-base">
+                            <xsl:with-param name="qType" select="Cell/Control/@Type" />
                             <xsl:with-param name="qGroup" select="$qGroup" />
+                            <xsl:with-param name="currentControl" select="Cell/Control" />
                             <xsl:with-param name="typeOverride" select="$typeOverride" />
-                            <xsl:with-param name="currentControl" select="." />
                         </xsl:call-template>
                     </xsl:for-each>
                 </xsl:otherwise>
