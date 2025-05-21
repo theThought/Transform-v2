@@ -283,6 +283,12 @@
             <xsl:attribute name="value">
                 <xsl:value-of select="$currentControl/Category/@Name" />
             </xsl:attribute>
+
+            <xsl:if test="$currentControl/Category/@Checked">
+                <xsl:attribute name="checked">
+                    <xsl:text>true</xsl:text>
+                </xsl:attribute>
+            </xsl:if>
         </xsl:element>
     </xsl:template>
 
