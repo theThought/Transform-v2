@@ -193,10 +193,6 @@ export default class MOptionBase extends Component implements Observer {
 
         this.init();
 
-        if (this.response) {
-            this.response.addObserver(this);
-        }
-
         if (this.sublist) {
             this.sublist.addObserver(this);
         }
@@ -219,10 +215,6 @@ export default class MOptionBase extends Component implements Observer {
     }
 
     public disconnectedCallback(): void {
-        if (this.response) {
-            this.response.removeObserver(this);
-        }
-
         if (this.sublist) {
             this.sublist.removeObserver(this);
         }
