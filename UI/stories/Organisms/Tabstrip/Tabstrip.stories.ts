@@ -36,6 +36,7 @@ export const Tabstrip = {
         },
     },
     args: {
+        exclusive: true,
         questionId: '_Q0',
         categoryId: '_C1',
         questionName: 'TabExample',
