@@ -457,10 +457,10 @@
             <xsl:variable name="oOptionType">
                 <xsl:choose>
                     <xsl:when test="$cType='choice'">
-                        <xsl:text>sublist</xsl:text>
+                        <xsl:text>o-option-sublist</xsl:text>
                     </xsl:when>
                     <xsl:when test="$cType='tabstrip'">
-                        <xsl:text>tabstrip</xsl:text>
+                        <xsl:text>o-option-tabstrip</xsl:text>
                     </xsl:when>
                 </xsl:choose>
             </xsl:variable>
