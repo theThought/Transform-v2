@@ -27,6 +27,7 @@ export default class MOptionBase extends Component implements Observer {
         this.addLocalEventListeners();
         this.setBalanceWidth();
         this.setMaxOneSize();
+        this.setDisabled();
     }
 
     private addLocalEventListeners(): void {
@@ -85,6 +86,12 @@ export default class MOptionBase extends Component implements Observer {
         } else {
             this.checkbox.checked = false;
             this.setAttribute('data-checked', 'false');
+        }
+    }
+
+    private setDisabled(): void {
+        if (this.checkbox && this.checkbox.disabled) {
+            this.setAttribute('data-disabled', 'true');
         }
     }
 

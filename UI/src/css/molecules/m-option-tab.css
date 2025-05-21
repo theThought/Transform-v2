@@ -16,6 +16,11 @@ m-option-tab {
         padding: var(--space-4);
     }
 
+    &[data-disabled='true'] {
+        opacity: 0.5;
+        pointer-events: none;
+    }
+
     &[data-checked='true'] {
         background: var(--color-primary);
         border-color: var(--color-primary);
