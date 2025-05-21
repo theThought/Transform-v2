@@ -3,11 +3,21 @@ import { Observer, Subject } from '../interfaces';
 import { removeHTMLWhitespace } from './util';
 
 export default class OSlider extends Component implements Observer, Subject {
+    protected properties = {
+        show: {
+            terminators: false,
+        },
+        labels: {
+            pre: '',
+            post: '',
+        },
+        ticklabels: 0,
+    };
+
     private observers: Observer[] = [];
     private element: HTMLInputElement | null = null;
     private min = 0;
     private max = 100;
-    private step = 10;
 
     constructor() {
         super();
@@ -107,23 +117,13 @@ export default class OSlider extends Component implements Observer, Subject {
     }
 
     private tickLabels(): void {
-        if (
-            !this.properties.hasOwnProperty('ticklabels') ||
-            typeof this.properties.ticklabels !== 'number'
-        ) {
-            return;
-        }
+        if (this.properties.ticklabels === 0) return;
 
         const labelsElement = this.querySelector('.m-label-marks');
         if (!labelsElement) return;
 
-        let step = isNaN(this.properties.ticklabels)
-            ? 10
-            : this.properties.ticklabels;
-
-        if (step === 0) {
-            step = Math.floor(((this.max - this.min) / 100) * 10);
-        }
+        const step =
+            this.properties.ticklabels > 0 ? this.properties.ticklabels : 10;
 
         for (let i = this.min; i <= this.max; i = i + step) {
             const labelElement = document.createElement('span');
@@ -134,14 +134,7 @@ export default class OSlider extends Component implements Observer, Subject {
     }
 
     private terminatorButtons(): void {
-        if (
-            typeof this.properties.show !== 'object' ||
-            !this.properties.show ||
-            !('terminators' in this.properties.show) ||
-            !this.properties.show.terminators
-        ) {
-            return;
-        }
+        if (!this.properties.show.terminators) return;
 
         this.classList.add('has-terminators');
     }
@@ -154,40 +147,23 @@ export default class OSlider extends Component implements Observer, Subject {
         if (elemPre && elemPost) {
             elemPre.innerHTML = removeHTMLWhitespace(elemPre.innerHTML);
             elemPost.innerHTML = removeHTMLWhitespace(elemPost.innerHTML);
-        }
-
-        if (!this.properties.hasOwnProperty('labels')) {
+        } else {
             return;
         }
 
-        const labels = this.properties.labels as Record<string, unknown>;
+        if (this.properties.labels.pre.length > 0) {
+            elemPre.innerHTML = this.properties.labels.pre;
+        }
 
-        for (const [key, value] of Object.entries(labels)) {
-            if (key === 'pre' && value) {
-                if (elemPre) {
-                    elemPre.textContent = value as string;
-                }
-            }
-
-            if (key === 'post' && value) {
-                if (elemPost) {
-                    elemPost.textContent = value as string;
-                }
-            }
+        if (this.properties.labels.post.length > 0) {
+            elemPost.innerHTML = this.properties.labels.post;
         }
     }
 
     private setProperties(): void {
         if (!this.element) return;
-
         this.min = this.element.min ? Number(this.element.min) : this.min;
         this.max = this.element.max ? Number(this.element.max) : this.max;
-        this.element.step = this.properties.step
-            ? String(this.properties.step)
-            : String(this.step);
-        this.step = this.properties.step
-            ? Number(this.properties.step)
-            : this.step;
     }
 
     private init(): void {

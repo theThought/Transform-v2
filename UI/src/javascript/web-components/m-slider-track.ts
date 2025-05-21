@@ -3,12 +3,21 @@ import OSlider from './o-slider';
 import { Observer } from '../interfaces';
 
 export default class MSliderTrack extends Component implements Observer {
+    protected properties = {
+        show: {
+            marks: false,
+            value: false,
+            terminators: false,
+        },
+        ticklabels: 0,
+        step: 1,
+    };
+
     private element: HTMLInputElement | null = null;
     private output: HTMLOutputElement | null = null;
     private slider: OSlider | null = null;
     private min = 0;
     private max = 100;
-    private step = 1;
 
     constructor() {
         super();
@@ -88,12 +97,10 @@ export default class MSliderTrack extends Component implements Observer {
         if (!this.output) return;
         if (!this.element) return;
 
-        const min = this.element.min ? Number(this.element.min) : 0;
-        const max = this.element.max ? Number(this.element.max) : 100;
         const thumbWidth = 32;
-        const range = max - min;
+        const range = this.max - this.min;
 
-        const position = Number(((value - min) / range) * 100);
+        const position = Number(((value - this.min) / range) * 100);
         const positionOffset =
             Math.round((thumbWidth * position) / 100) - thumbWidth / 2;
         const positionPaddingOffset = Math.round((5 * position) / 100) - 2.5;
@@ -108,28 +115,16 @@ export default class MSliderTrack extends Component implements Observer {
             'px)';
     }
 
-    private showMarks(): void {
-        if (
-            typeof this.properties.show !== 'object' ||
-            !this.properties.show ||
-            !('marks' in this.properties.show) ||
-            this.properties.show.marks !== true
-        ) {
-            return;
-        }
+    private configureMarks(): void {
+        if (!this.properties.show.marks) return;
 
         const marksContainer = this.querySelector('.m-divider-marks');
         if (!marksContainer) return;
 
-        let step = 10;
-
-        if (
-            this.properties.hasOwnProperty('ticklabels') &&
-            typeof this.properties.ticklabels === 'number' &&
+        const step =
             this.properties.ticklabels > 0
-        ) {
-            step = this.properties.ticklabels;
-        }
+                ? this.properties.ticklabels
+                : this.properties.step;
 
         for (let i = this.min; i <= this.max; i = i + step) {
             const mark = document.createElement('span');
@@ -141,10 +136,8 @@ export default class MSliderTrack extends Component implements Observer {
     private updateFloodFill(value: number): void {
         if (!this.element) return;
 
-        const min = this.element.min ? Number(this.element.min) : 0;
-        const max = this.element.max ? Number(this.element.max) : 100;
-
-        const percentage = (Math.abs(value - min) / Math.abs(max - min)) * 100;
+        const percentage =
+            (Math.abs(value - this.min) / Math.abs(this.max - this.min)) * 100;
         const paddingAdjustmentPx = 20;
         const adjustmentCalc =
             paddingAdjustmentPx - 2 * paddingAdjustmentPx * (percentage / 100);
@@ -180,7 +173,8 @@ export default class MSliderTrack extends Component implements Observer {
 
     private incrementValue(): void {
         if (!this.element) return;
-        const requestedValue = Number(this.element.value) + this.step;
+        const requestedValue =
+            Number(this.element.value) + this.properties.step;
         if (requestedValue <= this.max) {
             this.element.value = String(requestedValue);
         }
@@ -189,7 +183,8 @@ export default class MSliderTrack extends Component implements Observer {
 
     private decrementValue(): void {
         if (!this.element) return;
-        const requestedValue = Number(this.element.value) - this.step;
+        const requestedValue =
+            Number(this.element.value) - this.properties.step;
         if (requestedValue >= this.min) {
             this.element.value = String(requestedValue);
         }
@@ -198,21 +193,17 @@ export default class MSliderTrack extends Component implements Observer {
 
     private setProperties(): void {
         if (!this.element) return;
-
         this.min = this.element.min ? Number(this.element.min) : this.min;
         this.max = this.element.max ? Number(this.element.max) : this.max;
-        this.element.step = this.properties.step
-            ? String(this.properties.step)
-            : String(this.step);
-        this.step = this.properties.step
-            ? Number(this.properties.step)
-            : this.step;
+        this.properties.step =
+            this.properties.step == 0 ? 1 : this.properties.step;
+        this.element.step = String(this.properties.step);
     }
 
     private init(): void {
         this.addLocalEventListeners();
         this.setProperties();
-        this.showMarks();
+        this.configureMarks();
     }
 
     private addLocalEventListeners(): void {
