@@ -12,7 +12,7 @@ export default {
         optionType: {
             control: 'select',
             options: ['single-answer', 'multi-answer'],
-            description: 'Sinlge or multi-answer question',
+            description: 'Single or multi-answer question',
             table: {
                 type: { summary: 'string' },
                 defaultValue: { summary: 'single-answer' },
@@ -32,7 +32,7 @@ export default {
             description: 'Does selecting this option deselect all others?',
             table: {
                 type: { summary: 'boolean' },
-                category: 'Content',
+                category: 'Dimensions',
                 order: 1,
                 defaultValue: { summary: 'false' },
             },
@@ -42,7 +42,7 @@ export default {
             description: 'icon for the option',
             table: {
                 type: { summary: 'text' },
-                category: 'Content',
+                category: 'Dimensions',
                 order: 5,
                 defaultValue: { summary: 'false' },
             },
@@ -52,17 +52,17 @@ export default {
             description: 'Label for the option',
             table: {
                 type: { summary: 'string' },
-                category: 'Content',
+                category: 'Dimensions',
                 order: 4,
                 defaultValue: { summary: 'This is the option label' },
             },
         },
         categoryId: {
             control: 'text',
-            description: 'Unique identifier for the categrory',
+            description: 'Unique identifier for the category',
             table: {
                 type: { summary: 'string' },
-                category: 'Content',
+                category: 'Dimensions',
                 order: 3,
                 defaultValue: { summary: '_C0' },
             },
@@ -72,7 +72,7 @@ export default {
             description: 'Unique identifier for the question',
             table: {
                 type: { summary: 'string' },
-                category: 'Content',
+                category: 'Dimensions',
                 order: 2,
                 defaultValue: { summary: '_Q0' },
             },
@@ -82,7 +82,7 @@ export default {
             description: 'Name of the question',
             table: {
                 type: { summary: 'string' },
-                category: 'Content',
+                category: 'Dimensions',
                 order: 6,
                 defaultValue: { summary: 'Example' },
             },
@@ -94,12 +94,12 @@ type SingleAnswer = StoryObj<typeof MOptionBase_Story>;
 export const StandardRadio: SingleAnswer = {
     parameters: {
         controls: {
-            include: ['optionLabel'],
-        }, // Fixed syntax error
+            include: ['optionLabel', 'exclusive'],
+        },
     },
     args: {
         optionType: 'single-answer',
-        exclusive: true,
+        exclusive: false,
         questionId: '_Q0',
         categoryId: '_C0',
         questionName: 'RadioExample',
@@ -114,8 +114,8 @@ type MultiAnswer = StoryObj<typeof MOptionBase_Story>;
 export const StandardCheck: MultiAnswer = {
     parameters: {
         controls: {
-            include: ['optionLabel'],
-        }, // Fixed syntax error
+            include: ['optionLabel', 'exclusive'],
+        },
     },
     args: {
         optionType: 'multi-answer',
@@ -138,6 +138,7 @@ export const TabstripOption: TabstripOption = {
         },
     },
     args: {
+        exclusive: true,
         questionId: '_Q0',
         categoryId: '_C1',
         questionName: 'TabExample',
