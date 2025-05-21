@@ -62,7 +62,7 @@ export function OSlider(args): HTMLElement {
 export function OSliderWithExclusive(args): HTMLElement {
     const oResponse: HTMLElement = document.createElement('o-response');
     oResponse.setAttribute('data-properties', JSON.stringify(args));
-    const sublist: HTMLElement = document.createElement('o-sublist');
+    const sublist: HTMLElement = document.createElement('o-option-sublist');
     const option: HTMLElement = MOptionBase_Story(args);
     const outerContainer: HTMLElement = document.createElement('o-slider');
     const prepostLabel = MLabel.MLabelPrePost();
