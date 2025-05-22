@@ -25,16 +25,6 @@ export default class OOptionSublist
         super();
     }
 
-    private init(): void {
-        this.addLocalEventListeners();
-        this.setBalance();
-    }
-
-    private addLocalEventListeners(): void {
-        this.addEventListener('exclusiveOn', this);
-        this.addEventListener('broadcastChange', this);
-    }
-
     public handleEvent(e: Event): void {
         switch (e.type) {
             case 'exclusiveOn':
@@ -120,10 +110,10 @@ export default class OOptionSublist
     public connectedCallback(): void {
         super.connectedCallback();
 
-        if (this.response) {
-            this.response.addObserver(this);
-        }
+        if (this.response) this.response.addObserver(this);
 
-        this.init();
+        this.addEventListener('exclusiveOn', this);
+        this.addEventListener('broadcastChange', this);
+        this.setBalance();
     }
 }

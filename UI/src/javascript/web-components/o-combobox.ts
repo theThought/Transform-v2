@@ -7,6 +7,5 @@ export default class OCombobox extends Component {
         super();
 
         this.element = this.querySelector('.a-input-combobox');
-        if (!this.element) return;
     }
 }

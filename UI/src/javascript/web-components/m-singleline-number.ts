@@ -1,6 +1,14 @@
 import MSingleline from './m-singleline';
 
 export default class MSinglelineNumber extends MSingleline {
+    protected properties = {
+        labels: {
+            pre: '',
+            post: '',
+        },
+        step: 'any',
+    };
+
     constructor() {
         super();
     }
@@ -10,7 +18,7 @@ export default class MSinglelineNumber extends MSingleline {
             return;
         }
 
-        this.element.step = <string>this.properties.step;
+        this.element.step = this.properties.step;
     }
 
     public connectedCallback(): void {

@@ -8,16 +8,6 @@ export default class OResponse extends Component implements Subject {
         super();
     }
 
-    private init(): void {
-        this.addLocalEventListeners();
-    }
-
-    private addLocalEventListeners(): void {
-        this.addEventListener('exclusiveOn', this);
-        this.addEventListener('exclusiveOff', this);
-        this.addEventListener('broadcastChange', this);
-    }
-
     public handleEvent(e: Event): void {
         switch (e.type) {
             case 'exclusiveOn':
@@ -72,6 +62,9 @@ export default class OResponse extends Component implements Subject {
 
     public connectedCallback(): void {
         super.connectedCallback();
-        this.init();
+
+        this.addEventListener('exclusiveOn', this);
+        this.addEventListener('exclusiveOff', this);
+        this.addEventListener('broadcastChange', this);
     }
 }

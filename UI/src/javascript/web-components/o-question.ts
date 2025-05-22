@@ -5,10 +5,6 @@ export default class OQuestion extends HTMLElement {
         super();
     }
 
-    private init(): void {
-        this.cleanEmptyLayout();
-    }
-
     private cleanEmptyLayout(): void {
         const layoutItems = this.querySelectorAll('.l-row');
 
@@ -23,6 +19,6 @@ export default class OQuestion extends HTMLElement {
     }
 
     public connectedCallback(): void {
-        this.init();
+        this.cleanEmptyLayout();
     }
 }

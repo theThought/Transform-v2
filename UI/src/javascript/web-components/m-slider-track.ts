@@ -199,31 +199,21 @@ export default class MSliderTrack extends Component implements Observer {
         this.element.step = String(this.properties.step);
     }
 
-    private init(): void {
-        this.addLocalEventListeners();
-        this.setProperties();
-        this.configureMarks();
-    }
-
-    private addLocalEventListeners(): void {
-        if (!this.element) return;
-        this.addEventListener('focusin', this);
-        this.element.addEventListener('input', this);
-    }
-
     public connectedCallback(): void {
         super.connectedCallback();
         this.element = this.querySelector('.a-slider-input');
         this.output = this.querySelector('output');
         this.slider = this.closest('o-slider');
-        this.init();
 
-        if (this.response) {
-            this.response.addObserver(this);
-        }
+        if (!this.element) return;
 
-        if (this.slider) {
-            this.slider.addObserver(this);
-        }
+        this.addEventListener('focusin', this);
+        this.element.addEventListener('input', this);
+
+        this.setProperties();
+        this.configureMarks();
+
+        if (this.response) this.response.addObserver(this);
+        if (this.slider) this.slider.addObserver(this);
     }
 }

@@ -3,22 +3,19 @@ import { removeHTMLWhitespace } from './util';
 import { Observer } from '../interfaces';
 
 export default class MSingleline extends Component implements Observer {
+    protected properties = {
+        labels: {
+            pre: '',
+            post: '',
+        },
+    };
+
     protected element: HTMLInputElement | null = null;
     private initialPlaceholder = '';
     private allowPaste = false;
 
     constructor() {
         super();
-    }
-
-    protected init(): void {
-        this.addLocalEventListeners();
-        this.setLabels();
-    }
-
-    private addLocalEventListeners(): void {
-        this.addEventListener('focusin', this);
-        this.addEventListener('input', this);
     }
 
     // Handle constructor() event listeners.
@@ -63,26 +60,18 @@ export default class MSingleline extends Component implements Observer {
         if (elemPre && elemPost) {
             elemPre.innerHTML = removeHTMLWhitespace(elemPre.innerHTML);
             elemPost.innerHTML = removeHTMLWhitespace(elemPost.innerHTML);
-        }
-
-        if (!this.properties.hasOwnProperty('labels')) {
+        } else {
             return;
         }
 
-        const labels = this.properties.labels as Record<string, unknown>;
+        if (this.properties.labels.pre.length > 0) {
+            elemPre.innerHTML = this.properties.labels.pre;
+            this.classList.add('has-labels');
+        }
 
-        for (const [key, value] of Object.entries(labels)) {
-            if (key === 'pre' && value) {
-                if (elemPre) {
-                    elemPre.textContent = value as string;
-                }
-            }
-
-            if (key === 'post' && value) {
-                if (elemPost) {
-                    elemPost.textContent = value as string;
-                }
-            }
+        if (this.properties.labels.post.length > 0) {
+            elemPost.innerHTML = this.properties.labels.post;
+            this.classList.add('has-labels');
         }
     }
 
@@ -128,14 +117,15 @@ export default class MSingleline extends Component implements Observer {
 
         this.initialPlaceholder = this.element.placeholder;
 
-        this.init();
+        this.addEventListener('focusin', this);
+        this.addEventListener('input', this);
 
-        if (!this.response) return;
-        this.response.addObserver(this);
+        this.setLabels();
+
+        if (this.response) this.response.addObserver(this);
     }
 
     public disconnectedCallback(): void {
-        if (!this.response) return;
-        this.response.removeObserver(this);
+        if (this.response) this.response.removeObserver(this);
     }
 }

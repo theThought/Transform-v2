@@ -1,19 +1,12 @@
 import Component from './component';
 import OScale from './o-scale';
+import { Observer } from '../interfaces';
 
-export default class AScaleUnit extends Component {
+export default class AScaleUnit extends Component implements Observer {
     protected scale: OScale | null = null;
 
     constructor() {
         super();
-    }
-
-    private init(): void {
-        this.addLocalEventListeners();
-    }
-
-    private addLocalEventListeners(): void {
-        this.addEventListener('click', this);
     }
 
     public handleEvent(e: Event): void {
@@ -62,17 +55,14 @@ export default class AScaleUnit extends Component {
 
     public connectedCallback(): void {
         super.connectedCallback();
+        this.addEventListener('click', this);
 
         this.scale = this.closest('o-scale');
 
-        if (!this.scale) return;
-        this.scale.addObserver(this);
-
-        this.init();
+        if (this.scale) this.scale.addObserver(this);
     }
 
     public disconnectedCallback(): void {
-        if (!this.scale) return;
-        this.scale.removeObserver(this);
+        if (this.scale) this.scale.removeObserver(this);
     }
 }

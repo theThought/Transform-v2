@@ -3,21 +3,18 @@ import { Subject, Observer } from '../interfaces';
 import { removeHTMLWhitespace } from './util';
 
 export default class OScale extends Component implements Subject, Observer {
+    protected properties = {
+        labels: {
+            pre: '',
+            post: '',
+        },
+    };
+
     private observers: Observer[] = [];
-    private unitContainer: HTMLElement | null = null;
     private element: HTMLInputElement | null = null;
-    private min = 1;
-    private max = 10;
-    private step = 1;
 
     constructor() {
         super();
-    }
-
-    private init(): void {
-        this.addLocalEventListeners();
-        this.setLabels();
-        this.setUnitBackground();
     }
 
     addObserver(observer: Observer): void {
@@ -62,10 +59,6 @@ export default class OScale extends Component implements Subject, Observer {
         this.restoreValue();
     }
 
-    private addLocalEventListeners(): void {
-        this.addEventListener('scaleUnitClick', this);
-    }
-
     public handleEvent(e: Event): void {
         switch (e.type) {
             case 'scaleUnitClick':
@@ -86,74 +79,19 @@ export default class OScale extends Component implements Subject, Observer {
         if (elemPre && elemPost) {
             elemPre.innerHTML = removeHTMLWhitespace(elemPre.innerHTML);
             elemPost.innerHTML = removeHTMLWhitespace(elemPost.innerHTML);
-        }
-
-        if (!this.properties.hasOwnProperty('labels')) {
+        } else {
             return;
         }
 
-        const labels = this.properties.labels as Record<string, unknown>;
-
-        for (const [key, value] of Object.entries(labels)) {
-            if (key === 'pre' && value) {
-                if (elemPre) {
-                    elemPre.textContent = value as string;
-                }
-            }
-
-            if (key === 'post' && value) {
-                if (elemPost) {
-                    elemPost.textContent = value as string;
-                }
-            }
-        }
-    }
-
-    private setUnitBackground(): void {
-        if (!this.properties.hasOwnProperty('unit')) {
-            return;
+        if (this.properties.labels.pre.length > 0) {
+            elemPre.innerHTML = this.properties.labels.pre;
+            this.classList.add('has-labels');
         }
 
-        const unitProperties: object = this.properties.unit;
-        const imageProperties = unitProperties.image;
-
-        const imageURL = imageProperties.url;
-        const imageWidth = imageProperties.width;
-        const imageHeight = imageProperties.height;
-        let imageOffsetX = '0';
-        let imageOffsetY = '0';
-
-        const caption =
-            typeof imageProperties.caption === 'undefined'
-                ? ''
-                : unitProperties.caption;
-
-        if (typeof imageProperties.offset !== 'undefined') {
-            imageOffsetX =
-                typeof imageProperties.offset.x === 'undefined'
-                    ? '0'
-                    : unitProperties.offset.x;
-            imageOffsetY =
-                typeof imageProperties.offset.y === 'undefined'
-                    ? '0'
-                    : unitProperties.offset.y;
+        if (this.properties.labels.post.length > 0) {
+            elemPost.innerHTML = this.properties.labels.post;
+            this.classList.add('has-labels');
         }
-
-        if (typeof imageURL === 'undefined') {
-            return;
-        }
-
-        this.classList.add('has-unit-background');
-        const scaleUnits = this.querySelectorAll('.m-scale-unit');
-
-        scaleUnits.forEach(function (unit) {
-            unit.style.left = imageOffsetX + 'px';
-            unit.style.top = imageOffsetY + 'px';
-            unit.style.height = imageHeight;
-            unit.style.width = imageWidth;
-            unit.style.backgroundImage = 'url("' + imageURL + '")';
-            unit.ariaLabel = caption;
-        });
     }
 
     private setValue(e: CustomEvent): void {
@@ -199,15 +137,8 @@ export default class OScale extends Component implements Subject, Observer {
             this.response.addObserver(this);
         }
 
-        this.unitContainer = this.querySelector('.o-scale-unitcontainer');
-
         this.element = this.querySelector('input');
-        if (!this.element) return;
-
-        this.min = this.element.min ? parseInt(this.element.min) : this.min;
-        this.max = this.element.max ? parseInt(this.element.max) : this.max;
-        this.step = this.element.step ? parseInt(this.element.step) : this.step;
-
-        this.init();
+        this.addEventListener('scaleUnitClick', this);
+        this.setLabels();
     }
 }

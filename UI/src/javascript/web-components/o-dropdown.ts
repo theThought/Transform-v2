@@ -7,6 +7,5 @@ export default class ODropdown extends Component {
         super();
 
         this.element = this.querySelector('.a-input-dropdown');
-        if (!this.element) return;
     }
 }

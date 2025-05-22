@@ -23,18 +23,6 @@ export default class MOptionBase extends Component implements Observer {
         super();
     }
 
-    private init(): void {
-        this.addLocalEventListeners();
-        this.setBalanceWidth();
-        this.setMaxOneSize();
-        this.setDisabled();
-    }
-
-    private addLocalEventListeners(): void {
-        this.addEventListener('click', this);
-        this.addEventListener('keydown', this);
-    }
-
     public handleEvent(e: Event): void {
         switch (e.type) {
             case 'click':
@@ -191,11 +179,14 @@ export default class MOptionBase extends Component implements Observer {
             this.closest('o-option-tabstrip');
         this.isExclusive = this.getAttribute('data-exclusive') === 'true';
 
-        this.init();
+        this.addEventListener('click', this);
+        this.addEventListener('keydown', this);
 
-        if (this.sublist) {
-            this.sublist.addObserver(this);
-        }
+        this.setBalanceWidth();
+        this.setMaxOneSize();
+        this.setDisabled();
+
+        if (this.sublist) this.sublist.addObserver(this);
 
         if (!this.sublist || !this.properties.onesize.state) {
             return;
@@ -215,8 +206,6 @@ export default class MOptionBase extends Component implements Observer {
     }
 
     public disconnectedCallback(): void {
-        if (this.sublist) {
-            this.sublist.removeObserver(this);
-        }
+        if (this.sublist) this.sublist.removeObserver(this);
     }
 }

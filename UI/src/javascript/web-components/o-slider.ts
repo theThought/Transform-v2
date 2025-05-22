@@ -174,7 +174,12 @@ export default class OSlider extends Component implements Observer, Subject {
         this.max = this.element.max ? Number(this.element.max) : this.max;
     }
 
-    private init(): void {
+    public connectedCallback(): void {
+        super.connectedCallback();
+        this.element =
+            this.querySelector('input[type="hidden"]') ??
+            this.querySelector('input[data-hidden="true"]');
+
         this.addEventListener('notifySlider', this);
         this.addEventListener('incrementValue', this);
         this.addEventListener('decrementValue', this);
@@ -182,14 +187,7 @@ export default class OSlider extends Component implements Observer, Subject {
         this.setLabels();
         this.tickLabels();
         this.terminatorButtons();
-    }
-
-    public connectedCallback(): void {
-        super.connectedCallback();
-        this.element =
-            this.querySelector('input[type="hidden"]') ??
-            this.querySelector('input[data-hidden="true"]');
-        this.init();
+        this.thumbValue();
 
         if (!this.response) return;
         this.response.addObserver(this);
