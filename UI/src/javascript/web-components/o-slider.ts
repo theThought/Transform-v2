@@ -6,6 +6,7 @@ export default class OSlider extends Component implements Observer, Subject {
     protected properties = {
         show: {
             terminators: false,
+            value: true,
         },
         labels: {
             pre: '',
@@ -153,11 +154,18 @@ export default class OSlider extends Component implements Observer, Subject {
 
         if (this.properties.labels.pre.length > 0) {
             elemPre.innerHTML = this.properties.labels.pre;
+            this.classList.add('has-labels');
         }
 
         if (this.properties.labels.post.length > 0) {
             elemPost.innerHTML = this.properties.labels.post;
+            this.classList.add('has-labels');
         }
+    }
+
+    private thumbValue(): void {
+        if (!this.properties.show.value) return;
+        this.classList.add('show-value');
     }
 
     private setProperties(): void {

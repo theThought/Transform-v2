@@ -1,6 +1,14 @@
 o-slider {
     display: flex;
     flex-wrap: wrap;
+
+    &.show-value {
+        margin-block-start: var(--space-4);
+    }
+
+    &.has-labels {
+        margin-block-start: 0;
+    }
 }
 
 o-slider-container {

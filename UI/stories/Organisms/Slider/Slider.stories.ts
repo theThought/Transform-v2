@@ -84,7 +84,7 @@ export default {
                 type: { summary: 'boolean' },
                 category: 'Custom Properties',
                 subcategory: 'Show',
-                defaultValue: { summary: 'true' },
+                defaultValue: { summary: 'false' },
             },
         },
         'properties.show.terminators': {
@@ -97,18 +97,29 @@ export default {
                 subcategory: 'Show',
             },
         },
+        'properties.show.value': {
+            control: 'boolean',
+            name: 'value',
+            description: 'Display thumb value',
+            table: {
+                type: { summary: 'boolean' },
+                category: 'Custom Properties',
+                subcategory: 'Show',
+                defaultValue: { summary: 'true' },
+            },
+        },
     },
 } as Meta;
 
 export const Slider = {
+    parameters: {
+        controls: {
+            exclude: ['properties'],
+        },
+    },
     args: {
         width: '100%',
-        properties: {
-            show: {
-                marks: true,
-                terminators: false,
-            },
-        },
+        properties: {},
     },
     render: (args: object): HTMLElement => OSlider(args),
 };

@@ -6,7 +6,6 @@ export default class MSliderTrack extends Component implements Observer {
     protected properties = {
         show: {
             marks: false,
-            value: false,
             terminators: false,
         },
         ticklabels: 0,
