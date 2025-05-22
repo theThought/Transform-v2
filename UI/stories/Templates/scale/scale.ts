@@ -23,14 +23,7 @@ export function TScale_Story(
         'Questions > Question > Style',
     );
 
-    // Create JSON for data-properties
-    const dataProperties = {
-        labels: {
-            pre: args.prelabel || '',
-            post: args.postlabel || ''
-        }
-    };
-    const dataPropertiesString = JSON.stringify(dataProperties);
+    const dataPropertiesString = JSON.stringify(args.properties);
 
     // Update attributes for Control elements
     controlElements.forEach((controlElement) => {
@@ -39,7 +32,10 @@ export function TScale_Story(
         }
         if (args.maximum) {
             controlElement.setAttribute('MaxValue', args.maximum.toString());
-            controlElement.setAttribute('Length', args.maximum.toString().length.toString());
+            controlElement.setAttribute(
+                'Length',
+                args.maximum.toString().length.toString(),
+            );
         }
     });
 

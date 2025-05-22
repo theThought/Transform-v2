@@ -15,23 +15,22 @@ export default {
             table: {
                 type: { summary: 'number' },
                 category: 'Dimensions',
-                subcategory: 'input',
                 defaultValue: { summary: '1' },
             },
         },
-        maximum: { 
+        maximum: {
             control: 'number',
             description: 'Largest value in the scale',
             table: {
                 type: { summary: 'number' },
                 category: 'Dimensions',
-                subcategory: 'input',
                 defaultValue: { summary: '10' },
             },
         },
         width: {
             control: 'text',
-            description: 'Input width using a value and a measurement (e.g., px, em, %)',
+            description:
+                'Input width using a value and a measurement (e.g., px, em, %)',
             table: {
                 type: { summary: 'string' },
                 category: 'Dimensions',
@@ -46,23 +45,25 @@ export default {
                 category: 'Dimensions',
             },
         },
-        prelabel: {
+        'properties.labels.pre': {
             control: 'text',
+            name: 'pre',
             description: 'A string placed to the left of the scale',
             table: {
                 type: { summary: 'string' },
                 category: 'Custom Properties',
-                subcategory: 'labels',
+                subcategory: 'Labels',
                 defaultValue: { summary: 'before' },
             },
         },
-        postlabel: {
+        'properties.labels.post': {
             control: 'text',
+            name: 'post',
             description: 'A string placed to the right of the scale',
             table: {
                 type: { summary: 'string' },
                 category: 'Custom Properties',
-                subcategory: 'labels',
+                subcategory: 'Labels',
                 defaultValue: { summary: 'after' },
             },
         },
@@ -73,7 +74,7 @@ type TenPointScale = StoryObj<typeof TScale.TScale_Story>;
 export const TenPointScale: TenPointScale = {
     parameters: {
         controls: {
-            include: ['width', 'minimum', 'maximum', 'prelabel', 'postlabel'],
+            include: ['width', 'minimum', 'maximum', 'pre', 'post'],
         }, // Fixed syntax error
     },
     loaders: [
@@ -105,9 +106,13 @@ export const TenPointScale: TenPointScale = {
         minimum: 1,
         maximum: 10,
         orientation: 'horizontal',
-        prelabel: 'Before',
-        postlabel: 'After',
-        width: '15em',
+        properties: {
+            labels: {
+                pre: 'Before',
+                post: 'After',
+            },
+        },
+        width: '35em',
     },
     render: (args, { loaded }) => TScale.TScale_Story(args, loaded),
 };
