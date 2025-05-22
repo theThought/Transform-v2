@@ -356,7 +356,7 @@
                 </xsl:attribute>
                 
                 <xsl:call-template name="insert-common-labelstyle-attributes" />
-            
+                
                 <xsl:call-template name="insert-label-text">
                     <xsl:with-param name="content" select="$currentControl/Category/Label/Text" />
                 </xsl:call-template>
@@ -1184,6 +1184,7 @@
             </xsl:call-template>
 
             <!-- label-option -->
+
             <xsl:call-template name="insert-label-option">
                 <xsl:with-param name="subType">
                     <xsl:choose>
@@ -1376,7 +1377,7 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
-
+            
         <xsl:element name="o-option-sublist">
             <xsl:if test="$includeFieldset='false'">
                 <xsl:attribute name="role"><xsl:text>group</xsl:text></xsl:attribute>
@@ -1397,9 +1398,9 @@
 
                         <xsl:for-each select="Control[not(./Style/Control/@Type='SingleLineEdit')]">
                             <xsl:call-template name="m-option-base">
-                                <xsl:with-param name="qType" select="Cell/Control/@Type" />
+                                <xsl:with-param name="qType" select="@Type" />
                                 <xsl:with-param name="qGroup" select="$qGroup" />
-                                <xsl:with-param name="currentControl" select="Cell/Control" />
+                                <xsl:with-param name="currentControl" select="." />
                                 <xsl:with-param name="typeOverride" select="$typeOverride" />
                             </xsl:call-template>
                         </xsl:for-each>
@@ -1415,9 +1416,9 @@
 
                     <xsl:for-each select="Control[not(./Style/Control/@Type='SingleLineEdit')]">
                         <xsl:call-template name="m-option-base">
-                            <xsl:with-param name="qType" select="Cell/Control/@Type" />
+                            <xsl:with-param name="qType" select="@Type" />
                             <xsl:with-param name="qGroup" select="$qGroup" />
-                            <xsl:with-param name="currentControl" select="Cell/Control" />
+                            <xsl:with-param name="currentControl" select="." />
                             <xsl:with-param name="typeOverride" select="$typeOverride" />
                         </xsl:call-template>
                     </xsl:for-each>
