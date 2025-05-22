@@ -145,9 +145,11 @@ export default class MSliderTrack extends Component implements Observer {
 
         this.element.style.setProperty(
             'background',
-            'linear-gradient(to right, ' +
+            'radial-gradient(farthest-side, var(--color-secondary) 100%, transparent 100%) 4px 4px / 10px 12px, ' +
+                'linear-gradient(to bottom, white 0, white 4px, transparent 4px, transparent 16px, white 16px),' +
+                'linear-gradient(to right, white 0, white 8px, ' +
                 'var(--color-secondary) ' +
-                ' 0%, ' +
+                ' 8px, ' +
                 'var(--color-secondary) ' +
                 ' ' +
                 percentageFill +
@@ -155,6 +157,8 @@ export default class MSliderTrack extends Component implements Observer {
                 percentageFill +
                 ', transparent 100%)',
         );
+
+        this.element.style.setProperty('background-repeat', 'no-repeat');
     }
 
     private clearFloodFill(): void {
