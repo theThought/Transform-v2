@@ -24,50 +24,49 @@ export default {
                 type: { summary: 'boolean' },
                 category: 'Custom Properties',
                 subcategory: 'sublist',
-                order: 1,
                 defaultValue: { summary: 'false' },
             },
         },
-        balanceState: {
+        'properties.balance.state': {
             control: 'boolean',
+            name: 'balance.state',
             description: 'Options are balanced to optimize horizontal space',
             table: {
                 type: { summary: 'boolean' },
                 category: 'Custom Properties',
-                subcategory: 'balance',
-                order: 1,
+                subcategory: 'Balance',
                 defaultValue: { summary: 'false' },
             },
         },
-        balanceMinWidth: {
-            control: 'text', // Changed from 'string' to 'text' for consistency
+        'properties.balance.minwidth': {
+            control: 'text',
+            name: 'minwidth',
             description: 'Minimum width for a balanced item',
             table: {
                 type: { summary: 'string' },
-                category: 'Custom Properties', // Corrected typo
-                subcategory: 'balance',
-                order: 2,
+                category: 'Custom Properties',
+                subcategory: 'Balance',
             },
         },
-        onesizeState: {
+        'properties.onesize.state': {
             control: 'boolean',
+            name: 'onesize.state',
             description: 'Options are balanced to optimize horizontal space',
             table: {
                 type: { summary: 'boolean' },
                 category: 'Custom Properties',
-                subcategory: 'onesize',
-                order: 1,
+                subcategory: 'Onesize',
                 defaultValue: { summary: 'false' },
             },
         },
-        onesizeMaxWidth: {
-            control: 'text', // Changed from 'string' to 'text' for consistency
+        'properties.onesize.maxwidth': {
+            control: 'text',
+            name: 'maxwidth',
             description: 'Maximum width for a one-size item',
             table: {
                 type: { summary: 'string' },
                 category: 'Custom Properties',
-                subcategory: 'onesize',
-                order: 2,
+                subcategory: 'Onesize',
             },
         },
         exclusive: {
@@ -76,7 +75,6 @@ export default {
             table: {
                 type: { summary: 'boolean' },
                 category: 'Dimensions',
-                order: 2,
                 defaultValue: { summary: 'true' },
             },
         },
@@ -86,7 +84,6 @@ export default {
             table: {
                 type: { summary: 'string' },
                 category: 'Dimensions',
-                order: 4,
                 defaultValue: { summary: 'This is the option label' },
             },
         },
@@ -96,7 +93,6 @@ export default {
             table: {
                 type: { summary: 'string' },
                 category: 'Dimensions',
-                order: 5,
                 defaultValue: { summary: '_C0' },
             },
         },
@@ -106,7 +102,6 @@ export default {
             table: {
                 type: { summary: 'string' },
                 category: 'Dimensions',
-                order: 6,
                 defaultValue: { summary: '_Q0' },
             },
         },
@@ -116,7 +111,6 @@ export default {
             table: {
                 type: { summary: 'string' },
                 category: 'Dimensions',
-                order: 7,
                 defaultValue: { summary: 'Example' },
             },
         },
@@ -126,7 +120,6 @@ export default {
             table: {
                 type: { summary: 'string' },
                 category: 'Dimensions',
-                order: 8,
             },
         },
         IncludeNone: {
@@ -135,7 +128,6 @@ export default {
             table: {
                 type: { summary: 'boolean' },
                 category: 'Dimensions',
-                order: 9,
                 defaultValue: { summary: 'false' },
             },
         },
@@ -145,7 +137,6 @@ export default {
             table: {
                 type: { summary: 'number' },
                 category: 'Dimensions',
-                order: 10,
                 defaultValue: { summary: '5' },
             },
         },
@@ -161,10 +152,10 @@ export const ListNoHeading: Simplelist = {
                 'optionLabel',
                 'IncludeNone',
                 'optionCount',
-                'balanceState',
-                'balanceMinWidth',
-                'onesizeState',
-                'onesizeMaxWidth',
+                'balance.state',
+                'minwidth',
+                'onesize.state',
+                'maxwidth',
             ],
         },
     },
@@ -172,7 +163,7 @@ export const ListNoHeading: Simplelist = {
         optionType: 'single-answer',
         questionId: '_Q0',
         questionName: 'SimpleList',
-        optionLabel: 'Simple list option ',
+        optionLabel: 'Simple list option',
         exclusive: false,
         IncludeNone: false,
         balanceState: false,
@@ -182,6 +173,7 @@ export const ListNoHeading: Simplelist = {
         categoryId: '_C0',
         heading: '',
         optionCount: 5,
+        properties: {},
     },
     render: (args) => {
         return OOptionSublist_Story(args);
@@ -199,10 +191,10 @@ export const ListWithHeading: Sublist = {
                 'exclusive',
                 'optionCount',
                 'heading',
-                'balanceState',
-                'balanceMinWidth',
-                'onesizeState',
-                'onesizeMaxWidth',
+                'balance.state',
+                'minwidth',
+                'onesize.state',
+                'maxwidth',
             ],
         },
     },

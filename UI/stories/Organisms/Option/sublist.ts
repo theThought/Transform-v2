@@ -21,24 +21,8 @@ export function OOptionSublist_Story(args): HTMLElement {
         args.questionId + '_label_question',
     );
 
-    const dataProperties: any = {
-        balance: {
-            state: args.balanceState || false,
-        },
-        onesize: {
-            state: args.onesizeState || false,
-        },
-    };
-
-    if (args.balanceMinWidth !== '') {
-        dataProperties.balance.minwidth = args.balanceMinWidth;
-    }
-
-    if (args.onesizeMaxWidth !== '') {
-        dataProperties.onesize.maxwidth = args.onesizeMaxWidth;
-    }
     // Create JSON for data-properties
-    const dataPropertiesString = JSON.stringify(dataProperties);
+    const dataPropertiesString = JSON.stringify(args.properties);
 
     // Update the Color attribute in Question Style elements
     sublistContainer.setAttribute('data-properties', dataPropertiesString);
