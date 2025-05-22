@@ -1,8 +1,4 @@
 import TransformUtils from '../../../utils/TransformUtils';
-import OResponse from '../../../src/javascript/web-components/o-response';
-import MSingleline from '../../../src/javascript/web-components/m-singleline';
-import MSinglelineDate from '../../../src/javascript/web-components/m-singleline-date';
-import MSinglelineNumber from '../../../src/javascript/web-components/m-singleline-number';
 
 export function TSingleLine_Story(
     args: any,
@@ -67,10 +63,16 @@ export function TSingleLine_Story(
             };
 
             if (args.minimumDate) {
-                controlElement.setAttribute('MinValue', formatISODate(args.minimumDate));
+                controlElement.setAttribute(
+                    'MinValue',
+                    formatISODate(args.minimumDate),
+                );
             }
             if (args.maximumDate) {
-                controlElement.setAttribute('MaxValue', formatISODate(args.maximumDate));
+                controlElement.setAttribute(
+                    'MaxValue',
+                    formatISODate(args.maximumDate),
+                );
                 controlElement.setAttribute('Length', '40');
             }
         }
