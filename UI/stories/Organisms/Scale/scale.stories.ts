@@ -2,7 +2,7 @@ import { Meta, StoryObj } from '@storybook/web-components';
 import { OScale_Story } from './scale';
 
 export default {
-    title: 'Organisms/scale',
+    title: 'Organisms/Scale',
     component: 'o-scale',
     parameters: {
         status: { type: 'beta' },
@@ -44,20 +44,22 @@ export default {
         },
         'properties.labels.pre': {
             control: 'text',
-            name: 'labels.pre',
+            name: 'pre',
             description: 'A string placed BEFORE the input',
             table: {
                 type: { summary: 'string' },
                 category: 'Custom Properties',
+                subcategory: 'Labels',
             },
         },
         'properties.labels.post': {
             control: 'text',
-            name: 'labels.post',
+            name: 'post',
             description: 'A string placed AFTER the input',
             table: {
                 type: { summary: 'string' },
                 category: 'Custom Properties',
+                subcategory: 'Labels',
             },
         },
     },
