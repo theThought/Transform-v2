@@ -6,12 +6,13 @@
  * it belongs in this class instead of an individual component!
  */
 import OResponse from './o-response';
+import { mergeDeep } from './util';
 
 export default class Component extends HTMLElement {
     protected readonly qid: string | undefined;
     protected readonly qgroup: string | undefined;
     protected response: OResponse | null = null;
-    protected properties: Record<string, string | number | boolean | object>;
+    protected properties: object;
 
     constructor() {
         super();
@@ -29,13 +30,13 @@ export default class Component extends HTMLElement {
         > = JSON.parse(properties.toString());
 
         if (this.response) {
-            Object.assign(
+            this.properties = mergeDeep(
                 this.properties,
                 this.response.properties,
                 propertiesAsJson,
             );
         } else {
-            Object.assign(this.properties, propertiesAsJson);
+            this.properties = mergeDeep(this.properties, propertiesAsJson);
         }
     }
 
