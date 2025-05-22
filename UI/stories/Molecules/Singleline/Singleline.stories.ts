@@ -11,20 +11,22 @@ export default {
     argTypes: {
         'properties.labels.pre': {
             control: 'text',
-            name: 'labels.pre',
+            name: 'pre',
             description: 'Specifies the text to be placed before the input',
             table: {
                 type: { summary: 'text' },
                 category: 'Custom Properties',
+                subcategory: 'Labels',
             },
         },
         'properties.labels.post': {
             control: 'text',
-            name: 'labels.post',
+            name: 'post',
             description: 'Specifies the text to be placed after the input',
             table: {
                 type: { summary: 'text' },
                 category: 'Custom Properties',
+                subcategory: 'Labels',
             },
         },
         type: {
@@ -112,13 +114,7 @@ type Singleline = StoryObj<typeof SingleLineStories.MSingleLine_Story>;
 export const Singleline: Singleline = {
     parameters: {
         controls: {
-            include: [
-                'text-align',
-                'width',
-                'maxlength',
-                'labels.pre',
-                'labels.post',
-            ],
+            include: ['text-align', 'width', 'maxlength', 'pre', 'post'],
         },
     },
     args: {
@@ -146,8 +142,8 @@ export const SinglelineNumber: SinglelineNumber = {
                 'minimum',
                 'maximum',
                 'step',
-                'labels.pre',
-                'labels.post',
+                'pre',
+                'post',
             ],
         },
     },
@@ -174,8 +170,8 @@ export const SinglelineDate: SinglelineDate = {
                 'width',
                 'minimumDate',
                 'maximumDate',
-                'labels.pre',
-                'labels.post',
+                'pre',
+                'post',
             ],
         },
     },
