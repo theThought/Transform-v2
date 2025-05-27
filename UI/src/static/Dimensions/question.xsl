@@ -1133,6 +1133,12 @@
                 <xsl:value-of select="$qGroup" />
             </xsl:attribute>
 
+            <xsl:if test="$currentControl/Category/@Checked">
+                <xsl:attribute name="data-checked">
+                    <xsl:text>true</xsl:text>
+                </xsl:attribute>
+            </xsl:if>
+            
             <xsl:attribute name="class">
                 <xsl:choose>
                     <xsl:when test="$currentControl/Style/@ElementAlign='NewLine'">
@@ -1246,6 +1252,12 @@
             <xsl:attribute name="data-question-group">
                 <xsl:value-of select="$qGroup" />
             </xsl:attribute>
+
+            <xsl:if test="$currentControl/Category/@Checked">
+                <xsl:attribute name="data-checked">
+                    <xsl:text>true</xsl:text>
+                </xsl:attribute>
+            </xsl:if>
 
             <xsl:attribute name="class">
                 <xsl:choose>
