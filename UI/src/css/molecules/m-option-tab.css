@@ -29,10 +29,13 @@ m-option-tab {
     }
 
     &[data-checked='true'] {
-        border-color: transparent;
+        background: white;
+        border-color: white;
         box-shadow:
             11px 0 11px -9px #00000040,
             -11px 0 11px -9px #312e2e40;
+        left: -2px;
+        padding-inline-start: 2px;
 
         [type='radio'] + label > .a-icon-multistate {
             background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxNicgaGVpZ2h0PScxNicgdmlld0JveD0nMCAwIDE2IDE2JyBmaWxsPSdub25lJz48cmVjdCB3aWR0aD0nMTYnIGhlaWdodD0nMTYnIHJ4PSc4JyBmaWxsPScjMDA3Njc1Jy8+IDxwYXRoIGQ9J002Ljg5NDEzIDkuOTAyOTNMMTEuNzk2NSA1TDEyLjU1MTIgNS43NTQxM0w2Ljg5NDEzIDExLjQxMTJMMy41IDguMDE3MDdMNC4yNTQxMyA3LjI2MjkzTDYuODk0MTMgOS45MDI5M1onIGZpbGw9JyNGQUZBRkEnLz48L3N2Zz4=');
