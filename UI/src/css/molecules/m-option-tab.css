@@ -41,14 +41,6 @@ m-option-tab {
         }
     }
 
-    &[data-checked='true'] ~ & {
-        border-color: var(--color-dark1);
-
-        span.a-label-option {
-            color: var(--color-dark2);
-        }
-    }
-
     &[data-disabled='true'] {
         opacity: 0.5;
         pointer-events: none;

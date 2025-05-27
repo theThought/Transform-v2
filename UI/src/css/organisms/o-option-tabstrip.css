@@ -1,5 +1,15 @@
 o-option-tabstrip {
     align-items: flex-start;
+    border-bottom: var(--border-thickness) solid var(--color-light3);
     display: flex;
     flex-wrap: wrap;
+    width: fit-content;
+
+    m-option-tab:first-child {
+        border-inline-start: none;
+    }
+
+    m-option-tab:last-child {
+        border-inline-end: none;
+    }
 }
