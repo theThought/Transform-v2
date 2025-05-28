@@ -925,6 +925,9 @@
                     <xsl:text>;</xsl:text>
                 </xsl:attribute>
             </xsl:if>
+    
+            <xsl:call-template name="m-label-prepost" />
+    
             <xsl:element name="a-button-terminator">
                 <xsl:attribute name="data-behaviour">
                     <xsl:text>decrement</xsl:text>
@@ -933,7 +936,6 @@
             </xsl:element>
             <xsl:choose>
                 <xsl:when test="$subType='horizontal'">
-                    <xsl:call-template name="m-label-prepost" />
 
                     <xsl:call-template name="o-slider-container">
                         <xsl:with-param name="qGroup" select="$qGroup" />
@@ -1015,9 +1017,11 @@
                     <xsl:comment>divider marks</xsl:comment>
                 </xsl:element>
             </xsl:element>
+
             <xsl:element name="m-label-marks">
                 <xsl:comment>label marks</xsl:comment>
-            </xsl:element>                
+            </xsl:element>  
+                          
         </xsl:element>    
     </xsl:template>
 
@@ -1138,7 +1142,7 @@
                     <xsl:text>true</xsl:text>
                 </xsl:attribute>
             </xsl:if>
-            
+
             <xsl:attribute name="class">
                 <xsl:choose>
                     <xsl:when test="$currentControl/Style/@ElementAlign='NewLine'">
