@@ -928,12 +928,6 @@
     
             <xsl:call-template name="m-label-prepost" />
     
-            <xsl:element name="a-button-terminator">
-                <xsl:attribute name="data-behaviour">
-                    <xsl:text>decrement</xsl:text>
-                </xsl:attribute>
-                <xsl:comment>Pre-terminator</xsl:comment>
-            </xsl:element>
             <xsl:choose>
                 <xsl:when test="$subType='horizontal'">
 
@@ -967,13 +961,7 @@
                     <xsl:call-template name="a-label-post" />
                 </xsl:when>
             </xsl:choose>
-            
-            <xsl:element name="a-button-terminator">
-                <xsl:attribute name="data-behaviour">
-                    <xsl:text>increment</xsl:text>
-                </xsl:attribute>
-                <xsl:comment>Post-terminator</xsl:comment>
-            </xsl:element>               
+                      
         </xsl:element>
     </xsl:template>
 
@@ -981,7 +969,39 @@
         <xsl:param name="qGroup" />
         <xsl:param name="minimum" select="1" />
         <xsl:param name="maximum" select="10" />
+
         <xsl:element name="o-slider-container">
+            <xsl:call-template name="a-label-pre" />
+
+            <xsl:element name="a-button-terminator">
+                <xsl:attribute name="data-behaviour">
+                    <xsl:text>decrement</xsl:text>
+                </xsl:attribute>
+                <xsl:comment>Pre-terminator</xsl:comment>
+            </xsl:element>
+
+            <xsl:call-template name="slider-track-wrapper">
+                <xsl:with-param name="qGroup" select="$qGroup" />
+                <xsl:with-param name="minimum" select="$minimum" />
+                <xsl:with-param name="maximum" select="$maximum" />
+            </xsl:call-template>
+
+            <xsl:element name="a-button-terminator">
+                <xsl:attribute name="data-behaviour">
+                    <xsl:text>increment</xsl:text>
+                </xsl:attribute>
+                <xsl:comment>Post-terminator</xsl:comment>
+            </xsl:element> 
+
+            <xsl:call-template name="a-label-post" />
+        </xsl:element>
+    </xsl:template>
+
+    <xsl:template name="slider-track-wrapper">
+        <xsl:param name="qGroup" />
+        <xsl:param name="minimum" />
+        <xsl:param name="maximum" />
+        <xsl:element name="o-slider-track-wrapper">
             <xsl:element name="m-slider-track">
 
                 <xsl:element name="output">
@@ -1023,7 +1043,7 @@
 
             <xsl:element name="div">
                 <xsl:attribute name="class">
-                    <xsl:text>a-label-marks</xsl:text>
+                    <xsl:text>m-label-marks</xsl:text>
                 </xsl:attribute>
                 <xsl:comment>label marks</xsl:comment>
             </xsl:element>  

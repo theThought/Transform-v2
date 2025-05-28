@@ -1,10 +1,10 @@
 <Questions>
     <Question>
-        <Style Color="{&quot;labels&quot;:{&quot;pre&quot;:&quot;0%&quot;,&quot;Post&quot;:&quot;100%&quot;},&quot;ticklabels&quot;:10,&quot;show&quot;:{&quot;marks&quot;:true}}" BgColor="slider:_QPageEleven_QHowManyMissedSpecial" ElementAlign="NewLine" Indent="1">
+        <Style Color="{&quot;labels&quot;:{&quot;pre&quot;:&quot;0%&quot;,&quot;Post&quot;:&quot;100%&quot;},&quot;ticklabels&quot;:10,&quot;show&quot;:{&quot;marks&quot;:true}}" BgColor="slider-horizontal:_QPageEleven_QHowManyMissedSpecial" ElementAlign="NewLine" Indent="1">
             <Control Type="SingleLineEdit"></Control>
         </Style>
         <Control Type="SingleLineEdit" QuestionName="_QPageEleven_QHowManyMissedSpecial" ElementID="_Q1" Value="" MaxValue="100" MinValue="0" Length="3">
-            <Style Color="{&quot;labels&quot;:{&quot;pre&quot;:&quot;0%&quot;,&quot;Post&quot;:&quot;100%&quot;},&quot;ticklabels&quot;:10,&quot;show&quot;:{&quot;marks&quot;:true}}" BgColor="slider:_QPageEleven_QHowManyMissedSpecial" ElementAlign="NewLine" Indent="1">
+            <Style Color="{&quot;labels&quot;:{&quot;pre&quot;:&quot;0%&quot;,&quot;Post&quot;:&quot;100%&quot;},&quot;ticklabels&quot;:10,&quot;show&quot;:{&quot;marks&quot;:true}}" BgColor="slider-horizontal:_QPageEleven_QHowManyMissedSpecial" ElementAlign="NewLine" Indent="1">
                 <Control Type="SingleLineEdit"></Control>
             </Style>
         </Control>
