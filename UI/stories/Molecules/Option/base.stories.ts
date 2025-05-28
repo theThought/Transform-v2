@@ -3,7 +3,7 @@ import { MOptionBase_Story } from './base';
 import { MOptionTab } from './tab';
 
 export default {
-    title: 'Molecules/Option/Base',
+    title: 'Molecules/Option',
     component: 'm-option-base', // Use the tag name of the custom element
     parameters: {
         status: { type: 'beta' },
