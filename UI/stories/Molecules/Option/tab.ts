@@ -27,7 +27,7 @@ export function MOptionTab(args): HTMLElement {
 
     const textElement = document.createElement('span');
     textElement.setAttribute('class', 'a-label-option');
-    textElement.textContent = args.optionLabel;
+    textElement.innerHTML = args.optionLabel;
     labelElement.appendChild(textElement);
     component.appendChild(labelElement);
 
