@@ -1,6 +1,7 @@
 o-slider {
     display: flex;
     flex-wrap: wrap;
+    margin-block-start: var(--space-2);
 
     &.show-value {
         margin-block-start: var(--space-4);
