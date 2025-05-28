@@ -17,7 +17,6 @@ export default {
                 type: { summary: 'string' },
                 category: 'Custom Properties',
                 subcategory: 'labels',
-                defaultValue: { summary: 'before' },
             },
         },
         postlabel: {
@@ -27,7 +26,6 @@ export default {
                 type: { summary: 'string' },
                 category: 'Custom Properties',
                 subcategory: 'labels',
-                defaultValue: { summary: 'after' },
             },
         },
         questionlabel: {
@@ -36,7 +34,6 @@ export default {
             table: {
                 type: { summary: 'string' },
                 category: 'Dimensions',
-                defaultValue: { summary: 'This is the question being asked' },
             },
         },
         optionlabel: {
@@ -45,7 +42,6 @@ export default {
             table: {
                 type: { summary: 'string' },
                 category: 'Dimensions',
-                defaultValue: { summary: 'option text' },
             },
         },
         sublistlabel: {
@@ -54,7 +50,6 @@ export default {
             table: {
                 type: { summary: 'string' },
                 category: 'Dimensions',
-                defaultValue: { summary: 'SubList' },
             },
         },
         thumblabel: {
@@ -63,7 +58,14 @@ export default {
             table: {
                 type: { summary: 'number' },
                 category: 'other',
-                defaultValue: { summary: '10' },
+            },
+        },
+        marklabel: {
+            control: 'number',
+            description: 'A label for a scale data-mark',
+            table: {
+                type: { summary: 'number' },
+                category: 'other',
             },
         },
     },
@@ -85,6 +87,9 @@ export const PreLabel = {
 };
 
 export const PostLabel = {
+    args: {
+        postlabel: 'after',
+    },
     parameters: {
         controls: { include: ['postlabel'] }, // Added include for postlabel
     },
@@ -92,6 +97,9 @@ export const PostLabel = {
 };
 
 export const QuestionLabel = {
+    args: {
+        questionlabel: 'This is the question being asked',
+    },
     parameters: {
         controls: { include: ['questionlabel'] },
     },
@@ -99,6 +107,9 @@ export const QuestionLabel = {
 };
 
 export const OptionLabel = {
+    args: {
+        optionlabel: 'option text',
+    },
     parameters: {
         controls: { include: ['optionlabel'] },
     },
@@ -106,6 +117,9 @@ export const OptionLabel = {
 };
 
 export const HeadingSublistLabel = {
+    args: {
+        sublistlabel: 'SubList Heading',
+    },
     parameters: {
         controls: { include: ['sublistlabel'] },
     },
@@ -113,8 +127,21 @@ export const HeadingSublistLabel = {
 };
 
 export const ThumbLabel = {
+    args: {
+        postlabel: '5',
+    },
     parameters: {
         controls: { include: ['thumblabel'] },
     },
     render: (args) => LabelStories.ALabelThumb(args.thumblabel),
+};
+
+export const MarkLabel = {
+    args: {
+        marklabel: 10,
+    },
+    parameters: {
+        controls: { include: ['marklabel'] },
+    },
+    render: (args) => LabelStories.ALabelMark(args.marklabel),
 };

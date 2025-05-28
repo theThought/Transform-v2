@@ -42,3 +42,10 @@ export function ALabelThumb(theLabel: number): HTMLElement {
     container.textContent = theLabel.toString();
     return container;
 }
+
+export function ALabelMark(theLabel: number): HTMLElement {
+    const container: HTMLElement = document.createElement('span');
+    container.classList.add('a-label-mark');
+    container.textContent = theLabel.toString();
+    return container;
+}
