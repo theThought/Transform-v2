@@ -1,6 +1,6 @@
 import * as MScaleContainer from '../../Molecules/scale/scale-container';
 import * as MLabel from '../../Molecules/Label/prepost';
-import { ASingleline } from '../../Atoms/Inputs/Input';
+import { ASingleline } from '../../Atoms/Input/Input';
 
 export function OScale_Story(args): HTMLElement {
     const container: HTMLElement = document.createElement('o-scale');
