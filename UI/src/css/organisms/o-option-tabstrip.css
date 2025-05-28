@@ -1,5 +1,5 @@
 o-option-tabstrip {
-    align-items: flex-start;
+    align-items: stretch;
     display: flex;
     flex-wrap: wrap;
     width: fit-content;
