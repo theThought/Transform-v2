@@ -1,6 +1,6 @@
 export function MOptionTab(args): HTMLElement {
     const component = document.createElement('m-option-tab');
-    const disabled = args.optionStatus == 'disabled';
+    const readonly = args.optionStatus == 'readonly';
     const checked = args.optionStatus == 'selected';
 
     component.setAttribute('data-exclusive', args.exclusive);
@@ -13,7 +13,7 @@ export function MOptionTab(args): HTMLElement {
     inputElement.setAttribute('id', args.questionId + args.categoryId);
     inputElement.setAttribute('name', args.questionName);
     inputElement.setAttribute('data-question-group', args.questionName);
-    inputElement.disabled = disabled;
+    inputElement.readOnly = readonly;
     inputElement.defaultChecked = checked;
     component.appendChild(inputElement);
 

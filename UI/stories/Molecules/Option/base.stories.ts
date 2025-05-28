@@ -20,7 +20,7 @@ export default {
         },
         optionStatus: {
             control: 'select',
-            options: ['unselected', 'selected', 'disabled'],
+            options: ['unselected', 'selected', 'readonly'],
             description: 'Display state of the option',
             table: {
                 type: { summary: 'string' },

@@ -70,16 +70,16 @@ export default class MOptionBase extends Component implements Observer {
 
         if (check) {
             this.checkbox.checked = true;
-            this.setAttribute('data-checked', 'true');
+            this.dataset.checked = 'true';
         } else {
             this.checkbox.checked = false;
-            this.setAttribute('data-checked', 'false');
+            this.dataset.checked = 'false';
         }
     }
 
-    private setDisabled(): void {
-        if (this.checkbox && this.checkbox.disabled) {
-            this.setAttribute('data-disabled', 'true');
+    private setReadonly(): void {
+        if (this.checkbox && this.checkbox.readOnly) {
+            this.setAttribute('data-readonly', 'true');
         }
     }
 
@@ -124,6 +124,8 @@ export default class MOptionBase extends Component implements Observer {
         e.stopPropagation();
 
         if (!this.checkbox) return;
+        if (this.checkbox.disabled) return;
+        if (this.checkbox.readOnly) return;
 
         // prevent radio buttons from de-selecting
         if (this.checkbox.checked && this.checkbox.type === 'radio') return;
@@ -133,25 +135,18 @@ export default class MOptionBase extends Component implements Observer {
     }
 
     private onKeydown(e: KeyboardEvent): void {
-        if (!this.checkbox) return;
         if (!this.element) return;
 
-        if (e.key === ' ' && !this.checkbox.disabled) {
-            if (this.checkbox.type === 'radio') {
-                this.changeState(true);
-                const enableExclusive = new CustomEvent(
-                    this.qgroup + '_enableExclusive',
-                    {
-                        bubbles: true,
-                        detail: this,
-                    },
-                );
-                this.element.dispatchEvent(enableExclusive);
-            } else {
-                this.changeState(!this.checkbox.checked);
-            }
+        if (!this.checkbox) return;
+        if (this.checkbox.disabled) return;
+        if (this.checkbox.readOnly) return;
 
-            //this.broadcastChange();
+        // prevent radio buttons from de-selecting
+        if (this.checkbox.checked && this.checkbox.type === 'radio') return;
+
+        if (e.key === ' ') {
+            this.changeState(!this.checkbox.checked);
+            this.onChange();
         }
     }
 
@@ -184,7 +179,7 @@ export default class MOptionBase extends Component implements Observer {
 
         this.setBalanceWidth();
         this.setMaxOneSize();
-        this.setDisabled();
+        this.setReadonly();
 
         if (this.sublist) this.sublist.addObserver(this);
 

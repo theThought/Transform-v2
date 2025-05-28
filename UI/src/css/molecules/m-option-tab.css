@@ -43,7 +43,7 @@ m-option-tab {
         }
     }
 
-    &[data-disabled='true'] {
+    &[data-readonly='true'] {
         opacity: 0.5;
         pointer-events: none;
 
