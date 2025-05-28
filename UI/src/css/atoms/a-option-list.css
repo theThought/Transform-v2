@@ -1,0 +1,7 @@
+.a-option-list {
+    cursor: default;
+
+    &[data-selected='true'] {
+        color: var(--color-secondary);
+    }
+}
