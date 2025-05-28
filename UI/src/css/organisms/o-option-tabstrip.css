@@ -4,6 +4,15 @@ o-option-tabstrip {
     flex-wrap: wrap;
     width: fit-content;
 
+    m-option-tab {
+        border-block-end: var(--border-thickness) solid var(--color-light3);
+
+        &[data-checked='true'] {
+            background: white;
+            border-width: 0 0 var(--border-thickness) 0;
+        }
+    }
+
     m-option-tab:first-child {
         border-inline-start: none;
     }
