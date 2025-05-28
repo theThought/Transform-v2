@@ -1013,15 +1013,21 @@
                     </xsl:attribute>
                 </xsl:element>
 
-                <xsl:element name="m-divider-marks">
+                <xsl:element name="div">
+                    <xsl:attribute name="class">
+                        <xsl:text>m-divider-marks</xsl:text>
+                    </xsl:attribute>
                     <xsl:comment>divider marks</xsl:comment>
                 </xsl:element>
             </xsl:element>
 
-            <xsl:element name="m-label-marks">
+            <xsl:element name="div">
+                <xsl:attribute name="class">
+                    <xsl:text>a-label-marks</xsl:text>
+                </xsl:attribute>
                 <xsl:comment>label marks</xsl:comment>
             </xsl:element>  
-                          
+
         </xsl:element>    
     </xsl:template>
 

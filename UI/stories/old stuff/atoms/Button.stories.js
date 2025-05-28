@@ -4,7 +4,7 @@ import {
 } from './Button';
 
 export default {
-    title: 'Atoms/Buttons',
+    title: 'oldstuff/Buttons',
     parameters: {
         status: { type: 'stable' },
         controls: { sort: 'alpha' },
