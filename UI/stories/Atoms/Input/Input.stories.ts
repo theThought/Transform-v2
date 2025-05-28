@@ -2,7 +2,7 @@ import { Meta, StoryObj } from '@storybook/web-components';
 import * as InputStories from './Input';
 
 export default {
-    title: 'Atoms/Inputs',
+    title: 'Atoms/Input',
     parameters: {
         status: { type: 'beta' },
     },

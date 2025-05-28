@@ -2,7 +2,7 @@ import { Meta, StoryObj } from '@storybook/web-components';
 import * as ButtonTerminatorStories from './button-terminator';
 
 export default {
-    title: 'Atoms/Inputs',
+    title: 'Atoms/Button',
     parameters: {
         status: { type: 'beta' },
     },
