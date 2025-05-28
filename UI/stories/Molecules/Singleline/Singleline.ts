@@ -1,4 +1,4 @@
-import { ASingleline } from '../../Atoms/Inputs/Input';
+import { ASingleline } from '../../Atoms/Input/Input';
 import * as ALabel from '../../Atoms/Label/Label';
 
 export function MSingleLine_Story(args: any): HTMLElement {
