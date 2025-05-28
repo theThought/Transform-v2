@@ -276,7 +276,7 @@
             </xsl:attribute>
 
             <!--- Accelerator access key -->
-            <xsl:if test="Style/Control/@Accelerator != ''">
+            <xsl:if test="$currentControl/Style/Control/@Accelerator != ''">
                 <xsl:attribute name="accesskey">
                     <xsl:value-of select="$currentControl/Style/Control/@Accelerator" />
                 </xsl:attribute>
@@ -295,6 +295,13 @@
                     <xsl:text>true</xsl:text>
                 </xsl:attribute>
             </xsl:if>
+
+            <xsl:if test="$currentControl/Style/Control/@ReadOnly">
+                <xsl:attribute name="data-readonly">
+                    <xsl:text>true</xsl:text>
+                </xsl:attribute>
+            </xsl:if>
+            
         </xsl:element>
     </xsl:template>
 
@@ -1163,6 +1170,12 @@
                 <xsl:value-of select="$qGroup" />
             </xsl:attribute>
 
+            <xsl:if test="$currentControl/Style/Control/@ReadOnly">
+                <xsl:attribute name="data-readonly">
+                    <xsl:text>true</xsl:text>
+                </xsl:attribute>
+            </xsl:if>
+
             <xsl:if test="$currentControl/Category/@Checked">
                 <xsl:attribute name="data-checked">
                     <xsl:text>true</xsl:text>
@@ -1285,6 +1298,12 @@
 
             <xsl:if test="$currentControl/Category/@Checked">
                 <xsl:attribute name="data-checked">
+                    <xsl:text>true</xsl:text>
+                </xsl:attribute>
+            </xsl:if>
+
+            <xsl:if test="$currentControl/Style/Control/@ReadOnly">
+                <xsl:attribute name="data-readonly">
                     <xsl:text>true</xsl:text>
                 </xsl:attribute>
             </xsl:if>
