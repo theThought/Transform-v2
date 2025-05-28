@@ -1,14 +1,14 @@
 // label.ts
 export function ALabelPre(theLabel?: string): HTMLSpanElement {
     const container: HTMLSpanElement = document.createElement('span');
-    container.textContent = theLabel;
+    container.textContent = theLabel ?? null;
     container.classList.add('a-label-pre');
     return container;
 }
 
 export function ALabelPost(theLabel?: string): HTMLSpanElement {
     const container: HTMLSpanElement = document.createElement('span');
-    container.textContent = theLabel;
+    container.textContent = theLabel ?? null;
     container.classList.add('a-label-post');
     return container;
 }
