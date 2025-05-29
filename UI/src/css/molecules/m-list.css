@@ -6,9 +6,9 @@
     max-block-size: 18.75rem;
     min-inline-size: 3em;
     overflow-block: auto;
-    padding: var(--space-3) var(--space-4);
+    padding: var(--space-2) var(--space-4);
 
-    > * + * {
-        margin-block-start: 1em;
+    > li {
+        padding-block: var(--space-2);
     }
 }
