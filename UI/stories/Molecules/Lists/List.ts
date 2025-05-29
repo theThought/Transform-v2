@@ -14,7 +14,7 @@ export function ListOptions(args): HTMLElement {
     for (let i = 0; i < args.numberOfItems; i++) {
         const item = document.createElement('li');
         item.id = `${args.questionId}_${args.categoryId}${i}`;
-        item.classList.add('a-option-list');
+        item.classList.add('a-list-option');
         item.setAttribute('data-value', `value_${i + 1}`);
         item.innerHTML = `${args.itemLabel} ${i + 1}`;
         list.appendChild(item);

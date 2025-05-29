@@ -1,4 +1,4 @@
-.a-option-list {
+.a-list-option {
     cursor: default;
 
     &[data-selected='true'] {
