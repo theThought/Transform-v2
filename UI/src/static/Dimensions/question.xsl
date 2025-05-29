@@ -163,6 +163,13 @@
                     <xsl:with-param name="Hidden" select="false()"/>
                 </xsl:call-template>
             </xsl:when>
+            <xsl:when test="$qType='listbox'">
+                <xsl:call-template name="listbox">
+                    <xsl:with-param name="qType" select="$qType" />
+                    <xsl:with-param name="qGroup" select="$qGroup"/>
+                    <xsl:with-param name="Hidden" select="false()"/>
+                </xsl:call-template>
+            </xsl:when>
         </xsl:choose>
     </xsl:template>
 
@@ -838,6 +845,7 @@
         </xsl:choose>
     </xsl:template>
 
+
     <xsl:template name="tabstrip">
         <xsl:param name="qType" />
         <xsl:param name="qGroup" />
@@ -857,6 +865,17 @@
             </xsl:for-each>
         </xsl:element>
     </xsl:template>
+
+    <xsl:template name="listbox">
+        <xsl:param name="qType" />
+        <xsl:param name="qGroup" />
+        <xsl:param name="Hidden" />
+
+        <xsl:call-template name="m-list">
+            <xsl:with-param name="qGroup" select="$qGroup" />
+        </xsl:call-template>
+    </xsl:template>
+
     <!-- Organisms -->
     <!-- ============== -->
 
@@ -1375,7 +1394,23 @@
             </xsl:call-template>
 
         </xsl:element>
+    </xsl:template>
 
+    <xsl:template name="m-list">
+        <xsl:param name="qGroup" />
+
+        <xsl:element name="m-list">
+            <xsl:call-template name="insert-common-questiontype-attributes">
+                <xsl:with-param name="qGroup" select="$qGroup" />
+            </xsl:call-template>
+
+            <xsl:for-each select="Table">
+                <xsl:call-template name="process-list-rows">
+                    <xsl:with-param name="qGroup" select="$qGroup" />
+                    <xsl:with-param name="theRows" select="Row" />
+                </xsl:call-template>
+            </xsl:for-each>
+        </xsl:element>
     </xsl:template>
     <!-- Atoms -->
     <!-- ===== -->
