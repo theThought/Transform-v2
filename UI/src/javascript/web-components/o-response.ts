@@ -2,6 +2,13 @@ import { Subject, Observer } from '../interfaces';
 import Component from './component';
 
 export default class OResponse extends Component implements Subject {
+    public properties = {
+        filter: {
+            source: '',
+            exclusions: new Array<string>(),
+        },
+    };
+
     private observers: Observer[] = [];
 
     constructor() {
@@ -19,6 +26,9 @@ export default class OResponse extends Component implements Subject {
             case 'broadcastChange':
                 this.handleChange(<CustomEvent>e);
                 break;
+            case 'questionChange':
+                this.handleQuestionChange(<CustomEvent>e);
+                break;
         }
     }
 
@@ -35,6 +45,47 @@ export default class OResponse extends Component implements Subject {
     private handleChange(e: CustomEvent): void {
         e.stopPropagation();
         this.notifyObservers('clearExclusives', e);
+        this.notifyOtherQuestions(e);
+    }
+
+    private notifyOtherQuestions(e: CustomEvent): void {
+        const questionChange = new CustomEvent('questionChange', {
+            bubbles: true,
+            detail: e.detail,
+        });
+
+        this.dispatchEvent(questionChange);
+    }
+
+    private handleQuestionChange(e: CustomEvent): void {
+        // prevent questions from reacting to their own broadcast events
+        if (e.target === this) return;
+
+        // check whether this question needs to react to external changes
+        if (this.properties.filter.source) {
+            this.processFilter(e);
+        }
+    }
+
+    private processFilter(e: CustomEvent): void {
+        // the incoming question is not included in the list of filter sources
+        if (
+            e.detail.qgroup.toLowerCase() !==
+            this.properties.filter.source.toLowerCase()
+        ) {
+            return;
+        }
+
+        // the incoming value has been found in the exclusion list
+        if (
+            typeof e.detail.element.value !== 'undefined' &&
+            this.properties.filter.exclusions.indexOf(e.detail.element.value) >=
+                0
+        ) {
+            return;
+        }
+
+        this.notifyObservers('filter', e);
     }
 
     addObserver(observer: Observer): void {
@@ -60,11 +111,20 @@ export default class OResponse extends Component implements Subject {
         }
     }
 
+    private setupFiltering(): void {
+        if (this.properties.filter.source.length === 0) {
+            return;
+        }
+    }
+
     public connectedCallback(): void {
         super.connectedCallback();
 
         this.addEventListener('exclusiveOn', this);
         this.addEventListener('exclusiveOff', this);
         this.addEventListener('broadcastChange', this);
+        document.addEventListener('questionChange', this);
+
+        this.setupFiltering();
     }
 }

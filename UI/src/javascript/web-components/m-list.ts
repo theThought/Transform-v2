@@ -1,17 +1,33 @@
 import Component from './component';
+import { Observer } from '../interfaces';
 
-export default class MList extends Component {
-    protected properties = {
-        filter: {},
-    };
-
+export default class MList extends Component implements Observer {
     protected element: HTMLInputElement | null = null;
-    private isFiltered = false;
-    private filterSource = '';
-    private filterExclusions: string[] = [];
 
     constructor() {
         super();
+    }
+
+    public update(method: string, data: CustomEvent): void {
+        switch (method) {
+            case 'filter':
+                this.processFilter(data);
+                break;
+        }
+    }
+
+    private restoreSelection(): void {
+        if (!this.element) return;
+
+        const matchingListItem = <HTMLElement>(
+            this.querySelector('[data-value="' + this.element.value + '"]')
+        );
+
+        if (matchingListItem === null) {
+            return;
+        }
+
+        this.setSelectedOption(matchingListItem);
     }
 
     public handleEvent(e: Event): void {
@@ -26,96 +42,67 @@ export default class MList extends Component {
         e.preventDefault();
         e.stopPropagation();
 
-        const selectedOption = <HTMLElement>e.target;
+        const clickedOption = <HTMLElement>e.target;
+
         if (
-            selectedOption.tagName !== 'LI' ||
-            selectedOption.dataset.selected === 'true'
+            clickedOption.tagName !== 'LI' ||
+            clickedOption.dataset.selected === 'true'
         ) {
             return;
         }
 
         this.clearSelectedOption();
-        this.setSelectedOption(selectedOption);
+        this.setSelectedOption(clickedOption);
     }
 
     private clearSelectedOption(): void {
         const selectedOption = <HTMLElement>(
             this.querySelector('[data-selected="true"]')
         );
+
         if (selectedOption) {
             selectedOption.dataset.selected = 'false';
         }
     }
 
-    private setSelectedOption(selectedOption: HTMLElement): void {
-        selectedOption.dataset.selected = 'true';
-
-        if (!this.element) return;
-        this.element.value = `${selectedOption.dataset.value}`;
-    }
-
-    private processFilter(event: CustomEvent): void {
-        // this question does not have a filter rule declared
-        if (!this.isFiltered) {
-            return;
-        }
-
-        // do not process events originating with the current question
-        if (event.detail.group === this.qgroup) {
-            return;
-        }
-
-        // the incoming question is not included in the list of filter sources
-        if (
-            event.detail.questionName.toLowerCase() !==
-            this.filterSource.toLowerCase()
-        ) {
-            return;
-        }
-
-        // the incoming value has been found in the exclusion list
-        if (
-            typeof event.detail.checkbox !== 'undefined' &&
-            this.filterExclusions.indexOf(event.detail.checkbox.value) >= 0
-        ) {
-            return;
-        }
-
-        if (typeof event.detail.droplist !== 'undefined') {
-            const selectedElement =
-                event.detail.droplist.querySelector('[data-selected]');
-
-            if (selectedElement === null) {
-                this.showOption(null, 'filter');
-            } else {
-                this.hideOption(
-                    selectedElement.getAttribute('data-value'),
-                    'filter',
-                );
-            }
-        }
-    }
-
-    private hideOption(itemValue: string, hideMethod: string): void {
-        const option = this.querySelector(
-            ".hiddencontrol[value='" +
-                itemValue +
-                "'], [data-value='" +
-                itemValue +
-                "']",
+    private showFilteredOptions(): void {
+        const filteredOptions = <NodeListOf<HTMLElement>>(
+            this.querySelectorAll('.hidden-filter')
         );
 
-        if (!option) {
-            console.warn(
-                'Could not find the option ' + itemValue + ' to hide.',
-            );
-            return;
-        }
+        filteredOptions.forEach((option) => {
+            option.classList.remove('hidden-filter');
+        });
+    }
 
-        if (hideMethod === 'filter') {
-            option.classList.add('hidden-filter');
+    private setSelectedOption(selectedOption: HTMLElement): void {
+        if (!this.element) return;
+
+        selectedOption.dataset.selected = 'true';
+        this.element.value = `${selectedOption.dataset.value}`;
+        this.broadcastChange();
+    }
+
+    private processFilter(e: CustomEvent): void {
+        const matchingElement = <HTMLElement>(
+            this.querySelector(
+                `[data-value="${e.detail.element.value}"]:not(.hidden-filter)`,
+            )
+        );
+
+        if (matchingElement === null) {
+            this.showOption(null, 'filter');
         } else {
-            option.classList.add('hidden-rule');
+            this.showFilteredOptions();
+            this.hideOption(matchingElement, 'filter');
+        }
+    }
+
+    private hideOption(element: HTMLElement, hideMethod: string): void {
+        if (hideMethod === 'filter') {
+            element.classList.add('hidden-filter');
+        } else {
+            element.classList.add('hidden-rule');
         }
     }
 
@@ -145,7 +132,9 @@ export default class MList extends Component {
         super.connectedCallback();
 
         this.element = this.querySelector('input');
+        this.restoreSelection();
 
         this.addEventListener('click', this);
+        if (this.response) this.response.addObserver(this);
     }
 }
