@@ -9,6 +9,7 @@ export function ListOptions(args): HTMLElement {
     const input = document.createElement('input');
     input.id = `${args.questionId}`;
     input.type = 'hidden';
+    input.value = 'value_2';
 
     for (let i = 0; i < args.numberOfItems; i++) {
         const item = document.createElement('li');
