@@ -623,6 +623,7 @@
         </xsl:if>
     </xsl:template>
 
+
     <!-- Functions -->
     <!-- ========= -->
         <xsl:template name="rowOfNextStatic">
@@ -1403,17 +1404,45 @@
             <xsl:call-template name="insert-common-questiontype-attributes">
                 <xsl:with-param name="qGroup" select="$qGroup" />
             </xsl:call-template>
-
-            <xsl:for-each select="Table">
-                <xsl:call-template name="process-list-rows">
-                    <xsl:with-param name="qGroup" select="$qGroup" />
-                    <xsl:with-param name="theRows" select="Row" />
-                </xsl:call-template>
-            </xsl:for-each>
+            <xsl:element name="ul">
+                <xsl:attribute name="class">
+                    <xsl:text>m-list</xsl:text>
+                </xsl:attribute>
+                <xsl:variable name="ElementID">
+                    <xsl:value-of select="Control/@ElementID" />
+                </xsl:variable>
+                <xsl:for-each select="Control/Category">
+                    <xsl:call-template name="a-option-list">
+                        <xsl:with-param name="qType" select="@Type" />
+                        <xsl:with-param name="qGroup" select="$qGroup" />
+                        <xsl:with-param name="ElementID" select="$ElementID" />
+                    </xsl:call-template>
+                </xsl:for-each>
+            </xsl:element>
         </xsl:element>
     </xsl:template>
     <!-- Atoms -->
     <!-- ===== -->
+    <xsl:template name="a-option-list">
+        <xsl:param name="qType" />
+        <xsl:param name="qGroup" />
+        <xsl:param name="ElementID" />
+
+        <xsl:element name="li">
+            <xsl:attribute name="id">
+                <xsl:value-of select="$ElementID" />
+                <xsl:value-of select="Category/@CategoryID" />
+            </xsl:attribute>
+            <xsl:attribute name="class">
+                <xsl:text>a-list-item</xsl:text>
+            </xsl:attribute>
+            <xsl:attribute name="data-value">
+                <xsl:value-of select="@Name" />
+            </xsl:attribute>
+
+            <xsl:value-of select="Label/Text" />
+        </xsl:element>
+    </xsl:template>
 
     <xsl:template name="a-label-pre">
         <xsl:element name="span">
