@@ -18,8 +18,15 @@ export default class Component extends HTMLElement {
         super();
 
         this.qid = this.dataset.questionId;
-        this.qgroup = this.dataset.questionGroup;
+        this.qgroup = this.extractQuestionNameFromGroup();
         this.properties = {};
+    }
+
+    private extractQuestionNameFromGroup(): string {
+        let group = this.dataset.questionGroup ?? '';
+        group = group.toLowerCase();
+        const groupArray = group.split('_q');
+        return groupArray[groupArray.length - 1];
     }
 
     protected parseProperties(): void {
