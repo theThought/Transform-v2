@@ -76,15 +76,6 @@ export default class OResponse extends Component implements Subject {
             return;
         }
 
-        // the incoming value has been found in the exclusion list
-        if (
-            typeof e.detail.element.value !== 'undefined' &&
-            this.properties.filter.exclusions.indexOf(e.detail.element.value) >=
-                0
-        ) {
-            return;
-        }
-
         this.notifyObservers('filter', e);
     }
 

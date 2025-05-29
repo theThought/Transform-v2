@@ -2,6 +2,13 @@ import Component from './component';
 import { Observer } from '../interfaces';
 
 export default class MList extends Component implements Observer {
+    public properties = {
+        filter: {
+            source: '',
+            exclusions: new Array<string>(),
+        },
+    };
+
     protected element: HTMLInputElement | null = null;
 
     constructor() {
@@ -90,7 +97,18 @@ export default class MList extends Component implements Observer {
             )
         );
 
-        if (matchingElement === null) {
+        let excluded = false;
+
+        // the incoming value has been found in the exclusion list
+        if (
+            typeof e.detail.element.value !== 'undefined' &&
+            this.properties.filter.exclusions.indexOf(e.detail.element.value) >=
+                0
+        ) {
+            excluded = true;
+        }
+
+        if (matchingElement === null || excluded) {
             this.showOption(null, 'filter');
         } else {
             this.showFilteredOptions();
