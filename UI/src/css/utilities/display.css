@@ -18,9 +18,13 @@ Visually hide content but make it available to screen readers.
 ----------------------------------------------------------------------------
 Display.
 
-The CSS utility class behaves the same as the HTML attrribute.
+The CSS utility class behaves the same as the HTML attribute.
 ----------------------------------------------------------------------------
 */
-:where(.u-hidden, [hidden]) {
+:where(.hidden, [hidden]) {
+    display: none;
+}
+
+:where(.hidden-filter, .hidden-rule) {
     display: none;
 }
