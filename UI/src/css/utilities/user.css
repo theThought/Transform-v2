@@ -1,0 +1,44 @@
+.bold {
+    font-weight: 700;
+}
+
+.ltBold {
+    font-weight: 600;
+}
+
+.caps {
+    text-transform: uppercase;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+.minustwo {
+    font-size: calc(var(--font-size) - 2pt);
+}
+
+.plustwo {
+    font-size: calc(var(--font-size) + 2pt);
+}
+
+.minusfour {
+    font-size: calc(var(--font-size) - 4pt);
+}
+
+.plusfour {
+    font-size: calc(var(--font-size) + 4pt);
+}
+
+.sub {
+    vertical-align: sub;
+}
+
+.sup,
+.super {
+    vertical-align: super;
+}
