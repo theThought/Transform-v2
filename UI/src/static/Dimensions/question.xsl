@@ -189,7 +189,14 @@
             </xsl:attribute>
 
             <xsl:attribute name="id">
-                <xsl:value-of select="@ElementID" />
+                <xsl:choose>
+                    <xsl:when test="substring(@ElementID, string-length(@ElementID) - 1) = '_C'">
+                        <xsl:value-of select="substring(@ElementID, 1, string-length(@ElementID) - 2)" />
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="@ElementID" />
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:attribute>
 
             <!--- Set Input specific attributes -->
@@ -449,7 +456,14 @@
         </xsl:attribute>
 
         <xsl:attribute name="data-question-id">
-            <xsl:value-of select="@ElementID" />
+            <xsl:choose>
+                <xsl:when test="substring(@ElementID, string-length(@ElementID) - 1) = '_C'">
+                    <xsl:value-of select="substring(@ElementID, 1, string-length(@ElementID) - 2)" />
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="@ElementID" />
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:attribute>
 
     </xsl:template>
@@ -872,9 +886,33 @@
         <xsl:param name="qGroup" />
         <xsl:param name="Hidden" />
 
-        <xsl:call-template name="m-list">
-            <xsl:with-param name="qGroup" select="$qGroup" />
-        </xsl:call-template>
+        
+        <xsl:comment>
+            <xsl:text>name: </xsl:text>
+            <xsl:value-of select="name()" />
+        </xsl:comment>
+
+        <xsl:for-each select="Control">
+            <xsl:choose>
+                <xsl:when test="@Type = 'ListBox'">
+                    <xsl:call-template name="m-list">
+                        <xsl:with-param name="qGroup" select="$qGroup" />
+                    </xsl:call-template>
+
+                    <xsl:call-template name="insert-input">
+                        <xsl:with-param name="inputType" select="'number'" />
+                        <xsl:with-param name="qGroup" select="$qGroup" />
+                        <xsl:with-param name="isHidden" select="true()" />
+                    </xsl:call-template>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:comment>
+                        <xsl:text>Skipping control of type: </xsl:text>
+                        <xsl:value-of select="@Type" />
+                    </xsl:comment>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:for-each>
     </xsl:template>
 
     <!-- Organisms -->
@@ -1409,9 +1447,9 @@
                     <xsl:text>m-list</xsl:text>
                 </xsl:attribute>
                 <xsl:variable name="ElementID">
-                    <xsl:value-of select="Control/@ElementID" />
+                    <xsl:value-of select="@ElementID" />
                 </xsl:variable>
-                <xsl:for-each select="Control/Category">
+                <xsl:for-each select="Category">
                     <xsl:call-template name="a-option-list">
                         <xsl:with-param name="qType" select="@Type" />
                         <xsl:with-param name="qGroup" select="$qGroup" />
@@ -1431,10 +1469,10 @@
         <xsl:element name="li">
             <xsl:attribute name="id">
                 <xsl:value-of select="$ElementID" />
-                <xsl:value-of select="Category/@CategoryID" />
+                <xsl:value-of select="@CategoryID" />
             </xsl:attribute>
             <xsl:attribute name="class">
-                <xsl:text>a-list-item</xsl:text>
+                <xsl:text>a-list-option</xsl:text>
             </xsl:attribute>
             <xsl:attribute name="data-value">
                 <xsl:value-of select="@Name" />
