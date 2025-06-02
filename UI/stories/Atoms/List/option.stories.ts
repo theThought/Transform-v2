@@ -36,7 +36,7 @@ export default {
 } as Meta;
 
 type BaseOption = StoryObj<typeof AListOption_Story>;
-export const TenValue: BaseOption = {
+export const BaseOption: BaseOption = {
     args: {
         dataValue: 'categoryname',
         id: '_Q1_C0',
