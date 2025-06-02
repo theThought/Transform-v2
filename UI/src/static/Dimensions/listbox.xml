@@ -1,5 +1,5 @@
 <Questions>
-    <Question>
+   <Question>
         <Style BgColor="listbox:_QPageLists_QSelectOrganisation" ElementAlign="NewLine" Indent="1">
             <Control Type="ListBox"></Control>
         </Style>
@@ -49,7 +49,7 @@
                     <Text>Novavax</Text>
                 </Label>
             </Category>
-            <Category Name="gameleyaResearchInstitute" CategoryID="7">
+            <Category Name="gameleyaResearchInstitute" CategoryID="7" Checked="true">
                 <Label>
                     <Style ElementAlign="Right"></Style>
                     <Text>Gamaleya Research Institute</Text>

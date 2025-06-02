@@ -898,12 +898,6 @@
                     <xsl:call-template name="m-list">
                         <xsl:with-param name="qGroup" select="$qGroup" />
                     </xsl:call-template>
-
-                    <xsl:call-template name="insert-input">
-                        <xsl:with-param name="inputType" select="'number'" />
-                        <xsl:with-param name="qGroup" select="$qGroup" />
-                        <xsl:with-param name="isHidden" select="true()" />
-                    </xsl:call-template>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:comment>
@@ -1450,18 +1444,23 @@
                     <xsl:value-of select="@ElementID" />
                 </xsl:variable>
                 <xsl:for-each select="Category">
-                    <xsl:call-template name="a-option-list">
+                    <xsl:call-template name="a-list-option">
                         <xsl:with-param name="qType" select="@Type" />
                         <xsl:with-param name="qGroup" select="$qGroup" />
                         <xsl:with-param name="ElementID" select="$ElementID" />
                     </xsl:call-template>
                 </xsl:for-each>
             </xsl:element>
+            <xsl:call-template name="insert-input">
+                <xsl:with-param name="inputType" select="'text'" />
+                <xsl:with-param name="qGroup" select="$qGroup" />
+                <xsl:with-param name="isHidden" select="true()" />
+            </xsl:call-template>
         </xsl:element>
     </xsl:template>
     <!-- Atoms -->
     <!-- ===== -->
-    <xsl:template name="a-option-list">
+    <xsl:template name="a-list-option">
         <xsl:param name="qType" />
         <xsl:param name="qGroup" />
         <xsl:param name="ElementID" />
@@ -1471,14 +1470,23 @@
                 <xsl:value-of select="$ElementID" />
                 <xsl:value-of select="@CategoryID" />
             </xsl:attribute>
+            
             <xsl:attribute name="class">
                 <xsl:text>a-list-option</xsl:text>
             </xsl:attribute>
+            
             <xsl:attribute name="data-value">
                 <xsl:value-of select="@Name" />
             </xsl:attribute>
 
+            <xsl:if test="@Checked">
+                <xsl:attribute name="data-checked">
+                    <xsl:text>true</xsl:text>
+                </xsl:attribute>
+            </xsl:if>
+
             <xsl:value-of select="Label/Text" />
+
         </xsl:element>
     </xsl:template>
 

@@ -1,4 +1,6 @@
-export function ListOptions(args): HTMLElement {
+import { AListOption_Story } from '../../Atoms/List/option';
+
+export function MList_Story(args): HTMLElement {
     const component: HTMLElement = document.createElement('m-list');
     component.id = `${args.questionId}_list`;
     component.setAttribute('data-questiongroup', `_Q${args.questionName}`);
@@ -12,11 +14,12 @@ export function ListOptions(args): HTMLElement {
     input.value = 'value_2';
 
     for (let i = 0; i < args.numberOfItems; i++) {
-        const item = document.createElement('li');
-        item.id = `${args.questionId}_${args.categoryId}${i}`;
-        item.classList.add('a-list-option');
-        item.setAttribute('data-value', `value_${i + 1}`);
-        item.innerHTML = `${args.itemLabel} ${i + 1}`;
+        const optionArgs = {
+            content: `this is option ${i + 1}`,
+            id: `_Q0_C${i}`,
+            dataValue: `category${i + 1}`,
+        };
+        const item = AListOption_Story(optionArgs);
         list.appendChild(item);
     }
 
