@@ -24,7 +24,6 @@ o-slider {
     }
 
     .o-slider-container {
-        display: block;
         flex: 1;
     }
 

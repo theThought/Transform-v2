@@ -9,7 +9,6 @@ export function OSlider(args): HTMLElement {
     const preButton = document.createElement('a-button-terminator');
     const postButton = document.createElement('a-button-terminator');
     const innerContainer = document.createElement('div');
-    const trackContainer = document.createElement('div');
     const track = document.createElement('m-slider-track');
     const rangeInput = document.createElement('input');
     const input = document.createElement('input');
@@ -45,7 +44,6 @@ export function OSlider(args): HTMLElement {
     outerContainer.style.width = args.width;
     marksContainer.className = 'm-divider-marks';
     marksLabelContainer.className = 'm-label-marks';
-    trackContainer.className = 'o-slider-track-wrapper';
     preButton.setAttribute('data-behaviour', 'decrement');
     postButton.setAttribute('data-behaviour', 'increment');
 
@@ -57,9 +55,7 @@ export function OSlider(args): HTMLElement {
     track.appendChild(rangeInput);
     track.appendChild(marksContainer);
 
-    trackContainer.appendChild(track);
-
-    innerContainer.appendChild(trackContainer);
+    innerContainer.appendChild(track);
     innerContainer.appendChild(marksLabelContainer);
 
     outerContainer.appendChild(innerContainer);
