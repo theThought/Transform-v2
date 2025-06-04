@@ -12,15 +12,25 @@ o-slider {
     &.has-labels {
         margin-block-start: 0;
     }
-}
 
-o-slider-container {
-    display: block;
-    flex: 1;
-}
+    .a-label-pre,
+    .a-label-post {
+        border: none;
+        padding: 0 var(--space-2);
+    }
 
-.has-terminators {
-    a-button-terminator {
+    .m-label-prepost > * {
+        padding: var(--space-2) 0;
+    }
+
+    .o-slider-container {
         display: block;
+        flex: 1;
+    }
+
+    &.has-terminators {
+        a-button-terminator {
+            display: block;
+        }
     }
 }

@@ -9,6 +9,7 @@ export default class OSlider extends Component implements Observer, Subject {
             value: true,
         },
         labels: {
+            position: 'outside',
             pre: '',
             post: '',
         },
@@ -142,8 +143,18 @@ export default class OSlider extends Component implements Observer, Subject {
 
     // Set pre-/post-labels.
     private setLabels(): void {
-        const elemPre = this.querySelector('.a-label-pre');
-        const elemPost = this.querySelector('.a-label-post');
+        let elemPre: HTMLElement | null = null;
+        let elemPost: HTMLElement | null = null;
+
+        if (this.properties.labels.position === 'before') {
+            elemPre = this.querySelector('.a-label-pre');
+            elemPost = this.querySelector('.a-label-post');
+        }
+
+        if (this.properties.labels.position === 'outside') {
+            elemPre = this.querySelector(':scope > .a-label-pre');
+            elemPost = this.querySelector(':scope > .a-label-post');
+        }
 
         if (elemPre && elemPost) {
             elemPre.innerHTML = removeHTMLWhitespace(elemPre.innerHTML);

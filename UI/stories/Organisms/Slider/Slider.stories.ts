@@ -76,6 +76,18 @@ export default {
                 subcategory: 'Labels',
             },
         },
+        'properties.labels.position': {
+            control: 'select',
+            options: ['outside', 'before'],
+            name: 'position',
+            description: 'Specifies the location of the labels',
+            table: {
+                type: { summary: 'outside | before' },
+                category: 'Custom Properties',
+                subcategory: 'Labels',
+                defaultValue: { summary: 'outside' },
+            },
+        },
         'properties.show.marks': {
             control: 'boolean',
             name: 'marks',
