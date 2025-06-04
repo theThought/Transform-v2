@@ -1,10 +1,12 @@
 o-slider {
     display: flex;
     flex-wrap: wrap;
-    margin-block-start: var(--space-2);
+
+    /* --space-2 is a more typical start margin but we must allow for the thumb size */
+    margin-block-start: var(--space-3);
 
     &.show-value {
-        margin-block-start: var(--space-4);
+        margin-block-start: calc(var(--space-4) * 2);
     }
 
     &.has-labels {
