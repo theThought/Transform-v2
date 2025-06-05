@@ -28,11 +28,11 @@ m-slider-track {
             /* specific value -27px to align the thumb with the standard padding applied to label */
             transform: translate(-50%, -27px);
         }
-    }
-}
 
-.show-value m-slider-track.has-value {
-    output {
-        visibility: visible;
+        &.show-value {
+            output {
+                visibility: visible;
+            }
+        }
     }
 }

@@ -5,6 +5,7 @@ import { Observer } from '../interfaces';
 export default class MSliderTrack extends Component implements Observer {
     protected properties = {
         show: {
+            value: true,
             marks: false,
             terminators: false,
         },
@@ -174,6 +175,11 @@ export default class MSliderTrack extends Component implements Observer {
         this.dispatchEvent(notifySlider);
     }
 
+    private thumbValue(): void {
+        if (!this.properties.show.value) return;
+        this.classList.add('show-value');
+    }
+
     private incrementValue(): void {
         if (!this.element) return;
         const requestedValue =
@@ -216,6 +222,7 @@ export default class MSliderTrack extends Component implements Observer {
 
         this.setProperties();
         this.configureMarks();
+        this.thumbValue();
 
         if (this.response) this.response.addObserver(this);
         if (this.slider) this.slider.addObserver(this);
