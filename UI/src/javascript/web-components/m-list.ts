@@ -34,7 +34,7 @@ export default class MList extends Component implements Observer {
             return;
         }
 
-        this.setSelectedOption(matchingListItem);
+        this.setOption(matchingListItem);
     }
 
     public handleEvent(e: Event): void {
@@ -58,21 +58,12 @@ export default class MList extends Component implements Observer {
             return;
         }
 
-        this.clearSelectedOption();
-        this.setSelectedOption(clickedOption);
+        this.clearSelectedOptions();
+        this.setOption(clickedOption);
+        this.setValue(clickedOption);
     }
 
-    private clearSelectedOption(): void {
-        const selectedOption = <HTMLElement>(
-            this.querySelector('[data-selected="true"]')
-        );
-
-        if (selectedOption) {
-            selectedOption.dataset.selected = 'false';
-        }
-    }
-
-    private showFilteredOptions(): void {
+    private clearFilteredOptions(): void {
         const filteredOptions = <NodeListOf<HTMLElement>>(
             this.querySelectorAll('.hidden-filter')
         );
@@ -82,22 +73,48 @@ export default class MList extends Component implements Observer {
         });
     }
 
-    private setSelectedOption(selectedOption: HTMLElement): void {
-        if (!this.element) return;
+    private clearSelectedOptions(): void {
+        const selectedOptions = <NodeListOf<HTMLElement>>(
+            this.querySelectorAll('[data-selected="true"]')
+        );
 
-        selectedOption.dataset.selected = 'true';
-        this.element.value = `${selectedOption.dataset.value}`;
+        selectedOptions.forEach((option) => {
+            this.clearOption(option);
+        });
+    }
+
+    private clearOption(option: HTMLElement): void {
+        option.dataset.selected = 'false';
+        option.ariaSelected = 'false';
+    }
+
+    private setOption(option: HTMLElement): void {
+        option.dataset.selected = 'true';
+        option.ariaSelected = 'true';
+    }
+
+    private clearValue(): void {
+        if (!this.element || !this.element.value.length) return;
+
+        this.element.value = '';
+        this.broadcastChange();
+    }
+
+    private setValue(option: HTMLElement): void {
+        if (!this.element || this.element.value === option.dataset.value)
+            return;
+
+        this.element.value = `${option.dataset.value}`;
         this.broadcastChange();
     }
 
     private processFilter(e: CustomEvent): void {
+        let excluded = false;
         const matchingElement = <HTMLElement>(
             this.querySelector(
                 `[data-value="${e.detail.element.value}"]:not(.hidden-filter)`,
             )
         );
-
-        let excluded = false;
 
         // the incoming value has been found in the exclusion list
         if (
@@ -111,16 +128,21 @@ export default class MList extends Component implements Observer {
         if (matchingElement === null || excluded) {
             this.showOption(null, 'filter');
         } else {
-            this.showFilteredOptions();
+            this.clearFilteredOptions();
             this.hideOption(matchingElement, 'filter');
         }
     }
 
-    private hideOption(element: HTMLElement, hideMethod: string): void {
+    private hideOption(option: HTMLElement, hideMethod: string): void {
+        if (option.dataset.selected === 'true') {
+            this.clearOption(option);
+            this.clearValue();
+        }
+
         if (hideMethod === 'filter') {
-            element.classList.add('hidden-filter');
+            option.classList.add('hidden-filter');
         } else {
-            element.classList.add('hidden-rule');
+            option.classList.add('hidden-rule');
         }
     }
 
