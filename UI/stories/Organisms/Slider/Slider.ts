@@ -25,14 +25,14 @@ export function OSlider(args): HTMLElement {
     postButton.setAttribute('data-behaviour', 'increment');
 
     outerContainer.appendChild(prepostLabel);
-    outerContainer.appendChild(preLabel);
-    outerContainer.appendChild(preButton);
 
+    innerContainer.appendChild(preLabel);
+    innerContainer.appendChild(preButton);
     innerContainer.appendChild(track);
+    innerContainer.appendChild(postButton);
+    innerContainer.appendChild(postLabel);
 
     outerContainer.appendChild(innerContainer);
-    outerContainer.appendChild(postButton);
-    outerContainer.appendChild(postLabel);
 
     return outerContainer;
 }
