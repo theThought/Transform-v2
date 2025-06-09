@@ -177,6 +177,7 @@
         <xsl:param name="inputType" select="text" />
         <xsl:param name="qGroup" />
         <xsl:param name="isHidden" select="false()" />
+        <xsl:param name="applyWidth" select="true()" />
 
         <xsl:element name="input">
             <!-- insert base attributes -->
@@ -944,6 +945,7 @@
                             <xsl:with-param name="inputType" select="'number'" />
                             <xsl:with-param name="qGroup" select="$qGroup" />
                             <xsl:with-param name="isHidden" select="true()" />
+                            <xsl:with-param name="applyWidth" select="false()" />
                     </xsl:call-template>
                 </xsl:when> 
                 <xsl:when test="$subType='vertical'">
@@ -959,6 +961,7 @@
                             <xsl:with-param name="inputType" select="'number'" />
                             <xsl:with-param name="qGroup" select="$qGroup" />
                             <xsl:with-param name="isHidden" select="true()" />
+                            <xsl:with-param name="applyWidth" select="false()" />
                     </xsl:call-template>
 
                     <xsl:call-template name="a-label-post" />
@@ -1000,6 +1003,7 @@
                             <xsl:with-param name="inputType" select="'number'" />
                             <xsl:with-param name="qGroup" select="$qGroup" />
                             <xsl:with-param name="isHidden" select="true()" />
+                            <xsl:with-param name="applyWidth" select="false()" />
                     </xsl:call-template>
                 </xsl:when> 
                 <xsl:when test="$subType='vertical'">
@@ -1015,6 +1019,7 @@
                             <xsl:with-param name="inputType" select="'number'" />
                             <xsl:with-param name="qGroup" select="$qGroup" />
                             <xsl:with-param name="isHidden" select="true()" />
+                            <xsl:with-param name="applyWidth" select="false()" />
                     </xsl:call-template>
 
                     <xsl:call-template name="a-label-post" />
@@ -1480,7 +1485,7 @@
             </xsl:attribute>
 
             <xsl:if test="@Checked">
-                <xsl:attribute name="data-checked">
+                <xsl:attribute name="data-selected">
                     <xsl:text>true</xsl:text>
                 </xsl:attribute>
             </xsl:if>
