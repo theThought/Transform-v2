@@ -1,10 +1,11 @@
 m-option-tab {
     --color-checked: var(--color-text);
 
+    align-items: end;
     border-color: var(--color-light3);
     border-style: solid;
     border-width: 0 var(--border-thickness);
-    display: inline-block;
+    display: flex;
     position: relative;
 
     & + m-option-tab {
