@@ -3,12 +3,13 @@
 
     background: var(--color-white);
     border: var(--border-thickness) solid var(--color-border);
+    display: inline-block;
     max-block-size: 18.75rem;
     min-inline-size: 3em;
     overflow-block: auto;
     padding: var(--space-2) var(--space-4);
 
     > li {
-        padding-block: var(--space-2);
+        padding-block: var(--space-1);
     }
 }
