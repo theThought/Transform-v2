@@ -11,7 +11,7 @@ export default {
         optionType: {
             control: 'select',
             options: ['single-answer', 'multi-answer'],
-            description: 'Sinlge or multi-answer question',
+            description: 'Single or multi-answer question',
             table: {
                 type: { summary: 'string' },
                 defaultValue: { summary: 'single-answer' },
@@ -51,7 +51,8 @@ export default {
         'properties.onesize.state': {
             control: 'boolean',
             name: 'onesize.state',
-            description: 'Options are balanced to optimize horizontal space',
+            description:
+                'Options are forced to occupy the same space as the widest/tallest item',
             table: {
                 type: { summary: 'boolean' },
                 category: 'Custom Properties',
