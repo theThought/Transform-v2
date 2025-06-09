@@ -107,6 +107,7 @@ export default {
                 type: { summary: 'boolean' },
                 category: 'Custom Properties',
                 subcategory: 'Show',
+                defaultValue: { summary: 'false' },
             },
         },
         'properties.show.value': {

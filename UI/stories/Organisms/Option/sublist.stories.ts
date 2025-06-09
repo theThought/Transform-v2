@@ -204,6 +204,7 @@ export const ListWithHeading: Sublist = {
         questionName: 'SimpleList',
         optionLabel: 'Simple list option ',
         optionCount: 5,
+        properties: {},
     },
     render: (args) => OOptionSublist_Story(args),
 };
