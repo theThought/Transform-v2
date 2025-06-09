@@ -118,23 +118,6 @@ export default class OSlider extends Component implements Observer, Subject {
         );
     }
 
-    private tickLabels(): void {
-        if (this.properties.ticklabels === 0) return;
-
-        const labelsElement = this.querySelector('.m-label-marks');
-        if (!labelsElement) return;
-
-        const step =
-            this.properties.ticklabels > 0 ? this.properties.ticklabels : 10;
-
-        for (let i = this.min; i <= this.max; i = i + step) {
-            const labelElement = document.createElement('span');
-            labelElement.className = 'a-label-mark';
-            labelElement.innerHTML = String(i);
-            labelsElement.appendChild(labelElement);
-        }
-    }
-
     private terminatorButtons(): void {
         if (!this.properties.show.terminators) return;
 
@@ -146,14 +129,17 @@ export default class OSlider extends Component implements Observer, Subject {
         let elemPre: HTMLElement | null = null;
         let elemPost: HTMLElement | null = null;
 
-        if (this.properties.labels.position === 'before') {
+        if (
+            this.properties.labels.position === 'before' ||
+            this.properties.labels.position === 'after'
+        ) {
             elemPre = this.querySelector('.a-label-pre');
             elemPost = this.querySelector('.a-label-post');
         }
 
         if (this.properties.labels.position === 'outside') {
-            elemPre = this.querySelector(':scope > .a-label-pre');
-            elemPost = this.querySelector(':scope > .a-label-post');
+            elemPre = this.querySelector('.o-slider-container .a-label-pre');
+            elemPost = this.querySelector('.o-slider-container .a-label-post');
         }
 
         if (elemPre && elemPost) {
@@ -171,6 +157,10 @@ export default class OSlider extends Component implements Observer, Subject {
         if (this.properties.labels.post.length > 0) {
             elemPost.innerHTML = this.properties.labels.post;
             this.classList.add('has-labels');
+        }
+
+        if (this.properties.labels.position === 'after') {
+            this.classList.add('has-labels-position-after');
         }
     }
 
@@ -196,7 +186,6 @@ export default class OSlider extends Component implements Observer, Subject {
         this.addEventListener('decrementValue', this);
         this.setProperties();
         this.setLabels();
-        this.tickLabels();
         this.terminatorButtons();
         this.thumbValue();
 

@@ -78,11 +78,11 @@ export default {
         },
         'properties.labels.position': {
             control: 'select',
-            options: ['outside', 'before'],
+            options: ['outside', 'before', 'after'],
             name: 'position',
             description: 'Specifies the location of the labels',
             table: {
-                type: { summary: 'outside | before' },
+                type: { summary: 'outside | before | after' },
                 category: 'Custom Properties',
                 subcategory: 'Labels',
                 defaultValue: { summary: 'outside' },

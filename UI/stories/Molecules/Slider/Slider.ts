@@ -30,6 +30,7 @@ export function OSliderTrack(args): HTMLElement {
     track.appendChild(thumb);
     track.appendChild(rangeInput);
     track.appendChild(marksContainer);
+    track.appendChild(marksLabelContainer);
 
     return track;
 }

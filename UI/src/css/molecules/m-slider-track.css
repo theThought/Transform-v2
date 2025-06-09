@@ -1,5 +1,6 @@
 m-slider-track {
     display: block;
+    flex: 1;
     position: relative;
 
     output {

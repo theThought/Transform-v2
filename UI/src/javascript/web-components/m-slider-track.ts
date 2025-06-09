@@ -175,6 +175,23 @@ export default class MSliderTrack extends Component implements Observer {
         this.dispatchEvent(notifySlider);
     }
 
+    private tickLabels(): void {
+        if (this.properties.ticklabels === 0) return;
+
+        const labelsElement = this.querySelector('.m-label-marks');
+        if (!labelsElement) return;
+
+        const step =
+            this.properties.ticklabels > 0 ? this.properties.ticklabels : 10;
+
+        for (let i = this.min; i <= this.max; i = i + step) {
+            const labelElement = document.createElement('span');
+            labelElement.className = 'a-label-mark';
+            labelElement.innerHTML = String(i);
+            labelsElement.appendChild(labelElement);
+        }
+    }
+
     private thumbValue(): void {
         if (!this.properties.show.value) return;
         this.classList.add('show-value');
@@ -222,6 +239,7 @@ export default class MSliderTrack extends Component implements Observer {
 
         this.setProperties();
         this.configureMarks();
+        this.tickLabels();
         this.thumbValue();
 
         if (this.response) this.response.addObserver(this);
