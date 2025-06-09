@@ -26,13 +26,40 @@ export default {
                 defaultValue: { summary: '3' },
             },
         },
+        'properties.onesize.state': {
+            control: 'boolean',
+            name: 'onesize.state',
+            description:
+                'Options are forced to occupy the same space as the widest/tallest item',
+            table: {
+                type: { summary: 'boolean' },
+                category: 'Custom Properties',
+                subcategory: 'Onesize',
+                defaultValue: { summary: 'false' },
+            },
+        },
+        'properties.onesize.maxwidth': {
+            control: 'text',
+            name: 'maxwidth',
+            description: 'Maximum width for a one-size item',
+            table: {
+                type: { summary: 'string' },
+                category: 'Custom Properties',
+                subcategory: 'Onesize',
+            },
+        },
     },
 } as Meta;
 
 export const Tabstrip = {
     parameters: {
         controls: {
-            include: ['optionLabel', 'numberOfTabs'],
+            include: [
+                'optionLabel',
+                'numberOfTabs',
+                'onesize.state',
+                'maxwidth',
+            ],
         },
     },
     args: {
