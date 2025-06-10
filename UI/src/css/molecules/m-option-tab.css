@@ -17,6 +17,7 @@ m-option-tab {
         display: inline-flex;
         flex-direction: row-reverse;
         padding: var(--space-4);
+        white-space: nowrap;
 
         span.a-label-option {
             color: var(--color-text);
