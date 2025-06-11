@@ -3,7 +3,7 @@ import { AListOption_Story } from '../../Atoms/List/option';
 export function MList_Story(args): HTMLElement {
     const component: HTMLElement = document.createElement('m-list');
     component.id = `${args.questionId}_list`;
-    component.setAttribute('data-questiongroup', `_Q${args.questionName}`);
+    component.dataset.questiongroup = args.questionName;
 
     const list = document.createElement('ul');
     list.classList.add('m-list');
@@ -17,7 +17,7 @@ export function MList_Story(args): HTMLElement {
         const optionArgs = {
             content: `this is option ${i + 1}`,
             id: `_Q0_C${i}`,
-            dataValue: `category${i + 1}`,
+            dataValue: `value_${i + 1}`,
         };
         const item = AListOption_Story(optionArgs);
         list.appendChild(item);
