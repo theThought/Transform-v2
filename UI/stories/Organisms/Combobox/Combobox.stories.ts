@@ -1,96 +1,125 @@
+import { Meta } from '@storybook/web-components';
 import { ComboboxHtml } from './Combobox';
 
 export default {
     title: 'Organisms/Combobox',
+    component: 'o-combobox',
     parameters: {
         status: { type: 'beta' },
         controls: { sort: 'alpha' },
         docs: { controls: { sort: 'alpha' } },
     },
     argTypes: {
-        ListSize: {
+        numberOfItems: {
+            control: 'number',
+            description: 'Number of items to create',
+            table: {
+                type: { summary: 'number' },
+                category: 'Content',
+                defaultValue: { summary: '8' },
+            },
+        },
+        'properties.listsize': {
             control: { type: 'number', min: 0 },
+            name: 'listsize',
             description:
                 'Configures how many options should be displayed in the list.',
             table: {
                 type: { summary: 'number', min: 0 },
-                defaultValue: { summary: 'n/a' },
+                category: 'Custom properties',
+                defaultValue: { summary: '6' },
             },
         },
-        ListSource: {
+        'properties.listsource': {
             control: 'text',
+            name: 'listsource',
             description: 'Identifier for an existing list to re-use data.',
             table: {
+                category: 'Custom properties',
                 type: { summary: 'text' },
                 defaultValue: { summary: 'n/a' },
             },
         },
-        Placeholder: {
+        'properties.placeholder': {
             control: 'text',
+            name: 'placeholder',
             description:
                 'Defines the text to be displayed if no option is selected.',
             table: {
+                category: 'Custom properties',
                 type: { summary: 'text' },
                 defaultValue: { summary: 'n/a' },
             },
         },
-        Exact: {
+        'properties.exact': {
             control: 'boolean',
+            name: 'exact',
             description:
                 "Automatically selects an option if it exactly matches the respondent's input.",
             table: {
+                category: 'Custom properties',
                 type: { summary: 'boolean' },
                 defaultValue: { summary: 'true' },
             },
         },
-        FilterType: {
+        'properties.filtertype': {
             control: 'select',
+            name: 'filtertype',
             options: ['contains', 'starts'],
             description: 'Determines how options are filtered.',
             table: {
+                category: 'Custom properties',
                 type: { summary: 'select' },
                 defaultValue: { summary: 'contains' },
             },
         },
-        MinCharactersForList: {
+        'properties.mincharactersforlist': {
             control: { type: 'number', min: 0 },
+            name: 'mincharactersforlist',
             description:
                 'Defines how many characters must be typed before the list is displayed.',
             table: {
+                category: 'Custom properties',
                 type: { summary: 'number', min: 0 },
-                defaultValue: { summary: 0 },
+                defaultValue: { summary: '0' },
             },
         },
-        NotEnoughCharacters: {
+        'properties.notenoughcharacters': {
             control: 'text',
+            name: 'notenoughcharacters',
             description:
                 'Defines a message to be displayed before "mincharactersforlist" is met.',
             table: {
+                category: 'Custom properties',
                 type: { summary: 'text' },
                 defaultValue: { summary: 'n/a' },
             },
         },
-        NoItemsInList: {
+        'properties.noitemsinlist': {
             control: 'text',
+            name: 'noitemsinlist',
             description:
                 'Defines a message to be displayed if there are no matching options.',
             table: {
+                category: 'Custom properties',
                 type: { summary: 'text' },
                 defaultValue: { summary: 'n/a' },
             },
         },
     },
-};
+} as Meta;
 
 export const Combobox = {
-    args: {
-        Exact: true,
-        FilterType: 'contains',
-        MinCharactersForList: 1,
-        NotEnoughCharacters: 'You need to type at least one character',
-        NoItemsInList: 'No items match this filter',
-        Placeholder: 'Placeholder for combobox',
+    parameters: {
+        controls: {
+            exclude: ['properties', 'questionId', 'questionName'],
+        },
     },
-    render: (args) => ComboboxHtml(args),
+    args: {
+        numberOfItems: 8,
+        questionId: '_Q0',
+        questionName: 'QuestionName',
+        properties: {},
+    },
+    render: (args: object): HTMLElement => ComboboxHtml(args),
 };
-Combobox.storyName = 'o-combobox';

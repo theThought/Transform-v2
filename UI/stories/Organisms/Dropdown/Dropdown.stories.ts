@@ -1,56 +1,72 @@
+import { Meta } from '@storybook/web-components';
 import { DropdownHtml } from './Dropdown';
 
 export default {
     title: 'Organisms/Dropdown',
+    component: 'o-dropdown',
     parameters: {
         status: { type: 'beta' },
         controls: { sort: 'alpha' },
         docs: { controls: { sort: 'alpha' } },
     },
     argTypes: {
-        JumpToFirstLetter: {
+        'properties.jumptofirstletter': {
             control: 'boolean',
+            name: 'jumptofirstletter',
             description:
                 'Navigate to first matching entry when respondent types a character.',
             table: {
+                category: 'Custom properties',
                 type: { summary: 'boolean' },
                 defaultValue: { summary: 'true' },
             },
         },
-        ListSize: {
+        'properties.listsize': {
             control: { type: 'number', min: 0 },
+            name: 'listsize',
             description:
                 'Configures how many options should be displayed in the list.',
             table: {
+                category: 'Custom properties',
                 type: { summary: 'number', min: 0 },
-                defaultValue: { summary: 'n/a' },
+                defaultValue: { summary: '6' },
             },
         },
-        ListSource: {
+        'properties.listsource': {
             control: 'text',
+            name: 'listsource',
             description: 'Identifier for an existing list to re-use data.',
             table: {
+                category: 'Custom properties',
                 type: { summary: 'text' },
                 defaultValue: { summary: 'n/a' },
             },
         },
-        Placeholder: {
+        'properties.placeholder': {
             control: 'text',
+            name: 'placeholder',
             description:
                 'Defines the text to be displayed if no option is selected.',
             table: {
+                category: 'Custom properties',
                 type: { summary: 'text' },
                 defaultValue: { summary: 'n/a' },
             },
         },
     },
-};
+} as Meta;
 
 export const Dropdown = {
-    args: {
-        JumpToFirstLetter: true,
-        Placeholder: 'Placeholder for dropdown',
+    parameters: {
+        controls: {
+            exclude: ['properties', 'questionId', 'questionName'],
+        },
     },
-    render: (args) => DropdownHtml(args),
+    args: {
+        numberOfItems: 8,
+        questionId: '_Q0',
+        questionName: 'QuestionName',
+        properties: {},
+    },
+    render: (args: object): HTMLElement => DropdownHtml(args),
 };
-Dropdown.storyName = 'o-dropdown';

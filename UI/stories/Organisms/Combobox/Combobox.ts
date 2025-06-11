@@ -1,27 +1,20 @@
-export const ComboboxHtml = (args): string => `
-<o-combobox
-    class="o-select-custom"
-    data-question-id="_Q0"
-    data-question-group="_QCombobox"
-    data-customprops='{
-        "exact":${args.Exact},
-        "filtertype":"${args.FilterType}"
-    }'
->
-    <input type="text" class="a-input-combobox" placeholder="placeholder" />
-    <ul class="m-list">
-        <li class="a-list-option">I am first option in dropdown or combobox</li>
-        <li class="a-list-option">I am an option in dropdown or combobox</li>
-        <li class="a-list-option">I am a short option</li>
-        <li class="a-list-option">I am a much longer option in dropdown or combobox</li>
-        <li class="a-list-option">I am last option in dropdown or combobox</li>
-    </ul>
-</o-combobox>
+import { MList_Story } from '../../Molecules/Lists/List';
 
-<br /><br />
-<p>TODO:</p>
-<ul>
-    <li>Implement accessibility improvements for screen reader & keyboard users using the appropriate <a href="https://www.w3.org/WAI/ARIA/apg/patterns/combobox/">ARIA APG pattern</a>.</li>
-    <li>Wire up custom properties to the component HTML.</li>
-</ul>
-`;
+export function ComboboxHtml(args): HTMLElement {
+    const component: HTMLElement = document.createElement('o-combobox');
+    component.className = 'o-select-custom';
+    component.dataset.questiongroup = `${args.questionName}`;
+    component.dataset.properties = JSON.stringify(args.properties);
+
+    const input = document.createElement('input');
+    input.id = `${args.questionId}_control`;
+    input.type = 'text';
+    input.className = 'a-input-combobox';
+
+    const list = MList_Story(args);
+
+    component.appendChild(input);
+    component.appendChild(list);
+
+    return component;
+}

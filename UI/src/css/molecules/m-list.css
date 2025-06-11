@@ -1,3 +1,7 @@
+m-list {
+    display: block;
+}
+
 .m-list {
     --color-border: var(--color-primary);
 
