@@ -26,15 +26,16 @@ export default class MList extends Component implements Observer {
     private restoreSelection(): void {
         if (!this.element) return;
 
-        const matchingListItem = <HTMLElement>(
+        const option = <HTMLElement>(
             this.querySelector('[data-value="' + this.element.value + '"]')
         );
 
-        if (matchingListItem === null) {
+        if (option === null) {
             return;
         }
 
-        this.setOption(matchingListItem);
+        this.setOption(option);
+        this.setLabel(option);
     }
 
     public handleEvent(e: Event): void {
@@ -61,6 +62,7 @@ export default class MList extends Component implements Observer {
         this.clearSelectedOptions();
         this.setOption(clickedOption);
         this.setValue(clickedOption);
+        this.setLabel(clickedOption);
     }
 
     private clearFilteredOptions(): void {
@@ -108,6 +110,24 @@ export default class MList extends Component implements Observer {
         this.broadcastChange();
     }
 
+    private clearLabel(): void {
+        this.dataset.label = '';
+        this.broadcastLabelChange();
+    }
+
+    private setLabel(option: HTMLElement): void {
+        this.dataset.label = `${option.innerHTML}`;
+        this.broadcastLabelChange();
+    }
+
+    private broadcastLabelChange(): void {
+        const labelChange = new CustomEvent('labelChange', {
+            bubbles: true,
+            detail: this,
+        });
+        this.dispatchEvent(labelChange);
+    }
+
     private processFilter(e: CustomEvent): void {
         let excluded = false;
         const matchingElement = <HTMLElement>(
@@ -137,6 +157,7 @@ export default class MList extends Component implements Observer {
         if (option.dataset.selected === 'true') {
             this.clearOption(option);
             this.clearValue();
+            this.clearLabel();
         }
 
         if (hideMethod === 'filter') {

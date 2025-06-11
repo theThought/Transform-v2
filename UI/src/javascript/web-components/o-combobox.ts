@@ -7,8 +7,22 @@ export default class OCombobox extends Component {
         super();
     }
 
+    public handleEvent(e: Event): void {
+        switch (e.type) {
+            case 'labelChange':
+                this.updateLabel(<CustomEvent>e);
+                break;
+        }
+    }
+
+    private updateLabel(e: CustomEvent): void {
+        if (!this.element) return;
+        this.element.value = e.detail.dataset.label;
+    }
+
     public connectedCallback(): void {
         super.connectedCallback();
         this.element = this.querySelector('.a-input-combobox');
+        this.addEventListener('labelChange', this.handleEvent);
     }
 }

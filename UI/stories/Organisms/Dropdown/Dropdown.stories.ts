@@ -42,15 +42,15 @@ export default {
                 defaultValue: { summary: 'n/a' },
             },
         },
-        'properties.placeholder': {
+        placeholder: {
             control: 'text',
             name: 'placeholder',
             description:
                 'Defines the text to be displayed if no option is selected.',
             table: {
-                category: 'Custom properties',
+                category: 'Dimensions',
                 type: { summary: 'text' },
-                defaultValue: { summary: 'n/a' },
+                defaultValue: { summary: '' },
             },
         },
     },
@@ -66,6 +66,7 @@ export const Dropdown = {
         numberOfItems: 8,
         questionId: '_Q0',
         questionName: 'QuestionName',
+        placeholder: 'Placeholder',
         properties: {},
     },
     render: (args: object): HTMLElement => DropdownHtml(args),

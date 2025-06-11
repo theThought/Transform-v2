@@ -23,7 +23,9 @@
 .a-input-dropdown {
     background: var(--color-primary) url('../../images/white-chevron-down.png')
         no-repeat right 12px center;
+    caret-color: transparent;
     color: var(--color-lightest);
+    cursor: default;
     padding-inline-end: calc(var(--space-4) * 3);
 
     &::placeholder {

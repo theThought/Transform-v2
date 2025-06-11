@@ -10,6 +10,7 @@ export function DropdownHtml(args): HTMLElement {
     input.id = `${args.questionId}_control`;
     input.type = 'text';
     input.className = 'a-input-dropdown';
+    input.placeholder = `${args.placeholder}`;
 
     const list = MList_Story(args);
 
