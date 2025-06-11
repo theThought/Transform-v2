@@ -86,6 +86,7 @@ export const Singleline: Singleline = {
     },
     args: {
         type: 'text',
+        placeholder: 'placeholder',
     },
     render: (args: object): HTMLInputElement => InputStories.ASingleline(args),
 };

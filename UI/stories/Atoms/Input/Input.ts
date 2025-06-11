@@ -4,6 +4,7 @@ export function ASingleline(args: any): HTMLInputElement {
         ? `text-align: ${args['text-align']};`
         : '';
     const component: HTMLInputElement = document.createElement('input');
+    component.placeholder = `${args['placeholder']}`;
 
     switch (args.type) {
         case 'text':
