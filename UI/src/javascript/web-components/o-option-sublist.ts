@@ -100,10 +100,10 @@ export default class OOptionSublist
 
         if (height > this.tallest) {
             this.tallest = height;
-            const event = new CustomEvent('sizeChange', {
+            const e = new CustomEvent('sizeChange', {
                 detail: { height: height },
             });
-            this.notifyObservers('sizeChangeHeight', event);
+            this.notifyObservers('sizeChangeHeight', e);
         }
     }
 
