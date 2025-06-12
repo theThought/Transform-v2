@@ -1,12 +1,26 @@
 .m-list-option {
+    --color-checked: var(--color-secondary);
+
     cursor: default;
     list-style: none;
 
-    &[data-selected='true'] {
-        color: var(--color-secondary);
+    label {
+        align-items: center;
+        display: inline-flex;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+        padding-block: calc(var(--space-1) / 2);
+        width: 100%;
+    }
 
-        &::after {
-            content: ' ✓';
+    .a-label-option {
+        padding-inline-end: calc(var(--space-1) * 1.5);
+        padding-inline-start: 0;
+    }
+
+    &[data-selected='true'] {
+        .a-label-option {
+            color: var(--color-checked);
         }
     }
 }

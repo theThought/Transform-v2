@@ -38,10 +38,16 @@ export default {
 
 type BaseOption = StoryObj<typeof MListOption_Story>;
 export const BaseOption: BaseOption = {
+    parameters: {
+        controls: {
+            exclude: ['iconType'],
+        },
+    },
     args: {
-        dataValue: 'categoryname',
+        dataValue: '1',
         id: '_Q1_C0',
         content: 'this is an option',
+        iconType: 'checkbox',
     },
     render: (args) => MListOption_Story(args),
 };

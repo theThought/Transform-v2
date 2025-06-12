@@ -385,12 +385,10 @@ export default class OList extends Component implements Observer {
         e.preventDefault();
         e.stopPropagation();
 
-        const clickedOption = <HTMLElement>e.target;
+        const clickedElement = <HTMLElement>e.target;
+        const clickedOption = clickedElement.closest('li');
 
-        if (
-            clickedOption.tagName !== 'LI' ||
-            clickedOption.dataset.selected === 'true'
-        ) {
+        if (!clickedOption || clickedOption.dataset.selected === 'true') {
             return;
         }
 
@@ -468,7 +466,7 @@ export default class OList extends Component implements Observer {
     }
 
     private setLabel(option: HTMLElement): void {
-        this.dataset.label = `${option.innerHTML}`;
+        this.dataset.label = `${option.textContent}`;
         this.broadcastLabelChange();
     }
 

@@ -23,13 +23,14 @@ export default {
 export const OptionList = {
     parameters: {
         controls: {
-            exclude: ['questionId', 'questionName'],
+            exclude: ['questionId', 'questionName', 'iconType'],
         },
     },
     args: {
         numberOfItems: 8,
         questionId: '_Q0',
         questionName: 'QuestionName',
+        iconType: 'checkbox',
     },
     render: (args: object): HTMLElement => OList_Story(args),
 };
