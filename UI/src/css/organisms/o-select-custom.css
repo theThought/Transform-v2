@@ -4,6 +4,7 @@
 
     o-list {
         block-size: 0;
+        display: block;
         opacity: 0;
         position: absolute;
         width: 100%;

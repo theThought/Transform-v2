@@ -23,6 +23,7 @@ export default class OList extends Component implements Observer {
 
     constructor() {
         super();
+
         this.keyTimer = setTimeout(() => {
             this.clearKeyBuffer();
         }, this.keyTimerLimit);
