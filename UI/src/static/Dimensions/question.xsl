@@ -170,6 +170,13 @@
                     <xsl:with-param name="Hidden" select="false()"/>
                 </xsl:call-template>
             </xsl:when>
+            <xsl:when test="$qType='combobox'">
+                <xsl:call-template name="combobox">
+                    <xsl:with-param name="qType" select="$qType" />
+                    <xsl:with-param name="qGroup" select="$qGroup"/>
+                    <xsl:with-param name="Hidden" select="false()"/>
+                </xsl:call-template>
+            </xsl:when>
         </xsl:choose>
     </xsl:template>
 
@@ -896,7 +903,7 @@
         <xsl:for-each select="Control">
             <xsl:choose>
                 <xsl:when test="@Type = 'ListBox'">
-                    <xsl:call-template name="m-list">
+                    <xsl:call-template name="o-list">
                         <xsl:with-param name="qGroup" select="$qGroup" />
                     </xsl:call-template>
                 </xsl:when>
@@ -910,6 +917,73 @@
         </xsl:for-each>
     </xsl:template>
 
+    <xsl:template name="combobox">
+        <xsl:param name="qType" />
+        <xsl:param name="qGroup" />
+        <xsl:param name="Hidden" />
+
+        <xsl:variable name="optionCount">
+            <xsl:value-of select="count(Control[not(./Style/Control/@Type='SingleLineEdit')])" />
+        </xsl:variable>
+
+        <xsl:comment>
+            <xsl:text>name: </xsl:text>
+            <xsl:value-of select="name()" />
+        </xsl:comment>
+
+        <xsl:choose>
+            <xsl:when test="$optionCount > 0">
+                <xsl:element name="fieldset">
+                    <xsl:attribute name="aria-describedby">
+                        <xsl:value-of select="@ElementID" />
+                        <xsl:text>_label_question</xsl:text>
+                    </xsl:attribute>
+                
+                    <xsl:for-each select="Control">
+                        <xsl:choose>
+                            <xsl:when test="@Type = 'ComboList'">
+                                <xsl:call-template name="o-combobox">
+                                    <xsl:with-param name="qGroup" select="$qGroup" />
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:comment>
+                                    <xsl:text>Skipping control of type: </xsl:text>
+                                    <xsl:value-of select="@Type" />
+                                </xsl:comment>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:for-each>
+
+                    <xsl:call-template name="o-option-sublist">
+                        <xsl:with-param name="qType" select="$qType" />
+                        <xsl:with-param name="qGroup" select="$qGroup" />
+                        <xsl:with-param name="questionId" select="Control[1]/@ElementID" />
+                        <xsl:with-param name="optionCount" select="$optionCount" />
+                        <xsl:with-param name="typeOverride" select="'checkbox'" />
+                    </xsl:call-template>
+                </xsl:element>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:for-each select="Control">
+                    <xsl:choose>
+                        <xsl:when test="@Type = 'ComboList'">
+                            <xsl:call-template name="o-combobox">
+                                <xsl:with-param name="qGroup" select="$qGroup" />
+                            </xsl:call-template>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:comment>
+                                <xsl:text>Skipping control of type: </xsl:text>
+                                <xsl:value-of select="@Type" />
+                            </xsl:comment>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:for-each>
+            </xsl:otherwise>
+        </xsl:choose>
+
+    </xsl:template>
     <!-- Organisms -->
     <!-- ============== -->
 
@@ -1044,7 +1118,7 @@
                 <xsl:comment>Pre-terminator</xsl:comment>
             </xsl:element>
 
-            <xsl:call-template name="slider-track-wrapper">
+            <xsl:call-template name="m-slider-track">
                 <xsl:with-param name="qGroup" select="$qGroup" />
                 <xsl:with-param name="minimum" select="$minimum" />
                 <xsl:with-param name="maximum" select="$maximum" />
@@ -1061,60 +1135,74 @@
         </xsl:element>
     </xsl:template>
 
-    <xsl:template name="slider-track-wrapper">
+    <xsl:template name="o-combobox">
+            <!-- inserts a basic edit box -->
         <xsl:param name="qGroup" />
-        <xsl:param name="minimum" />
-        <xsl:param name="maximum" />
-        <xsl:element name="o-slider-track-wrapper">
-            <xsl:element name="m-slider-track">
+        <xsl:param name="subType" select="'horizontal'" />
 
-                <xsl:element name="output">
-                    <xsl:attribute name="class">
-                        <xsl:text>a-label-thumb</xsl:text>
-                    </xsl:attribute>
-                    <xsl:attribute name="type"><xsl:text>range</xsl:text></xsl:attribute>
-                    <xsl:attribute name="for">
-                        <xsl:value-of select="concat(@ElementID, '_range')" />
-                    </xsl:attribute>
-                    <xsl:comment>thumb</xsl:comment>
-                </xsl:element>
+        <xsl:element name="o-combobox">
+            <xsl:attribute name="data-orientation">
+                <xsl:value-of select="$subType" />
+            </xsl:attribute>
 
-                <xsl:element name="input">
-                    <xsl:attribute name="type">
-                        <xsl:text>range</xsl:text>
-                    </xsl:attribute>
-                    <xsl:attribute name="id">
-                        <xsl:value-of select="concat(@ElementID, '_range')" />
-                    </xsl:attribute>
-                    <xsl:attribute name="min">
-                        <xsl:value-of select="$minimum" />
-                    </xsl:attribute>
-                    <xsl:attribute name="max">
-                        <xsl:value-of select="$maximum" />
-                    </xsl:attribute>
-                    <xsl:attribute name="class">
-                        <xsl:text>a-slider-input</xsl:text>
-                    </xsl:attribute>
-                </xsl:element>
+            <xsl:if test="Style/@Width">
+                <xsl:attribute name="style">
+                    <xsl:text>width: </xsl:text>
+                    <xsl:value-of select="Style/@Width" />
+                    <xsl:text>;</xsl:text>
+                </xsl:attribute>
+            </xsl:if>
 
-                <xsl:element name="div">
-                    <xsl:attribute name="class">
-                        <xsl:text>m-divider-marks</xsl:text>
-                    </xsl:attribute>
-                    <xsl:comment>divider marks</xsl:comment>
-                </xsl:element>
+            <xsl:element name="input">
+                <xsl:attribute name="id">
+                    <xsl:value-of select="@ElementID" />
+                    <xsl:text>_control</xsl:text>
+                </xsl:attribute>
+
+                <xsl:attribute name="class">
+                    <xsl:text>a-input-combobox</xsl:text>
+                </xsl:attribute>
+
+                <xsl:attribute name="placeholder">
+                    <xsl:value-of select="Style/Control/@Placeholder" />
+                </xsl:attribute>
             </xsl:element>
 
-            <xsl:element name="div">
-                <xsl:attribute name="class">
-                    <xsl:text>m-label-marks</xsl:text>
-                </xsl:attribute>
-                <xsl:comment>label marks</xsl:comment>
-            </xsl:element>  
-
-        </xsl:element>    
+            <xsl:call-template name="o-list">
+                <xsl:with-param name="qGroup" select="$qGroup" />
+            </xsl:call-template>
+        </xsl:element>
     </xsl:template>
 
+    <xsl:template name="o-list">
+        <xsl:param name="qGroup" />
+
+        <xsl:element name="o-list">
+            <xsl:call-template name="insert-common-questiontype-attributes">
+                <xsl:with-param name="qGroup" select="$qGroup" />
+            </xsl:call-template>
+            <xsl:element name="ul">
+                <xsl:attribute name="class">
+                    <xsl:text>o-list</xsl:text>
+                </xsl:attribute>
+                <xsl:variable name="ElementID">
+                    <xsl:value-of select="@ElementID" />
+                </xsl:variable>
+                <xsl:for-each select="Category">
+                    <xsl:call-template name="m-list-option">
+                        <xsl:with-param name="qType" select="@Type" />
+                        <xsl:with-param name="qGroup" select="$qGroup" />
+                        <xsl:with-param name="ElementID" select="$ElementID" />
+                    </xsl:call-template>
+                </xsl:for-each>
+            </xsl:element>
+            <xsl:call-template name="insert-input">
+                <xsl:with-param name="inputType" select="'text'" />
+                <xsl:with-param name="qGroup" select="$qGroup" />
+                <xsl:with-param name="isHidden" select="true()" />
+            </xsl:call-template>
+        </xsl:element>
+    </xsl:template>
     <!-- Molecules -->
     <!-- ============== -->
 
@@ -1434,38 +1522,59 @@
         </xsl:element>
     </xsl:template>
 
-    <xsl:template name="m-list">
+    <xsl:template name="m-slider-track">
         <xsl:param name="qGroup" />
+        <xsl:param name="minimum" />
+        <xsl:param name="maximum" />
+            <xsl:element name="m-slider-track">
 
-        <xsl:element name="m-list">
-            <xsl:call-template name="insert-common-questiontype-attributes">
-                <xsl:with-param name="qGroup" select="$qGroup" />
-            </xsl:call-template>
-            <xsl:element name="ul">
-                <xsl:attribute name="class">
-                    <xsl:text>m-list</xsl:text>
-                </xsl:attribute>
-                <xsl:variable name="ElementID">
-                    <xsl:value-of select="@ElementID" />
-                </xsl:variable>
-                <xsl:for-each select="Category">
-                    <xsl:call-template name="a-list-option">
-                        <xsl:with-param name="qType" select="@Type" />
-                        <xsl:with-param name="qGroup" select="$qGroup" />
-                        <xsl:with-param name="ElementID" select="$ElementID" />
-                    </xsl:call-template>
-                </xsl:for-each>
+                <xsl:element name="output">
+                    <xsl:attribute name="class">
+                        <xsl:text>a-label-thumb</xsl:text>
+                    </xsl:attribute>
+                    <xsl:attribute name="type"><xsl:text>range</xsl:text></xsl:attribute>
+                    <xsl:attribute name="for">
+                        <xsl:value-of select="concat(@ElementID, '_range')" />
+                    </xsl:attribute>
+                    <xsl:comment>thumb</xsl:comment>
+                </xsl:element>
+
+                <xsl:element name="input">
+                    <xsl:attribute name="type">
+                        <xsl:text>range</xsl:text>
+                    </xsl:attribute>
+                    <xsl:attribute name="id">
+                        <xsl:value-of select="concat(@ElementID, '_range')" />
+                    </xsl:attribute>
+                    <xsl:attribute name="min">
+                        <xsl:value-of select="$minimum" />
+                    </xsl:attribute>
+                    <xsl:attribute name="max">
+                        <xsl:value-of select="$maximum" />
+                    </xsl:attribute>
+                    <xsl:attribute name="class">
+                        <xsl:text>a-slider-input</xsl:text>
+                    </xsl:attribute>
+                </xsl:element>
+
+                <xsl:element name="div">
+                    <xsl:attribute name="class">
+                        <xsl:text>m-divider-marks</xsl:text>
+                    </xsl:attribute>
+                    <xsl:comment>divider marks</xsl:comment>
+                </xsl:element>
             </xsl:element>
-            <xsl:call-template name="insert-input">
-                <xsl:with-param name="inputType" select="'text'" />
-                <xsl:with-param name="qGroup" select="$qGroup" />
-                <xsl:with-param name="isHidden" select="true()" />
-            </xsl:call-template>
-        </xsl:element>
+
+            <xsl:element name="div">
+                <xsl:attribute name="class">
+                    <xsl:text>m-label-marks</xsl:text>
+                </xsl:attribute>
+                <xsl:comment>label marks</xsl:comment>
+            </xsl:element>  
+ 
     </xsl:template>
-    <!-- Atoms -->
-    <!-- ===== -->
-    <xsl:template name="a-list-option">
+
+    <xsl:template name="m-list-option">
         <xsl:param name="qType" />
         <xsl:param name="qGroup" />
         <xsl:param name="ElementID" />
@@ -1477,7 +1586,7 @@
             </xsl:attribute>
             
             <xsl:attribute name="class">
-                <xsl:text>a-list-option</xsl:text>
+                <xsl:text>m-list-option</xsl:text>
             </xsl:attribute>
             
             <xsl:attribute name="data-value">
@@ -1494,6 +1603,9 @@
 
         </xsl:element>
     </xsl:template>
+    <!-- Atoms -->
+    <!-- ===== -->
+
 
     <xsl:template name="a-label-pre">
         <xsl:element name="span">
