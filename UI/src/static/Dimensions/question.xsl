@@ -458,20 +458,32 @@
 
     <xsl:template name="insert-common-questiontype-attributes">
         <xsl:param name="qGroup" />
+        <xsl:param name="qIdOverride" />
+
+        <xsl:variable name="questionId">
+            <xsl:choose>
+                <xsl:when test="$qIdOverride != ''">
+                    <xsl:value-of select="$qIdOverride" />
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:choose>
+                        <xsl:when test="substring(@ElementID, string-length(@ElementID) - 1) = '_C'">
+                            <xsl:value-of select="substring(@ElementID, 1, string-length(@ElementID) - 2)" />
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="@ElementID" />
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
 
         <xsl:attribute name="data-question-group">
             <xsl:value-of select="$qGroup" />
         </xsl:attribute>
 
         <xsl:attribute name="data-question-id">
-            <xsl:choose>
-                <xsl:when test="substring(@ElementID, string-length(@ElementID) - 1) = '_C'">
-                    <xsl:value-of select="substring(@ElementID, 1, string-length(@ElementID) - 2)" />
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:value-of select="@ElementID" />
-                </xsl:otherwise>
-            </xsl:choose>
+            <xsl:value-of select="$questionId" />
         </xsl:attribute>
 
     </xsl:template>
@@ -887,37 +899,6 @@
         </xsl:element>
     </xsl:template>
 
-<!--
-The old list box template
-    <xsl:template name="listbox">
-        <xsl:param name="qType" />
-        <xsl:param name="qGroup" />
-        <xsl:param name="Hidden" />
-
-        
-        <xsl:comment>
-            <xsl:text>name: </xsl:text>
-            <xsl:value-of select="name()" />
-        </xsl:comment>
-
-        <xsl:for-each select="Control">
-            <xsl:choose>
-                <xsl:when test="@Type = 'ListBox'">
-                    <xsl:call-template name="o-listbox">
-                        <xsl:with-param name="qGroup" select="$qGroup" />
-                    </xsl:call-template>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:comment>
-                        <xsl:text>Skipping control of type: </xsl:text>
-                        <xsl:value-of select="@Type" />
-                    </xsl:comment>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:for-each>
-    </xsl:template>
--->
-
     <xsl:template name="listbox">
         <xsl:param name="qType" />
         <xsl:param name="qGroup" />
@@ -926,11 +907,6 @@ The old list box template
         <xsl:variable name="optionCount">
             <xsl:value-of select="count(Control[not(./Style/Control/@Type='SingleLineEdit')])" />
         </xsl:variable>
-
-        <xsl:comment>
-            <xsl:text>name: </xsl:text>
-            <xsl:value-of select="name()" />
-        </xsl:comment>
 
         <xsl:choose>
             <xsl:when test="$optionCount > 0">
@@ -995,11 +971,6 @@ The old list box template
         <xsl:variable name="optionCount">
             <xsl:value-of select="count(Control[not(./Style/Control/@Type='SingleLineEdit')])" />
         </xsl:variable>
-
-        <xsl:comment>
-            <xsl:text>name: </xsl:text>
-            <xsl:value-of select="name()" />
-        </xsl:comment>
 
         <xsl:choose>
             <xsl:when test="$optionCount > 0">
@@ -1210,6 +1181,17 @@ The old list box template
         <xsl:param name="qGroup" />
         <xsl:param name="subType" select="'horizontal'" />
 
+        <xsl:variable name="questionID">
+            <xsl:choose>
+                <xsl:when test="substring(@ElementID, string-length(@ElementID) - 1) = '_C'">
+                    <xsl:value-of select="substring(@ElementID, 1, string-length(@ElementID) - 2)" />
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="@ElementID" />
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        
         <xsl:element name="o-combobox">
             <xsl:attribute name="data-orientation">
                 <xsl:value-of select="$subType" />
@@ -1225,7 +1207,7 @@ The old list box template
 
             <xsl:element name="input">
                 <xsl:attribute name="id">
-                    <xsl:value-of select="@ElementID" />
+                    <xsl:value-of select="$questionID" />
                     <xsl:text>_control</xsl:text>
                 </xsl:attribute>
 
@@ -1241,7 +1223,7 @@ The old list box template
             <xsl:call-template name="o-list">
                 <xsl:with-param name="qGroup" select="$qGroup" />
                 <xsl:with-param name="qID">
-                    <xsl:value-of select="@ElementID" />
+                    <xsl:value-of select="$questionID" />
                     <xsl:text>_list</xsl:text>
                 </xsl:with-param>
             </xsl:call-template>
@@ -1250,11 +1232,18 @@ The old list box template
 
     <xsl:template name="o-list">
         <xsl:param name="qGroup" />
+        <xsl:param name="qID" />
 
         <xsl:element name="o-list">
             <xsl:call-template name="insert-common-questiontype-attributes">
                 <xsl:with-param name="qGroup" select="$qGroup" />
+                <xsl:with-param name="qIdOverride" select="$qID" />
             </xsl:call-template>
+
+            <xsl:attribute name="tabindex">
+                <xsl:text>0</xsl:text>
+            </xsl:attribute>
+            
             <xsl:element name="ul">
                 <xsl:attribute name="class">
                     <xsl:text>o-list</xsl:text>
