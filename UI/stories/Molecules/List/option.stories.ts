@@ -3,7 +3,7 @@ import { MListOption_Story } from './option';
 
 export default {
     title: 'Molecules/List',
-    component: 'm-list-item', // Use the tag name of the custom element
+    component: 'm-list-option', // Use the tag name of the custom element
     parameters: {
         status: { type: 'beta' },
     },
@@ -45,4 +45,4 @@ export const BaseOption: BaseOption = {
     },
     render: (args) => MListOption_Story(args),
 };
-BaseOption.storyName = 'm-list-item';
+BaseOption.storyName = 'm-list-option';
