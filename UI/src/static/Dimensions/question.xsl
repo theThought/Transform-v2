@@ -1263,9 +1263,9 @@
         </xsl:variable>
         
         <xsl:element name="o-combobox">
-            <xsl:attribute name="data-orientation">
-                <xsl:value-of select="$subType" />
-            </xsl:attribute>
+            <xsl:call-template name="insert-common-questiontype-attributes">
+                <xsl:with-param name="qGroup" select="$qGroup" />
+            </xsl:call-template>
 
             <xsl:if test="Style/@Width">
                 <xsl:attribute name="style">
@@ -1317,10 +1317,10 @@
         </xsl:variable>
         
         <xsl:element name="o-dropdown">
-            <xsl:attribute name="data-orientation">
-                <xsl:value-of select="$subType" />
-            </xsl:attribute>
-
+            <xsl:call-template name="insert-common-questiontype-attributes">
+                <xsl:with-param name="qGroup" select="$qGroup" />
+            </xsl:call-template>
+            
             <xsl:if test="Style/@Width">
                 <xsl:attribute name="style">
                     <xsl:text>width: </xsl:text>

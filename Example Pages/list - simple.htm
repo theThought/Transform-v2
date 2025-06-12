@@ -25,7 +25,7 @@
 		<meta name="theme-color" content="#ffffff"/>
 	</head>
 	<body>
-		<form name="mrForm" id="mrForm" action="./" method="post"><input type="hidden" name="I.Engine" value="Server"/><input type="hidden" name="I.Project" value="Transform_v2"/><input type="hidden" name="I.Session" value="a4oghodpmcsu6c3j6or5v2oxceaqaaaa"/><input type="hidden" name="I.SavePoint" value="List1"/><input type="hidden" name="I.Language" value="en-US"/><input type="hidden" name="I.Renderer" value="HTMLPlayer"/><header class="header">
+		<form name="mrForm" id="mrForm" action="./" method="post"><input type="hidden" name="I.Engine" value="Server"/><input type="hidden" name="I.Project" value="Transform_v2"/><input type="hidden" name="I.Session" value="zi3v6qt6qwcevpdd5g3r6rboamaqaaaa"/><input type="hidden" name="I.SavePoint" value="List1"/><input type="hidden" name="I.Language" value="en-US"/><input type="hidden" name="I.Renderer" value="HTMLPlayer"/><header class="header">
 				<img class="site-logo" alt="Ipsos Logo" title="Ipsos Logo" src="https://cdn.ipsosinteractive.com/sandbox/kevin.gray/healthcare/staging/images/formal/ipsoslogo192.png"/>
 			</header>
 			<main class="surroundcontent">
@@ -63,6 +63,12 @@
 								<div class="l-row">
 									<div class="l-column">
 										<!-- Error -->
+										<div class="m-message-error">
+											<div class="a-label-error">
+												<div></div>
+												<span class="mrErrorText" style="color: Red;font-weight: bold;border-color: Red;">Only one answer is allowed.</span>
+											</div>
+										</div>
 									</div>
 								</div>
 								<div class="l-row">
@@ -88,18 +94,17 @@
 									<div class="l-column">
 										<!-- Question Controls -->
 										<o-response data-question-group="_QList1_QSelectOrganisation" data-position="below">
-											<!--name: Question-->
 											<fieldset aria-describedby="_label_question">
-												<o-list data-question-group="_QList1_QSelectOrganisation" data-question-id="_Q1_C">
+												<o-list data-question-group="_QList1_QSelectOrganisation" data-question-id="_Q1_C" tabindex="0">
 													<ul class="o-list">
-														<li id="_Q1_C0" class="m-list-option" data-value="moderna">Moderna</li>
+														<li id="_Q1_C0" class="m-list-option" data-value="moderna" data-selected="true">Moderna</li>
 														<li id="_Q1_C1" class="m-list-option" data-value="cansinoBiologics">CanSino Biologics</li>
 														<li id="_Q1_C2" class="m-list-option" data-value="inovio">Inovio</li>
 														<li id="_Q1_C3" class="m-list-option" data-value="sinovac">Sinovac</li>
-														<li id="_Q1_C4" class="m-list-option" data-value="pfizerBiontech">Pfizer / BioNTech</li>
+														<li id="_Q1_C4" class="m-list-option" data-value="pfizerBiontech" data-selected="true">Pfizer / BioNTech</li>
 														<li id="_Q1_C5" class="m-list-option" data-value="astrazenecaUniversityOfOxford">AstraZeneca / University of Oxford</li>
 														<li id="_Q1_C6" class="m-list-option" data-value="novavax">Novavax</li>
-														<li id="_Q1_C7" class="m-list-option" data-value="gameleyaResearchInstitute" data-selected="true">Gamaleya Research Institute</li>
+														<li id="_Q1_C7" class="m-list-option" data-value="gameleyaResearchInstitute">Gamaleya Research Institute</li>
 														<li id="_Q1_C8" class="m-list-option" data-value="sinopharm">Sinopharm</li>
 														<li id="_Q1_C9" class="m-list-option" data-value="curevac">CureVac</li>
 														<li id="_Q1_C10" class="m-list-option" data-value="shionogi">Shionogi</li>
@@ -174,15 +179,14 @@
 									<div class="l-column">
 										<!-- Question Controls -->
 										<o-response data-question-group="_QList1_QSelectDrug" data-position="below">
-											<!--name: Question-->
 											<fieldset aria-describedby="_label_question">
-												<o-list data-question-group="_QList1_QSelectDrug" data-question-id="_Q2_C">
+												<o-list data-question-group="_QList1_QSelectDrug" data-question-id="_Q2_C" tabindex="0">
 													<ul class="o-list">
 														<li id="_Q2_C0" class="m-list-option" data-value="select">{#emptylabel}</li>
 														<li id="_Q2_C1" class="m-list-option" data-value="__3__7674__7674">177Lu-PSMA-617</li>
 														<li id="_Q2_C2" class="m-list-option" data-value="__3__0002__0002">5-FU</li>
 														<li id="_Q2_C3" class="m-list-option" data-value="__3__0004__0004">6-Mercaptopurine</li>
-														<li id="_Q2_C4" class="m-list-option" data-value="__3__0006__0006">6-Thioguanine</li>
+														<li id="_Q2_C4" class="m-list-option" data-value="__3__0006__0006" data-selected="true">6-Thioguanine</li>
 														<li id="_Q2_C5" class="m-list-option" data-value="__1__9999__9997">7 + 3 (cytarabine + dauorubicin)</li>
 														<li id="_Q2_C6" class="m-list-option" data-value="__2__9999__9997">7 + 3 (cytarabine + idarubicin)</li>
 														<li id="_Q2_C7" class="m-list-option" data-value="__3__9999__9997">7 + 3 (cytarabine + mitoxantrone)</li>
@@ -1210,8 +1214,8 @@
 													<input data-question-group="_QList1_QSelectDrug" name="_Q_DDynamicPage_QList1_QSelectDrug_C" data-hidden="true" id="_Q2" type="text" min="1" max="1" style="text-align:left;"/>
 												</o-list>
 												<o-option-sublist role="group" aria-describedby="_Q2_C_label_question">
-													<m-option-base data-exclusive="" data-question-id="_Q2_C0" data-question-group="_QList1_QSelectDrug" class=" below " data-hidden="false" data-position="below">
-														<input data-question-group="_QList1_QSelectDrug" name="_Q_DDynamicPage_QList1_QSelectDrug_C" id="_Q2_C0" type="checkbox" value="select"/>
+													<m-option-base data-exclusive="" data-question-id="_Q2_C0" data-question-group="_QList1_QSelectDrug" data-checked="true" class=" below " data-hidden="false" data-position="below">
+														<input data-question-group="_QList1_QSelectDrug" name="_Q_DDynamicPage_QList1_QSelectDrug_C" id="_Q2_C0" type="checkbox" value="select" checked="true"/>
 														<label for="_Q2_C0">
 															<span class="a-icon-multistate" data-icon-type="checkbox">
 																<!--Icon-->
