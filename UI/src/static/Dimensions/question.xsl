@@ -677,7 +677,6 @@
             </xsl:for-each>
         </xsl:template>
 
-
     <!-- Response Types -->
     <!-- ============== -->
 
@@ -868,7 +867,6 @@
         </xsl:choose>
     </xsl:template>
 
-
     <xsl:template name="tabstrip">
         <xsl:param name="qType" />
         <xsl:param name="qGroup" />
@@ -889,6 +887,8 @@
         </xsl:element>
     </xsl:template>
 
+<!--
+The old list box template
     <xsl:template name="listbox">
         <xsl:param name="qType" />
         <xsl:param name="qGroup" />
@@ -903,7 +903,7 @@
         <xsl:for-each select="Control">
             <xsl:choose>
                 <xsl:when test="@Type = 'ListBox'">
-                    <xsl:call-template name="o-list">
+                    <xsl:call-template name="o-listbox">
                         <xsl:with-param name="qGroup" select="$qGroup" />
                     </xsl:call-template>
                 </xsl:when>
@@ -915,6 +915,76 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:for-each>
+    </xsl:template>
+-->
+
+    <xsl:template name="listbox">
+        <xsl:param name="qType" />
+        <xsl:param name="qGroup" />
+        <xsl:param name="Hidden" />
+
+        <xsl:variable name="optionCount">
+            <xsl:value-of select="count(Control[not(./Style/Control/@Type='SingleLineEdit')])" />
+        </xsl:variable>
+
+        <xsl:comment>
+            <xsl:text>name: </xsl:text>
+            <xsl:value-of select="name()" />
+        </xsl:comment>
+
+        <xsl:choose>
+            <xsl:when test="$optionCount > 0">
+                <xsl:element name="fieldset">
+                    <xsl:attribute name="aria-describedby">
+                        <xsl:value-of select="@ElementID" />
+                        <xsl:text>_label_question</xsl:text>
+                    </xsl:attribute>
+                
+                    <xsl:for-each select="Control">
+                        <xsl:choose>
+                            <xsl:when test="@Type = 'ListBox'">
+                                <xsl:call-template name="o-list">
+                                    <xsl:with-param name="qGroup" select="$qGroup" />
+                                    <xsl:with-param name="qID" select="@ElementID" />
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:comment>
+                                    <xsl:text>Skipping control of type: </xsl:text>
+                                    <xsl:value-of select="@Type" />
+                                </xsl:comment>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:for-each>
+
+                    <xsl:call-template name="o-option-sublist">
+                        <xsl:with-param name="qType" select="$qType" />
+                        <xsl:with-param name="qGroup" select="$qGroup" />
+                        <xsl:with-param name="questionId" select="Control[1]/@ElementID" />
+                        <xsl:with-param name="optionCount" select="$optionCount" />
+                        <xsl:with-param name="typeOverride" select="'checkbox'" />
+                    </xsl:call-template>
+                </xsl:element>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:for-each select="Control">
+                    <xsl:choose>
+                        <xsl:when test="@Type = 'ListBox'">
+                            <xsl:call-template name="o-list">
+                                <xsl:with-param name="qGroup" select="$qGroup" />
+                                <xsl:with-param name="qID" select="@ElementID" />                            </xsl:call-template>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:comment>
+                                <xsl:text>Skipping control of type: </xsl:text>
+                                <xsl:value-of select="@Type" />
+                            </xsl:comment>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:for-each>
+            </xsl:otherwise>
+        </xsl:choose>
+
     </xsl:template>
 
     <xsl:template name="combobox">
@@ -1170,6 +1240,10 @@
 
             <xsl:call-template name="o-list">
                 <xsl:with-param name="qGroup" select="$qGroup" />
+                <xsl:with-param name="qID">
+                    <xsl:value-of select="@ElementID" />
+                    <xsl:text>_list</xsl:text>
+                </xsl:with-param>
             </xsl:call-template>
         </xsl:element>
     </xsl:template>
