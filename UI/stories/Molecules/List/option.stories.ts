@@ -1,16 +1,17 @@
 import { Meta, StoryObj } from '@storybook/web-components';
-import { AListOption_Story } from './option';
+import { MListOption_Story } from './option';
 
 export default {
-    title: 'Atoms/List',
-    component: 'a-list-option', // Use the tag name of the custom element
+    title: 'Molecules/List',
+    component: 'm-list-item', // Use the tag name of the custom element
     parameters: {
         status: { type: 'beta' },
     },
     argTypes: {
         dataValue: {
             control: 'number',
-            description: 'Specifies the name recorded in the data collection platform.',
+            description:
+                'Specifies the name recorded in the data collection platform.',
             table: {
                 type: { summary: 'number' },
                 category: 'Dimensions',
@@ -35,13 +36,13 @@ export default {
     },
 } as Meta;
 
-type BaseOption = StoryObj<typeof AListOption_Story>;
+type BaseOption = StoryObj<typeof MListOption_Story>;
 export const BaseOption: BaseOption = {
     args: {
         dataValue: 'categoryname',
         id: '_Q1_C0',
         content: 'this is an option',
     },
-    render: (args) => AListOption_Story(args),
+    render: (args) => MListOption_Story(args),
 };
-BaseOption.storyName = 'a-list-option';
+BaseOption.storyName = 'm-list-item';

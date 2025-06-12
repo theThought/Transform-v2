@@ -2,7 +2,7 @@
     display: inline-block;
     position: relative;
 
-    m-list {
+    o-list {
         block-size: 0;
         opacity: 0;
         position: absolute;
@@ -10,12 +10,12 @@
         z-index: 1;
     }
 
-    .m-list {
+    .o-list {
         width: 100%;
     }
 
     &:focus-within {
-        m-list {
+        o-list {
             block-size: auto;
             margin-block-start: -1px;
             opacity: 1;

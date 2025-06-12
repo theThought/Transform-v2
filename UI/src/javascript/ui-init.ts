@@ -19,7 +19,7 @@ import OResponse from './web-components/o-response';
 import OScale from './web-components/o-scale';
 import OScaleContainer from './web-components/m-scale-container';
 import OSlider from './web-components/o-slider';
-import MList from './web-components/m-list';
+import OList from './web-components/o-list';
 
 export const uiInit = (): void => {
     // DEMO web component for Storybook introduction.
@@ -70,5 +70,5 @@ export const uiInit = (): void => {
         customElements.define('m-option-tab', MOptionTab);
     !customElements.get('m-slider-track') &&
         customElements.define('m-slider-track', MSliderTrack);
-    !customElements.get('m-list') && customElements.define('m-list', MList);
+    !customElements.get('o-list') && customElements.define('o-list', OList);
 };

@@ -1,9 +1,9 @@
 import { Meta } from '@storybook/web-components';
-import { MList_Story } from './List';
+import { OList_Story } from './List';
 
 export default {
-    title: 'Molecules/List',
-    component: 'm-list', // Use the tag name of the custom element
+    title: 'Organisms/List',
+    component: 'o-list', // Use the tag name of the custom element
     parameters: {
         status: { type: 'beta' },
     },
@@ -21,8 +21,15 @@ export default {
 } as Meta;
 
 export const OptionList = {
+    parameters: {
+        controls: {
+            exclude: ['questionId', 'questionName'],
+        },
+    },
     args: {
         numberOfItems: 8,
+        questionId: '_Q0',
+        questionName: 'QuestionName',
     },
-    render: (args: object): HTMLElement => MList_Story(args),
+    render: (args: object): HTMLElement => OList_Story(args),
 };

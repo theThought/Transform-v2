@@ -1,12 +1,13 @@
-import { AListOption_Story } from '../../Atoms/List/option';
+import { MListOption_Story } from '../../Molecules/List/option';
 
-export function MList_Story(args): HTMLElement {
-    const component: HTMLElement = document.createElement('m-list');
+export function OList_Story(args): HTMLElement {
+    const component: HTMLElement = document.createElement('o-list');
     component.id = `${args.questionId}_list`;
     component.dataset.questiongroup = args.questionName;
+    component.tabIndex = 0;
 
     const list = document.createElement('ul');
-    list.classList.add('m-list');
+    list.classList.add('o-list');
 
     const input = document.createElement('input');
     input.id = `${args.questionId}`;
@@ -19,7 +20,7 @@ export function MList_Story(args): HTMLElement {
             id: `_Q0_C${i}`,
             dataValue: `value_${i + 1}`,
         };
-        const item = AListOption_Story(optionArgs);
+        const item = MListOption_Story(optionArgs);
         list.appendChild(item);
     }
 

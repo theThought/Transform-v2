@@ -1,7 +1,12 @@
-.a-list-option {
+.m-list-item {
     cursor: default;
+    list-style: none;
 
     &[data-selected='true'] {
         color: var(--color-secondary);
+
+        &::after {
+            content: ' ✓';
+        }
     }
 }

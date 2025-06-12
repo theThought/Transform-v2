@@ -1,4 +1,4 @@
-import { MList_Story } from '../../Molecules/Lists/List';
+import { OList_Story } from '../Lists/List';
 
 export function DropdownHtml(args): HTMLElement {
     const component: HTMLElement = document.createElement('o-dropdown');
@@ -12,7 +12,7 @@ export function DropdownHtml(args): HTMLElement {
     input.className = 'a-input-dropdown';
     input.placeholder = `${args.placeholder}`;
 
-    const list = MList_Story(args);
+    const list = OList_Story(args);
 
     component.appendChild(input);
     component.appendChild(list);

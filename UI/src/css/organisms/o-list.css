@@ -1,8 +1,8 @@
-m-list {
+o-list {
     display: block;
 }
 
-.m-list {
+.o-list {
     --color-border: var(--color-primary);
 
     background: var(--color-white);
