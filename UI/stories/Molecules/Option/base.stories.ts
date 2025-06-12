@@ -124,7 +124,7 @@ export const StandardCheck: MultiAnswer = {
         categoryId: '_C1',
         questionName: 'CheckExample',
         optionLabel: 'This is standard multi-choice option',
-        iconType: 'check',
+        iconType: 'checkbox',
     },
     render: (args) => MOptionBase_Story(args),
 };

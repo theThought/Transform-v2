@@ -137,7 +137,7 @@ export const Slider = {
         categoryId: '_C1',
         questionName: 'CheckExample',
         optionLabel: 'No answer',
-        iconType: 'check',
+        iconType: 'checkbox',
     },
     render: (args: object): HTMLElement => OSliderWithExclusive(args),
 };

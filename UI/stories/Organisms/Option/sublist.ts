@@ -4,10 +4,10 @@ export function OOptionSublist_Story(args): HTMLElement {
     // Apply conditional logic for args
     if (args.optionType === 'single-answer') {
         args.exclusive = true;
-        args.iconType = 'Radio';
+        args.iconType = 'radio';
     } else {
         args.exclusive = false;
-        args.iconType = 'Checkbox';
+        args.iconType = 'checkbox';
     }
 
     const container = document.createElement('fieldset');
@@ -47,10 +47,10 @@ export function OOptionSublist_Story(args): HTMLElement {
     // Apply conditional logic for args
     if (args.optionType === 'single-answer') {
         args.exclusive = true;
-        args.iconType = 'Radio';
+        args.iconType = 'radio';
     } else {
         args.exclusive = false;
-        args.iconType = 'Checkbox';
+        args.iconType = 'checkbox';
     }
 
     for (let counter = 0; counter < args.optionCount; counter++) {
