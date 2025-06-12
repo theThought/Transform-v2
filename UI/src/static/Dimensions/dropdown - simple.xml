@@ -1,0 +1,42 @@
+<Questions>
+    <Question>
+        <Style Color="{&quot;tabstrip&quot;:{&quot;question&quot;:&quot;tabs&quot;,&quot;tab&quot;:null}}" BgColor="dropdown:_Qdd__newproducts" ElementAlign="NewLine" Indent="1">
+            <Control Type="DropList"></Control>
+        </Style>
+        <Control Type="DropList" QuestionName="_Q_DDynamicPage_Qdd__newproducts_C" ElementID="_Q1_C" MinValue="1" MaxValue="1">
+            <Style Color="{&quot;tabstrip&quot;:{&quot;question&quot;:&quot;tabs&quot;,&quot;tab&quot;:null}}" BgColor="dropdown:_Qdd__newproducts" ElementAlign="NewLine" Indent="1">
+                <Control Type="DropList"></Control>
+            </Style>
+            <Category Name="first" CategoryID="0">
+                <Label>
+                    <Style ElementAlign="Right"></Style>
+                    <Text>I am always among the first to prescribe a new product</Text>
+                </Label>
+            </Category>
+            <Category Name="waitShort" CategoryID="1">
+                <Label>
+                    <Style ElementAlign="Right"></Style>
+                    <Text>I like to wait a while (for a few months) after a new product is approved before I start prescribing it</Text>
+                </Label>
+            </Category>
+            <Category Name="waitMedium" CategoryID="2">
+                <Label>
+                    <Style ElementAlign="Right"></Style>
+                    <Text>I wait to be comfortable (for more than a few months) with a new product by speaking to colleagues, hearing about its success before I prescribe it</Text>
+                </Label>
+            </Category>
+            <Category Name="waitLong" CategoryID="3">
+                <Label>
+                    <Style ElementAlign="Right"></Style>
+                    <Text>I prefer to prescribe products that are tried and trusted</Text>
+                </Label>
+            </Category>
+            <Category Name="reluctant" CategoryID="4">
+                <Label>
+                    <Style ElementAlign="Right"></Style>
+                    <Text>I am very reluctant to prescribe new products/switch to new products</Text>
+                </Label>
+            </Category>
+        </Control>
+    </Question>
+</Questions>

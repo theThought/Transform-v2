@@ -177,6 +177,13 @@
                     <xsl:with-param name="Hidden" select="false()"/>
                 </xsl:call-template>
             </xsl:when>
+            <xsl:when test="$qType='dropdown'">
+                <xsl:call-template name="dropdown">
+                    <xsl:with-param name="qType" select="$qType" />
+                    <xsl:with-param name="qGroup" select="$qGroup"/>
+                    <xsl:with-param name="Hidden" select="false()"/>
+                </xsl:call-template>
+            </xsl:when>
         </xsl:choose>
     </xsl:template>
 
@@ -1025,6 +1032,69 @@
         </xsl:choose>
 
     </xsl:template>
+
+    <xsl:template name="dropdown">
+        <xsl:param name="qType" />
+        <xsl:param name="qGroup" />
+        <xsl:param name="Hidden" />
+
+        <xsl:variable name="optionCount">
+            <xsl:value-of select="count(Control[not(./Style/Control/@Type='SingleLineEdit')])" />
+        </xsl:variable>
+
+        <xsl:choose>
+            <xsl:when test="$optionCount > 0">
+                <xsl:element name="fieldset">
+                    <xsl:attribute name="aria-describedby">
+                        <xsl:value-of select="@ElementID" />
+                        <xsl:text>_label_question</xsl:text>
+                    </xsl:attribute>
+                
+                    <xsl:for-each select="Control">
+                        <xsl:choose>
+                            <xsl:when test="@Type = 'DropList'">
+                                <xsl:call-template name="o-dropdown">
+                                    <xsl:with-param name="qGroup" select="$qGroup" />
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:comment>
+                                    <xsl:text>Skipping control of type: </xsl:text>
+                                    <xsl:value-of select="@Type" />
+                                </xsl:comment>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:for-each>
+
+                    <xsl:call-template name="o-option-sublist">
+                        <xsl:with-param name="qType" select="$qType" />
+                        <xsl:with-param name="qGroup" select="$qGroup" />
+                        <xsl:with-param name="questionId" select="Control[1]/@ElementID" />
+                        <xsl:with-param name="optionCount" select="$optionCount" />
+                        <xsl:with-param name="typeOverride" select="'checkbox'" />
+                    </xsl:call-template>
+                </xsl:element>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:for-each select="Control">
+                    <xsl:choose>
+                        <xsl:when test="@Type = 'DropList'">
+                            <xsl:call-template name="o-dropdown">
+                                <xsl:with-param name="qGroup" select="$qGroup" />
+                            </xsl:call-template>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:comment>
+                                <xsl:text>Skipping control of type: </xsl:text>
+                                <xsl:value-of select="@Type" />
+                            </xsl:comment>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:for-each>
+            </xsl:otherwise>
+        </xsl:choose>
+
+    </xsl:template>
     <!-- Organisms -->
     <!-- ============== -->
 
@@ -1230,6 +1300,60 @@
         </xsl:element>
     </xsl:template>
 
+    <xsl:template name="o-dropdown">
+            <!-- inserts a basic edit box -->
+        <xsl:param name="qGroup" />
+        <xsl:param name="subType" select="'horizontal'" />
+
+        <xsl:variable name="questionID">
+            <xsl:choose>
+                <xsl:when test="substring(@ElementID, string-length(@ElementID) - 1) = '_C'">
+                    <xsl:value-of select="substring(@ElementID, 1, string-length(@ElementID) - 2)" />
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="@ElementID" />
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        
+        <xsl:element name="o-dropdown">
+            <xsl:attribute name="data-orientation">
+                <xsl:value-of select="$subType" />
+            </xsl:attribute>
+
+            <xsl:if test="Style/@Width">
+                <xsl:attribute name="style">
+                    <xsl:text>width: </xsl:text>
+                    <xsl:value-of select="Style/@Width" />
+                    <xsl:text>;</xsl:text>
+                </xsl:attribute>
+            </xsl:if>
+
+            <xsl:element name="input">
+                <xsl:attribute name="id">
+                    <xsl:value-of select="$questionID" />
+                    <xsl:text>_control</xsl:text>
+                </xsl:attribute>
+
+                <xsl:attribute name="class">
+                    <xsl:text>a-input-dropdown</xsl:text>
+                </xsl:attribute>
+
+                <xsl:attribute name="placeholder">
+                    <xsl:value-of select="Style/Control/@Placeholder" />
+                </xsl:attribute>
+            </xsl:element>
+
+            <xsl:call-template name="o-list">
+                <xsl:with-param name="qGroup" select="$qGroup" />
+                <xsl:with-param name="qID">
+                    <xsl:value-of select="$questionID" />
+                    <xsl:text>_list</xsl:text>
+                </xsl:with-param>
+            </xsl:call-template>
+        </xsl:element>
+    </xsl:template>
+
     <xsl:template name="o-list">
         <xsl:param name="qGroup" />
         <xsl:param name="qID" />
@@ -1243,7 +1367,7 @@
             <xsl:attribute name="tabindex">
                 <xsl:text>0</xsl:text>
             </xsl:attribute>
-            
+
             <xsl:element name="ul">
                 <xsl:attribute name="class">
                     <xsl:text>o-list</xsl:text>
