@@ -31,11 +31,13 @@ export default class MSingleline extends Component implements Observer {
     }
 
     public update(method: string, data: CustomEvent): void {
-        if (method === 'exclusiveClear') {
-            this.exclusiveClear(data);
-        }
-        if (method === 'exclusiveRestore') {
-            this.onFocusIn();
+        switch (method) {
+            case 'exclusiveClear':
+                this.exclusiveClear(data);
+                break;
+            case 'exclusiveRestore':
+                this.onFocusIn();
+                break;
         }
     }
 

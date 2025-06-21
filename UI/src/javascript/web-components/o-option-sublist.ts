@@ -47,9 +47,11 @@ export default class OOptionSublist
     public update(method: string, data: CustomEvent): void {
         switch (method) {
             case 'clearExclusives':
+                if (this.contains(data.target as HTMLElement)) return;
                 this.handleChange(data);
                 break;
             case 'exclusiveClear':
+                if (this.contains(data.target as HTMLElement)) return;
                 this.notifyObservers('exclusiveClear', data);
                 break;
         }

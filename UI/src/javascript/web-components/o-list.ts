@@ -37,7 +37,16 @@ export default class OList extends Component implements Observer {
             case 'keypress':
                 this.handleEvent(<Event>data);
                 break;
+            case 'exclusiveClear':
+                this.exclusiveClear();
+                break;
         }
+    }
+
+    private exclusiveClear(): void {
+        this.clearSelectedOptions();
+        this.clearValue();
+        this.clearLabel();
     }
 
     private buildList(): void {
