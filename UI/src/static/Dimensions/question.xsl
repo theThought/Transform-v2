@@ -912,7 +912,7 @@
         <xsl:param name="Hidden" />
 
         <xsl:variable name="optionCount">
-            <xsl:value-of select="count(Control[not(./Style/Control/@Type='SingleLineEdit')])" />
+            <xsl:value-of select="count(Control[not(./Style/Control/@Type='ListBox')])" />
         </xsl:variable>
 
         <xsl:choose>
@@ -923,7 +923,7 @@
                         <xsl:text>_label_question</xsl:text>
                     </xsl:attribute>
                 
-                    <xsl:for-each select="Control">
+                    <xsl:for-each select="Control[@Type = 'ListBox']">
                         <xsl:choose>
                             <xsl:when test="@Type = 'ListBox'">
                                 <xsl:call-template name="o-list">
@@ -950,7 +950,7 @@
                 </xsl:element>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:for-each select="Control">
+                <xsl:for-each select="Control[@Type = 'ListBox']">
                     <xsl:choose>
                         <xsl:when test="@Type = 'ListBox'">
                             <xsl:call-template name="o-list">
@@ -1267,6 +1267,10 @@
                 <xsl:with-param name="qGroup" select="$qGroup" />
             </xsl:call-template>
 
+            <xsl:attribute name="class">
+                <xsl:text>o-select-custom</xsl:text>
+            </xsl:attribute>
+
             <xsl:if test="Style/@Width">
                 <xsl:attribute name="style">
                     <xsl:text>width: </xsl:text>
@@ -1279,6 +1283,10 @@
                 <xsl:attribute name="id">
                     <xsl:value-of select="$questionID" />
                     <xsl:text>_control</xsl:text>
+                </xsl:attribute>
+                
+                <xsl:attribute name="type">
+                    <xsl:text>text</xsl:text>
                 </xsl:attribute>
 
                 <xsl:attribute name="class">
@@ -1320,7 +1328,11 @@
             <xsl:call-template name="insert-common-questiontype-attributes">
                 <xsl:with-param name="qGroup" select="$qGroup" />
             </xsl:call-template>
-            
+
+            <xsl:attribute name="class">
+                <xsl:text>o-select-custom</xsl:text>
+            </xsl:attribute>
+
             <xsl:if test="Style/@Width">
                 <xsl:attribute name="style">
                     <xsl:text>width: </xsl:text>
@@ -1333,6 +1345,10 @@
                 <xsl:attribute name="id">
                     <xsl:value-of select="$questionID" />
                     <xsl:text>_control</xsl:text>
+                </xsl:attribute>
+
+                <xsl:attribute name="type">
+                    <xsl:text>text</xsl:text>
                 </xsl:attribute>
 
                 <xsl:attribute name="class">
@@ -1833,6 +1849,7 @@
         <xsl:param name="qGroup" />
         <xsl:param name="questionId" />
         <xsl:param name="optionCount" />
+        <xsl:param name="nonOptionCount" select="1" />
         <xsl:param name="typeOverride" />
 
         <xsl:variable name="includeFieldset">
@@ -1870,8 +1887,8 @@
                             <xsl:value-of select="$questionId" />
                             <xsl:text>_label_question</xsl:text>
                         </xsl:attribute>
-
-                        <xsl:for-each select="Control[not(./Style/Control/@Type='SingleLineEdit')]">
+<!-- not(./Style/Control/@Type='SingleLineEdit') -->
+                        <xsl:for-each select="Control[position()>$nonOptionCount]">
                             <xsl:call-template name="m-option-base">
                                 <xsl:with-param name="qType" select="@Type" />
                                 <xsl:with-param name="qGroup" select="$qGroup" />
@@ -1889,7 +1906,7 @@
                         <xsl:text>_label_question</xsl:text>
                     </xsl:attribute>
 
-                    <xsl:for-each select="Control[not(./Style/Control/@Type='SingleLineEdit')]">
+                    <xsl:for-each select="Control[position()>$nonOptionCount]">
                         <xsl:call-template name="m-option-base">
                             <xsl:with-param name="qType" select="@Type" />
                             <xsl:with-param name="qGroup" select="$qGroup" />

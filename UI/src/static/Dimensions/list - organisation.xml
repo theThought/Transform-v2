@@ -1,0 +1,193 @@
+<Questions>
+    <Question>
+        <Style BgColor="listbox:_QList1_QSelectOrganisation" ElementAlign="NewLine" Indent="1">
+            <Control Type="ListBox"></Control>
+        </Style>
+        <Control Type="ListBox" QuestionName="_Q_DDynamicPage_QList1_QSelectOrganisation_C" ElementID="_Q1_C" MinValue="1" MaxValue="1">
+            <Style BgColor="listbox:_QList1_QSelectOrganisation" ElementAlign="NewLine" Indent="1">
+                <Control Type="ListBox"></Control>
+            </Style>
+            <Category Name="moderna" CategoryID="0">
+                <Label>
+                    <Style ElementAlign="Right"></Style>
+                    <Text>Moderna</Text>
+                </Label>
+            </Category>
+            <Category Name="cansinoBiologics" CategoryID="1">
+                <Label>
+                    <Style ElementAlign="Right"></Style>
+                    <Text>CanSino Biologics</Text>
+                </Label>
+            </Category>
+            <Category Name="inovio" CategoryID="2">
+                <Label>
+                    <Style ElementAlign="Right"></Style>
+                    <Text>Inovio</Text>
+                </Label>
+            </Category>
+            <Category Name="sinovac" CategoryID="3">
+                <Label>
+                    <Style ElementAlign="Right"></Style>
+                    <Text>Sinovac</Text>
+                </Label>
+            </Category>
+            <Category Name="pfizerBiontech" CategoryID="4">
+                <Label>
+                    <Style ElementAlign="Right"></Style>
+                    <Text>Pfizer / BioNTech</Text>
+                </Label>
+            </Category>
+            <Category Name="astrazenecaUniversityOfOxford" CategoryID="5">
+                <Label>
+                    <Style ElementAlign="Right"></Style>
+                    <Text>AstraZeneca / University of Oxford</Text>
+                </Label>
+            </Category>
+            <Category Name="novavax" CategoryID="6">
+                <Label>
+                    <Style ElementAlign="Right"></Style>
+                    <Text>Novavax</Text>
+                </Label>
+            </Category>
+            <Category Name="gameleyaResearchInstitute" CategoryID="7" Checked="true">
+                <Label>
+                    <Style ElementAlign="Right"></Style>
+                    <Text>Gamaleya Research Institute</Text>
+                </Label>
+            </Category>
+            <Category Name="sinopharm" CategoryID="8">
+                <Label>
+                    <Style ElementAlign="Right"></Style>
+                    <Text>Sinopharm</Text>
+                </Label>
+            </Category>
+            <Category Name="curevac" CategoryID="9">
+                <Label>
+                    <Style ElementAlign="Right"></Style>
+                    <Text>CureVac</Text>
+                </Label>
+            </Category>
+            <Category Name="shionogi" CategoryID="10">
+                <Label>
+                    <Style ElementAlign="Right"></Style>
+                    <Text>Shionogi</Text>
+                </Label>
+            </Category>
+            <Category Name="osakaUniversityAngesTakaraBio" CategoryID="11">
+                <Label>
+                    <Style ElementAlign="Right"></Style>
+                    <Text>Osaka University / AnGes / Takara Bio</Text>
+                </Label>
+            </Category>
+            <Category Name="arcturusTherapeutics" CategoryID="12">
+                <Label>
+                    <Style ElementAlign="Right"></Style>
+                    <Text>Arcturus Therapeutics</Text>
+                </Label>
+            </Category>
+            <Category Name="vaxart" CategoryID="13">
+                <Label>
+                    <Style ElementAlign="Right"></Style>
+                    <Text>Vaxart</Text>
+                </Label>
+            </Category>
+            <Category Name="cloverBiopharmaceuticals" CategoryID="14">
+                <Label>
+                    <Style ElementAlign="Right"></Style>
+                    <Text>Clover Biopharmaceuticals</Text>
+                </Label>
+            </Category>
+            <Category Name="johnsonJohnson" CategoryID="15">
+                <Label>
+                    <Style ElementAlign="Right"></Style>
+                    <Text>Johnson &amp;amp; Johnson / Janssen</Text>
+                </Label>
+            </Category>
+            <Category Name="sanofi" CategoryID="16">
+                <Label>
+                    <Style ElementAlign="Right"></Style>
+                    <Text>Sanofi</Text>
+                </Label>
+            </Category>
+            <Category Name="gsk" CategoryID="17">
+                <Label>
+                    <Style ElementAlign="Right"></Style>
+                    <Text>GSK</Text>
+                </Label>
+            </Category>
+            <Category Name="bharatBiotech" CategoryID="18">
+                <Label>
+                    <Style ElementAlign="Right"></Style>
+                    <Text>Bharat Biotech</Text>
+                </Label>
+            </Category>
+            <Category Name="walvax" CategoryID="19">
+                <Label>
+                    <Style ElementAlign="Right"></Style>
+                    <Text>Walvax</Text>
+                </Label>
+            </Category>
+            <Category Name="bavarian__nordic" CategoryID="20">
+                <Label>
+                    <Style ElementAlign="Right"></Style>
+                    <Text>Bavarian Nordic</Text>
+                </Label>
+            </Category>
+            <Category Name="medicago" CategoryID="21">
+                <Label>
+                    <Style ElementAlign="Right"></Style>
+                    <Text>Medicago</Text>
+                </Label>
+            </Category>
+            <Category Name="skBioscience" CategoryID="22">
+                <Label>
+                    <Style ElementAlign="Right"></Style>
+                    <Text>SK Bioscience</Text>
+                </Label>
+            </Category>
+            <Category Name="valneva" CategoryID="23">
+                <Label>
+                    <Style ElementAlign="Right"></Style>
+                    <Text>Valneva</Text>
+                </Label>
+            </Category>
+            <Category Name="reithera" CategoryID="24">
+                <Label>
+                    <Style ElementAlign="Right"></Style>
+                    <Text>ReiThera</Text>
+                </Label>
+            </Category>
+            <Category Name="hipra" CategoryID="25">
+                <Label>
+                    <Style ElementAlign="Right"></Style>
+                    <Text>HIPRA</Text>
+                </Label>
+            </Category>
+            <Category Name="kmBiologics" CategoryID="26">
+                <Label>
+                    <Style ElementAlign="Right"></Style>
+                    <Text>KM Biologics</Text>
+                </Label>
+            </Category>
+            <Category Name="merck" CategoryID="27">
+                <Label>
+                    <Style ElementAlign="Right"></Style>
+                    <Text>Merck</Text>
+                </Label>
+            </Category>
+        </Control>
+        <Control Type="CheckButton" QuestionName="_Q_DDynamicPage_QList1_QSelectOrganisation_X" ElementID="_Q1_X" MinValue="1" MaxValue="1">
+            <Style ElementAlign="NewLine" Indent="1">
+                <Control Type="CheckButton"></Control>
+            </Style>
+            <Category Name="noorg" CategoryID="0">
+                <Label>
+                    <Style ElementAlign="Right">
+                        <Font IsBold="true"></Font>
+                    </Style>
+                    <Text>I don't recognise any of these</Text>
+                </Label>
+            </Category>
+        </Control>
+    </Question>
+    </Questions
