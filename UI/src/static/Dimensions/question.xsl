@@ -400,6 +400,26 @@
         </xsl:element>
     </xsl:template>
 
+    <xsl:template name="insert-label-option-list">
+        <xsl:param name="currentControl" />
+        <xsl:element name="label">
+            
+            <xsl:call-template name="insert-label-icon-multistate">
+                <xsl:with-param name="iconType" select="'listitem'" />
+            </xsl:call-template>
+
+            <xsl:element name="span">
+                <xsl:attribute name="class">
+                    <xsl:text>a-label-option</xsl:text>
+                </xsl:attribute>
+                
+                <xsl:call-template name="insert-label-text">
+                    <xsl:with-param name="content" select="$currentControl/Label/Text" />
+                </xsl:call-template>
+            </xsl:element>
+        </xsl:element>
+    </xsl:template>
+
     <xsl:template name="insert-label-icon-multistate">
         <xsl:param name="iconType" />
 
@@ -924,11 +944,22 @@
                     </xsl:attribute>
                 
                     <xsl:for-each select="Control[@Type = 'ListBox']">
+                        <xsl:variable name="questionID">
+                            <xsl:choose>
+                                <xsl:when test="substring(@ElementID, string-length(@ElementID) - 1) = '_C'">
+                                    <xsl:value-of select="substring(@ElementID, 1, string-length(@ElementID) - 2)" />
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:value-of select="@ElementID" />
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:variable>
+
                         <xsl:choose>
                             <xsl:when test="@Type = 'ListBox'">
                                 <xsl:call-template name="o-list">
                                     <xsl:with-param name="qGroup" select="$qGroup" />
-                                    <xsl:with-param name="qID" select="@ElementID" />
+                                    <xsl:with-param name="qID" select="$questionID" />
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:otherwise>
@@ -951,11 +982,22 @@
             </xsl:when>
             <xsl:otherwise>
                 <xsl:for-each select="Control[@Type = 'ListBox']">
+                    <xsl:variable name="questionID">
+                        <xsl:choose>
+                            <xsl:when test="substring(@ElementID, string-length(@ElementID) - 1) = '_C'">
+                                <xsl:value-of select="substring(@ElementID, 1, string-length(@ElementID) - 2)" />
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:value-of select="@ElementID" />
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:variable>
+
                     <xsl:choose>
                         <xsl:when test="@Type = 'ListBox'">
                             <xsl:call-template name="o-list">
                                 <xsl:with-param name="qGroup" select="$qGroup" />
-                                <xsl:with-param name="qID" select="@ElementID" />                            </xsl:call-template>
+                                <xsl:with-param name="qID" select="$questionID" />                            </xsl:call-template>
                         </xsl:when>
                         <xsl:otherwise>
                             <xsl:comment>
@@ -1095,6 +1137,7 @@
         </xsl:choose>
 
     </xsl:template>
+
     <!-- Organisms -->
     <!-- ============== -->
 
@@ -1384,6 +1427,11 @@
                 <xsl:text>0</xsl:text>
             </xsl:attribute>
 
+            <xsl:attribute name="id">
+                <xsl:value-of select="$qID" />
+                <xsl:text>_list</xsl:text>
+            </xsl:attribute>
+
             <xsl:element name="ul">
                 <xsl:attribute name="class">
                     <xsl:text>o-list</xsl:text>
@@ -1396,6 +1444,7 @@
                         <xsl:with-param name="qType" select="@Type" />
                         <xsl:with-param name="qGroup" select="$qGroup" />
                         <xsl:with-param name="ElementID" select="$ElementID" />
+                        <xsl:with-param name="currentControl" select="." />
                     </xsl:call-template>
                 </xsl:for-each>
             </xsl:element>
@@ -1781,6 +1830,7 @@
         <xsl:param name="qType" />
         <xsl:param name="qGroup" />
         <xsl:param name="ElementID" />
+        <xsl:param name="currentControl" />
 
         <xsl:element name="li">
             <xsl:attribute name="id">
@@ -1802,7 +1852,10 @@
                 </xsl:attribute>
             </xsl:if>
 
-            <xsl:value-of select="Label/Text" />
+            <!-- label-option -->
+            <xsl:call-template name="insert-label-option-list">
+                <xsl:with-param name="currentControl" select="$currentControl" />
+            </xsl:call-template>
 
         </xsl:element>
     </xsl:template>
