@@ -1,0 +1,17 @@
+import { Canvas, Controls, Meta } from '@storybook/addon-docs';
+import * as ComboStories from './combo.stories';
+
+<Meta of={ComboStories} title="Templates/combobox" />
+
+# Combobox Playground
+A combobox provides the user with a series of options in a constrained space. It offers filtering to limit the content of the list to help a user find an item more quickly.
+
+## List with a few items
+This is a listbox with just a small number of items, to demonstrate the basic concept
+<Canvas of={ComboStories.TCombobox_Long} />
+<Controls of={ComboStories.TCombobox_Long} />
+
+## List with lots of items
+Performance is key and so having 1,000s of items in the list needs to be tested.
+<Canvas of={ComboStories.TCombobox_Long} />
+<Controls of={ComboStories.TCombobox_Long} />
