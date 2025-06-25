@@ -52,7 +52,9 @@ export const TListbox: StoryObj<typeof TList.TList_Story> = {
         },
     ],
     args: {
-        listsize: 8,
+        properties: {
+            listsize: 8,
+        },
     },
     render: (args, { loaded }) => TList.TList_Story(args, loaded),
 };
