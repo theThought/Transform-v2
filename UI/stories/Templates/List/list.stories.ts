@@ -10,14 +10,13 @@ export default {
     },
     argTypes: {
         'properties.listsize': {
-            control: { type: 'number', min: 0 },
+            control: { type: 'number', min: 2 },
             name: 'listsize',
             description:
                 'Configures how many options should be displayed in the list.',
             table: {
-                type: { summary: 'number', min: 0 },
+                type: { summary: 'number', min: 2 },
                 category: 'Custom properties',
-                defaultValue: { summary: '6' },
             },
         },
     },
@@ -53,7 +52,7 @@ export const TListbox: StoryObj<typeof TList.TList_Story> = {
     ],
     args: {
         properties: {
-            listsize: 8,
+            listsize: 10,
         },
     },
     render: (args, { loaded }) => TList.TList_Story(args, loaded),
