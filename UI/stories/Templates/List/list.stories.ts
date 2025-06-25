@@ -22,7 +22,7 @@ export default {
     },
 } as Meta;
 
-export const TListbox: StoryObj<typeof TList.TList_Story> = {
+export const TListbox_Short: StoryObj<typeof TList.TList_Story> = {
     loaders: [
         async (context) => {
             const { args } = context; // Extract args from context
@@ -57,4 +57,41 @@ export const TListbox: StoryObj<typeof TList.TList_Story> = {
     },
     render: (args, { loaded }) => TList.TList_Story(args, loaded),
 };
-TListbox.storyName = 'A list box with a small number of items';
+TListbox_Short.storyName = 'Listbox - few items';
+
+export const TListbox_Long: StoryObj<typeof TList.TList_Story> = {
+    loaders: [
+        async (context) => {
+            const { args } = context; // Extract args from context
+
+            try {
+
+                const xmlResponse = await fetch(
+                    `./build/static/Dimensions/list - drugs.xml`,
+                );
+                const xslResponse = await fetch(
+                    './build/static/Dimensions/question.xsl',
+                );
+
+                if (!xmlResponse.ok || !xslResponse.ok) {
+                    throw new Error('Failed to fetch XML or XSLT files.');
+                }
+
+                const xmlData = await xmlResponse.text();
+                const xslData = await xslResponse.text();
+
+                return { xmlData, xslData };
+            } catch (error) {
+                console.error('Error in text loader:', error);
+                throw error;
+            }
+        },
+    ],
+    args: {
+        properties: {
+            listsize: 10,
+        },
+    },
+    render: (args, { loaded }) => TList.TList_Story(args, loaded),
+};
+TListbox_Long.storyName = 'Listbox - many items';
