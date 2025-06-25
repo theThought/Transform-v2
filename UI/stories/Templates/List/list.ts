@@ -23,7 +23,7 @@ export function TList_Story(
         'Questions > Question > Style',
     );
     const dataProperties: any = {
-        listsize: args.listsize || false,
+        listsize: args.propertieslistsize || null,
     };
 
     // Create JSON for data-properties
