@@ -29,7 +29,6 @@ export function TCombo_Story(
         mincharactersforlist: args.properties.mincharactersforlist || 0,
         notenoughcharacters: args.properties.notenoughcharacters || '',
         noitemsinlist: args.properties.noitemsinlist || 'No items found',
-        },
     };
 
     // Create JSON for data-properties
