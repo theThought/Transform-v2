@@ -133,4 +133,41 @@ export const TCombobox_Short: StoryObj<typeof TCombo.TCombo_Story> = {
     },
     render: (args, { loaded }) => TCombo.TCombo_Story(args, loaded),
 };
-TCombobox_Short.storyName = 'Combobo - few items';
+TCombobox_Short.storyName = 'Combobox - few items';
+
+export const TCombobox_Long: StoryObj<typeof TCombo.TCombo_Story> = {
+    loaders: [
+        async (context) => {
+            const { args } = context; // Extract args from context
+
+            try {
+
+                const xmlResponse = await fetch(
+                    `./build/static/Dimensions/combo - simple.xml`,
+                );
+                const xslResponse = await fetch(
+                    './build/static/Dimensions/question.xsl',
+                );
+
+                if (!xmlResponse.ok || !xslResponse.ok) {
+                    throw new Error('Failed to fetch XML or XSLT files.');
+                }
+
+                const xmlData = await xmlResponse.text();
+                const xslData = await xslResponse.text();
+
+                return { xmlData, xslData };
+            } catch (error) {
+                console.error('Error in text loader:', error);
+                throw error;
+            }
+        },
+    ],
+    args: {
+        properties: {
+            listsize: 10,
+        },
+    },
+    render: (args, { loaded }) => TCombo.TCombo_Story(args, loaded),
+};
+TCombobox_Long.storyName = 'Combobox - few items';
