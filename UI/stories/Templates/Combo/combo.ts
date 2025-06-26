@@ -39,7 +39,7 @@ export function TCombo_Story(
     });
 
     controlElements.forEach((controlElement) => {
-        controlElement.setAttribute('placeholder', placeholder || '');
+        controlElement.setAttribute('placeholder', args.placeholder || '');
     });
 
     const serializer = new XMLSerializer();
