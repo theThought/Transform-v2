@@ -159,7 +159,8 @@ export const TCombobox_Long: StoryObj<typeof TCombo.TCombo_Story> = {
     args: {
         properties: {
             listsize: 10,
-            placeholder: 'Select a drug',
+        },
+        placeholder: 'Select a drug',
 
         },
     },
