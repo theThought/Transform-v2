@@ -22,7 +22,6 @@ export function TCombo_Story(
         'Questions > Question > Style > Control',
     );
 
-
     const questionStyleElements = xmlDoc.querySelectorAll(
         'Questions > Question > Style',
     );

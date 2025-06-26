@@ -161,9 +161,7 @@ export const TCombobox_Long: StoryObj<typeof TCombo.TCombo_Story> = {
             listsize: 10,
         },
         placeholder: 'Select a drug',
-
         },
-    },
     render: (args, { loaded }) => TCombo.TCombo_Story(args, loaded),
 };
 TCombobox_Long.storyName = 'Combobox - few items';
