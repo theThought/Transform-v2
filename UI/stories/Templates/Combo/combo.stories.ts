@@ -143,7 +143,7 @@ export const TCombobox_Long: StoryObj<typeof TCombo.TCombo_Story> = {
             try {
 
                 const xmlResponse = await fetch(
-                    `./build/static/Dimensions/combo - simple.xml`,
+                    `./build/static/Dimensions/combo - drugs.xml`,
                 );
                 const xslResponse = await fetch(
                     './build/static/Dimensions/question.xsl',

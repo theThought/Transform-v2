@@ -13,12 +13,7 @@ export function TCombo_Story(
     // Parse the XML and update attributes based on args
     const parser = new DOMParser();
     const xmlDoc = parser.parseFromString(xmlData, 'application/xml');
-    const controlElements = xmlDoc.querySelectorAll(
-        'Questions > Question > Control',
-    );
-    const styleElements = xmlDoc.querySelectorAll(
-        'Questions > Question > Control > Style',
-    );
+
     const questionStyleElements = xmlDoc.querySelectorAll(
         'Questions > Question > Style',
     );
