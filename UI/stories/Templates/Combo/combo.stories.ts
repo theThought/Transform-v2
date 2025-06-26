@@ -17,7 +17,6 @@ export default {
             table: {
                 type: { summary: 'number', min: 0 },
                 category: 'Custom properties',
-                defaultValue: { summary: '6' },
             },
         },
         'properties.listsource': {
@@ -27,7 +26,6 @@ export default {
             table: {
                 category: 'Custom properties',
                 type: { summary: 'text' },
-                defaultValue: { summary: 'n/a' },
             },
         },
         placeholder: {
@@ -35,9 +33,8 @@ export default {
             description:
                 'Defines the text to be displayed if no option is selected.',
             table: {
-                category: 'Custom properties',
+                category: 'Dimensions',
                 type: { summary: 'text' },
-                defaultValue: { summary: 'n/a' },
             },
         },
         'properties.exact': {
@@ -48,7 +45,6 @@ export default {
             table: {
                 category: 'Custom properties',
                 type: { summary: 'boolean' },
-                defaultValue: { summary: 'true' },
             },
         },
         'properties.filtertype': {
@@ -59,7 +55,6 @@ export default {
             table: {
                 category: 'Custom properties',
                 type: { summary: 'select' },
-                defaultValue: { summary: 'contains' },
             },
         },
         'properties.mincharactersforlist': {
@@ -70,7 +65,6 @@ export default {
             table: {
                 category: 'Custom properties',
                 type: { summary: 'number', min: 0 },
-                defaultValue: { summary: '0' },
             },
         },
         'properties.notenoughcharacters': {
@@ -81,7 +75,6 @@ export default {
             table: {
                 category: 'Custom properties',
                 type: { summary: 'text' },
-                defaultValue: { summary: 'n/a' },
             },
         },
         'properties.noitemsinlist': {
@@ -92,7 +85,6 @@ export default {
             table: {
                 category: 'Custom properties',
                 type: { summary: 'text' },
-                defaultValue: { summary: 'n/a' },
             },
         },
     },
@@ -129,6 +121,7 @@ export const TCombobox_Short: StoryObj<typeof TCombo.TCombo_Story> = {
     args: {
         properties: {
             listsize: 10,
+            placeholder: 'Select an option',
         },
     },
     render: (args, { loaded }) => TCombo.TCombo_Story(args, loaded),
@@ -166,6 +159,8 @@ export const TCombobox_Long: StoryObj<typeof TCombo.TCombo_Story> = {
     args: {
         properties: {
             listsize: 10,
+            placeholder: 'Select a drug',
+
         },
     },
     render: (args, { loaded }) => TCombo.TCombo_Story(args, loaded),

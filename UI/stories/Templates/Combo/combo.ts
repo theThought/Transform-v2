@@ -14,6 +14,10 @@ export function TCombo_Story(
     const parser = new DOMParser();
     const xmlDoc = parser.parseFromString(xmlData, 'application/xml');
 
+    const controlElements = xmlDoc.querySelectorAll(
+        'Questions > Question > Control',
+    );
+
     const questionStyleElements = xmlDoc.querySelectorAll(
         'Questions > Question > Style',
     );
@@ -32,6 +36,10 @@ export function TCombo_Story(
     // Update the Color attribute in Question Style elements
     questionStyleElements.forEach((styleElement) => {
         styleElement.setAttribute('Color', dataPropertiesString);
+    });
+
+    controlElements.forEach((controlElement) => {
+        controlElement.setAttribute('placeholder', placeholder || '');
     });
 
     const serializer = new XMLSerializer();
