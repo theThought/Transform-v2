@@ -1,10 +1,10 @@
 <Questions>
 	<Question>
-		<Style Color="{&quot;listsize&quot;:10,&quot;mincharactersforlist&quot;:0,&quot;noenoughcharacters&quot;:&quot;&quot;,&quot;filtertype&quot;:&quot;starts&quot;,&quot;placeholder&quot;:&quot;&quot;,&quot;otherquestion&quot;:null,&quot;noitemsinlist&quot;:&quot;no items match this filter&quot;}" BgColor="combobox:_QComboNewProducts" ElementAlign="NewLine" Indent="1">
+		<Style BgColor="combobox:_QComboNewProducts" ElementAlign="NewLine" Indent="1">
 			<Control Type="ComboList"></Control>
 		</Style>
 		<Control Type="ComboList" QuestionName="_Q_DDynamicPage_QComboNewProducts_C" ElementID="_Q1_C" MinValue="1" MaxValue="1">
-			<Style Color="{&quot;listsize&quot;:10,&quot;mincharactersforlist&quot;:0,&quot;noenoughcharacters&quot;:&quot;&quot;,&quot;filtertype&quot;:&quot;starts&quot;,&quot;placeholder&quot;:&quot;&quot;,&quot;otherquestion&quot;:null,&quot;noitemsinlist&quot;:&quot;no items match this filter&quot;}" BgColor="combobox:_QComboNewProducts" ElementAlign="NewLine" Indent="1">
+			<Style BgColor="combobox:_QComboNewProducts" ElementAlign="NewLine" Indent="1">
 				<Control Type="ComboList"></Control>
 			</Style>
 			<Category Name="first" CategoryID="0_S0">

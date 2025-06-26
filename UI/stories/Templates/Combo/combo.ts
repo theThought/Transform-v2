@@ -14,9 +14,14 @@ export function TCombo_Story(
     const parser = new DOMParser();
     const xmlDoc = parser.parseFromString(xmlData, 'application/xml');
 
-    const controlElements = xmlDoc.querySelectorAll(
-        'Questions > Question > Control',
+    const styleControlElements = xmlDoc.querySelectorAll(
+        'Questions > Question > Control > Style > Control',
     );
+
+    const questionStyleControlElements = xmlDoc.querySelectorAll(
+        'Questions > Question > Style > Control',
+    );
+
 
     const questionStyleElements = xmlDoc.querySelectorAll(
         'Questions > Question > Style',
@@ -38,10 +43,13 @@ export function TCombo_Story(
         styleElement.setAttribute('Color', dataPropertiesString);
     });
 
-    controlElements.forEach((controlElement) => {
+    styleControlElements.forEach((controlElement) => {
         controlElement.setAttribute('placeholder', args.placeholder || '');
     });
 
+    questionStyleControlElements.forEach((controlElement) => {
+        controlElement.setAttribute('placeholder', args.placeholder || '');
+    });
     const serializer = new XMLSerializer();
     const updatedXmlData = serializer.serializeToString(xmlDoc);
 

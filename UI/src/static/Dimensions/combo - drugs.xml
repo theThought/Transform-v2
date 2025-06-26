@@ -4,7 +4,7 @@
             <Control Type="ComboList" Placeholder="select an option"></Control>
         </Style>
         <Control Type="ComboList" QuestionName="_Q_DDynamicPage_Qcb__drugtest_C" ElementID="_Q1_C" MinValue="1" MaxValue="1">
-            <Style Color="{&quot;listsize&quot;:10,&quot;filtertype&quot;:&quot;starts&quot;,&quot;noiteminlist&quot;:&quot;nothing starts that way&quot;}" BgColor="combobox:_Qcb__drugtest" ElementAlign="NewLine" Indent="1">
+            <Style BgColor="combobox:_Qcb__drugtest" ElementAlign="NewLine" Indent="1">
                 <Control Type="ComboList" Placeholder="select an option"></Control>
             </Style>
             <Category Name="select" CategoryID="0">
