@@ -53,6 +53,7 @@ export function TCombo_Story(
     const serializer = new XMLSerializer();
     const updatedXmlData = serializer.serializeToString(xmlDoc);
 
+    console.log('Updated XML Data:', xmlDoc); // Debugging line to check the XML structure
     const container = TransformUtils.transform(updatedXmlData, xslData);
 
     return container;
