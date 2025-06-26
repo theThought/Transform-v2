@@ -121,8 +121,8 @@ export const TCombobox_Short: StoryObj<typeof TCombo.TCombo_Story> = {
     args: {
         properties: {
             listsize: 10,
-            placeholder: 'Select an option',
         },
+        placeholder: 'Select one option',
     },
     render: (args, { loaded }) => TCombo.TCombo_Story(args, loaded),
 };
