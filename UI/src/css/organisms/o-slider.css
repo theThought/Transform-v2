@@ -34,7 +34,16 @@ o-slider {
 
     &.has-terminators {
         a-button-terminator {
+            background-image: url('../../images/terminator.svg');
+            background-position: -1px -12px;
+            background-repeat: no-repeat;
             display: block;
+            height: 25px;
+            width: 30px;
+        }
+
+        a-button-terminator[data-behaviour='decrement'] {
+            transform: rotate(180deg);
         }
     }
 }

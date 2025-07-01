@@ -44,9 +44,11 @@ export default class AButtonTerminator extends Component {
 
     private setLabel(): void {
         if (this.behaviour == 'increment') {
-            this.innerHTML = '&raquo;';
+            //this.innerHTML = '&raquo;';
+            //this.innerHTML = '<img src="terminator.svg" alt="»"/>';
         } else {
-            this.innerHTML = '&laquo;';
+            //this.innerHTML = '&laquo;';
+            //this.innerHTML = '<img src="terminator.svg" alt="»"/>';
         }
     }
 
