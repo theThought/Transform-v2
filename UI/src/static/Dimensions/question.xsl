@@ -402,7 +402,7 @@
 
     <xsl:template name="insert-label-option-list">
         <xsl:param name="currentControl" />
-        <xsl:element name="label">
+        <xsl:element name="div">
             
             <xsl:call-template name="insert-label-icon-multistate">
                 <xsl:with-param name="iconType" select="'listitem'" />
@@ -1264,7 +1264,7 @@
 
         <xsl:element name="div">
             <xsl:attribute name="class">
-                <xsl:text>a-slider-container</xsl:text>
+                <xsl:text>o-slider-container</xsl:text>
             </xsl:attribute> 
 
             <xsl:call-template name="a-label-pre" />
