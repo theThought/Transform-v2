@@ -40,7 +40,7 @@ export const OptionList = {
         numberOfItems: 8,
         questionId: '_Q0',
         questionName: 'QuestionName',
-        iconType: 'checkbox',
+        iconType: 'listitem',
         properties: {
             listsize: 6,
         },

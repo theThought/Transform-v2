@@ -6,7 +6,7 @@ export function MListOption_Story(args: any): HTMLElement {
 
     if (args.state) container.dataset.selected = 'true';
 
-    const labelElement = document.createElement('label');
+    const labelElement = document.createElement('div');
 
     const iconElement = document.createElement('span');
     iconElement.setAttribute('class', 'a-icon-multistate');

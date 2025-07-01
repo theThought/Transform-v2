@@ -16,12 +16,12 @@ label > .a-icon-multistate[data-icon-type='radio'] {
     background-position-x: -42px;
 }
 
-.m-list-option .a-icon-multistate[data-icon-type='checkbox'] {
+.a-icon-multistate[data-icon-type='listitem'] {
     background-image: url('../../images/active.png');
     background-position: -42px;
 }
 
-.m-list-option[data-selected='true'] .a-icon-multistate {
+[data-selected='true'] .a-icon-multistate[data-icon-type='listitem'] {
     background-position: 0;
 }
 

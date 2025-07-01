@@ -55,7 +55,7 @@ export const BaseOption: BaseOption = {
         dataValue: '1',
         id: '_Q1_C0',
         content: 'this is an option',
-        iconType: 'checkbox',
+        iconType: 'listitem',
     },
     render: (args) => MListOption_Story(args),
 };

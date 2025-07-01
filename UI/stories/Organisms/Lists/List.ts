@@ -21,7 +21,7 @@ export function OList_Story(args): HTMLElement {
             content: `this is option ${i + 1}`,
             id: `_Q0_C${i}`,
             dataValue: `value_${i + 1}`,
-            iconType: 'checkbox',
+            iconType: args.iconType,
         };
         const item = MListOption_Story(optionArgs);
         list.appendChild(item);
