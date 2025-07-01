@@ -33,6 +33,14 @@ export default {
                 category: 'Dimensions',
             },
         },
+        state: {
+            control: 'boolean',
+            description: 'Change the selected state of the option.',
+            table: {
+                type: { summary: 'boolean' },
+                category: 'Content',
+            },
+        },
     },
 } as Meta;
 

@@ -4,6 +4,8 @@ export function MListOption_Story(args: any): HTMLElement {
     container.setAttribute('data-value', args.dataValue);
     container.setAttribute('id', args.id);
 
+    if (args.state) container.dataset.selected = 'true';
+
     const labelElement = document.createElement('label');
 
     const iconElement = document.createElement('span');
