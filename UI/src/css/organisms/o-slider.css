@@ -21,6 +21,8 @@ o-slider {
     .a-label-post {
         border: none;
         padding: 0 var(--space-2);
+        position: relative;
+        top: 1px;
     }
 
     .m-label-prepost > * {
@@ -38,7 +40,9 @@ o-slider {
             background-position: -1px -12px;
             background-repeat: no-repeat;
             display: block;
-            height: 25px;
+            height: 26px;
+            position: relative;
+            top: -1px;
             width: 30px;
         }
 
