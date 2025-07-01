@@ -119,6 +119,7 @@ export const Combobox = {
         questionId: '_Q0',
         questionName: 'QuestionName',
         placeholder: 'Placeholder',
+        iconType: 'listitem',
         properties: {
             listsize: 6,
         },
