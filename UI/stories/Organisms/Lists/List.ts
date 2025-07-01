@@ -6,6 +6,8 @@ export function OList_Story(args): HTMLElement {
     component.dataset.questiongroup = args.questionName;
     component.tabIndex = 0;
 
+    component.setAttribute('data-properties', JSON.stringify(args.properties));
+
     const list = document.createElement('ul');
     list.classList.add('o-list');
 

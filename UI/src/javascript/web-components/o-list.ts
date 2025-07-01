@@ -11,6 +11,7 @@ export default class OList extends Component implements Observer {
         },
         mincharactersforlist: 0,
         exact: true,
+        listsize: 6,
     };
 
     protected element: HTMLInputElement | null = null;
@@ -548,6 +549,13 @@ export default class OList extends Component implements Observer {
         }
     }
 
+    private setListHeight(): void {
+        const list = this.querySelector('ul');
+        if (list) {
+            list.style.maxHeight = `${16 + this.properties.listsize * 31}px`;
+        }
+    }
+
     public connectedCallback(): void {
         super.connectedCallback();
 
@@ -555,6 +563,7 @@ export default class OList extends Component implements Observer {
         this.buildList();
         this.indexList();
         this.restoreSelection();
+        this.setListHeight();
 
         this.addEventListener('click', this);
         this.addEventListener('keydown', this);

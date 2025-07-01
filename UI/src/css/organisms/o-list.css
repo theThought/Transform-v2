@@ -10,6 +10,7 @@ o-list {
     display: inline-block;
     max-block-size: 18.75rem;
     min-inline-size: 3em;
+    overflow: auto;
     overflow-block: auto;
     padding: var(--space-2) var(--space-4);
 

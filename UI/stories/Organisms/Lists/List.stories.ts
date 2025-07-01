@@ -17,13 +17,23 @@ export default {
                 defaultValue: { summary: '8' },
             },
         },
+        'properties.listsize': {
+            control: 'number',
+            name: 'listsize',
+            description: 'Specifies the number of visible options in the list.',
+            table: {
+                type: { summary: 'number' },
+                category: 'Custom properties',
+                defaultValue: { summary: '6' },
+            },
+        },
     },
 } as Meta;
 
 export const OptionList = {
     parameters: {
         controls: {
-            exclude: ['questionId', 'questionName', 'iconType'],
+            exclude: ['questionId', 'questionName', 'iconType', 'properties'],
         },
     },
     args: {
@@ -31,6 +41,9 @@ export const OptionList = {
         questionId: '_Q0',
         questionName: 'QuestionName',
         iconType: 'checkbox',
+        properties: {
+            listsize: 6,
+        },
     },
     render: (args: object): HTMLElement => OList_Story(args),
 };

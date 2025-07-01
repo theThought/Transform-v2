@@ -20,12 +20,12 @@ export default {
             },
         },
         'properties.listsize': {
-            control: { type: 'number', min: 0 },
+            control: { type: 'number', min: 1 },
             name: 'listsize',
             description:
                 'Configures how many options should be displayed in the list.',
             table: {
-                type: { summary: 'number', min: 0 },
+                type: { summary: 'number', min: 1 },
                 category: 'Custom properties',
                 defaultValue: { summary: '6' },
             },
@@ -119,7 +119,9 @@ export const Combobox = {
         questionId: '_Q0',
         questionName: 'QuestionName',
         placeholder: 'Placeholder',
-        properties: {},
+        properties: {
+            listsize: 6,
+        },
     },
     render: (args: object): HTMLElement => ComboboxHtml(args),
 };
