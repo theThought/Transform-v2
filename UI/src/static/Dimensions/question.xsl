@@ -1262,7 +1262,11 @@
         <xsl:param name="minimum" select="1" />
         <xsl:param name="maximum" select="10" />
 
-        <xsl:element name="o-slider-container">
+        <xsl:element name="div">
+            <xsl:attribute name="class">
+                <xsl:text>a-slider-container</xsl:text>
+            </xsl:attribute> 
+
             <xsl:call-template name="a-label-pre" />
 
             <xsl:element name="a-button-terminator">
@@ -1815,14 +1819,14 @@
                     </xsl:attribute>
                     <xsl:comment>divider marks</xsl:comment>
                 </xsl:element>
-            </xsl:element>
 
-            <xsl:element name="div">
-                <xsl:attribute name="class">
-                    <xsl:text>m-label-marks</xsl:text>
-                </xsl:attribute>
-                <xsl:comment>label marks</xsl:comment>
-            </xsl:element>  
+                <xsl:element name="div">
+                    <xsl:attribute name="class">
+                        <xsl:text>m-label-marks</xsl:text>
+                    </xsl:attribute>
+                    <xsl:comment>label marks</xsl:comment>
+                </xsl:element> 
+            </xsl:element> 
  
     </xsl:template>
 
