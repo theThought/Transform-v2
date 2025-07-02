@@ -28,3 +28,7 @@ The CSS utility class behaves the same as the HTML attribute.
 :where(.hidden-filter, .hidden-rule) {
     display: none;
 }
+
+.unavailable {
+    display: none;
+}
