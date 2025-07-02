@@ -30,7 +30,9 @@ export default class Component extends HTMLElement {
     }
 
     protected parseProperties(): void {
-        const properties = this.dataset.properties ?? '{}';
+        let properties = this.dataset.properties ?? '{}';
+        properties = properties.replace(/&apos;/g, "'");
+
         const propertiesAsJson: Record<
             string,
             string | number | boolean | object
