@@ -184,6 +184,14 @@
                     <xsl:with-param name="Hidden" select="false()"/>
                 </xsl:call-template>
             </xsl:when>
+
+            <xsl:when test="$qType='loop'">
+                <xsl:call-template name="loop">
+                    <xsl:with-param name="qType" select="$qType" />
+                    <xsl:with-param name="qGroup" select="$qGroup"/>
+                    <xsl:with-param name="Hidden" select="false()"/>
+                </xsl:call-template>
+            </xsl:when>
         </xsl:choose>
     </xsl:template>
 
@@ -351,6 +359,25 @@
                 <xsl:call-template name="insert-common-labelstyle-attributes" />
                 
                 <xsl:call-template name="insert-label-text" />      
+            </xsl:element>
+        </xsl:element>
+    </xsl:template>
+
+    <xsl:template name="insert-label-heading">
+        <xsl:param name="subType" />
+        <xsl:element name="label">
+            <xsl:element name="span">
+                <xsl:attribute name="class">
+                    <xsl:text>a-label-heading</xsl:text>
+                    <xsl:if test="$subType != ''">
+                        <xsl:text>-</xsl:text>
+                        <xsl:value-of select="$subType" />
+                    </xsl:if>
+                </xsl:attribute>
+                
+                <xsl:call-template name="insert-label-text">
+                    <xsl:with-param name="content" select="Text" />
+                </xsl:call-template>    
             </xsl:element>
         </xsl:element>
     </xsl:template>
@@ -1136,6 +1163,144 @@
             </xsl:otherwise>
         </xsl:choose>
 
+    </xsl:template>
+
+    <xsl:template name="loop">
+        <xsl:param name="qType" />
+        <xsl:param name="qGroup" />
+        <xsl:param name="Hidden" />
+
+        <xsl:variable name="questionId">
+            <xsl:value-of select="Control[./Style/Control/@Type='SingleLineEdit'][1]/@ElementID" />
+        </xsl:variable>
+
+        <xsl:variable name="optionCount">
+            <xsl:value-of select="count(Control[not(./Style/Control/@Type='SingleLineEdit')])" />
+        </xsl:variable>
+
+        <xsl:choose>
+            <xsl:when test="$optionCount > 0">
+                <xsl:element name="div">              
+                    <xsl:for-each select="Table">
+                        <xsl:call-template name='loopTable'>
+                            <xsl:with-param name="qGroup">
+                                <xsl:value-of select="$qGroup" />
+                            </xsl:with-param>
+                        </xsl:call-template>
+                    </xsl:for-each>
+
+                    <xsl:call-template name="o-option-sublist">
+                        <xsl:with-param name="qType" select="$qType" />
+                        <xsl:with-param name="qGroup" select="$qGroup" />
+                        <xsl:with-param name="questionId" select="$questionId" />
+                        <xsl:with-param name="optionCount" select="$optionCount" />
+                        <xsl:with-param name="typeOverride" select="'checkbox'" />
+                    </xsl:call-template>
+                </xsl:element>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:for-each select="Table">
+                    <xsl:call-template name='loopTable'>
+                        <xsl:with-param name="qGroup">
+                            <xsl:value-of select="$qGroup" />
+                        </xsl:with-param>
+                    </xsl:call-template>
+                </xsl:for-each>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+
+    <!-- Table Structure -->
+    <!-- ============== -->
+    <xsl:template name="loopTable">
+        <xsl:param name="qGroup" />
+
+        <xsl:element name="Table">
+            <xsl:attribute name="class">
+                <xsl:text>loopTable</xsl:text>
+            </xsl:attribute>
+                <xsl:for-each select="Row">
+                    <xsl:sort select="@Y" data-type="number" order="ascending"/>
+                    <xsl:call-template name="loopRow">
+                        <xsl:with-param name="qGroup" select="$qGroup" />
+                        <xsl:with-param name="currentRow" select="." />
+                    </xsl:call-template>
+                </xsl:for-each>
+        </xsl:element>
+    </xsl:template>
+
+    <xsl:template name="loopRow">
+        <xsl:param name="qGroup" />
+        <xsl:param name="currentRow" />
+        <xsl:element name="tr">
+            <xsl:attribute name="Y">
+                <xsl:value-of select="$currentRow/@Y" />
+            </xsl:attribute>
+            <xsl:attribute name="class">
+                <xsl:text>loopRow</xsl:text>
+            </xsl:attribute>
+
+            <xsl:for-each select="Cell">
+                <xsl:sort select="@X" data-type="number" order="ascending"/>
+                
+                <xsl:call-template name="loopCell">
+                    <xsl:with-param name="qGroup" select="$qGroup" />
+                    <xsl:with-param name="currentCell" select="." />
+                </xsl:call-template>
+            </xsl:for-each>
+        </xsl:element>
+    </xsl:template>
+
+    <xsl:template name="loopCell">
+        <xsl:param name="qGroup" />
+        <xsl:param name="currentCell" />
+        <xsl:choose>
+            <xsl:when test="@Class">
+                <xsl:element name="th">
+                    <xsl:attribute name="X">
+                        <xsl:value-of select="@X" />
+                    </xsl:attribute>
+                    <xsl:attribute name="Y">
+                        <xsl:value-of select="@Y" />
+                    </xsl:attribute>
+                    <xsl:for-each select="Label">
+                        <xsl:call-template name="insert-label-heading">
+                            <xsl:with-param name='subType' select="''" />
+                        </xsl:call-template>
+                    </xsl:for-each>
+                </xsl:element>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:choose>
+                        <xsl:when test="name(*[1]) = 'Question'">
+                            <xsl:for-each select="Question">
+                                <xsl:call-template name="Question" />
+                            </xsl:for-each>
+                        </xsl:when>
+                        <xsl:when test="name(*[1]) = 'Control'">
+                            <xsl:call-template name="Question" />
+                        </xsl:when>
+                    </xsl:choose>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    
+    <xsl:template name="loopHeading">
+        <xsl:param name="qGroup" />
+        <xsl:param name="currentCell" />
+        <xsl:call-template name="insert-label">
+            <xsl:with-param name='subType' select="'heading'" />
+        </xsl:call-template>
+
+        <xsl:element name="Heading">
+            <xsl:attribute name="X">
+                <xsl:value-of select="$currentCell/@X" />
+            </xsl:attribute>
+            <xsl:attribute name="Class">
+                <xsl:value-of select="$currentCell/@Class" />
+            </xsl:attribute>
+            <xsl:value-of select="$currentCell/Control/Label" />
+        </xsl:element>
     </xsl:template>
 
     <!-- Organisms -->
@@ -1944,7 +2109,7 @@
                             <xsl:value-of select="$questionId" />
                             <xsl:text>_label_question</xsl:text>
                         </xsl:attribute>
-<!-- not(./Style/Control/@Type='SingleLineEdit') -->
+                        <!-- not(./Style/Control/@Type='SingleLineEdit') -->
                         <xsl:for-each select="Control[position()>$nonOptionCount]">
                             <xsl:call-template name="m-option-base">
                                 <xsl:with-param name="qType" select="@Type" />

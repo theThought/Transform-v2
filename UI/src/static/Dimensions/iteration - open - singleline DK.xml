@@ -1,0 +1,238 @@
+<Questions>
+    <Question>
+        <Style Color="{&quot;tabstrip&quot;:{&quot;question&quot;:&quot;tabs&quot;,&quot;tab&quot;:&quot;iterationopen&quot;}}" BgColor="loop:_QMoodsOptional" ElementAlign="NewLine"></Style>
+        <Table UseTablesLayout="-1" Summary="Use a single word to describe your mood when you first woke up on each of the days of the last week" TableName="_Q_DDynamicPage_QMoodsOptional" TableID="_Q1" QuestionType="LoopCategorical">
+            <Row Y="0">
+                <Cell X="0" Y="0" Class="mrGridCategoryText">
+                    <Label>
+                        <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                        <Text>Mon</Text>
+                    </Label>
+                </Cell>
+                <Cell X="1" Y="0">
+                    <Question>
+                        <Style BgColor="singleline:_QMoodsOptional_QMon_QMood" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
+                            <Control Type="SingleLineEdit"></Control>
+                        </Style>
+                        <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QMoodsOptional_QMon_QMood" ElementID="_Q1_Q0_Q0" Value="" Length="40">
+                            <Style BgColor="singleline:_QMoodsOptional_QMon_QMood" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
+                                <Control Type="SingleLineEdit"></Control>
+                            </Style>
+                        </Control>
+                        <Control Type="CheckButton" QuestionName="_Q_DDynamicPage_QMoodsOptional_QMon_QMood_X" ElementID="_Q1_Q0_Q0_X">
+                            <Style Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
+                                <Control Type="CheckButton"></Control>
+                            </Style>
+                            <Category Name="nomood" CategoryID="0">
+                                <Label>
+                                    <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right">
+                                        <Font IsBold="true"></Font>
+                                    </Style>
+                                    <Text>I don't remember</Text>
+                                </Label>
+                            </Category>
+                        </Control>
+                    </Question>
+                </Cell>
+            </Row>
+            <Row Y="1">
+                <Cell X="0" Y="1" Class="mrGridCategoryText">
+                    <Label>
+                        <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                        <Text>Tue</Text>
+                    </Label>
+                </Cell>
+                <Cell X="1" Y="1">
+                    <Question>
+                        <Style BgColor="singleline:_QMoodsOptional_QTue_QMood" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
+                            <Control Type="SingleLineEdit"></Control>
+                        </Style>
+                        <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QMoodsOptional_QTue_QMood" ElementID="_Q1_Q1_Q0" Value="" Length="40">
+                            <Style BgColor="singleline:_QMoodsOptional_QTue_QMood" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
+                                <Control Type="SingleLineEdit"></Control>
+                            </Style>
+                        </Control>
+                        <Control Type="CheckButton" QuestionName="_Q_DDynamicPage_QMoodsOptional_QTue_QMood_X" ElementID="_Q1_Q1_Q0_X">
+                            <Style Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
+                                <Control Type="CheckButton"></Control>
+                            </Style>
+                            <Category Name="nomood" CategoryID="0">
+                                <Label>
+                                    <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right">
+                                        <Font IsBold="true"></Font>
+                                    </Style>
+                                    <Text>I don't remember</Text>
+                                </Label>
+                            </Category>
+                        </Control>
+                    </Question>
+                </Cell>
+            </Row>
+            <Row Y="2">
+                <Cell X="0" Y="2" Class="mrGridCategoryText">
+                    <Label>
+                        <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                        <Text>Wed</Text>
+                    </Label>
+                </Cell>
+                <Cell X="1" Y="2">
+                    <Question>
+                        <Style BgColor="singleline:_QMoodsOptional_QWed_QMood" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
+                            <Control Type="SingleLineEdit"></Control>
+                        </Style>
+                        <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QMoodsOptional_QWed_QMood" ElementID="_Q1_Q2_Q0" Value="" Length="40">
+                            <Style BgColor="singleline:_QMoodsOptional_QWed_QMood" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
+                                <Control Type="SingleLineEdit"></Control>
+                            </Style>
+                        </Control>
+                        <Control Type="CheckButton" QuestionName="_Q_DDynamicPage_QMoodsOptional_QWed_QMood_X" ElementID="_Q1_Q2_Q0_X">
+                            <Style Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
+                                <Control Type="CheckButton"></Control>
+                            </Style>
+                            <Category Name="nomood" CategoryID="0">
+                                <Label>
+                                    <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right">
+                                        <Font IsBold="true"></Font>
+                                    </Style>
+                                    <Text>I don't remember</Text>
+                                </Label>
+                            </Category>
+                        </Control>
+                    </Question>
+                </Cell>
+            </Row>
+            <Row Y="3">
+                <Cell X="0" Y="3" Class="mrGridCategoryText">
+                    <Label>
+                        <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                        <Text>Thu</Text>
+                    </Label>
+                </Cell>
+                <Cell X="1" Y="3">
+                    <Question>
+                        <Style BgColor="singleline:_QMoodsOptional_QThu_QMood" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
+                            <Control Type="SingleLineEdit"></Control>
+                        </Style>
+                        <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QMoodsOptional_QThu_QMood" ElementID="_Q1_Q3_Q0" Value="" Length="40">
+                            <Style BgColor="singleline:_QMoodsOptional_QThu_QMood" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
+                                <Control Type="SingleLineEdit"></Control>
+                            </Style>
+                        </Control>
+                        <Control Type="CheckButton" QuestionName="_Q_DDynamicPage_QMoodsOptional_QThu_QMood_X" ElementID="_Q1_Q3_Q0_X">
+                            <Style Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
+                                <Control Type="CheckButton"></Control>
+                            </Style>
+                            <Category Name="nomood" CategoryID="0">
+                                <Label>
+                                    <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right">
+                                        <Font IsBold="true"></Font>
+                                    </Style>
+                                    <Text>I don't remember</Text>
+                                </Label>
+                            </Category>
+                        </Control>
+                    </Question>
+                </Cell>
+            </Row>
+            <Row Y="4">
+                <Cell X="0" Y="4" Class="mrGridCategoryText">
+                    <Label>
+                        <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                        <Text>Fri</Text>
+                    </Label>
+                </Cell>
+                <Cell X="1" Y="4">
+                    <Question>
+                        <Style BgColor="singleline:_QMoodsOptional_QFri_QMood" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
+                            <Control Type="SingleLineEdit"></Control>
+                        </Style>
+                        <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QMoodsOptional_QFri_QMood" ElementID="_Q1_Q4_Q0" Value="" Length="40">
+                            <Style BgColor="singleline:_QMoodsOptional_QFri_QMood" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
+                                <Control Type="SingleLineEdit"></Control>
+                            </Style>
+                        </Control>
+                        <Control Type="CheckButton" QuestionName="_Q_DDynamicPage_QMoodsOptional_QFri_QMood_X" ElementID="_Q1_Q4_Q0_X">
+                            <Style Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
+                                <Control Type="CheckButton"></Control>
+                            </Style>
+                            <Category Name="nomood" CategoryID="0">
+                                <Label>
+                                    <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right">
+                                        <Font IsBold="true"></Font>
+                                    </Style>
+                                    <Text>I don't remember</Text>
+                                </Label>
+                            </Category>
+                        </Control>
+                    </Question>
+                </Cell>
+            </Row>
+            <Row Y="5">
+                <Cell X="0" Y="5" Class="mrGridCategoryText">
+                    <Label>
+                        <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                        <Text>Sat</Text>
+                    </Label>
+                </Cell>
+                <Cell X="1" Y="5">
+                    <Question>
+                        <Style BgColor="singleline:_QMoodsOptional_QSat_QMood" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
+                            <Control Type="SingleLineEdit"></Control>
+                        </Style>
+                        <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QMoodsOptional_QSat_QMood" ElementID="_Q1_Q5_Q0" Value="" Length="40">
+                            <Style BgColor="singleline:_QMoodsOptional_QSat_QMood" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
+                                <Control Type="SingleLineEdit"></Control>
+                            </Style>
+                        </Control>
+                        <Control Type="CheckButton" QuestionName="_Q_DDynamicPage_QMoodsOptional_QSat_QMood_X" ElementID="_Q1_Q5_Q0_X">
+                            <Style Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
+                                <Control Type="CheckButton"></Control>
+                            </Style>
+                            <Category Name="nomood" CategoryID="0">
+                                <Label>
+                                    <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right">
+                                        <Font IsBold="true"></Font>
+                                    </Style>
+                                    <Text>I don't remember</Text>
+                                </Label>
+                            </Category>
+                        </Control>
+                    </Question>
+                </Cell>
+            </Row>
+            <Row Y="6">
+                <Cell X="0" Y="6" Class="mrGridCategoryText">
+                    <Label>
+                        <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                        <Text>Sun</Text>
+                    </Label>
+                </Cell>
+                <Cell X="1" Y="6">
+                    <Question>
+                        <Style BgColor="singleline:_QMoodsOptional_QSun_QMood" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
+                            <Control Type="SingleLineEdit"></Control>
+                        </Style>
+                        <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QMoodsOptional_QSun_QMood" ElementID="_Q1_Q6_Q0" Value="" Length="40">
+                            <Style BgColor="singleline:_QMoodsOptional_QSun_QMood" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
+                                <Control Type="SingleLineEdit"></Control>
+                            </Style>
+                        </Control>
+                        <Control Type="CheckButton" QuestionName="_Q_DDynamicPage_QMoodsOptional_QSun_QMood_X" ElementID="_Q1_Q6_Q0_X">
+                            <Style Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
+                                <Control Type="CheckButton"></Control>
+                            </Style>
+                            <Category Name="nomood" CategoryID="0">
+                                <Label>
+                                    <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right">
+                                        <Font IsBold="true"></Font>
+                                    </Style>
+                                    <Text>I don't remember</Text>
+                                </Label>
+                            </Category>
+                        </Control>
+                    </Question>
+                </Cell>
+            </Row>
+        </Table>
+    </Question>
+</Questions>

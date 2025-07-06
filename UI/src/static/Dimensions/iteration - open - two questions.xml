@@ -1,0 +1,322 @@
+<Questions>
+    <Question>
+        <Style Color="{&quot;tabstrip&quot;:{&quot;question&quot;:&quot;tabs&quot;,&quot;tab&quot;:&quot;iterationopen&quot;}}" BgColor="loop:_QChildAgesMonthYear" ElementAlign="NewLine"></Style>
+        <Table UseTablesLayout="-1" Summary="Please provide the month and year of your childs birth" TableName="_Q_DDynamicPage_QChildAgesMonthYear" TableID="_Q1" QuestionType="LoopCategorical">
+            <Row Y="0">
+                <Cell X="1" Y="0" Class="mrGridQuestionText">
+                    <Label>
+                        <Style ElementAlign="NewLine"></Style>
+                        <Text>Month</Text>
+                    </Label>
+                </Cell>
+                <Cell X="2" Y="0" Class="mrGridQuestionText">
+                    <Label>
+                        <Style ElementAlign="NewLine"></Style>
+                        <Text>Year</Text>
+                    </Label>
+                    <Style BgColor="singleline-number:_QChildAgesMonthYear_Qfirst_QYear" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
+                        <Control Type="SingleLineEdit"></Control>
+                    </Style>
+                </Cell>
+                <Cell X="0" Y="0"></Cell>
+            </Row>
+            <Row Y="1">
+                <Cell X="0" Y="1" Class="mrGridCategoryText">
+                    <Label>
+                        <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                        <Text>1st Child</Text>
+                    </Label>
+                </Cell>
+                <Cell X="1" Y="1">
+                    <Control Type="DropList" QuestionName="_Q_DDynamicPage_QChildAgesMonthYear_Qfirst_QMonth_C" ElementID="_Q1_Q0_Q0_C" MaxValue="12">
+                        <Style BgColor="dropdown:_QChildAgesMonthYear_Qfirst_QMonth" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
+                            <Control Type="DropList"></Control>
+                        </Style>
+                        <Category Name="Jan" CategoryID="0">
+                            <Label>
+                                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                                <Text>January</Text>
+                            </Label>
+                        </Category>
+                        <Category Name="Feb" CategoryID="1">
+                            <Label>
+                                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                                <Text>February</Text>
+                            </Label>
+                        </Category>
+                        <Category Name="Mar" CategoryID="2">
+                            <Label>
+                                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                                <Text>March</Text>
+                            </Label>
+                        </Category>
+                        <Category Name="Apr" CategoryID="3">
+                            <Label>
+                                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                                <Text>April</Text>
+                            </Label>
+                        </Category>
+                        <Category Name="May" CategoryID="4">
+                            <Label>
+                                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                                <Text>May</Text>
+                            </Label>
+                        </Category>
+                        <Category Name="Jun" CategoryID="5">
+                            <Label>
+                                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                                <Text>June</Text>
+                            </Label>
+                        </Category>
+                        <Category Name="Jul" CategoryID="6">
+                            <Label>
+                                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                                <Text>July</Text>
+                            </Label>
+                        </Category>
+                        <Category Name="Aug" CategoryID="7">
+                            <Label>
+                                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                                <Text>August</Text>
+                            </Label>
+                        </Category>
+                        <Category Name="Sep" CategoryID="8">
+                            <Label>
+                                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                                <Text>September</Text>
+                            </Label>
+                        </Category>
+                        <Category Name="Oct" CategoryID="9">
+                            <Label>
+                                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                                <Text>October</Text>
+                            </Label>
+                        </Category>
+                        <Category Name="Nov" CategoryID="10">
+                            <Label>
+                                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                                <Text>November</Text>
+                            </Label>
+                        </Category>
+                        <Category Name="Dec" CategoryID="11">
+                            <Label>
+                                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                                <Text>December</Text>
+                            </Label>
+                        </Category>
+                    </Control>
+                </Cell>
+                <Cell X="2" Y="1">
+                    <Question>
+                        <Style BgColor="singleline-number:_QChildAgesMonthYear_Qfirst_QYear" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
+                            <Control Type="SingleLineEdit"></Control>
+                        </Style>
+                        <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QChildAgesMonthYear_Qfirst_QYear" ElementID="_Q1_Q0_Q1" MaxValue="2025" Value="" MinValue="2005" Length="4">
+                            <Style BgColor="singleline-number:_QChildAgesMonthYear_Qfirst_QYear" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
+                                <Control Type="SingleLineEdit"></Control>
+                            </Style>
+                        </Control>
+                    </Question>
+                </Cell>
+            </Row>
+            <Row Y="2">
+                <Cell X="0" Y="2" Class="mrGridCategoryText">
+                    <Label>
+                        <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                        <Text>2nd Child</Text>
+                    </Label>
+                </Cell>
+                <Cell X="1" Y="2">
+                    <Control Type="DropList" QuestionName="_Q_DDynamicPage_QChildAgesMonthYear_Qsecond_QMonth_C" ElementID="_Q1_Q1_Q0_C" MaxValue="12">
+                        <Style BgColor="dropdown:_QChildAgesMonthYear_Qsecond_QMonth" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
+                            <Control Type="DropList"></Control>
+                        </Style>
+                        <Category Name="Jan" CategoryID="0">
+                            <Label>
+                                <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                                <Text>January</Text>
+                            </Label>
+                        </Category>
+                        <Category Name="Feb" CategoryID="1">
+                            <Label>
+                                <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                                <Text>February</Text>
+                            </Label>
+                        </Category>
+                        <Category Name="Mar" CategoryID="2">
+                            <Label>
+                                <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                                <Text>March</Text>
+                            </Label>
+                        </Category>
+                        <Category Name="Apr" CategoryID="3">
+                            <Label>
+                                <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                                <Text>April</Text>
+                            </Label>
+                        </Category>
+                        <Category Name="May" CategoryID="4">
+                            <Label>
+                                <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                                <Text>May</Text>
+                            </Label>
+                        </Category>
+                        <Category Name="Jun" CategoryID="5">
+                            <Label>
+                                <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                                <Text>June</Text>
+                            </Label>
+                        </Category>
+                        <Category Name="Jul" CategoryID="6">
+                            <Label>
+                                <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                                <Text>July</Text>
+                            </Label>
+                        </Category>
+                        <Category Name="Aug" CategoryID="7">
+                            <Label>
+                                <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                                <Text>August</Text>
+                            </Label>
+                        </Category>
+                        <Category Name="Sep" CategoryID="8">
+                            <Label>
+                                <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                                <Text>September</Text>
+                            </Label>
+                        </Category>
+                        <Category Name="Oct" CategoryID="9">
+                            <Label>
+                                <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                                <Text>October</Text>
+                            </Label>
+                        </Category>
+                        <Category Name="Nov" CategoryID="10">
+                            <Label>
+                                <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                                <Text>November</Text>
+                            </Label>
+                        </Category>
+                        <Category Name="Dec" CategoryID="11">
+                            <Label>
+                                <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                                <Text>December</Text>
+                            </Label>
+                        </Category>
+                    </Control>
+                </Cell>
+                <Cell X="2" Y="2">
+                    <Question>
+                        <Style BgColor="singleline-number:_QChildAgesMonthYear_Qsecond_QYear" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
+                            <Control Type="SingleLineEdit"></Control>
+                        </Style>
+                        <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QChildAgesMonthYear_Qsecond_QYear" ElementID="_Q1_Q1_Q1" MaxValue="2025" Value="" MinValue="2005" Length="4">
+                            <Style BgColor="singleline-number:_QChildAgesMonthYear_Qsecond_QYear" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
+                                <Control Type="SingleLineEdit"></Control>
+                            </Style>
+                        </Control>
+                    </Question>
+                </Cell>
+            </Row>
+            <Row Y="3">
+                <Cell X="0" Y="3" Class="mrGridCategoryText">
+                    <Label>
+                        <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                        <Text>3rd Child</Text>
+                    </Label>
+                </Cell>
+                <Cell X="1" Y="3">
+                    <Control Type="DropList" QuestionName="_Q_DDynamicPage_QChildAgesMonthYear_Qthird_QMonth_C" ElementID="_Q1_Q2_Q0_C" MaxValue="12">
+                        <Style BgColor="dropdown:_QChildAgesMonthYear_Qthird_QMonth" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
+                            <Control Type="DropList"></Control>
+                        </Style>
+                        <Category Name="Jan" CategoryID="0">
+                            <Label>
+                                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                                <Text>January</Text>
+                            </Label>
+                        </Category>
+                        <Category Name="Feb" CategoryID="1">
+                            <Label>
+                                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                                <Text>February</Text>
+                            </Label>
+                        </Category>
+                        <Category Name="Mar" CategoryID="2">
+                            <Label>
+                                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                                <Text>March</Text>
+                            </Label>
+                        </Category>
+                        <Category Name="Apr" CategoryID="3">
+                            <Label>
+                                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                                <Text>April</Text>
+                            </Label>
+                        </Category>
+                        <Category Name="May" CategoryID="4">
+                            <Label>
+                                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                                <Text>May</Text>
+                            </Label>
+                        </Category>
+                        <Category Name="Jun" CategoryID="5">
+                            <Label>
+                                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                                <Text>June</Text>
+                            </Label>
+                        </Category>
+                        <Category Name="Jul" CategoryID="6">
+                            <Label>
+                                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                                <Text>July</Text>
+                            </Label>
+                        </Category>
+                        <Category Name="Aug" CategoryID="7">
+                            <Label>
+                                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                                <Text>August</Text>
+                            </Label>
+                        </Category>
+                        <Category Name="Sep" CategoryID="8">
+                            <Label>
+                                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                                <Text>September</Text>
+                            </Label>
+                        </Category>
+                        <Category Name="Oct" CategoryID="9">
+                            <Label>
+                                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                                <Text>October</Text>
+                            </Label>
+                        </Category>
+                        <Category Name="Nov" CategoryID="10">
+                            <Label>
+                                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                                <Text>November</Text>
+                            </Label>
+                        </Category>
+                        <Category Name="Dec" CategoryID="11">
+                            <Label>
+                                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                                <Text>December</Text>
+                            </Label>
+                        </Category>
+                    </Control>
+                </Cell>
+                <Cell X="2" Y="3">
+                    <Question>
+                        <Style BgColor="singleline-number:_QChildAgesMonthYear_Qthird_QYear" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
+                            <Control Type="SingleLineEdit"></Control>
+                        </Style>
+                        <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QChildAgesMonthYear_Qthird_QYear" ElementID="_Q1_Q2_Q1" MaxValue="2025" Value="" MinValue="2005" Length="4">
+                            <Style BgColor="singleline-number:_QChildAgesMonthYear_Qthird_QYear" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
+                                <Control Type="SingleLineEdit"></Control>
+                            </Style>
+                        </Control>
+                    </Question>
+                </Cell>
+            </Row>
+        </Table>
+    </Question>
+</Questions>
