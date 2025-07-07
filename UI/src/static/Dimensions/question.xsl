@@ -26,10 +26,19 @@
     </xsl:template>    
 
     <xsl:template name="Question">
+        <xsl:param name="cellContext" />
         <!-- iterate through the question eleents in the XML structure -->
         <!-- question elements are contained within the questions element -->
+
         <xsl:variable name="BgColor">
-            <xsl:value-of select="Style/@BgColor"/>
+            <xsl:choose>
+                <xsl:when test="Style">
+                    <xsl:value-of select="Style/@BgColor"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="Control[1]/Style/@BgColor"/>
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:variable>
 
         <xsl:variable name="qType">
@@ -63,13 +72,13 @@
 
         <xsl:if test="Style/@Color">
             <xsl:attribute name="data-properties">
-                <xsl:value-of select="Style/@Color" />
+                <xsl:value-of select="Control[1]/Style/@Color" />
             </xsl:attribute>
         </xsl:if>
 
             <!--- Adds class to define below/side position -->
             <xsl:call-template name="set-data-position">
-                <xsl:with-param name="position" select="Style/@ElementAlign" />
+                <xsl:with-param name="position" select="Control[1]/Style/@ElementAlign" />
             </xsl:call-template>
 
             <xsl:call-template name="LaunchQType">
@@ -364,21 +373,23 @@
     </xsl:template>
 
     <xsl:template name="insert-label-heading">
-        <xsl:param name="subType" />
-        <xsl:element name="label">
-            <xsl:element name="span">
-                <xsl:attribute name="class">
-                    <xsl:text>a-label-heading</xsl:text>
-                    <xsl:if test="$subType != ''">
-                        <xsl:text>-</xsl:text>
-                        <xsl:value-of select="$subType" />
-                    </xsl:if>
-                </xsl:attribute>
-                
-                <xsl:call-template name="insert-label-text">
-                    <xsl:with-param name="content" select="Text" />
-                </xsl:call-template>    
-            </xsl:element>
+        <xsl:param name="X" />
+        <xsl:param name="Y" />  
+        <xsl:param name="pClass" />
+        <xsl:element name="span">
+            <xsl:attribute name="class">
+                <xsl:text>a-label-heading</xsl:text>
+            </xsl:attribute>
+            <xsl:attribute name="id">
+                <xsl:text>C</xsl:text>
+                <xsl:value-of select="$X" />
+                <xsl:text>R</xsl:text>
+                <xsl:value-of select="$Y" />
+            </xsl:attribute>
+
+            <xsl:call-template name="insert-label-text">
+                <xsl:with-param name="content" select="Text" />
+            </xsl:call-template>    
         </xsl:element>
     </xsl:template>
 
@@ -1215,34 +1226,51 @@
     <xsl:template name="loopTable">
         <xsl:param name="qGroup" />
 
-        <xsl:element name="Table">
+        <xsl:element name="table">
             <xsl:attribute name="class">
-                <xsl:text>loopTable</xsl:text>
+                <xsl:text>o-structure-table</xsl:text>
             </xsl:attribute>
-                <xsl:for-each select="Row">
-                    <xsl:sort select="@Y" data-type="number" order="ascending"/>
+            <xsl:variable name="rows" select="Row"/>
+            <!-- Find the split point: first row with a cell with a class -->
+            <xsl:variable name="firstCategoryRowPos"
+                select="count($rows[Cell[@Class]][1]/preceding-sibling::Row) + 1"/>
+            <xsl:variable name="headerRows"
+                select="$rows[position() &lt; $firstCategoryRowPos]"/>
+            <xsl:variable name="bodyRows"
+                select="$rows[position() &gt;= $firstCategoryRowPos]"/>
+            <!-- Use loopTitle for thead -->
+            <xsl:call-template name="loopTopTitles">
+                <xsl:with-param name="rows" select="$headerRows"/>
+            </xsl:call-template>
+            <tbody>
+                <xsl:for-each select="$bodyRows">
                     <xsl:call-template name="loopRow">
-                        <xsl:with-param name="qGroup" select="$qGroup" />
-                        <xsl:with-param name="currentRow" select="." />
+                        <xsl:with-param name="qGroup" select="$qGroup"/>
                     </xsl:call-template>
                 </xsl:for-each>
+            </tbody>
         </xsl:element>
     </xsl:template>
 
     <xsl:template name="loopRow">
         <xsl:param name="qGroup" />
-        <xsl:param name="currentRow" />
         <xsl:element name="tr">
             <xsl:attribute name="Y">
-                <xsl:value-of select="$currentRow/@Y" />
+                <xsl:value-of select="@Y" />
             </xsl:attribute>
             <xsl:attribute name="class">
-                <xsl:text>loopRow</xsl:text>
+                <xsl:choose>
+                    <xsl:when test="Cell[@Class and @X != 0]">
+                        <xsl:text>m-structure-row-heading</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>m-structure-row</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:attribute>
 
             <xsl:for-each select="Cell">
                 <xsl:sort select="@X" data-type="number" order="ascending"/>
-                
                 <xsl:call-template name="loopCell">
                     <xsl:with-param name="qGroup" select="$qGroup" />
                     <xsl:with-param name="currentCell" select="." />
@@ -1263,43 +1291,98 @@
                     <xsl:attribute name="Y">
                         <xsl:value-of select="@Y" />
                     </xsl:attribute>
+                    <xsl:attribute name="class">
+                        <xsl:text>m-structure-cell</xsl:text>
+                    </xsl:attribute>
+                    <xsl:attribute name="scope">
+                        <xsl:choose>
+                            <xsl:when test="@X = 0">
+                                <xsl:text>row</xsl:text>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:text>col</xsl:text>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:attribute>
                     <xsl:for-each select="Label">
                         <xsl:call-template name="insert-label-heading">
-                            <xsl:with-param name='subType' select="''" />
+                            <xsl:with-param name="X" select="../@X" />
+                            <xsl:with-param name="Y" select="../@Y" />
+                            <xsl:with-param name="pClass" select="../@Class" />
                         </xsl:call-template>
                     </xsl:for-each>
                 </xsl:element>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:choose>
+                <xsl:element name="td">
+                    <xsl:attribute name="class">
+                        <xsl:text>m-structure-cell</xsl:text>
+                    </xsl:attribute>
+                    <xsl:choose>
                         <xsl:when test="name(*[1]) = 'Question'">
                             <xsl:for-each select="Question">
+                                <xsl:comment>
+                                    <xsl:text>Processing Question element</xsl:text>
+                                    <xsl:value-of select="concat(' (', @X, ',', @Y, ')', 'name: ', name())" />
+                                </xsl:comment>
                                 <xsl:call-template name="Question" />
                             </xsl:for-each>
                         </xsl:when>
                         <xsl:when test="name(*[1]) = 'Control'">
+                            <xsl:comment>
+                                <xsl:text>Processing Control element</xsl:text>
+                                <xsl:value-of select="concat(' (', @X, ',', @Y, ')', 'name: ', name())" />
+                            </xsl:comment>                        
                             <xsl:call-template name="Question" />
                         </xsl:when>
                     </xsl:choose>
+                </xsl:element>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    
-    <xsl:template name="loopHeading">
-        <xsl:param name="qGroup" />
-        <xsl:param name="currentCell" />
-        <xsl:call-template name="insert-label">
-            <xsl:with-param name='subType' select="'heading'" />
-        </xsl:call-template>
 
-        <xsl:element name="Heading">
-            <xsl:attribute name="X">
-                <xsl:value-of select="$currentCell/@X" />
+    <xsl:template name="loopCellHeading">
+        <xsl:param name="scope" />
+        <xsl:param name="currentCell" />
+
+        <xsl:element name="th">
+            <xsl:attribute name="scope">
+                <xsl:value-of select="$scope" />
             </xsl:attribute>
-            <xsl:attribute name="Class">
-                <xsl:value-of select="$currentCell/@Class" />
-            </xsl:attribute>
-            <xsl:value-of select="$currentCell/Control/Label" />
+
+            <xsl:for-each select="Label">
+                <xsl:call-template name="insert-label-heading">
+                    <xsl:with-param name="X" select="$currentCell/@X" />
+                    <xsl:with-param name="Y" select="$currentCell/@Y" />
+                    <xsl:with-param name="pClass" select="$currentCell/@Class" />
+                </xsl:call-template>
+            </xsl:for-each>
+        </xsl:element>
+    </xsl:template>
+
+    <xsl:template name="loopTopTitles">
+        <xsl:param name="rows" />
+        <xsl:element name="thead">
+            <xsl:for-each select="$rows">
+                <xsl:element name="tr">
+                    <xsl:attribute name="class">
+                        <xsl:text>m-structure-row-heading</xsl:text>
+                    </xsl:attribute>
+                    <xsl:for-each select="Cell">
+                        <xsl:choose>
+                            <xsl:when test="@Class = 'mrGridCategoryText'">
+                                <xsl:call-template name="loopCellHeading">
+                                    <xsl:with-param name="scope" select="'col'" />
+                                    <xsl:with-param name="currentCell" select="." />
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:element name="td" />
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:for-each>
+                </xsl:element>
+            </xsl:for-each>
         </xsl:element>
     </xsl:template>
 
