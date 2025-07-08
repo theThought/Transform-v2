@@ -62,21 +62,6 @@ export default class OList extends Component implements Observer {
         );
     }
 
-    private restoreSelection(): void {
-        if (!this.element) return;
-
-        const option = <HTMLElement>(
-            this.querySelector('[data-value="' + this.element.value + '"]')
-        );
-
-        if (option === null) {
-            return;
-        }
-
-        this.setOption(option);
-        this.setLabel(option);
-    }
-
     private indexList(): void {
         this.list.forEach((node, index) => {
             node.dataset.position = `${index}`;
@@ -141,14 +126,14 @@ export default class OList extends Component implements Observer {
 
     private navigateFirst(): void {
         this.currentListPosition = 0;
-        this.setSelectedOptionByIndex(this.currentListPosition);
-        this.updateScrollPosition(this.currentListPosition);
+        this.setSelectedOptionByIndex();
+        this.updateScrollPosition();
     }
 
     private navigateLast(): void {
         this.currentListPosition = this.list.length - 1;
-        this.setSelectedOptionByIndex(this.currentListPosition);
-        this.updateScrollPosition(this.currentListPosition);
+        this.setSelectedOptionByIndex();
+        this.updateScrollPosition();
     }
 
     private navigateUp(): void {
@@ -162,8 +147,8 @@ export default class OList extends Component implements Observer {
             this.currentListPosition--;
         }
 
-        this.setSelectedOptionByIndex(this.currentListPosition);
-        this.updateScrollPosition(this.currentListPosition);
+        this.setSelectedOptionByIndex();
+        this.updateScrollPosition();
     }
 
     private navigateDown(): void {
@@ -179,20 +164,19 @@ export default class OList extends Component implements Observer {
             this.currentListPosition++;
         }
 
-        this.setSelectedOptionByIndex(this.currentListPosition);
-        this.updateScrollPosition(this.currentListPosition);
+        this.setSelectedOptionByIndex();
+        this.updateScrollPosition();
     }
 
-    private updateScrollPosition(position: number): void {
-        this.scrollTop = 0; //set to top
+    private updateScrollPosition(): void {
+        const position = this.currentListPosition;
         const currentItem = this.buildVisibleList()[position];
 
         if (typeof currentItem === 'undefined') {
             return;
         }
 
-        const scrollPos = currentItem.offsetTop - this.clientHeight;
-        this.scrollTop = scrollPos + 100;
+        currentItem.scrollIntoView(false);
     }
 
     private filterList(e: CustomEvent): void {
@@ -249,7 +233,7 @@ export default class OList extends Component implements Observer {
                     }
                     continue;
                 } else {
-                    this.setSelectedOptionByIndex(i);
+                    this.setSelectedOptionByIndex();
                     this.setListIndex(i);
                     this.notifyListInput();
                     return;
@@ -396,31 +380,53 @@ export default class OList extends Component implements Observer {
         e.stopPropagation();
 
         const clickedElement = <HTMLElement>e.target;
-        const clickedOption = clickedElement.closest('li');
+        const listItem = clickedElement.closest('li');
 
-        if (!clickedOption || clickedOption.dataset.selected === 'true') {
+        if (!listItem || listItem.dataset.selected === 'true') {
             return;
         }
 
         this.clearSelectedOptions();
-        this.setOption(clickedOption);
-        this.setValue(clickedOption);
-        this.setLabel(clickedOption);
+        this.setOption(listItem);
+        this.setValue(listItem);
+        this.setLabel(listItem);
     }
 
-    private setSelectedOptionByIndex(index: number): void {
+    private setSelectedOptionByIndex(): void {
         this.clearSelectedOptions();
 
         const currentVisibleList = this.buildVisibleList();
-        const currentEntry = currentVisibleList[index];
+        const listItem = currentVisibleList[this.currentListPosition];
 
-        if (typeof currentEntry === 'undefined') {
+        if (typeof listItem === 'undefined') {
             return;
         }
 
-        this.setOption(currentEntry);
-        this.setValue(currentEntry);
-        this.setLabel(currentEntry);
+        this.setOption(listItem);
+        this.setValue(listItem);
+        this.setLabel(listItem);
+    }
+
+    private restoreSelection(): void {
+        if (!this.element) return;
+
+        const listItem =
+            <HTMLElement>(
+                this.querySelector('[data-value="' + this.element.value + '"]')
+            ) ?? <HTMLElement>this.querySelector('[data-selected="true"]');
+
+        if (listItem === null) {
+            return;
+        }
+
+        // clearSelectedOptions is called to handle an edge case that should not
+        // be experienced in production: where the list is supplied with a selected
+        // entry AND a value is supplied in the hidden input field
+        this.clearSelectedOptions();
+
+        this.setOption(listItem);
+        this.setValue(listItem);
+        this.setLabel(listItem);
     }
 
     private clearFilteredOptions(): void {
@@ -453,6 +459,7 @@ export default class OList extends Component implements Observer {
         this.currentListPosition = parseInt(optionPosition);
         option.dataset.selected = 'true';
         option.ariaSelected = 'true';
+        this.updateScrollPosition();
     }
 
     private clearValue(): void {
@@ -551,8 +558,11 @@ export default class OList extends Component implements Observer {
 
     private setListHeight(): void {
         const list = this.querySelector('ul');
+        const lineHeight = 31;
+        const padding = 8;
+
         if (list) {
-            list.style.maxHeight = `${16 + this.properties.listsize * 31}px`;
+            list.style.maxHeight = `${padding * 2 + lineHeight * this.properties.listsize}px`;
         }
     }
 
@@ -562,8 +572,8 @@ export default class OList extends Component implements Observer {
         this.element = this.querySelector('input');
         this.buildList();
         this.indexList();
+        this.setListHeight(); // setListHeight must precede restoreSelection to ensure a pre-selected item is correctly scrolled into view
         this.restoreSelection();
-        this.setListHeight();
 
         this.addEventListener('click', this);
         this.addEventListener('keydown', this);
