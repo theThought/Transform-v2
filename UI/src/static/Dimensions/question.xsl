@@ -394,7 +394,7 @@
         <xsl:param name="pClass" />
         <xsl:param name="tableName" />
 
-        |<xsl:variable name="cellContext">
+        <xsl:variable name="cellContext">
             <xsl:choose>
                 <xsl:when test="$X = 0">
                     <xsl:value-of select="concat($tableName, '!', 'R', $Y)" />
