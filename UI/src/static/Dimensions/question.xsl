@@ -57,6 +57,7 @@
             <xsl:call-template name="response">
                 <xsl:with-param name="qType" select="$qType"/>
                 <xsl:with-param name="qGroup" select="$qGroup"/>
+                <xsl:with-param name="cellContext" select="$cellContext"/>
             </xsl:call-template>
         </xsl:element>
     </xsl:template>
@@ -64,6 +65,7 @@
     <xsl:template name="response">
         <xsl:param name="qType" />
         <xsl:param name="qGroup" />
+        <xsl:param name="cellContext" />
         <xsl:element name="o-response">
 
             <xsl:attribute name="data-question-group">
@@ -84,6 +86,7 @@
             <xsl:call-template name="LaunchQType">
                 <xsl:with-param name="qType" select="$qType"/>
                 <xsl:with-param name="qGroup" select="$qGroup"/>
+                <xsl:with-param name="cellContext" select="$cellContext"/>
             </xsl:call-template>
         </xsl:element>
     </xsl:template>
@@ -93,6 +96,7 @@
     <xsl:template name="LaunchQType">
         <xsl:param name="qType" />
         <xsl:param name="qGroup" />
+        <xsl:param name="cellContext" />
 
         <xsl:choose>
             <xsl:when test="$qType='singleline'">
@@ -100,6 +104,7 @@
                     <xsl:with-param name="qType" select="$qType" />
                     <xsl:with-param name="qGroup" select="$qGroup"/>
                     <xsl:with-param name="Hidden" select="false()"/>
+                    <xsl:with-param name="cellContext" select="$cellContext"/>
                 </xsl:call-template>
             </xsl:when>
 
@@ -109,6 +114,7 @@
                     <xsl:with-param name="qGroup" select="$qGroup"/>
                     <xsl:with-param name="Hidden" select="false()"/>
                     <xsl:with-param name="subType" select="'number'"/>
+                    <xsl:with-param name="cellContext" select="$cellContext"/>
                 </xsl:call-template>
             </xsl:when>
 
@@ -118,6 +124,7 @@
                     <xsl:with-param name="qGroup" select="$qGroup"/>
                     <xsl:with-param name="Hidden" select="false()"/>
                     <xsl:with-param name="subType" select="'date'"/>
+                    <xsl:with-param name="cellContext" select="$cellContext"/>
                 </xsl:call-template>
             </xsl:when>
 
@@ -135,7 +142,7 @@
                     <xsl:with-param name="qGroup" select="$qGroup"/>
                     <xsl:with-param name="Hidden" select="false()"/>
                     <xsl:with-param name="subType" select="'horizontal'"/>
-
+                    <xsl:with-param name="cellContext" select="$cellContext"/>
                 </xsl:call-template>
             </xsl:when>
             <xsl:when test="$qType='scale-vertical'">
@@ -144,7 +151,7 @@
                     <xsl:with-param name="qGroup" select="$qGroup"/>
                     <xsl:with-param name="Hidden" select="false()"/>
                     <xsl:with-param name="subType" select="'vertical'"/>
-
+                    <xsl:with-param name="cellContext" select="$cellContext"/>
                 </xsl:call-template>
             </xsl:when>
             <xsl:when test="$qType='slider-horizontal'">
@@ -153,7 +160,7 @@
                     <xsl:with-param name="qGroup" select="$qGroup"/>
                     <xsl:with-param name="Hidden" select="false()"/>
                     <xsl:with-param name="subType" select="'horizontal'"/>
-
+                    <xsl:with-param name="cellContext" select="$cellContext"/>
                 </xsl:call-template>
             </xsl:when>
             <xsl:when test="$qType='slider-vertical'">
@@ -162,7 +169,7 @@
                     <xsl:with-param name="qGroup" select="$qGroup"/>
                     <xsl:with-param name="Hidden" select="false()"/>
                     <xsl:with-param name="subType" select="'vertical'"/>
-
+                    <xsl:with-param name="cellContext" select="$cellContext"/>
                 </xsl:call-template>
             </xsl:when>
             <xsl:when test="$qType='tabstrip'">
@@ -177,6 +184,7 @@
                     <xsl:with-param name="qType" select="$qType" />
                     <xsl:with-param name="qGroup" select="$qGroup"/>
                     <xsl:with-param name="Hidden" select="false()"/>
+                    <xsl:with-param name="cellContext" select="$cellContext"/>
                 </xsl:call-template>
             </xsl:when>
             <xsl:when test="$qType='combobox'">
@@ -184,6 +192,7 @@
                     <xsl:with-param name="qType" select="$qType" />
                     <xsl:with-param name="qGroup" select="$qGroup"/>
                     <xsl:with-param name="Hidden" select="false()"/>
+                    <xsl:with-param name="cellContext" select="$cellContext"/>
                 </xsl:call-template>
             </xsl:when>
             <xsl:when test="$qType='dropdown'">
@@ -191,6 +200,7 @@
                     <xsl:with-param name="qType" select="$qType" />
                     <xsl:with-param name="qGroup" select="$qGroup"/>
                     <xsl:with-param name="Hidden" select="false()"/>
+                    <xsl:with-param name="cellContext" select="$cellContext"/>
                 </xsl:call-template>
             </xsl:when>
 
@@ -199,6 +209,7 @@
                     <xsl:with-param name="qType" select="$qType" />
                     <xsl:with-param name="qGroup" select="$qGroup"/>
                     <xsl:with-param name="Hidden" select="false()"/>
+                    <xsl:with-param name="cellContext" select="$cellContext"/>
                 </xsl:call-template>
             </xsl:when>
         </xsl:choose>
@@ -209,6 +220,7 @@
         <xsl:param name="qGroup" />
         <xsl:param name="isHidden" select="false()" />
         <xsl:param name="applyWidth" select="true()" />
+        <xsl:param name="currentValue" select="''" />
 
         <xsl:element name="input">
             <!-- insert base attributes -->
@@ -288,6 +300,10 @@
                         <xsl:text>;</xsl:text>
                     </xsl:when>
                 </xsl:choose>
+            </xsl:attribute>
+
+            <xsl:attribute name="value">
+                <xsl:value-of select="$currentValue" />
             </xsl:attribute>
 
             <!--- Accelerator access key -->
@@ -376,15 +392,28 @@
         <xsl:param name="X" />
         <xsl:param name="Y" />  
         <xsl:param name="pClass" />
+        <xsl:param name="tableName" />
+
+        |<xsl:variable name="cellContext">
+            <xsl:choose>
+                <xsl:when test="$X = 0">
+                    <xsl:value-of select="concat($tableName, '!', 'R', $Y)" />
+                </xsl:when>
+                <xsl:when test="$Y = 0">
+                    <xsl:value-of select="concat($tableName, '!', 'C', $X)" />
+                </xsl:when> 
+                <xsl:otherwise>
+                    <xsl:value-of select="concat($tableName, '!', 'C', $X, 'R', $Y)" />
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+
         <xsl:element name="span">
             <xsl:attribute name="class">
                 <xsl:text>a-label-heading</xsl:text>
             </xsl:attribute>
             <xsl:attribute name="id">
-                <xsl:text>C</xsl:text>
-                <xsl:value-of select="$X" />
-                <xsl:text>R</xsl:text>
-                <xsl:value-of select="$Y" />
+                <xsl:value-of select="$cellContext" />
             </xsl:attribute>
 
             <xsl:call-template name="insert-label-text">
@@ -762,6 +791,7 @@
         <xsl:param name="qGroup" />
         <xsl:param name="Hidden" />
         <xsl:param name="subType" />
+        <xsl:param name="cellContext" />
 
         <xsl:variable name="questionId">
             <xsl:value-of select="Control[./Style/Control/@Type='SingleLineEdit'][1]/@ElementID" />
@@ -785,6 +815,7 @@
                                 <xsl:value-of select="$qGroup" />
                             </xsl:with-param>
                             <xsl:with-param name="subType" select="$subType" />
+                            <xsl:with-param name="cellContext" select="$cellContext"/>
                         </xsl:call-template>
                     </xsl:for-each>
 
@@ -804,6 +835,7 @@
                             <xsl:value-of select="$qGroup" />
                         </xsl:with-param>
                         <xsl:with-param name="subType" select="$subType" />
+                        <xsl:with-param name="cellContext" select="$cellContext"/>
                     </xsl:call-template>
                 </xsl:for-each>
             </xsl:otherwise>
@@ -835,6 +867,7 @@
         <xsl:param name="qGroup" />
         <xsl:param name="Hidden" />
         <xsl:param name="subType" select="'horizontal'" />
+        <xsl:param name="cellContext" />
 
         <xsl:variable name="questionId">
             <xsl:value-of select="Control[./Style/Control/@Type='SingleLineEdit'][1]/@ElementID" />
@@ -860,6 +893,7 @@
                             <xsl:with-param name="subType">
                                 <xsl:value-of select="$subType" />
                             </xsl:with-param>
+                            <xsl:with-param name="cellContext" select="$cellContext"/>
                         </xsl:call-template>
                     </xsl:for-each>
 
@@ -881,6 +915,7 @@
                         <xsl:with-param name="subType">
                             <xsl:value-of select="$subType" />
                         </xsl:with-param>
+                        <xsl:with-param name="cellContext" select="$cellContext"/>
                     </xsl:call-template>
                 </xsl:for-each>
             </xsl:otherwise>
@@ -892,6 +927,7 @@
         <xsl:param name="qGroup" />
         <xsl:param name="Hidden" />
         <xsl:param name="subType" select="'horizontal'" />
+        <xsl:param name="cellContext" />
 
         <xsl:variable name="questionId">
             <xsl:value-of select="Control[./Style/Control/@Type='SingleLineEdit'][1]/@ElementID" />
@@ -917,6 +953,7 @@
                             <xsl:with-param name="subType">
                                 <xsl:value-of select="$subType" />
                             </xsl:with-param>
+                            <xsl:with-param name="cellContext" select="$cellContext"/>
                         </xsl:call-template>
                     </xsl:for-each>
 
@@ -938,6 +975,7 @@
                         <xsl:with-param name="subType">
                             <xsl:value-of select="$subType" />
                         </xsl:with-param>
+                        <xsl:with-param name="cellContext" select="$cellContext"/>
                     </xsl:call-template>
                 </xsl:for-each>
             </xsl:otherwise>
@@ -968,6 +1006,7 @@
         <xsl:param name="qType" />
         <xsl:param name="qGroup" />
         <xsl:param name="Hidden" />
+        <xsl:param name="cellContext" />
 
         <xsl:variable name="optionCount">
             <xsl:value-of select="count(Control[not(./Style/Control/@Type='ListBox')])" />
@@ -998,6 +1037,7 @@
                                 <xsl:call-template name="o-list">
                                     <xsl:with-param name="qGroup" select="$qGroup" />
                                     <xsl:with-param name="qID" select="$questionID" />
+                                    <xsl:with-param name="cellContext" select="$cellContext"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:otherwise>
@@ -1035,7 +1075,9 @@
                         <xsl:when test="@Type = 'ListBox'">
                             <xsl:call-template name="o-list">
                                 <xsl:with-param name="qGroup" select="$qGroup" />
-                                <xsl:with-param name="qID" select="$questionID" />                            </xsl:call-template>
+                                <xsl:with-param name="qID" select="$questionID" />
+                                <xsl:with-param name="cellContext" select="$cellContext"/>
+                            </xsl:call-template>
                         </xsl:when>
                         <xsl:otherwise>
                             <xsl:comment>
@@ -1054,7 +1096,7 @@
         <xsl:param name="qType" />
         <xsl:param name="qGroup" />
         <xsl:param name="Hidden" />
-
+        <xsl:param name="cellContext" />
         <xsl:variable name="optionCount">
             <xsl:value-of select="count(Control[not(./Style/Control/@Type='SingleLineEdit')])" />
         </xsl:variable>
@@ -1072,6 +1114,7 @@
                             <xsl:when test="@Type = 'ComboList'">
                                 <xsl:call-template name="o-combobox">
                                     <xsl:with-param name="qGroup" select="$qGroup" />
+                                    <xsl:with-param name="cellContext" select="$cellContext"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:otherwise>
@@ -1098,6 +1141,7 @@
                         <xsl:when test="@Type = 'ComboList'">
                             <xsl:call-template name="o-combobox">
                                 <xsl:with-param name="qGroup" select="$qGroup" />
+                                <xsl:with-param name="cellContext" select="$cellContext"/>
                             </xsl:call-template>
                         </xsl:when>
                         <xsl:otherwise>
@@ -1117,6 +1161,7 @@
         <xsl:param name="qType" />
         <xsl:param name="qGroup" />
         <xsl:param name="Hidden" />
+        <xsl:param name="cellContext" />
 
         <xsl:variable name="optionCount">
             <xsl:value-of select="count(Control[not(./Style/Control/@Type='SingleLineEdit')])" />
@@ -1135,6 +1180,7 @@
                             <xsl:when test="@Type = 'DropList'">
                                 <xsl:call-template name="o-dropdown">
                                     <xsl:with-param name="qGroup" select="$qGroup" />
+                                    <xsl:with-param name="cellContext" select="$cellContext"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:otherwise>
@@ -1161,6 +1207,7 @@
                         <xsl:when test="@Type = 'DropList'">
                             <xsl:call-template name="o-dropdown">
                                 <xsl:with-param name="qGroup" select="$qGroup" />
+                                <xsl:with-param name="cellContext" select="$cellContext"/>
                             </xsl:call-template>
                         </xsl:when>
                         <xsl:otherwise>
@@ -1226,6 +1273,8 @@
     <xsl:template name="loopTable">
         <xsl:param name="qGroup" />
 
+        <xsl:variable name="tableName" select="@TableName"/>
+
         <xsl:element name="table">
             <xsl:attribute name="class">
                 <xsl:text>o-structure-table</xsl:text>
@@ -1246,6 +1295,7 @@
                 <xsl:for-each select="$bodyRows">
                     <xsl:call-template name="loopRow">
                         <xsl:with-param name="qGroup" select="$qGroup"/>
+                        <xsl:with-param name="tableName" select="$tableName" />
                     </xsl:call-template>
                 </xsl:for-each>
             </tbody>
@@ -1254,6 +1304,7 @@
 
     <xsl:template name="loopRow">
         <xsl:param name="qGroup" />
+        <xsl:param name="tableName" />
         <xsl:element name="tr">
             <xsl:attribute name="Y">
                 <xsl:value-of select="@Y" />
@@ -1274,6 +1325,7 @@
                 <xsl:call-template name="loopCell">
                     <xsl:with-param name="qGroup" select="$qGroup" />
                     <xsl:with-param name="currentCell" select="." />
+                    <xsl:with-param name="tableName" select="$tableName" />
                 </xsl:call-template>
             </xsl:for-each>
         </xsl:element>
@@ -1282,6 +1334,10 @@
     <xsl:template name="loopCell">
         <xsl:param name="qGroup" />
         <xsl:param name="currentCell" />
+        <xsl:param name="tableName" />
+        <xsl:variable name="cellContext">
+            <xsl:value-of select="concat($tableName, '!C', @X, ' ', $tableName, '!R', @Y)" />
+        </xsl:variable>
         <xsl:choose>
             <xsl:when test="@Class">
                 <xsl:element name="th">
@@ -1309,6 +1365,7 @@
                             <xsl:with-param name="X" select="../@X" />
                             <xsl:with-param name="Y" select="../@Y" />
                             <xsl:with-param name="pClass" select="../@Class" />
+                            <xsl:with-param name="tableName" select="$tableName" />
                         </xsl:call-template>
                     </xsl:for-each>
                 </xsl:element>
@@ -1321,11 +1378,9 @@
                     <xsl:choose>
                         <xsl:when test="name(*[1]) = 'Question'">
                             <xsl:for-each select="Question">
-                                <xsl:comment>
-                                    <xsl:text>Processing Question element</xsl:text>
-                                    <xsl:value-of select="concat(' (', @X, ',', @Y, ')', 'name: ', name())" />
-                                </xsl:comment>
-                                <xsl:call-template name="Question" />
+                                <xsl:call-template name="Question">
+                                    <xsl:with-param name="cellContext" select="$cellContext" />
+                                </xsl:call-template>
                             </xsl:for-each>
                         </xsl:when>
                         <xsl:when test="name(*[1]) = 'Control'">
@@ -1333,7 +1388,9 @@
                                 <xsl:text>Processing Control element</xsl:text>
                                 <xsl:value-of select="concat(' (', @X, ',', @Y, ')', 'name: ', name())" />
                             </xsl:comment>                        
-                            <xsl:call-template name="Question" />
+                            <xsl:call-template name="Question">
+                                <xsl:with-param name="cellContext" select="$cellContext" />
+                            </xsl:call-template>
                         </xsl:when>
                     </xsl:choose>
                 </xsl:element>
@@ -1393,6 +1450,7 @@
             <!-- inserts a basic edit box -->
         <xsl:param name="qGroup" />
         <xsl:param name="subType" select="'horizontal'" />
+        <xsl:param name="cellContext" />
 
         <xsl:element name="o-scale">
             <xsl:attribute name="data-orientation">
@@ -1422,6 +1480,7 @@
                             <xsl:with-param name="qGroup" select="$qGroup" />
                             <xsl:with-param name="isHidden" select="true()" />
                             <xsl:with-param name="applyWidth" select="false()" />
+                            <xsl:with-param name="cellContext" select="$cellContext" />
                     </xsl:call-template>
                 </xsl:when> 
                 <xsl:when test="$subType='vertical'">
@@ -1438,6 +1497,7 @@
                             <xsl:with-param name="qGroup" select="$qGroup" />
                             <xsl:with-param name="isHidden" select="true()" />
                             <xsl:with-param name="applyWidth" select="false()" />
+                            <xsl:with-param name="cellContext" select="$cellContext" />
                     </xsl:call-template>
 
                     <xsl:call-template name="a-label-post" />
@@ -1450,6 +1510,7 @@
             <!-- inserts a basic edit box -->
         <xsl:param name="qGroup" />
         <xsl:param name="subType" select="'horizontal'" />
+        <xsl:param name="cellContext" />
 
         <xsl:element name="o-slider">
             <xsl:attribute name="data-orientation">
@@ -1480,6 +1541,7 @@
                             <xsl:with-param name="qGroup" select="$qGroup" />
                             <xsl:with-param name="isHidden" select="true()" />
                             <xsl:with-param name="applyWidth" select="false()" />
+                            <xsl:with-param name="cellContext" select="$cellContext" />
                     </xsl:call-template>
                 </xsl:when> 
                 <xsl:when test="$subType='vertical'">
@@ -1496,6 +1558,7 @@
                             <xsl:with-param name="qGroup" select="$qGroup" />
                             <xsl:with-param name="isHidden" select="true()" />
                             <xsl:with-param name="applyWidth" select="false()" />
+                            <xsl:with-param name="cellContext" select="$cellContext" />
                     </xsl:call-template>
 
                     <xsl:call-template name="a-label-post" />
@@ -1545,6 +1608,7 @@
             <!-- inserts a basic edit box -->
         <xsl:param name="qGroup" />
         <xsl:param name="subType" select="'horizontal'" />
+        <xsl:param name="cellContext" />
 
         <xsl:variable name="questionID">
             <xsl:choose>
@@ -1591,6 +1655,7 @@
                 <xsl:attribute name="placeholder">
                     <xsl:value-of select="Style/Control/@Placeholder" />
                 </xsl:attribute>
+
             </xsl:element>
 
             <xsl:call-template name="o-list">
@@ -1599,6 +1664,7 @@
                     <xsl:value-of select="$questionID" />
                     <xsl:text>_list</xsl:text>
                 </xsl:with-param>
+                <xsl:with-param name="cellContext" select="$cellContext"/>
             </xsl:call-template>
         </xsl:element>
     </xsl:template>
@@ -1607,6 +1673,7 @@
             <!-- inserts a basic edit box -->
         <xsl:param name="qGroup" />
         <xsl:param name="subType" select="'horizontal'" />
+        <xsl:param name="cellContext" />
 
         <xsl:variable name="questionID">
             <xsl:choose>
@@ -1661,6 +1728,7 @@
                     <xsl:value-of select="$questionID" />
                     <xsl:text>_list</xsl:text>
                 </xsl:with-param>
+                <xsl:with-param name="cellContext" select="$cellContext"/>
             </xsl:call-template>
         </xsl:element>
     </xsl:template>
@@ -1668,6 +1736,7 @@
     <xsl:template name="o-list">
         <xsl:param name="qGroup" />
         <xsl:param name="qID" />
+        <xsl:param name="cellContext" />
 
         <xsl:element name="o-list">
             <xsl:call-template name="insert-common-questiontype-attributes">
@@ -1684,6 +1753,8 @@
                 <xsl:text>_list</xsl:text>
             </xsl:attribute>
 
+            <xsl:variable name="categories" select="Category" />
+
             <xsl:element name="ul">
                 <xsl:attribute name="class">
                     <xsl:text>o-list</xsl:text>
@@ -1691,7 +1762,8 @@
                 <xsl:variable name="ElementID">
                     <xsl:value-of select="@ElementID" />
                 </xsl:variable>
-                <xsl:for-each select="Category">
+
+                <xsl:for-each select="$categories">
                     <xsl:call-template name="m-list-option">
                         <xsl:with-param name="qType" select="@Type" />
                         <xsl:with-param name="qGroup" select="$qGroup" />
@@ -1700,15 +1772,26 @@
                     </xsl:call-template>
                 </xsl:for-each>
             </xsl:element>
+
+            <xsl:variable name="selectedCategory">
+                <xsl:for-each select="$categories[@Checked='true']">
+                    <xsl:value-of select="@Name"/>
+                    <xsl:if test="position() != last()">,</xsl:if>
+                </xsl:for-each>
+            </xsl:variable>
+
             <xsl:call-template name="insert-input">
                 <xsl:with-param name="inputType" select="'text'" />
                 <xsl:with-param name="qGroup" select="$qGroup" />
                 <xsl:with-param name="isHidden" select="true()" />
+                <xsl:with-param name="currentValue" select="$selectedCategory" />
+                <xsl:with-param name="cellContext" select="$cellContext" />
             </xsl:call-template>
         </xsl:element>
     </xsl:template>
-    <!-- Molecules -->
-    <!-- ============== -->
+
+<!-- Molecules -->
+<!-- ============== -->
 
     <xsl:template name="m-scale-container">
         <xsl:param name="qGroup" />
@@ -1739,6 +1822,7 @@
         <!-- inserts a basic edit box -->
         <xsl:param name="qGroup" />
         <xsl:param name="subType" />
+        <xsl:param name="cellContext" select="''" />
 
         <xsl:variable name="subTypeElement">
             <xsl:text>m-singleline</xsl:text>
@@ -1749,6 +1833,12 @@
         </xsl:variable>
 
         <xsl:element name="{$subTypeElement}">
+            <xsl:if test="$cellContext != ''">
+                <xsl:attribute name="aria-labelledby">
+                    <xsl:value-of select="$cellContext" />
+                </xsl:attribute>
+            </xsl:if>
+
             <xsl:call-template name="insert-common-questiontype-attributes">
                 <xsl:with-param name="qGroup" select="$qGroup" />
             </xsl:call-template>
@@ -2022,7 +2112,6 @@
                 <xsl:with-param name="currentControl" select="$currentControl" />
                 <xsl:with-param name="controlId" select="$qCategoryID" />
             </xsl:call-template>
-
         </xsl:element>
     </xsl:template>
 
@@ -2098,12 +2187,6 @@
                 <xsl:value-of select="@Name" />
             </xsl:attribute>
 
-            <xsl:if test="@Checked">
-                <xsl:attribute name="data-selected">
-                    <xsl:text>true</xsl:text>
-                </xsl:attribute>
-            </xsl:if>
-
             <!-- label-option -->
             <xsl:call-template name="insert-label-option-list">
                 <xsl:with-param name="currentControl" select="$currentControl" />
@@ -2111,9 +2194,9 @@
 
         </xsl:element>
     </xsl:template>
+
     <!-- Atoms -->
     <!-- ===== -->
-
 
     <xsl:template name="a-label-pre">
         <xsl:element name="span">
