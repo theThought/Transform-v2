@@ -9,7 +9,7 @@ o-slider {
         margin-block-start: calc(var(--space-4) * 2);
     }
 
-    &.has-labels {
+    &.has-labels-position-before {
         margin-block-start: 0;
     }
 

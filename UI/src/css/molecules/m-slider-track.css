@@ -26,8 +26,8 @@ m-slider-track {
         }
 
         output {
-            /* specific value -27px to align the thumb with the standard padding applied to label */
-            transform: translate(-50%, -27px);
+            /* specific value -26px to align the thumb with the standard padding applied to label */
+            transform: translate(-50%, -26px);
         }
 
         &.show-value {

@@ -129,6 +129,8 @@ export default class OSlider extends Component implements Observer, Subject {
         let elemPre: HTMLElement | null = null;
         let elemPost: HTMLElement | null = null;
 
+        if (!this.properties.labels) return;
+
         if (
             this.properties.labels.position === 'before' ||
             this.properties.labels.position === 'after'
@@ -161,6 +163,10 @@ export default class OSlider extends Component implements Observer, Subject {
 
         if (this.properties.labels.position === 'after') {
             this.classList.add('has-labels-position-after');
+        }
+
+        if (this.properties.labels.position === 'before') {
+            this.classList.add('has-labels-position-before');
         }
     }
 
