@@ -477,7 +477,7 @@ export default class OList extends Component implements Observer {
     }
 
     private setLabel(option: HTMLElement): void {
-        this.dataset.label = `${option.textContent}`;
+        this.dataset.label = `${option.innerText}`;
         this.broadcastLabelChange();
     }
 
