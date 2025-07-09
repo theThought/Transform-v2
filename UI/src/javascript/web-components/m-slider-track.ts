@@ -31,13 +31,16 @@ export default class MSliderTrack extends Component implements Observer {
         }
     }
 
-    public update(method: string): void {
+    public update(method: string, detail: CustomEvent): void {
         switch (method) {
             case 'clearValue':
                 this.clearValue();
                 break;
             case 'exclusiveRestore':
                 this.restoreData();
+                break;
+            case 'restoreInitialValue':
+                this.restoreInitialValue(detail);
                 break;
             case 'incrementValue':
                 this.incrementValue();
@@ -59,6 +62,20 @@ export default class MSliderTrack extends Component implements Observer {
 
         this.setValueClass();
         this.updateFloodFill(value);
+    }
+
+    private requestInitialValue(): void {
+        const requestInitialValue = new CustomEvent('requestInitialValue', {
+            bubbles: true,
+        });
+        this.dispatchEvent(requestInitialValue);
+    }
+
+    private restoreInitialValue(detail: CustomEvent): void {
+        if (!this.element) return;
+        this.element.value = detail.detail.value;
+        this.setValueClass();
+        this.updateFloodFill(Number(detail.detail.value));
     }
 
     private onInput(): void {
@@ -237,12 +254,13 @@ export default class MSliderTrack extends Component implements Observer {
         this.addEventListener('focusin', this);
         this.element.addEventListener('input', this);
 
+        if (this.response) this.response.addObserver(this);
+        if (this.slider) this.slider.addObserver(this);
+
         this.setProperties();
         this.configureMarks();
         this.tickLabels();
         this.thumbValue();
-
-        if (this.response) this.response.addObserver(this);
-        if (this.slider) this.slider.addObserver(this);
+        this.requestInitialValue();
     }
 }

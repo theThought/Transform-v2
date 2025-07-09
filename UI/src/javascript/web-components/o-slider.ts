@@ -36,6 +36,9 @@ export default class OSlider extends Component implements Observer, Subject {
             case 'decrementValue':
                 this.decrementValue();
                 break;
+            case 'requestInitialValue':
+                this.sendInitialValue();
+                break;
         }
     }
 
@@ -93,6 +96,16 @@ export default class OSlider extends Component implements Observer, Subject {
             this.element.placeholder = '';
             this.broadcastChange();
         }
+    }
+
+    private sendInitialValue(): void {
+        if (!this.element || !this.element.value.length) return;
+
+        const initialValue = new CustomEvent('restoreInitialValue', {
+            detail: { value: this.element.value },
+        });
+
+        this.notifyObservers('restoreInitialValue', initialValue);
     }
 
     private onSliderValueChange(e: CustomEvent): void {
@@ -190,6 +203,7 @@ export default class OSlider extends Component implements Observer, Subject {
         this.addEventListener('notifySlider', this);
         this.addEventListener('incrementValue', this);
         this.addEventListener('decrementValue', this);
+        this.addEventListener('requestInitialValue', this);
         this.setProperties();
         this.setLabels();
         this.terminatorButtons();
