@@ -1,4 +1,9 @@
 .o-structure-table {
+    td,
+    th {
+        padding: var(--space-1);
+    }
+
     th {
         font-weight: normal;
     }
