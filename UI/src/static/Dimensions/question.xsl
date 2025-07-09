@@ -68,20 +68,40 @@
         <xsl:param name="cellContext" />
         <xsl:element name="o-response">
 
-            <xsl:attribute name="data-question-group">
-                <xsl:value-of select="$qGroup" />  
-            </xsl:attribute>
+        <xsl:attribute name="data-question-group">
+            <xsl:value-of select="$qGroup" />  
+        </xsl:attribute>
 
-        <xsl:if test="Style/@Color">
-            <xsl:attribute name="data-properties">
-                <xsl:value-of select="Control[1]/Style/@Color" />
-            </xsl:attribute>
-        </xsl:if>
+        <xsl:choose>
+            <xsl:when test="Style">
+                <xsl:if test="Style/@Color">
+                    <xsl:attribute name="data-properties">
+                        <xsl:value-of select="Style/@Color" />
+                    </xsl:attribute>
+                </xsl:if>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="Control[1]/Style/@BgColor"/>
+            </xsl:otherwise>
+        </xsl:choose>
+
+        <xsl:choose>
+            <xsl:when test="Style">
+                <xsl:if test="Style/@ElementAlign">
+                    <xsl:call-template name="set-data-position">
+                        <xsl:with-param name="position" select="Style/@ElementAlign" />
+                    </xsl:call-template>
+                </xsl:if>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="set-data-position">
+                    <xsl:with-param name="position" select="Control[1]/Style/@ElementAlign" />
+                </xsl:call-template>
+            </xsl:otherwise>
+        </xsl:choose>
+
 
             <!--- Adds class to define below/side position -->
-            <xsl:call-template name="set-data-position">
-                <xsl:with-param name="position" select="Control[1]/Style/@ElementAlign" />
-            </xsl:call-template>
 
             <xsl:call-template name="LaunchQType">
                 <xsl:with-param name="qType" select="$qType"/>
