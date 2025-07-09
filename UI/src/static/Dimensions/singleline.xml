@@ -1,14 +1,14 @@
 <Questions>
     <Question>
-        <Style BgColor="singleline:_QPageEight_QMainReason" ElementAlign="NewLine" Indent="1" Width="50%">
-            <Control Type="SingleLineEdit"></Control>
+        <Style BgColor="singleline:_QSingleline2_QMainReason" ElementAlign="NewLine" Indent="1" Width="50%">
+            <Control Type="SingleLineEdit" Placeholder="describe your issue"></Control>
         </Style>
-        <Control Type="SingleLineEdit" QuestionName="_QPageEight_QMainReason" ElementID="_Q2" Value="" Length="150">
-            <Style BgColor="singleline:_QPageEight_QMainReason" ElementAlign="NewLine" Indent="1" Width="50%">
-                <Control Type="SingleLineEdit"></Control>
+        <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QSingleline2_QMainReason" ElementID="_Q3" Value="" Length="150">
+            <Style BgColor="singleline:_QSingleline2_QMainReason" ElementAlign="NewLine" Indent="1" Width="50%">
+                <Control Type="SingleLineEdit" Placeholder="describe your issue"></Control>
             </Style>
         </Control>
-        <Control Type="CheckButton" QuestionName="_QPageEight_QMainReason_X" ElementID="_Q2_X">
+        <Control Type="CheckButton" QuestionName="_Q_DDynamicPage_QSingleline2_QMainReason_X" ElementID="_Q3_X">
             <Style ElementAlign="NewLine" Indent="1">
                 <Control Type="CheckButton"></Control>
             </Style>

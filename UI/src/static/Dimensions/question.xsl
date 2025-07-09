@@ -221,6 +221,7 @@
         <xsl:param name="isHidden" select="false()" />
         <xsl:param name="applyWidth" select="true()" />
         <xsl:param name="currentValue" select="''" />
+        <xsl:param name="cellContext" />
 
         <xsl:element name="input">
             <!-- insert base attributes -->
@@ -231,6 +232,12 @@
             <xsl:attribute name="data-hidden">
                 <xsl:value-of select="$isHidden" />
             </xsl:attribute>
+
+            <xsl:if test="$cellContext != ''">
+                <xsl:attribute name="aria-labelledby">
+                    <xsl:value-of select="$cellContext" />
+                </xsl:attribute>
+            </xsl:if>
 
             <xsl:attribute name="id">
                 <xsl:choose>
@@ -302,10 +309,31 @@
                 </xsl:choose>
             </xsl:attribute>
 
-            <xsl:attribute name="value">
-                <xsl:value-of select="$currentValue" />
-            </xsl:attribute>
+            <xsl:choose>
+                <xsl:when test="$currentValue != ''">
+                    <xsl:attribute name="value">
+                        <xsl:value-of select="$currentValue" />
+                    </xsl:attribute>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:attribute name="value">
+                        <xsl:choose>
+                            <xsl:when test="@Value != ''">
+                                <xsl:value-of select="@Value" />
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:value-of select="''" />
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:attribute>
+                </xsl:otherwise>
+            </xsl:choose>
 
+            <xsl:if test="Style/Control/@Placeholder != ''">
+                <xsl:attribute name="placeholder">
+                    <xsl:value-of select='Style/Control/@Placeholder' />
+                </xsl:attribute>
+            </xsl:if>
             <!--- Accelerator access key -->
             <xsl:if test="Style/Control/@Accelerator != ''">
                 <xsl:attribute name="accesskey">
@@ -1833,12 +1861,6 @@
         </xsl:variable>
 
         <xsl:element name="{$subTypeElement}">
-            <xsl:if test="$cellContext != ''">
-                <xsl:attribute name="aria-labelledby">
-                    <xsl:value-of select="$cellContext" />
-                </xsl:attribute>
-            </xsl:if>
-
             <xsl:call-template name="insert-common-questiontype-attributes">
                 <xsl:with-param name="qGroup" select="$qGroup" />
             </xsl:call-template>
@@ -1859,6 +1881,7 @@
                     </xsl:choose>
                 </xsl:with-param>
                 <xsl:with-param name="qGroup" select="$qGroup" />
+                <xsl:with-param name="cellContext" select="$cellContext" />
             </xsl:call-template>
 
             <!-- post label -->

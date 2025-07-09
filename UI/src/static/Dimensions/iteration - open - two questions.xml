@@ -15,7 +15,7 @@
                         <Text>Year</Text>
                     </Label>
                     <Style BgColor="singleline-number:_QChildAgesMonthYear_Qfirst_QYear" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
-                        <Control Type="SingleLineEdit"></Control>
+                        <Control Type="SingleLineEdit" Placeholder="select year"></Control>
                     </Style>
                 </Cell>
                 <Cell X="0" Y="0"></Cell>
@@ -30,7 +30,7 @@
                 <Cell X="1" Y="1">
                     <Control Type="DropList" QuestionName="_Q_DDynamicPage_QChildAgesMonthYear_Qfirst_QMonth_C" ElementID="_Q1_Q0_Q0_C" MaxValue="12">
                         <Style BgColor="dropdown:_QChildAgesMonthYear_Qfirst_QMonth" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
-                            <Control Type="DropList"></Control>
+                            <Control Type="DropList" Placeholder="select month"></Control>
                         </Style>
                         <Category Name="Jan" CategoryID="0">
                             <Label>
@@ -109,11 +109,11 @@
                 <Cell X="2" Y="1">
                     <Question>
                         <Style BgColor="singleline-number:_QChildAgesMonthYear_Qfirst_QYear" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
-                            <Control Type="SingleLineEdit"></Control>
+                            <Control Type="SingleLineEdit" Placeholder="select year"></Control>
                         </Style>
                         <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QChildAgesMonthYear_Qfirst_QYear" ElementID="_Q1_Q0_Q1" MaxValue="2025" Value="" MinValue="2005" Length="4">
                             <Style BgColor="singleline-number:_QChildAgesMonthYear_Qfirst_QYear" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
-                                <Control Type="SingleLineEdit"></Control>
+                                <Control Type="SingleLineEdit" Placeholder="select year"></Control>
                             </Style>
                         </Control>
                     </Question>
@@ -129,7 +129,7 @@
                 <Cell X="1" Y="2">
                     <Control Type="DropList" QuestionName="_Q_DDynamicPage_QChildAgesMonthYear_Qsecond_QMonth_C" ElementID="_Q1_Q1_Q0_C" MaxValue="12">
                         <Style BgColor="dropdown:_QChildAgesMonthYear_Qsecond_QMonth" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
-                            <Control Type="DropList"></Control>
+                            <Control Type="DropList" Placeholder="select month"></Control>
                         </Style>
                         <Category Name="Jan" CategoryID="0">
                             <Label>
@@ -208,11 +208,11 @@
                 <Cell X="2" Y="2">
                     <Question>
                         <Style BgColor="singleline-number:_QChildAgesMonthYear_Qsecond_QYear" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
-                            <Control Type="SingleLineEdit"></Control>
+                            <Control Type="SingleLineEdit" Placeholder="select year"></Control>
                         </Style>
                         <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QChildAgesMonthYear_Qsecond_QYear" ElementID="_Q1_Q1_Q1" MaxValue="2025" Value="" MinValue="2005" Length="4">
                             <Style BgColor="singleline-number:_QChildAgesMonthYear_Qsecond_QYear" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
-                                <Control Type="SingleLineEdit"></Control>
+                                <Control Type="SingleLineEdit" Placeholder="select year"></Control>
                             </Style>
                         </Control>
                     </Question>
@@ -228,7 +228,7 @@
                 <Cell X="1" Y="3">
                     <Control Type="DropList" QuestionName="_Q_DDynamicPage_QChildAgesMonthYear_Qthird_QMonth_C" ElementID="_Q1_Q2_Q0_C" MaxValue="12">
                         <Style BgColor="dropdown:_QChildAgesMonthYear_Qthird_QMonth" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
-                            <Control Type="DropList"></Control>
+                            <Control Type="DropList" Placeholder="select month"></Control>
                         </Style>
                         <Category Name="Jan" CategoryID="0">
                             <Label>
@@ -307,11 +307,11 @@
                 <Cell X="2" Y="3">
                     <Question>
                         <Style BgColor="singleline-number:_QChildAgesMonthYear_Qthird_QYear" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
-                            <Control Type="SingleLineEdit"></Control>
+                            <Control Type="SingleLineEdit" Placeholder="select year"></Control>
                         </Style>
                         <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QChildAgesMonthYear_Qthird_QYear" ElementID="_Q1_Q2_Q1" MaxValue="2025" Value="" MinValue="2005" Length="4">
                             <Style BgColor="singleline-number:_QChildAgesMonthYear_Qthird_QYear" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
-                                <Control Type="SingleLineEdit"></Control>
+                                <Control Type="SingleLineEdit" Placeholder="select year"></Control>
                             </Style>
                         </Control>
                     </Question>
