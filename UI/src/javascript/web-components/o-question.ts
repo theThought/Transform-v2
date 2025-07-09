@@ -18,7 +18,26 @@ export default class OQuestion extends HTMLElement {
         );
     }
 
+    public handleEvent(e: Event): void {
+        switch (e.type) {
+            case 'questionVisibility':
+                this.handleVisibility(e as CustomEvent);
+                break;
+        }
+    }
+
+    private handleVisibility(e: CustomEvent): void {
+        e.stopPropagation();
+
+        if (e.detail.hidden) {
+            this.classList.add('unavailable');
+        } else {
+            this.classList.remove('unavailable');
+        }
+    }
+
     public connectedCallback(): void {
         this.cleanEmptyLayout();
+        this.addEventListener('questionVisibility', this);
     }
 }

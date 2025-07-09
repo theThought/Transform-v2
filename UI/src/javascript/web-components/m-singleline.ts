@@ -32,8 +32,8 @@ export default class MSingleline extends Component implements Observer {
 
     public update(method: string, data: CustomEvent): void {
         switch (method) {
-            case 'exclusiveClear':
-                this.exclusiveClear(data);
+            case 'clearValue':
+                this.clearValue(data);
                 break;
             case 'exclusiveRestore':
                 this.onFocusIn();
@@ -78,7 +78,7 @@ export default class MSingleline extends Component implements Observer {
     }
 
     // Clears the value when an exclusive option is enabled.
-    private exclusiveClear(e: CustomEvent): void {
+    private clearValue(e: CustomEvent): void {
         if (!this.element) return;
 
         if (e.target === this) {

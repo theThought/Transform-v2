@@ -33,8 +33,8 @@ export default class MSliderTrack extends Component implements Observer {
 
     public update(method: string): void {
         switch (method) {
-            case 'exclusiveClear':
-                this.exclusiveClear();
+            case 'clearValue':
+                this.clearValue();
                 break;
             case 'exclusiveRestore':
                 this.restoreData();
@@ -48,7 +48,7 @@ export default class MSliderTrack extends Component implements Observer {
         }
     }
 
-    private exclusiveClear(): void {
+    private clearValue(): void {
         this.clearValueClass();
         this.clearFloodFill();
     }

@@ -9,6 +9,7 @@ export default class OList extends Component implements Observer {
             source: '',
             exclusions: new Array<string>(),
         },
+        filtermethod: 'jump',
         mincharactersforlist: 0,
         exact: true,
         listsize: 6,
@@ -38,16 +39,23 @@ export default class OList extends Component implements Observer {
             case 'keypress':
                 this.handleEvent(<Event>data);
                 break;
-            case 'exclusiveClear':
-                this.exclusiveClear();
+            case 'clearValue':
+                this.clearValue();
                 break;
         }
     }
 
-    private exclusiveClear(): void {
+    private clearValue(): void {
         this.clearSelectedOptions();
-        this.clearValue();
+        this.clearElementValue();
         this.clearLabel();
+    }
+
+    private clearElementValue(): void {
+        if (!this.element || !this.element.value.length) return;
+
+        this.element.value = '';
+        this.broadcastChange();
     }
 
     private buildList(): void {
@@ -84,30 +92,27 @@ export default class OList extends Component implements Observer {
         e.stopPropagation();
 
         switch (e.key) {
-            case 'ArrowUp': // up arrow
+            case 'ArrowUp':
                 this.clearKeyBuffer();
                 this.navigateUp();
                 break;
-            case 'ArrowDown': // down arrow
+            case 'ArrowDown':
                 this.clearKeyBuffer();
                 this.navigateDown();
                 break;
-            case 'Home': // home key
+            case 'Home':
                 this.navigateFirst();
                 break;
-            case 'End': // end key
+            case 'End':
                 this.navigateLast();
                 break;
             case 'Tab':
                 this.blur();
                 break;
-            case 'Enter': // enter
-                break;
             default:
                 this.keyBuffer += e.key.toLowerCase();
-                console.log(this.keyBuffer);
-                this.restartKeyBuffer();
-                //this.filterList(e);
+                this.extendKeyBufferTimer();
+                this.filterList();
                 break;
         }
     }
@@ -116,7 +121,7 @@ export default class OList extends Component implements Observer {
         this.keyBuffer = '';
     }
 
-    private restartKeyBuffer(): void {
+    private extendKeyBufferTimer(): void {
         clearInterval(this.keyTimer);
 
         this.keyTimer = setTimeout(() => {
@@ -179,16 +184,13 @@ export default class OList extends Component implements Observer {
         currentItem.scrollIntoView(false);
     }
 
-    private filterList(e: CustomEvent): void {
-        this.setListIndex();
-        this.list = this.buildList();
-
-        switch (this.filtermethod) {
+    private filterList(): void {
+        switch (this.properties.filtermethod) {
             case 'starts':
-                this.filterListStarts(e.detail.element.value);
+                this.filterListStarts(this.keyBuffer);
                 break;
             case 'contains':
-                this.filterListContains(e.detail.element.value);
+                this.filterListContains(this.keyBuffer);
                 break;
             case 'jump':
                 this.jumpToLetter(this.keyBuffer);
@@ -213,17 +215,14 @@ export default class OList extends Component implements Observer {
 
         for (let i = 0; i < list.length; i++) {
             const currentItem = list[i];
-            const currentItemLabel = this.sanitiseText(
-                currentItem.innerText.toLowerCase(),
-            );
+            const currentItemLabel = currentItem.innerText.toLowerCase();
 
             if (currentItemLabel.indexOf(input) === 0) {
                 if (
                     (listPasses === 0 &&
                         currentFirstLetter === input.substring(0, 1) &&
                         i < this.currentListPosition) ||
-                    (currentItem.classList.contains('selected') &&
-                        input.length === 1)
+                    (currentItem.dataset.selected && input.length === 1)
                 ) {
                     // this is required if we've reached the end of the list and landed on an active item
                     // as the last element -- we will need to loop back for another pass at this point
@@ -234,8 +233,6 @@ export default class OList extends Component implements Observer {
                     continue;
                 } else {
                     this.setSelectedOptionByIndex();
-                    this.setListIndex(i);
-                    this.notifyListInput();
                     return;
                 }
             }
@@ -397,7 +394,7 @@ export default class OList extends Component implements Observer {
 
         const currentVisibleList = this.buildVisibleList();
         const listItem = currentVisibleList[this.currentListPosition];
-
+        console.log(`jumping to ${this.currentListPosition}`);
         if (typeof listItem === 'undefined') {
             return;
         }
@@ -462,13 +459,6 @@ export default class OList extends Component implements Observer {
         this.updateScrollPosition();
     }
 
-    private clearValue(): void {
-        if (!this.element || !this.element.value.length) return;
-
-        this.element.value = '';
-        this.broadcastChange();
-    }
-
     private setValue(option: HTMLElement): void {
         if (!this.element || this.element.value === option.dataset.value)
             return;
@@ -523,7 +513,7 @@ export default class OList extends Component implements Observer {
     private hideOption(option: HTMLElement, hideMethod: string): void {
         if (option.dataset.selected === 'true') {
             this.clearOption(option);
-            this.clearValue();
+            this.clearElementValue();
             this.clearLabel();
         }
 

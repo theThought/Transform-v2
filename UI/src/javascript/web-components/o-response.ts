@@ -71,7 +71,7 @@ export default class OResponse extends Component implements Subject {
     private expandedCalculation = '';
     private ruleParsingComplete = false;
     private hasAlternativeVisibilityRules = false;
-    private available = false;
+    private available = true;
 
     constructor() {
         super();
@@ -99,7 +99,7 @@ export default class OResponse extends Component implements Subject {
 
     private exclusiveOn(e: CustomEvent): void {
         e.stopPropagation();
-        this.notifyObservers('exclusiveClear', e);
+        this.notifyObservers('clearValue', e);
     }
 
     private exclusiveOff(e: CustomEvent): void {
@@ -110,6 +110,7 @@ export default class OResponse extends Component implements Subject {
     private handleChange(e: CustomEvent): void {
         e.stopPropagation();
         this.notifyOtherQuestions(e);
+        this.updateAnswerCount(e);
         if (!e.detail.element.value) return;
         this.notifyObservers('clearExclusives', e);
     }
@@ -161,10 +162,7 @@ export default class OResponse extends Component implements Subject {
     }
 
     private updateAnswerCount(e: CustomEvent): void {
-        if (!this.contains(e.detail.element)) {
-            return;
-        }
-        this.responses[e.detail.id] = e.detail.value;
+        this.responses[e.detail.qid] = e.detail.value;
     }
 
     public filter(props: { source: string; exclusions: string[] }): void {
@@ -369,6 +367,7 @@ export default class OResponse extends Component implements Subject {
     }
 
     protected evaluateRule(ruleString: string): boolean {
+        console.info('Evaluating rule: ' + ruleString);
         try {
             // Using Function instead of eval for better scoping
             return new Function(`return ${ruleString}`)();
@@ -379,17 +378,17 @@ export default class OResponse extends Component implements Subject {
     }
 
     private getQuestionValues(): void {
-        for (const currentQuestion in this.sourceQuestions) {
-            if (this.sourceQuestions.hasOwnProperty(currentQuestion)) {
-                this.sourceQuestions[currentQuestion] = [];
+        for (const question in this.sourceQuestions) {
+            if (this.sourceQuestions.hasOwnProperty(question)) {
+                this.sourceQuestions[question] = [];
                 let questionElements;
 
                 // retrieve questions required by this rule based on a matching response container or grid row container
                 questionElements = document.querySelectorAll(
                     "input[id][data-question-group$='" +
-                        currentQuestion +
+                        question +
                         "'], select[id][data-question-group$='" +
-                        currentQuestion +
+                        question +
                         "']",
                 );
 
@@ -397,9 +396,9 @@ export default class OResponse extends Component implements Subject {
                     // if no questions were found directly, retrieve questions contained in a row
                     questionElements = document.querySelectorAll(
                         "tr[data-question-group$='" +
-                            currentQuestion +
+                            question +
                             "'] input[id], tr[data-question-group$='" +
-                            currentQuestion +
+                            question +
                             "'] select[id]",
                     );
                 }
@@ -408,9 +407,9 @@ export default class OResponse extends Component implements Subject {
                     // if no questions were found by row, retrieve questions by container
                     questionElements = document.querySelectorAll(
                         "div[data-question-group$='" +
-                            currentQuestion +
+                            question +
                             "'] input[id], div[data-question-group$='" +
-                            currentQuestion +
+                            question +
                             "'] select[id]",
                     );
                 }
@@ -418,43 +417,33 @@ export default class OResponse extends Component implements Subject {
                 if (!questionElements.length) {
                     console.warn(
                         'Could not find a question required by a visibility rule: ' +
-                            currentQuestion,
+                            question,
                     );
                 } else {
                     for (let j = 0; j < questionElements.length; j++) {
+                        const element = questionElements[j] as HTMLInputElement;
                         // determine the input type - required for handling unselected checkboxes/radio buttons
-                        const questionType = questionElements[j].type;
+                        const questionType = element.type;
 
                         if (
                             questionType === 'button' ||
                             ((questionType === 'checkbox' ||
                                 questionType === 'radio') &&
-                                !questionElements[j].checked)
+                                !element.checked)
                         ) {
                             continue;
                         }
 
-                        const questionValue = questionElements[j].value;
-                        this.sourceQuestions[currentQuestion].push(
-                            questionValue,
-                        );
+                        const questionValue = element.value;
+                        this.sourceQuestions[question].push(questionValue);
                     }
 
-                    this.sourceQuestions[currentQuestion] = uniq(
-                        this.sourceQuestions[currentQuestion],
+                    this.sourceQuestions[question] = uniq(
+                        this.sourceQuestions[question],
                     );
                 }
             }
         }
-    }
-
-    private x_insertQuestionValuesIntoRule(ruleString: string): string {
-        // Replace question identifiers with actual values from sourceQuestions
-        return Object.entries(this.sourceQuestions).reduce(
-            (str, [id, value]) =>
-                str.replace(new RegExp(id, 'g'), String(value)),
-            ruleString,
-        );
     }
 
     private insertQuestionValuesIntoRule(ruleString: string): string {
@@ -465,10 +454,26 @@ export default class OResponse extends Component implements Subject {
                 qData = this.sourceQuestions[question].join("','");
             }
 
-            qData = "'" + qData.toLowerCase() + "'";
+            if (qData.length) {
+                qData = "'" + qData.toLowerCase() + "'";
+            }
 
-            const allQuestions = new RegExp('%%' + question + '%%', 'g');
-            ruleString = ruleString.replace(allQuestions, qData);
+            const arrayQuestions = new RegExp(
+                '\\[%%' + question + '%%\\]',
+                'g',
+            );
+            ruleString = ruleString.replace(arrayQuestions, '[' + qData + ']');
+
+            const simpleQuestions = new RegExp('%%' + question + '%%', 'g');
+
+            if (qData.length) {
+                ruleString = ruleString.replace(simpleQuestions, qData);
+            } else {
+                ruleString = ruleString.replace(
+                    simpleQuestions,
+                    "'" + qData + "'",
+                );
+            }
         }
 
         return ruleString;
@@ -586,7 +591,7 @@ export default class OResponse extends Component implements Subject {
         // match 1: question
         while (null !== (matches = re.exec(ruleString))) {
             let expandedString =
-                'document.querySelector(\'o-response[data-question-group*="';
+                '!document.querySelector(\'o-response[data-question-group*="';
             expandedString += this.escapeString(matches[1]);
             expandedString += "\"]').classList.contains('unavailable')";
 
@@ -645,12 +650,14 @@ export default class OResponse extends Component implements Subject {
         this.liftCover();
         this.available = true;
 
-        const broadcastAvailability = new CustomEvent('broadcastAvailability', {
+        const questionVisibility = new CustomEvent('questionVisibility', {
             bubbles: true,
-            detail: this,
+            detail: {
+                hidden: false,
+            },
         });
 
-        this.dispatchEvent(broadcastAvailability);
+        this.dispatchEvent(questionVisibility);
     }
 
     public makeUnavailable(): void {
@@ -659,8 +666,16 @@ export default class OResponse extends Component implements Subject {
         this.classList.add('unavailable');
         this.available = false;
 
+        const questionVisibility = new CustomEvent('questionVisibility', {
+            bubbles: true,
+            detail: {
+                hidden: true,
+            },
+        });
+
+        this.dispatchEvent(questionVisibility);
+
         this.cover();
-        this.clearEntries();
         this.clearChildren();
     }
 
@@ -676,23 +691,12 @@ export default class OResponse extends Component implements Subject {
     }
 
     private clearChildren(): void {
-        const clearEntries = new CustomEvent('clearEntries', {
+        const clearVisibility = new CustomEvent('clearVisibility', {
             bubbles: true,
             detail: this,
         });
 
-        this.dispatchEvent(clearEntries);
-    }
-
-    private clearEntries(): void {
-        // do not clear items that are still initialising
-        if (!this.ready) return;
-
-        // this is responsible for clearing text areas
-        if (this.element && (this.element as HTMLInputElement).value !== '') {
-            (this.element as HTMLInputElement).value = '';
-            this.broadcastChange();
-        }
+        this.notifyObservers('clearValue', clearVisibility);
     }
 
     private cover(): void {
@@ -754,7 +758,7 @@ export default class OResponse extends Component implements Subject {
     }
 
     public configureInitialVisibility(): void {
-        // if there are no visibility rules defined for this question lift the cover immediately
+        // lift the cover immediately if there are no visibility rules defined
         if (
             typeof this.properties.visible === 'undefined' &&
             typeof this.properties.invisible === 'undefined'
@@ -763,18 +767,8 @@ export default class OResponse extends Component implements Subject {
             return;
         }
 
-        // the collapse property removes the space required by the question if it is hidden
-        if (
-            (typeof this.properties.visible !== 'undefined' &&
-                this.properties.visible.collapse === true) ||
-            (typeof this.properties.invisible !== 'undefined' &&
-                this.properties.invisible.collapse === true)
-        ) {
-            this.classList.add('collapse');
-        }
-
         // this question has visibility rules so should begin in the hidden state
-        this.classList.add('unavailable');
+        this.makeUnavailable();
     }
 
     public processVisibilityRules(): void {

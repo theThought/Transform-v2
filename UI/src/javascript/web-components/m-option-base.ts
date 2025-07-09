@@ -42,6 +42,9 @@ export default class MOptionBase extends Component implements Observer {
             case 'clearExclusives':
                 this.clearExclusives(data);
                 break;
+            case 'clearValue':
+                this.clearValue();
+                break;
             case 'sizeChangeWidth':
                 this.setOnesizeWidth(data.detail.width);
                 break;
@@ -81,6 +84,10 @@ export default class MOptionBase extends Component implements Observer {
         if (this.checkbox && this.checkbox.readOnly) {
             this.setAttribute('data-readonly', 'true');
         }
+    }
+
+    private clearValue(): void {
+        this.changeState(false);
     }
 
     private exclusiveClear(e: CustomEvent): void {

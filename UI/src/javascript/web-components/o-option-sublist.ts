@@ -54,6 +54,10 @@ export default class OOptionSublist
                 if (this.contains(data.target as HTMLElement)) return;
                 this.notifyObservers('exclusiveClear', data);
                 break;
+            case 'clearValue':
+                if (this.contains(data.target as HTMLElement)) return;
+                this.notifyObservers('clearValue', data);
+                break;
         }
     }
 

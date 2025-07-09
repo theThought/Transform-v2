@@ -63,8 +63,8 @@ export default class OSlider extends Component implements Observer, Subject {
     }
 
     public update(method: string, data: CustomEvent): void {
-        if (method === 'exclusiveClear') {
-            this.exclusiveClear(data);
+        if (method === 'clearValue') {
+            this.clearValue(data);
         }
 
         if (method === 'exclusiveRestore') {
@@ -72,7 +72,7 @@ export default class OSlider extends Component implements Observer, Subject {
         }
     }
 
-    private exclusiveClear(e: CustomEvent): void {
+    private clearValue(e: CustomEvent): void {
         if (!this.element) return;
 
         if (e.target === this) {
