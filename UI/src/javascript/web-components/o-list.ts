@@ -222,7 +222,8 @@ export default class OList extends Component implements Observer {
                     (listPasses === 0 &&
                         currentFirstLetter === input.substring(0, 1) &&
                         i < this.currentListPosition) ||
-                    (currentItem.dataset.selected && input.length === 1)
+                    (currentItem.dataset.selected === 'true' &&
+                        input.length === 1)
                 ) {
                     // this is required if we've reached the end of the list and landed on an active item
                     // as the last element -- we will need to loop back for another pass at this point
@@ -232,7 +233,10 @@ export default class OList extends Component implements Observer {
                     }
                     continue;
                 } else {
-                    this.setSelectedOptionByIndex();
+                    this.clearSelectedOptions();
+                    this.setOption(currentItem);
+                    this.setValue(currentItem);
+                    this.setLabel(currentItem);
                     return;
                 }
             }
@@ -389,21 +393,6 @@ export default class OList extends Component implements Observer {
         this.setLabel(listItem);
     }
 
-    private setSelectedOptionByIndex(): void {
-        this.clearSelectedOptions();
-
-        const currentVisibleList = this.buildVisibleList();
-        const listItem = currentVisibleList[this.currentListPosition];
-        console.log(`jumping to ${this.currentListPosition}`);
-        if (typeof listItem === 'undefined') {
-            return;
-        }
-
-        this.setOption(listItem);
-        this.setValue(listItem);
-        this.setLabel(listItem);
-    }
-
     private restoreSelection(): void {
         if (!this.element) return;
 
@@ -457,6 +446,21 @@ export default class OList extends Component implements Observer {
         option.dataset.selected = 'true';
         option.ariaSelected = 'true';
         this.updateScrollPosition();
+    }
+
+    private setSelectedOptionByIndex(): void {
+        this.clearSelectedOptions();
+
+        const currentVisibleList = this.buildVisibleList();
+        const listItem = currentVisibleList[this.currentListPosition];
+        console.log(`jumping to ${this.currentListPosition}`);
+        if (typeof listItem === 'undefined') {
+            return;
+        }
+
+        this.setOption(listItem);
+        this.setValue(listItem);
+        this.setLabel(listItem);
     }
 
     private setValue(option: HTMLElement): void {
