@@ -107,7 +107,11 @@ export default class OList extends Component implements Observer {
                 this.navigateLast();
                 break;
             case 'Tab':
-                this.blur();
+                this.clearFocus();
+                break;
+            case 'Enter':
+            case 'Escape':
+                this.clearFocus();
                 break;
             default:
                 this.keyBuffer += e.key.toLowerCase();
@@ -391,6 +395,17 @@ export default class OList extends Component implements Observer {
         this.setOption(listItem);
         this.setValue(listItem);
         this.setLabel(listItem);
+        this.clearFocus();
+    }
+
+    private clearFocus(): void {
+        if (!this.control) return;
+
+        if (document.activeElement) {
+            document.activeElement.blur();
+        } else {
+            this.blur();
+        }
     }
 
     private restoreSelection(): void {

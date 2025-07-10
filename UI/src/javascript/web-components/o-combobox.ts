@@ -48,17 +48,20 @@ export default class OCombobox extends Component implements Subject {
 
     private onKeydown(e: KeyboardEvent): void {
         switch (e.key) {
-            case 'Tab': // tab key
+            case 'Tab':
                 this.blur();
                 break;
-            case 'Enter': // enter key
-                e.stopImmediatePropagation();
+            case 'Enter':
                 e.preventDefault();
+                this.sendKeyToList(e);
                 break;
-            case 'End': // end
-            case 'Home': // home
-            case 'ArrowUp': // up arrow
-            case 'ArrowDown': // down arrow
+            case 'Escape':
+                this.sendKeyToList(e);
+                break;
+            case 'End':
+            case 'Home':
+            case 'ArrowUp':
+            case 'ArrowDown':
                 e.preventDefault(); // prevent caret from moving
                 this.sendKeyToList(e);
                 break;
@@ -70,16 +73,11 @@ export default class OCombobox extends Component implements Subject {
 
     private onKeyup(e: KeyboardEvent): void {
         switch (e.key) {
-            case 'Tab': // tab key
+            case 'Tab':
             case null:
                 break;
-            case 'Enter': // enter key
-                break;
-            case 'Escape': // escape key
-                this.blur();
-                break;
-            case 'ArrowLeft': // left
-            case 'ArrowRight': // right
+            case 'ArrowLeft':
+            case 'ArrowRight':
                 break;
             default:
                 break;
