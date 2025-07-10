@@ -81,7 +81,9 @@
                 </xsl:if>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:value-of select="Control[1]/Style/@BgColor"/>
+                <xsl:attribute name="data-properties">
+                    <xsl:value-of select="Control[1]/Style/@Color"/>
+                </xsl:attribute>
             </xsl:otherwise>
         </xsl:choose>
 
@@ -458,7 +460,7 @@
 
         <xsl:element name="span">
             <xsl:attribute name="class">
-                <xsl:text>a-label-heading</xsl:text>
+                <xsl:text>a-label-question</xsl:text>
             </xsl:attribute>
             <xsl:attribute name="id">
                 <xsl:value-of select="$cellContext" />
