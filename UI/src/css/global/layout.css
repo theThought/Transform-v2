@@ -18,6 +18,7 @@ Based on https://every-layout.dev/layouts/sidebar/.
     display: flex;
     flex-wrap: wrap;
     gap: var(--column-gap);
+    row-gap: initial;
 
     > :first-child {
         flex-basis: var(--column1-width);
