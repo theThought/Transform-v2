@@ -42,7 +42,11 @@ const readProdDirectory = () => {
             }
 
             // Images need to be in same folder as CSS.
-            if (file.indexOf('svg') >= 0 || file.indexOf('png') >= 0 || file.indexOf('gif') >= 0) {
+            if (
+                file.indexOf('svg') >= 0 ||
+                file.indexOf('png') >= 0 ||
+                file.indexOf('gif') >= 0
+            ) {
                 fileType = 'css';
             }
 
@@ -77,16 +81,14 @@ const moveFile = (file, type) => {
 
 // 2. Copy other static UI files (e.g. favicons & images used in HTML).
 const copyStatic = () => {
-    fs.copy(
-        staticDirectoryPath,
-        `${prodDirectoryPath}/static`,
-        (err) => {
-            if (err) {
-                return console.log(colors.red.bold('copy static assets:', err));
-            }
-            console.log(colors.green.bold('Successfully copied other static assets!'));
-        },
-    );
+    fs.copy(staticDirectoryPath, `${prodDirectoryPath}/static`, (err) => {
+        if (err) {
+            return console.log(colors.red.bold('copy static assets:', err));
+        }
+        console.log(
+            colors.green.bold('Successfully copied other static assets!'),
+        );
+    });
 };
 
 readProdDirectory();
