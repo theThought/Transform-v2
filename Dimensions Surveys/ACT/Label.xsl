@@ -32,12 +32,13 @@
     </xsl:template>
 
     <xsl:template name="LabelBase">
-      <xsl:value-of select="@Class" />
         <xsl:if test="$sLabelClass!='mrBannerText'">
+            <xsl:if test="$bIncludeCSSStyles">
+                <xsl:attribute name="class">
+                    <xsl:text>a-label-question</xsl:text>
+                </xsl:attribute>
+            </xsl:if>
 		    <xsl:if test="Style/@ElementAlign = 'NewLine'">
-		            <xsl:if test="$bIncludeCSSStyles">
-		                <xsl:attribute name="class">a-label-question</xsl:attribute>
-		            </xsl:if>
 		            <xsl:attribute name="style">
 		                <xsl:call-template name="LabelStyle"/>
 		                <xsl:if test="Style/@Width or Style/@Height">
