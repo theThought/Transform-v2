@@ -7,6 +7,10 @@
     padding-inline-start: calc(var(--space-1) * 1.5);
 }
 
+.a-label-question {
+    font-size: var(--font-size-m);
+}
+
 .a-label-heading-sublist {
     color: var(--color-primary);
     cursor: default;
