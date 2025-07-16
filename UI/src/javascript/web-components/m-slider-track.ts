@@ -75,6 +75,8 @@ export default class MSliderTrack extends Component implements Observer {
         if (!this.element) return;
         this.element.value = detail.detail.value;
         this.setValueClass();
+        this.setThumbValue(detail.detail.value);
+        this.setThumbLocation(Number(detail.detail.value));
         this.updateFloodFill(Number(detail.detail.value));
     }
 
