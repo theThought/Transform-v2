@@ -11,6 +11,9 @@ export default class ODropdown extends Component implements Subject {
 
     public handleEvent(e: Event): void {
         switch (e.type) {
+            case 'focusin':
+                this.notifyObservers('focusin', e as CustomEvent);
+                break;
             case 'labelChange':
                 this.updateLabel(<CustomEvent>e);
                 break;
@@ -101,6 +104,7 @@ export default class ODropdown extends Component implements Subject {
     public connectedCallback(): void {
         super.connectedCallback();
         this.element = this.querySelector('.a-input-dropdown');
+        this.addEventListener('focusin', this.handleEvent);
         this.addEventListener('labelChange', this.handleEvent);
         this.addEventListener('keydown', this.handleEvent);
         this.addEventListener('keyup', this.handleEvent);

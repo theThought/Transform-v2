@@ -36,6 +36,9 @@ export default class OList extends Component implements Observer {
             case 'filter':
                 this.processFilter(<CustomEvent>data);
                 break;
+            case 'focusin':
+                this.updateScrollPosition(true);
+                break;
             case 'keypress':
                 this.handleEvent(<Event>data);
                 break;
@@ -177,7 +180,13 @@ export default class OList extends Component implements Observer {
         this.updateScrollPosition();
     }
 
-    private updateScrollPosition(): void {
+    private updateScrollPosition(skipVisibilityCheck = false): void {
+        if (
+            !skipVisibilityCheck &&
+            !this.checkVisibility({ opacityProperty: true })
+        )
+            return;
+
         const position = this.currentListPosition;
         const currentItem = this.buildVisibleList()[position];
 
@@ -185,7 +194,7 @@ export default class OList extends Component implements Observer {
             return;
         }
 
-        currentItem.scrollIntoView(false);
+        currentItem.scrollIntoView({ block: 'nearest', inline: 'nearest' });
     }
 
     private filterList(): void {
@@ -584,9 +593,9 @@ export default class OList extends Component implements Observer {
         this.setListHeight(); // setListHeight must precede restoreSelection to ensure a pre-selected item is correctly scrolled into view
         this.restoreSelection();
 
-        this.addEventListener('click', this);
-        this.addEventListener('keydown', this);
-        this.addEventListener('keyup', this);
+        this.addEventListener('click', this.handleEvent);
+        this.addEventListener('keydown', this.handleEvent);
+        this.addEventListener('keyup', this.handleEvent);
         if (this.response) this.response.addObserver(this);
         this.control = this.closest('o-dropdown, o-combobox');
         if (this.control) this.control.addObserver(this);
