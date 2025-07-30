@@ -53,11 +53,23 @@
             </xsl:call-template>
         </xsl:variable>
 
+        <xsl:variable name="qReadOnly">
+            <xsl:choose>
+                <xsl:when test="Style/Control/@ReadOnly">
+                    <xsl:value-of select="true()"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="false()"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+
         <xsl:element name="question">   
             <xsl:call-template name="response">
                 <xsl:with-param name="qType" select="$qType"/>
                 <xsl:with-param name="qGroup" select="$qGroup"/>
                 <xsl:with-param name="cellContext" select="$cellContext"/>
+                <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
             </xsl:call-template>
         </xsl:element>
     </xsl:template>
@@ -66,6 +78,8 @@
         <xsl:param name="qType" />
         <xsl:param name="qGroup" />
         <xsl:param name="cellContext" />
+        <xsl:param name="qReadOnly" select="false()" />
+
         <xsl:element name="o-response">
 
         <xsl:attribute name="data-question-group">
@@ -109,6 +123,7 @@
                 <xsl:with-param name="qType" select="$qType"/>
                 <xsl:with-param name="qGroup" select="$qGroup"/>
                 <xsl:with-param name="cellContext" select="$cellContext"/>
+                <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
             </xsl:call-template>
         </xsl:element>
     </xsl:template>
@@ -119,6 +134,7 @@
         <xsl:param name="qType" />
         <xsl:param name="qGroup" />
         <xsl:param name="cellContext" />
+        <xsl:param name="qReadOnly" select="false()" />
 
         <xsl:choose>
             <xsl:when test="$qType='singleline'">
@@ -127,6 +143,7 @@
                     <xsl:with-param name="qGroup" select="$qGroup"/>
                     <xsl:with-param name="Hidden" select="false()"/>
                     <xsl:with-param name="cellContext" select="$cellContext"/>
+                    <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                 </xsl:call-template>
             </xsl:when>
 
@@ -137,6 +154,7 @@
                     <xsl:with-param name="Hidden" select="false()"/>
                     <xsl:with-param name="subType" select="'number'"/>
                     <xsl:with-param name="cellContext" select="$cellContext"/>
+                    <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                 </xsl:call-template>
             </xsl:when>
 
@@ -147,6 +165,7 @@
                     <xsl:with-param name="Hidden" select="false()"/>
                     <xsl:with-param name="subType" select="'date'"/>
                     <xsl:with-param name="cellContext" select="$cellContext"/>
+                    <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                 </xsl:call-template>
             </xsl:when>
 
@@ -155,6 +174,7 @@
                     <xsl:with-param name="qType" select="$qType" />
                     <xsl:with-param name="qGroup" select="$qGroup"/>
                     <xsl:with-param name="Hidden" select="false()"/>
+                    <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                 </xsl:call-template>
             </xsl:when>
 
@@ -165,6 +185,7 @@
                     <xsl:with-param name="Hidden" select="false()"/>
                     <xsl:with-param name="subType" select="'horizontal'"/>
                     <xsl:with-param name="cellContext" select="$cellContext"/>
+                    <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                 </xsl:call-template>
             </xsl:when>
             <xsl:when test="$qType='scale-vertical'">
@@ -174,6 +195,7 @@
                     <xsl:with-param name="Hidden" select="false()"/>
                     <xsl:with-param name="subType" select="'vertical'"/>
                     <xsl:with-param name="cellContext" select="$cellContext"/>
+                    <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                 </xsl:call-template>
             </xsl:when>
             <xsl:when test="$qType='slider-horizontal'">
@@ -183,6 +205,7 @@
                     <xsl:with-param name="Hidden" select="false()"/>
                     <xsl:with-param name="subType" select="'horizontal'"/>
                     <xsl:with-param name="cellContext" select="$cellContext"/>
+                    <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                 </xsl:call-template>
             </xsl:when>
             <xsl:when test="$qType='slider-vertical'">
@@ -192,6 +215,7 @@
                     <xsl:with-param name="Hidden" select="false()"/>
                     <xsl:with-param name="subType" select="'vertical'"/>
                     <xsl:with-param name="cellContext" select="$cellContext"/>
+                    <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                 </xsl:call-template>
             </xsl:when>
             <xsl:when test="$qType='tabstrip'">
@@ -199,6 +223,7 @@
                     <xsl:with-param name="qType" select="$qType" />
                     <xsl:with-param name="qGroup" select="$qGroup"/>
                     <xsl:with-param name="Hidden" select="false()"/>
+                    <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                 </xsl:call-template>
             </xsl:when>
             <xsl:when test="$qType='listbox'">
@@ -207,6 +232,7 @@
                     <xsl:with-param name="qGroup" select="$qGroup"/>
                     <xsl:with-param name="Hidden" select="false()"/>
                     <xsl:with-param name="cellContext" select="$cellContext"/>
+                    <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                 </xsl:call-template>
             </xsl:when>
             <xsl:when test="$qType='combobox'">
@@ -215,6 +241,7 @@
                     <xsl:with-param name="qGroup" select="$qGroup"/>
                     <xsl:with-param name="Hidden" select="false()"/>
                     <xsl:with-param name="cellContext" select="$cellContext"/>
+                    <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                 </xsl:call-template>
             </xsl:when>
             <xsl:when test="$qType='dropdown'">
@@ -223,6 +250,7 @@
                     <xsl:with-param name="qGroup" select="$qGroup"/>
                     <xsl:with-param name="Hidden" select="false()"/>
                     <xsl:with-param name="cellContext" select="$cellContext"/>
+                    <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                 </xsl:call-template>
             </xsl:when>
 
@@ -232,6 +260,7 @@
                     <xsl:with-param name="qGroup" select="$qGroup"/>
                     <xsl:with-param name="Hidden" select="false()"/>
                     <xsl:with-param name="cellContext" select="$cellContext"/>
+                    <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                 </xsl:call-template>
             </xsl:when>
         </xsl:choose>
@@ -244,6 +273,7 @@
         <xsl:param name="applyWidth" select="true()" />
         <xsl:param name="currentValue" select="''" />
         <xsl:param name="cellContext" />
+        <xsl:param name="qReadOnly" />
 
         <xsl:element name="input">
             <!-- insert base attributes -->
@@ -362,6 +392,16 @@
                     <xsl:value-of select="Style/Control/@Accelerator" />
                 </xsl:attribute>
             </xsl:if>
+
+            <xsl:if test="$qReadOnly='true'">
+                <xsl:attribute name="data-readonly">
+                    <xsl:text>true</xsl:text>
+                </xsl:attribute>
+
+                <xsl:attribute name="aria-disabled">
+                    <xsl:text>true</xsl:text>
+                </xsl:attribute>
+            </xsl:if>
         </xsl:element>
     </xsl:template>
 
@@ -371,6 +411,7 @@
         <xsl:param name="isHidden" select="false()" />
         <xsl:param name="currentControl" />
         <xsl:param name="controlId" />
+        <xsl:param name="qReadOnly" />
 
         <xsl:element name="input">
             <!-- insert base attributes -->
@@ -408,8 +449,12 @@
                 </xsl:attribute>
             </xsl:if>
 
-            <xsl:if test="$currentControl/Style/Control/@ReadOnly">
+            <xsl:if test="$currentControl/Style/Control/@ReadOnly or $qReadOnly='true'">
                 <xsl:attribute name="data-readonly">
+                    <xsl:text>true</xsl:text>
+                </xsl:attribute>
+
+                <xsl:attribute name="aria-disabled">
                     <xsl:text>true</xsl:text>
                 </xsl:attribute>
             </xsl:if>
@@ -636,6 +681,7 @@
         <xsl:param name="qGroup" />
         <xsl:param name="theRows" />
         <xsl:param name="cType" select="'choice'" />
+        <xsl:param name="qReadOnly" />
 
         <xsl:comment>
             <xsl:text>count of rows in the table</xsl:text>
@@ -704,6 +750,7 @@
                                                 <xsl:with-param name="qGroup" select="$qGroup" />
                                                 <xsl:with-param name="currentControl" select="Cell/Control" />
                                                 <xsl:with-param name="typeOverride" select="$typeOverride" />
+                                                <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                                             </xsl:call-template>
                                         </xsl:when>
                                         <xsl:when test="$cType='tabstrip'">
@@ -712,6 +759,7 @@
                                                 <xsl:with-param name="qGroup" select="$qGroup" />
                                                 <xsl:with-param name="currentControl" select="Cell/Control" />
                                                 <xsl:with-param name="typeOverride" select="$typeOverride" />
+                                                <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                                             </xsl:call-template>
                                         </xsl:when>
                                     </xsl:choose>
@@ -724,6 +772,7 @@
                         <xsl:with-param name="qGroup" select="$qGroup" />
                         <xsl:with-param name="theRows" select="$theRows[position() > $howManyRows + 1]" />
                         <xsl:with-param name="cType" select="$cType" />
+                        <xsl:with-param name="qReadOnly" select="$qReadOnly" />
                     </xsl:call-template>
                 </xsl:when>
                 <!-- Case 2: Non-Static control -->
@@ -771,6 +820,7 @@
                                                 <xsl:with-param name="qGroup" select="$qGroup" />
                                                 <xsl:with-param name="currentControl" select="Cell/Control" />
                                                 <xsl:with-param name="typeOverride" select="$typeOverride" />
+                                                <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                                             </xsl:call-template>
                                         </xsl:when>
                                         <xsl:when test="$cType='tabstrip'">
@@ -779,6 +829,7 @@
                                                 <xsl:with-param name="qGroup" select="$qGroup" />
                                                 <xsl:with-param name="currentControl" select="Cell/Control" />
                                                 <xsl:with-param name="typeOverride" select="$typeOverride" />
+                                                <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                                             </xsl:call-template>
                                         </xsl:when>
                                     </xsl:choose>
@@ -794,6 +845,7 @@
                             <xsl:with-param name="qGroup" select="$qGroup" />
                             <xsl:with-param name="theRows" select="$theRows[position() > $nextStaticIncrement - 1]" />
                             <xsl:with-param name="cType" select="$cType" />
+                            <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                         </xsl:call-template>
                     </xsl:if>
                 </xsl:otherwise>
@@ -842,6 +894,7 @@
         <xsl:param name="Hidden" />
         <xsl:param name="subType" />
         <xsl:param name="cellContext" />
+        <xsl:param name="qReadOnly" />
 
         <xsl:variable name="questionId">
             <xsl:value-of select="Control[./Style/Control/@Type='SingleLineEdit'][1]/@ElementID" />
@@ -866,6 +919,7 @@
                             </xsl:with-param>
                             <xsl:with-param name="subType" select="$subType" />
                             <xsl:with-param name="cellContext" select="$cellContext"/>
+                            <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                         </xsl:call-template>
                     </xsl:for-each>
 
@@ -875,6 +929,7 @@
                         <xsl:with-param name="questionId" select="$questionId" />
                         <xsl:with-param name="optionCount" select="$optionCount" />
                         <xsl:with-param name="typeOverride" select="'checkbox'" />
+                        <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                     </xsl:call-template>
                 </xsl:element>
             </xsl:when>
@@ -886,6 +941,7 @@
                         </xsl:with-param>
                         <xsl:with-param name="subType" select="$subType" />
                         <xsl:with-param name="cellContext" select="$cellContext"/>
+                        <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                     </xsl:call-template>
                 </xsl:for-each>
             </xsl:otherwise>
@@ -896,6 +952,7 @@
         <xsl:param name="qType" />
         <xsl:param name="qGroup" />
         <xsl:param name="Hidden" />
+        <xsl:param name="qReadOnly" />
 
         <xsl:element name="o-choice">
             <xsl:call-template name="insert-common-questiontype-attributes">
@@ -906,6 +963,7 @@
                 <xsl:call-template name="process-option-rows">
                     <xsl:with-param name="qGroup" select="$qGroup" />
                     <xsl:with-param name="theRows" select="Row" />
+                    <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                 </xsl:call-template>
             </xsl:for-each>
         </xsl:element>
@@ -918,6 +976,7 @@
         <xsl:param name="Hidden" />
         <xsl:param name="subType" select="'horizontal'" />
         <xsl:param name="cellContext" />
+        <xsl:param name="qReadOnly" />
 
         <xsl:variable name="questionId">
             <xsl:value-of select="Control[./Style/Control/@Type='SingleLineEdit'][1]/@ElementID" />
@@ -944,6 +1003,7 @@
                                 <xsl:value-of select="$subType" />
                             </xsl:with-param>
                             <xsl:with-param name="cellContext" select="$cellContext"/>
+                            <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                         </xsl:call-template>
                     </xsl:for-each>
 
@@ -953,6 +1013,7 @@
                         <xsl:with-param name="questionId" select="$questionId" />
                         <xsl:with-param name="optionCount" select="$optionCount" />
                         <xsl:with-param name="typeOverride" select="'checkbox'" />
+                        <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                     </xsl:call-template>
                 </xsl:element>
             </xsl:when>
@@ -966,6 +1027,7 @@
                             <xsl:value-of select="$subType" />
                         </xsl:with-param>
                         <xsl:with-param name="cellContext" select="$cellContext"/>
+                        <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                     </xsl:call-template>
                 </xsl:for-each>
             </xsl:otherwise>
@@ -978,6 +1040,7 @@
         <xsl:param name="Hidden" />
         <xsl:param name="subType" select="'horizontal'" />
         <xsl:param name="cellContext" />
+        <xsl:param name="qReadOnly" />
 
         <xsl:variable name="questionId">
             <xsl:value-of select="Control[./Style/Control/@Type='SingleLineEdit'][1]/@ElementID" />
@@ -1004,6 +1067,7 @@
                                 <xsl:value-of select="$subType" />
                             </xsl:with-param>
                             <xsl:with-param name="cellContext" select="$cellContext"/>
+                            <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                         </xsl:call-template>
                     </xsl:for-each>
 
@@ -1013,6 +1077,7 @@
                         <xsl:with-param name="questionId" select="$questionId" />
                         <xsl:with-param name="optionCount" select="$optionCount" />
                         <xsl:with-param name="typeOverride" select="'checkbox'" />
+                        <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                     </xsl:call-template>
                 </xsl:element>
             </xsl:when>
@@ -1026,6 +1091,7 @@
                             <xsl:value-of select="$subType" />
                         </xsl:with-param>
                         <xsl:with-param name="cellContext" select="$cellContext"/>
+                        <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                     </xsl:call-template>
                 </xsl:for-each>
             </xsl:otherwise>
@@ -1036,10 +1102,12 @@
         <xsl:param name="qType" />
         <xsl:param name="qGroup" />
         <xsl:param name="Hidden" />
+        <xsl:param name="qReadOnly" />
 
         <xsl:element name="o-tabstrip">
             <xsl:call-template name="insert-common-questiontype-attributes">
                 <xsl:with-param name="qGroup" select="$qGroup" />
+                <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
             </xsl:call-template>
 
             <xsl:for-each select="Table">
@@ -1047,6 +1115,7 @@
                 <xsl:with-param name="qGroup" select="$qGroup" />
                 <xsl:with-param name="theRows" select="Row" />
                 <xsl:with-param name="cType" select="'tabstrip'" />
+                <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
             </xsl:call-template>
             </xsl:for-each>
         </xsl:element>
@@ -1057,6 +1126,7 @@
         <xsl:param name="qGroup" />
         <xsl:param name="Hidden" />
         <xsl:param name="cellContext" />
+        <xsl:param name="qReadOnly" />
 
         <xsl:variable name="optionCount">
             <xsl:value-of select="count(Control[not(./Style/Control/@Type='ListBox')])" />
@@ -1088,6 +1158,7 @@
                                     <xsl:with-param name="qGroup" select="$qGroup" />
                                     <xsl:with-param name="qID" select="$questionID" />
                                     <xsl:with-param name="cellContext" select="$cellContext"/>
+                                    <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:otherwise>
@@ -1105,6 +1176,7 @@
                         <xsl:with-param name="questionId" select="Control[1]/@ElementID" />
                         <xsl:with-param name="optionCount" select="$optionCount" />
                         <xsl:with-param name="typeOverride" select="'checkbox'" />
+                        <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                     </xsl:call-template>
                 </xsl:element>
             </xsl:when>
@@ -1127,6 +1199,7 @@
                                 <xsl:with-param name="qGroup" select="$qGroup" />
                                 <xsl:with-param name="qID" select="$questionID" />
                                 <xsl:with-param name="cellContext" select="$cellContext"/>
+                                <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                             </xsl:call-template>
                         </xsl:when>
                         <xsl:otherwise>
@@ -1147,6 +1220,7 @@
         <xsl:param name="qGroup" />
         <xsl:param name="Hidden" />
         <xsl:param name="cellContext" />
+        <xsl:param name="qReadOnly" />
         <xsl:variable name="optionCount">
             <xsl:value-of select="count(Control[not(./Style/Control/@Type='SingleLineEdit')])" />
         </xsl:variable>
@@ -1165,6 +1239,7 @@
                                 <xsl:call-template name="o-combobox">
                                     <xsl:with-param name="qGroup" select="$qGroup" />
                                     <xsl:with-param name="cellContext" select="$cellContext"/>
+                                    <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:otherwise>
@@ -1182,6 +1257,7 @@
                         <xsl:with-param name="questionId" select="Control[1]/@ElementID" />
                         <xsl:with-param name="optionCount" select="$optionCount" />
                         <xsl:with-param name="typeOverride" select="'checkbox'" />
+                        <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                     </xsl:call-template>
                 </xsl:element>
             </xsl:when>
@@ -1192,6 +1268,7 @@
                             <xsl:call-template name="o-combobox">
                                 <xsl:with-param name="qGroup" select="$qGroup" />
                                 <xsl:with-param name="cellContext" select="$cellContext"/>
+                                <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                             </xsl:call-template>
                         </xsl:when>
                         <xsl:otherwise>
@@ -1212,6 +1289,7 @@
         <xsl:param name="qGroup" />
         <xsl:param name="Hidden" />
         <xsl:param name="cellContext" />
+        <xsl:param name="qReadOnly" />
 
         <xsl:variable name="optionCount">
             <xsl:value-of select="count(Control[not(./Style/Control/@Type='SingleLineEdit')])" />
@@ -1231,6 +1309,7 @@
                                 <xsl:call-template name="o-dropdown">
                                     <xsl:with-param name="qGroup" select="$qGroup" />
                                     <xsl:with-param name="cellContext" select="$cellContext"/>
+                                    <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:otherwise>
@@ -1248,6 +1327,7 @@
                         <xsl:with-param name="questionId" select="Control[1]/@ElementID" />
                         <xsl:with-param name="optionCount" select="$optionCount" />
                         <xsl:with-param name="typeOverride" select="'checkbox'" />
+                        <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                     </xsl:call-template>
                 </xsl:element>
             </xsl:when>
@@ -1258,6 +1338,7 @@
                             <xsl:call-template name="o-dropdown">
                                 <xsl:with-param name="qGroup" select="$qGroup" />
                                 <xsl:with-param name="cellContext" select="$cellContext"/>
+                                <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                             </xsl:call-template>
                         </xsl:when>
                         <xsl:otherwise>
@@ -1277,6 +1358,7 @@
         <xsl:param name="qType" />
         <xsl:param name="qGroup" />
         <xsl:param name="Hidden" />
+        <xsl:param name="qReadOnly" />
 
         <xsl:variable name="questionId">
             <xsl:value-of select="Control[./Style/Control/@Type='SingleLineEdit'][1]/@ElementID" />
@@ -1294,6 +1376,7 @@
                             <xsl:with-param name="qGroup">
                                 <xsl:value-of select="$qGroup" />
                             </xsl:with-param>
+                            <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                         </xsl:call-template>
                     </xsl:for-each>
 
@@ -1303,6 +1386,7 @@
                         <xsl:with-param name="questionId" select="$questionId" />
                         <xsl:with-param name="optionCount" select="$optionCount" />
                         <xsl:with-param name="typeOverride" select="'checkbox'" />
+                        <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                     </xsl:call-template>
                 </xsl:element>
             </xsl:when>
@@ -1312,6 +1396,7 @@
                         <xsl:with-param name="qGroup">
                             <xsl:value-of select="$qGroup" />
                         </xsl:with-param>
+                        <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                     </xsl:call-template>
                 </xsl:for-each>
             </xsl:otherwise>
@@ -1322,6 +1407,7 @@
     <!-- ============== -->
     <xsl:template name="loopTable">
         <xsl:param name="qGroup" />
+        <xsl:param name="qReadOnly" />
 
         <xsl:variable name="tableName" select="@TableName"/>
 
@@ -1346,6 +1432,7 @@
                     <xsl:call-template name="loopRow">
                         <xsl:with-param name="qGroup" select="$qGroup"/>
                         <xsl:with-param name="tableName" select="$tableName" />
+                        <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                     </xsl:call-template>
                 </xsl:for-each>
             </tbody>
@@ -1355,6 +1442,8 @@
     <xsl:template name="loopRow">
         <xsl:param name="qGroup" />
         <xsl:param name="tableName" />
+        <xsl:param name="qReadOnly" />
+
         <xsl:element name="tr">
             <xsl:attribute name="Y">
                 <xsl:value-of select="@Y" />
@@ -1376,6 +1465,7 @@
                     <xsl:with-param name="qGroup" select="$qGroup" />
                     <xsl:with-param name="currentCell" select="." />
                     <xsl:with-param name="tableName" select="$tableName" />
+                    <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                 </xsl:call-template>
             </xsl:for-each>
         </xsl:element>
@@ -1385,6 +1475,8 @@
         <xsl:param name="qGroup" />
         <xsl:param name="currentCell" />
         <xsl:param name="tableName" />
+        <xsl:param name="qReadOnly" />
+
         <xsl:variable name="cellContext">
             <xsl:value-of select="concat($tableName, '!C', @X, ' ', $tableName, '!R', @Y)" />
         </xsl:variable>
@@ -1416,6 +1508,7 @@
                             <xsl:with-param name="Y" select="../@Y" />
                             <xsl:with-param name="pClass" select="../@Class" />
                             <xsl:with-param name="tableName" select="$tableName" />
+                            <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                         </xsl:call-template>
                     </xsl:for-each>
                 </xsl:element>
@@ -1430,6 +1523,7 @@
                             <xsl:for-each select="Question">
                                 <xsl:call-template name="Question">
                                     <xsl:with-param name="cellContext" select="$cellContext" />
+                                    <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                                 </xsl:call-template>
                             </xsl:for-each>
                         </xsl:when>
@@ -1440,6 +1534,7 @@
                             </xsl:comment>                        
                             <xsl:call-template name="Question">
                                 <xsl:with-param name="cellContext" select="$cellContext" />
+                                <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                             </xsl:call-template>
                         </xsl:when>
                     </xsl:choose>
@@ -1501,6 +1596,7 @@
         <xsl:param name="qGroup" />
         <xsl:param name="subType" select="'horizontal'" />
         <xsl:param name="cellContext" />
+        <xsl:param name="qReadOnly" />
 
         <xsl:element name="o-scale">
             <xsl:attribute name="data-orientation">
@@ -1531,6 +1627,7 @@
                             <xsl:with-param name="isHidden" select="true()" />
                             <xsl:with-param name="applyWidth" select="false()" />
                             <xsl:with-param name="cellContext" select="$cellContext" />
+                            <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                     </xsl:call-template>
                 </xsl:when> 
                 <xsl:when test="$subType='vertical'">
@@ -1548,6 +1645,7 @@
                             <xsl:with-param name="isHidden" select="true()" />
                             <xsl:with-param name="applyWidth" select="false()" />
                             <xsl:with-param name="cellContext" select="$cellContext" />
+                            <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                     </xsl:call-template>
 
                     <xsl:call-template name="a-label-post" />
@@ -1561,6 +1659,7 @@
         <xsl:param name="qGroup" />
         <xsl:param name="subType" select="'horizontal'" />
         <xsl:param name="cellContext" />
+        <xsl:param name="qReadOnly" />
 
         <xsl:element name="o-slider">
             <xsl:attribute name="data-orientation">
@@ -1587,11 +1686,12 @@
                     </xsl:call-template>
 
                     <xsl:call-template name="insert-input">
-                            <xsl:with-param name="inputType" select="'number'" />
+                            <xsl:with-param name="inputType" select="'hidden'" />
                             <xsl:with-param name="qGroup" select="$qGroup" />
                             <xsl:with-param name="isHidden" select="true()" />
                             <xsl:with-param name="applyWidth" select="false()" />
                             <xsl:with-param name="cellContext" select="$cellContext" />
+                            <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                     </xsl:call-template>
                 </xsl:when> 
                 <xsl:when test="$subType='vertical'">
@@ -1609,6 +1709,7 @@
                             <xsl:with-param name="isHidden" select="true()" />
                             <xsl:with-param name="applyWidth" select="false()" />
                             <xsl:with-param name="cellContext" select="$cellContext" />
+                            <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                     </xsl:call-template>
 
                     <xsl:call-template name="a-label-post" />
@@ -1659,6 +1760,7 @@
         <xsl:param name="qGroup" />
         <xsl:param name="subType" select="'horizontal'" />
         <xsl:param name="cellContext" />
+        <xsl:param name="qReadOnly" />
 
         <xsl:variable name="questionID">
             <xsl:choose>
@@ -1715,6 +1817,7 @@
                     <xsl:text>_list</xsl:text>
                 </xsl:with-param>
                 <xsl:with-param name="cellContext" select="$cellContext"/>
+                <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
             </xsl:call-template>
         </xsl:element>
     </xsl:template>
@@ -1724,6 +1827,7 @@
         <xsl:param name="qGroup" />
         <xsl:param name="subType" select="'horizontal'" />
         <xsl:param name="cellContext" />
+        <xsl:param name="qReadOnly" />
 
         <xsl:variable name="questionID">
             <xsl:choose>
@@ -1779,6 +1883,7 @@
                     <xsl:text>_list</xsl:text>
                 </xsl:with-param>
                 <xsl:with-param name="cellContext" select="$cellContext"/>
+                <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
             </xsl:call-template>
         </xsl:element>
     </xsl:template>
@@ -1787,6 +1892,7 @@
         <xsl:param name="qGroup" />
         <xsl:param name="qID" />
         <xsl:param name="cellContext" />
+        <xsl:param name="qReadOnly" />
 
         <xsl:element name="o-list">
             <xsl:call-template name="insert-common-questiontype-attributes">
@@ -1836,6 +1942,7 @@
                 <xsl:with-param name="isHidden" select="true()" />
                 <xsl:with-param name="currentValue" select="$selectedCategory" />
                 <xsl:with-param name="cellContext" select="$cellContext" />
+                <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
             </xsl:call-template>
         </xsl:element>
     </xsl:template>
@@ -1873,6 +1980,7 @@
         <xsl:param name="qGroup" />
         <xsl:param name="subType" />
         <xsl:param name="cellContext" select="''" />
+        <xsl:param name="qReadOnly" />
 
         <xsl:variable name="subTypeElement">
             <xsl:text>m-singleline</xsl:text>
@@ -1904,6 +2012,7 @@
                 </xsl:with-param>
                 <xsl:with-param name="qGroup" select="$qGroup" />
                 <xsl:with-param name="cellContext" select="$cellContext" />
+                <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
             </xsl:call-template>
 
             <!-- post label -->
@@ -1916,6 +2025,7 @@
         <xsl:param name="qGroup" />
         <xsl:param name="typeOverride" />
         <xsl:param name="currentControl" />
+        <xsl:param name="qReadOnly" />
 
         <xsl:variable name="currentCategory" select="$currentControl/Category" />
 
@@ -1954,8 +2064,12 @@
                 <xsl:value-of select="$qGroup" />
             </xsl:attribute>
 
-            <xsl:if test="$currentControl/Style/Control/@ReadOnly">
+            <xsl:if test="$currentControl/Style/Control/@ReadOnly or $qReadOnly='true'">
                 <xsl:attribute name="data-readonly">
+                    <xsl:text>true</xsl:text>
+                </xsl:attribute>
+
+                <xsl:attribute name="aria-disabled">
                     <xsl:text>true</xsl:text>
                 </xsl:attribute>
             </xsl:if>
@@ -2014,6 +2128,7 @@
                 <xsl:with-param name="isHidden" select="true()" />
                 <xsl:with-param name="currentControl" select="$currentControl" />
                 <xsl:with-param name="controlId" select="$qCategoryID" />
+                <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
             </xsl:call-template>
 
             <!-- label-option -->
@@ -2031,6 +2146,7 @@
                 </xsl:with-param>
                 <xsl:with-param name="currentControl" select="$currentControl" />
                 <xsl:with-param name="controlId" select="$qCategoryID" />
+                <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
             </xsl:call-template>
 
         </xsl:element>
@@ -2042,6 +2158,7 @@
         <xsl:param name="qGroup" />
         <xsl:param name="typeOverride" />
         <xsl:param name="currentControl" />
+        <xsl:param name="qReadOnly" />
 
         <xsl:variable name="currentCategory" select="$currentControl/Category" />
 
@@ -2086,8 +2203,11 @@
                 </xsl:attribute>
             </xsl:if>
 
-            <xsl:if test="$currentControl/Style/Control/@ReadOnly">
+            <xsl:if test="$currentControl/Style/Control/@ReadOnly or $qReadOnly='true'">
                 <xsl:attribute name="data-readonly">
+                    <xsl:text>true</xsl:text>
+                </xsl:attribute>
+                <xsl:attribute name="aria-disabled">
                     <xsl:text>true</xsl:text>
                 </xsl:attribute>
             </xsl:if>
@@ -2140,6 +2260,7 @@
                 <xsl:with-param name="isHidden" select="true()" />
                 <xsl:with-param name="currentControl" select="$currentControl" />
                 <xsl:with-param name="controlId" select="$qCategoryID" />
+                <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
             </xsl:call-template>
 
             <!-- label-option -->
@@ -2156,6 +2277,7 @@
                 </xsl:with-param>
                 <xsl:with-param name="currentControl" select="$currentControl" />
                 <xsl:with-param name="controlId" select="$qCategoryID" />
+                <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
             </xsl:call-template>
         </xsl:element>
     </xsl:template>
@@ -2217,6 +2339,7 @@
         <xsl:param name="qGroup" />
         <xsl:param name="ElementID" />
         <xsl:param name="currentControl" />
+        <xsl:param name="qReadOnly" />
 
         <xsl:element name="li">
             <xsl:attribute name="id">
@@ -2235,6 +2358,7 @@
             <!-- label-option -->
             <xsl:call-template name="insert-label-option-list">
                 <xsl:with-param name="currentControl" select="$currentControl" />
+                <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
             </xsl:call-template>
 
         </xsl:element>
@@ -2284,6 +2408,7 @@
         <xsl:param name="optionCount" />
         <xsl:param name="nonOptionCount" select="1" />
         <xsl:param name="typeOverride" />
+        <xsl:param name="qReadOnly" />
 
         <xsl:variable name="includeFieldset">
             <xsl:choose>
@@ -2327,6 +2452,7 @@
                                 <xsl:with-param name="qGroup" select="$qGroup" />
                                 <xsl:with-param name="currentControl" select="." />
                                 <xsl:with-param name="typeOverride" select="$typeOverride" />
+                                <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                             </xsl:call-template>
                         </xsl:for-each>
                     </xsl:element>
@@ -2345,6 +2471,7 @@
                             <xsl:with-param name="qGroup" select="$qGroup" />
                             <xsl:with-param name="currentControl" select="." />
                             <xsl:with-param name="typeOverride" select="$typeOverride" />
+                            <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                         </xsl:call-template>
                     </xsl:for-each>
                 </xsl:otherwise>
