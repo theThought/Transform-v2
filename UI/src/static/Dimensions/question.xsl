@@ -467,6 +467,7 @@
         <xsl:element name="label">
             <xsl:attribute name="for">
                 <xsl:value-of select="@ElementID" />
+                <xsl:value-of select="@ElementId" />
             </xsl:attribute>
             <xsl:element name="span">
                 <xsl:attribute name="class">
@@ -478,7 +479,9 @@
                 </xsl:attribute>
                 <xsl:call-template name="insert-common-labelstyle-attributes" />
                 
-                <xsl:call-template name="insert-label-text" />      
+                <xsl:call-template name="insert-label-text">
+                    <xsl:with-param name="content" select="Text" />
+                </xsl:call-template>      
             </xsl:element>
         </xsl:element>
     </xsl:template>
@@ -751,6 +754,7 @@
                                                 <xsl:with-param name="currentControl" select="Cell/Control" />
                                                 <xsl:with-param name="typeOverride" select="$typeOverride" />
                                                 <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
+                                                <xsl:with-param name="otherQuestion" select="Cell/Question" />
                                             </xsl:call-template>
                                         </xsl:when>
                                         <xsl:when test="$cType='tabstrip'">
@@ -821,6 +825,7 @@
                                                 <xsl:with-param name="currentControl" select="Cell/Control" />
                                                 <xsl:with-param name="typeOverride" select="$typeOverride" />
                                                 <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
+                                                <xsl:with-param name="otherQuestion" select="Cell/Question" />
                                             </xsl:call-template>
                                         </xsl:when>
                                         <xsl:when test="$cType='tabstrip'">
@@ -903,6 +908,12 @@
         <xsl:variable name="optionCount">
             <xsl:value-of select="count(Control[not(./Style/Control/@Type='SingleLineEdit')])" />
         </xsl:variable>
+
+        <xsl:for-each select="Label">
+            <xsl:call-template name="insert-label">
+                <xsl:with-param name="subType" select="'option'" />
+            </xsl:call-template>
+        </xsl:for-each>
 
         <xsl:choose>
             <xsl:when test="$optionCount > 0">
@@ -2026,6 +2037,7 @@
         <xsl:param name="typeOverride" />
         <xsl:param name="currentControl" />
         <xsl:param name="qReadOnly" />
+        <xsl:param name="otherQuestion" />
 
         <xsl:variable name="currentCategory" select="$currentControl/Category" />
 
@@ -2149,6 +2161,14 @@
                 <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
             </xsl:call-template>
 
+            <xsl:if test="$otherQuestion">
+                <xsl:comment>
+                    <xsl:text>Other Question</xsl:text>
+                </xsl:comment>
+                <xsl:for-each select="$otherQuestion">
+                    <xsl:call-template name="Question" />
+                </xsl:for-each>
+            </xsl:if>
         </xsl:element>
 
     </xsl:template>

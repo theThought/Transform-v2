@@ -1,0 +1,113 @@
+<Questions>
+<Question>
+    <Style Color="{&quot;tabstrip&quot;:{&quot;question&quot;:&quot;tabs&quot;,&quot;tab&quot;:&quot;choice&quot;}}" BgColor="choice:_Qrecentdrinks" ElementAlign="NewLine" Indent="1">
+        <Control ReadOnly="true"></Control>
+    </Style>
+    <Table UseTablesLayout="0" Summary="Indicate which of the following drinks you have consumed in the last 7 days" TableName="_Q_DDynamicPage_Qrecentdrinks" TableID="_Q1">
+        <Row Y="0">
+            <Cell X="0" Y="0">
+                <Control Type="RadioButton" QuestionName="_Q_DDynamicPage_Qrecentdrinks_C" ElementID="_Q1_C">
+                    <Style ElementAlign="NewLine" Indent="1">
+                        <Control Type="RadioButton"></Control>
+                    </Style>
+                    <Category Name="FantaOrange" CategoryID="0">
+                        <Label>
+                            <Style ElementAlign="Right"></Style>
+                            <Text>Fanta (Orange)</Text>
+                        </Label>
+                    </Category>
+                </Control>
+            </Cell>
+        </Row>
+        <Row Y="1">
+            <Cell X="0" Y="1">
+                <Control Type="RadioButton" QuestionName="_Q_DDynamicPage_Qrecentdrinks_C" ElementID="_Q1_C">
+                    <Style ElementAlign="NewLine" Indent="1">
+                        <Control Type="RadioButton"></Control>
+                    </Style>
+                    <Category Name="DrPepper" CategoryID="1">
+                        <Label>
+                            <Style ElementAlign="Right"></Style>
+                            <Text>Dr Pepper</Text>
+                        </Label>
+                    </Category>
+                </Control>
+            </Cell>
+        </Row>
+        <Row Y="2">
+            <Cell X="0" Y="2">
+                <Control Type="RadioButton" QuestionName="_Q_DDynamicPage_Qrecentdrinks_C" ElementID="_Q1_C">
+                    <Style ElementAlign="NewLine" Indent="1">
+                        <Control Type="RadioButton"></Control>
+                    </Style>
+                    <Category Name="RWhites" CategoryID="2">
+                        <Label>
+                            <Style ElementAlign="Right"></Style>
+                            <Text>R Whites Lemonade</Text>
+                        </Label>
+                    </Category>
+                </Control>
+            </Cell>
+        </Row>
+        <Row Y="3">
+            <Cell X="0" Y="3">
+                <Control Type="RadioButton" QuestionName="_Q_DDynamicPage_Qrecentdrinks_C" ElementID="_Q1_C">
+                    <Style ElementAlign="NewLine" Indent="1">
+                        <Control Type="RadioButton"></Control>
+                    </Style>
+                    <Category Name="Sprite" CategoryID="3">
+                        <Label>
+                            <Style ElementAlign="Right"></Style>
+                            <Text>Sprite</Text>
+                        </Label>
+                    </Category>
+                </Control>
+            </Cell>
+        </Row>
+        <Row Y="4">
+            <Cell X="0" Y="4">
+                <Control Type="RadioButton" QuestionName="_Q_DDynamicPage_Qrecentdrinks_C" ElementID="_Q1_C">
+                    <Style ElementAlign="NewLine" Indent="1">
+                        <Control Type="RadioButton"></Control>
+                    </Style>
+                    <Category Name="Lilt" CategoryID="4">
+                        <Label>
+                            <Style ElementAlign="Right"></Style>
+                            <Text>Lilt</Text>
+                        </Label>
+                    </Category>
+                </Control>
+            </Cell>
+        </Row>
+        <Row Y="5">
+            <Cell X="0" Y="5">
+                <Control Type="RadioButton" QuestionName="_Q_DDynamicPage_Qrecentdrinks_C" ElementID="_Q1_C">
+                    <Style ElementAlign="NewLine" Indent="1">
+                        <Control Type="RadioButton"></Control>
+                    </Style>
+                    <Category Name="OtherDrink" CategoryID="5">
+                        <Label LabelID="_Q1_C5">
+                            <Style ElementAlign="Right"></Style>
+                            <Text>please specify</Text>
+                        </Label>
+                    </Category>
+                </Control>
+                <Question IsOther="true">
+                    <Style BgColor="singleline:_Qrecentdrinks_OOtherDrink" ElementAlign="Right">
+                        <Control Type="SingleLineEdit"></Control>
+                    </Style>
+                    <Label ElementId="_Q1_O5">
+                        <Style ElementAlign="Right"></Style>
+                        <Text>please specify</Text>
+                    </Label>
+                    <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_Qrecentdrinks_OOtherDrink" ElementID="_Q1_O5" Value="" Length="200" LabelRefID="_Q1_C5">
+                        <Style BgColor="singleline:_Qrecentdrinks_OOtherDrink" ElementAlign="Right">
+                            <Control Type="SingleLineEdit" Title="please specify"></Control>
+                        </Style>
+                    </Control>
+                </Question>
+            </Cell>
+        </Row>
+    </Table>
+</Question>
+</Questions>
