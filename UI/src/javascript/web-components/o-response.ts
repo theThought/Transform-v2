@@ -18,12 +18,12 @@ interface QuestionProperties {
     options?: {
         invisible?: Array<{
             name: string;
-            rules?: string;
+            rules: string;
             parsedRule?: string;
         }>;
         visible?: Array<{
             name: string;
-            rules?: string;
+            rules: string;
             parsedRule?: string;
         }>;
     };
@@ -55,22 +55,17 @@ export default class OResponse extends Component implements Subject {
     private observers: Observer[] = [];
     private ready = false;
     private isFiltered = false;
-    private isReadOnly = false;
     private optionRuleParsingComplete = false;
-    private alternativeRuleParsingComplete = false;
     private hasOptionVisibilityRules = false;
     private responses: Record<string, any> = [];
-    private container: HTMLElement | null = null;
-    private element: HTMLElement | null = null;
+    private element: HTMLInputElement | null = null;
     private filterSource = '';
     private filterExclusions: string[] = [];
 
     private sourceQuestions: Record<string, any> = {};
     private complexVisibilityRule = '';
     private expandedVisibilityRule = '';
-    private expandedCalculation = '';
     private ruleParsingComplete = false;
-    private hasAlternativeVisibilityRules = false;
     private available = true;
 
     constructor() {
@@ -346,8 +341,8 @@ export default class OResponse extends Component implements Subject {
         this.optionRuleParsingComplete = true;
     }
 
-    protected parseVisibilityRules(ruleString: string): string | undefined {
-        if (!ruleString) return undefined;
+    protected parseVisibilityRules(ruleString: string): string {
+        if (!ruleString) return '';
 
         ruleString = this.expandContainsAnyRule(ruleString);
         ruleString = this.expandContainsAllRule(ruleString);
@@ -404,7 +399,7 @@ export default class OResponse extends Component implements Subject {
                 }
 
                 if (!questionElements.length) {
-                    // if no questions were found by row, retrieve questions by container
+                    // if no questions were found while searching rows, retrieve questions by container
                     questionElements = document.querySelectorAll(
                         "div[data-question-group$='" +
                             question +
@@ -618,13 +613,15 @@ export default class OResponse extends Component implements Subject {
 
     private extractQuestionIdentifiers(ruleString: string): string {
         const questionRe = /%%(\w+)%%/g;
-        let questions = ruleString.match(questionRe);
+        const questions = ruleString.match(questionRe);
 
         if (!questions) {
             return ruleString;
         }
 
-        questions = uniq(questions);
+        questions.filter(function (elem, index, self) {
+            return index === self.indexOf(elem);
+        });
 
         for (let i = 0; i < questions.length; i++) {
             const currentQuestionRe = new RegExp(questions[i], 'g');
@@ -734,9 +731,10 @@ export default class OResponse extends Component implements Subject {
     }
 
     private hasChangedValue(): boolean {
+        if (!this.element) return false;
+
         const oldValue = this.element.value;
         const newValue = this.getCurrentValue();
-        this.value = newValue;
 
         return oldValue !== newValue;
     }
@@ -790,7 +788,7 @@ export default class OResponse extends Component implements Subject {
     }
 
     private processVisibleRules(): void {
-        if (!this.ruleParsingComplete) {
+        if (!this.ruleParsingComplete && this.properties.visible) {
             this.complexVisibilityRule = this.properties.visible.rules;
             this.expandedVisibilityRule = this.parseVisibilityRules(
                 this.complexVisibilityRule,
@@ -821,7 +819,7 @@ export default class OResponse extends Component implements Subject {
     }
 
     private processInvisibleRules(): void {
-        if (!this.ruleParsingComplete) {
+        if (!this.ruleParsingComplete && this.properties.invisible) {
             this.complexVisibilityRule = this.properties.invisible.rules;
             this.expandedVisibilityRule = this.parseVisibilityRules(
                 this.complexVisibilityRule,
