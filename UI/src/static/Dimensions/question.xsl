@@ -394,7 +394,7 @@
             </xsl:if>
 
             <xsl:if test="$qReadOnly='true'">
-                <xsl:attribute name="data-readonly">
+                <xsl:attribute name="readonly">
                     <xsl:text>true</xsl:text>
                 </xsl:attribute>
 
@@ -450,7 +450,7 @@
             </xsl:if>
 
             <xsl:if test="$currentControl/Style/Control/@ReadOnly or $qReadOnly='true'">
-                <xsl:attribute name="data-readonly">
+                <xsl:attribute name="readonly">
                     <xsl:text>true</xsl:text>
                 </xsl:attribute>
 
@@ -2077,7 +2077,7 @@
             </xsl:attribute>
 
             <xsl:if test="$currentControl/Style/Control/@ReadOnly or $qReadOnly='true'">
-                <xsl:attribute name="data-readonly">
+                <xsl:attribute name="readonly">
                     <xsl:text>true</xsl:text>
                 </xsl:attribute>
 
@@ -2224,7 +2224,7 @@
             </xsl:if>
 
             <xsl:if test="$currentControl/Style/Control/@ReadOnly or $qReadOnly='true'">
-                <xsl:attribute name="data-readonly">
+                <xsl:attribute name="readonly">
                     <xsl:text>true</xsl:text>
                 </xsl:attribute>
                 <xsl:attribute name="aria-disabled">
