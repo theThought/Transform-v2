@@ -1,4 +1,11 @@
 .o-structure-table {
+    tbody,
+    tr,
+    td,
+    th {
+        vertical-align: revert;
+    }
+
     td,
     th {
         padding: var(--space-1);
