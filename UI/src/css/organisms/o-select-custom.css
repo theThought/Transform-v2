@@ -19,7 +19,7 @@
     &:focus-within {
         o-list {
             block-size: auto;
-            margin-block-start: -1px;
+            margin-block-start: calc(var(--border-thickness) * -1);
             opacity: 1;
             pointer-events: all;
         }
