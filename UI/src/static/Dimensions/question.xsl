@@ -1948,7 +1948,7 @@
             </xsl:variable>
 
             <xsl:call-template name="insert-input">
-                <xsl:with-param name="inputType" select="'text'" />
+                <xsl:with-param name="inputType" select="'hidden'" />
                 <xsl:with-param name="qGroup" select="$qGroup" />
                 <xsl:with-param name="isHidden" select="true()" />
                 <xsl:with-param name="currentValue" select="$selectedCategory" />
