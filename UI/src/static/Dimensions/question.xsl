@@ -1529,6 +1529,28 @@
                     <xsl:attribute name="class">
                         <xsl:text>m-structure-cell</xsl:text>
                     </xsl:attribute>
+
+                    <xsl:variable name="styleVerticalAlign">
+                        <xsl:if test="Control/Style/@VerticalAlign">
+                            <xsl:text>vertical-align: </xsl:text>
+                            <xsl:value-of select="Control/Style/@VerticalAlign" />
+                            <xsl:text>;</xsl:text>
+                        </xsl:if>
+                    </xsl:variable>
+                    <xsl:variable name="styleHorizontalAlign">
+                        <xsl:if test="Control/Style/@Align">
+                            <xsl:text>align: </xsl:text>
+                            <xsl:value-of select="Control/Style/@Align" />
+                            <xsl:text>;</xsl:text>
+                        </xsl:if>
+                    </xsl:variable>
+                    <xsl:if test="$styleVerticalAlign or $styleHorizontalAlign">
+                        <xsl:attribute name="style">
+                            <xsl:value-of select="$styleVerticalAlign" />
+                            <xsl:value-of select="$styleHorizontalAlign" />
+                        </xsl:attribute>
+                    </xsl:if>
+
                     <xsl:choose>
                         <xsl:when test="name(*[1]) = 'Question'">
                             <xsl:for-each select="Question">
