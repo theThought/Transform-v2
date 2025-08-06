@@ -27,6 +27,7 @@
     color: var(--color-lightest);
     cursor: default;
     padding-inline-end: calc(var(--space-4) * 3);
+    width: 100%;
 
     &::placeholder {
         color: var(--color-lightest);

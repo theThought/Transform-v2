@@ -8,12 +8,16 @@
         opacity: 0;
         pointer-events: none;
         position: absolute;
-        width: 100%;
+        width: fit-content;
         z-index: 1;
+
+        li {
+            white-space: nowrap;
+        }
     }
 
     .o-list {
-        width: 100%;
+        width: fit-content;
     }
 
     &:focus-within {
