@@ -64,7 +64,7 @@
             </xsl:choose>
         </xsl:variable>
 
-        <xsl:element name="question">   
+        <xsl:element name="o-question">   
             <xsl:call-template name="response">
                 <xsl:with-param name="qType" select="$qType"/>
                 <xsl:with-param name="qGroup" select="$qGroup"/>
