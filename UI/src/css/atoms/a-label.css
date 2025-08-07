@@ -8,7 +8,9 @@
 }
 
 .a-label-question {
+    display: block;
     font-size: var(--font-size-m);
+    margin-block-end: var(--space-4);
 }
 
 .a-label-heading-sublist {
