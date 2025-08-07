@@ -1514,6 +1514,27 @@
                         </xsl:choose>
                     </xsl:attribute>
                     <xsl:for-each select="Label">
+                    <xsl:variable name="styleVerticalAlign">
+                        <xsl:if test="Style/@VerticalAlign">
+                            <xsl:text>vertical-align: </xsl:text>
+                            <xsl:value-of select="Style/@VerticalAlign" />
+                            <xsl:text>;</xsl:text>
+                        </xsl:if>
+                    </xsl:variable>
+                    <xsl:variable name="styleHorizontalAlign">
+                        <xsl:if test="Style/@Align">
+                            <xsl:text>align: </xsl:text>
+                            <xsl:value-of select="Style/@Align" />
+                            <xsl:text>;</xsl:text>
+                        </xsl:if>
+                    </xsl:variable>
+                    <xsl:if test="$styleVerticalAlign or $styleHorizontalAlign">
+                        <xsl:attribute name="style">
+                            <xsl:value-of select="$styleVerticalAlign" />
+                            <xsl:value-of select="$styleHorizontalAlign" />
+                        </xsl:attribute>
+                    </xsl:if>
+
                         <xsl:call-template name="insert-label-heading">
                             <xsl:with-param name="X" select="../@X" />
                             <xsl:with-param name="Y" select="../@Y" />
