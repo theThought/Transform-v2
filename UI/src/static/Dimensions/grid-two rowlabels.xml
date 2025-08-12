@@ -1,0 +1,345 @@
+<Questions>
+    <Question>
+        <Style Color="{&quot;cellshading&quot;:{&quot;rowheader&quot;:false,&quot;altrows&quot;:true},&quot;totals&quot;:{&quot;columns&quot;:{&quot;visible&quot;:true,&quot;caption&quot;:{&quot;content&quot;:&quot;Totals&quot;},&quot;labels&quot;:{&quot;post&quot;:&quot;%&quot;}},&quot;exceptions&quot;:[1],&quot;rows&quot;:{&quot;visible&quot;:false}}}" BgColor="loop:_QTotals__subheading" ElementAlign="NewLine"></Style>
+        <Table UseTablesLayout="-1" Summary="Grid with row subheadings and column total" TableName="_Q_DDynamicPage_QTotals__subheading" TableID="_Q1" QuestionType="LoopCategorical">
+            <Row Y="0">
+                <Cell X="0" Y="0" WeightY="4" Class="mrGridCategoryText">
+                    <Label>
+                        <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                        <Text>Customer-related</Text>
+                    </Label>
+                </Cell>
+                <Cell X="1" Y="0" Class="mrGridCategoryText">
+                    <Label>
+                        <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                        <Text>{#ins_consult_interact_pharma} with customers on &lt;b&gt;prescription&lt;/b&gt; treatments</Text>
+                    </Label>
+                </Cell>
+                <Cell X="2" Y="0">
+                    <Question>
+                        <Style BgColor="singleline:_QTotals__subheading_Qpat__related_Qslice" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine" Width="3em">
+                            <Control Type="SingleLineEdit"></Control>
+                        </Style>
+                        <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QTotals__subheading_Qpats__prescription__tx_Qslice" ElementID="_Q1_Q0_Q0" Value="" MaxValue="100" MinValue="0" Length="3">
+                            <Style BgColor="singleline:_QTotals__subheading_Qpat__related_Qslice" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine" Width="3em">
+                                <Control Type="SingleLineEdit"></Control>
+                            </Style>
+                        </Control>
+                    </Question>
+                </Cell>
+            </Row>
+            <Row Y="1">
+                <Cell X="1" Y="1" Class="mrGridCategoryText">
+                    <Label>
+                        <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                        <Text>{#ins_consult_interact_pharma} with customers on &lt;b&gt;non-prescription&lt;/b&gt; treatments (e.g. over-the-counter (OTC) treatments)</Text>
+                    </Label>
+                </Cell>
+                <Cell X="2" Y="1">
+                    <Question>
+                        <Style BgColor="singleline:_QTotals__subheading_Qpresc__related_Qslice" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine" Width="3em">
+                            <Control Type="SingleLineEdit"></Control>
+                        </Style>
+                        <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QTotals__subheading_Qpats__nonprescription__tx_Qslice" ElementID="_Q1_Q1_Q0" Value="" MaxValue="100" MinValue="0" Length="3">
+                            <Style BgColor="singleline:_QTotals__subheading_Qpresc__related_Qslice" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine" Width="3em">
+                                <Control Type="SingleLineEdit"></Control>
+                            </Style>
+                        </Control>
+                    </Question>
+                </Cell>
+            </Row>
+            <Row Y="2">
+                <Cell X="1" Y="2" Class="mrGridCategoryText">
+                    <Label>
+                        <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                        <Text>{#ins_consult_interact_pharma} with customers on &lt;b&gt;vaccinations&lt;/b&gt;</Text>
+                    </Label>
+                </Cell>
+                <Cell X="2" Y="2">
+                    <Question>
+                        <Style BgColor="singleline:_QTotals__subheading_Qoth__admin_Qslice" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine" Width="3em">
+                            <Control Type="SingleLineEdit"></Control>
+                        </Style>
+                        <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QTotals__subheading_Qpats__vaccinations_Qslice" ElementID="_Q1_Q2_Q0" Value="" MaxValue="100" MinValue="0" Length="3">
+                            <Style BgColor="singleline:_QTotals__subheading_Qoth__admin_Qslice" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine" Width="3em">
+                                <Control Type="SingleLineEdit"></Control>
+                            </Style>
+                        </Control>
+                    </Question>
+                </Cell>
+            </Row>
+            <Row Y="3">
+                <Cell X="1" Y="3" Class="mrGridCategoryText">
+                    <Label>
+                        <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                        <Text>{#ins_consult_interact_pharma} with customers on &lt;b&gt;general health education&lt;/b&gt;, not related to prescription or OTC treatments</Text>
+                    </Label>
+                </Cell>
+                <Cell X="2" Y="3">
+                    <Question>
+                        <Style BgColor="singleline:" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine" Width="3em">
+                            <Control Type="SingleLineEdit"></Control>
+                        </Style>
+                        <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QTotals__subheading_Qpats__general__health__education_Qslice" ElementID="_Q1_Q3_Q0" Value="" MaxValue="100" MinValue="0" Length="3">
+                            <Style BgColor="singleline:" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine" Width="3em">
+                                <Control Type="SingleLineEdit"></Control>
+                            </Style>
+                        </Control>
+                    </Question>
+                </Cell>
+            </Row>
+            <Row Y="4">
+                <Cell X="0" Y="4" WeightY="7" Class="mrGridCategoryText">
+                    <Label>
+                        <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                        <Text>Prescription-related</Text>
+                    </Label>
+                </Cell>
+                <Cell X="1" Y="4" Class="mrGridCategoryText">
+                    <Label>
+                        <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                        <Text>Entering prescriptions into the system</Text>
+                    </Label>
+                </Cell>
+                <Cell X="2" Y="4">
+                    <Question>
+                        <Style BgColor="singleline:" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine" Width="3em">
+                            <Control Type="SingleLineEdit"></Control>
+                        </Style>
+                        <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QTotals__subheading_Qentering__prescriptions__into__the__system_Qslice" ElementID="_Q1_Q4_Q0" Value="" MaxValue="100" MinValue="0" Length="3">
+                            <Style BgColor="singleline:" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine" Width="3em">
+                                <Control Type="SingleLineEdit"></Control>
+                            </Style>
+                        </Control>
+                    </Question>
+                </Cell>
+            </Row>
+            <Row Y="5">
+                <Cell X="1" Y="5" Class="mrGridCategoryText">
+                    <Label>
+                        <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                        <Text>Filling prescription (i.e. filling the bottle, label printing etc.)</Text>
+                    </Label>
+                </Cell>
+                <Cell X="2" Y="5">
+                    <Question>
+                        <Style BgColor="singleline:" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine" Width="3em">
+                            <Control Type="SingleLineEdit"></Control>
+                        </Style>
+                        <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QTotals__subheading_Qfilling__prescription_Qslice" ElementID="_Q1_Q5_Q0" Value="" MaxValue="100" MinValue="0" Length="3">
+                            <Style BgColor="singleline:" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine" Width="3em">
+                                <Control Type="SingleLineEdit"></Control>
+                            </Style>
+                        </Control>
+                    </Question>
+                </Cell>
+            </Row>
+            <Row Y="6">
+                <Cell X="1" Y="6" Class="mrGridCategoryText">
+                    <Label>
+                        <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                        <Text>Prescription verification</Text>
+                    </Label>
+                </Cell>
+                <Cell X="2" Y="6">
+                    <Question>
+                        <Style BgColor="singleline:" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine" Width="3em">
+                            <Control Type="SingleLineEdit"></Control>
+                        </Style>
+                        <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QTotals__subheading_Qprescription__verification_Qslice" ElementID="_Q1_Q6_Q0" Value="" MaxValue="100" MinValue="0" Length="3">
+                            <Style BgColor="singleline:" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine" Width="3em">
+                                <Control Type="SingleLineEdit"></Control>
+                            </Style>
+                        </Control>
+                    </Question>
+                </Cell>
+            </Row>
+            <Row Y="7">
+                <Cell X="1" Y="7" Class="mrGridCategoryText">
+                    <Label>
+                        <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                        <Text>Dispensing medications to customers</Text>
+                    </Label>
+                </Cell>
+                <Cell X="2" Y="7">
+                    <Question>
+                        <Style BgColor="singleline:" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine" Width="3em">
+                            <Control Type="SingleLineEdit"></Control>
+                        </Style>
+                        <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QTotals__subheading_Qdispensing__medications__to__patients_Qslice" ElementID="_Q1_Q7_Q0" Value="" MaxValue="100" MinValue="0" Length="3">
+                            <Style BgColor="singleline:" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine" Width="3em">
+                                <Control Type="SingleLineEdit"></Control>
+                            </Style>
+                        </Control>
+                    </Question>
+                </Cell>
+            </Row>
+            <Row Y="8">
+                <Cell X="1" Y="8" Class="mrGridCategoryText">
+                    <Label>
+                        <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                        <Text>Prescription re-fills with no changes</Text>
+                    </Label>
+                </Cell>
+                <Cell X="2" Y="8">
+                    <Question>
+                        <Style BgColor="singleline:" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine" Width="3em">
+                            <Control Type="SingleLineEdit"></Control>
+                        </Style>
+                        <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QTotals__subheading_Qprescription__refills__with__no__changes_Qslice" ElementID="_Q1_Q8_Q0" Value="" MaxValue="100" MinValue="0" Length="3">
+                            <Style BgColor="singleline:" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine" Width="3em">
+                                <Control Type="SingleLineEdit"></Control>
+                            </Style>
+                        </Control>
+                    </Question>
+                </Cell>
+            </Row>
+            <Row Y="9">
+                <Cell X="1" Y="9" Class="mrGridCategoryText">
+                    <Label>
+                        <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                        <Text>Prescription re-fills with at least one change</Text>
+                    </Label>
+                </Cell>
+                <Cell X="2" Y="9">
+                    <Question>
+                        <Style BgColor="singleline:" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine" Width="3em">
+                            <Control Type="SingleLineEdit"></Control>
+                        </Style>
+                        <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QTotals__subheading_Qprescription__refills__with__at__least__one__change_Qslice" ElementID="_Q1_Q9_Q0" Value="" MaxValue="100" MinValue="0" Length="3">
+                            <Style BgColor="singleline:" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine" Width="3em">
+                                <Control Type="SingleLineEdit"></Control>
+                            </Style>
+                        </Control>
+                    </Question>
+                </Cell>
+            </Row>
+            <Row Y="10">
+                <Cell X="1" Y="10" Class="mrGridCategoryText">
+                    <Label>
+                        <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                        <Text>Calls to customers to let them know their prescription is ready for pick-up</Text>
+                    </Label>
+                </Cell>
+                <Cell X="2" Y="10">
+                    <Question>
+                        <Style BgColor="singleline:" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine" Width="3em">
+                            <Control Type="SingleLineEdit"></Control>
+                        </Style>
+                        <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QTotals__subheading_Qcalls__pat__prescription__ready__pickup_Qslice" ElementID="_Q1_Q10_Q0" Value="" MaxValue="100" MinValue="0" Length="3">
+                            <Style BgColor="singleline:" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine" Width="3em">
+                                <Control Type="SingleLineEdit"></Control>
+                            </Style>
+                        </Control>
+                    </Question>
+                </Cell>
+            </Row>
+            <Row Y="11">
+                <Cell X="0" Y="11" WeightY="5" Class="mrGridCategoryText">
+                    <Label>
+                        <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                        <Text>Other / administrative</Text>
+                    </Label>
+                </Cell>
+                <Cell X="1" Y="11" Class="mrGridCategoryText">
+                    <Label>
+                        <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                        <Text>Engaging with physicians, other healthcare professionals or administrative staff on behalf of customers</Text>
+                    </Label>
+                </Cell>
+                <Cell X="2" Y="11">
+                    <Question>
+                        <Style BgColor="singleline:" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine" Width="3em">
+                            <Control Type="SingleLineEdit"></Control>
+                        </Style>
+                        <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QTotals__subheading_Qengaging__physicians__healthcare__prof__admin__staff__behalf__of__pats_Qslice" ElementID="_Q1_Q11_Q0" Value="" MaxValue="100" MinValue="0" Length="3">
+                            <Style BgColor="singleline:" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine" Width="3em">
+                                <Control Type="SingleLineEdit"></Control>
+                            </Style>
+                        </Control>
+                    </Question>
+                </Cell>
+            </Row>
+            <Row Y="12">
+                <Cell X="1" Y="12" Class="mrGridCategoryText">
+                    <Label>
+                        <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                        <Text>Engaging with insurance companies on behalf of customers</Text>
+                    </Label>
+                </Cell>
+                <Cell X="2" Y="12">
+                    <Question>
+                        <Style BgColor="singleline:" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine" Width="3em">
+                            <Control Type="SingleLineEdit"></Control>
+                        </Style>
+                        <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QTotals__subheading_Qengaging__insurance__comp__behalf__pats_Qslice" ElementID="_Q1_Q12_Q0" Value="" MaxValue="100" MinValue="0" Length="3">
+                            <Style BgColor="singleline:" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine" Width="3em">
+                                <Control Type="SingleLineEdit"></Control>
+                            </Style>
+                        </Control>
+                    </Question>
+                </Cell>
+            </Row>
+            <Row Y="13">
+                <Cell X="1" Y="13" Class="mrGridCategoryText">
+                    <Label>
+                        <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                        <Text>Inventory / keeping stock</Text>
+                    </Label>
+                </Cell>
+                <Cell X="2" Y="13">
+                    <Question>
+                        <Style BgColor="singleline:" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine" Width="3em">
+                            <Control Type="SingleLineEdit"></Control>
+                        </Style>
+                        <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QTotals__subheading_Qinventory__keeping__stock_Qslice" ElementID="_Q1_Q13_Q0" Value="" MaxValue="100" MinValue="0" Length="3">
+                            <Style BgColor="singleline:" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine" Width="3em">
+                                <Control Type="SingleLineEdit"></Control>
+                            </Style>
+                        </Control>
+                    </Question>
+                </Cell>
+            </Row>
+            <Row Y="14">
+                <Cell X="1" Y="14" Class="mrGridCategoryText">
+                    <Label>
+                        <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                        <Text>General administration / operational activities (e.g. purchasing, managing staff, ordering supplies)</Text>
+                    </Label>
+                </Cell>
+                <Cell X="2" Y="14">
+                    <Question>
+                        <Style BgColor="singleline:" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine" Width="3em">
+                            <Control Type="SingleLineEdit"></Control>
+                        </Style>
+                        <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QTotals__subheading_Qgeneral__administration__operational__activities_Qslice" ElementID="_Q1_Q14_Q0" Value="" MaxValue="100" MinValue="0" Length="3">
+                            <Style BgColor="singleline:" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine" Width="3em">
+                                <Control Type="SingleLineEdit"></Control>
+                            </Style>
+                        </Control>
+                    </Question>
+                </Cell>
+            </Row>
+            <Row Y="15">
+                <Cell X="1" Y="15" Class="mrGridCategoryText">
+                    <Label>
+                        <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                        <Text>Other activities</Text>
+                    </Label>
+                </Cell>
+                <Cell X="2" Y="15">
+                    <Question>
+                        <Style BgColor="singleline:" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine" Width="3em">
+                            <Control Type="SingleLineEdit"></Control>
+                        </Style>
+                        <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QTotals__subheading_Qother__activities_Qslice" ElementID="_Q1_Q15_Q0" Value="" MaxValue="100" MinValue="0" Length="3">
+                            <Style BgColor="singleline:" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine" Width="3em">
+                                <Control Type="SingleLineEdit"></Control>
+                            </Style>
+                        </Control>
+                    </Question>
+                </Cell>
+            </Row>
+        </Table>
+    </Question>
+</Questions>

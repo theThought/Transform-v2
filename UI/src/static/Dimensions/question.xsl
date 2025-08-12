@@ -1500,6 +1500,16 @@
                     <xsl:attribute name="Y">
                         <xsl:value-of select="@Y" />
                     </xsl:attribute>
+                    <xsl:if test="@WeightY">
+                        <xsl:attribute name="rowspan">
+                            <xsl:value-of select="@WeightY" />
+                        </xsl:attribute>
+                    </xsl:if>
+                    <xsl:if test="@WeightX">
+                        <xsl:attribute name="colspan">
+                            <xsl:value-of select="@WeightX" />
+                        </xsl:attribute>
+                    </xsl:if>
                     <xsl:attribute name="class">
                         <xsl:text>m-structure-cell</xsl:text>
                     </xsl:attribute>
@@ -1514,26 +1524,34 @@
                         </xsl:choose>
                     </xsl:attribute>
                     <xsl:for-each select="Label">
-                    <xsl:variable name="styleVerticalAlign">
-                        <xsl:if test="Style/@VerticalAlign">
-                            <xsl:text>vertical-align: </xsl:text>
-                            <xsl:value-of select="Style/@VerticalAlign" />
-                            <xsl:text>;</xsl:text>
+                        <xsl:variable name="styleVerticalAlign">
+                            <xsl:if test="Style/@VerticalAlign">
+                                <xsl:text>vertical-align:</xsl:text>
+                                <xsl:value-of select="Style/@VerticalAlign" />
+                                <xsl:text>; </xsl:text>
+                            </xsl:if>
+                        </xsl:variable>
+                        <xsl:variable name="styleHorizontalAlign">
+                            <xsl:if test="Style/@Align">
+                                <xsl:text>text-align:</xsl:text>
+                                <xsl:value-of select="Style/@Align" />
+                                <xsl:text>; </xsl:text>
+                            </xsl:if>
+                        </xsl:variable>
+                        <xsl:variable name="styleWidth">
+                            <xsl:if test="Style/Cell/@Width">
+                                <xsl:text>width:</xsl:text>
+                                <xsl:value-of select="Style/Cell/@Width" />
+                                <xsl:text>; </xsl:text>
+                            </xsl:if>
+                        </xsl:variable>
+                        <xsl:if test="$styleVerticalAlign or $styleHorizontalAlign or $styleWidth">
+                            <xsl:attribute name="style">
+                                <xsl:value-of select="$styleVerticalAlign" />
+                                <xsl:value-of select="$styleHorizontalAlign" />
+                                <xsl:value-of select="$styleWidth" />
+                            </xsl:attribute>
                         </xsl:if>
-                    </xsl:variable>
-                    <xsl:variable name="styleHorizontalAlign">
-                        <xsl:if test="Style/@Align">
-                            <xsl:text>align: </xsl:text>
-                            <xsl:value-of select="Style/@Align" />
-                            <xsl:text>;</xsl:text>
-                        </xsl:if>
-                    </xsl:variable>
-                    <xsl:if test="$styleVerticalAlign or $styleHorizontalAlign">
-                        <xsl:attribute name="style">
-                            <xsl:value-of select="$styleVerticalAlign" />
-                            <xsl:value-of select="$styleHorizontalAlign" />
-                        </xsl:attribute>
-                    </xsl:if>
 
                         <xsl:call-template name="insert-label-heading">
                             <xsl:with-param name="X" select="../@X" />
@@ -1551,30 +1569,40 @@
                         <xsl:text>m-structure-cell</xsl:text>
                     </xsl:attribute>
 
-                    <xsl:variable name="styleVerticalAlign">
-                        <xsl:if test="Control/Style/@VerticalAlign">
-                            <xsl:text>vertical-align: </xsl:text>
-                            <xsl:value-of select="Control/Style/@VerticalAlign" />
-                            <xsl:text>;</xsl:text>
-                        </xsl:if>
-                    </xsl:variable>
-                    <xsl:variable name="styleHorizontalAlign">
-                        <xsl:if test="Control/Style/@Align">
-                            <xsl:text>align: </xsl:text>
-                            <xsl:value-of select="Control/Style/@Align" />
-                            <xsl:text>;</xsl:text>
-                        </xsl:if>
-                    </xsl:variable>
-                    <xsl:if test="$styleVerticalAlign or $styleHorizontalAlign">
-                        <xsl:attribute name="style">
-                            <xsl:value-of select="$styleVerticalAlign" />
-                            <xsl:value-of select="$styleHorizontalAlign" />
-                        </xsl:attribute>
-                    </xsl:if>
 
                     <xsl:choose>
                         <xsl:when test="name(*[1]) = 'Question'">
                             <xsl:for-each select="Question">
+
+                                <xsl:variable name="styleVerticalAlign">
+                                    <xsl:if test="Style/@VerticalAlign">
+                                        <xsl:text>vertical-align:</xsl:text>
+                                        <xsl:value-of select="Style/@VerticalAlign" />
+                                        <xsl:text>; </xsl:text>
+                                    </xsl:if>
+                                </xsl:variable>
+                                <xsl:variable name="styleHorizontalAlign">
+                                    <xsl:if test="Style/@Align">
+                                        <xsl:text>text-align:</xsl:text>
+                                        <xsl:value-of select="Style/@Align" />
+                                        <xsl:text>; </xsl:text>
+                                    </xsl:if>
+                                </xsl:variable>
+                                <xsl:variable name="styleWidth">
+                                    <xsl:if test="Style/Cell/@Width">
+                                        <xsl:text>width:</xsl:text>
+                                        <xsl:value-of select="Style/Cell/@Width" />
+                                        <xsl:text>; </xsl:text>
+                                    </xsl:if>
+                                </xsl:variable>
+                                <xsl:if test="$styleVerticalAlign or $styleHorizontalAlign or $styleWidth">
+                                    <xsl:attribute name="style">
+                                        <xsl:value-of select="$styleVerticalAlign" />
+                                        <xsl:value-of select="$styleHorizontalAlign" />
+                                        <xsl:value-of select="$styleWidth" />
+                                    </xsl:attribute>
+                                </xsl:if>
+
                                 <xsl:call-template name="Question">
                                     <xsl:with-param name="cellContext" select="$cellContext" />
                                     <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
