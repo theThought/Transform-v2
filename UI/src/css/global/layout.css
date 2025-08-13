@@ -68,6 +68,7 @@ form {
 
 .surroundcontent {
     grid-area: main;
+    overflow: auto;
 }
 
 .footer {
