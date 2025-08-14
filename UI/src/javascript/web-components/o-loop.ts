@@ -38,7 +38,7 @@ type TotalEntry = {
     readonly: boolean;
 };
 
-export default class OQuestionGrid extends Component {
+export default class OLoop extends Component {
     private grid: HTMLTableElement | null = null;
     private hasrowtotals = false;
     private rowtotals: TotalEntry[] = [];

@@ -15,7 +15,7 @@ import ODropdown from './web-components/o-dropdown';
 import OOptionSublist from './web-components/o-option-sublist';
 import OOptionTabStrip from './web-components/o-option-tabstrip';
 import OQuestion from './web-components/o-question';
-import OQuestionGrid from './web-components/o-question-grid';
+import OLoop from './web-components/o-loop';
 import OResponse from './web-components/o-response';
 import OScale from './web-components/o-scale';
 import OScaleContainer from './web-components/m-scale-container';
@@ -52,8 +52,7 @@ export const uiInit = (): void => {
         customElements.define('o-scale-container', OScaleContainer);
     !customElements.get('o-slider') &&
         customElements.define('o-slider', OSlider);
-    !customElements.get('o-question-grid') &&
-        customElements.define('o-question-grid', OQuestionGrid);
+    !customElements.get('o-loop') && customElements.define('loop', OLoop);
 
     // Inner components.
     !customElements.get('a-scale-unit') &&
