@@ -53,7 +53,7 @@ export const uiInit = (): void => {
     !customElements.get('o-slider') &&
         customElements.define('o-slider', OSlider);
     !customElements.get('o-question-grid') &&
-        customElements.define('o-question-gris', OQuestionGrid);
+        customElements.define('o-question-grid', OQuestionGrid);
 
     // Inner components.
     !customElements.get('a-scale-unit') &&
