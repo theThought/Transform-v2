@@ -91,7 +91,7 @@ export default class OList extends Component implements Observer {
     }
 
     private handleKey(e: KeyboardEvent): void {
-        e.preventDefault();
+        // e.preventDefault();
         e.stopPropagation();
 
         switch (e.key) {

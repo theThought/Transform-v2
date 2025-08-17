@@ -6,6 +6,12 @@ export interface CaptionProps {
     width?: string;
 }
 
+export interface CellShadingProps {
+    rowheader?: boolean;
+    columheader?: boolean;
+    altrows?: boolean;
+}
+
 export interface LabelProps {
     pre?: string;
     post?: string;
@@ -28,6 +34,7 @@ export interface GridTotalsProps {
 
 export interface GridProperties {
     totals?: GridTotalsProps;
+    cellshading?: CellShadingProps;
 }
 
 type TotalEntry = {
@@ -56,6 +63,9 @@ export default class OLoop extends Component {
     public connectedCallback(): void {
         super.connectedCallback();
         this.loadPropertiesFromAttributes();
+
+        this.grid = this.querySelector('table');
+
         this.init();
         this.addEventListener('broadcastChange', this.handleEvent);
     }

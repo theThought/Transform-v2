@@ -52,7 +52,7 @@ export const uiInit = (): void => {
         customElements.define('o-scale-container', OScaleContainer);
     !customElements.get('o-slider') &&
         customElements.define('o-slider', OSlider);
-    !customElements.get('o-loop') && customElements.define('loop', OLoop);
+    !customElements.get('o-loop') && customElements.define('o-loop', OLoop);
 
     // Inner components.
     !customElements.get('a-scale-unit') &&
