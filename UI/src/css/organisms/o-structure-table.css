@@ -14,4 +14,8 @@
     th {
         font-weight: normal;
     }
+
+    tr.m-structure-row-heading + tr:not(.m-structure-row-heading) {
+        border-block-start: var(--border-thickness) solid var(--color-darkest);
+    }
 }
