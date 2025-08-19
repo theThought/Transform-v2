@@ -5,6 +5,7 @@ details {
     font-size: var(--font-size-s);
     padding: var(--space-2) var(--space-2) 0 var(--space-2);
     position: relative;
+    z-index: 99;
 
     > div {
         background-color: var(--color-light1);
