@@ -12,6 +12,10 @@
     font-size: var(--font-size-m);
 }
 
+.a-label-caption {
+    font-size: var(--font-size-m);
+}
+
 .l-column > .a-label-question {
     margin-block-end: var(--space-4);
 }

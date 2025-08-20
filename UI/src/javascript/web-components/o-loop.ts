@@ -7,13 +7,14 @@ interface CaptionProps {
 }
 
 interface CellShadingProps {
-    rowheader?: boolean;
-    columheader?: boolean;
+    altcolumns?: boolean;
     altrows?: boolean;
+    headercolumn?: boolean;
+    headerrow?: boolean;
 }
 
 interface TopHeadingsCaptionProp {
-    content?: string;
+    caption?: string;
     colspan?: number;
 }
 
@@ -39,10 +40,18 @@ interface GridTotalsProps {
     columns?: TotalsProps;
 }
 
+interface GridSeparatorsProps {
+    columns?: number[];
+    rows?: number[];
+    color?: string;
+}
+
 interface GridProperties {
     totals?: GridTotalsProps;
     cellshading?: CellShadingProps;
     topheadings?: TopHeadingsProps;
+    separators?: GridSeparatorsProps;
+    caption?: CaptionProps;
 }
 
 type TotalEntry = {
@@ -54,12 +63,12 @@ type TotalEntry = {
 };
 
 export default class OLoop extends Component {
-    private grid: HTMLTableElement | null = null;
+    private element: HTMLTableElement | null = null;
     private hasRowTotals = false;
     private rowTotals: TotalEntry[] = [];
+    private columnTotals: TotalEntry[] = [];
     private excludeRowReadOnly = true;
     private excludeColumnReadOnly = true;
-    private columnTotals: TotalEntry[] = [];
     private hasGrandTotal = false;
 
     public properties: GridProperties = {};
@@ -72,32 +81,26 @@ export default class OLoop extends Component {
         super.connectedCallback();
         this.loadPropertiesFromAttributes();
 
-        this.grid = this.querySelector('table');
-        if (!this.grid) return;
+        this.element = this.querySelector('table');
 
         this.configureCellEvents();
+        this.configureTableCaption();
+        this.configureTotals();
+        this.configureTopHeadings();
+        this.configureCellShading();
         this.configureRowStyles();
-        this.topHeadings();
+        this.configureSeparators();
 
-        this.addEventListener('broadcastChange', this.handleEvent);
+        this.addEventListener('questionChange', this.handleEvent);
     }
 
     public handleEvent(e: Event): void {
         switch (e.type) {
-            case 'broadcastChange':
+            case 'questionChange':
                 this.receiveBroadcast(e as CustomEvent);
                 break;
             default:
                 break;
-        }
-    }
-
-    // Utilities
-    private debug(message: string, level = 1): void {
-        if (level >= 2) {
-            console.warn(`[OQuestionGrid] ${message}`);
-        } else {
-            console.log(`[OQuestionGrid] ${message}`);
         }
     }
 
@@ -122,38 +125,40 @@ export default class OLoop extends Component {
         try {
             this.properties = JSON.parse(raw) as GridProperties;
         } catch {
-            this.debug('Failed to parse properties JSON from attributes.', 2);
+            console.warn(
+                '[OQuestionGrid] Failed to parse properties JSON from attributes.',
+            );
             this.properties = {};
         }
     }
 
     // Heading utilities
-    public topHeadings(): void {
+    private configureTopHeadings(): void {
         if (
-            !this.grid ||
+            !this.element ||
             !Array.isArray(this.properties.topheadings) ||
             !this.properties.topheadings.length
         )
             return;
 
-        const headingRow = this.grid.insertRow(0);
+        const headingRow = this.element.insertRow(0);
         headingRow.className = 'm-structure-caption-row';
 
         for (let i = 0; i < this.properties.topheadings.length; i++) {
             const newTH = document.createElement('th');
             newTH.scope = 'col';
-            newTH.innerHTML = `<span class="a-label-caption">${this.properties.topheadings[i].content ?? ''}</span>`;
+            newTH.innerHTML = `<span class="a-label-caption">${this.properties.topheadings[i].caption ?? ''}</span>`;
             newTH.colSpan = this.properties.topheadings[i].colspan ?? 1;
             newTH.className = 'm-structure-cell m-structure-heading';
             headingRow.appendChild(newTH);
         }
     }
 
-    // Row styling
+    // Row styling - required to avoid double-striping when errors are present
     private configureRowStyles(): void {
-        if (!this.grid) return;
+        if (!this.element) return;
 
-        const tableRowList = this.grid.querySelectorAll(
+        const tableRowList = this.element.querySelectorAll(
             'tr.m-structure-row, tr.m-structure-row-error',
         );
         let stripedRowIterator = 0;
@@ -181,25 +186,13 @@ export default class OLoop extends Component {
         }
     }
 
-    // DOM text search utility
-    public recursiveTextSearch(node: Node, text = ''): string {
-        if (node.nodeType === Node.TEXT_NODE) {
-            text += (node.nodeValue || '').trim();
-        } else if (node.nodeType === Node.ELEMENT_NODE) {
-            node.childNodes.forEach((child) => {
-                text = this.recursiveTextSearch(child, text);
-            });
-        }
-        return text;
-    }
-
     // Cell click handling
     private configureCellEvents(): void {
-        if (!this.grid) return;
+        if (!this.element) return;
 
         for (
             let i = 0, row: HTMLTableRowElement | undefined;
-            (row = this.grid.rows[i]);
+            (row = this.element.rows[i]);
             i++
         ) {
             for (
@@ -273,71 +266,51 @@ export default class OLoop extends Component {
     }
 
     // Shading toggles
-    public cellshading(props: {
-        headerColumn?: boolean;
-        altColumns?: boolean;
-        headerRow?: boolean;
-        altRows?: boolean;
-    }): void {
-        if (!this.grid) return;
+    private configureCellShading(): void {
+        if (!this.element) return;
 
-        if (props.headerColumn === true) {
-            this.grid.classList.add('shade-headercolumn');
+        if (this.properties.cellshading?.headercolumn === true) {
+            this.element.classList.add('shade-header-column');
         }
 
-        if (props.altColumns === true) {
-            this.grid.classList.add('shade-altcolumns');
+        if (this.properties.cellshading?.altcolumns === true) {
+            this.element.classList.add('shade-alt-columns');
         }
 
-        if (props.headerRow === true) {
-            this.grid.classList.add('shade-headerrow');
+        if (this.properties.cellshading?.headerrow === true) {
+            this.element.classList.add('shade-header-row');
         }
 
-        if (props.altRows === true) {
-            this.grid.classList.add('shade-altrows');
+        if (this.properties.cellshading?.altrows === true) {
+            this.element.classList.add('shade-alt-rows');
         }
     }
 
     // Totals setup
-    public totals(props: { rows?: TotalsProps; columns?: TotalsProps }): void {
-        if (!this.grid) return;
-
-        // Save for later calculations
-        this.properties.totals = this.properties.totals || {};
-        if (props.rows)
-            this.properties.totals.rows = {
-                ...(this.properties.totals.rows || {}),
-                ...props.rows,
-            };
-        if (props.columns)
-            this.properties.totals.columns = {
-                ...(this.properties.totals.columns || {}),
-                ...props.columns,
-            };
-
-        if (props.rows && props.rows.visible) {
-            this.excludeRowReadOnly = props.rows.excludereadonly ?? true;
-            this.configureRowTotals(props.rows);
-            this.rowTotals = [];
+    private configureTotals(): void {
+        if (this.properties.totals?.rows?.visible) {
+            this.excludeRowReadOnly =
+                this.properties.totals?.rows.excludereadonly ?? true;
+            this.configureRowTotals();
             this.getTableInputElements('row');
             this.recalculateRowTotals();
         }
 
-        if (props.columns && props.columns.visible) {
-            this.excludeColumnReadOnly = props.columns.excludereadonly ?? true;
-            this.configureColumnTotals(props.columns);
-            this.columnTotals = [];
+        if (this.properties.totals?.columns?.visible) {
+            this.excludeColumnReadOnly =
+                this.properties.totals?.columns.excludereadonly ?? true;
+            this.configureColumnTotals();
             this.getTableInputElements('column');
             this.recalculateColumnTotals();
         }
     }
 
     private getTableInputElements(direction: 'row' | 'column'): void {
-        if (!this.grid) return;
+        if (!this.element) return;
 
         for (
             let i = 0, row: HTMLTableRowElement | undefined;
-            (row = this.grid.rows[i]);
+            (row = this.element.rows[i]);
             i++
         ) {
             for (
@@ -356,20 +329,20 @@ export default class OLoop extends Component {
                         row: i,
                         readonly: inputElement.readOnly,
                     };
-                    (this as any)[`${direction}totals`].push(details);
+                    this[`${direction}Totals`].push(details);
                 }
             }
         }
     }
 
     private receiveBroadcast(event: CustomEvent): void {
-        const detail: any = event.detail || {};
+        const detail = event.detail || {};
         const element = detail.element as HTMLElement | undefined;
         if (!element || element.tagName !== 'INPUT') {
             return;
         }
 
-        const id = detail.id as string;
+        const id = detail.element.id as string;
         const elementValue = Number((element as HTMLInputElement).value) || 0;
 
         const rowIndex = this.rowTotals.map((e) => e.id).indexOf(id);
@@ -386,29 +359,24 @@ export default class OLoop extends Component {
     }
 
     // Separators
-    public separators(props: {
-        columns?: number[];
-        rows?: number[];
-        color?: string;
-    }): void {
-        if (!this.grid) return;
+    public configureSeparators(): void {
+        if (!this.element) return;
 
         const style = document.createElement('style');
-        style.type = 'text/css';
-        const color = props.color || '#212C4C';
+        const color = this.properties.separators?.color || '#212C4C';
         let generatedStyles = '';
 
-        if (Array.isArray(props.columns)) {
-            for (const colIndex of props.columns) {
+        if (Array.isArray(this.properties.separators?.columns)) {
+            for (const colIndex of this.properties.separators?.columns) {
                 generatedStyles += `.separator-column-${colIndex} tr > :nth-child(${colIndex}) { border-right: 1px solid ${color}; } `;
-                this.grid.classList.add(`separator-column-${colIndex}`);
+                this.element.classList.add(`separator-column-${colIndex}`);
             }
         }
 
-        if (Array.isArray(props.rows)) {
-            for (const rowIndex of props.rows) {
+        if (Array.isArray(this.properties.separators?.rows)) {
+            for (const rowIndex of this.properties.separators?.rows) {
                 generatedStyles += `.separator-row-${rowIndex} tr:nth-of-type(${rowIndex}) { border-bottom: 1px solid ${color}; } `;
-                this.grid.classList.add(`separator-row-${rowIndex}`);
+                this.element.classList.add(`separator-row-${rowIndex}`);
             }
         }
 
@@ -418,9 +386,9 @@ export default class OLoop extends Component {
 
     // Row totals calculation
     private recalculateRowTotals(): void {
-        if (!this.grid) return;
+        if (!this.element) return;
 
-        const rowCount = this.grid.rows.length;
+        const rowCount = this.element.rows.length;
         let grandTotal = 0;
 
         for (let row = 1; row < rowCount; row++) {
@@ -445,7 +413,7 @@ export default class OLoop extends Component {
                 rowTotal += Number(entry.value) || 0;
             }
 
-            const totalDiv = this.grid.querySelector(
+            const totalDiv = this.element.querySelector(
                 `div[data-rownumber="${row}"]`,
             );
             if (totalDiv) {
@@ -460,9 +428,9 @@ export default class OLoop extends Component {
 
     // Column totals calculation
     private recalculateColumnTotals(): void {
-        if (!this.grid || this.grid.rows.length === 0) return;
+        if (!this.element || this.element.rows.length === 0) return;
 
-        const columnCount = this.grid.rows[0].cells.length;
+        const columnCount = this.element.rows[0].cells.length;
         let grandTotal = 0;
 
         for (let column = 0; column < columnCount; column++) {
@@ -496,7 +464,7 @@ export default class OLoop extends Component {
                 colTotal += Number(this.columnTotals[j].value) || 0;
             }
 
-            const totalDiv = this.grid.querySelector(
+            const totalDiv = this.element.querySelector(
                 `div[data-colnumber="${column}"]`,
             );
             if (totalDiv) {
@@ -510,132 +478,112 @@ export default class OLoop extends Component {
     }
 
     private updateGrandTotal(grandTotal: number): void {
-        if (!this.hasGrandTotal || !this.grid) return;
-        const grand = this.grid.querySelector('div.a-label-total-grand');
+        if (!this.hasGrandTotal || !this.element) return;
+        const grand = this.element.querySelector('div.a-label-total-grand');
         if (grand) {
             grand.innerHTML = `${grandTotal}`;
         }
     }
 
     // Caption placement
-    public caption(props: CaptionProps | string): void {
-        if (!this.grid) return;
+    public configureTableCaption(): void {
+        if (!this.element) return;
+        if (!this.properties.caption) return;
 
-        let captionProps: CaptionProps;
-        if (typeof props === 'string') {
-            this.debug(
-                `${this.id || 'o-question-grid'} did not correctly define caption properties.`,
-                2,
-            );
-            captionProps = { content: props };
-        } else {
-            captionProps = props || {};
-        }
+        // check for the presence of a heading row
+        const heading =
+            this.element.querySelector('tr.m-structure-row-heading') || null;
 
-        const headingRow = this.grid.querySelector(
-            'tr.m-structure-row-heading',
-        ) as HTMLTableRowElement | null;
-
-        if (this.grid.rows.length === 2 && headingRow) {
-            this.addSingleRowCaption(captionProps);
+        // add caption for tables with a heading row and a single row of data
+        if (this.element.rows.length === 2 && heading) {
+            this.addSingleRowCaption();
             return;
         }
 
-        if (this.grid.rows[0] && this.grid.rows[0].cells.length === 2) {
-            this.addSingleColumnCaption(captionProps);
+        // add caption for tables with exactly two columns
+        if (this.element.rows[0] && this.element.rows[0].cells.length === 2) {
+            this.addSingleColumnCaption();
             return;
         }
 
-        this.addTableCaption(captionProps);
+        // add a conventional table caption
+        this.addTableCaption();
     }
 
-    private addTableCaption(caption: CaptionProps): void {
-        if (!this.grid) return;
+    private addTableCaption(): void {
+        if (!this.element) return;
 
-        const captionContentContainer = document.createElement('span');
-        captionContentContainer.classList.add('a-label-caption');
-        captionContentContainer.innerHTML = this.replaceHTMLPlaceholder(
-            caption.content,
-        );
+        const captionContent = this.createCaptionContent();
+        const newCaption = this.element.createCaption();
 
-        const newCaption = this.grid.createCaption();
-
-        if (caption.width) {
-            (newCaption as HTMLTableCaptionElement).style.width = caption.width;
-        }
-
-        if (caption.align) {
-            newCaption.classList.add(`align-${caption.align}`);
-        }
-
-        newCaption.appendChild(captionContentContainer);
+        newCaption.appendChild(captionContent);
     }
 
-    private addSingleRowCaption(caption: CaptionProps): void {
-        if (!this.grid) return;
+    private addSingleRowCaption(): void {
+        if (!this.element) return;
 
-        const captionContentContainer = document.createElement('span');
-        captionContentContainer.classList.add('a-label-caption');
-        captionContentContainer.innerHTML = this.replaceHTMLPlaceholder(
-            caption.content,
-        );
+        const captionContent = this.createCaptionContent();
 
-        if (caption.width) {
-            (captionContentContainer as HTMLElement).style.width =
-                caption.width;
-        }
-
-        if (caption.align) {
-            captionContentContainer.classList.add(`align-${caption.align}`);
-        }
-
-        const headerRow = this.grid.rows[0];
+        // insert a blank cell at the start of the existing heading row
+        const headerRow = this.element.rows[0];
         const newTH = document.createElement('th');
         newTH.scope = 'col';
         headerRow.insertBefore(newTH, headerRow.firstChild);
 
-        const captionRow = this.grid.rows[1];
+        // get the row that requires a caption and add a cell at the start
+        const captionRow = this.element.rows[1];
         const captionCell = document.createElement('th');
         captionCell.scope = 'row';
         captionCell.className = 'm-structure-cell m-structure-column-caption';
-        captionCell.appendChild(captionContentContainer);
+        captionCell.appendChild(captionContent);
         captionRow.insertBefore(captionCell, captionRow.firstChild);
     }
 
-    private addSingleColumnCaption(caption: CaptionProps): void {
-        if (!this.grid) return;
+    private addSingleColumnCaption(): void {
+        if (!this.element) return;
 
-        const captionContentContainer = document.createElement('span');
-        captionContentContainer.classList.add('a-label-caption');
-        captionContentContainer.innerHTML = this.replaceHTMLPlaceholder(
-            caption.content,
-        );
+        const captionContent = this.createCaptionContent();
 
-        if (caption.width) {
-            (captionContentContainer as HTMLElement).style.width =
-                caption.width;
-        }
-
-        if (caption.align) {
-            captionContentContainer.classList.add(`align-${caption.align}`);
-        }
-
-        const captionRow = this.grid.insertRow(0);
+        // insert a blank row at the start of the existing grid
+        const captionRow = this.element.insertRow(0);
         captionRow.className = 'm-structure-caption-row';
 
+        // insert a blank cell at the start of the new row
         const newTH = document.createElement('th');
         newTH.scope = 'col';
         captionRow.appendChild(newTH);
 
+        // insert the caption cell into the new row
         const captionCell = newTH.cloneNode() as HTMLTableCellElement;
         captionCell.className = 'm-structure-cell m-structure-column-caption';
-        captionCell.appendChild(captionContentContainer);
+        captionCell.appendChild(captionContent);
         captionRow.appendChild(captionCell);
     }
 
+    private createCaptionContent(): HTMLSpanElement {
+        const captionContentContainer = document.createElement('span');
+        captionContentContainer.classList.add('a-label-caption');
+        captionContentContainer.innerHTML = this.replaceHTMLPlaceholder(
+            this.properties.caption?.content,
+        );
+
+        if (this.properties.caption?.width) {
+            (captionContentContainer as HTMLElement).style.width =
+                this.properties.caption?.width;
+        }
+
+        if (this.properties.caption?.align) {
+            captionContentContainer.classList.add(
+                `align-${this.properties.caption?.align}`,
+            );
+        }
+
+        return captionContentContainer;
+    }
+
     // Totals configuration
-    private configureRowTotals(props: TotalsProps): void {
-        if (!props.visible || !this.grid) {
+    private configureRowTotals(): void {
+        if (!this.element || !this.properties.totals?.rows?.visible) {
             return;
         }
 
@@ -643,40 +591,54 @@ export default class OLoop extends Component {
         let captionAlign = '';
         let captionWidth = '';
 
-        const figureAlign = props.align ?? 'default';
-        const figureWidth = props.width ? `width: ${props.width}` : '';
+        const figureAlign = this.properties.totals?.rows.align ?? 'default';
+        const figureWidth = this.properties.totals?.rows.width
+            ? `width: ${this.properties.totals?.rows?.width}`
+            : '';
 
-        if (props.caption) {
-            if (typeof props.caption.content !== 'undefined') {
-                captionTitle = props.caption.content || '';
+        if (this.properties.totals?.rows?.caption) {
+            if (
+                typeof this.properties.totals?.rows?.caption.content !==
+                'undefined'
+            ) {
+                captionTitle =
+                    this.properties.totals?.rows?.caption.content || '';
             }
-            if (typeof props.caption.align !== 'undefined') {
-                captionAlign = props.caption.align || '';
+            if (
+                typeof this.properties.totals?.rows?.caption.align !==
+                'undefined'
+            ) {
+                captionAlign =
+                    this.properties.totals?.rows?.caption.align || '';
             }
-            if (typeof props.caption.width !== 'undefined') {
-                captionWidth = props.caption.width || '';
+            if (
+                typeof this.properties.totals?.rows?.caption.width !==
+                'undefined'
+            ) {
+                captionWidth =
+                    this.properties.totals?.rows?.caption.width || '';
             }
         }
 
-        const headingRow = this.grid.querySelector(
+        const headingRow = this.element.querySelector(
             'tr.m-structure-row-heading',
         );
 
         // Add heading row if required by caption but not present
-        if (!headingRow && captionTitle.length > 0 && this.grid.rows[1]) {
-            const captionRow = this.grid.insertRow(0);
+        if (!headingRow && captionTitle.length > 0 && this.element.rows[1]) {
+            const captionRow = this.element.insertRow(0);
             captionRow.className = 'm-structure-caption-row';
 
             const newTH = document.createElement('th');
             newTH.scope = 'col';
-            newTH.colSpan = this.grid.rows[1].cells.length;
+            newTH.colSpan = this.element.rows[1].cells.length;
             captionRow.appendChild(newTH);
         }
 
-        const rowCount = this.grid.rows.length;
+        const rowCount = this.element.rows.length;
 
         for (let i = 0; i < rowCount; i++) {
-            const totalCell = this.grid.rows[i].insertCell(-1);
+            const totalCell = this.element.rows[i].insertCell(-1);
 
             if (i === 0) {
                 totalCell.scope = 'col';
@@ -691,7 +653,7 @@ export default class OLoop extends Component {
                 totalCell.classList.add(`align-${figureAlign}`);
 
                 if (
-                    this.grid.rows[i].classList.contains(
+                    this.element.rows[i].classList.contains(
                         'm-structure-row-error',
                     )
                 ) {
@@ -699,22 +661,22 @@ export default class OLoop extends Component {
                 }
 
                 if (
-                    Array.isArray(props.exceptions) &&
-                    props.exceptions.indexOf(i) >= 0
+                    Array.isArray(this.properties.totals?.rows?.exceptions) &&
+                    this.properties.totals?.rows?.exceptions.indexOf(i) >= 0
                 ) {
                     continue;
                 }
 
                 let htmlString = '';
 
-                if (props.labels?.pre) {
-                    htmlString += `<span class="a-label-prelabel">${props.labels.pre}</span>`;
+                if (this.properties.totals?.rows?.labels?.pre) {
+                    htmlString += `<span class="a-label-prelabel">${this.properties.totals?.rows?.labels.pre}</span>`;
                 }
 
                 htmlString += `<div class="a-label-total-row a-label-total" data-rownumber="${i}" style="${figureWidth}"><span>0</span></div>`;
 
-                if (props.labels?.post) {
-                    htmlString += `<span class="a-label-postlabel">${props.labels.post}</span>`;
+                if (this.properties.totals?.rows?.labels?.post) {
+                    htmlString += `<span class="a-label-postlabel">${this.properties.totals?.rows?.labels.post}</span>`;
                 }
 
                 totalCell.innerHTML = htmlString;
@@ -724,31 +686,45 @@ export default class OLoop extends Component {
         this.hasRowTotals = true;
     }
 
-    private configureColumnTotals(props: TotalsProps): void {
-        if (!props.visible || !this.grid || !this.grid.rows[0]) {
+    private configureColumnTotals(): void {
+        if (!this.element || !this.properties.totals?.rows?.visible) {
             return;
         }
 
-        const columnCount = this.grid.rows[0].cells.length;
-        const totalRow = this.grid.insertRow(-1);
+        const columnCount = this.element.rows[0].cells.length;
+        const totalRow = this.element.insertRow(-1);
         totalRow.className = 'm-structure-column-totals';
 
         let captionTitle = '';
         let captionAlign = '';
         let captionWidth = '';
 
-        const figureAlign = props.align ?? 'default';
-        const figureWidth = props.width ? `width: ${props.width}` : '';
+        const figureAlign = this.properties.totals?.columns?.align ?? 'default';
+        const figureWidth = this.properties.totals?.columns?.width
+            ? `width: ${this.properties.totals?.columns?.width}`
+            : '';
 
-        if (props.caption) {
-            if (typeof props.caption.content !== 'undefined') {
-                captionTitle = props.caption.content || '';
+        if (this.properties.totals?.columns?.caption) {
+            if (
+                typeof this.properties.totals?.columns?.caption.content !==
+                'undefined'
+            ) {
+                captionTitle =
+                    this.properties.totals?.columns?.caption.content || '';
             }
-            if (typeof props.caption.align !== 'undefined') {
-                captionAlign = props.caption.align || '';
+            if (
+                typeof this.properties.totals?.columns?.caption.align !==
+                'undefined'
+            ) {
+                captionAlign =
+                    this.properties.totals?.columns?.caption.align || '';
             }
-            if (typeof props.caption.width !== 'undefined') {
-                captionWidth = props.caption.width || '';
+            if (
+                typeof this.properties.totals?.columns?.caption.width !==
+                'undefined'
+            ) {
+                captionWidth =
+                    this.properties.totals?.columns?.caption.width || '';
             }
         }
 
@@ -777,22 +753,26 @@ export default class OLoop extends Component {
                     totalCell.classList.add(`align-${figureAlign}`);
 
                     if (
-                        Array.isArray(props.exceptions) &&
-                        props.exceptions.indexOf(i) >= 0
+                        Array.isArray(
+                            this.properties.totals?.columns?.exceptions,
+                        ) &&
+                        this.properties.totals?.columns?.exceptions.indexOf(
+                            i,
+                        ) >= 0
                     ) {
                         continue;
                     }
 
                     let htmlString = '';
 
-                    if (props.labels?.pre) {
-                        htmlString += `<span class="a-label-prelabel">${props.labels.pre}</span>`;
+                    if (this.properties.totals?.columns?.labels?.pre) {
+                        htmlString += `<span class="a-label-prelabel">${this.properties.totals?.columns?.labels.pre}</span>`;
                     }
 
                     htmlString += `<div class="a-label-total-column a-label-total" data-colnumber="${i}" style="${figureWidth}"><span>0</span></div>`;
 
-                    if (props.labels?.post) {
-                        htmlString += `<span class="a-label-postlabel">${props.labels.post}</span>`;
+                    if (this.properties.totals?.columns?.labels?.post) {
+                        htmlString += `<span class="a-label-postlabel">${this.properties.totals?.columns?.labels.post}</span>`;
                     }
 
                     totalCell.innerHTML =
