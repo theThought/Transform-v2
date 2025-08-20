@@ -624,7 +624,7 @@ export default class OLoop extends Component {
             'tr.m-structure-row-heading',
         );
 
-        // Add heading row if required by caption but not present
+        // Add a heading row if required
         if (!headingRow && captionTitle.length > 0 && this.element.rows[1]) {
             const captionRow = this.element.insertRow(0);
             captionRow.className = 'm-structure-caption-row';

@@ -29,6 +29,7 @@
 }
 
 :is(.a-label-pre, .a-label-post) {
+    background: var(--color-background);
     border: var(--border-thickness) solid var(--color-border);
     color: var(--color-dark2);
     cursor: default;
