@@ -687,7 +687,7 @@ export default class OLoop extends Component {
     }
 
     private configureColumnTotals(): void {
-        if (!this.element || !this.properties.totals?.rows?.visible) {
+        if (!this.element || !this.properties.totals?.columns?.visible) {
             return;
         }
 
