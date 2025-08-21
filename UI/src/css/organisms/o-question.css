@@ -1,9 +1,10 @@
 o-question {
     border-block-end: var(--border-thickness) solid var(--color-light2);
     display: block;
+    overflow: auto;
     padding: var(--space-4);
 
-    th > o-question {
+    td > o-question {
         padding: var(--space-2);
     }
 
