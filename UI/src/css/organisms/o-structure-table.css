@@ -17,7 +17,9 @@
         font-weight: normal;
     }
 
-    tr.m-structure-row-heading + tr:not(.m-structure-row-heading) {
+    thead:not(:empty) + tbody,
+    tr.m-structure-row-heading + tr:not(.m-structure-row-heading),
+    tr.m-structure-caption-row + tr.m-structure-row {
         border-block-start: var(--border-thickness) solid var(--color-darkest);
     }
 
