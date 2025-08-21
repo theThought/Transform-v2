@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format" version="1.0">
+<xsl:stylesheet
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:fo="http://www.w3.org/1999/XSL/Format"
+    version="1.0">
     <xsl:output method="xml" indent="yes" />
     <xsl:param name="bIncludeCSSStyles" select="true()" />
     <xsl:param name="bIncludeElementIds" select="true()" />
@@ -1419,31 +1422,55 @@
         <xsl:param name="qGroup" />
         <xsl:param name="qReadOnly" />
 
-        <xsl:variable name="tableName" select="@TableName"/>
+        <xsl:variable name="tableName" select="@TableID"/>
         <xsl:element name="o-loop">
             <xsl:element name="table">
                 <xsl:attribute name="class">
                     <xsl:text>o-structure-table</xsl:text>
                 </xsl:attribute>
-                <xsl:variable name="rows" select="Row"/>
-                <!-- Find the split point: first row with a cell with a class -->
-                <xsl:variable name="firstCategoryRowPos"
-                    select="count($rows[Cell[@Class]][1]/preceding-sibling::Row) + 1"/>
-                <xsl:variable name="headerRows"
-                    select="$rows[position() &lt; $firstCategoryRowPos]"/>
-                <xsl:variable name="bodyRows"
-                    select="$rows[position() &gt;= $firstCategoryRowPos]"/>
-                <!-- Use loopTitle for thead -->
-                <xsl:call-template name="loopTopTitles">
-                    <xsl:with-param name="rows" select="$headerRows"/>
-                </xsl:call-template>
+                <!-- Calculate firstHeadingRowPos: first row where any Cell contains Control or Question (not under Style/Label/Style) -->
+                <xsl:variable name="firstDataRowPos">
+                    <xsl:for-each select="Row">
+                        <xsl:sort select="@Y" data-type="number" order="ascending"/>
+                        <xsl:if test="Cell[Control or Question] and not(preceding-sibling::Row[Cell[Control or Question]])">
+                            <xsl:value-of select="position()"/>
+                        </xsl:if>
+                    </xsl:for-each>
+                </xsl:variable>
+                <xsl:variable name="headerRowsCount">
+                    <xsl:choose>
+                        <xsl:when test="string($firstDataRowPos) != '' and not($firstDataRowPos != $firstDataRowPos)">
+                            <xsl:value-of select="number($firstDataRowPos) - 1" />
+                        </xsl:when>
+                        <xsl:otherwise>0</xsl:otherwise>
+                    </xsl:choose>
+                </xsl:variable>
+                <xsl:attribute name="data-header-rows-count">
+                    <xsl:value-of select="$headerRowsCount"/>
+                </xsl:attribute>
+                <!-- thead -->
+                <xsl:element name="thead">
+                    <xsl:for-each select="Row">
+                        <xsl:sort select="@Y" data-type="number" order="ascending"/>
+                        <xsl:if test="position() &lt;= $headerRowsCount">
+                            <xsl:call-template name="loopTopTitles">
+                                <xsl:with-param name="rows" select="."/>
+                                <xsl:with-param name="tableName" select="$tableName" />
+                            </xsl:call-template>
+                        </xsl:if>
+                    </xsl:for-each>
+                </xsl:element>
+                <!-- tbody -->
                 <tbody>
-                    <xsl:for-each select="$bodyRows">
-                        <xsl:call-template name="loopRow">
-                            <xsl:with-param name="qGroup" select="$qGroup"/>
-                            <xsl:with-param name="tableName" select="$tableName" />
-                            <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
-                        </xsl:call-template>
+                    <xsl:for-each select="Row">
+                        <xsl:sort select="@Y" data-type="number" order="ascending"/>
+                        <xsl:if test="position() &gt; $headerRowsCount">
+                            <xsl:call-template name="loopRow">
+                                <xsl:with-param name="qGroup" select="$qGroup"/>
+                                <xsl:with-param name="tableName" select="$tableName" />
+                                <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
+                            </xsl:call-template>
+                        </xsl:if>
                     </xsl:for-each>
                 </tbody>
             </xsl:element>
@@ -1456,12 +1483,13 @@
         <xsl:param name="qReadOnly" />
 
         <xsl:element name="tr">
-            <xsl:attribute name="Y">
-                <xsl:value-of select="@Y" />
+            <xsl:variable name="inputCellsCount" select="count(Cell[@X='0' and @Class])"/>
+            <xsl:attribute name="inputCellCount">
+                <xsl:value-of select="$inputCellsCount"/>
             </xsl:attribute>
             <xsl:attribute name="class">
                 <xsl:choose>
-                    <xsl:when test="Cell[@Class and @X != 0]">
+                    <xsl:when test="$inputCellsCount &lt; 1">
                         <xsl:text>m-structure-row-heading</xsl:text>
                     </xsl:when>
                     <xsl:otherwise>
@@ -1498,17 +1526,16 @@
                     <xsl:text>th</xsl:text>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:text>th</xsl:text>
+                    <xsl:text>td</xsl:text>
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
 
         <xsl:element name="{$cellType}">
-            <xsl:attribute name="X">
+            <xsl:attribute name="data-X">
                 <xsl:value-of select="@X" />
             </xsl:attribute>
-
-            <xsl:attribute name="Y">
+            <xsl:attribute name="data-Y">
                 <xsl:value-of select="@Y" />
             </xsl:attribute>
 
@@ -1538,7 +1565,7 @@
                                 <xsl:text>col</xsl:text>
                             </xsl:otherwise>
                         </xsl:choose>
-                    </xsl:attribute>
+                                       </xsl:attribute>
 
                     <xsl:variable name="styleVerticalAlign">
                         <xsl:if test="Style/@VerticalAlign">
@@ -1659,6 +1686,7 @@
 
     <xsl:template name="loopCellHeading">
         <xsl:param name="scope" />
+        <xsl:param name="tableName" />
         <xsl:param name="currentCell" />
 
         <xsl:element name="th">
@@ -1670,6 +1698,7 @@
                 <xsl:call-template name="insert-label-heading">
                     <xsl:with-param name="X" select="$currentCell/@X" />
                     <xsl:with-param name="Y" select="$currentCell/@Y" />
+                    <xsl:with-param name="tableName" select="$tableName" />
                     <xsl:with-param name="pClass" select="$currentCell/@Class" />
                 </xsl:call-template>
             </xsl:for-each>
@@ -1678,6 +1707,7 @@
 
     <xsl:template name="loopTopTitles">
         <xsl:param name="rows" />
+        <xsl:param name="tableName" />
         <xsl:element name="thead">
             <xsl:for-each select="$rows">
                 <xsl:element name="tr">
@@ -1685,15 +1715,21 @@
                         <xsl:text>m-structure-row-heading</xsl:text>
                     </xsl:attribute>
                     <xsl:for-each select="Cell">
+                        <xsl:sort select="@X" data-type="number" order="ascending"/>
                         <xsl:choose>
                             <xsl:when test="@Class = 'mrGridCategoryText'">
                                 <xsl:call-template name="loopCellHeading">
                                     <xsl:with-param name="scope" select="'col'" />
                                     <xsl:with-param name="currentCell" select="." />
+                                    <xsl:with-param name="tableName" select="$tableName" />
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:otherwise>
-                                <xsl:element name="td" />
+                                <xsl:call-template name="loopCellHeading">
+                                    <xsl:with-param name="scope" select="'col'" />
+                                    <xsl:with-param name="currentCell" select="." />
+                                    <xsl:with-param name="tableName" select="$tableName" />
+                                </xsl:call-template>
                             </xsl:otherwise>
                         </xsl:choose>
                     </xsl:for-each>
@@ -2356,10 +2392,6 @@
                 </xsl:otherwise>
                 </xsl:choose>
             </xsl:attribute>
-
-            <xsl:call-template name="set-data-position">
-                <xsl:with-param name="position" select="$currentControl/Style/@ElementAlign" />
-            </xsl:call-template>
 
             <xsl:call-template name="insert-input-option">
                 <xsl:with-param name="inputType">
