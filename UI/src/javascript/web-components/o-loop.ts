@@ -619,13 +619,16 @@ export default class OLoop extends Component {
             totalCell.classList.add('m-structure-cell');
 
             if (i === 0) {
+                const totalTH = document.createElement('th');
                 // caption in the first row
-                totalCell.scope = 'col';
-                totalCell.classList.add('grid-row-total-title');
-                if (captionAlign)
-                    totalCell.classList.add(`align-${captionAlign}`);
-                if (captionWidth) totalCell.style.width = captionWidth;
-                totalCell.innerHTML = this.replaceHTMLPlaceholder(captionTitle);
+                totalTH.scope = 'col';
+                totalTH.classList.add('grid-row-total-title');
+                if (captionAlign) {
+                    totalTH.classList.add(`align-${captionAlign}`);
+                }
+                if (captionWidth) totalTH.style.width = captionWidth;
+                totalTH.innerHTML = this.replaceHTMLPlaceholder(captionTitle);
+                totalCell.replaceWith(totalTH);
             } else {
                 // regular total in other rows, avoiding any error rows
                 // and skipping exclusion rows
@@ -697,12 +700,14 @@ export default class OLoop extends Component {
 
             if (i === 0) {
                 // caption in the first column
-                totalCell.scope = 'row';
-                totalCell.classList.add('grid-column-total-title');
+                const totalTH = document.createElement('th');
+                totalTH.scope = 'row';
+                totalTH.classList.add('grid-column-total-title');
                 if (captionAlign)
-                    totalCell.classList.add(`align-${captionAlign}`);
-                if (captionWidth) totalCell.style.width = captionWidth;
-                totalCell.innerHTML = this.replaceHTMLPlaceholder(captionTitle);
+                    totalTH.classList.add(`align-${captionAlign}`);
+                if (captionWidth) totalTH.style.width = captionWidth;
+                totalTH.innerHTML = this.replaceHTMLPlaceholder(captionTitle);
+                totalCell.replaceWith(totalTH);
             } else {
                 if (this.hasRowTotals && i === columnCount - 1) {
                     // grand total in the last column
