@@ -41,6 +41,13 @@
     }
 }
 
+.a-label-total {
+    border: var(--border-thickness) solid transparent;
+    color: var(--color-input);
+    inline-size: var(--input-width);
+    padding: var(--space-2) var(--space-4);
+}
+
 .a-label-mark {
     display: block;
     flex: 0 1 40px;

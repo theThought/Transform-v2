@@ -95,32 +95,36 @@
         }
     }
 
-    .grid-column-total-title,
-    .grid-column-total,
-    .grid-grandtotal {
+    .m-grid-total {
+        align-items: center;
+        display: inline-flex;
+
+        .a-label-pre,
+        .a-label-post {
+            background-color: transparent;
+            border-color: transparent;
+        }
+    }
+
+    :where(.grid-column-total-title, .grid-column-total, .grid-grandtotal) {
         border-block-start: var(--border-thickness) solid var(--color-darkest);
         font-size: var(--font-size-m);
     }
 
-    .grid-row-total-title,
-    .grid-row-total,
-    .grid-grandtotal {
+    :where(.grid-row-total-title, .grid-row-total, .grid-grandtotal) {
         border-inline-start: var(--border-thickness) solid var(--color-darkest);
         font-size: var(--font-size-m);
     }
 
-    .grid-row-total,
-    .grid-grandtotal {
+    :where(.grid-row-total, .grid-grandtotal) {
         text-align: right;
     }
 
-    .grid-row-total,
-    .grid-column-total,
-    .grid-grandtotal {
+    :where(.grid-row-total, .grid-column-total, .grid-grandtotal) {
         white-space: nowrap;
     }
 
-    .grid-grandtotal {
+    :where(.grid-grandtotal) {
         padding-block-start: 0.5em;
     }
 

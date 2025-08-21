@@ -587,42 +587,19 @@ export default class OLoop extends Component {
             return;
         }
 
-        let captionTitle = '';
-        let captionAlign = '';
-        let captionWidth = '';
-
         const figureAlign = this.properties.totals?.rows.align ?? 'default';
         const figureWidth = this.properties.totals?.rows.width
             ? `width: ${this.properties.totals?.rows?.width}`
             : '';
 
-        if (this.properties.totals?.rows?.caption) {
-            if (
-                typeof this.properties.totals?.rows?.caption.content !==
-                'undefined'
-            ) {
-                captionTitle =
-                    this.properties.totals?.rows?.caption.content || '';
-            }
-            if (
-                typeof this.properties.totals?.rows?.caption.align !==
-                'undefined'
-            ) {
-                captionAlign =
-                    this.properties.totals?.rows?.caption.align || '';
-            }
-            if (
-                typeof this.properties.totals?.rows?.caption.width !==
-                'undefined'
-            ) {
-                captionWidth =
-                    this.properties.totals?.rows?.caption.width || '';
-            }
-        }
-
         const headingRow = this.element.querySelector(
             'tr.m-structure-row-heading',
         );
+
+        const captionTitle =
+            this.properties.totals?.rows?.caption?.content || '';
+        const captionAlign = this.properties.totals?.rows?.caption?.align || '';
+        const captionWidth = this.properties.totals?.rows?.caption?.width || '';
 
         // Add a heading row if required
         if (!headingRow && captionTitle.length > 0 && this.element.rows[1]) {
@@ -639,18 +616,19 @@ export default class OLoop extends Component {
 
         for (let i = 0; i < rowCount; i++) {
             const totalCell = this.element.rows[i].insertCell(-1);
+            totalCell.classList.add('m-structure-cell');
 
             if (i === 0) {
+                // caption in the first row
                 totalCell.scope = 'col';
-                totalCell.className = 'm-structure-cell grid-row-total-title';
+                totalCell.classList.add('grid-row-total-title');
                 if (captionAlign)
                     totalCell.classList.add(`align-${captionAlign}`);
-                if (captionWidth)
-                    (totalCell as HTMLElement).style.width = captionWidth;
+                if (captionWidth) totalCell.style.width = captionWidth;
                 totalCell.innerHTML = this.replaceHTMLPlaceholder(captionTitle);
             } else {
-                totalCell.className = 'm-structure-cell grid-row-total';
-                totalCell.classList.add(`align-${figureAlign}`);
+                // regular total in other rows, avoiding any error rows
+                // and skipping exclusion rows
 
                 if (
                     this.element.rows[i].classList.contains(
@@ -667,19 +645,25 @@ export default class OLoop extends Component {
                     continue;
                 }
 
+                totalCell.classList.add('grid-row-total');
+                totalCell.classList.add(`align-${figureAlign}`);
+
                 let htmlString = '';
+                const totalWrapper = document.createElement('div');
+                totalWrapper.className = 'm-grid-total';
 
                 if (this.properties.totals?.rows?.labels?.pre) {
-                    htmlString += `<span class="a-label-prelabel">${this.properties.totals?.rows?.labels.pre}</span>`;
+                    htmlString += `<span class="a-label-pre">${this.properties.totals?.rows?.labels.pre}</span>`;
                 }
 
                 htmlString += `<div class="a-label-total-row a-label-total" data-rownumber="${i}" style="${figureWidth}"><span>0</span></div>`;
 
                 if (this.properties.totals?.rows?.labels?.post) {
-                    htmlString += `<span class="a-label-postlabel">${this.properties.totals?.rows?.labels.post}</span>`;
+                    htmlString += `<span class="a-label-post">${this.properties.totals?.rows?.labels.post}</span>`;
                 }
 
-                totalCell.innerHTML = htmlString;
+                totalWrapper.innerHTML = htmlString;
+                totalCell.appendChild(totalWrapper);
             }
         }
 
@@ -695,61 +679,41 @@ export default class OLoop extends Component {
         const totalRow = this.element.insertRow(-1);
         totalRow.className = 'm-structure-column-totals';
 
-        let captionTitle = '';
-        let captionAlign = '';
-        let captionWidth = '';
-
         const figureAlign = this.properties.totals?.columns?.align ?? 'default';
         const figureWidth = this.properties.totals?.columns?.width
             ? `width: ${this.properties.totals?.columns?.width}`
             : '';
 
-        if (this.properties.totals?.columns?.caption) {
-            if (
-                typeof this.properties.totals?.columns?.caption.content !==
-                'undefined'
-            ) {
-                captionTitle =
-                    this.properties.totals?.columns?.caption.content || '';
-            }
-            if (
-                typeof this.properties.totals?.columns?.caption.align !==
-                'undefined'
-            ) {
-                captionAlign =
-                    this.properties.totals?.columns?.caption.align || '';
-            }
-            if (
-                typeof this.properties.totals?.columns?.caption.width !==
-                'undefined'
-            ) {
-                captionWidth =
-                    this.properties.totals?.columns?.caption.width || '';
-            }
-        }
+        const captionTitle =
+            this.properties.totals?.columns?.caption?.content || '';
+        const captionAlign =
+            this.properties.totals?.columns?.caption?.align || '';
+        const captionWidth =
+            this.properties.totals?.columns?.caption?.width || '';
 
         for (let i = 0; i < columnCount; i++) {
             const totalCell = totalRow.insertCell(i);
+            totalCell.classList.add('m-structure-cell');
 
             if (i === 0) {
+                // caption in the first column
                 totalCell.scope = 'row';
-                totalCell.className =
-                    'm-structure-cell grid-column-total-title';
+                totalCell.classList.add('grid-column-total-title');
                 if (captionAlign)
                     totalCell.classList.add(`align-${captionAlign}`);
-                if (captionWidth)
-                    (totalCell as HTMLElement).style.width = captionWidth;
+                if (captionWidth) totalCell.style.width = captionWidth;
                 totalCell.innerHTML = this.replaceHTMLPlaceholder(captionTitle);
             } else {
                 if (this.hasRowTotals && i === columnCount - 1) {
-                    // grand total at the last cell
+                    // grand total in the last column
                     this.hasGrandTotal = true;
-                    totalCell.className =
-                        'm-structure-cell m-structure-cell-total grid-grandtotal';
+                    totalCell.classList.add('m-structure-cell-total');
+                    totalCell.classList.add('grid-grandtotal');
                     totalCell.innerHTML =
                         '<div class="a-label-total-grand a-label-total"><span>0</span></div>';
                 } else {
-                    totalCell.className = 'm-structure-cell grid-column-total';
+                    // regular total in other columns
+                    totalCell.classList.add('grid-column-total');
                     totalCell.classList.add(`align-${figureAlign}`);
 
                     if (
@@ -764,19 +728,21 @@ export default class OLoop extends Component {
                     }
 
                     let htmlString = '';
+                    const totalWrapper = document.createElement('div');
+                    totalWrapper.className = 'm-grid-total';
 
                     if (this.properties.totals?.columns?.labels?.pre) {
-                        htmlString += `<span class="a-label-prelabel">${this.properties.totals?.columns?.labels.pre}</span>`;
+                        htmlString += `<span class="a-label-pre">${this.properties.totals?.columns?.labels.pre}</span>`;
                     }
 
                     htmlString += `<div class="a-label-total-column a-label-total" data-colnumber="${i}" style="${figureWidth}"><span>0</span></div>`;
 
                     if (this.properties.totals?.columns?.labels?.post) {
-                        htmlString += `<span class="a-label-postlabel">${this.properties.totals?.columns?.labels.post}</span>`;
+                        htmlString += `<span class="a-label-post">${this.properties.totals?.columns?.labels.post}</span>`;
                     }
 
-                    totalCell.innerHTML =
-                        this.replaceHTMLPlaceholder(htmlString);
+                    totalWrapper.innerHTML = htmlString;
+                    totalCell.appendChild(totalWrapper);
                 }
             }
         }
