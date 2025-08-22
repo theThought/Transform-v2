@@ -325,8 +325,8 @@ export default class OLoop extends Component {
                     const details: TotalEntry = {
                         id: inputElement.id,
                         value: Number(inputElement.value) || 0,
-                        column: j,
-                        row: i,
+                        column: Number(col.dataset.x),
+                        row: Number(col.dataset.y),
                         readonly: inputElement.readOnly,
                     };
                     this[`${direction}Totals`].push(details);
