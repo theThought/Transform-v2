@@ -101,9 +101,25 @@ export default class ODropdown extends Component implements Subject {
         this.element.readOnly = true;
     }
 
+    private setInputWidth(): void {
+        if (!this.element) return;
+        const list = this.element.nextElementSibling;
+        if (!list) return;
+
+        const resizeObserver = new ResizeObserver((entries) => {
+            for (const entry of entries) {
+                if (!this.element) return;
+                this.element.style.maxWidth = `${entry.contentBoxSize[0].inlineSize}px`;
+            }
+        });
+
+        resizeObserver.observe(list);
+    }
+
     public connectedCallback(): void {
         super.connectedCallback();
         this.element = this.querySelector('.a-input-dropdown');
+        this.setInputWidth();
         this.addEventListener('focusin', this.handleEvent);
         this.addEventListener('labelChange', this.handleEvent);
         this.addEventListener('keydown', this.handleEvent);

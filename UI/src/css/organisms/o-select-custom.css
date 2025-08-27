@@ -1,5 +1,5 @@
 .o-select-custom {
-    display: inline-block;
+    display: block;
     position: relative;
 
     o-list {
@@ -12,7 +12,7 @@
         z-index: 1;
 
         li {
-            white-space: nowrap;
+            white-space: wrap;
         }
     }
 
