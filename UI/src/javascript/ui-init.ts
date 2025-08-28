@@ -21,6 +21,7 @@ import OScale from './web-components/o-scale';
 import OScaleContainer from './web-components/m-scale-container';
 import OSlider from './web-components/o-slider';
 import OList from './web-components/o-list';
+import OProperties from './web-components/o-properties';
 
 export const uiInit = (): void => {
     // DEMO web component for Storybook introduction.
@@ -53,6 +54,10 @@ export const uiInit = (): void => {
     !customElements.get('o-slider') &&
         customElements.define('o-slider', OSlider);
     !customElements.get('o-loop') && customElements.define('o-loop', OLoop);
+
+    // OProperties last as it may broadcast settings to other components on the page
+    !customElements.get('o-properties') &&
+        customElements.define('o-properties', OProperties);
 
     // Inner components.
     !customElements.get('a-scale-unit') &&

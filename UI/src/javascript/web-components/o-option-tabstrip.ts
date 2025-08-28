@@ -31,18 +31,16 @@ export default class OOptionTabstrip extends OOptionSublist {
         super();
     }
 
-    private checkCurrentSelection(): void {
-        if (!this.properties.tabstrip) return;
-
+    private checkCurrentSelection(e: CustomEvent): void {
         const currentTab: HTMLInputElement | null = this.querySelector(
             'm-option-tab[data-checked="true"]',
         );
 
         if (!currentTab) return;
 
-        if (currentTab.value !== this.properties.tabstrip.tab) {
+        if (currentTab.value !== e.detail) {
             const desiredTabInput: HTMLInputElement | null = this.querySelector(
-                `m-option-tab input[value='${this.properties.tabstrip.tab}']`,
+                `m-option-tab input[value='${e.detail}']`,
             );
             const desiredTab = desiredTabInput?.parentElement;
             if (!desiredTab) return;
@@ -51,8 +49,16 @@ export default class OOptionTabstrip extends OOptionSublist {
         }
     }
 
+    public handleEvent(e: Event): void {
+        switch (e.type) {
+            case 'currentTab':
+                this.checkCurrentSelection(e as CustomEvent);
+                break;
+        }
+    }
+
     public connectedCallback(): void {
         super.connectedCallback();
-        this.checkCurrentSelection();
+        document.addEventListener('currentTab', this);
     }
 }
