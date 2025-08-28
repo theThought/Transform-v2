@@ -18,6 +18,7 @@
     border-color: var(--color-primary);
     padding-block: calc(var(--space-1) * 2);
     text-overflow: ellipsis;
+    width: 100%;
 }
 
 .a-input-dropdown {
@@ -27,7 +28,6 @@
     color: var(--color-lightest);
     cursor: default;
     padding-inline-end: calc(var(--space-4) * 3);
-    width: 100%;
 
     &::placeholder {
         color: var(--color-lightest);
