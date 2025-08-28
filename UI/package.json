@@ -17,7 +17,7 @@
         "prestart": "rimraf .parcel-cache",
         "start": "npm install && cross-env NODE_ENV=development && npm run start:parcel",
         "start:parcel": "parcel watch src/javascript/index.ts --dist-dir public --hmr-port 1234 --target app --cache-dir .parcel-cache",
-        "prebuild": "rm -rf .parcel-cache && rimraf public/build",
+        "prebuild": "rm -rf .parcel-cache && rm -rf public/build",
         "build": "npm install && cross-env NODE_ENV=production && npm run build:parcel",
         "build:parcel": "parcel build index.html --dist-dir public/build --cache-dir .parcel-cache",
         "postbuild": "npm run static-assets-rename && npm run static-assets-move",
