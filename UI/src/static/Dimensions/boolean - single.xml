@@ -1,0 +1,9 @@
+<Questions>
+    <Question>
+        <Style BgColor="Bool:_QIAgree" ElementAlign="NewLine" Indent="1"></Style>
+        <Control Type="CheckButton" QuestionName="_Q_DDynamicPage_QIAgree_F" ElementID="_Q1_F">
+            <Category Name="true" CategoryID="0"></Category>
+            <Style BgColor="Bool:_QIAgree" ElementAlign="NewLine" Indent="1"></Style>
+        </Control>
+    </Question>
+</Questions>
