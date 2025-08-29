@@ -17,3 +17,7 @@ o-question {
         box-shadow: var(--box-shadow);
     }
 }
+
+.question-no-separator o-question {
+    border-block-end-color: transparent;
+}

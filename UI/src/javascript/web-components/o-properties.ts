@@ -40,8 +40,28 @@ export default class OProperties extends Component {
         this.dispatchEvent(tabEvent);
     }
 
+    private setFormValidation(): void {
+        if (this.properties.validate) return;
+        const form = this.closest('form');
+        if (!form) return;
+        form.setAttribute('novalidate', 'true');
+    }
+
+    private setDetailsFloatStyle(): void {
+        if (this.properties.floatdetails) return;
+        document.body.classList.add('details-inline');
+    }
+
+    private setSeparatorStyle(): void {
+        if (this.properties.separator) return;
+        document.body.classList.add('question-no-separator');
+    }
+
     public connectedCallback(): void {
         super.connectedCallback();
+        this.setFormValidation();
+        this.setDetailsFloatStyle();
+        this.setSeparatorStyle();
         this.sendCurrentTab();
     }
 }
