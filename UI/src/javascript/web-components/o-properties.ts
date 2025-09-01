@@ -1,33 +1,78 @@
 import Component from './component';
 
 interface FocusProperties {
-    question?: boolean;
     control?: boolean;
+    question?: boolean;
 }
 
 interface CustomProperties {
-    validate?: boolean;
     floatdetails?: boolean;
+    focus?: FocusProperties;
+    jumptoerror?: boolean;
+    paste?: boolean;
     separator?: boolean;
     sidebyside?: number;
-    paste?: boolean;
-    jumptoerror?: boolean;
     tab?: string;
-    focus?: FocusProperties;
+    validate?: boolean;
 }
 
 export default class OProperties extends Component {
     public properties: CustomProperties = {
-        validate: false,
         floatdetails: true,
+        focus: {
+            control: true,
+            question: true,
+        },
+        paste: true,
         separator: true,
         sidebyside: 30,
-        paste: true,
-        jumptoerror: false,
     };
 
     constructor() {
         super();
+    }
+
+    private setFloatDetailsStyle(): void {
+        if (this.properties.floatdetails) return;
+        document.body.classList.add('details-inline');
+    }
+
+    private setFocusOnControlStyle(): void {
+        if (!this.properties.focus?.control) return;
+        document.body.classList.add('focus-control');
+    }
+
+    private setFocusOnQuestionStyle(): void {
+        if (!this.properties.focus?.question) return;
+        document.body.classList.add('focus-question');
+    }
+
+    private jumpToErrorMessage(): void {
+        if (!this.properties.jumptoerror) return;
+
+        const firstError: HTMLElement | null =
+            document.querySelector('.a-label-error');
+        if (!firstError) return;
+
+        const itemWithError = firstError.dataset.questionId;
+
+        const errorElement = itemWithError
+            ? document.getElementById(itemWithError)
+            : null;
+
+        if (!errorElement) {
+            // If no error element is found, scroll to the first error message.
+            firstError.scrollIntoView({ block: 'center' });
+        } else {
+            // Scroll to the error element and focus it.
+            errorElement.scrollIntoView({ block: 'center' });
+            errorElement.focus();
+        }
+    }
+
+    private setSeparatorStyle(): void {
+        if (this.properties.separator) return;
+        document.body.classList.add('question-no-separator');
     }
 
     private sendCurrentTab(): void {
@@ -40,27 +85,20 @@ export default class OProperties extends Component {
         this.dispatchEvent(tabEvent);
     }
 
-    private setFormValidation(): void {
+    private setValidateFormAttribute(): void {
         if (this.properties.validate) return;
         const form = this.closest('form');
         if (!form) return;
         form.setAttribute('novalidate', 'true');
     }
 
-    private setDetailsFloatStyle(): void {
-        if (this.properties.floatdetails) return;
-        document.body.classList.add('details-inline');
-    }
-
-    private setSeparatorStyle(): void {
-        if (this.properties.separator) return;
-        document.body.classList.add('question-no-separator');
-    }
-
     public connectedCallback(): void {
         super.connectedCallback();
-        this.setFormValidation();
-        this.setDetailsFloatStyle();
+        this.setFloatDetailsStyle();
+        this.setFocusOnControlStyle();
+        this.setFocusOnQuestionStyle();
+        this.jumpToErrorMessage();
+        this.setValidateFormAttribute();
         this.setSeparatorStyle();
         this.sendCurrentTab();
     }
