@@ -10,8 +10,15 @@
 
     &:focus {
         border-color: var(--color-border-active);
-        box-shadow: var(--box-shadow);
         outline: var(--focus-outline);
+    }
+}
+
+body.focus-control {
+    :where([type='text'], [type='date'], [type='number'], textarea) {
+        &:focus {
+            box-shadow: var(--box-shadow);
+        }
     }
 }
 
