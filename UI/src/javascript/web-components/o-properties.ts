@@ -23,7 +23,7 @@ export default class OProperties extends Component {
             control: true,
             question: true,
         },
-        paste: true,
+        paste: false,
         separator: true,
         sidebyside: 30,
     };
@@ -70,6 +70,11 @@ export default class OProperties extends Component {
         }
     }
 
+    private setPastePermissions(): void {
+        if (this.properties.paste) return;
+        document.body.dataset.noPaste = 'true';
+    }
+
     private setSeparatorStyle(): void {
         if (this.properties.separator) return;
         document.body.classList.add('question-no-separator');
@@ -98,8 +103,9 @@ export default class OProperties extends Component {
         this.setFocusOnControlStyle();
         this.setFocusOnQuestionStyle();
         this.jumpToErrorMessage();
-        this.setValidateFormAttribute();
+        this.setPastePermissions();
         this.setSeparatorStyle();
         this.sendCurrentTab();
+        this.setValidateFormAttribute();
     }
 }

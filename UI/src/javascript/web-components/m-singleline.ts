@@ -8,11 +8,11 @@ export default class MSingleline extends Component implements Observer {
             pre: '',
             post: '',
         },
+        allowPaste: true,
     };
 
     protected element: HTMLInputElement | null = null;
     private initialPlaceholder = '';
-    private allowPaste = false;
 
     constructor() {
         super();
@@ -27,6 +27,10 @@ export default class MSingleline extends Component implements Observer {
             case 'change':
             case 'input':
                 this.broadcastChange();
+                break;
+            case 'paste':
+                this.onPaste(e);
+                break;
         }
     }
 
@@ -91,19 +95,12 @@ export default class MSingleline extends Component implements Observer {
         }
     }
 
-    // TODO: Query the parent form instead of reading the attribute directly?
     private onPaste(e: Event): void {
-        const parentForm = this.element?.closest('form');
-
-        if (!parentForm) {
-            return;
-        }
-
-        const pageAllowPaste = parentForm.getAttribute('data-paste');
+        const globalNoPaste = document.body.dataset.noPaste;
 
         if (
-            !this.allowPaste ||
-            (pageAllowPaste === 'false' && !this.allowPaste)
+            !this.properties.allowPaste ||
+            (!globalNoPaste && !this.properties.allowPaste)
         ) {
             e.preventDefault();
             e.stopPropagation();
@@ -121,6 +118,7 @@ export default class MSingleline extends Component implements Observer {
 
         this.addEventListener('focusin', this);
         this.addEventListener('input', this);
+        this.addEventListener('paste', this);
 
         this.setLabels();
 
