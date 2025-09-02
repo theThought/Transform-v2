@@ -8,7 +8,7 @@ export default class MSingleline extends Component implements Observer {
             pre: '',
             post: '',
         },
-        allowPaste: true,
+        allowPaste: false,
     };
 
     protected element: HTMLInputElement | null = null;
