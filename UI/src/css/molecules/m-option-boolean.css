@@ -1,0 +1,15 @@
+m-option-boolean {
+    --color-checked: var(--color-secondary);
+
+    display: inline-flex;
+    position: relative;
+
+    /* See https://www.sarasoueidan.com/blog/inclusively-hiding-and-styling-checkboxes-and-radio-buttons/ */
+    > input {
+        block-size: var(--option-icon-height);
+        inline-size: var(--option-icon-width);
+        opacity: 0;
+        position: absolute;
+        z-index: -1;
+    }
+}

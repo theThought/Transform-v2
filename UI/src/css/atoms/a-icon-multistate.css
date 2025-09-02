@@ -6,12 +6,12 @@
     inline-size: var(--option-icon-width);
 }
 
-label > .a-icon-multistate[data-icon-type='checkbox'] {
+.a-icon-multistate[data-icon-type='checkbox'] {
     background-image: url('../../images/checkboxes.png');
     background-position-x: -42px;
 }
 
-label > .a-icon-multistate[data-icon-type='radio'] {
+.a-icon-multistate[data-icon-type='radio'] {
     background-image: url('../../images/radiobuttons.png');
     background-position-x: -42px;
 }
@@ -25,9 +25,9 @@ label > .a-icon-multistate[data-icon-type='radio'] {
     background-position: 0;
 }
 
-[data-selected='true'] label > .a-icon-multistate,
-[type='checkbox']:checked + label > .a-icon-multistate,
-[type='radio']:checked + label > .a-icon-multistate {
+[data-selected='true'] .a-icon-multistate,
+[type='checkbox']:checked ~ .a-icon-multistate,
+[type='radio']:checked ~ .a-icon-multistate {
     background-position-x: -14px;
 }
 
