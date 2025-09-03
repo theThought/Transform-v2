@@ -3,6 +3,7 @@
         "strict": true,
         "allowSyntheticDefaultImports": true,
         "forceConsistentCasingInFileNames": true,
+        "target": "es6",
     },
     "include": [
         "src/javascript/**/*",
