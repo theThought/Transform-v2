@@ -42,7 +42,7 @@ export default class MOption extends Component implements Observer {
                 this.clearExclusives(data);
                 break;
             case 'clearValue':
-                this.clearValue();
+                this.clearValue(data);
                 break;
             case 'sizeChangeWidth':
                 this.setOnesizeWidth(data.detail.width);
@@ -85,7 +85,8 @@ export default class MOption extends Component implements Observer {
         }
     }
 
-    private clearValue(): void {
+    private clearValue(e: CustomEvent): void {
+        if (e.target === this) return;
         this.changeState(false);
     }
 
@@ -172,7 +173,8 @@ export default class MOption extends Component implements Observer {
         this.element = this.querySelector('input');
         this.sublist =
             this.closest('o-option-sublist') ??
-            this.closest('o-option-tabstrip');
+            this.closest('o-option-tabstrip') ??
+            this.closest('o-loop');
         this.isExclusive = this.getAttribute('data-exclusive') === 'true';
 
         this.addEventListener('click', this);

@@ -92,7 +92,6 @@ export default class OResponse extends Component implements Subject {
     }
 
     private exclusiveOn(e: CustomEvent): void {
-        e.stopPropagation();
         this.notifyObservers('clearValue', e);
     }
 

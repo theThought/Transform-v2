@@ -1,4 +1,5 @@
 import Component from './component';
+import { Observer, Subject } from '../interfaces';
 
 interface CaptionProps {
     content?: string;
@@ -63,7 +64,7 @@ type TotalEntry = {
     readonly: boolean;
 };
 
-export default class OLoop extends Component {
+export default class OLoop extends Component implements Subject {
     private element: HTMLTableElement | null = null;
     private hasRowTotals = false;
     private rowTotals: TotalEntry[] = [];
@@ -71,11 +72,27 @@ export default class OLoop extends Component {
     private excludeRowReadOnly = true;
     private excludeColumnReadOnly = true;
     private hasGrandTotal = false;
+    private observers: Observer[] = [];
 
     public properties: GridProperties = {};
 
     constructor() {
         super();
+    }
+
+    public addObserver(observer: Observer): void {
+        this.observers.push(observer);
+    }
+
+    public removeObserver(observer: Observer): void {
+        const index = this.observers.findIndex((obs) => obs === observer);
+        if (index >= 0) {
+            this.observers.splice(index, 1);
+        }
+    }
+
+    public notifyObservers(method: string, detail: CustomEvent): void {
+        this.observers.forEach((observer) => observer.update(method, detail));
     }
 
     public connectedCallback(): void {
@@ -92,6 +109,7 @@ export default class OLoop extends Component {
         this.configureSeparators();
 
         this.addEventListener('questionChange', this.handleEvent);
+        this.addEventListener('exclusiveOn', this.handleEvent);
     }
 
     public handleEvent(e: Event): void {
@@ -99,9 +117,15 @@ export default class OLoop extends Component {
             case 'questionChange':
                 this.receiveBroadcast(e as CustomEvent);
                 break;
-            default:
+            case 'exclusiveOn':
+                this.exclusiveOn(e as CustomEvent);
                 break;
         }
+    }
+
+    private exclusiveOn(e: CustomEvent): void {
+        e.stopPropagation();
+        this.notifyObservers('clearValue', e);
     }
 
     private replaceHTMLPlaceholder(content?: string): string {
@@ -313,12 +337,14 @@ export default class OLoop extends Component {
         }
     }
 
-    private receiveBroadcast(event: CustomEvent): void {
-        const detail = event.detail || {};
+    private receiveBroadcast(e: CustomEvent): void {
+        const detail = e.detail || {};
         const element = detail.element as HTMLElement | undefined;
         if (!element || element.tagName !== 'INPUT') {
             return;
         }
+
+        this.notifyObservers('clearExclusives', e);
 
         const id = detail.element.id as string;
         const elementValue = Number((element as HTMLInputElement).value) || 0;
