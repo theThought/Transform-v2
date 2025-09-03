@@ -1,6 +1,5 @@
 import { Subject, Observer } from '../interfaces';
 import Component from './component';
-import { uniq } from './util';
 
 interface QuestionProperties {
     filter: {
@@ -62,7 +61,7 @@ export default class OResponse extends Component implements Subject {
     private filterSource = '';
     private filterExclusions: string[] = [];
 
-    private sourceQuestions: Record<string, any> = {};
+    private sourceQuestions: Record<string, any> = [];
     private complexVisibilityRule = '';
     private expandedVisibilityRule = '';
     private ruleParsingComplete = false;
@@ -432,10 +431,6 @@ export default class OResponse extends Component implements Subject {
                         const questionValue = element.value;
                         this.sourceQuestions[question].push(questionValue);
                     }
-
-                    this.sourceQuestions[question] = uniq(
-                        this.sourceQuestions[question],
-                    );
                 }
             }
         }
@@ -613,15 +608,13 @@ export default class OResponse extends Component implements Subject {
 
     private extractQuestionIdentifiers(ruleString: string): string {
         const questionRe = /%%(\w+)%%/g;
-        const questions = ruleString.match(questionRe);
+        const questionsInRule = ruleString.match(questionRe);
 
-        if (!questions) {
+        if (!questionsInRule) {
             return ruleString;
         }
 
-        questions.filter(function (elem, index, self) {
-            return index === self.indexOf(elem);
-        });
+        const questions = [...new Set(questionsInRule)];
 
         for (let i = 0; i < questions.length; i++) {
             const currentQuestionRe = new RegExp(questions[i], 'g');

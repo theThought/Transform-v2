@@ -27,11 +27,3 @@ export function mergeDeep(
         return prev;
     }, {});
 }
-
-// remove duplicate values from arrays
-export function uniq(a) {
-    const seen = {};
-    return a.filter(function (item) {
-        return seen.hasOwnProperty(item) ? false : (seen[item] = true);
-    });
-}
