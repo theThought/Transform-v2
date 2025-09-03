@@ -80,6 +80,15 @@ export default class OProperties extends Component {
         document.body.classList.add('question-no-separator');
     }
 
+    private setSideBySideWidth(): void {
+        if (!this.properties.sidebyside) return;
+
+        document.documentElement.style.setProperty(
+            '--column1-width',
+            `${this.properties.sidebyside}%`,
+        );
+    }
+
     private sendCurrentTab(): void {
         if (!this.properties.tab) return;
 
@@ -105,6 +114,7 @@ export default class OProperties extends Component {
         this.jumpToErrorMessage();
         this.setPastePermissions();
         this.setSeparatorStyle();
+        this.setSideBySideWidth();
         this.sendCurrentTab();
         this.setValidateFormAttribute();
     }

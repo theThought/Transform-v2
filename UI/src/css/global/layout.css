@@ -8,7 +8,6 @@ Based on https://every-layout.dev/layouts/sidebar/.
 .l-row {
     /* Number of chars before column2 wraps */
     --column-char-count: min(30ch, 100%);
-    --column1-width: 30%;
     --column2-min-width: max(
         var(--column-char-count),
         calc(100% - var(--column1-width) - var(--column-gap))
