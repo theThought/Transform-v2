@@ -9,6 +9,7 @@ import MSinglelineNumber from './web-components/m-singleline-number';
 import MSinglelineDate from './web-components/m-singleline-date';
 import MSliderTrack from './web-components/m-slider-track';
 import MOptionBase from './web-components/m-option-base';
+import MOptionBoolean from './web-components/m-option-boolean';
 import MOptionTab from './web-components/m-option-tab';
 import OCombobox from './web-components/o-combobox';
 import ODropdown from './web-components/o-dropdown';
@@ -73,6 +74,8 @@ export const uiInit = (): void => {
         customElements.define('m-singleline-date', MSinglelineDate);
     !customElements.get('m-option-base') &&
         customElements.define('m-option-base', MOptionBase);
+    !customElements.get('m-option-boolean') &&
+        customElements.define('m-option-boolean', MOptionBoolean);
     !customElements.get('m-option-tab') &&
         customElements.define('m-option-tab', MOptionTab);
     !customElements.get('m-slider-track') &&
