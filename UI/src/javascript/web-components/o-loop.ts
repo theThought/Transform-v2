@@ -28,7 +28,8 @@ interface LabelProps {
 interface TotalsProps {
     visible?: boolean;
     excludereadonly?: boolean;
-    align?: 'left' | 'right' | 'center' | 'default' | string;
+    elementalign?: 'left' | 'right' | 'center' | 'default' | string; // input within column
+    align?: 'left' | 'right' | 'center' | 'default' | string; // text within input
     width?: string;
     caption?: CaptionProps;
     labels?: LabelProps;
@@ -587,19 +588,23 @@ export default class OLoop extends Component {
             return;
         }
 
-        const figureAlign = this.properties.totals?.rows.align ?? 'default';
-        const figureWidth = this.properties.totals?.rows.width
-            ? `width: ${this.properties.totals?.rows?.width}`
+        const columnAlign =
+            this.properties.totals?.rows?.elementalign ?? 'default';
+        const figureAlign = this.properties.totals?.rows?.align
+            ? `text-align: ${this.properties.totals?.rows?.align};`
             : '';
-
-        const headingRow = this.element.querySelector(
-            'tr.m-structure-row-heading',
-        );
+        const figureWidth = this.properties.totals?.rows?.width
+            ? `width: ${this.properties.totals?.rows?.width};`
+            : '';
 
         const captionTitle =
             this.properties.totals?.rows?.caption?.content || '';
         const captionAlign = this.properties.totals?.rows?.caption?.align || '';
         const captionWidth = this.properties.totals?.rows?.caption?.width || '';
+
+        const headingRow = this.element.querySelector(
+            'tr.m-structure-row-heading',
+        );
 
         // Add a heading row if required
         if (!headingRow && captionTitle.length > 0 && this.element.rows[1]) {
@@ -649,7 +654,7 @@ export default class OLoop extends Component {
                 }
 
                 totalCell.classList.add('grid-row-total');
-                totalCell.classList.add(`align-${figureAlign}`);
+                totalCell.classList.add(`align-${columnAlign}`);
 
                 let htmlString = '';
                 const totalWrapper = document.createElement('div');
@@ -659,7 +664,7 @@ export default class OLoop extends Component {
                     htmlString += `<span class="a-label-pre">${this.properties.totals?.rows?.labels.pre}</span>`;
                 }
 
-                htmlString += `<div class="a-label-total-row a-label-total" data-rownumber="${i}" style="${figureWidth}"><span>0</span></div>`;
+                htmlString += `<div class="a-label-total-row a-label-total" data-rownumber="${i}" style="${figureWidth} ${figureAlign}"><span>0</span></div>`;
 
                 if (this.properties.totals?.rows?.labels?.post) {
                     htmlString += `<span class="a-label-post">${this.properties.totals?.rows?.labels.post}</span>`;
@@ -682,9 +687,13 @@ export default class OLoop extends Component {
         const totalRow = this.element.insertRow(-1);
         totalRow.className = 'm-structure-column-totals';
 
-        const figureAlign = this.properties.totals?.columns?.align ?? 'default';
+        const columnAlign =
+            this.properties.totals?.columns?.elementalign ?? 'default';
+        const figureAlign = this.properties.totals?.columns?.align
+            ? `text-align: ${this.properties.totals?.columns?.align};`
+            : '';
         const figureWidth = this.properties.totals?.columns?.width
-            ? `width: ${this.properties.totals?.columns?.width}`
+            ? `width: ${this.properties.totals?.columns?.width};`
             : '';
 
         const captionTitle =
@@ -714,12 +723,13 @@ export default class OLoop extends Component {
                     this.hasGrandTotal = true;
                     totalCell.classList.add('m-structure-cell-total');
                     totalCell.classList.add('grid-grandtotal');
+                    totalCell.classList.add(`align-${columnAlign}`);
                     totalCell.innerHTML =
                         '<div class="a-label-total-grand a-label-total"><span>0</span></div>';
                 } else {
                     // regular total in other columns
                     totalCell.classList.add('grid-column-total');
-                    totalCell.classList.add(`align-${figureAlign}`);
+                    totalCell.classList.add(`align-${columnAlign}`);
 
                     if (
                         Array.isArray(
@@ -740,7 +750,7 @@ export default class OLoop extends Component {
                         htmlString += `<span class="a-label-pre">${this.properties.totals?.columns?.labels.pre}</span>`;
                     }
 
-                    htmlString += `<div class="a-label-total-column a-label-total" data-colnumber="${i}" style="${figureWidth}"><span>0</span></div>`;
+                    htmlString += `<div class="a-label-total-column a-label-total" data-colnumber="${i}" style="${figureWidth} ${figureAlign}"><span>0</span></div>`;
 
                     if (this.properties.totals?.columns?.labels?.post) {
                         htmlString += `<span class="a-label-post">${this.properties.totals?.columns?.labels.post}</span>`;
