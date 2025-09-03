@@ -1,10 +1,11 @@
 import { Meta, StoryObj } from '@storybook/web-components';
 import { MOptionBase_Story } from './base';
+import { MOptionBoolean } from './boolean';
 import { MOptionTab } from './tab';
 
 export default {
     title: 'Molecules/Option',
-    component: 'm-option-base', // Use the tag name of the custom element
+    component: 'm-option', // Use the tag name of the custom element
     parameters: {
         status: { type: 'beta' },
     },
@@ -146,4 +147,23 @@ export const TabstripOption: TabstripOption = {
     },
     render: (args) => MOptionTab(args),
 };
+
 TabstripOption.storyName = 'm-option-tab';
+
+type BooleanOption = StoryObj<typeof MOptionBoolean>;
+export const BooleanOption: BooleanOption = {
+    parameters: {
+        controls: {
+            include: ['optionStatus'],
+        },
+    },
+    args: {
+        exclusive: true,
+        questionId: '_Q0',
+        categoryId: '_C1',
+        iconType: 'checkbox',
+        questionName: 'BooleanExample',
+    },
+    render: (args) => MOptionBoolean(args),
+};
+BooleanOption.storyName = 'm-option-boolean';
