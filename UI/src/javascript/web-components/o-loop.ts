@@ -80,7 +80,6 @@ export default class OLoop extends Component {
 
     public connectedCallback(): void {
         super.connectedCallback();
-        this.loadPropertiesFromAttributes();
 
         this.element = this.querySelector('table');
 
@@ -109,28 +108,6 @@ export default class OLoop extends Component {
         if (typeof content !== 'string') return '';
         // Placeholder for potential templating; currently returns as-is.
         return content;
-    }
-
-    private loadPropertiesFromAttributes(): void {
-        const raw =
-            this.getAttribute('data-properties') ||
-            this.getAttribute('data-props') ||
-            this.getAttribute('data-config') ||
-            '';
-
-        if (!raw) {
-            this.properties = this.properties || {};
-            return;
-        }
-
-        try {
-            this.properties = JSON.parse(raw) as GridProperties;
-        } catch {
-            console.warn(
-                '[OQuestionGrid] Failed to parse properties JSON from attributes.',
-            );
-            this.properties = {};
-        }
     }
 
     // Heading utilities
