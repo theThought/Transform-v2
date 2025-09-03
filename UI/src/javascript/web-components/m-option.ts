@@ -14,7 +14,7 @@ export default class MOption extends Component implements Observer {
         },
     };
 
-    private checkbox: HTMLInputElement | null = null;
+    private element: HTMLInputElement | null = null;
     private sublist: OOptionSublist | null = null;
     private isExclusive = false;
 
@@ -68,19 +68,19 @@ export default class MOption extends Component implements Observer {
     }
 
     private changeState(check: boolean): void {
-        if (!this.checkbox) return;
+        if (!this.element) return;
 
         if (check) {
-            this.checkbox.checked = true;
+            this.element.checked = true;
             this.dataset.checked = 'true';
         } else {
-            this.checkbox.checked = false;
+            this.element.checked = false;
             this.dataset.checked = 'false';
         }
     }
 
     private setReadonly(): void {
-        if (this.checkbox && this.checkbox.readOnly) {
+        if (this.element && this.element.readOnly) {
             this.setAttribute('data-readonly', 'true');
         }
     }
@@ -90,7 +90,7 @@ export default class MOption extends Component implements Observer {
     }
 
     private exclusiveClear(e: CustomEvent): void {
-        if (!this.checkbox) return;
+        if (!this.element) return;
         if (this.isExclusive) return;
         if (e.target === this) return;
 
@@ -98,7 +98,7 @@ export default class MOption extends Component implements Observer {
     }
 
     private clearExclusives(e: CustomEvent): void {
-        if (!this.checkbox) return;
+        if (!this.element) return;
         if (!this.isExclusive) return;
         if (e.target === this) return;
 
@@ -106,16 +106,16 @@ export default class MOption extends Component implements Observer {
     }
 
     private onChange(): void {
-        if (!this.checkbox) return;
+        if (!this.element) return;
 
-        if (this.isExclusive && this.checkbox.checked) {
+        if (this.isExclusive && this.element.checked) {
             const exclusiveOn = new CustomEvent('exclusiveOn', {
                 bubbles: true,
             });
             this.dispatchEvent(exclusiveOn);
         }
 
-        if (this.isExclusive && !this.checkbox.checked) {
+        if (this.isExclusive && !this.element.checked) {
             const exclusiveOff = new CustomEvent('exclusiveOff', {
                 bubbles: true,
             });
@@ -129,27 +129,27 @@ export default class MOption extends Component implements Observer {
         e.preventDefault();
         e.stopPropagation();
 
-        if (!this.checkbox) return;
-        if (this.checkbox.disabled) return;
-        if (this.checkbox.readOnly) return;
+        if (!this.element) return;
+        if (this.element.disabled) return;
+        if (this.element.readOnly) return;
 
         // prevent radio buttons from de-selecting
-        if (this.checkbox.checked && this.checkbox.type === 'radio') return;
+        if (this.element.checked && this.element.type === 'radio') return;
 
-        this.changeState(!this.checkbox.checked);
+        this.changeState(!this.element.checked);
         this.onChange();
     }
 
     private onKeydown(e: KeyboardEvent): void {
-        if (!this.checkbox) return;
-        if (this.checkbox.disabled) return;
-        if (this.checkbox.readOnly) return;
+        if (!this.element) return;
+        if (this.element.disabled) return;
+        if (this.element.readOnly) return;
 
         // prevent radio buttons from de-selecting
-        if (this.checkbox.checked && this.checkbox.type === 'radio') return;
+        if (this.element.checked && this.element.type === 'radio') return;
 
         if (e.key === ' ') {
-            this.changeState(!this.checkbox.checked);
+            this.changeState(!this.element.checked);
             this.onChange();
         }
     }
@@ -169,7 +169,7 @@ export default class MOption extends Component implements Observer {
     public connectedCallback(): void {
         super.connectedCallback();
 
-        this.checkbox = this.querySelector('input');
+        this.element = this.querySelector('input');
         this.sublist =
             this.closest('o-option-sublist') ??
             this.closest('o-option-tabstrip');
