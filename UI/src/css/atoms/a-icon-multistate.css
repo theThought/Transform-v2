@@ -26,8 +26,11 @@
 }
 
 [data-selected='true'] .a-icon-multistate,
+[data-selected='true'] label > .a-icon-multistate,
 [type='checkbox']:checked ~ .a-icon-multistate,
-[type='radio']:checked ~ .a-icon-multistate {
+[type='radio']:checked ~ .a-icon-multistate,
+[type='checkbox']:checked + label > .a-icon-multistate,
+[type='radio']:checked + label > .a-icon-multistate {
     background-position-x: -14px;
 }
 
