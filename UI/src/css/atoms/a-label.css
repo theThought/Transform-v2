@@ -12,6 +12,11 @@
     font-size: var(--font-size-m);
 }
 
+/* this rule is specific to boolean types, where the question labels the boolean response */
+o-response + label > .a-label-question {
+    padding-inline-start: calc(var(--space-1) * 1.5);
+}
+
 .a-label-caption {
     font-size: var(--font-size-m);
 }
