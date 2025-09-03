@@ -98,7 +98,6 @@
     }
 
     .m-grid-total {
-        align-items: center;
         display: inline-flex;
 
         .a-label-pre,
@@ -106,6 +105,18 @@
             background-color: transparent;
             border-color: transparent;
         }
+    }
+
+    .align-default {
+        text-align: center;
+    }
+
+    .align-left {
+        text-align: left;
+    }
+
+    .align-right {
+        text-align: right;
     }
 
     :where(.grid-column-total-title, .grid-column-total, .grid-grandtotal) {
