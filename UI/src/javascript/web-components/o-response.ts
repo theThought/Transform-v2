@@ -702,48 +702,6 @@ export default class OResponse extends Component implements Subject {
         this.dispatchEvent(requestSize);
     }
 
-    protected broadcastChange(): void {
-        // do not broadcast events during page initialisation
-        if (!this.ready) return;
-
-        // do not broadcast a change when the value has not altered
-        if (!this.hasChangedValue()) {
-            return;
-        }
-
-        const broadcastChange = new CustomEvent('broadcastChange', {
-            bubbles: true,
-            detail: this,
-        });
-
-        this.dispatchEvent(broadcastChange);
-    }
-
-    private hasChangedValue(): boolean {
-        if (!this.element) return false;
-
-        const oldValue = this.element.value;
-        const newValue = this.getCurrentValue();
-
-        return oldValue !== newValue;
-    }
-
-    private getCurrentValue(): string | boolean | null {
-        if (!this.element) {
-            return null;
-        }
-
-        const value = (this.element as HTMLInputElement).value
-            ? (this.element as HTMLInputElement).value
-            : null;
-
-        if (typeof (this.element as any).checkbox !== 'undefined') {
-            return (this.element as any).checkbox.checked;
-        }
-
-        return value;
-    }
-
     public configureInitialVisibility(): void {
         // lift the cover immediately if there are no visibility rules defined
         if (
