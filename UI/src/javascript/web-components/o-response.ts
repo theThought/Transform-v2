@@ -275,7 +275,6 @@ export default class OResponse extends Component implements Subject {
             return;
         }
 
-        console.info('Processing option visibility rules for ' + this.qgroup);
         this.getQuestionValues();
 
         if (this.properties.options?.invisible) {
@@ -361,12 +360,9 @@ export default class OResponse extends Component implements Subject {
     }
 
     protected evaluateRule(ruleString: string): boolean {
-        console.info('Evaluating rule: ' + ruleString);
         try {
-            // Using Function instead of eval for better scoping
             return new Function(`return ${ruleString}`)();
         } catch (e) {
-            console.error(`Error evaluating rule: ${ruleString}`);
             return false;
         }
     }
@@ -796,9 +792,6 @@ export default class OResponse extends Component implements Subject {
             return;
         }
 
-        console.info('Processing visible rules for ' + this.qgroup);
-        console.info(this.complexVisibilityRule);
-
         this.getQuestionValues();
         const ruleString = this.insertQuestionValuesIntoRule(
             this.expandedVisibilityRule,
@@ -826,9 +819,6 @@ export default class OResponse extends Component implements Subject {
         ) {
             return;
         }
-
-        console.info('Processing invisible rules for ' + this.qgroup);
-        console.info(this.complexVisibilityRule);
 
         this.getQuestionValues();
         const ruleString = this.insertQuestionValuesIntoRule(
