@@ -136,12 +136,6 @@ export default class OLoop extends Component implements Subject {
             return;
         }
 
-        let element:
-            | HTMLInputElement
-            | HTMLButtonElement
-            | HTMLTextAreaElement
-            | null = null;
-
         const input = <HTMLInputElement>target.getElementsByTagName('INPUT')[0];
         const button = <HTMLButtonElement>(
             target.getElementsByTagName('BUTTON')[0]
@@ -150,7 +144,7 @@ export default class OLoop extends Component implements Subject {
             target.getElementsByTagName('TEXTAREA')[0]
         );
 
-        element = input || button || textarea;
+        const element = input || button || textarea;
         element.focus();
     }
 
