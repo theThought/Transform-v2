@@ -1,6 +1,7 @@
 m-option-base {
     --color-checked: var(--color-secondary);
 
+    display: flex;
     position: relative;
 
     /* Not using flex-gap for layout as it doesn't match designs. Use padding on a-label-option to nudge it away from input. */

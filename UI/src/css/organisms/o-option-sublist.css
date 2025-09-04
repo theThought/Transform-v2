@@ -9,6 +9,11 @@ o-option-sublist {
     &.balance {
         flex-direction: row;
     }
+
+    /* Styling of other-specifiers within sublists */
+    o-question {
+        padding: 0;
+    }
 }
 
 /* Special codes can follow many different question type controls, inside <o-response>. */
