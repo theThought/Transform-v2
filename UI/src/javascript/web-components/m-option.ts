@@ -139,7 +139,12 @@ export default class MOption extends Component implements Observer {
         if (!this.element) return;
         if (this.element.disabled) return;
         if (this.element.readOnly) return;
-        this.element.focus();
+
+        // prevent focus from being stolen by the checkbox where the other-specifier text was clicked
+        const target = e.target as HTMLElement;
+        if (target.tagName !== 'INPUT') {
+            this.element.focus();
+        }
 
         // prevent radio buttons from de-selecting
         if (this.element.checked && this.element.type === 'radio') return;
