@@ -154,7 +154,7 @@ type BooleanOption = StoryObj<typeof MOptionBoolean>;
 export const BooleanOption: BooleanOption = {
     parameters: {
         controls: {
-            include: ['optionStatus'],
+            include: ['exclusive'],
         },
     },
     args: {
