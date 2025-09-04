@@ -35,7 +35,7 @@ m-option-tab {
         box-shadow:
             11px 0 11px -9px #00000040,
             -11px 0 11px -9px #312e2e40;
-        left: -2px;
+        inset-inline-start: -2px;
         padding-inline-start: 2px;
         pointer-events: none;
 

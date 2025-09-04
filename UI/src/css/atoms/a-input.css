@@ -34,6 +34,11 @@
     }
 }
 
+html[dir='rtl'] .a-input-dropdown {
+    background: var(--color-primary) url('../../images/white-chevron-down.png')
+        no-repeat left 12px center;
+}
+
 input[type='range'] {
     appearance: none;
     background: transparent;
@@ -80,7 +85,7 @@ input[type='range']::-webkit-slider-thumb {
     border-radius: 50px;
     cursor: pointer;
     height: 32px;
-    margin-top: -7.7px;
+    margin-block-start: -7.7px;
     width: 32px;
 }
 

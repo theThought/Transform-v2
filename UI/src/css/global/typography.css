@@ -33,5 +33,5 @@ h4,
 h5,
 h6,
 p {
-    margin-bottom: var(--space-2);
+    margin-block-end: var(--space-2);
 }

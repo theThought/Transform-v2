@@ -2,8 +2,10 @@
     border-radius: var(--border-radius);
     font-size: var(--font-size-s);
     inline-size: fit-content;
-    padding: var(--space-2) var(--space-4) var(--space-2)
-        calc(var(--space-4) * 2);
+    padding-block-end: var(--space-2);
+    padding-block-start: var(--space-2);
+    padding-inline-end: var(--space-4);
+    padding-inline-start: calc(var(--space-4) * 2);
     position: relative;
 
     &::before {
@@ -11,7 +13,8 @@
         block-size: 1.25rem;
         content: '';
         inline-size: 1.25rem;
-        inset: 0.5rem 0 0 0.5rem;
+        inset-block-start: 0.4rem;
+        inset-inline-start: 0.5rem;
         position: absolute;
     }
 }

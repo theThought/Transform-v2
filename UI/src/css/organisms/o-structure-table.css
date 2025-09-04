@@ -112,11 +112,11 @@
     }
 
     .align-left {
-        text-align: left;
+        text-align: start;
     }
 
     .align-right {
-        text-align: right;
+        text-align: end;
     }
 
     :where(.grid-column-total-title, .grid-column-total, .grid-grandtotal) {
@@ -130,7 +130,7 @@
     }
 
     :where(.grid-row-total, .grid-grandtotal) {
-        text-align: right;
+        text-align: end;
     }
 
     :where(.grid-row-total, .grid-column-total, .grid-grandtotal) {
@@ -144,6 +144,6 @@
     caption {
         caption-side: top;
         margin-block-end: 0.5em;
-        text-align: left;
+        text-align: start;
     }
 }
