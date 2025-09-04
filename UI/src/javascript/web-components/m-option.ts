@@ -101,7 +101,9 @@ export default class MOption extends Component implements Observer {
     private clearExclusives(e: CustomEvent): void {
         if (!this.element) return;
         if (!this.isExclusive) return;
-        if (e.target === this) return;
+
+        const eventTarget = e.target as HTMLElement;
+        if (eventTarget.contains(this)) return;
 
         this.changeState(false);
     }
@@ -129,7 +131,6 @@ export default class MOption extends Component implements Observer {
     protected onClick(e: Event): void {
         e.preventDefault();
         e.stopPropagation();
-
         if (!this.element) return;
         if (this.element.disabled) return;
         if (this.element.readOnly) return;
