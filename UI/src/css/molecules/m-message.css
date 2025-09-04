@@ -20,8 +20,7 @@
 }
 
 /* Uses color-mix() function to fix a11y color contrast. */
-.m-message-error,
-.m-structure-cell-error {
+.m-message-error {
     background-color: rgba(var(--color-error), 0.15);
     color: rgb(var(--color-error));
 
