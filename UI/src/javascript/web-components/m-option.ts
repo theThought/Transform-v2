@@ -87,6 +87,7 @@ export default class MOption extends Component implements Observer {
 
     private clearValue(e: CustomEvent): void {
         if (e.target === this) return;
+        if (e.detail && this.qgroup != e.detail.qgroup) return;
         this.changeState(false);
     }
 
@@ -94,6 +95,7 @@ export default class MOption extends Component implements Observer {
         if (!this.element) return;
         if (this.isExclusive) return;
         if (e.target === this) return;
+        if (this.qgroup != e.detail.qgroup) return;
 
         this.changeState(false);
     }
@@ -101,6 +103,7 @@ export default class MOption extends Component implements Observer {
     private clearExclusives(e: CustomEvent): void {
         if (!this.element) return;
         if (!this.isExclusive) return;
+        if (this.qgroup != e.detail.qgroup) return;
 
         const eventTarget = e.target as HTMLElement;
         if (eventTarget.contains(this)) return;
@@ -114,6 +117,7 @@ export default class MOption extends Component implements Observer {
         if (this.isExclusive && this.element.checked) {
             const exclusiveOn = new CustomEvent('exclusiveOn', {
                 bubbles: true,
+                detail: this,
             });
             this.dispatchEvent(exclusiveOn);
         }
@@ -121,6 +125,7 @@ export default class MOption extends Component implements Observer {
         if (this.isExclusive && !this.element.checked) {
             const exclusiveOff = new CustomEvent('exclusiveOff', {
                 bubbles: true,
+                detail: this,
             });
             this.dispatchEvent(exclusiveOff);
         }
