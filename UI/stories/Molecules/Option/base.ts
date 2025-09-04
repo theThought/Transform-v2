@@ -3,7 +3,9 @@ export function MOptionBase_Story(args: any): HTMLElement {
     const containerClass: string = 'm-option-' + args.optionType;
     const inputType: string =
         args.optionType === 'single-answer' ? 'radio' : 'checkbox';
-    const customProperties = JSON.stringify(args.properties);
+    const customProperties = args.properties
+        ? JSON.stringify(args.properties)
+        : '';
 
     container.setAttribute('data-exclusive', args.exclusive);
     container.setAttribute('data-question-id', args.questionId);
