@@ -17,6 +17,11 @@ o-response + label > .a-label-question {
     padding-inline-start: calc(var(--space-1) * 1.5);
 }
 
+/* this rule is specific to other-specifiers, where the label and question are adjacent */
+o-response > label {
+    padding-inline-end: calc(var(--space-1) * 1.5);
+}
+
 .a-label-caption {
     font-size: var(--font-size-m);
 }
