@@ -100,7 +100,6 @@ export default class OLoop extends Component implements Subject {
 
         this.element = this.querySelector('table');
 
-        this.configureCellEvents();
         this.configureTableCaption();
         this.configureTotals();
         this.configureTopHeadings();
@@ -110,6 +109,7 @@ export default class OLoop extends Component implements Subject {
 
         this.addEventListener('questionChange', this.handleEvent);
         this.addEventListener('exclusiveOn', this.handleEvent);
+        this.addEventListener('click', this.handleEvent);
     }
 
     public handleEvent(e: Event): void {
@@ -120,7 +120,38 @@ export default class OLoop extends Component implements Subject {
             case 'exclusiveOn':
                 this.exclusiveOn(e as CustomEvent);
                 break;
+            case 'click':
+                this.onClick(e as CustomEvent);
+                break;
         }
+    }
+
+    private onClick(e: CustomEvent): void {
+        // prevent bubbled events from firing this function
+        const target = e.target as HTMLElement;
+        if (
+            (target as HTMLInputElement)?.type !== undefined ||
+            e.detail === 0
+        ) {
+            return;
+        }
+
+        let element:
+            | HTMLInputElement
+            | HTMLButtonElement
+            | HTMLTextAreaElement
+            | null = null;
+
+        const input = <HTMLInputElement>target.getElementsByTagName('INPUT')[0];
+        const button = <HTMLButtonElement>(
+            target.getElementsByTagName('BUTTON')[0]
+        );
+        const textarea = <HTMLTextAreaElement>(
+            target.getElementsByTagName('TEXTAREA')[0]
+        );
+
+        element = input || button || textarea;
+        element.focus();
     }
 
     private exclusiveOn(e: CustomEvent): void {
@@ -184,85 +215,6 @@ export default class OLoop extends Component implements Subject {
                 ) {
                     tableRowList[i - 1].classList.add('striped');
                 }
-            }
-        }
-    }
-
-    // Cell click handling
-    private configureCellEvents(): void {
-        if (!this.element) return;
-
-        for (
-            let i = 0, row: HTMLTableRowElement | undefined;
-            (row = this.element.rows[i]);
-            i++
-        ) {
-            for (
-                let j = 0, col: HTMLTableCellElement | undefined;
-                (col = row.cells[j] as HTMLTableCellElement);
-                j++
-            ) {
-                col.addEventListener(
-                    'click',
-                    function (this: HTMLTableCellElement, event: MouseEvent) {
-                        // prevent bubbled events from firing this function
-                        const target = event.target as HTMLElement;
-                        if (
-                            (target as HTMLInputElement)?.type !== undefined ||
-                            event.detail === 0
-                        ) {
-                            return;
-                        }
-
-                        let element:
-                            | HTMLInputElement
-                            | HTMLButtonElement
-                            | HTMLTextAreaElement
-                            | null = null;
-
-                        const input = <HTMLInputElement>(
-                            this.getElementsByTagName('INPUT')[0]
-                        );
-                        const button = <HTMLButtonElement>(
-                            this.getElementsByTagName('BUTTON')[0]
-                        );
-                        const textarea = <HTMLTextAreaElement>(
-                            this.getElementsByTagName('TEXTAREA')[0]
-                        );
-
-                        if (input) element = input;
-                        else if (button) element = button;
-                        else if (textarea) element = textarea;
-
-                        if (!element) {
-                            // Unexpected: column without an input/control
-                            return;
-                        }
-
-                        // preference for focus is text, number, radio/check, then button
-                        if (
-                            (element as HTMLInputElement).type === 'text' ||
-                            (element as HTMLInputElement).type === 'number'
-                        ) {
-                            element.focus();
-                            return;
-                        }
-
-                        if (
-                            (element as HTMLInputElement).type === 'checkbox' ||
-                            (element as HTMLInputElement).type === 'radio'
-                        ) {
-                            const label = <HTMLLabelElement>(
-                                this.getElementsByTagName('LABEL')[0]
-                            );
-                            if (label) label.click();
-                            else element.click();
-                            return;
-                        }
-
-                        element.focus();
-                    },
-                );
             }
         }
     }
