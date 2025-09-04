@@ -61,6 +61,6 @@ export default class AButtonTerminator extends Component {
     public connectedCallback(): void {
         this.setBehaviour();
         this.setLabel();
-        this.addEventListener('click', this);
+        this.addEventListener('click', this.handleEvent);
     }
 }

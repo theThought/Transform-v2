@@ -38,6 +38,6 @@ export default class OQuestion extends HTMLElement {
 
     public connectedCallback(): void {
         this.cleanEmptyLayout();
-        this.addEventListener('questionVisibility', this);
+        this.addEventListener('questionVisibility', this.handleEvent);
     }
 }

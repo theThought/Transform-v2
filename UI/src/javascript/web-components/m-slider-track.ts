@@ -253,7 +253,7 @@ export default class MSliderTrack extends Component implements Observer {
 
         if (!this.element) return;
 
-        this.addEventListener('focusin', this);
+        this.addEventListener('focusin', this.handleEvent);
         this.element.addEventListener('input', this);
 
         if (this.response) this.response.addObserver(this);

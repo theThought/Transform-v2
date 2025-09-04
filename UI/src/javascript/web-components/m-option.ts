@@ -179,8 +179,8 @@ export default class MOption extends Component implements Observer {
             this.closest('o-loop');
         this.isExclusive = this.getAttribute('data-exclusive') === 'true';
 
-        this.addEventListener('click', this);
-        this.addEventListener('keydown', this);
+        this.addEventListener('click', this.handleEvent);
+        this.addEventListener('keydown', this.handleEvent);
 
         this.setBalanceWidth();
         this.setMaxOneSize();

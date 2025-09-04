@@ -118,8 +118,8 @@ export default class OOptionSublist
 
         if (this.response) this.response.addObserver(this);
 
-        this.addEventListener('exclusiveOn', this);
-        this.addEventListener('broadcastChange', this);
+        this.addEventListener('exclusiveOn', this.handleEvent);
+        this.addEventListener('broadcastChange', this.handleEvent);
         this.setBalance();
     }
 }

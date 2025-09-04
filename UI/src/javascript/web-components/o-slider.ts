@@ -200,10 +200,10 @@ export default class OSlider extends Component implements Observer, Subject {
             this.querySelector('input[type="hidden"]') ??
             this.querySelector('input[data-hidden="true"]');
 
-        this.addEventListener('notifySlider', this);
-        this.addEventListener('incrementValue', this);
-        this.addEventListener('decrementValue', this);
-        this.addEventListener('requestInitialValue', this);
+        this.addEventListener('notifySlider', this.handleEvent);
+        this.addEventListener('incrementValue', this.handleEvent);
+        this.addEventListener('decrementValue', this.handleEvent);
+        this.addEventListener('requestInitialValue', this.handleEvent);
         this.setProperties();
         this.setLabels();
         this.terminatorButtons();

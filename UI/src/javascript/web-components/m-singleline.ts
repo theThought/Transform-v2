@@ -116,9 +116,9 @@ export default class MSingleline extends Component implements Observer {
 
         this.initialPlaceholder = this.element.placeholder;
 
-        this.addEventListener('focusin', this);
-        this.addEventListener('input', this);
-        this.addEventListener('paste', this);
+        this.addEventListener('focusin', this.handleEvent);
+        this.addEventListener('input', this.handleEvent);
+        this.addEventListener('paste', this.handleEvent);
 
         this.setLabels();
 

@@ -55,7 +55,7 @@ export default class AScaleUnit extends Component implements Observer {
 
     public connectedCallback(): void {
         super.connectedCallback();
-        this.addEventListener('click', this);
+        this.addEventListener('click', this.handleEvent);
 
         this.scale = this.closest('o-scale');
 

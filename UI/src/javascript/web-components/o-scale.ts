@@ -133,7 +133,7 @@ export default class OScale extends Component implements Subject, Observer {
         }
 
         this.element = this.querySelector('input');
-        this.addEventListener('scaleUnitClick', this);
+        this.addEventListener('scaleUnitClick', this.handleEvent);
         this.setLabels();
     }
 }

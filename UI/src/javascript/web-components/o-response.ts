@@ -807,9 +807,9 @@ export default class OResponse extends Component implements Subject {
 
     public connectedCallback(): void {
         super.connectedCallback();
-        this.addEventListener('exclusiveOn', this);
-        this.addEventListener('exclusiveOff', this);
-        this.addEventListener('broadcastChange', this);
+        this.addEventListener('exclusiveOn', this.handleEvent);
+        this.addEventListener('exclusiveOff', this.handleEvent);
+        this.addEventListener('broadcastChange', this.handleEvent);
         document.addEventListener('questionChange', this);
         this.configureInitialVisibility();
         this.processOptionVisibilityRules();
