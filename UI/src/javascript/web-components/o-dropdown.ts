@@ -11,6 +11,12 @@ export default class ODropdown extends Component implements Subject {
 
     public handleEvent(e: Event): void {
         switch (e.type) {
+            case 'blur':
+                this.clearFocus(e as MouseEvent);
+                break;
+            case 'mousedown':
+                this.toggleFocus();
+                break;
             case 'focusin':
                 this.notifyObservers('focusin', e as CustomEvent);
                 break;
@@ -24,6 +30,19 @@ export default class ODropdown extends Component implements Subject {
                 this.onKeyup(<KeyboardEvent>e);
                 break;
         }
+    }
+
+    private clearFocus(e?: MouseEvent): void {
+        if (e && e.relatedTarget === this.querySelector('o-list')) return;
+        this.classList.remove('focus');
+    }
+
+    private setFocus(): void {
+        this.classList.add('focus');
+    }
+
+    private toggleFocus(): void {
+        this.classList.toggle('focus');
     }
 
     addObserver(observer: Observer): void {
@@ -57,6 +76,7 @@ export default class ODropdown extends Component implements Subject {
             case 'Enter':
                 e.preventDefault();
                 this.sendKeyToList(e);
+                this.clearFocus();
                 break;
             case 'Escape':
                 this.sendKeyToList(e);
@@ -67,6 +87,7 @@ export default class ODropdown extends Component implements Subject {
             case 'ArrowDown':
                 e.preventDefault(); // prevent caret from moving
                 this.sendKeyToList(e);
+                this.setFocus();
                 break;
             default:
                 this.sendKeyToList(e);
@@ -94,6 +115,11 @@ export default class ODropdown extends Component implements Subject {
     private updateLabel(e: CustomEvent): void {
         if (!this.element) return;
         this.element.value = e.detail.dataset.label;
+
+        if (e.detail.mouseEvent) {
+            this.element.focus();
+            this.clearFocus();
+        }
     }
 
     private configureElement(): void {
@@ -120,7 +146,9 @@ export default class ODropdown extends Component implements Subject {
         super.connectedCallback();
         this.element = this.querySelector('.a-input-dropdown');
         this.setInputWidth();
-        this.addEventListener('focusin', this.handleEvent);
+        this.element?.addEventListener('blur', this);
+        this.element?.addEventListener('mousedown', this);
+        this.element?.addEventListener('focusin', this);
         this.addEventListener('labelChange', this.handleEvent);
         this.addEventListener('keydown', this.handleEvent);
         this.addEventListener('keyup', this.handleEvent);

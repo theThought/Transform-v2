@@ -19,6 +19,7 @@ export default class OList extends Component implements Observer {
     private currentListPosition = -1;
     private control: OCombobox | ODropdown | null = null;
     private list: Array<HTMLLIElement> = [];
+    private mouseEvent = false;
     private keyBuffer = '';
     private keyTimer: ReturnType<typeof setTimeout>;
     private keyTimerLimit = 500; // Time in milliseconds at which the buffer is cleared.
@@ -91,7 +92,7 @@ export default class OList extends Component implements Observer {
     }
 
     private handleKey(e: KeyboardEvent): void {
-        // e.preventDefault();
+        this.mouseEvent = false;
         e.stopPropagation();
 
         switch (e.key) {
@@ -110,11 +111,8 @@ export default class OList extends Component implements Observer {
                 this.navigateLast();
                 break;
             case 'Tab':
-                this.clearFocus();
-                break;
             case 'Enter':
             case 'Escape':
-                this.clearFocus();
                 break;
             default:
                 this.keyBuffer += e.key.toLowerCase();
@@ -393,6 +391,7 @@ export default class OList extends Component implements Observer {
         e.preventDefault();
         e.stopPropagation();
 
+        this.mouseEvent = true;
         const clickedElement = <HTMLElement>e.target;
         const listItem = clickedElement.closest('li');
 
@@ -404,17 +403,6 @@ export default class OList extends Component implements Observer {
         this.setOption(listItem);
         this.setValue(listItem);
         this.setLabel(listItem);
-        this.clearFocus();
-    }
-
-    private clearFocus(): void {
-        if (!this.control) return;
-
-        if (document.activeElement) {
-            document.activeElement.blur();
-        } else {
-            this.blur();
-        }
     }
 
     private restoreSelection(): void {

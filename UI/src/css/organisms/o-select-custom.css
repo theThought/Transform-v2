@@ -20,7 +20,7 @@
         width: fit-content;
     }
 
-    &:focus-within {
+    &.focus {
         o-list {
             block-size: auto;
             margin-block-start: calc(var(--border-thickness) * -1);
