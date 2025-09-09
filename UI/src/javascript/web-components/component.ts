@@ -9,24 +9,26 @@ import OResponse from './o-response';
 import { mergeDeep } from './util';
 
 export default class Component extends HTMLElement {
-    protected readonly qid: string | undefined;
-    protected readonly qgroup: string | undefined;
+    protected readonly qid: string;
+    protected readonly qgroup: string;
     protected response: OResponse | null = null;
-    protected properties: object;
+    protected properties: object = {};
 
     constructor() {
         super();
 
-        this.qid = this.dataset.questionId;
+        this.qid = this.dataset.questionId ?? '';
         this.qgroup = this.extractQuestionNameFromGroup();
-        this.properties = {};
     }
 
     private extractQuestionNameFromGroup(): string {
         let group = this.dataset.questionGroup ?? '';
         group = group.toLowerCase();
         const groupArray = group.split('_q');
-        return groupArray[groupArray.length - 1];
+        return (
+            groupArray[groupArray.length - 2] +
+            groupArray[groupArray.length - 1]
+        );
     }
 
     protected parseProperties(): void {
@@ -59,12 +61,7 @@ export default class Component extends HTMLElement {
     }
 
     public connectedCallback(): void {
-        if (this.parentElement) {
-            this.response = this.parentElement.closest('o-response');
-        } else {
-            this.response = null;
-        }
-
+        this.response = this.closest('o-response') ?? null;
         this.parseProperties();
     }
 }
