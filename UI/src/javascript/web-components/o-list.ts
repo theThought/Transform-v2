@@ -3,23 +3,32 @@ import OCombobox from './o-combobox';
 import ODropdown from './o-dropdown';
 import { Observer } from '../interfaces';
 
+interface CustomProperties {
+    exact: boolean;
+    filter?: {
+        source: string;
+        exclusions: Array<string>;
+    };
+    filtermethod?: string;
+    jumptofirstletter: boolean;
+    listsize: number;
+    mincharactersforlist: number;
+}
+
 export default class OList extends Component implements Observer {
-    public properties = {
-        filter: {
-            source: '',
-            exclusions: new Array<string>(),
-        },
-        filtermethod: 'jump',
-        mincharactersforlist: 0,
+    public properties: CustomProperties = {
         exact: true,
+        jumptofirstletter: false,
         listsize: 6,
+        mincharactersforlist: 0,
     };
 
-    protected element: HTMLInputElement | null = null;
+    public mouseEvent = false;
+
+    private element: HTMLInputElement | null = null;
     private currentListPosition = -1;
     private control: OCombobox | ODropdown | null = null;
     private list: Array<HTMLLIElement> = [];
-    private mouseEvent = false;
     private keyBuffer = '';
     private keyTimer: ReturnType<typeof setTimeout>;
     private keyTimerLimit = 500; // Time in milliseconds at which the buffer is cleared.
@@ -572,6 +581,11 @@ export default class OList extends Component implements Observer {
         }
     }
 
+    private setFilterMethod(): void {
+        if (!this.properties.jumptofirstletter) return;
+        this.properties.filtermethod = 'jump';
+    }
+
     public connectedCallback(): void {
         super.connectedCallback();
 
@@ -580,6 +594,7 @@ export default class OList extends Component implements Observer {
         this.indexList();
         this.setListHeight(); // setListHeight must precede restoreSelection to ensure a pre-selected item is correctly scrolled into view
         this.restoreSelection();
+        this.setFilterMethod();
 
         this.addEventListener('click', this.handleEvent);
         this.addEventListener('keydown', this.handleEvent);
