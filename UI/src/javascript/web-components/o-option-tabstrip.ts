@@ -27,38 +27,77 @@ export default class OOptionTabstrip extends OOptionSublist {
         },
     };
 
+    private currentTab: HTMLInputElement | null = null;
+
     constructor() {
         super();
-    }
-
-    private checkCurrentSelection(e: CustomEvent): void {
-        const currentTab: HTMLInputElement | null = this.querySelector(
-            'm-option-tab[data-checked="true"]',
-        );
-
-        if (!currentTab) return;
-
-        if (currentTab.value !== e.detail) {
-            const desiredTabInput: HTMLInputElement | null = this.querySelector(
-                `m-option-tab input[value='${e.detail}']`,
-            );
-            const desiredTab = desiredTabInput?.parentElement;
-            if (!desiredTab) return;
-            currentTab.dataset.checked = 'false';
-            desiredTab.dataset.checked = 'true';
-        }
     }
 
     public handleEvent(e: Event): void {
         switch (e.type) {
             case 'currentTab':
-                this.checkCurrentSelection(e as CustomEvent);
+                this.updateCurrentTab(e as CustomEvent);
+                break;
+            case 'submitForm':
+                this.handleSubmit(e as CustomEvent);
                 break;
         }
     }
 
+    private updateCurrentTab(e: CustomEvent): void {
+        if (!this.currentTab) return;
+        const currentTabValue =
+            this.currentTab.querySelector('input')?.value ?? '';
+
+        if (currentTabValue !== e.detail) {
+            const desiredTabInput: HTMLInputElement | null = this.querySelector(
+                `m-option-tab input[value='${e.detail}']`,
+            );
+            const desiredTab = desiredTabInput?.parentElement;
+            if (!desiredTab) return;
+            this.currentTab.dataset.checked = 'false';
+            desiredTab.dataset.checked = 'true';
+        }
+    }
+
+    private handleSubmit(e: CustomEvent): void {
+        const selectedID = e.detail.dataset.questionId;
+        const currentID = this.currentTab?.dataset.questionId;
+
+        if (!selectedID || !currentID) return;
+
+        if (selectedID > currentID) {
+            this.submitForward();
+        }
+
+        if (selectedID < currentID) {
+            this.submitBackward();
+        }
+    }
+
+    private submitForward(): void {
+        const form = this.closest('form');
+        if (form) form.submit();
+    }
+
+    private submitBackward(): void {
+        const previousButton: HTMLButtonElement | null =
+            document.querySelector('.a-button-prev');
+
+        if (!previousButton || previousButton.type !== 'submit') return;
+        previousButton.click();
+    }
+
+    private setCurrentTab(): void {
+        this.currentTab = this.querySelector(
+            'm-option-tab[data-checked="true"]',
+        );
+    }
+
     public connectedCallback(): void {
         super.connectedCallback();
+        this.setCurrentTab();
         document.addEventListener('currentTab', this);
+        this.addEventListener('submitForm', this.handleEvent);
     }
 }

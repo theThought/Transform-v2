@@ -6,8 +6,13 @@ export default class MOptionTab extends MOption {
     protected onClick(e: Event): void {
         if (this.dataset.checked !== 'true') {
             super.onClick(e);
-            const form = this.closest('form');
-            if (form) form.submit();
+
+            const submitEvent = new CustomEvent('submitForm', {
+                bubbles: true,
+                detail: this,
+            });
+
+            this.dispatchEvent(submitEvent);
         }
     }
 
