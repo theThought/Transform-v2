@@ -9,6 +9,16 @@ export default {
         docs: { controls: { sort: 'alpha' } },
     },
     argTypes: {
+        placeholder: {
+            control: 'text',
+            description:
+                'A short hint that describes the expected value of an input field',
+            table: {
+                type: { summary: 'text' },
+                category: 'Dimensions',
+                defaultValue: { summary: 'Enter text' },
+            },
+        },
         'properties.labels.pre': {
             control: 'text',
             name: 'pre',
@@ -27,6 +37,16 @@ export default {
                 type: { summary: 'text' },
                 category: 'Custom Properties',
                 subcategory: 'Labels',
+            },
+        },
+        'properties.paste': {
+            control: 'boolean',
+            name: 'paste',
+            description: 'Allows pasting of text',
+            table: {
+                type: { summary: 'boolean' },
+                category: 'Custom Properties',
+                defaultValue: { summary: 'false' },
             },
         },
         type: {
@@ -114,7 +134,15 @@ type Singleline = StoryObj<typeof SingleLineStories.MSingleLine_Story>;
 export const Singleline: Singleline = {
     parameters: {
         controls: {
-            include: ['text-align', 'width', 'maxlength', 'pre', 'post'],
+            include: [
+                'text-align',
+                'width',
+                'maxlength',
+                'pre',
+                'post',
+                'paste',
+                'placeholder',
+            ],
         },
     },
     args: {
@@ -124,6 +152,7 @@ export const Singleline: Singleline = {
                 pre: 'before',
                 post: 'after',
             },
+            paste: false,
         },
     },
     render: (args: object): HTMLElement =>
@@ -144,6 +173,8 @@ export const SinglelineNumber: SinglelineNumber = {
                 'step',
                 'pre',
                 'post',
+                'paste',
+                'placeholder',
             ],
         },
     },
@@ -155,6 +186,7 @@ export const SinglelineNumber: SinglelineNumber = {
                 pre: 'before',
                 post: 'after',
             },
+            paste: false,
         },
     },
     render: (args: object): HTMLElement =>
@@ -172,6 +204,8 @@ export const SinglelineDate: SinglelineDate = {
                 'maximumDate',
                 'pre',
                 'post',
+                'paste',
+                'placeholder',
             ],
         },
     },
@@ -182,6 +216,7 @@ export const SinglelineDate: SinglelineDate = {
                 pre: 'before',
                 post: 'after',
             },
+            paste: false,
         },
     },
     render: (args: object): HTMLElement =>
