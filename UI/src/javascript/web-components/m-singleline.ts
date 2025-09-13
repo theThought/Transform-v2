@@ -8,7 +8,7 @@ export default class MSingleline extends Component implements Observer {
             pre: '',
             post: '',
         },
-        allowPaste: false,
+        paste: false,
     };
 
     protected element: HTMLInputElement | null = null;
@@ -96,11 +96,11 @@ export default class MSingleline extends Component implements Observer {
     }
 
     private onPaste(e: Event): void {
-        const globalNoPaste = document.body.dataset.noPaste;
+        const globalNoPaste = document.body.dataset.noPaste ?? false;
 
         if (
-            !this.properties.allowPaste ||
-            (!globalNoPaste && !this.properties.allowPaste)
+            !this.properties.paste ||
+            (!globalNoPaste && !this.properties.paste)
         ) {
             e.preventDefault();
             e.stopPropagation();
