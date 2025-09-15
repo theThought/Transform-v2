@@ -142,10 +142,15 @@ export default class ODropdown extends Component implements Subject {
         resizeObserver.observe(list);
     }
 
+    private removeTabIndex(): void {
+        this.querySelector('ul')?.setAttribute('tabindex', '-1');
+    }
+
     public connectedCallback(): void {
         super.connectedCallback();
         this.element = this.querySelector('.a-input-dropdown');
         this.setInputWidth();
+        this.removeTabIndex();
         this.element?.addEventListener('blur', this);
         this.element?.addEventListener('mousedown', this);
         this.element?.addEventListener('focusin', this);

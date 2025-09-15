@@ -586,6 +586,10 @@ export default class OList extends Component implements Observer {
         this.properties.filtermethod = 'jump';
     }
 
+    private removeTabIndex(): void {
+        this.tabIndex = -1;
+    }
+
     public connectedCallback(): void {
         super.connectedCallback();
 
@@ -601,6 +605,9 @@ export default class OList extends Component implements Observer {
         this.addEventListener('keyup', this.handleEvent);
         if (this.response) this.response.addObserver(this);
         this.control = this.closest('o-dropdown, o-combobox');
-        if (this.control) this.control.addObserver(this);
+        if (this.control) {
+            this.control.addObserver(this);
+            this.removeTabIndex();
+        }
     }
 }

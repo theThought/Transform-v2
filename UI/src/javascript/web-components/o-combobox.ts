@@ -71,7 +71,6 @@ export default class OCombobox extends Component implements Subject {
     private onKeydown(e: KeyboardEvent): void {
         switch (e.key) {
             case 'Tab':
-                this.blur();
                 break;
             case 'Enter':
                 e.preventDefault();
@@ -137,10 +136,15 @@ export default class OCombobox extends Component implements Subject {
         resizeObserver.observe(list);
     }
 
+    private removeTabIndex(): void {
+        this.querySelector('ul')?.setAttribute('tabindex', '-1');
+    }
+
     public connectedCallback(): void {
         super.connectedCallback();
         this.element = this.querySelector('.a-input-combobox');
         this.setInputWidth();
+        this.removeTabIndex();
         this.element?.addEventListener('blur', this);
         this.element?.addEventListener('mousedown', this);
         this.element?.addEventListener('focusin', this);
