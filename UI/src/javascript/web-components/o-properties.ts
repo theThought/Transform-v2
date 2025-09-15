@@ -71,8 +71,7 @@ export default class OProperties extends Component {
     }
 
     private setPastePermissions(): void {
-        if (this.properties.paste) return;
-        document.body.dataset.noPaste = 'true';
+        document.body.dataset.paste = this.properties.paste ? 'true' : 'false';
     }
 
     private setSeparatorStyle(): void {

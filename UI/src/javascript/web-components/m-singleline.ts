@@ -2,15 +2,16 @@ import Component from './component';
 import { removeHTMLWhitespace } from './util';
 import { Observer } from '../interfaces';
 
-export default class MSingleline extends Component implements Observer {
-    protected properties = {
-        labels: {
-            pre: '',
-            post: '',
-        },
-        paste: false,
+interface CustomProperties {
+    labels?: {
+        pre?: string;
+        post?: string;
     };
+    paste?: boolean;
+}
 
+export default class MSingleline extends Component implements Observer {
+    protected properties: CustomProperties = {};
     protected element: HTMLInputElement | null = null;
     private initialPlaceholder = '';
 
@@ -70,12 +71,12 @@ export default class MSingleline extends Component implements Observer {
             return;
         }
 
-        if (this.properties.labels.pre.length > 0) {
+        if (this.properties?.labels?.pre) {
             elemPre.innerHTML = this.properties.labels.pre;
             this.classList.add('has-labels');
         }
 
-        if (this.properties.labels.post.length > 0) {
+        if (this.properties?.labels?.post) {
             elemPost.innerHTML = this.properties.labels.post;
             this.classList.add('has-labels');
         }
@@ -96,11 +97,13 @@ export default class MSingleline extends Component implements Observer {
     }
 
     private onPaste(e: Event): void {
-        const globalNoPaste = document.body.dataset.noPaste ?? false;
+        const globalPaste = document.body.dataset.paste
+            ? document.body.dataset.paste === 'true'
+            : false;
 
         if (
-            !this.properties.paste ||
-            (!globalNoPaste && !this.properties.paste)
+            this.properties.paste === false ||
+            (typeof this.properties.paste === 'undefined' && !globalPaste)
         ) {
             e.preventDefault();
             e.stopPropagation();
