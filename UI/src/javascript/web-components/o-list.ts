@@ -590,6 +590,10 @@ export default class OList extends Component implements Observer {
         this.tabIndex = -1;
     }
 
+    private removeLocalTabIndex(): void {
+        this.querySelector('ul')?.setAttribute('tabindex', '-1');
+    }
+
     public connectedCallback(): void {
         super.connectedCallback();
 
@@ -608,6 +612,8 @@ export default class OList extends Component implements Observer {
         if (this.control) {
             this.control.addObserver(this);
             this.removeTabIndex();
+        } else {
+            this.removeLocalTabIndex();
         }
     }
 }
