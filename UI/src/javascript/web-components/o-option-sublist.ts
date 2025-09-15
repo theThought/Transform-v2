@@ -42,6 +42,7 @@ export default class OOptionSublist
 
     private handleChange(e: CustomEvent): void {
         this.notifyObservers('clearExclusives', e);
+        this.notifyObservers('clearText', e);
     }
 
     public update(method: string, data: CustomEvent): void {

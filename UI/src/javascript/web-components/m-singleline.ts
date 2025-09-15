@@ -1,6 +1,7 @@
 import Component from './component';
 import { removeHTMLWhitespace } from './util';
 import { Observer } from '../interfaces';
+import OOptionSublist from './o-option-sublist';
 
 interface CustomProperties {
     labels?: {
@@ -13,6 +14,7 @@ interface CustomProperties {
 export default class MSingleline extends Component implements Observer {
     protected properties: CustomProperties = {};
     protected element: HTMLInputElement | null = null;
+    private sublist: OOptionSublist | null = null;
     private initialPlaceholder = '';
 
     constructor() {
@@ -38,6 +40,9 @@ export default class MSingleline extends Component implements Observer {
     public update(method: string, data: CustomEvent): void {
         switch (method) {
             case 'clearValue':
+                this.clearValue(data);
+                break;
+            case 'clearText':
                 this.clearValue(data);
                 break;
             case 'exclusiveRestore':
@@ -85,8 +90,9 @@ export default class MSingleline extends Component implements Observer {
     // Clears the value when an exclusive option is enabled.
     private clearValue(e: CustomEvent): void {
         if (!this.element) return;
+        const target = e.target as HTMLElement;
 
-        if (e.target === this) {
+        if (target === this || target.contains(this)) {
             return;
         }
 
@@ -117,6 +123,8 @@ export default class MSingleline extends Component implements Observer {
         this.element = this.querySelector('input');
         if (!this.element) return;
 
+        this.sublist = this.closest('o-option-sublist');
+
         this.initialPlaceholder = this.element.placeholder;
 
         this.addEventListener('focusin', this.handleEvent);
@@ -126,9 +134,11 @@ export default class MSingleline extends Component implements Observer {
         this.setLabels();
 
         if (this.response) this.response.addObserver(this);
+        if (this.sublist) this.sublist.addObserver(this);
     }
 
     public disconnectedCallback(): void {
         if (this.response) this.response.removeObserver(this);
+        if (this.sublist) this.sublist.removeObserver(this);
     }
 }

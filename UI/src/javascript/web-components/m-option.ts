@@ -161,8 +161,13 @@ export default class MOption extends Component implements Observer {
         // prevent radio buttons from de-selecting
         if (this.element.checked && this.element.type === 'radio') return;
 
+        const target = e.target as HTMLInputElement;
+
         if (e.key === ' ') {
             this.changeState(!this.element.checked);
+            this.onChange();
+        } else if (target.type == 'text' && !this.element.checked) {
+            this.changeState(true);
             this.onChange();
         }
     }
