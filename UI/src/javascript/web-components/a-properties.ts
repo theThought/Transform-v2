@@ -16,7 +16,7 @@ interface CustomProperties {
     validate?: boolean;
 }
 
-export default class OProperties extends Component {
+export default class AProperties extends Component {
     public properties: CustomProperties = {
         floatdetails: true,
         focus: {
