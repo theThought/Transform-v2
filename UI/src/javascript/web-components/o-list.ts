@@ -91,11 +91,11 @@ export default class OList extends Component implements Observer {
 
     public handleEvent(e: Event): void {
         switch (e.type) {
-            case 'click':
-                this.onClick(e);
-                break;
             case 'keydown':
                 this.handleKey(<KeyboardEvent>e);
+                break;
+            case 'mousedown':
+                this.onClick(e);
                 break;
         }
     }
@@ -604,7 +604,7 @@ export default class OList extends Component implements Observer {
         this.restoreSelection();
         this.setFilterMethod();
 
-        this.addEventListener('click', this.handleEvent);
+        this.addEventListener('mousedown', this.handleEvent);
         this.addEventListener('keydown', this.handleEvent);
         this.addEventListener('keyup', this.handleEvent);
         if (this.response) this.response.addObserver(this);
