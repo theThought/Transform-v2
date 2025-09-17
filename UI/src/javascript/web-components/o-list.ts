@@ -13,6 +13,8 @@ interface CustomProperties {
     jumptofirstletter: boolean;
     listsize: number;
     mincharactersforlist: number;
+    notenoughcharacters: string;
+    noitemsinlist: string;
 }
 
 export default class OList extends Component implements Observer {
@@ -21,6 +23,8 @@ export default class OList extends Component implements Observer {
         jumptofirstletter: false,
         listsize: 6,
         mincharactersforlist: 0,
+        notenoughcharacters: 'Keep typing...',
+        noitemsinlist: 'No matching entries', 
     };
 
     public mouseEvent = false;
@@ -82,7 +86,7 @@ export default class OList extends Component implements Observer {
     private buildVisibleList(): Array<HTMLLIElement> {
         return Array.from(
             this.querySelectorAll(
-                'li:not(.filter-hidden):not([class^="a-list-placeholder-"])',
+                'li:not(.hidden-filter):not([class^="a-list-placeholder-"])',
             ),
         );
     }
@@ -305,9 +309,9 @@ export default class OList extends Component implements Observer {
             }
 
             if (itemLabel.indexOf(input) === 0) {
-                this.list[i].classList.remove('filter-hidden');
+                this.list[i].classList.remove('hidden-filter');
             } else {
-                this.list[i].classList.add('filter-hidden');
+                this.list[i].classList.add('hidden-filter');
                 visibleItems--;
             }
         }
@@ -375,9 +379,9 @@ export default class OList extends Component implements Observer {
             }
 
             if (itemLabel.indexOf(input) !== -1) {
-                this.list[i].classList.remove('filter-hidden');
+                this.list[i].classList.remove('hidden-filter');
             } else {
-                this.list[i].classList.add('filter-hidden');
+                this.list[i].classList.add('hidden-filter');
                 visibleItems--;
             }
         }
@@ -399,6 +403,20 @@ export default class OList extends Component implements Observer {
         if (this.properties.exact && exactMatch) {
             this.setSelectedOptionByIndex();
         }
+    }
+    
+    private createNotEnoughCharactersMessage(): void {
+        const placeholderElement = document.createElement('li');
+        placeholderElement.classList.add('a-list-placeholder-restriction');
+        placeholderElement.innerHTML = this.properties.notenoughcharacters;
+        this.listElement.appendChild(placeholderElement);
+    }
+
+    private createNoItemsInListMessage(): void {
+        const placeholderElement = document.createElement('li');
+        placeholderElement.classList.add('a-list-placeholder-empty');
+        placeholderElement.innerHTML = this.properties.noitemsinlist;
+        this.listElement.appendChild(placeholderElement);
     }
 
     private onClick(e: Event): void {
@@ -609,6 +627,8 @@ export default class OList extends Component implements Observer {
         this.setListHeight(); // setListHeight must precede restoreSelection to ensure a pre-selected item is correctly scrolled into view
         this.restoreSelection();
         this.setFilterMethod();
+        this.createNotEnoughCharactersMessage();
+        this.createNoItemsInListMessage();
 
         this.addEventListener('mousedown', this.handleEvent);
         this.addEventListener('keydown', this.handleEvent);

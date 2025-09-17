@@ -1,5 +1,29 @@
 o-list {
     display: inline-block;
+        
+    &.charrestriction {
+        li:not(.a-list-placeholder-restriction) {
+            display: none;
+        }
+
+        li.a-list-placeholder-restriction {
+            display: block;
+        }
+    }
+
+    &.empty {
+        li.a-list-placeholder-empty {
+            display: block;
+        }
+    }
+
+    li.a-list-placeholder-empty {
+        display: none;
+    }
+
+    li.a-list-placeholder-restriction {
+        display: none;
+    }
 }
 
 .o-list {
