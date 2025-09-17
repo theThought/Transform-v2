@@ -296,7 +296,7 @@ export default class OList extends Component implements Observer {
         let visibleItems = this.list.length;
 
         for (let i = 0; i < this.list.length; i++) {
-            const itemLabel = this.list[i].innerText.toLowerCase(),
+            const itemLabel = this.list[i].innerText.toLowerCase();
 
             if (itemLabel === input && this.properties.exact) {
                 exactMatch = true;
