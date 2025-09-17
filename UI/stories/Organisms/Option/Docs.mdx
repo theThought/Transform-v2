@@ -1,5 +1,6 @@
 import { Canvas, Controls, Meta } from '@storybook/blocks';
 import * as SublistStories from './sublist.stories';
+import * as OptionBaseStories from './base.stories';
 
 <Meta of={SublistStories} title="Organisms/Option" />
 
@@ -27,3 +28,16 @@ A group of options with a heading
 In this example the minimum is 1 and the maximum is 7.  The width defines how long the scale is.
 <Canvas of={SublistStories.ListNoHeading} />
 <Controls of={SublistStories.ListNoHeading} />
+
+#o-option-base
+Variant of the m-option-base that allows for the inclusion of an other specifier, e.g. a text input.
+
+## Single-Answer
+Exclusive options are traditionally shown as circles.  When selected they are filled, they can only be deselected by selecting one of the other options.
+<Canvas of={OptionBaseStories.StandardRadio} />
+<Controls of={OptionBaseStories.StandardRadio} />
+
+### Multi-Answer
+Non-exclusive options are traditionallly shown as squares.  When selected they are ticked.  The user can select or deselect an option by tapping on it
+<Canvas of={OptionBaseStories.StandardCheck} />
+<Controls of={OptionBaseStories.StandardCheck} />
