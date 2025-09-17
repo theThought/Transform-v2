@@ -9,7 +9,7 @@ interface CustomProperties {
         source: string;
         exclusions: Array<string>;
     };
-    filtermethod?: string;
+    filtertype?: string;
     jumptofirstletter: boolean;
     listsize: number;
     mincharactersforlist: number;
@@ -26,6 +26,7 @@ export default class OList extends Component implements Observer {
     public mouseEvent = false;
 
     private element: HTMLInputElement | null = null;
+    private listElement: HTMLElement | null = null; 
     private currentListPosition = -1;
     private control: OCombobox | ODropdown | null = null;
     private list: Array<HTMLLIElement> = [];
@@ -54,6 +55,9 @@ export default class OList extends Component implements Observer {
                 break;
             case 'clearValue':
                 this.clearValue();
+                break;
+            case 'newValue':
+                this.newFilterList(data);
                 break;
         }
     }
@@ -205,15 +209,19 @@ export default class OList extends Component implements Observer {
     }
 
     private filterList(): void {
-        switch (this.properties.filtermethod) {
+        this.jumpToLetter(this.keyBuffer);
+    }
+    
+    private newFilterList(e: CustomEvent): void {
+        this.buildList();
+        
+        switch (this.properties.filtertype) {
             case 'starts':
-                this.filterListStarts(this.keyBuffer);
+                this.filterListStarts(e.detail.element.value);
                 break;
             case 'contains':
-                this.filterListContains(this.keyBuffer);
+                this.filterListContains(e.detail.element.value);
                 break;
-            case 'jump':
-                this.jumpToLetter(this.keyBuffer);
         }
     }
 
@@ -272,8 +280,8 @@ export default class OList extends Component implements Observer {
 
     private filterListStarts(input: string): void {
         let exactmatch = false;
-        const droplistparentnode = this.element.parentNode;
-        droplistparentnode.removeChild(this.element);
+        const droplistparentnode = this.listElement.parentNode;
+        droplistparentnode.removeChild(this.listElement);
 
         if (input.length < this.properties.mincharactersforlist) {
             this.clearSelectedOptions();
@@ -288,14 +296,12 @@ export default class OList extends Component implements Observer {
         let visibleItems = this.list.length;
 
         for (let i = 0; i < this.list.length; i++) {
-            const itemLabel = this.sanitiseText(
-                this.list[i].innerText.toLowerCase(),
-            );
+            const itemLabel = this.list[i].innerText.toLowerCase(),
 
             if (itemLabel === input && this.properties.exact) {
                 exactmatch = true;
-                this.clearSelectedOptions();
-                this.setSelectedOptionByNode(this.list[i]);
+                this.currentListPosition = this.list[i].dataset.position;
+                this.setSelectedOptionByIndex();
             }
 
             if (itemLabel.indexOf(input) === 0) {
@@ -317,11 +323,12 @@ export default class OList extends Component implements Observer {
             this.clearSelectedOptions();
         }
 
-        droplistparentnode.appendChild(this.element);
+        this.appendChild(this.list);
         this.list = this.buildVisibleList();
 
         if (this.properties.exact && exactmatch) {
-            this.notifyListInput();
+            this.currentListPosition = this.list[i].dataset.position;
+            this.setSelectedOptionByIndex();
         }
     }
 
@@ -341,10 +348,12 @@ export default class OList extends Component implements Observer {
         }
     }
 
-    private filterListContains(inputstring: string): void {
+    private filterListContains(input: string): void {
         let exactMatch = false;
-
-        if (inputstring.length < this.properties.mincharactersforlist) {
+        const droplistparentnode = this.listElement.parentNode;
+        droplistparentnode.removeChild(this.listElement);
+        
+        if (input.length < this.properties.mincharactersforlist) {
             this.clearSelectedOptions();
             this.displayEmptyMessage(false);
             this.displayMinCharacterMessage(true);
@@ -353,31 +362,27 @@ export default class OList extends Component implements Observer {
             this.displayMinCharacterMessage(false);
         }
 
-        inputstring = inputstring.toLowerCase();
-        let visibleitems = this.list.length;
-        const droplistparentnode = this.element.parentNode;
-        droplistparentnode.removeChild(this.element);
+        input = input.toLowerCase();
+        let visibleItems = this.list.length;
 
         for (let i = 0; i < this.list.length; i++) {
-            const itemlabel = this.sanitiseText(
-                this.list[i].innerText.toLowerCase(),
-            );
+            const itemLabel = this.list[i].innerText.toLowerCase(),
 
-            if (itemlabel === inputstring && this.properties.exact) {
+            if (itemLabel === input && this.properties.exact) {
                 exactMatch = true;
-                this.clearSelectedOptions();
-                this.setSelectedOptionByNode(this.list[i]);
+                this.currentListPosition = this.list[i].dataset.position;
+                this.setSelectedOptionByIndex();
             }
 
-            if (itemlabel.indexOf(inputstring) !== -1) {
+            if (itemLabel.indexOf(input) !== -1) {
                 this.list[i].classList.remove('filter-hidden');
             } else {
                 this.list[i].classList.add('filter-hidden');
-                visibleitems--;
+                visibleItems--;
             }
         }
 
-        if (visibleitems === 0) {
+        if (visibleItems === 0) {
             this.clearSelectedOptions();
             this.displayEmptyMessage(true);
         } else {
@@ -388,11 +393,11 @@ export default class OList extends Component implements Observer {
             this.clearSelectedOptions();
         }
 
-        droplistparentnode.appendChild(this.element);
+        this.appendChild(this.list);
         this.list = this.buildVisibleList();
 
         if (this.properties.exact && exactMatch) {
-            this.notifyListInput();
+            this.setSelectedOptionByIndex();
         }
     }
 
@@ -598,6 +603,7 @@ export default class OList extends Component implements Observer {
         super.connectedCallback();
 
         this.element = this.querySelector('input');
+        this.listElement = this.querySelector('ul');
         this.buildList();
         this.indexList();
         this.setListHeight(); // setListHeight must precede restoreSelection to ensure a pre-selected item is correctly scrolled into view

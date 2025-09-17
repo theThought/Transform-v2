@@ -88,9 +88,6 @@ export default class OCombobox extends Component implements Subject {
                 this.sendKeyToList(e);
                 this.setFocus();
                 break;
-            default:
-                this.sendKeyToList(e);
-                this.classList.remove('exact');
         }
     }
 
@@ -103,12 +100,23 @@ export default class OCombobox extends Component implements Subject {
             case 'ArrowRight':
                 break;
             default:
+                this.sendValueToList();
+                this.classList.remove('exact');
                 break;
         }
     }
 
     private sendKeyToList(e: KeyboardEvent): void {
         this.notifyObservers('keypress', e);
+    }
+    
+    private sendValueToList(): void {
+        const newValue = new CustomEvent('newValue', {
+            bubbles: true,
+            detail: this,
+        });
+        
+        this.notifyObservers('newValue', newValue);
     }
 
     private updateLabel(e: CustomEvent): void {
