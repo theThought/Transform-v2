@@ -2,7 +2,7 @@ import Component from './component';
 import OOptionSublist from './o-option-sublist';
 import { Observer } from '../interfaces';
 
-export default class MOption extends Component implements Observer {
+export default class Option extends Component implements Observer {
     protected properties = {
         balance: {
             state: false,

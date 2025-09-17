@@ -1,3 +1,3 @@
-import MOption from './m-option';
+import Option from './option';
 
-export default class MOptionBase extends MOption {}
+export default class MOptionBase extends Option {}

@@ -1,6 +1,6 @@
-import MOption from './m-option';
+import Option from './option';
 
-export default class MOptionTab extends MOption {
+export default class MOptionTab extends Option {
     static observedAttributes = ['data-checked'];
 
     protected onClick(e: Event): void {
