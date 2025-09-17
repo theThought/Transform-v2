@@ -279,7 +279,7 @@ export default class OList extends Component implements Observer {
     }
 
     private filterListStarts(input: string): void {
-        let exactmatch = false;
+        let exactMatch = false;
         const droplistparentnode = this.listElement.parentNode;
         droplistparentnode.removeChild(this.listElement);
 
@@ -299,7 +299,7 @@ export default class OList extends Component implements Observer {
             const itemLabel = this.list[i].innerText.toLowerCase(),
 
             if (itemLabel === input && this.properties.exact) {
-                exactmatch = true;
+                exactMatch = true;
                 this.currentListPosition = this.list[i].dataset.position;
                 this.setSelectedOptionByIndex();
             }
@@ -319,14 +319,14 @@ export default class OList extends Component implements Observer {
             this.displayEmptyMessage(false);
         }
 
-        if (this.properties.exact && !exactmatch) {
+        if (this.properties.exact && !exactMatch) {
             this.clearSelectedOptions();
         }
 
         this.appendChild(this.list);
         this.list = this.buildVisibleList();
 
-        if (this.properties.exact && exactmatch) {
+        if (this.properties.exact && exactMatch) {
             this.currentListPosition = this.list[i].dataset.position;
             this.setSelectedOptionByIndex();
         }
