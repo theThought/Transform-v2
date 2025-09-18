@@ -666,7 +666,7 @@ export default class OResponse extends Component implements Subject {
     }
     
     private attachLabels(): void {
-        if (!this.properties.labels.alternatives) {
+        if (!this.properties.labels?.alternatives) {
             return;
         }
 
