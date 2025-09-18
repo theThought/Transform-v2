@@ -327,7 +327,7 @@ export default class OList extends Component implements Observer {
             this.clearSelectedOptions();
         }
 
-        this.appendChild(this.list);
+        droplistparentnode.appendChild(this.list);
         this.list = this.buildVisibleList();
 
         if (this.properties.exact && exactMatch) {
@@ -397,7 +397,7 @@ export default class OList extends Component implements Observer {
             this.clearSelectedOptions();
         }
 
-        this.appendChild(this.list);
+        droplistparentnode.appendChild(this.list);
         this.list = this.buildVisibleList();
 
         if (this.properties.exact && exactMatch) {
