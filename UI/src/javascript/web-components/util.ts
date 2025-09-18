@@ -5,6 +5,18 @@ export function removeHTMLWhitespace(html: string): string {
     return html;
 }
 
+export function decodeHTML(html: string): string {
+    const textarea = document.createElement("textarea");
+    textarea.innerHTML = html;
+    return textarea.value;
+}
+
+export function replaceHTMLPlaceholder(html: string): string {
+    html = html.replace(/%gt%/g, '>');
+    html = html.replace(/%lt%/g, '<');
+    return html;
+}
+
 export function mergeDeep(
     ...objects: Record<string, any>[]
 ): Record<string, any> {
