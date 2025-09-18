@@ -1,4 +1,5 @@
 import { Subject, Observer } from '../interfaces';
+import { decodeHTML, replaceHTMLPlaceholder } from './util';
 import Component from './component';
 
 interface QuestionProperties {
@@ -663,6 +664,44 @@ export default class OResponse extends Component implements Subject {
         this.cover();
         this.clearChildren();
     }
+    
+    private attachLabels(): void {
+        if (!this.properties.labels.alternatives) {
+            return;
+        }
+
+        var alternativesContainer = this.querySelector('.o-question-alternatives');
+
+        // guard condition to prevent old-style pages, lacking the new container,
+        // from throwing errors
+        if (!alternativesContainer) {
+            return;
+        }
+
+        // do not add the labels a second time
+        if (alternativesContainer.childNodes.length > 1) {
+            return;
+        }
+
+        this.properties.labels.alternatives.forEach((item, idx, arr) => {
+
+            var elementType = item.block ? 'div' : 'span';
+            var alternative = document.createElement(elementType);
+
+            alternative.setAttribute('name', item.name);
+            alternative.classList.add('o-question-information-content');
+            alternative.innerHTML = decodeHTML(replaceHTMLPlaceholder(item.label));
+
+            if (this.properties.labels.separator !== 'undefined' && this.properties.labels.separator.length && idx !== arr.length - 1) {
+                var alternativeSeparator = document.createElement('span');
+                alternativeSeparator.className = 'a-label-alternative-separator';
+                alternativeSeparator.innerHTML = this.properties.labels.separator;
+                alternative.appendChild(alternativeSeparator);
+            }
+
+            alternativesContainer.appendChild(alternative);
+        });
+    }
 
     private resetValues(): void {
         if (this.available) return;
@@ -811,6 +850,7 @@ export default class OResponse extends Component implements Subject {
         this.addEventListener('exclusiveOff', this.handleEvent);
         this.addEventListener('broadcastChange', this.handleEvent);
         document.addEventListener('questionChange', this);
+        this.attachLabels();
         this.configureInitialVisibility();
         this.processOptionVisibilityRules();
         this.processVisibilityRules();
