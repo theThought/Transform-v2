@@ -330,9 +330,9 @@ export default class OResponse extends Component implements Subject {
         }
 
         console.log('Processing alternative label rules for ' + this.qgroup);
-        this.getQuestionValues();|
+        this.getQuestionValues();
 
-        for (var i = 0; i < this.properties.labels?.alternatives?.length; i++) {
+        for (let i = 0; i < this.properties.labels?.alternatives?.length; i++) {
             const currentRuleset = this.properties.labels.alternatives[i];
             const ruleString = this.insertQuestionValuesIntoRule(currentRuleset.parsedRule);
             console.log(currentRuleset.parsedRule);
@@ -424,9 +424,9 @@ export default class OResponse extends Component implements Subject {
             return;
         }
 
-        for (var i = 0; i < this.properties.labels.alternatives.length; i++) {
+        for (let i = 0; i < this.properties.labels.alternatives.length; i++) {
             this.hasAlternativeVisibilityRules = true;
-            var ruleString = "";
+            let ruleString = "";
 
             if (typeof this.properties.labels.alternatives[i].visible !== "undefined") {
                 ruleString = this.properties.labels.alternatives[i].visible.rules;
@@ -771,7 +771,7 @@ export default class OResponse extends Component implements Subject {
             return;
         }
 
-        var alternativesContainer = this.closest('o-question')?.querySelector('.o-question-alternatives');
+        const alternativesContainer = this.closest('o-question')?.querySelector('.o-question-alternatives');
 
         // guard condition to prevent old-style pages, lacking the new container,
         // from throwing errors
@@ -786,15 +786,15 @@ export default class OResponse extends Component implements Subject {
 
         this.properties.labels.alternatives.forEach((item, idx, arr) => {
 
-            var elementType = item.block ? 'div' : 'span';
-            var alternative = document.createElement(elementType);
+            const elementType = item.block ? 'div' : 'span';
+            const alternative = document.createElement(elementType);
 
             alternative.setAttribute('name', item.name);
             alternative.classList.add('o-question-information-content');
             alternative.innerHTML = decodeHTML(replaceHTMLPlaceholder(item.label));
 
             if (this.properties.labels.separator !== 'undefined' && this.properties.labels.separator.length && idx !== arr.length - 1) {
-                var alternativeSeparator = document.createElement('span');
+                const alternativeSeparator = document.createElement('span');
                 alternativeSeparator.className = 'a-label-alternative-separator';
                 alternativeSeparator.innerHTML = this.properties.labels.separator;
                 alternative.appendChild(alternativeSeparator);
