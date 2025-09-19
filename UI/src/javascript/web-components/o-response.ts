@@ -670,7 +670,7 @@ export default class OResponse extends Component implements Subject {
             return;
         }
 
-        var alternativesContainer = this.querySelector('.o-question-alternatives');
+        var alternativesContainer = this.closest('o-question')?.querySelector('.o-question-alternatives');
 
         // guard condition to prevent old-style pages, lacking the new container,
         // from throwing errors
