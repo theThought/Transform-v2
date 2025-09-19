@@ -333,15 +333,15 @@
                     <xsl:value-of select="$cellContext" />
                 </xsl:attribute>
             </xsl:if>
-
+<!--
             <xsl:attribute name="aria-autocomplete">
                 <xsl:text>none</xsl:text>
             </xsl:attribute>
-            
+-->            
             <xsl:attribute name="autocomplete">
                 <xsl:text>off</xsl:text>
             </xsl:attribute>
-            
+
             <xsl:variable name="questionId">
                 <xsl:choose>
                     <xsl:when test="substring(@ElementID, string-length(@ElementID) - 1) = '_C'">
@@ -2197,10 +2197,11 @@
                     <xsl:text>a-input-combobox</xsl:text>
                 </xsl:attribute>
 
-                <xsl:attribute name="aria-autocomplete">
-                    <xsl:text>none</xsl:text>
-                </xsl:attribute>
-                
+<!--
+            <xsl:attribute name="aria-autocomplete">
+                <xsl:text>none</xsl:text>
+            </xsl:attribute>
+-->            
                 <xsl:attribute name="autocomplete">
                     <xsl:text>off</xsl:text>
                 </xsl:attribute>
