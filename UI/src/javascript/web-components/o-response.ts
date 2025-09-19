@@ -57,6 +57,8 @@ export default class OResponse extends Component implements Subject {
     private isFiltered = false;
     private optionRuleParsingComplete = false;
     private hasOptionVisibilityRules = false;
+    private alternativeRuleParsingComplete = false;
+    private hasAlternativeVisibilityRules = false;
     private responses: Record<string, any> = [];
     private element: HTMLInputElement | null = null;
     private filterSource = '';
@@ -104,6 +106,7 @@ export default class OResponse extends Component implements Subject {
     private handleChange(e: CustomEvent): void {
         e.stopPropagation();
         this.notifyOtherQuestions(e);
+        this.processAlternativeVisibilityRulesFromExternalTrigger(e);
         this.updateAnswerCount(e);
         if (!e.detail.element.value) return;
         this.notifyObservers('clearExclusives', e);
@@ -308,6 +311,77 @@ export default class OResponse extends Component implements Subject {
             });
         }
     }
+    
+    private processAlternativeVisibilityRulesFromExternalTrigger(e: CustomEvent): void {
+        if (this.element === e.detail.element) {
+            return;
+        }
+
+        this.processAlternativeVisibilityRules();
+    }
+
+    private processAlternativeVisibilityRules(): void {
+        if (!this.alternativeRuleParsingComplete) {
+            this.parseAlternativeVisibilityRules();
+        }
+
+        if (!this.hasAlternativeVisibilityRules) {
+            return;
+        }
+
+        console.log('Processing alternative label rules for ' + this.qgroup);
+        this.getQuestionValues();|
+
+        for (var i = 0; i < this.properties.labels?.alternatives?.length; i++) {
+            const currentRuleset = this.properties.labels.alternatives[i];
+            const ruleString = this.insertQuestionValuesIntoRule(currentRuleset.parsedRule);
+            console.log(currentRuleset.parsedRule);
+
+            if (typeof currentRuleset.visible !== "undefined") {
+                this.evaluateAlternativeVisibleRule(ruleString, currentRuleset.name)
+            } else {
+                this.evaluateAlternativeInvisibleRule(ruleString, currentRuleset.name);
+            }
+
+        }
+    }
+        
+    private processAlternativeVisibilityRulesFromExternalTrigger(e: CustomEvent): void {
+        if (this.element === e.detail.element) {
+            return;
+        }
+
+        this.processAlternativeVisibilityRules();
+    }
+
+        
+    private evaluateAlternativeVisibleRule(rule: string, name: string): void {
+        if (this.evaluateRule(rule)) {
+            this.makeAlternativeAvailable(name);
+        } else {
+            this.makeAlternativeUnavailable(name);
+        }
+    }
+
+    private evaluateAlternativeInvisibleRule(rule: string, name: string): void {
+        if (this.evaluateRule(rule)) {
+            this.makeAlternativeUnavailable(name);
+        } else {
+            this.makeAlternativeAvailable(name);
+        }
+    }
+
+    private makeAlternativeAvailable(name: string): void {
+        if (!this.element) return;
+        const labelelement = this.element.querySelector('.o-question-information-content[name="' + name + '"]');
+        this.element.querySelector('.o-question-information-content').appendChild(labelelement);
+    }
+
+    private makeAlternativeUnavailable(name: string): void {
+        if (!this.element) return;
+        const labelelement = this.element.querySelector('.o-question-information-content[name="' + name + '"]');
+        this.element.querySelector('.o-question-alternatives').appendChild(labelelement);
+    }
 
     private parseOptionVisibilityRules(): void {
         if (!this.properties.options) {
@@ -338,6 +412,33 @@ export default class OResponse extends Component implements Subject {
 
         this.optionRuleParsingComplete = true;
     }
+    
+    private parseAlternativeVisibilityRules(): void {
+        if (typeof this.properties.labels === "undefined") {
+            this.alternativeRuleParsingComplete = true;
+            return;
+        }
+
+        if (typeof this.properties.labels.alternatives === "undefined") {
+            this.alternativeRuleParsingComplete = true;
+            return;
+        }
+
+        for (var i = 0; i < this.properties.labels.alternatives.length; i++) {
+            this.hasAlternativeVisibilityRules = true;
+            var ruleString = "";
+
+            if (typeof this.properties.labels.alternatives[i].visible !== "undefined") {
+                ruleString = this.properties.labels.alternatives[i].visible.rules;
+            } else {
+                ruleString = this.properties.labels.alternatives[i].invisible.rules;
+            }
+
+            this.properties.labels.alternatives[i].parsedRule = this.parseVisibilityRules(ruleString);
+        }
+
+        this.alternativeRuleParsingComplete = true;
+    } 
 
     protected parseVisibilityRules(ruleString: string): string {
         if (!ruleString) return '';
@@ -854,6 +955,7 @@ export default class OResponse extends Component implements Subject {
         this.configureInitialVisibility();
         this.processOptionVisibilityRules();
         this.processVisibilityRules();
+        tgis.processAlternativeVisibilityRules();
         this.ready = true;
     }
 
