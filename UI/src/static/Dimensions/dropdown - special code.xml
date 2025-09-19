@@ -1,10 +1,10 @@
 <Questions>
 	<Question>
-		<Style Color="{&quot;listsize&quot;:15,&quot;mincharactersforlist&quot;:0,&quot;filtertype&quot;:&quot;contains&quot;,&quot;jumptofirstletter&quot;:false,&quot;noiteminlist&quot;:&quot;no items&quot;}" BgColor="dropdown:_Qdd__newproducts" ElementAlign="NewLine" Indent="1">
+		<Style BgColor="dropdown:_Qdd__newproductsNA" ElementAlign="NewLine" Indent="1">
 			<Control Type="DropList"></Control>
 		</Style>
-		<Control Type="DropList" QuestionName="_Q_DDynamicPage_Qdd__newproducts_C" ElementID="_Q1_C" MinValue="1" MaxValue="1">
-			<Style Color="{&quot;listsize&quot;:15,&quot;mincharactersforlist&quot;:0,&quot;filtertype&quot;:&quot;contains&quot;,&quot;jumptofirstletter&quot;:false,&quot;noiteminlist&quot;:&quot;no items&quot;}" BgColor="dropdown:_Qdd__newproducts" ElementAlign="NewLine" Indent="1">
+		<Control Type="DropList" QuestionName="_Q_DDynamicPage_Qdd__newproductsNA_C" ElementID="_Q1_C" MinValue="1" MaxValue="1">
+			<Style BgColor="dropdown:_Qdd__newproductsNA" ElementAlign="NewLine" Indent="1">
 				<Control Type="DropList"></Control>
 			</Style>
 			<Category Name="first" CategoryID="0">
@@ -35,6 +35,19 @@
 				<Label>
 					<Style ElementAlign="Right"></Style>
 					<Text>I am very reluctant to prescribe new products/switch to new products</Text>
+				</Label>
+			</Category>
+		</Control>
+		<Control Type="CheckButton" QuestionName="_Q_DDynamicPage_Qdd__newproductsNA_X" ElementID="_Q1_X" MinValue="1" MaxValue="1">
+			<Style ElementAlign="NewLine" Indent="1">
+				<Control Type="CheckButton"></Control>
+			</Style>
+			<Category Name="NoAnswer" CategoryID="0">
+				<Label>
+					<Style ElementAlign="Right">
+						<Font IsBold="true"></Font>
+					</Style>
+					<Text>I don't want to say</Text>
 				</Label>
 			</Category>
 		</Control>
