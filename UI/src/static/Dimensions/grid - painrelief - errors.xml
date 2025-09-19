@@ -1,6 +1,6 @@
 <Questions>
-    <Question>
-        <Style Color="{&quot;topheadings&quot;:[{&quot;caption&quot;:&quot;&quot;,&quot;colspan&quot;:1},{&quot;caption&quot;:&quot;Week&quot;,&quot;colspan&quot;:5},{&quot;caption&quot;:&quot;Weekend&quot;,&quot;colspan&quot;:2},{&quot;caption&quot;:&quot;Total&quot;,&quot;colspan&quot;:1}],&quot;caption&quot;:{&quot;content&quot;:&quot;Pain Relief&quot;},&quot;totals&quot;:{&quot;rows&quot;:{&quot;visible&quot;:true,&quot;caption&quot;:{&quot;align&quot;:&quot;left&quot;,&quot;width&quot;:&quot;7em&quot;,&quot;content&quot;:&quot;Consumption&quot;},&quot;width&quot;:&quot;5em&quot;,&quot;align&quot;:&quot;right&quot;},&quot;columns&quot;:{&quot;visible&quot;:false}}}" BgColor="loop:_QPainRelief" ElementAlign="NewLine"></Style>
+<Question>
+        <Style Color="{&quot;topheadings&quot;:[{&quot;caption&quot;:&quot;&quot;,&quot;colspan&quot;:2},{&quot;caption&quot;:&quot;Week&quot;,&quot;colspan&quot;:5},{&quot;caption&quot;:&quot;Weekend&quot;,&quot;colspan&quot;:2},{&quot;caption&quot;:&quot;Total&quot;,&quot;colspan&quot;:1}],&quot;caption&quot;:{&quot;content&quot;:&quot;Pain Relief&quot;},&quot;totals&quot;:{&quot;rows&quot;:{&quot;visible&quot;:true,&quot;caption&quot;:{&quot;align&quot;:&quot;left&quot;,&quot;width&quot;:&quot;7em&quot;,&quot;content&quot;:&quot;Consumption&quot;},&quot;width&quot;:&quot;5em&quot;,&quot;align&quot;:&quot;right&quot;},&quot;columns&quot;:{&quot;visible&quot;:false}}}" BgColor="loop:_QPainRelief" ElementAlign="NewLine"></Style>
         <Table UseTablesLayout="-1" Summary="provide amount of pain relief you provided each patient and the number of doses they took each day" TableName="_Q_DDynamicPage_QPainRelief" TableID="_Q1" QuestionType="LoopCategorical">
             <Row Y="0">
                 <Cell X="1" Y="0" Class="mrGridQuestionText">
@@ -107,13 +107,6 @@
                         <Style BgColor="singleline:_QPainRelief_QJake_Qdosesgiven" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                             <Control Type="SingleLineEdit"></Control>
                         </Style>
-                        <Error Name="MissingAnswer">
-                            <Style Color="Red" ElementAlign="NewLine">
-                                <Cell BorderColor="Red"></Cell>
-                                <Font IsBold="true"></Font>
-                            </Style>
-                            <Text>Missing Answer(s).</Text>
-                        </Error>
                         <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QPainRelief_QJake_Qdosesgiven" ElementID="_Q1_Q0_Q0" Value="" MaxValue="100" MinValue="0" Length="3">
                             <Style BgColor="singleline:_QPainRelief_QJake_Qdosesgiven" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                                 <Control Type="SingleLineEdit"></Control>
@@ -126,13 +119,6 @@
                         <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QJake_QMonday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                             <Control Type="SingleLineEdit"></Control>
                         </Style>
-                        <Error Name="MissingAnswer">
-                            <Style Color="Red" ElementAlign="NewLine">
-                                <Cell BorderColor="Red"></Cell>
-                                <Font IsBold="true"></Font>
-                            </Style>
-                            <Text>Missing Answer(s).</Text>
-                        </Error>
                         <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QPainRelief_QJake_QMonday" ElementID="_Q1_Q0_Q1" Value="" MaxValue="100" MinValue="0" Length="3">
                             <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QJake_QMonday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                                 <Control Type="SingleLineEdit"></Control>
@@ -157,6 +143,18 @@
                                 <Control Type="SingleLineEdit"></Control>
                             </Style>
                         </Control>
+                        <Control Type="CheckButton" QuestionName="_Q_DDynamicPage_QPainRelief_QJake_QTuesday_X" ElementID="_Q1_Q0_Q2_X">
+                            <Style Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
+                                <Control Type="CheckButton"></Control>
+                            </Style>
+                            <Category Name="noanswer" CategoryID="0">
+                                <Label>
+                                    <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right">
+                                        <Font IsBold="true"></Font>
+                                    </Style>
+                                </Label>
+                            </Category>
+                        </Control>
                     </Question>
                 </Cell>
                 <Cell X="4" Y="1">
@@ -164,13 +162,6 @@
                         <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QJake_QWednesday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                             <Control Type="SingleLineEdit"></Control>
                         </Style>
-                        <Error Name="MissingAnswer">
-                            <Style Color="Red" ElementAlign="NewLine">
-                                <Cell BorderColor="Red"></Cell>
-                                <Font IsBold="true"></Font>
-                            </Style>
-                            <Text>Missing Answer(s).</Text>
-                        </Error>
                         <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QPainRelief_QJake_QWednesday" ElementID="_Q1_Q0_Q3" Value="" MaxValue="100" MinValue="0" Length="3">
                             <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QJake_QWednesday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                                 <Control Type="SingleLineEdit"></Control>
@@ -183,13 +174,6 @@
                         <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QJake_QThursday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                             <Control Type="SingleLineEdit"></Control>
                         </Style>
-                        <Error Name="MissingAnswer">
-                            <Style Color="Red" ElementAlign="NewLine">
-                                <Cell BorderColor="Red"></Cell>
-                                <Font IsBold="true"></Font>
-                            </Style>
-                            <Text>Missing Answer(s).</Text>
-                        </Error>
                         <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QPainRelief_QJake_QThursday" ElementID="_Q1_Q0_Q4" Value="" MaxValue="100" MinValue="0" Length="3">
                             <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QJake_QThursday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                                 <Control Type="SingleLineEdit"></Control>
@@ -202,13 +186,6 @@
                         <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QJake_QFriday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                             <Control Type="SingleLineEdit"></Control>
                         </Style>
-                        <Error Name="MissingAnswer">
-                            <Style Color="Red" ElementAlign="NewLine">
-                                <Cell BorderColor="Red"></Cell>
-                                <Font IsBold="true"></Font>
-                            </Style>
-                            <Text>Missing Answer(s).</Text>
-                        </Error>
                         <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QPainRelief_QJake_QFriday" ElementID="_Q1_Q0_Q5" Value="" MaxValue="100" MinValue="0" Length="3">
                             <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QJake_QFriday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                                 <Control Type="SingleLineEdit"></Control>
@@ -221,13 +198,6 @@
                         <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QJake_QSaturday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                             <Control Type="SingleLineEdit"></Control>
                         </Style>
-                        <Error Name="MissingAnswer">
-                            <Style Color="Red" ElementAlign="NewLine">
-                                <Cell BorderColor="Red"></Cell>
-                                <Font IsBold="true"></Font>
-                            </Style>
-                            <Text>Missing Answer(s).</Text>
-                        </Error>
                         <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QPainRelief_QJake_QSaturday" ElementID="_Q1_Q0_Q6" Value="" MaxValue="100" MinValue="0" Length="3">
                             <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QJake_QSaturday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                                 <Control Type="SingleLineEdit"></Control>
@@ -240,13 +210,6 @@
                         <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QJake_QSunday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                             <Control Type="SingleLineEdit"></Control>
                         </Style>
-                        <Error Name="MissingAnswer">
-                            <Style Color="Red" ElementAlign="NewLine">
-                                <Cell BorderColor="Red"></Cell>
-                                <Font IsBold="true"></Font>
-                            </Style>
-                            <Text>Missing Answer(s).</Text>
-                        </Error>
                         <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QPainRelief_QJake_QSunday" ElementID="_Q1_Q0_Q7" Value="" MaxValue="100" MinValue="0" Length="3">
                             <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QJake_QSunday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                                 <Control Type="SingleLineEdit"></Control>
@@ -269,13 +232,6 @@
                         <Style BgColor="singleline:_QPainRelief_QMary_Qdosesgiven" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                             <Control Type="SingleLineEdit"></Control>
                         </Style>
-                        <Error Name="MissingAnswer">
-                            <Style Color="Red" ElementAlign="NewLine">
-                                <Cell BorderColor="Red"></Cell>
-                                <Font IsBold="true"></Font>
-                            </Style>
-                            <Text>Missing Answer(s).</Text>
-                        </Error>
                         <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QPainRelief_QMary_Qdosesgiven" ElementID="_Q1_Q1_Q0" Value="" MaxValue="100" MinValue="0" Length="3">
                             <Style BgColor="singleline:_QPainRelief_QMary_Qdosesgiven" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                                 <Control Type="SingleLineEdit"></Control>
@@ -288,13 +244,6 @@
                         <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QMary_QMonday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                             <Control Type="SingleLineEdit"></Control>
                         </Style>
-                        <Error Name="MissingAnswer">
-                            <Style Color="Red" ElementAlign="NewLine">
-                                <Cell BorderColor="Red"></Cell>
-                                <Font IsBold="true"></Font>
-                            </Style>
-                            <Text>Missing Answer(s).</Text>
-                        </Error>
                         <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QPainRelief_QMary_QMonday" ElementID="_Q1_Q1_Q1" Value="" MaxValue="100" MinValue="0" Length="3">
                             <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QMary_QMonday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                                 <Control Type="SingleLineEdit"></Control>
@@ -319,6 +268,18 @@
                                 <Control Type="SingleLineEdit"></Control>
                             </Style>
                         </Control>
+                        <Control Type="CheckButton" QuestionName="_Q_DDynamicPage_QPainRelief_QMary_QTuesday_X" ElementID="_Q1_Q1_Q2_X">
+                            <Style Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
+                                <Control Type="CheckButton"></Control>
+                            </Style>
+                            <Category Name="noanswer" CategoryID="0">
+                                <Label>
+                                    <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right">
+                                        <Font IsBold="true"></Font>
+                                    </Style>
+                                </Label>
+                            </Category>
+                        </Control>
                     </Question>
                 </Cell>
                 <Cell X="4" Y="2">
@@ -326,13 +287,6 @@
                         <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QMary_QWednesday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                             <Control Type="SingleLineEdit"></Control>
                         </Style>
-                        <Error Name="MissingAnswer">
-                            <Style Color="Red" ElementAlign="NewLine">
-                                <Cell BorderColor="Red"></Cell>
-                                <Font IsBold="true"></Font>
-                            </Style>
-                            <Text>Missing Answer(s).</Text>
-                        </Error>
                         <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QPainRelief_QMary_QWednesday" ElementID="_Q1_Q1_Q3" Value="" MaxValue="100" MinValue="0" Length="3">
                             <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QMary_QWednesday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                                 <Control Type="SingleLineEdit"></Control>
@@ -345,13 +299,6 @@
                         <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QMary_QThursday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                             <Control Type="SingleLineEdit"></Control>
                         </Style>
-                        <Error Name="MissingAnswer">
-                            <Style Color="Red" ElementAlign="NewLine">
-                                <Cell BorderColor="Red"></Cell>
-                                <Font IsBold="true"></Font>
-                            </Style>
-                            <Text>Missing Answer(s).</Text>
-                        </Error>
                         <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QPainRelief_QMary_QThursday" ElementID="_Q1_Q1_Q4" Value="" MaxValue="100" MinValue="0" Length="3">
                             <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QMary_QThursday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                                 <Control Type="SingleLineEdit"></Control>
@@ -364,13 +311,6 @@
                         <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QMary_QFriday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                             <Control Type="SingleLineEdit"></Control>
                         </Style>
-                        <Error Name="MissingAnswer">
-                            <Style Color="Red" ElementAlign="NewLine">
-                                <Cell BorderColor="Red"></Cell>
-                                <Font IsBold="true"></Font>
-                            </Style>
-                            <Text>Missing Answer(s).</Text>
-                        </Error>
                         <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QPainRelief_QMary_QFriday" ElementID="_Q1_Q1_Q5" Value="" MaxValue="100" MinValue="0" Length="3">
                             <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QMary_QFriday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                                 <Control Type="SingleLineEdit"></Control>
@@ -383,13 +323,6 @@
                         <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QMary_QSaturday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                             <Control Type="SingleLineEdit"></Control>
                         </Style>
-                        <Error Name="MissingAnswer">
-                            <Style Color="Red" ElementAlign="NewLine">
-                                <Cell BorderColor="Red"></Cell>
-                                <Font IsBold="true"></Font>
-                            </Style>
-                            <Text>Missing Answer(s).</Text>
-                        </Error>
                         <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QPainRelief_QMary_QSaturday" ElementID="_Q1_Q1_Q6" Value="" MaxValue="100" MinValue="0" Length="3">
                             <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QMary_QSaturday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                                 <Control Type="SingleLineEdit"></Control>
@@ -402,13 +335,6 @@
                         <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QMary_QSunday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                             <Control Type="SingleLineEdit"></Control>
                         </Style>
-                        <Error Name="MissingAnswer">
-                            <Style Color="Red" ElementAlign="NewLine">
-                                <Cell BorderColor="Red"></Cell>
-                                <Font IsBold="true"></Font>
-                            </Style>
-                            <Text>Missing Answer(s).</Text>
-                        </Error>
                         <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QPainRelief_QMary_QSunday" ElementID="_Q1_Q1_Q7" Value="" MaxValue="100" MinValue="0" Length="3">
                             <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QMary_QSunday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                                 <Control Type="SingleLineEdit"></Control>
@@ -431,13 +357,6 @@
                         <Style BgColor="singleline:_QPainRelief_QSally_Qdosesgiven" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                             <Control Type="SingleLineEdit"></Control>
                         </Style>
-                        <Error Name="MissingAnswer">
-                            <Style Color="Red" ElementAlign="NewLine">
-                                <Cell BorderColor="Red"></Cell>
-                                <Font IsBold="true"></Font>
-                            </Style>
-                            <Text>Missing Answer(s).</Text>
-                        </Error>
                         <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QPainRelief_QSally_Qdosesgiven" ElementID="_Q1_Q2_Q0" Value="" MaxValue="100" MinValue="0" Length="3">
                             <Style BgColor="singleline:_QPainRelief_QSally_Qdosesgiven" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                                 <Control Type="SingleLineEdit"></Control>
@@ -450,13 +369,6 @@
                         <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QSally_QMonday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                             <Control Type="SingleLineEdit"></Control>
                         </Style>
-                        <Error Name="MissingAnswer">
-                            <Style Color="Red" ElementAlign="NewLine">
-                                <Cell BorderColor="Red"></Cell>
-                                <Font IsBold="true"></Font>
-                            </Style>
-                            <Text>Missing Answer(s).</Text>
-                        </Error>
                         <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QPainRelief_QSally_QMonday" ElementID="_Q1_Q2_Q1" Value="" MaxValue="100" MinValue="0" Length="3">
                             <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QSally_QMonday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                                 <Control Type="SingleLineEdit"></Control>
@@ -481,6 +393,18 @@
                                 <Control Type="SingleLineEdit"></Control>
                             </Style>
                         </Control>
+                        <Control Type="CheckButton" QuestionName="_Q_DDynamicPage_QPainRelief_QSally_QTuesday_X" ElementID="_Q1_Q2_Q2_X">
+                            <Style Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
+                                <Control Type="CheckButton"></Control>
+                            </Style>
+                            <Category Name="noanswer" CategoryID="0">
+                                <Label>
+                                    <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right">
+                                        <Font IsBold="true"></Font>
+                                    </Style>
+                                </Label>
+                            </Category>
+                        </Control>
                     </Question>
                 </Cell>
                 <Cell X="4" Y="3">
@@ -488,13 +412,6 @@
                         <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QSally_QWednesday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                             <Control Type="SingleLineEdit"></Control>
                         </Style>
-                        <Error Name="MissingAnswer">
-                            <Style Color="Red" ElementAlign="NewLine">
-                                <Cell BorderColor="Red"></Cell>
-                                <Font IsBold="true"></Font>
-                            </Style>
-                            <Text>Missing Answer(s).</Text>
-                        </Error>
                         <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QPainRelief_QSally_QWednesday" ElementID="_Q1_Q2_Q3" Value="" MaxValue="100" MinValue="0" Length="3">
                             <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QSally_QWednesday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                                 <Control Type="SingleLineEdit"></Control>
@@ -507,13 +424,6 @@
                         <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QSally_QThursday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                             <Control Type="SingleLineEdit"></Control>
                         </Style>
-                        <Error Name="MissingAnswer">
-                            <Style Color="Red" ElementAlign="NewLine">
-                                <Cell BorderColor="Red"></Cell>
-                                <Font IsBold="true"></Font>
-                            </Style>
-                            <Text>Missing Answer(s).</Text>
-                        </Error>
                         <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QPainRelief_QSally_QThursday" ElementID="_Q1_Q2_Q4" Value="" MaxValue="100" MinValue="0" Length="3">
                             <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QSally_QThursday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                                 <Control Type="SingleLineEdit"></Control>
@@ -526,13 +436,6 @@
                         <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QSally_QFriday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                             <Control Type="SingleLineEdit"></Control>
                         </Style>
-                        <Error Name="MissingAnswer">
-                            <Style Color="Red" ElementAlign="NewLine">
-                                <Cell BorderColor="Red"></Cell>
-                                <Font IsBold="true"></Font>
-                            </Style>
-                            <Text>Missing Answer(s).</Text>
-                        </Error>
                         <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QPainRelief_QSally_QFriday" ElementID="_Q1_Q2_Q5" Value="" MaxValue="100" MinValue="0" Length="3">
                             <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QSally_QFriday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                                 <Control Type="SingleLineEdit"></Control>
@@ -545,13 +448,6 @@
                         <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QSally_QSaturday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                             <Control Type="SingleLineEdit"></Control>
                         </Style>
-                        <Error Name="MissingAnswer">
-                            <Style Color="Red" ElementAlign="NewLine">
-                                <Cell BorderColor="Red"></Cell>
-                                <Font IsBold="true"></Font>
-                            </Style>
-                            <Text>Missing Answer(s).</Text>
-                        </Error>
                         <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QPainRelief_QSally_QSaturday" ElementID="_Q1_Q2_Q6" Value="" MaxValue="100" MinValue="0" Length="3">
                             <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QSally_QSaturday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                                 <Control Type="SingleLineEdit"></Control>
@@ -564,13 +460,6 @@
                         <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QSally_QSunday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                             <Control Type="SingleLineEdit"></Control>
                         </Style>
-                        <Error Name="MissingAnswer">
-                            <Style Color="Red" ElementAlign="NewLine">
-                                <Cell BorderColor="Red"></Cell>
-                                <Font IsBold="true"></Font>
-                            </Style>
-                            <Text>Missing Answer(s).</Text>
-                        </Error>
                         <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QPainRelief_QSally_QSunday" ElementID="_Q1_Q2_Q7" Value="" MaxValue="100" MinValue="0" Length="3">
                             <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QSally_QSunday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                                 <Control Type="SingleLineEdit"></Control>
@@ -593,13 +482,6 @@
                         <Style BgColor="singleline:_QPainRelief_QJane_Qdosesgiven" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                             <Control Type="SingleLineEdit"></Control>
                         </Style>
-                        <Error Name="MissingAnswer">
-                            <Style Color="Red" ElementAlign="NewLine">
-                                <Cell BorderColor="Red"></Cell>
-                                <Font IsBold="true"></Font>
-                            </Style>
-                            <Text>Missing Answer(s).</Text>
-                        </Error>
                         <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QPainRelief_QJane_Qdosesgiven" ElementID="_Q1_Q3_Q0" Value="" MaxValue="100" MinValue="0" Length="3">
                             <Style BgColor="singleline:_QPainRelief_QJane_Qdosesgiven" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                                 <Control Type="SingleLineEdit"></Control>
@@ -612,13 +494,6 @@
                         <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QJane_QMonday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                             <Control Type="SingleLineEdit"></Control>
                         </Style>
-                        <Error Name="MissingAnswer">
-                            <Style Color="Red" ElementAlign="NewLine">
-                                <Cell BorderColor="Red"></Cell>
-                                <Font IsBold="true"></Font>
-                            </Style>
-                            <Text>Missing Answer(s).</Text>
-                        </Error>
                         <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QPainRelief_QJane_QMonday" ElementID="_Q1_Q3_Q1" Value="" MaxValue="100" MinValue="0" Length="3">
                             <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QJane_QMonday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                                 <Control Type="SingleLineEdit"></Control>
@@ -643,6 +518,18 @@
                                 <Control Type="SingleLineEdit"></Control>
                             </Style>
                         </Control>
+                        <Control Type="CheckButton" QuestionName="_Q_DDynamicPage_QPainRelief_QJane_QTuesday_X" ElementID="_Q1_Q3_Q2_X">
+                            <Style Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
+                                <Control Type="CheckButton"></Control>
+                            </Style>
+                            <Category Name="noanswer" CategoryID="0">
+                                <Label>
+                                    <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right">
+                                        <Font IsBold="true"></Font>
+                                    </Style>
+                                </Label>
+                            </Category>
+                        </Control>
                     </Question>
                 </Cell>
                 <Cell X="4" Y="4">
@@ -650,13 +537,6 @@
                         <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QJane_QWednesday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                             <Control Type="SingleLineEdit"></Control>
                         </Style>
-                        <Error Name="MissingAnswer">
-                            <Style Color="Red" ElementAlign="NewLine">
-                                <Cell BorderColor="Red"></Cell>
-                                <Font IsBold="true"></Font>
-                            </Style>
-                            <Text>Missing Answer(s).</Text>
-                        </Error>
                         <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QPainRelief_QJane_QWednesday" ElementID="_Q1_Q3_Q3" Value="" MaxValue="100" MinValue="0" Length="3">
                             <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QJane_QWednesday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                                 <Control Type="SingleLineEdit"></Control>
@@ -669,13 +549,6 @@
                         <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QJane_QThursday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                             <Control Type="SingleLineEdit"></Control>
                         </Style>
-                        <Error Name="MissingAnswer">
-                            <Style Color="Red" ElementAlign="NewLine">
-                                <Cell BorderColor="Red"></Cell>
-                                <Font IsBold="true"></Font>
-                            </Style>
-                            <Text>Missing Answer(s).</Text>
-                        </Error>
                         <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QPainRelief_QJane_QThursday" ElementID="_Q1_Q3_Q4" Value="" MaxValue="100" MinValue="0" Length="3">
                             <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QJane_QThursday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                                 <Control Type="SingleLineEdit"></Control>
@@ -688,13 +561,6 @@
                         <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QJane_QFriday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                             <Control Type="SingleLineEdit"></Control>
                         </Style>
-                        <Error Name="MissingAnswer">
-                            <Style Color="Red" ElementAlign="NewLine">
-                                <Cell BorderColor="Red"></Cell>
-                                <Font IsBold="true"></Font>
-                            </Style>
-                            <Text>Missing Answer(s).</Text>
-                        </Error>
                         <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QPainRelief_QJane_QFriday" ElementID="_Q1_Q3_Q5" Value="" MaxValue="100" MinValue="0" Length="3">
                             <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QJane_QFriday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                                 <Control Type="SingleLineEdit"></Control>
@@ -707,13 +573,6 @@
                         <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QJane_QSaturday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                             <Control Type="SingleLineEdit"></Control>
                         </Style>
-                        <Error Name="MissingAnswer">
-                            <Style Color="Red" ElementAlign="NewLine">
-                                <Cell BorderColor="Red"></Cell>
-                                <Font IsBold="true"></Font>
-                            </Style>
-                            <Text>Missing Answer(s).</Text>
-                        </Error>
                         <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QPainRelief_QJane_QSaturday" ElementID="_Q1_Q3_Q6" Value="" MaxValue="100" MinValue="0" Length="3">
                             <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QJane_QSaturday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                                 <Control Type="SingleLineEdit"></Control>
@@ -726,13 +585,6 @@
                         <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QJane_QSunday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                             <Control Type="SingleLineEdit"></Control>
                         </Style>
-                        <Error Name="MissingAnswer">
-                            <Style Color="Red" ElementAlign="NewLine">
-                                <Cell BorderColor="Red"></Cell>
-                                <Font IsBold="true"></Font>
-                            </Style>
-                            <Text>Missing Answer(s).</Text>
-                        </Error>
                         <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QPainRelief_QJane_QSunday" ElementID="_Q1_Q3_Q7" Value="" MaxValue="100" MinValue="0" Length="3">
                             <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QJane_QSunday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                                 <Control Type="SingleLineEdit"></Control>
@@ -755,13 +607,6 @@
                         <Style BgColor="singleline:_QPainRelief_QFred_Qdosesgiven" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                             <Control Type="SingleLineEdit"></Control>
                         </Style>
-                        <Error Name="MissingAnswer">
-                            <Style Color="Red" ElementAlign="NewLine">
-                                <Cell BorderColor="Red"></Cell>
-                                <Font IsBold="true"></Font>
-                            </Style>
-                            <Text>Missing Answer(s).</Text>
-                        </Error>
                         <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QPainRelief_QFred_Qdosesgiven" ElementID="_Q1_Q4_Q0" Value="" MaxValue="100" MinValue="0" Length="3">
                             <Style BgColor="singleline:_QPainRelief_QFred_Qdosesgiven" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                                 <Control Type="SingleLineEdit"></Control>
@@ -774,13 +619,6 @@
                         <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QFred_QMonday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                             <Control Type="SingleLineEdit"></Control>
                         </Style>
-                        <Error Name="MissingAnswer">
-                            <Style Color="Red" ElementAlign="NewLine">
-                                <Cell BorderColor="Red"></Cell>
-                                <Font IsBold="true"></Font>
-                            </Style>
-                            <Text>Missing Answer(s).</Text>
-                        </Error>
                         <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QPainRelief_QFred_QMonday" ElementID="_Q1_Q4_Q1" Value="" MaxValue="100" MinValue="0" Length="3">
                             <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QFred_QMonday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                                 <Control Type="SingleLineEdit"></Control>
@@ -805,6 +643,18 @@
                                 <Control Type="SingleLineEdit"></Control>
                             </Style>
                         </Control>
+                        <Control Type="CheckButton" QuestionName="_Q_DDynamicPage_QPainRelief_QFred_QTuesday_X" ElementID="_Q1_Q4_Q2_X">
+                            <Style Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
+                                <Control Type="CheckButton"></Control>
+                            </Style>
+                            <Category Name="noanswer" CategoryID="0">
+                                <Label>
+                                    <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right">
+                                        <Font IsBold="true"></Font>
+                                    </Style>
+                                </Label>
+                            </Category>
+                        </Control>
                     </Question>
                 </Cell>
                 <Cell X="4" Y="5">
@@ -812,13 +662,6 @@
                         <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QFred_QWednesday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                             <Control Type="SingleLineEdit"></Control>
                         </Style>
-                        <Error Name="MissingAnswer">
-                            <Style Color="Red" ElementAlign="NewLine">
-                                <Cell BorderColor="Red"></Cell>
-                                <Font IsBold="true"></Font>
-                            </Style>
-                            <Text>Missing Answer(s).</Text>
-                        </Error>
                         <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QPainRelief_QFred_QWednesday" ElementID="_Q1_Q4_Q3" Value="" MaxValue="100" MinValue="0" Length="3">
                             <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QFred_QWednesday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                                 <Control Type="SingleLineEdit"></Control>
@@ -831,13 +674,6 @@
                         <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QFred_QThursday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                             <Control Type="SingleLineEdit"></Control>
                         </Style>
-                        <Error Name="MissingAnswer">
-                            <Style Color="Red" ElementAlign="NewLine">
-                                <Cell BorderColor="Red"></Cell>
-                                <Font IsBold="true"></Font>
-                            </Style>
-                            <Text>Missing Answer(s).</Text>
-                        </Error>
                         <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QPainRelief_QFred_QThursday" ElementID="_Q1_Q4_Q4" Value="" MaxValue="100" MinValue="0" Length="3">
                             <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QFred_QThursday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                                 <Control Type="SingleLineEdit"></Control>
@@ -850,13 +686,6 @@
                         <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QFred_QFriday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                             <Control Type="SingleLineEdit"></Control>
                         </Style>
-                        <Error Name="MissingAnswer">
-                            <Style Color="Red" ElementAlign="NewLine">
-                                <Cell BorderColor="Red"></Cell>
-                                <Font IsBold="true"></Font>
-                            </Style>
-                            <Text>Missing Answer(s).</Text>
-                        </Error>
                         <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QPainRelief_QFred_QFriday" ElementID="_Q1_Q4_Q5" Value="" MaxValue="100" MinValue="0" Length="3">
                             <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QFred_QFriday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                                 <Control Type="SingleLineEdit"></Control>
@@ -869,13 +698,6 @@
                         <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QFred_QSaturday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                             <Control Type="SingleLineEdit"></Control>
                         </Style>
-                        <Error Name="MissingAnswer">
-                            <Style Color="Red" ElementAlign="NewLine">
-                                <Cell BorderColor="Red"></Cell>
-                                <Font IsBold="true"></Font>
-                            </Style>
-                            <Text>Missing Answer(s).</Text>
-                        </Error>
                         <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QPainRelief_QFred_QSaturday" ElementID="_Q1_Q4_Q6" Value="" MaxValue="100" MinValue="0" Length="3">
                             <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QFred_QSaturday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                                 <Control Type="SingleLineEdit"></Control>
@@ -888,13 +710,6 @@
                         <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QFred_QSunday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                             <Control Type="SingleLineEdit"></Control>
                         </Style>
-                        <Error Name="MissingAnswer">
-                            <Style Color="Red" ElementAlign="NewLine">
-                                <Cell BorderColor="Red"></Cell>
-                                <Font IsBold="true"></Font>
-                            </Style>
-                            <Text>Missing Answer(s).</Text>
-                        </Error>
                         <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QPainRelief_QFred_QSunday" ElementID="_Q1_Q4_Q7" Value="" MaxValue="100" MinValue="0" Length="3">
                             <Style Color="{&quot;showspinner&quot;:true}" BgColor="singleline:_QPainRelief_QFred_QSunday" Align="Right" VerticalAlign="Middle" ElementAlign="NewLine" Width="5em">
                                 <Control Type="SingleLineEdit"></Control>
