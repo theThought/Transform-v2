@@ -361,7 +361,7 @@ export default class OList extends Component implements Observer {
             this.clearSelectedOptions();
             this.displayEmptyMessage(false);
             this.displayMinCharacterMessage(true);
-            return;
+            input = '';
         } else {
             this.displayMinCharacterMessage(false);
         }
