@@ -955,7 +955,7 @@ export default class OResponse extends Component implements Subject {
         this.configureInitialVisibility();
         this.processOptionVisibilityRules();
         this.processVisibilityRules();
-        tgis.processAlternativeVisibilityRules();
+        this.processAlternativeVisibilityRules();
         this.ready = true;
     }
 
