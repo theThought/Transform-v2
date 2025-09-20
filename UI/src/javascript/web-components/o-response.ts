@@ -106,7 +106,6 @@ export default class OResponse extends Component implements Subject {
     private handleChange(e: CustomEvent): void {
         e.stopPropagation();
         this.notifyOtherQuestions(e);
-        this.processAlternativeVisibilityRulesFromExternalTrigger(e);
         this.updateAnswerCount(e);
         if (!e.detail.element.value) return;
         this.notifyObservers('clearExclusives', e);
@@ -124,6 +123,8 @@ export default class OResponse extends Component implements Subject {
     private handleQuestionChange(e: CustomEvent): void {
         // prevent questions from reacting to their own broadcast events
         if (e.target === this) return;
+        
+        this.processAlternativeVisibilityRulesFromExternalTrigger(e);
 
         // check whether this question needs to react to external changes
         if (this.properties.filter.source) {
@@ -372,15 +373,13 @@ export default class OResponse extends Component implements Subject {
     }
 
     private makeAlternativeAvailable(name: string): void {
-        if (!this.element) return;
-        const labelelement = this.element.querySelector('.o-question-information-content[name="' + name + '"]');
-        this.element.querySelector('.o-question-information-content').appendChild(labelelement);
+        const labelelement = document.querySelector('.o-question-alternatives[name="' + name + '"]');
+        labelelement.removeClass('unavailable');
     }
 
     private makeAlternativeUnavailable(name: string): void {
-        if (!this.element) return;
-        const labelelement = this.element.querySelector('.o-question-information-content[name="' + name + '"]');
-        this.element.querySelector('.o-question-alternatives').appendChild(labelelement);
+        const labelelement = document.querySelector('.o-question-alternatives[name="' + name + '"]');
+        labelelement.addClass('unavailable');
     }
 
     private parseOptionVisibilityRules(): void {
