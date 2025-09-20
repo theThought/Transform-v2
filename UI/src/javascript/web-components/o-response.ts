@@ -333,17 +333,14 @@ export default class OResponse extends Component implements Subject {
         console.log('Processing alternative label rules for ' + this.qgroup);
         this.getQuestionValues();
 
-        for (let i = 0; i < this.properties.labels?.alternatives?.length; i++) {
-            const currentRuleset = this.properties.labels.alternatives[i];
-            const ruleString = this.insertQuestionValuesIntoRule(currentRuleset.parsedRule);
-            console.log(currentRuleset.parsedRule);
-
-            if (typeof currentRuleset.visible !== "undefined") {
-                this.evaluateAlternativeVisibleRule(ruleString, currentRuleset.name)
+        this.properties.labels.alternatives.forEach((item,) => {
+            const ruleString = this.insertQuestionValuesIntoRule(item.parsedRule);
+            
+            if (typeof item.visible !== "undefined") {
+                this.evaluateAlternativeVisibleRule(ruleString, item.name)
             } else {
-                this.evaluateAlternativeInvisibleRule(ruleString, currentRuleset.name);
+                this.evaluateAlternativeInvisibleRule(ruleString, item.name);
             }
-
         }
     }
         
