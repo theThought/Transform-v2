@@ -341,7 +341,7 @@ export default class OResponse extends Component implements Subject {
             } else {
                 this.evaluateAlternativeInvisibleRule(ruleString, item.name);
             }
-        }
+        });
     }
         
     private processAlternativeVisibilityRulesFromExternalTrigger(e: CustomEvent): void {
