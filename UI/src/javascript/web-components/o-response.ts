@@ -333,7 +333,7 @@ export default class OResponse extends Component implements Subject {
         console.log('Processing alternative label rules for ' + this.qgroup);
         this.getQuestionValues();
 
-        this.properties.labels.alternatives.forEach((item,) => {
+        this.properties.labels.alternatives.forEach((item) => {
             const ruleString = this.insertQuestionValuesIntoRule(item.parsedRule);
             
             if (typeof item.visible !== "undefined") {
