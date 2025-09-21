@@ -371,12 +371,16 @@ export default class OResponse extends Component implements Subject {
 
     private makeAlternativeAvailable(name: string): void {
         const labelelement = document.querySelector('.o-question-information-content[name="' + name + '"]');
-        labelelement.removeClass('unavailable');
+        if (!labelElement) returnn
+        
+        labelelement.classList.remove('unavailable');
     }
 
     private makeAlternativeUnavailable(name: string): void {
         const labelelement = document.querySelector('.o-question-information-content[name="' + name + '"]');
-        labelelement.addClass('unavailable');
+        if (!labelElement) returnn
+        
+        labelelement.classList.add('unavailable');
     }
 
     private parseOptionVisibilityRules(): void {
