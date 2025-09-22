@@ -549,6 +549,7 @@
                 
                 <xsl:call-template name="insert-label-text">
                     <xsl:with-param name="content" select="Text" />
+                    <xsl:with-param name="wellformed" select="Text/@WellFormed" />
                 </xsl:call-template>      
             </xsl:element>
         </xsl:element>
@@ -584,6 +585,7 @@
 
             <xsl:call-template name="insert-label-text">
                 <xsl:with-param name="content" select="Text" />
+                <xsl:with-param name="wellformed" select="Text/@WellFormed" />
             </xsl:call-template>    
         </xsl:element>
     </xsl:template>
@@ -601,6 +603,7 @@
 
                 <xsl:call-template name="insert-label-text">
                     <xsl:with-param name="content" select="$labelXML/Text" />
+                    <xsl:with-param name="wellformed" select="$labelXML/Text/@WellFormed" />
                 </xsl:call-template>      
             </xsl:element>
         </xsl:element>
@@ -628,6 +631,7 @@
                 
                 <xsl:call-template name="insert-label-text">
                     <xsl:with-param name="content" select="$currentControl/Category/Label/Text" />
+                    <xsl:with-param name="wellformed" select="$currentControl/Category/Label/Text/@WellFormed" />
                 </xsl:call-template>
             </xsl:element>
         </xsl:element>
@@ -659,6 +663,7 @@
                 
                 <xsl:call-template name="insert-label-text">
                     <xsl:with-param name="content" select="$currentControl/Label/Text" />
+                    <xsl:with-param name="wellformed" select="$currentControl/Label/Text/@WellFormed" />
                 </xsl:call-template>
             </xsl:element>
         </xsl:element>
@@ -692,8 +697,10 @@
 
     <xsl:template name="insert-label-text">
         <xsl:param name="content" />
+        <xsl:param name="wellformed" select="true()" />
+
         <xsl:choose>
-            <xsl:when test="Text/@WellFormed = 'false'">
+            <xsl:when test="$wellformed = 'false'">
                 <xsl:value-of select="$content" />
             </xsl:when>
             <xsl:otherwise>
