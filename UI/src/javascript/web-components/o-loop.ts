@@ -145,7 +145,7 @@ export default class OLoop extends Component implements Subject {
         );
 
         const element = input || button || textarea;
-        element.focus();
+        //element.focus();
     }
 
     private exclusiveOn(e: CustomEvent): void {
