@@ -24,13 +24,13 @@ export default class OList extends Component implements Observer {
         listsize: 6,
         mincharactersforlist: 0,
         notenoughcharacters: 'Keep typing...',
-        noitemsinlist: 'No matching entries', 
+        noitemsinlist: 'No matching entries',
     };
 
     public mouseEvent = false;
 
     private element: HTMLInputElement | null = null;
-    private listElement: HTMLElement | null = null; 
+    private listElement: HTMLElement | null = null;
     private currentListPosition = -1;
     private control: OCombobox | ODropdown | null = null;
     private list: Array<HTMLLIElement> = [];
@@ -61,7 +61,7 @@ export default class OList extends Component implements Observer {
                 this.clearValue();
                 break;
             case 'newValue':
-                this.newFilterList(data);
+                this.newFilterList(<CustomEvent>data);
                 break;
         }
     }
@@ -215,10 +215,10 @@ export default class OList extends Component implements Observer {
     private filterList(): void {
         this.jumpToLetter(this.keyBuffer);
     }
-    
+
     private newFilterList(e: CustomEvent): void {
         this.buildList();
-        
+
         switch (this.properties.filtertype) {
             case 'starts':
                 this.filterListStarts(e.detail.element.value);
@@ -356,7 +356,7 @@ export default class OList extends Component implements Observer {
         let exactMatch = false;
         const droplistparentnode = this.listElement.parentNode;
         droplistparentnode.removeChild(this.listElement);
-        
+
         if (input.length < this.properties.mincharactersforlist) {
             this.clearSelectedOptions();
             this.displayEmptyMessage(false);
@@ -404,7 +404,7 @@ export default class OList extends Component implements Observer {
             this.setSelectedOptionByIndex();
         }
     }
-    
+
     private createNotEnoughCharactersMessage(): void {
         const placeholderElement = document.createElement('li');
         placeholderElement.classList.add('a-list-placeholder-restriction');
@@ -606,7 +606,7 @@ export default class OList extends Component implements Observer {
 
     private setFilterMethod(): void {
         if (!this.properties.jumptofirstletter) return;
-        this.properties.filtermethod = 'jump';
+        this.properties.filtertype = 'jump';
     }
 
     private removeTabIndex(): void {

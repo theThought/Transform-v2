@@ -58,7 +58,6 @@ export default class OResponse extends Component implements Subject {
     private optionRuleParsingComplete = false;
     private hasOptionVisibilityRules = false;
     private alternativeRuleParsingComplete = false;
-    private hasAlternativeVisibilityRules = false;
     private responses: Record<string, any> = [];
     private element: HTMLInputElement | null = null;
     private filterSource = '';
@@ -87,6 +86,9 @@ export default class OResponse extends Component implements Subject {
                 break;
             case 'questionChange':
                 this.processVisibilityRulesFromExternalTrigger(
+                    e as CustomEvent,
+                );
+                this.processOptionVisibilityRulesFromExternalTrigger(
                     e as CustomEvent,
                 );
                 this.handleQuestionChange(e as CustomEvent);
@@ -123,7 +125,7 @@ export default class OResponse extends Component implements Subject {
     private handleQuestionChange(e: CustomEvent): void {
         // prevent questions from reacting to their own broadcast events
         if (e.target === this) return;
-        
+
         this.processAlternativeVisibilityRulesFromExternalTrigger(e);
 
         // check whether this question needs to react to external changes
@@ -312,8 +314,10 @@ export default class OResponse extends Component implements Subject {
             });
         }
     }
-    
-    private processAlternativeVisibilityRulesFromExternalTrigger(e: CustomEvent): void {
+
+    private processAlternativeVisibilityRulesFromExternalTrigger(
+        e: CustomEvent,
+    ): void {
         if (this.element === e.detail.element) {
             return;
         }
@@ -326,7 +330,7 @@ export default class OResponse extends Component implements Subject {
             this.parseAlternativeVisibilityRules();
         }
 
-        if (!this.hasAlternativeVisibilityRules) {
+        if (!this.properties?.labels?.alternatives) {
             return;
         }
 
@@ -334,25 +338,21 @@ export default class OResponse extends Component implements Subject {
         this.getQuestionValues();
 
         this.properties.labels.alternatives.forEach((item) => {
-            const ruleString = this.insertQuestionValuesIntoRule(item.parsedRule);
-            
-            if (typeof item.visible !== "undefined") {
-                this.evaluateAlternativeVisibleRule(ruleString, item.name)
+            if (!item.parsedRule) return;
+            const ruleString = this.insertQuestionValuesIntoRule(
+                item.parsedRule,
+            );
+
+            const itemName = item.name ?? '';
+
+            if (typeof item.visible !== 'undefined') {
+                this.evaluateAlternativeVisibleRule(ruleString, itemName);
             } else {
-                this.evaluateAlternativeInvisibleRule(ruleString, item.name);
+                this.evaluateAlternativeInvisibleRule(ruleString, itemName);
             }
         });
     }
-        
-    private processAlternativeVisibilityRulesFromExternalTrigger(e: CustomEvent): void {
-        if (this.element === e.detail.element) {
-            return;
-        }
 
-        this.processAlternativeVisibilityRules();
-    }
-
-        
     private evaluateAlternativeVisibleRule(rule: string, name: string): void {
         if (this.evaluateRule(rule)) {
             this.makeAlternativeAvailable(name);
@@ -370,16 +370,20 @@ export default class OResponse extends Component implements Subject {
     }
 
     private makeAlternativeAvailable(name: string): void {
-        const labelElement = document.querySelector('.o-question-information-content[name="' + name + '"]');
-        if (!labelElement) returnn
-        
+        const labelElement = document.querySelector(
+            '.o-question-information-content[name="' + name + '"]',
+        );
+
+        if (!labelElement) return;
         labelElement.classList.remove('unavailable');
     }
 
     private makeAlternativeUnavailable(name: string): void {
-        const labelElement = document.querySelector('.o-question-information-content[name="' + name + '"]');
-        if (!labelElement) returnn
-        
+        const labelElement = document.querySelector(
+            '.o-question-information-content[name="' + name + '"]',
+        );
+
+        if (!labelElement) return;
         labelElement.classList.add('unavailable');
     }
 
@@ -412,33 +416,36 @@ export default class OResponse extends Component implements Subject {
 
         this.optionRuleParsingComplete = true;
     }
-    
+
     private parseAlternativeVisibilityRules(): void {
-        if (typeof this.properties.labels === "undefined") {
+        if (typeof this.properties.labels === 'undefined') {
             this.alternativeRuleParsingComplete = true;
             return;
         }
 
-        if (typeof this.properties.labels.alternatives === "undefined") {
+        if (typeof this.properties.labels.alternatives === 'undefined') {
             this.alternativeRuleParsingComplete = true;
             return;
         }
 
         for (let i = 0; i < this.properties.labels.alternatives.length; i++) {
-            this.hasAlternativeVisibilityRules = true;
-            let ruleString = "";
+            let rule = '';
 
-            if (typeof this.properties.labels.alternatives[i].visible !== "undefined") {
-                ruleString = this.properties.labels.alternatives[i].visible.rules;
+            if (this.properties.labels.alternatives[i].visible) {
+                rule =
+                    this.properties.labels.alternatives[i].visible?.rules ?? '';
             } else {
-                ruleString = this.properties.labels.alternatives[i].invisible.rules;
+                rule =
+                    this.properties.labels.alternatives[i].invisible?.rules ??
+                    '';
             }
 
-            this.properties.labels.alternatives[i].parsedRule = this.parseVisibilityRules(ruleString);
+            this.properties.labels.alternatives[i].parsedRule =
+                this.parseVisibilityRules(rule);
         }
 
         this.alternativeRuleParsingComplete = true;
-    } 
+    }
 
     protected parseVisibilityRules(ruleString: string): string {
         if (!ruleString) return '';
@@ -765,13 +772,15 @@ export default class OResponse extends Component implements Subject {
         this.cover();
         this.clearChildren();
     }
-    
+
     private attachLabels(): void {
         if (!this.properties.labels?.alternatives) {
             return;
         }
 
-        const alternativesContainer = this.closest('o-question')?.querySelector('.o-question-alternatives');
+        const alternativesContainer = this.closest('o-question')?.querySelector(
+            '.o-question-alternatives',
+        );
 
         // guard condition to prevent old-style pages, lacking the new container,
         // from throwing errors
@@ -785,18 +794,25 @@ export default class OResponse extends Component implements Subject {
         }
 
         this.properties.labels.alternatives.forEach((item, idx, arr) => {
-
             const elementType = item.block ? 'div' : 'span';
             const alternative = document.createElement(elementType);
 
-            alternative.setAttribute('name', item.name);
+            alternative.setAttribute('name', item.name ?? '');
             alternative.classList.add('o-question-information-content');
-            alternative.innerHTML = decodeHTML(replaceHTMLPlaceholder(item.label));
+            alternative.innerHTML = decodeHTML(
+                replaceHTMLPlaceholder(item.label ?? ''),
+            );
 
-            if (this.properties.labels.separator !== 'undefined' && this.properties.labels.separator.length && idx !== arr.length - 1) {
+            if (
+                this.properties.labels?.separator !== 'undefined' &&
+                this.properties.labels?.separator?.length &&
+                idx !== arr.length - 1
+            ) {
                 const alternativeSeparator = document.createElement('span');
-                alternativeSeparator.className = 'a-label-alternative-separator';
-                alternativeSeparator.innerHTML = this.properties.labels.separator;
+                alternativeSeparator.className =
+                    'a-label-alternative-separator';
+                alternativeSeparator.innerHTML =
+                    this.properties.labels.separator;
                 alternative.appendChild(alternativeSeparator);
             }
 

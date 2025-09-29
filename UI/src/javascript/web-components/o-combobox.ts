@@ -109,13 +109,13 @@ export default class OCombobox extends Component implements Subject {
     private sendKeyToList(e: KeyboardEvent): void {
         this.notifyObservers('keypress', e);
     }
-    
+
     private sendValueToList(): void {
         const newValue = new CustomEvent('newValue', {
             bubbles: true,
             detail: this,
         });
-        
+
         this.notifyObservers('newValue', newValue);
     }
 
