@@ -633,7 +633,9 @@ export default class OList extends Component implements Observer {
         this.addEventListener('mousedown', this.handleEvent);
         this.addEventListener('keydown', this.handleEvent);
         this.addEventListener('keyup', this.handleEvent);
+
         if (this.response) this.response.addObserver(this);
+
         this.control = this.closest('o-dropdown, o-combobox');
         if (this.control) {
             this.control.addObserver(this);

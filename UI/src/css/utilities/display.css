@@ -25,7 +25,8 @@ The CSS utility class behaves the same as the HTML attribute.
     display: none;
 }
 
-:where(.hidden-filter, .hidden-rule) {
+.hidden-filter,
+.hidden-rule {
     display: none;
 }
 

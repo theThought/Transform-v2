@@ -172,9 +172,7 @@ export default class OResponse extends Component implements Subject {
     }
 
     private hideOption(itemValue: string, hideMethod: string): void {
-        const option = this.querySelector(
-            `.hiddencontrol[value='${itemValue}'], [data-value='${itemValue}']`,
-        );
+        const option = document.querySelector(`[value='${itemValue}']`);
 
         if (!option) return;
 
@@ -220,30 +218,30 @@ export default class OResponse extends Component implements Subject {
     }
 
     private showOption(itemValue: string | null, hideMethod: string): void {
-        if (!this.element) {
-            this.element = document.querySelector(
-                `div[class*="o-question-"][data-question-group*="${this.qgroup}"]`,
-            );
-        }
-        if (!this.element) return;
-
         const option =
             itemValue === null
-                ? this.querySelector('.hidden-filter')
-                : this.querySelector(
-                      `[value='${itemValue}'], [data-value='${itemValue}']`,
-                  );
+                ? document.querySelector('.hidden-filter')
+                : document.querySelector(`[value='${itemValue}']`);
 
         if (!option) return;
 
         if (option instanceof HTMLElement) {
-            const classList =
-                hideMethod === 'filter' ? 'hidden-filter' : 'hidden-rule';
-            option.classList.remove(classList);
+            if (
+                option.tagName === 'INPUT' &&
+                !option.classList.contains('a-input-combobox')
+            ) {
+                const parent = option.parentElement;
+                if (parent) {
+                    const classList =
+                        hideMethod === 'filter'
+                            ? 'hidden-filter'
+                            : 'hidden-rule';
+                    parent.classList.remove(classList);
+                }
+            }
 
-            const input = option.querySelector('input');
-            if (input) {
-                input.disabled = false;
+            if (option instanceof HTMLInputElement) {
+                option.disabled = false;
             }
         }
 
