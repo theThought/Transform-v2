@@ -1,10 +1,5 @@
 import { Meta, StoryObj } from '@storybook/web-components';
 import { AScaleUnit_Story } from './scale-unit';
-/**
-if (!customElements.get('a-scale-unit')) {
-    customElements.define('a-scale-unit', AScaleUnit);
-}
-*/
 
 export default {
     title: 'Atoms/Scale',

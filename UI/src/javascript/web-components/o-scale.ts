@@ -19,6 +19,7 @@ export default class OScale extends Component implements Subject, Observer {
 
     addObserver(observer: Observer): void {
         this.observers.push(observer);
+        this.sendInitialValue();
     }
 
     removeObserver(observer: Observer): void {
@@ -64,6 +65,8 @@ export default class OScale extends Component implements Subject, Observer {
     private onClick(e: CustomEvent): void {
         e.stopPropagation();
         this.setValue(e);
+        this.notifyObservers('newValue', e.detail.dataValue);
+        this.broadcastChange();
     }
 
     // Set pre-/post-labels.
@@ -98,8 +101,11 @@ export default class OScale extends Component implements Subject, Observer {
 
         this.element.placeholder = e.detail.dataValue;
         this.element.value = e.detail.dataValue;
-        this.notifyObservers('newValue', e.detail.dataValue);
-        this.broadcastChange();
+    }
+
+    private sendInitialValue(): void {
+        if (!this.element) return;
+        this.notifyObservers('newValue', this.element.value);
     }
 
     private clearValue(): void {
