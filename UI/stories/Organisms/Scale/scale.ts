@@ -17,6 +17,7 @@ export function OScale_Story(args): HTMLElement {
     clonedArgs.hidden = true;
 
     const input = ASingleline(clonedArgs);
+    input.setAttribute('value', args.value ?? '');
 
     container.appendChild(prepostLabel);
     container.appendChild(scaleContainer);

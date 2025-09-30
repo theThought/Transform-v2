@@ -24,6 +24,14 @@ export default {
                 category: 'Dimensions',
             },
         },
+        value: {
+            control: 'number',
+            description: 'Current value of the scale',
+            table: {
+                type: { summary: 'number' },
+                category: 'Dimensions',
+            },
+        },
         width: {
             control: 'text',
             description:
