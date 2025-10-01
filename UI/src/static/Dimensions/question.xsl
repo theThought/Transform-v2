@@ -312,7 +312,7 @@
                 <xsl:with-param name="qGroup" select="$qGroup" />
             </xsl:call-template>
 
-            <xsl:attribute name="xmlNode">
+            <xsl:attribute name="data-xmlNode">
                 <xsl:value-of select="name(..)" />
                 <xsl:text>/</xsl:text>
                 <xsl:value-of select="name()" />
@@ -2451,7 +2451,6 @@
         <xsl:param name="currentControl" />
         <xsl:param name="qReadOnly" />
         <xsl:param name="otherQuestion" />
-        <xsl:param name="typeOverride" />
         <xsl:param name="moro" select="false()" />
 
         <xsl:variable name="currentCategory" select="$currentControl/Category" />
@@ -2573,11 +2572,18 @@
             <xsl:call-template name="insert-label-option">
                 <xsl:with-param name="subType">
                     <xsl:choose>
-                        <xsl:when test="$isExclusive='true'">
-                            <xsl:text>radio</xsl:text>
+                        <xsl:when test="$typeOverride">
+                            <xsl:value-of select="$typeOverride" />
                         </xsl:when>
                         <xsl:otherwise>
-                            <xsl:text>checkbox</xsl:text>
+                            <xsl:choose>
+                                <xsl:when test="$isExclusive='true'">
+                                    <xsl:text>radio</xsl:text>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:text>checkbox</xsl:text>
+                                </xsl:otherwise>
+                            </xsl:choose>
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:with-param>
@@ -3252,7 +3258,7 @@
 
     <xsl:template name="CreateColgroups">
       <xsl:param name="firstQuestionRow"/>
-      <colgroup>
+<!--      <colgroup> -->
         <xsl:variable name="cells" select="$firstQuestionRow/Cell"/>
         <xsl:variable name="cellCount" select="count($cells)"/>
         <xsl:variable name="lastPos" select="$cellCount"/>
@@ -3262,7 +3268,7 @@
           <xsl:with-param name="pos" select="1"/>
           <xsl:with-param name="cellCount" select="$cellCount"/>
         </xsl:call-template>
-      </colgroup>
+<!--      </colgroup> -->
     </xsl:template>
     
     <xsl:template name="colgroup-iterate">
@@ -3292,16 +3298,16 @@
                 <!-- Output the col element -->
                 <xsl:choose>
                     <xsl:when test="$qname != ''">
-                        <col>
+                        <xsl:element name="colgroup">
                             <xsl:if test="number($span) &gt; 1">
                                 <xsl:attribute name="span">
                                     <xsl:value-of select="$span"/>
                                 </xsl:attribute>
                             </xsl:if>
-                            <xsl:attribute name="data-questionname">
+                            <xsl:attribute name="data-question-group">
                                 <xsl:value-of select="$qname"/>
                             </xsl:attribute>
-                        </col>
+                        </xsl:element>
                     </xsl:when>
                     <xsl:otherwise>
                         <col/>
