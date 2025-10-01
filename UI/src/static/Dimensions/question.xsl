@@ -1603,6 +1603,7 @@
                         </xsl:if>
                     </xsl:for-each>
                 </xsl:variable>
+
                 <xsl:variable name="headerRowsCount">
                     <xsl:choose>
                         <xsl:when test="string($firstDataRowPos) != '' and not($firstDataRowPos != $firstDataRowPos)">
@@ -1614,6 +1615,14 @@
                 <xsl:attribute name="data-header-rows-count">
                     <xsl:value-of select="$headerRowsCount"/>
                 </xsl:attribute>
+                
+                <!-- Call CreateColgroups with the row at position firstDataRowPos -->
+                <xsl:variable name="firstQuestionRow" select="Row[position() = $firstDataRowPos]"/>
+                <xsl:call-template name="CreateColgroups">
+                    <xsl:with-param name="firstQuestionRow" select="$firstQuestionRow"/>
+                </xsl:call-template>
+                
+                <!-- thead -->
                 <xsl:element name="thead">
                     <xsl:for-each select="Row">
                         <xsl:sort select="@Y" data-type="number" order="ascending"/>
@@ -2062,9 +2071,15 @@
         <xsl:param name="qReadOnly" />
 
         <xsl:element name="o-slider">
+
+            <xsl:call-template name="insert-common-questiontype-attributes">
+                <xsl:with-param name="qGroup" select="$qGroup" />
+            </xsl:call-template>
+
             <xsl:attribute name="data-orientation">
                 <xsl:value-of select="$subType" />
             </xsl:attribute>
+
 
             <xsl:if test="Style/@Width">
                 <xsl:attribute name="style">
@@ -2436,6 +2451,7 @@
         <xsl:param name="currentControl" />
         <xsl:param name="qReadOnly" />
         <xsl:param name="otherQuestion" />
+        <xsl:param name="typeOverride" />
         <xsl:param name="moro" select="false()" />
 
         <xsl:variable name="currentCategory" select="$currentControl/Category" />
@@ -3234,4 +3250,93 @@
 
     </xsl:template>
 
+    <xsl:template name="CreateColgroups">
+      <xsl:param name="firstQuestionRow"/>
+      <colgroup>
+        <xsl:variable name="cells" select="$firstQuestionRow/Cell"/>
+        <xsl:variable name="cellCount" select="count($cells)"/>
+        <xsl:variable name="lastPos" select="$cellCount"/>
+        <xsl:variable name="currentPos" select="1"/>
+        <xsl:call-template name="colgroup-iterate">
+          <xsl:with-param name="cells" select="$cells"/>
+          <xsl:with-param name="pos" select="1"/>
+          <xsl:with-param name="cellCount" select="$cellCount"/>
+        </xsl:call-template>
+      </colgroup>
+    </xsl:template>
+    
+    <xsl:template name="colgroup-iterate">
+            <xsl:param name="cells"/>
+            <xsl:param name="pos"/>
+            <xsl:param name="cellCount"/>
+
+            <xsl:if test="$pos &lt;= $cellCount">
+                <xsl:variable name="thisCell" select="$cells[position() = $pos]"/>
+                <!-- Find the QuestionName in this cell (if any) -->
+                <xsl:variable name="qname"
+                    select="($thisCell//Control[@QuestionName][1]/@QuestionName)[1]"/>
+                <!-- Use count-adjacent to determine span -->
+                <xsl:variable name="span">
+                    <xsl:choose>
+                        <xsl:when test="$qname != ''">
+                            <xsl:call-template name="count-adjacent">
+                                <xsl:with-param name="cells" select="$cells"/>
+                                <xsl:with-param name="start" select="$pos"/>
+                                <xsl:with-param name="qname" select="$qname"/>
+                                <xsl:with-param name="cellCount" select="$cellCount"/>
+                            </xsl:call-template>
+                        </xsl:when>
+                        <xsl:otherwise>1</xsl:otherwise>
+                    </xsl:choose>
+                </xsl:variable>
+                <!-- Output the col element -->
+                <xsl:choose>
+                    <xsl:when test="$qname != ''">
+                        <col>
+                            <xsl:if test="number($span) &gt; 1">
+                                <xsl:attribute name="span">
+                                    <xsl:value-of select="$span"/>
+                                </xsl:attribute>
+                            </xsl:if>
+                            <xsl:attribute name="data-questionname">
+                                <xsl:value-of select="$qname"/>
+                            </xsl:attribute>
+                        </col>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <col/>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <!-- Move to the next group -->
+                <xsl:call-template name="colgroup-iterate">
+                    <xsl:with-param name="cells" select="$cells"/>
+                    <xsl:with-param name="pos" select="$pos + number($span)"/>
+                    <xsl:with-param name="cellCount" select="$cellCount"/>
+                </xsl:call-template>
+            </xsl:if>
+    </xsl:template>
+    
+    <!-- Helper template to count adjacent cells with the same QuestionName -->
+    <xsl:template name="count-adjacent">
+      <xsl:param name="cells"/>
+      <xsl:param name="start"/>
+      <xsl:param name="qname"/>
+      <xsl:param name="cellCount"/>
+      <xsl:param name="count" select="0"/>
+      <xsl:choose>
+        <xsl:when test="$start + $count &lt;= $cellCount and
+          (($cells[position() = $start + $count]//Control[@QuestionName][1]/@QuestionName)[1] = $qname)">
+          <xsl:call-template name="count-adjacent">
+            <xsl:with-param name="cells" select="$cells"/>
+            <xsl:with-param name="start" select="$start"/>
+            <xsl:with-param name="qname" select="$qname"/>
+            <xsl:with-param name="cellCount" select="$cellCount"/>
+            <xsl:with-param name="count" select="$count + 1"/>
+          </xsl:call-template>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="$count"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:template>
 </xsl:stylesheet>
