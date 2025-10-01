@@ -196,9 +196,7 @@ export default class OSlider extends Component implements Observer, Subject {
 
     public connectedCallback(): void {
         super.connectedCallback();
-        this.element =
-            this.querySelector('input[type="hidden"]') ??
-            this.querySelector('input[data-hidden="true"]');
+        this.element = this.querySelector('input[type="range"]');
 
         this.addEventListener('notifySlider', this.handleEvent);
         this.addEventListener('incrementValue', this.handleEvent);
