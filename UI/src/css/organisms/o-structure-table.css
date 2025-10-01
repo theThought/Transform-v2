@@ -1,6 +1,14 @@
 .o-structure-table {
     --color-stripe: var(--color-light2);
 
+    colgroup[data-question-group] {
+        border-inline-end: var(--border-thickness) solid var(--color-darkest);
+
+        &:last-of-type {
+            border-inline-end: none;
+        }
+    }
+
     tbody,
     tr,
     td,
