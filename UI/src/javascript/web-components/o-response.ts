@@ -38,6 +38,7 @@ interface QuestionProperties {
         }>;
         separator?: string;
     };
+    separator?: boolean;
 }
 
 export default class OResponse extends Component implements Subject {
