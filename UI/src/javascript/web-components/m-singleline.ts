@@ -92,7 +92,7 @@ export default class MSingleline extends Component implements Observer {
         if (!this.element) return;
         const target = e.target as HTMLElement;
 
-        if (target === this || target.contains(this)) {
+        if (target && (target === this || target.contains(this))) {
             return;
         }
 
