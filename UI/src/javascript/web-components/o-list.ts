@@ -216,35 +216,42 @@ export default class OList extends Component implements Observer {
             return;
         }
 
+        let listPasses = 0;
+        let firstLetter: string;
         const list = this.buildVisibleList();
-        let currentFirstLetter = '';
+        const highlightEl = this.querySelector('.highlight') as HTMLElement;
+        const highlightId = highlightEl?.dataset.position ?? '-1';
+        const highlightPos = parseInt(highlightId);
 
-        if (this.listPosition !== -1) {
-            currentFirstLetter =
-                list[this.listPosition].textContent
+        if (highlightPos > -1) {
+            firstLetter =
+                highlightEl.textContent?.substring(0, 1).toLowerCase() || '';
+        } else {
+            firstLetter =
+                list[this.listPosition]?.textContent
                     ?.substring(0, 1)
                     .toLowerCase() || '';
         }
 
-        let listPasses = 0;
+        const startPos = Math.max(0, this.listPosition, highlightPos);
 
-        for (let i = 0; i < list.length; i++) {
+        for (let i = startPos; i < list.length; i++) {
             const currentItem = list[i];
             const currentItemLabel = currentItem.innerText.toLowerCase();
 
             if (currentItemLabel.indexOf(input) === 0) {
                 if (
                     (listPasses === 0 &&
-                        currentFirstLetter === input.substring(0, 1) &&
+                        firstLetter === input.substring(0, 1) &&
                         i < this.listPosition) ||
-                    (currentItem.dataset.selected === 'true' &&
+                    (currentItem.classList.contains('highlight') &&
                         input.length === 1)
                 ) {
                     // this is required if we've reached the end of the list and landed on an active item
                     // as the last element -- we will need to loop back for another pass at this point
                     if (listPasses === 0 && i === list.length - 1) {
                         listPasses = 1;
-                        i = 0;
+                        i = -1;
                     }
                     continue;
                 } else {
