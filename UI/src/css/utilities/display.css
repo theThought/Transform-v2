@@ -30,6 +30,14 @@ The CSS utility class behaves the same as the HTML attribute.
     display: none;
 }
 
+/* The following rule is for hidden items within a list to hide them without affecting the list's width */
+li[class*='hidden-'] {
+    display: block;
+    height: 0;
+    padding: 0;
+    visibility: hidden;
+}
+
 .unavailable {
     display: none;
 }

@@ -18,7 +18,7 @@ export default class OCombobox extends Component implements Subject {
                 this.toggleFocus();
                 break;
             case 'focusin':
-                this.notifyObservers('focusin', e as CustomEvent);
+                this.setFocus();
                 break;
             case 'labelChange':
                 this.updateLabel(<CustomEvent>e);
@@ -92,14 +92,17 @@ export default class OCombobox extends Component implements Subject {
     }
 
     private onKeyup(e: KeyboardEvent): void {
-        switch (e.key) {
-            case 'Tab':
-            case null:
+        switch (true) {
+            case e.key === 'Backspace':
+            case e.key === 'Delete':
+                this.setFocus();
+                this.sendValueToList();
+                this.classList.remove('exact');
                 break;
-            case 'ArrowLeft':
-            case 'ArrowRight':
+            case e.key.length > 1:
                 break;
             default:
+                this.setFocus();
                 this.sendValueToList();
                 this.classList.remove('exact');
                 break;

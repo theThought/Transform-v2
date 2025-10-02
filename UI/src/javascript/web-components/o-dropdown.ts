@@ -18,16 +18,13 @@ export default class ODropdown extends Component implements Subject {
                 this.toggleFocus();
                 break;
             case 'focusin':
-                this.notifyObservers('focusin', e as CustomEvent);
+                this.setFocus();
                 break;
             case 'labelChange':
                 this.updateLabel(<CustomEvent>e);
                 break;
             case 'keydown':
                 this.onKeydown(<KeyboardEvent>e);
-                break;
-            case 'keyup':
-                this.onKeyup(<KeyboardEvent>e);
                 break;
         }
     }
@@ -92,18 +89,6 @@ export default class ODropdown extends Component implements Subject {
             default:
                 this.sendKeyToList(e);
                 this.classList.remove('exact');
-        }
-    }
-
-    private onKeyup(e: KeyboardEvent): void {
-        switch (e.key) {
-            case 'Tab':
-            case null:
-                break;
-            case 'ArrowLeft':
-            case 'ArrowRight':
-                break;
-            default:
                 break;
         }
     }
@@ -156,7 +141,6 @@ export default class ODropdown extends Component implements Subject {
         this.element?.addEventListener('focusin', this);
         this.addEventListener('labelChange', this.handleEvent);
         this.addEventListener('keydown', this.handleEvent);
-        this.addEventListener('keyup', this.handleEvent);
         this.configureElement();
     }
 }
