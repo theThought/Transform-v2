@@ -9,7 +9,6 @@ Color settings.
     --color-primary: var(--theme-color-brand-primary);
     --color-primary-hover: var(--theme-color-brand-primary-alt);
     --color-secondary: var(--theme-color-brand-secondary);
-    --color-secondary-hover: var(--theme-color-brand-secondary-alt);
     --color-white: var(--theme-color-neutral-100);
     --color-lightest: var(--theme-color-neutral-200);
     --color-light1: var(--theme-color-neutral-300);
