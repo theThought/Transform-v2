@@ -31,16 +31,16 @@ export default class MSliderTrack extends Component implements Observer {
         }
     }
 
-    public update(method: string, detail: CustomEvent): void {
+    public update(method: string, e: CustomEvent): void {
         switch (method) {
             case 'clearValue':
                 this.clearValue();
                 break;
-            case 'exclusiveRestore':
-                this.restoreData();
+            case 'restoreData':
+                this.restoreData(e);
                 break;
             case 'restoreInitialValue':
-                this.restoreInitialValue(detail);
+                this.restoreInitialValue(e);
                 break;
             case 'incrementValue':
                 this.incrementValue();
@@ -56,12 +56,10 @@ export default class MSliderTrack extends Component implements Observer {
         this.clearFloodFill();
     }
 
-    private restoreData(): void {
+    private restoreData(e: CustomEvent): void {
         if (!this.element) return;
-        const value = Number(this.element.value);
-
-        this.setValueClass();
-        this.updateFloodFill(value);
+        this.element.value = e.detail.submittedElement.value;
+        this.onInput();
     }
 
     private requestInitialValue(): void {
@@ -71,13 +69,13 @@ export default class MSliderTrack extends Component implements Observer {
         this.dispatchEvent(requestInitialValue);
     }
 
-    private restoreInitialValue(detail: CustomEvent): void {
+    private restoreInitialValue(e: CustomEvent): void {
         if (!this.element) return;
-        this.element.value = detail.detail.value;
+        this.element.value = e.detail.value;
         this.setValueClass();
-        this.setThumbValue(detail.detail.value);
-        this.setThumbLocation(Number(detail.detail.value));
-        this.updateFloodFill(Number(detail.detail.value));
+        this.setThumbValue(e.detail.value);
+        this.setThumbLocation(Number(e.detail.value));
+        this.updateFloodFill(Number(e.detail.value));
     }
 
     private onInput(): void {

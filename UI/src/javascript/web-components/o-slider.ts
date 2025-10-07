@@ -18,6 +18,7 @@ export default class OSlider extends Component implements Observer, Subject {
 
     private observers: Observer[] = [];
     private element: HTMLInputElement | null = null;
+    private submittedElement: HTMLInputElement | null = null;
     private min = 0;
     private max = 100;
 
@@ -66,43 +67,50 @@ export default class OSlider extends Component implements Observer, Subject {
     }
 
     public update(method: string, data: CustomEvent): void {
-        if (method === 'clearValue') {
-            this.clearValue(data);
-        }
-
-        if (method === 'exclusiveRestore') {
-            this.restoreData();
+        switch (method) {
+            case 'clearValue':
+                this.clearValue(data);
+                break;
+            case 'exclusiveRestore':
+                this.restoreData();
+                break;
         }
     }
 
     private clearValue(e: CustomEvent): void {
-        if (!this.element) return;
+        if (!this.submittedElement) return;
 
         if (e.target === this) {
             return;
         }
 
-        if (this.element.value) {
-            this.element.placeholder = this.element.value;
-            this.element.value = '';
+        if (this.submittedElement.value) {
+            this.submittedElement.placeholder = this.submittedElement.value;
+            this.submittedElement.value = '';
         }
     }
 
     private restoreData(): void {
-        if (!this.element) return;
+        if (!this.element || !this.submittedElement) return;
 
-        if (this.element.placeholder.length) {
-            this.element.value = this.element.placeholder;
-            this.element.placeholder = '';
+        if (this.submittedElement.placeholder.length) {
+            this.submittedElement.value = this.submittedElement.placeholder;
+            this.submittedElement.placeholder = '';
             this.broadcastChange();
+            const restoreEvent = new CustomEvent('restoreData', {
+                bubbles: true,
+                detail: this,
+            });
+            this.notifyObservers('restoreData', restoreEvent);
         }
     }
 
     private sendInitialValue(): void {
-        if (!this.element || !this.element.value.length) return;
+        if (!this.submittedElement || !this.submittedElement.value.length)
+            return;
 
         const initialValue = new CustomEvent('restoreInitialValue', {
-            detail: { value: this.element.value },
+            detail: { value: this.submittedElement.value },
         });
 
         this.notifyObservers('restoreInitialValue', initialValue);
@@ -110,10 +118,10 @@ export default class OSlider extends Component implements Observer, Subject {
 
     private onSliderValueChange(e: CustomEvent): void {
         e.stopPropagation();
-        if (!this.element) return;
+        if (!this.submittedElement) return;
 
-        this.element.value = e.detail.element.value;
-        this.element.placeholder = '';
+        this.submittedElement.value = e.detail.element.value;
+        this.submittedElement.placeholder = '';
         this.broadcastChange();
     }
 
@@ -197,6 +205,7 @@ export default class OSlider extends Component implements Observer, Subject {
     public connectedCallback(): void {
         super.connectedCallback();
         this.element = this.querySelector('input[type="range"]');
+        this.submittedElement = this.querySelector('input[type="hidden"]');
 
         this.addEventListener('notifySlider', this.handleEvent);
         this.addEventListener('incrementValue', this.handleEvent);
