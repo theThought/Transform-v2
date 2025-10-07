@@ -173,7 +173,7 @@ export default class OResponse extends Component implements Subject {
     }
 
     private hideOption(itemValue: string, hideMethod: string): void {
-        const option = document.querySelector(`[value='${itemValue}']`);
+        const option = this.querySelector(`[value='${itemValue}']`);
 
         if (!option) return;
 
@@ -221,8 +221,8 @@ export default class OResponse extends Component implements Subject {
     private showOption(itemValue: string | null, hideMethod: string): void {
         const option =
             itemValue === null
-                ? document.querySelector('.hidden-filter')
-                : document.querySelector(`[value='${itemValue}']`);
+                ? this.querySelector('.hidden-filter')
+                : this.querySelector(`[value='${itemValue}']`);
 
         if (!option) return;
 
