@@ -1,3 +1,11 @@
+o-loop {
+    display: block;
+}
+
+body.focus-question o-loop:has(o-response:focus-within) {
+    box-shadow: var(--box-shadow);
+}
+
 .o-structure-table {
     --color-stripe: var(--color-light2);
 

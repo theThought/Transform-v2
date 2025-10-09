@@ -17,10 +17,11 @@ o-question {
     }
 }
 
-body.focus-question o-question:has(o-response:focus-within) {
-    box-shadow: var(--box-shadow);
-}
-
 .question-no-separator o-question {
     border-block-end-color: transparent;
+}
+
+body.focus-question
+    o-question:has(o-response:focus-within):not(.surroundcontent > o-question) {
+    box-shadow: var(--box-shadow);
 }
