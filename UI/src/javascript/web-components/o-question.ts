@@ -20,9 +20,26 @@ export default class OQuestion extends HTMLElement {
 
     public handleEvent(e: Event): void {
         switch (e.type) {
+            case 'click':
+                this.onClick(e);
+                break;
             case 'questionVisibility':
                 this.handleVisibility(e as CustomEvent);
                 break;
+        }
+    }
+
+    private onClick(e: Event): void {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        if (this.parentElement?.tagName === 'TD' && e.target === this) {
+            const clickableElement = this.querySelector(
+                'm-option-base, m-option-boolean, input[type="text"]',
+            ) as HTMLElement;
+            if (clickableElement) {
+                clickableElement.focus();
+                clickableElement.click();
+            }
         }
     }
 
@@ -38,6 +55,7 @@ export default class OQuestion extends HTMLElement {
 
     public connectedCallback(): void {
         this.cleanEmptyLayout();
+        this.addEventListener('click', this.handleEvent);
         this.addEventListener('questionVisibility', this.handleEvent);
     }
 }
