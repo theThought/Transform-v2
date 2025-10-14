@@ -44,3 +44,8 @@ body.focus-control {
 :where([data-hidden='true']) {
     display: none;
 }
+
+[data-readonly='true'] {
+    opacity: 0.5;
+    pointer-events: none;
+}
