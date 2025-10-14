@@ -2420,8 +2420,10 @@
             </xsl:call-template>
 
             <!-- pre label -->
-            <xsl:call-template name="a-label-pre" />
-            
+            <xsl:call-template name="a-label-pre">
+                <xsl:with-param name="boxed" select="true()" />
+            </xsl:call-template>
+
             <!-- input -->
             <xsl:call-template name="insert-input">
                 <xsl:with-param name="inputType">
@@ -2440,7 +2442,9 @@
             </xsl:call-template>
 
             <!-- post label -->
-            <xsl:call-template name="a-label-post" />
+            <xsl:call-template name="a-label-post">
+                <xsl:with-param name="boxed" select="true()" />
+            </xsl:call-template>
         </xsl:element>
     </xsl:template>
 
@@ -2458,7 +2462,7 @@
         <xsl:variable name="qCategoryID">
             <xsl:value-of select="concat($currentControl/@ElementID, $currentCategory/@CategoryID)" />
         </xsl:variable>
-<xsl:comment>moro:<xsl:value-of select="$moro"/></xsl:comment>
+
         <xsl:variable name="elementName">
             <xsl:choose>
                 <xsl:when test="$moro=true()">
@@ -3050,23 +3054,29 @@
     <!-- ===== -->
 
     <xsl:template name="a-label-pre">
+        <xsl:param name="boxed" select="false()" />
         <xsl:element name="span">
             <xsl:attribute name="class">
                 <xsl:text>a-label-pre</xsl:text>
+                <xsl:if test="$boxed"><xsl:text>-boxed</xsl:text></xsl:if>
             </xsl:attribute>
             <xsl:comment>
                 <xsl:text>pre label</xsl:text>
+                <xsl:if test="$boxed"><xsl:text>-boxed</xsl:text></xsl:if>
             </xsl:comment>
         </xsl:element>
     </xsl:template>
 
     <xsl:template name="a-label-post">
+        <xsl:param name="boxed" select="false()" />
         <xsl:element name="span">
             <xsl:attribute name="class">
                 <xsl:text>a-label-post</xsl:text>
+                <xsl:if test="$boxed"><xsl:text>-boxed</xsl:text></xsl:if>
             </xsl:attribute>
             <xsl:comment>
                 <xsl:text>post label</xsl:text>
+                <xsl:if test="$boxed"><xsl:text>-boxed</xsl:text></xsl:if>
             </xsl:comment>
         </xsl:element>
     </xsl:template>
