@@ -37,11 +37,11 @@ export const uiInit = (): void => {
     // which belongs to a question and may require the question to be present.
 
     // Outer containers.
-    !customElements.get('o-loop') && customElements.define('o-loop', OLoop);
     !customElements.get('o-question') &&
         customElements.define('o-question', OQuestion);
     !customElements.get('o-response') &&
         customElements.define('o-response', OResponse);
+    !customElements.get('o-loop') && customElements.define('o-loop', OLoop);
 
     !customElements.get('o-option-sublist') &&
         customElements.define('o-option-sublist', OOptionSublist);
