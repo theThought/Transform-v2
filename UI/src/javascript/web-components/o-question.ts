@@ -83,7 +83,6 @@ export default class OQuestion extends Component {
     }
 
     public connectedCallback(): void {
-        super.connectedCallback();
         this.cleanEmptyLayout();
         this.addEventListener('click', this.handleEvent);
         this.addEventListener('questionVisibility', this.handleEvent);
