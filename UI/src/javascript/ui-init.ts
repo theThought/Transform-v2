@@ -37,6 +37,7 @@ export const uiInit = (): void => {
     // which belongs to a question and may require the question to be present.
 
     // Outer containers.
+    !customElements.get('o-loop') && customElements.define('o-loop', OLoop);
     !customElements.get('o-question') &&
         customElements.define('o-question', OQuestion);
     !customElements.get('o-response') &&
@@ -55,7 +56,6 @@ export const uiInit = (): void => {
         customElements.define('o-scale-container', OScaleContainer);
     !customElements.get('o-slider') &&
         customElements.define('o-slider', OSlider);
-    !customElements.get('o-loop') && customElements.define('o-loop', OLoop);
 
     // Properties last as it may broadcast settings to other components on the page
     !customElements.get('a-properties') &&
