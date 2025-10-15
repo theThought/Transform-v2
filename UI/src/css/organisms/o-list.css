@@ -37,7 +37,10 @@ o-list {
 
     &.char-restriction {
         li:not(.a-list-placeholder-restriction) {
-            display: none;
+            display: block;
+            height: 0;
+            padding: 0;
+            visibility: hidden;
         }
 
         li.a-list-placeholder-restriction {

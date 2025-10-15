@@ -289,6 +289,7 @@ export default class OList extends Component implements Observer {
             this.clearSelectedOptions();
             this.displayEmptyMessage(false);
             this.displayMinCharacterMessage(true);
+            droplistParentNode.appendChild(this.listElement);
             return;
         } else {
             this.displayMinCharacterMessage(false);
