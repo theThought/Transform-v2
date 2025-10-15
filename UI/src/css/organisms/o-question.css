@@ -17,7 +17,8 @@ o-question {
     }
 }
 
-.question-no-separator o-question {
+.question-no-separator o-question,
+o-question.question-no-separator {
     border-block-end-color: transparent;
 }
 

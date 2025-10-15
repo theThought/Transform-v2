@@ -1,6 +1,15 @@
 import { removeHTMLWhitespace } from './util';
+import Component from './component';
 
-export default class OQuestion extends HTMLElement {
+interface CustomProperties {
+    separator?: boolean;
+}
+
+export default class OQuestion extends Component {
+    public properties: CustomProperties = {
+        separator: true,
+    };
+
     constructor() {
         super();
     }
@@ -16,6 +25,11 @@ export default class OQuestion extends HTMLElement {
             (element) =>
                 (element.innerHTML = removeHTMLWhitespace(element.innerHTML)),
         );
+    }
+
+    private setSeparatorStyle(): void {
+        if (this.properties.separator) return;
+        this.classList.add('question-no-separator');
     }
 
     public handleEvent(e: Event): void {
@@ -54,7 +68,9 @@ export default class OQuestion extends HTMLElement {
     }
 
     public connectedCallback(): void {
+        super.connectedCallback();
         this.cleanEmptyLayout();
+        this.setSeparatorStyle();
         this.addEventListener('click', this.handleEvent);
         this.addEventListener('questionVisibility', this.handleEvent);
     }
