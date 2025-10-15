@@ -108,9 +108,9 @@ export default class OLoop extends Component implements Subject {
         this.configureSeparators();
         this.setSeparatorStyle();
 
-        this.addEventListener('questionChange', this.handleEvent);
-        this.addEventListener('exclusiveOn', this.handleEvent);
         this.addEventListener('click', this.handleEvent);
+        this.addEventListener('exclusiveOn', this.handleEvent);
+        this.addEventListener('questionChange', this.handleEvent);
     }
 
     public handleEvent(e: Event): void {
@@ -329,19 +329,19 @@ export default class OLoop extends Component implements Subject {
         if (!this.element) return;
 
         const style = document.createElement('style');
-        const color = this.properties.separators?.color || '#212C4C';
+        const color = this.properties.separators?.color || '#002554';
         let generatedStyles = '';
 
         if (Array.isArray(this.properties.separators?.columns)) {
             for (const colIndex of this.properties.separators?.columns) {
-                generatedStyles += `.separator-column-${colIndex} tr > :nth-child(${colIndex}) { border-right: 1px solid ${color}; } `;
+                generatedStyles += `.separator-column-${colIndex} tr > :nth-child(${colIndex}) { border-right: .125rem solid ${color}; } `;
                 this.element.classList.add(`separator-column-${colIndex}`);
             }
         }
 
         if (Array.isArray(this.properties.separators?.rows)) {
             for (const rowIndex of this.properties.separators?.rows) {
-                generatedStyles += `.separator-row-${rowIndex} tr:nth-of-type(${rowIndex}) { border-bottom: 1px solid ${color}; } `;
+                generatedStyles += `.separator-row-${rowIndex} tr:nth-of-type(${rowIndex}) { border-bottom: .125rem solid ${color}; } `;
                 this.element.classList.add(`separator-row-${rowIndex}`);
             }
         }
