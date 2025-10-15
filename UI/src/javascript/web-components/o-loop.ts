@@ -144,9 +144,6 @@ export default class OLoop extends Component implements Subject {
         const textarea = <HTMLTextAreaElement>(
             target.getElementsByTagName('TEXTAREA')[0]
         );
-
-        const element = input || button || textarea;
-        //element.focus();
     }
 
     private exclusiveOn(e: CustomEvent): void {
