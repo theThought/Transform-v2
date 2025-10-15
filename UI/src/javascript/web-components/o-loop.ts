@@ -308,14 +308,14 @@ export default class OLoop extends Component implements Subject {
 
         if (Array.isArray(this.properties.separators?.columns)) {
             for (const colIndex of this.properties.separators?.columns) {
-                generatedStyles += `.separator-column-${colIndex} tr > :nth-child(${colIndex}) { border-right: .125rem solid ${color}; } `;
+                generatedStyles += `.separator-column-${colIndex} tbody tr > :nth-child(${colIndex}) { border-right: .125rem solid ${color}; } `;
                 this.element.classList.add(`separator-column-${colIndex}`);
             }
         }
 
         if (Array.isArray(this.properties.separators?.rows)) {
             for (const rowIndex of this.properties.separators?.rows) {
-                generatedStyles += `.separator-row-${rowIndex} tr:nth-of-type(${rowIndex}) { border-bottom: .125rem solid ${color}; } `;
+                generatedStyles += `.separator-row-${rowIndex} tbody tr:nth-of-type(${rowIndex}) { border-bottom: .125rem solid ${color}; } `;
                 this.element.classList.add(`separator-row-${rowIndex}`);
             }
         }
