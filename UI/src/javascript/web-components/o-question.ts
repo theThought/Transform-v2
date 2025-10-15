@@ -27,9 +27,18 @@ export default class OQuestion extends Component {
         );
     }
 
-    private setSeparatorStyle(): void {
-        if (this.properties.separator) return;
+    private setSeparatorStyle(e: CustomEvent): void {
+        e.stopPropagation(); // prevent nested questions from broadcasting upward and turning off all separators
+        if (e.detail.separator) return;
         this.classList.add('question-no-separator');
+
+        // the following event broadcasts upward to any loop
+        if (this.properties.separator) return;
+        const separatorEvent = new CustomEvent('setSeparatorStyle', {
+            bubbles: true,
+            detail: { separator: false, questionGroup: e.detail.questionGroup },
+        });
+        this.dispatchEvent(separatorEvent);
     }
 
     public handleEvent(e: Event): void {
@@ -39,6 +48,9 @@ export default class OQuestion extends Component {
                 break;
             case 'questionVisibility':
                 this.handleVisibility(e as CustomEvent);
+                break;
+            case 'setSeparatorStyle':
+                this.setSeparatorStyle(e as CustomEvent);
                 break;
         }
     }
@@ -70,8 +82,8 @@ export default class OQuestion extends Component {
     public connectedCallback(): void {
         super.connectedCallback();
         this.cleanEmptyLayout();
-        this.setSeparatorStyle();
         this.addEventListener('click', this.handleEvent);
         this.addEventListener('questionVisibility', this.handleEvent);
+        this.addEventListener('setSeparatorStyle', this.handleEvent);
     }
 }

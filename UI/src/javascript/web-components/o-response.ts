@@ -51,6 +51,7 @@ export default class OResponse extends Component implements Subject {
             invisible: [],
             visible: [],
         },
+        separator: true,
     };
 
     private observers: Observer[] = [];
@@ -960,6 +961,18 @@ export default class OResponse extends Component implements Subject {
         }
     }
 
+    private setSeparatorStyle(): void {
+        if (this.properties.separator) return;
+        const separatorEvent = new CustomEvent('setSeparatorStyle', {
+            bubbles: true,
+            detail: {
+                separator: false,
+                questionGroup: this.dataset.questionGroup,
+            },
+        });
+        this.dispatchEvent(separatorEvent);
+    }
+
     public connectedCallback(): void {
         super.connectedCallback();
         this.addEventListener('exclusiveOn', this.handleEvent);
@@ -967,6 +980,7 @@ export default class OResponse extends Component implements Subject {
         this.addEventListener('broadcastChange', this.handleEvent);
         document.addEventListener('questionChange', this);
         this.attachLabels();
+        this.setSeparatorStyle();
         this.configureInitialVisibility();
         this.processOptionVisibilityRules();
         this.processVisibilityRules();
