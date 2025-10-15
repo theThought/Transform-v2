@@ -41,7 +41,7 @@ export default class Component extends HTMLElement {
             string | number | boolean | object
         > = JSON.parse(properties.toString());
 
-        if (this.response) {
+        if (this.response?.properties) {
             this.properties = mergeDeep(
                 this.properties,
                 this.response.properties,
