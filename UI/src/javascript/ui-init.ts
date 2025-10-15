@@ -57,8 +57,8 @@ export const uiInit = (): void => {
         customElements.define('o-slider', OSlider);
     !customElements.get('o-loop') && customElements.define('o-loop', OLoop);
 
-    // OProperties last as it may broadcast settings to other components on the page
-    !customElements.get('o-a-properties') &&
+    // Properties last as it may broadcast settings to other components on the page
+    !customElements.get('a-properties') &&
         customElements.define('a-properties', AProperties);
 
     // Inner components.
