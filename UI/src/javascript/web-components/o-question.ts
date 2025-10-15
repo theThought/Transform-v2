@@ -21,10 +21,13 @@ export default class OQuestion extends Component {
             return;
         }
 
-        layoutItems.forEach(
-            (element) =>
-                (element.innerHTML = removeHTMLWhitespace(element.innerHTML)),
-        );
+        layoutItems.forEach((element) => {
+            const innerHTML = element.innerHTML;
+            const newHTML = removeHTMLWhitespace(innerHTML);
+            if (newHTML !== innerHTML) {
+                element.innerHTML = newHTML;
+            }
+        });
     }
 
     private setSeparatorStyle(e: CustomEvent): void {
