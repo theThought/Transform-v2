@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/web-components';
+import { Meta } from '@storybook/web-components';
 import * as LabelStories from './Label';
 
 export default {
