@@ -108,7 +108,6 @@ export default class OLoop extends Component implements Subject {
         this.configureSeparators();
         this.setSeparatorStyle();
 
-        this.addEventListener('click', this.handleEvent);
         this.addEventListener('exclusiveOn', this.handleEvent);
         this.addEventListener('questionChange', this.handleEvent);
     }
@@ -121,29 +120,7 @@ export default class OLoop extends Component implements Subject {
             case 'exclusiveOn':
                 this.exclusiveOn(e as CustomEvent);
                 break;
-            case 'click':
-                this.onClick(e as CustomEvent);
-                break;
         }
-    }
-
-    private onClick(e: CustomEvent): void {
-        // prevent bubbled events from firing this function
-        const target = e.target as HTMLElement;
-        if (
-            (target as HTMLInputElement)?.type !== undefined ||
-            e.detail === 0
-        ) {
-            return;
-        }
-
-        const input = <HTMLInputElement>target.getElementsByTagName('INPUT')[0];
-        const button = <HTMLButtonElement>(
-            target.getElementsByTagName('BUTTON')[0]
-        );
-        const textarea = <HTMLTextAreaElement>(
-            target.getElementsByTagName('TEXTAREA')[0]
-        );
     }
 
     private exclusiveOn(e: CustomEvent): void {
