@@ -66,8 +66,8 @@ export default class MSingleline extends Component implements Observer {
 
     // Set pre-/post-labels.
     private setLabels(): void {
-        const elemPre = this.querySelector('.a-label-pre');
-        const elemPost = this.querySelector('.a-label-post');
+        const elemPre = this.querySelector('[class*="a-label-pre"]');
+        const elemPost = this.querySelector('[class*="a-label-post"]');
 
         if (elemPre && elemPost) {
             elemPre.innerHTML = removeHTMLWhitespace(elemPre.innerHTML);

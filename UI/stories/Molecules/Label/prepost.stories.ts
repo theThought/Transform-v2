@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/web-components';
-import { MLabelPrePost } from './prepost';
+import { MLabelPrePost, MLabelPrePostBoxed } from './prepost';
 
 const meta: Meta = {
     title: 'Molecules/Labels/prepost',
@@ -43,4 +43,9 @@ export default meta;
 type PrePostLabel = StoryObj<{ prelabel: string; postlabel: string }>;
 export const PrePostLabel: PrePostLabel = {
     render: (args) => MLabelPrePost(args.prelabel, args.postlabel),
+};
+
+type PrePostLabelBoxed = StoryObj<{ prelabel: string; postlabel: string }>;
+export const PrePostLabelBoxed: PrePostLabelBoxed = {
+    render: (args) => MLabelPrePostBoxed(args.prelabel, args.postlabel),
 };

@@ -4,13 +4,13 @@ m-singleline-date {
     align-items: center;
     display: inline-flex;
 
-    .a-label-pre {
+    [class*='a-label-pre'] {
         border-inline-end-width: 0;
         border-radius: var(--theme-border-radius-s) 0 0
             var(--theme-border-radius-s);
     }
 
-    .a-label-post {
+    [class*='a-label-post'] {
         border-inline-start-width: 0;
         border-radius: 0 var(--theme-border-radius-s)
             var(--theme-border-radius-s) 0;

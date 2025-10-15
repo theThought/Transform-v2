@@ -38,17 +38,20 @@ o-response > label {
     margin-block-end: var(--space-2);
 }
 
-:is(.a-label-pre, .a-label-post) {
-    background: var(--color-background);
-    border: var(--border-thickness) solid var(--color-border);
+:is(.a-label-pre, .a-label-post, .a-label-pre-boxed, .a-label-post-boxed) {
     color: var(--color-dark2);
     cursor: default;
-    padding: var(--space-2) var(--space-4);
-    text-wrap: nowrap;
 
     &:empty {
         display: none;
     }
+}
+
+:is(.a-label-pre-boxed, .a-label-post-boxed) {
+    background: var(--color-background);
+    border: var(--border-thickness) solid var(--color-border);
+    padding: var(--space-2) var(--space-4);
+    text-wrap: nowrap;
 }
 
 .a-label-total {

@@ -68,6 +68,15 @@ export default {
                 category: 'other',
             },
         },
+        scalelabel: {
+            control: 'text',
+            description: 'A string placed at either end of a scale',
+            table: {
+                type: { summary: 'string' },
+                category: 'Custom Properties',
+                subcategory: 'labels',
+            },
+        },
     },
     args: {
         prelabel: 'before',
@@ -76,6 +85,7 @@ export default {
         optionlabel: 'option text',
         sublistlabel: 'SubList',
         thumblabel: 10,
+        scalelabel: 'Scale label',
     },
 } as Meta;
 
@@ -83,7 +93,7 @@ export const PreLabel = {
     parameters: {
         controls: { include: ['prelabel'] },
     },
-    render: (args) => LabelStories.ALabelPre(args.prelabel),
+    render: (args) => LabelStories.ALabelPreBoxed(args.prelabel),
 };
 
 export const PostLabel = {
@@ -93,7 +103,7 @@ export const PostLabel = {
     parameters: {
         controls: { include: ['postlabel'] }, // Added include for postlabel
     },
-    render: (args) => LabelStories.ALabelPost(args.postlabel),
+    render: (args) => LabelStories.ALabelPostBoxed(args.postlabel),
 };
 
 export const QuestionLabel = {
@@ -144,4 +154,14 @@ export const MarkLabel = {
         controls: { include: ['marklabel'] },
     },
     render: (args) => LabelStories.ALabelMark(args.marklabel),
+};
+
+export const ScaleLabel = {
+    args: {
+        scalelabel: 'Scale label',
+    },
+    parameters: {
+        controls: { include: ['prelabel'] },
+    },
+    render: (args) => LabelStories.ALabelScale(args.scalelabel),
 };

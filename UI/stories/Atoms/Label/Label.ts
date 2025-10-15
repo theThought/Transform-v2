@@ -1,4 +1,3 @@
-// label.ts
 export function ALabelPre(theLabel?: string): HTMLSpanElement {
     const container: HTMLSpanElement = document.createElement('span');
     container.textContent = theLabel ?? null;
@@ -10,6 +9,20 @@ export function ALabelPost(theLabel?: string): HTMLSpanElement {
     const container: HTMLSpanElement = document.createElement('span');
     container.textContent = theLabel ?? null;
     container.classList.add('a-label-post');
+    return container;
+}
+
+export function ALabelPreBoxed(theLabel?: string): HTMLSpanElement {
+    const container: HTMLSpanElement = document.createElement('span');
+    container.textContent = theLabel ?? null;
+    container.classList.add('a-label-pre-boxed');
+    return container;
+}
+
+export function ALabelPostBoxed(theLabel?: string): HTMLSpanElement {
+    const container: HTMLSpanElement = document.createElement('span');
+    container.textContent = theLabel ?? null;
+    container.classList.add('a-label-post-boxed');
     return container;
 }
 
@@ -46,6 +59,13 @@ export function ALabelThumb(theLabel: number): HTMLElement {
 export function ALabelMark(theLabel: number): HTMLElement {
     const container: HTMLElement = document.createElement('span');
     container.classList.add('a-label-mark');
+    container.textContent = theLabel.toString();
+    return container;
+}
+
+export function ALabelScale(theLabel: number): HTMLElement {
+    const container: HTMLElement = document.createElement('span');
+    container.classList.add('a-label-pre');
     container.textContent = theLabel.toString();
     return container;
 }

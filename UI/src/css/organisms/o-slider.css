@@ -19,10 +19,17 @@ o-slider {
 
     .a-label-pre,
     .a-label-post {
-        border: none;
         inset-block-start: 1px;
-        padding: 0 var(--space-2);
+        padding: 0;
         position: relative;
+    }
+
+    .a-label-pre {
+        padding-inline-end: var(--space-2);
+    }
+
+    .a-label-post {
+        padding-inline-start: var(--space-2);
     }
 
     .m-label-prepost > * {
