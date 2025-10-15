@@ -106,6 +106,7 @@ export default class OLoop extends Component implements Subject {
         this.configureCellShading();
         this.configureRowStyles();
         this.configureSeparators();
+        this.setSeparatorStyle();
 
         this.addEventListener('questionChange', this.handleEvent);
         this.addEventListener('exclusiveOn', this.handleEvent);
@@ -306,6 +307,21 @@ export default class OLoop extends Component implements Subject {
             this.columnTotals[colindex].value = elementValue;
             this.recalculateColumnTotals();
         }
+    }
+
+    private setSeparatorStyle(): void {
+        const items: NodeListOf<HTMLElement> = this.querySelectorAll(
+            'o-question.question-no-separator > o-response',
+        );
+        if (!items) return;
+
+        items.forEach((item) => {
+            const questionGroup = item.dataset.questionGroup;
+            if (!questionGroup) return;
+            this.querySelector(
+                'colgroup[data-question-group*="' + questionGroup + '"]',
+            )?.classList.add('question-no-separator');
+        });
     }
 
     // Separators

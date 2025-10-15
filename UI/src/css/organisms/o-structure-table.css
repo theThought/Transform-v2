@@ -23,6 +23,10 @@ body.question-no-separator {
         }
     }
 
+    colgroup.question-no-separator {
+        border-inline-end-color: transparent;
+    }
+
     tbody,
     tr,
     td,
