@@ -6,6 +6,12 @@
     }
 }
 
+m-option-base [class^='a-singleline'] {
+    border-block-end-color: var(--color-border);
+    border-block-start-color: transparent;
+    border-inline-color: transparent;
+}
+
 /* Textarea */
 .a-multiline {
     inline-size: 100%;
