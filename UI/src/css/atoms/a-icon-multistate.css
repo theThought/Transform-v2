@@ -21,6 +21,11 @@
     background-position: -42px;
 }
 
+[data-readonly='true'] .a-icon-multistate[data-icon-type='listitem'] {
+    background-image: url('../../images/padlock.svg');
+    background-position: 0;
+}
+
 [data-selected='true'] .a-icon-multistate[data-icon-type='listitem'] {
     background-position: 0;
 }
