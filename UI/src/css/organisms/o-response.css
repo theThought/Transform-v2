@@ -1,2 +1,13 @@
 o-response {
+    &[data-readonly='true'] {
+        opacity: 0.5;
+    }
+
+    &[data-readonly='true'] [data-readonly='true']:not(input) {
+        opacity: 1;
+    }
+
+    &:not([data-readonly] [data-readonly='true']:not(input)) {
+        opacity: 0.5;
+    }
 }
