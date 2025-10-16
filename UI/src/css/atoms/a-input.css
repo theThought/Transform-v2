@@ -6,7 +6,7 @@
     }
 }
 
-m-option-base [class^='a-singleline'] {
+o-option-base [class^='a-singleline'] {
     border-block-end-color: var(--color-border);
     border-block-start-color: transparent;
     border-inline-color: transparent;
