@@ -14,7 +14,7 @@ export default class Option extends Component implements Observer {
         },
     };
 
-    private element: HTMLInputElement | null = null;
+    protected element: HTMLInputElement | null = null;
     private sublist: OOptionSublist | null = null;
     private isExclusive = false;
 
@@ -67,7 +67,7 @@ export default class Option extends Component implements Observer {
         this.style.maxWidth = this.properties.onesize.maxwidth;
     }
 
-    private changeState(check: boolean): void {
+    protected changeState(check: boolean): void {
         if (!this.element) return;
 
         if (check) {
@@ -111,7 +111,7 @@ export default class Option extends Component implements Observer {
         this.changeState(false);
     }
 
-    private onChange(): void {
+    protected onChange(): void {
         if (!this.element) return;
 
         if (this.isExclusive && this.element.checked) {
@@ -140,11 +140,7 @@ export default class Option extends Component implements Observer {
         if (this.element.disabled) return;
         if (this.element.readOnly) return;
 
-        // prevent focus from being stolen by the checkbox where the other-specifier text was clicked
-        const target = e.target as HTMLElement;
-        if (target.tagName !== 'INPUT') {
-            this.element.focus();
-        }
+        this.element.focus();
 
         // prevent radio buttons from de-selecting
         if (this.element.checked && this.element.type === 'radio') return;
@@ -153,7 +149,7 @@ export default class Option extends Component implements Observer {
         this.onChange();
     }
 
-    private onKeydown(e: KeyboardEvent): void {
+    protected onKeydown(e: KeyboardEvent): void {
         if (!this.element) return;
         if (this.element.disabled) return;
         if (this.element.readOnly) return;

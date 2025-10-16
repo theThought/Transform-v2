@@ -70,6 +70,13 @@ export default class OQuestion extends Component {
                 clickableElement.click();
             }
         }
+
+        const clickEvent = new CustomEvent('questionClick', {
+            bubbles: true,
+            detail: this,
+        });
+
+        this.dispatchEvent(clickEvent);
     }
 
     private handleVisibility(e: CustomEvent): void {
