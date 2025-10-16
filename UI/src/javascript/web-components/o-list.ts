@@ -461,15 +461,19 @@ export default class OList extends Component implements Observer {
     }
 
     private setSelectedOptionByIndex(): void {
-        this.clearSelectedOptions();
-        this.clearHighlightedOption();
-
         const currentVisibleList = this.buildVisibleList();
         const listItem = currentVisibleList[this.listPosition];
+
+        if (listItem?.dataset.readonly === 'true') {
+            return;
+        }
 
         if (typeof listItem === 'undefined') {
             return;
         }
+
+        this.clearSelectedOptions();
+        this.clearHighlightedOption();
 
         this.setOption(listItem);
         this.setValue(listItem);
