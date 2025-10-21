@@ -34,6 +34,7 @@ export default class OList extends Component implements Observer {
     private listPosition = -1;
     private control: OCombobox | ODropdown | null = null;
     private list: Array<HTMLLIElement> = [];
+    private visibleList: Array<HTMLLIElement> = [];
     private keyBuffer = '';
     private keyTimer: ReturnType<typeof setTimeout>;
     private keyBufferTimeout = 500;
@@ -78,18 +79,26 @@ export default class OList extends Component implements Observer {
 
     private buildList(): void {
         this.list = Array.from(this.querySelectorAll('li'));
+        this.indexList();
     }
 
-    private buildVisibleList(): Array<HTMLLIElement> {
-        return Array.from(
+    private buildVisibleList(): void {
+        this.visibleList = Array.from(
             this.querySelectorAll(
                 'li:not(.hidden-filter):not([class^="a-list-placeholder-"])',
             ),
         );
+        this.indexVisibleList();
     }
 
     private indexList(): void {
         this.list.forEach((node, index) => {
+            node.dataset.position = `${index}`;
+        });
+    }
+
+    private indexVisibleList(): void {
+        this.visibleList.forEach((node, index) => {
             node.dataset.position = `${index}`;
         });
     }
@@ -162,7 +171,7 @@ export default class OList extends Component implements Observer {
 
     private navigateLast(): void {
         this.clearHighlightedOption();
-        this.listPosition = this.list.length - 1;
+        this.listPosition = this.visibleList.length - 1;
         this.setHighlightedOption();
         this.updateScrollPosition();
     }
@@ -183,7 +192,7 @@ export default class OList extends Component implements Observer {
     }
 
     private navigateDown(): void {
-        const lastPosition = this.list.length - 1;
+        const lastPosition = this.visibleList.length - 1;
 
         if (this.listPosition === lastPosition) return;
         this.clearHighlightedOption();
@@ -218,7 +227,6 @@ export default class OList extends Component implements Observer {
 
         let listPasses = 0;
         let firstLetter: string;
-        const list = this.buildVisibleList();
         const highlightEl = this.querySelector('.highlight') as HTMLElement;
         const highlightId = highlightEl?.dataset.position ?? '-1';
         const highlightPos = parseInt(highlightId);
@@ -228,15 +236,15 @@ export default class OList extends Component implements Observer {
                 highlightEl.textContent?.substring(0, 1).toLowerCase() || '';
         } else {
             firstLetter =
-                list[this.listPosition]?.textContent
+                this.visibleList[this.listPosition]?.textContent
                     ?.substring(0, 1)
                     .toLowerCase() || '';
         }
 
         const startPos = Math.max(0, this.listPosition, highlightPos);
 
-        for (let i = startPos; i < list.length; i++) {
-            const currentItem = list[i];
+        for (let i = startPos; i < this.visibleList.length; i++) {
+            const currentItem = this.visibleList[i];
             const currentItemLabel = currentItem.innerText.toLowerCase();
 
             if (currentItemLabel.indexOf(input) === 0) {
@@ -249,7 +257,7 @@ export default class OList extends Component implements Observer {
                 ) {
                     // this is required if we've reached the end of the list and landed on an active item
                     // as the last element -- we will need to loop back for another pass at this point
-                    if (listPasses === 0 && i === list.length - 1) {
+                    if (listPasses === 0 && i === this.visibleList.length - 1) {
                         listPasses = 1;
                         i = -1;
                     }
@@ -265,7 +273,7 @@ export default class OList extends Component implements Observer {
 
             // this is required to reiterate the list for a second time in case we started part way
             // through with an existing selection
-            if (listPasses === 0 && i === list.length - 1) {
+            if (listPasses === 0 && i === this.visibleList.length - 1) {
                 listPasses = 1;
                 i = 0;
             }
@@ -332,6 +340,7 @@ export default class OList extends Component implements Observer {
         }
 
         droplistParentNode.appendChild(this.listElement);
+        this.buildVisibleList();
     }
 
     private displayEmptyMessage(visibility: boolean): void {
@@ -426,6 +435,7 @@ export default class OList extends Component implements Observer {
     }
 
     private clearSelectedOptions(): void {
+        this.listPosition = -1;
         const selectedOptions = <NodeListOf<HTMLElement>>(
             this.querySelectorAll('[data-selected="true"]')
         );
@@ -455,14 +465,13 @@ export default class OList extends Component implements Observer {
     }
 
     private setHighlightedOption(): void {
-        const listItem = this.list[this.listPosition];
+        const listItem = this.visibleList[this.listPosition];
         if (!listItem) return;
         listItem.classList.add('highlight');
     }
 
     private setSelectedOptionByIndex(): void {
-        const currentVisibleList = this.buildVisibleList();
-        const listItem = currentVisibleList[this.listPosition];
+        const listItem = this.visibleList[this.listPosition];
 
         if (listItem?.dataset.readonly === 'true') {
             return;
@@ -594,7 +603,7 @@ export default class OList extends Component implements Observer {
         this.element = this.querySelector('input');
         this.listElement = this.querySelector('ul');
         this.buildList();
-        this.indexList();
+        this.buildVisibleList();
         this.setListHeight(); // setListHeight must precede restoreSelection to ensure a pre-selected item is correctly scrolled into view
         this.restoreSelection();
         this.setFilterMethod();
