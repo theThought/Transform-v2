@@ -47,11 +47,11 @@ export default class OOptionTabstrip extends OOptionSublist {
     private updateCurrentTab(e: CustomEvent): void {
         if (!this.currentTab) return;
         const currentTabValue =
-            this.currentTab.querySelector('input')?.value ?? '';
+            this.currentTab.querySelector('input')?.value.toLowerCase() ?? '';
 
-        if (currentTabValue !== e.detail) {
+        if (currentTabValue !== e.detail.toLowerCase()) {
             const desiredTabInput: HTMLInputElement | null = this.querySelector(
-                `m-option-tab input[value='${e.detail}']`,
+                `m-option-tab input[value='${e.detail}' i]`,
             );
             const desiredTab = desiredTabInput?.parentElement;
             if (!desiredTab) return;
