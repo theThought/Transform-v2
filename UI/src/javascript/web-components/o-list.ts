@@ -85,7 +85,7 @@ export default class OList extends Component implements Observer {
     private buildVisibleList(): void {
         this.visibleList = Array.from(
             this.querySelectorAll(
-                'li:not(.hidden-filter):not([class^="a-list-placeholder-"])',
+                'li:not(.hidden-filter):not(.hidden-rule):not([class^="a-list-placeholder-"])',
             ),
         );
         this.indexVisibleList();
