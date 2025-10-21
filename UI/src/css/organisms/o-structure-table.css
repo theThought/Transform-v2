@@ -2,10 +2,6 @@ o-loop {
     display: block;
 }
 
-body.focus-question o-loop:has(o-response:focus-within) {
-    box-shadow: var(--box-shadow);
-}
-
 body.question-no-separator {
     colgroup[data-question-group] {
         border-inline-end-color: transparent;
