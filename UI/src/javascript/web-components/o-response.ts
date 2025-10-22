@@ -56,15 +56,11 @@ export default class OResponse extends Component implements Subject {
 
     private observers: Observer[] = [];
     private ready = false;
-    private isFiltered = false;
     private optionRuleParsingComplete = false;
     private hasOptionVisibilityRules = false;
     private alternativeRuleParsingComplete = false;
     private responses: Record<string, any> = [];
     private element: HTMLInputElement | null = null;
-    private filterSource = '';
-    private filterExclusions: string[] = [];
-
     private sourceQuestions: Record<string, any> = [];
     private complexVisibilityRule = '';
     private expandedVisibilityRule = '';
@@ -140,12 +136,25 @@ export default class OResponse extends Component implements Subject {
         // the incoming question is not included in the list of filter sources
         if (
             e.detail.qgroup.toLowerCase() !==
-            this.properties.filter.source.toLowerCase()
+                this.properties.filter.source.toLowerCase() ||
+            !this.properties.filter.exclusions.indexOf(e.detail.element.value)
         ) {
             return;
         }
 
-        this.notifyObservers('filter', e);
+        if (typeof e.detail.checkbox !== 'undefined') {
+            if (e.detail.checkbox.checked) {
+                this.hideOption(e.detail.checkbox.value, 'filter');
+            } else {
+                this.showOption(e.detail.checkbox.value, 'filter');
+            }
+        } else {
+            if (!e.detail.element.value.length) {
+                this.showOption(null, 'filter');
+            } else {
+                this.hideOption(e.detail.element.value.toLowerCase(), 'filter');
+            }
+        }
     }
 
     public addObserver(observer: Observer): void {
@@ -165,12 +174,6 @@ export default class OResponse extends Component implements Subject {
 
     private updateAnswerCount(e: CustomEvent): void {
         this.responses[e.detail.qid] = e.detail.value;
-    }
-
-    public filter(props: { source: string; exclusions: string[] }): void {
-        this.isFiltered = true;
-        this.filterSource = props.source;
-        this.filterExclusions = props.exclusions;
     }
 
     private hideOption(itemValue: string, hideMethod: string): void {
@@ -349,7 +352,6 @@ export default class OResponse extends Component implements Subject {
             return;
         }
 
-        console.log('Processing alternative label rules for ' + this.qgroup);
         this.getQuestionValues();
 
         this.properties.labels.alternatives.forEach((item) => {
