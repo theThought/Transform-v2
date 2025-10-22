@@ -205,6 +205,7 @@ export default class OResponse extends Component implements Subject {
         }
 
         this.sendResizeNotifier();
+        this.sendOptionVisibilityChange();
     }
 
     private applyHideMethod(element: HTMLElement, method: string): void {
@@ -256,6 +257,12 @@ export default class OResponse extends Component implements Subject {
         }
 
         this.sendResizeNotifier();
+        this.sendOptionVisibilityChange();
+    }
+
+    private sendOptionVisibilityChange(): void {
+        const detail = new CustomEvent('optionVisibilityChange', {});
+        this.notifyObservers('optionVisibilityChange', detail);
     }
 
     private sendResizeNotifier(): void {

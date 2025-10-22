@@ -61,6 +61,9 @@ export default class OList extends Component implements Observer {
             case 'newValue':
                 this.filterList(<CustomEvent>data);
                 break;
+            case 'optionVisibilityChange':
+                this.buildVisibleList();
+                break;
         }
     }
 
