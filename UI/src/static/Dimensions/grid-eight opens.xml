@@ -1,6 +1,6 @@
 <Questions>
     <Question>
-        <Style Color="{&quot;tabstrip&quot;:{&quot;question&quot;:&quot;tabs&quot;,&quot;tab&quot;:&quot;iterationopen&quot;}}" BgColor="loop:_QMoods" ElementAlign="NewLine"></Style>
+        <Style BgColor="loop:_QMoods" ElementAlign="NewLine"></Style>
         <Table UseTablesLayout="-1" Summary="Use a single word to describe your mood when you first woke up on each of the days of the last week" TableName="_Q_DDynamicPage_QMoods" TableID="_Q1" QuestionType="LoopCategorical">
             <Row Y="0">
                 <Cell X="0" Y="0" Class="mrGridCategoryText">
@@ -12,11 +12,11 @@
                 <Cell X="1" Y="0">
                     <Question>
                         <Style BgColor="singleline:_QMoods_QMon_QMood" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
-                            <Control Type="SingleLineEdit" Placeholder="desribe your mood"></Control>
+                            <Control Type="SingleLineEdit" Placeholder="describe your mood"></Control>
                         </Style>
                         <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QMoods_QMon_QMood" ElementID="_Q1_Q0_Q0" Value="" Length="40">
                             <Style BgColor="singleline:_QMoods_QMon_QMood" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
-                                <Control Type="SingleLineEdit" Placeholder="desribe your mood"></Control>
+                                <Control Type="SingleLineEdit" Placeholder="describe your mood"></Control>
                             </Style>
                         </Control>
                     </Question>
@@ -32,11 +32,11 @@
                 <Cell X="1" Y="1">
                     <Question>
                         <Style BgColor="singleline:_QMoods_QTue_QMood" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
-                            <Control Type="SingleLineEdit" Placeholder="desribe your mood"></Control>
+                            <Control Type="SingleLineEdit" Placeholder="describe your mood"></Control>
                         </Style>
                         <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QMoods_QTue_QMood" ElementID="_Q1_Q1_Q0" Value="" Length="40">
                             <Style BgColor="singleline:_QMoods_QTue_QMood" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
-                                <Control Type="SingleLineEdit" Placeholder="desribe your mood"></Control>
+                                <Control Type="SingleLineEdit" Placeholder="describe your mood"></Control>
                             </Style>
                         </Control>
                     </Question>
@@ -52,11 +52,11 @@
                 <Cell X="1" Y="2">
                     <Question>
                         <Style BgColor="singleline:_QMoods_QWed_QMood" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
-                            <Control Type="SingleLineEdit" Placeholder="desribe your mood"></Control>
+                            <Control Type="SingleLineEdit" Placeholder="describe your mood"></Control>
                         </Style>
                         <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QMoods_QWed_QMood" ElementID="_Q1_Q2_Q0" Value="" Length="40">
                             <Style BgColor="singleline:_QMoods_QWed_QMood" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
-                                <Control Type="SingleLineEdit" Placeholder="desribe your mood"></Control>
+                                <Control Type="SingleLineEdit" Placeholder="describe your mood"></Control>
                             </Style>
                         </Control>
                     </Question>
@@ -72,11 +72,11 @@
                 <Cell X="1" Y="3">
                     <Question>
                         <Style BgColor="singleline:_QMoods_QThu_QMood" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
-                            <Control Type="SingleLineEdit" Placeholder="desribe your mood"></Control>
+                            <Control Type="SingleLineEdit" Placeholder="describe your mood"></Control>
                         </Style>
                         <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QMoods_QThu_QMood" ElementID="_Q1_Q3_Q0" Value="" Length="40">
                             <Style BgColor="singleline:_QMoods_QThu_QMood" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
-                                <Control Type="SingleLineEdit" Placeholder="desribe your mood"></Control>
+                                <Control Type="SingleLineEdit" Placeholder="describe your mood"></Control>
                             </Style>
                         </Control>
                     </Question>
@@ -92,11 +92,11 @@
                 <Cell X="1" Y="4">
                     <Question>
                         <Style BgColor="singleline:_QMoods_QFri_QMood" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
-                            <Control Type="SingleLineEdit" Placeholder="desribe your mood"></Control>
+                            <Control Type="SingleLineEdit" Placeholder="describe your mood"></Control>
                         </Style>
                         <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QMoods_QFri_QMood" ElementID="_Q1_Q4_Q0" Value="" Length="40">
                             <Style BgColor="singleline:_QMoods_QFri_QMood" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
-                                <Control Type="SingleLineEdit" Placeholder="desribe your mood"></Control>
+                                <Control Type="SingleLineEdit" Placeholder="describe your mood"></Control>
                             </Style>
                         </Control>
                     </Question>
@@ -112,11 +112,11 @@
                 <Cell X="1" Y="5">
                     <Question>
                         <Style BgColor="singleline:_QMoods_QSat_QMood" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
-                            <Control Type="SingleLineEdit" Placeholder="desribe your mood"></Control>
+                            <Control Type="SingleLineEdit" Placeholder="describe your mood"></Control>
                         </Style>
                         <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QMoods_QSat_QMood" ElementID="_Q1_Q5_Q0" Value="" Length="40">
                             <Style BgColor="singleline:_QMoods_QSat_QMood" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
-                                <Control Type="SingleLineEdit" Placeholder="desribe your mood"></Control>
+                                <Control Type="SingleLineEdit" Placeholder="describe your mood"></Control>
                             </Style>
                         </Control>
                     </Question>
@@ -132,11 +132,11 @@
                 <Cell X="1" Y="6">
                     <Question>
                         <Style BgColor="singleline:_QMoods_QSun_QMood" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
-                            <Control Type="SingleLineEdit" Placeholder="desribe your mood"></Control>
+                            <Control Type="SingleLineEdit" Placeholder="describe your mood"></Control>
                         </Style>
                         <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QMoods_QSun_QMood" ElementID="_Q1_Q6_Q0" Value="" Length="40">
                             <Style BgColor="singleline:_QMoods_QSun_QMood" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
-                                <Control Type="SingleLineEdit" Placeholder="desribe your mood"></Control>
+                                <Control Type="SingleLineEdit" Placeholder="describe your mood"></Control>
                             </Style>
                         </Control>
                     </Question>
