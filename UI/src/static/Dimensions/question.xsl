@@ -131,7 +131,6 @@
                     </xsl:call-template>
                 </xsl:otherwise>
             </xsl:choose>
-            <xsl:comment>type: <xsl:value-of select="$qType"/></xsl:comment>
 
             <!--- Adds class to define below/side position -->
             <xsl:call-template name="LaunchQType">
@@ -174,6 +173,14 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
+
+        <xsl:comment>
+        <xsl:text>type: </xsl:text>
+        <xsl:value-of select="$qType"/>
+        <xsl:text> [ </xsl:text>
+        <xsl:value-of select="$qTypeBase"/>
+        <xsl:text> ]</xsl:text>
+        </xsl:comment>
 
         <xsl:choose>
             <xsl:when test="$qTypeBase='singleline'">
