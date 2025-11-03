@@ -1,12 +1,31 @@
 import Component from './component';
 import { Observer, Subject } from '../interfaces';
 
+interface CustomProperties {
+    balance: {
+        state: boolean;
+        minwidth: string;
+    };
+    onesize: {
+        state: boolean;
+        maxwidth: string;
+    };
+    tabstrip?: {
+        question: string;
+        tab: string;
+    };
+    sublistline?: {
+        state: boolean;
+        length: number;
+    };
+}
+
 export default class OOptionSublist
     extends Component
     implements Subject, Observer
 {
     protected observers: Observer[] = [];
-    protected properties = {
+    protected properties: CustomProperties = {
         balance: {
             state: false,
             minwidth: '',
@@ -17,7 +36,7 @@ export default class OOptionSublist
         },
         sublistline: {
             state: false,
-            length: '100',
+            length: 100,
         },
     };
 

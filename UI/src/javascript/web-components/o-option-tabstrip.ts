@@ -1,22 +1,7 @@
 import OOptionSublist from './o-option-sublist';
 
-interface CustomProperties {
-    balance: {
-        state: boolean;
-        minwidth: string;
-    };
-    onesize: {
-        state: boolean;
-        maxwidth: string;
-    };
-    tabstrip?: {
-        question: string;
-        tab: string;
-    };
-}
-
 export default class OOptionTabstrip extends OOptionSublist {
-    public properties: CustomProperties = {
+    public properties = {
         balance: {
             state: false,
             minwidth: '',
