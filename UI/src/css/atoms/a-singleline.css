@@ -1,0 +1,12 @@
+[class^='a-input'],
+[class^='a-singleline'] {
+    &::placeholder {
+        color: var(--color-placeholder);
+    }
+}
+
+o-option-base [class^='a-singleline'] {
+    border-block-end-color: var(--color-border);
+    border-block-start-color: transparent;
+    border-inline-color: transparent;
+}
