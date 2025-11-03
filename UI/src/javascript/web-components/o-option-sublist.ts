@@ -15,6 +15,10 @@ export default class OOptionSublist
             state: false,
             maxwidth: '',
         },
+        sublistline: {
+            state: false,
+            length: '100',
+        },
     };
 
     public tallest = 0;
@@ -114,6 +118,15 @@ export default class OOptionSublist
         }
     }
 
+    private addSeparatorLine(): void {
+        if (!this.properties.sublistline?.state) return;
+        const fieldset = this.closest('fieldset');
+        if (!fieldset) return;
+        const lineLength = this.properties.sublistline.length ?? 100;
+        fieldset.classList.add('separator');
+        fieldset.style.setProperty('--border-length', `${lineLength}%`);
+    }
+
     public connectedCallback(): void {
         super.connectedCallback();
 
@@ -122,5 +135,6 @@ export default class OOptionSublist
         this.addEventListener('exclusiveOn', this.handleEvent);
         this.addEventListener('broadcastChange', this.handleEvent);
         this.setBalance();
+        this.addSeparatorLine();
     }
 }

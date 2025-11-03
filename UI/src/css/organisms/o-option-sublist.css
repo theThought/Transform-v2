@@ -1,5 +1,8 @@
 o-option-sublist {
     align-items: flex-start;
+
+    /* the clear is to keep the sublist separate from the legend, which is floated to keep it within the fieldset */
+    clear: both;
     column-gap: 1em;
     display: flex;
     flex-direction: column;
@@ -16,9 +19,32 @@ o-option-sublist {
     }
 }
 
+fieldset {
+    --border-length: 100%;
+
+    position: relative;
+
+    legend {
+        float: left;
+    }
+}
+
+fieldset + fieldset.separator {
+    padding-block-start: var(--space-4);
+
+    &::before {
+        border-block-start: var(--border-thickness) dashed var(--color-light2);
+        content: '';
+        left: 0;
+        position: absolute;
+        top: calc(var(--border-thickness) * -0.5);
+        width: var(--border-length);
+    }
+}
+
 /* Special codes can follow many different question type controls, inside <o-response>. */
 fieldset > * + o-option-sublist {
-    margin-block-start: var(--space-2);
+    padding-block-start: var(--space-2);
 }
 
 fieldset + fieldset {
