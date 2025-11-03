@@ -59,7 +59,6 @@ export default class OQuestion extends Component {
     }
 
     private onClick(e: Event): void {
-        e.preventDefault();
         e.stopImmediatePropagation();
         if (this.parentElement?.tagName === 'TD' && e.target === this) {
             const clickableElement = this.querySelector(
