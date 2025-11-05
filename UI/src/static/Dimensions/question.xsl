@@ -1970,7 +1970,12 @@
     <xsl:template name="loopTopTitles">
         <xsl:param name="rows" />
         <xsl:param name="tableName" />
+
+        <xsl:variable name="cellswithcontent" select="count($rows/Cell/Label/Text[string-length(normalize-space(.)) &gt; 0])" />
+
+        <xsl:if test="$cellswithcontent &gt; 0">
             <xsl:for-each select="$rows">
+
                 <xsl:element name="tr">
                     <xsl:attribute name="class">
                         <xsl:text>m-structure-row-heading</xsl:text>
@@ -1996,6 +2001,7 @@
                     </xsl:for-each>
                 </xsl:element>
             </xsl:for-each>
+        </xsl:if>
     </xsl:template>
 
     <xsl:template name="loop-CheckforErrors">
