@@ -2652,6 +2652,17 @@
                 <xsl:with-param name="controlId" select="$qCategoryID" />
                 <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
             </xsl:call-template>
+
+
+            <xsl:if test="$otherQuestion">
+                <xsl:comment>
+                    <xsl:text>Other Question</xsl:text>
+                </xsl:comment>
+                <xsl:for-each select="$otherQuestion">
+                    <xsl:call-template name="Question" />
+                </xsl:for-each>
+            </xsl:if>
+
         </xsl:element>
 
     </xsl:template>

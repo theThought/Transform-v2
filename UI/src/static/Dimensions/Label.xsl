@@ -6,14 +6,16 @@
     <xsl:param name="sLabelClass"/>
 
     <xsl:template match="*">
+        <xsl:element name="root">
         <xsl:choose>
             <xsl:when test="Style/Image">
-                <xsl:call-template name="o-label-question" />
+                <xsl:call-template name="o-media-image" />
             </xsl:when>
             <xsl:otherwise>
                 <xsl:call-template name="a-label-question" />
             </xsl:otherwise>
         </xsl:choose>
+        </xsl:element>
     </xsl:template>
 
     <xsl:template name="a-label-question">
@@ -69,11 +71,14 @@
     </xsl:if>
     </xsl:template>
 
-    <xsl:template name="o-label-question">
-        <xsl:element name="o-label-question">
+    <xsl:template name="o-media-image">
+        <xsl:element name="o-media-image">
             <xsl:if test="Style/Image">
                 <xsl:if test="Style/Image/@Position='Top'">
                     <xsl:call-template name="Image">
+                        <xsl:with-param name="properties">
+                            <xsl:value-of select="Style/Image/@BgColor"/>
+                        </xsl:with-param>
                     </xsl:call-template>
                 </xsl:if>
             </xsl:if>
@@ -190,36 +195,60 @@
         <xsl:if test="Style/Cell/@PaddingBottom">padding-bottom: <xsl:value-of select="Style/Cell/@PaddingBottom"/>px;</xsl:if>
     </xsl:template>
 
-    <xsl:template name="Image">
-        <xsl:comment>Image Template</xsl:comment>
-        <xsl:element name="img">
-            <xsl:attribute name="src">
-                <xsl:value-of select="Style/Image/@Name"/>
+    <xsl:template name="Image">   
+        <xsl:param name="properties"/>
+        <xsl:element name="div">
+            <xsl:attribute name="class">a-media-card</xsl:attribute>
+            <xsl:attribute name="data-properties">
+                <xsl:value-of select="$properties"/>
             </xsl:attribute>
 
-            <xsl:if test="Style/Image/@AltText">
-                <xsl:choose>
-                    <xsl:when test="Style/Image/@AltText != ''">
-                        <xsl:attribute name="alt">
-                            <xsl:value-of select="Style/Image/@AltText"/>
-                        </xsl:attribute>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:attribute name="alt">For Accessiblity Add an alt tag that describes the image</xsl:attribute>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:if>
+            <xsl:comment>Image Template</xsl:comment>
 
-            <xsl:if test="Style/Image/@Width">
-                <xsl:attribute name="data-originalWidth">
-                    <xsl:value-of select="Style/Image/@Width"/>
+            <xsl:element name="img">
+                <xsl:attribute name="class">a-media-image</xsl:attribute>
+                <xsl:attribute name="src">
+                    <xsl:value-of select="Style/Image/@Name"/>
                 </xsl:attribute>
-            </xsl:if>
-            <xsl:if test="Style/Image/@Height">
-                <xsl:attribute name="data-originalHeight">
-                    <xsl:value-of select="Style/Image/@Height"/>
-                </xsl:attribute>
-            </xsl:if>
+
+                <xsl:if test="Style/Image/@AltText">
+                    <xsl:choose>
+                        <xsl:when test="Style/Image/@AltText != ''">
+                            <xsl:attribute name="alt">
+                                <xsl:value-of select="Style/Image/@AltText"/>
+                            </xsl:attribute>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:attribute name="alt">For Accessiblity Add an alt tag that describes the image</xsl:attribute>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:if>
+
+                <xsl:if test="Style/Image/@Width">
+                    <xsl:attribute name="data-originalWidth">
+                        <xsl:value-of select="Style/Image/@Width"/>
+                    </xsl:attribute>
+                </xsl:if>
+                <xsl:if test="Style/Image/@Height">
+                    <xsl:attribute name="data-originalHeight">
+                        <xsl:value-of select="Style/Image/@Height"/>
+                    </xsl:attribute>
+                </xsl:if>
+            </xsl:element>
+
+            <xsl:element name="div">
+                <xsl:attribute name="class">a-media-buttonstrip</xsl:attribute>
+                <xsl:element name="img">
+                    <xsl:attribute name="class">a-icon-multistate</xsl:attribute>
+                    <xsl:attribute name="data-source">fullscreen</xsl:attribute>
+                    <xsl:attribute name="src">
+                        <xsl:text>https://media.ipsosinteractive.com/media/images/icons/fullscreen.png</xsl:text>
+                    </xsl:attribute>
+                    <xsl:attribute name="width">24</xsl:attribute>
+                    <xsl:attribute name="height">24</xsl:attribute>
+                    <xsl:attribute name="alt">Tap to expand to full screen</xsl:attribute>
+                </xsl:element>
+            </xsl:element>
         </xsl:element>
     </xsl:template>
 </xsl:stylesheet>
