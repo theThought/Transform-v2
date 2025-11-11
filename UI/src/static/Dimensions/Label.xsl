@@ -77,7 +77,7 @@
                 <xsl:if test="Style/Image/@Position='Top'">
                     <xsl:call-template name="Image">
                         <xsl:with-param name="properties">
-                            <xsl:value-of select="Style/Image/@BgColor"/>
+                            <xsl:value-of select="Style/Image/@Color"/>
                         </xsl:with-param>
                     </xsl:call-template>
                 </xsl:if>
@@ -111,8 +111,6 @@
 
     <xsl:template name="LabelStyle">
         <!--- adds the label styles to a style attribute -->
-        <xsl:if test="Style/@BgColor">background-color: <xsl:value-of select="Style/@BgColor"/>;</xsl:if>
-        <xsl:if test="Style/@Color">color: <xsl:value-of select="Style/@Color"/>;</xsl:if>
         <xsl:if test="Style/@Width">width: <xsl:value-of select="Style/@Width"/>;</xsl:if>
         <xsl:if test="Style/@Height">height: <xsl:value-of select="Style/@Height"/>;</xsl:if>
         <xsl:if test="Style/@Hidden = 'true'">visibility: hidden;</xsl:if>
@@ -155,7 +153,6 @@
             <xsl:when test="Style/@VerticalAlign = 'TextBottom'">vertical-align: text-bottom;</xsl:when>
             <xsl:when test="Style/@VerticalAlign">vertical-align: <xsl:value-of select="Style/@VerticalAlign"/>;</xsl:when>
         </xsl:choose>
-        <xsl:if test="Style/Cell/@BgColor">background-color: <xsl:value-of select="Style/Cell/@BgColor"/>;</xsl:if>
         <xsl:if test="Style/Cell/@Width">width: <xsl:value-of select="Style/Cell/@Width"/>;</xsl:if>
         <xsl:if test="Style/Cell/@Height">height: <xsl:value-of select="Style/Cell/@Height"/>;</xsl:if>
         <xsl:if test="Style/Cell/@Wrap = 'false'">white-space: nowrap;</xsl:if>
