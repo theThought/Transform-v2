@@ -122,7 +122,7 @@ export default class MSliderTrack extends Component implements Observer {
             Math.round((thumbWidth * position) / 100) - thumbWidth / 2;
         const positionPaddingOffset = Math.round((5 * position) / 100) - 2.5;
 
-        this.output.style.left =
+        this.output.style.insetInlineStart =
             'calc(' +
             position +
             '% - ' +

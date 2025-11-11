@@ -58,3 +58,13 @@ o-slider {
         }
     }
 }
+
+[dir='rtl'] o-slider {
+    a-button-terminator[data-behaviour='decrement'] {
+        transform: rotate(0deg);
+    }
+
+    a-button-terminator[data-behaviour='increment'] {
+        transform: rotate(180deg);
+    }
+}
