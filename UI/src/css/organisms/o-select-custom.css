@@ -5,10 +5,10 @@
     o-list {
         block-size: 0;
         display: block;
+        inline-size: fit-content;
         opacity: 0;
         pointer-events: none;
         position: absolute;
-        width: fit-content;
         z-index: 1;
 
         li {
@@ -17,7 +17,7 @@
     }
 
     .o-list {
-        width: 100%;
+        inline-size: fit-content;
     }
 
     &.focus {

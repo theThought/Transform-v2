@@ -114,30 +114,38 @@ export default class ODropdown extends Component implements Subject {
 
     private setInputWidth(): void {
         if (!this.element) return;
-        const currentSize = this.element.placeholder.length;
-        if (currentSize) {
-            this.element.style.width = `${currentSize}ch`;
-        }
-        const currentWidth = this.element.offsetWidth;
         const list = this.element.nextElementSibling as HTMLElement;
         if (!list) return;
-        const currentListWidth = list.offsetWidth;
-        if (currentListWidth < currentWidth) {
-            list.style.minWidth = `${currentWidth}px`;
+
+        if (this.element.placeholder.length) {
+            this.addListEntry(
+                list,
+                'a-list-hidden-placeholder-prompt',
+                this.element.placeholder,
+            );
         }
 
         const resizeObserver = new ResizeObserver((entries) => {
             for (const entry of entries) {
                 if (!this.element) return;
-                const newWidth = Math.max(
-                    currentWidth,
-                    entry.contentBoxSize[0].inlineSize,
-                );
-                this.element.style.maxWidth = `${newWidth}px`;
+                this.element.style.maxWidth = `${entry.contentBoxSize[0].inlineSize}px`;
             }
         });
 
         resizeObserver.observe(list);
+    }
+
+    public addListEntry(
+        list: HTMLElement,
+        className: string,
+        content: string,
+    ): void {
+        const listEntries = list.querySelector('ul');
+        if (!listEntries) return;
+        const newEntry = document.createElement('li');
+        newEntry.classList.add(className);
+        newEntry.innerHTML = `***${content}***`;
+        listEntries.appendChild(newEntry);
     }
 
     private removeTabIndex(): void {
