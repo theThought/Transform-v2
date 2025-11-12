@@ -33,3 +33,24 @@ The CSS utility class behaves the same as the HTML attribute.
 .unavailable {
     display: none;
 }
+
+.l-cover {
+    background: white;
+    background-image: url('../../images/loading.svg');
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    height: 100%;
+    inset: 0;
+    opacity: 1;
+    position: absolute;
+    transition:
+        opacity 500ms 0ms,
+        z-index 0ms 1s;
+    width: 100%;
+    z-index: 99;
+}
+
+[data-complete] .l-cover {
+    opacity: 0;
+    z-index: -99;
+}

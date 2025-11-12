@@ -88,10 +88,15 @@ export default class OQuestion extends Component {
         }
     }
 
+    private setCompleteFlag(): void {
+        this.dataset.complete = 'true';
+    }
+
     public connectedCallback(): void {
         this.cleanEmptyLayout();
         this.addEventListener('click', this.handleEvent);
         this.addEventListener('questionVisibility', this.handleEvent);
         this.addEventListener('setSeparatorStyle', this.handleEvent);
+        this.setCompleteFlag();
     }
 }

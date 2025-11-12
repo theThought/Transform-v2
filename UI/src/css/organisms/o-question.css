@@ -2,6 +2,7 @@ o-question {
     border-block-end: var(--border-thickness) solid var(--color-light2);
     display: block;
     padding: var(--space-4);
+    position: relative;
 
     td > o-question {
         padding: var(--space-2);
