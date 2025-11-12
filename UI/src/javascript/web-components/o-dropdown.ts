@@ -120,7 +120,7 @@ export default class ODropdown extends Component implements Subject {
         if (this.element.placeholder.length) {
             this.addListEntry(
                 list,
-                'a-list-hidden-placeholder-prompt',
+                'a-list-placeholder-hidden-prompt',
                 this.element.placeholder,
             );
         }

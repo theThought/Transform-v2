@@ -81,7 +81,9 @@ export default class OList extends Component implements Observer {
     }
 
     private buildList(): void {
-        this.list = Array.from(this.querySelectorAll('li'));
+        this.list = Array.from(
+            this.querySelectorAll('li:not([class^="a-list-placeholder-"])'),
+        );
         this.indexList();
     }
 
@@ -362,20 +364,26 @@ export default class OList extends Component implements Observer {
         }
     }
 
-    private createNotEnoughCharactersMessage(): void {
+    private addListEntry(className: string, content: string): void {
         if (!this.listElement) return;
-        const placeholderElement = document.createElement('li');
-        placeholderElement.classList.add('a-list-placeholder-restriction');
-        placeholderElement.innerHTML = this.properties.notenoughcharacters;
-        this.listElement.appendChild(placeholderElement);
+        const newEntry = document.createElement('li');
+        newEntry.classList.add(className);
+        newEntry.innerHTML = content;
+        this.listElement.appendChild(newEntry);
+    }
+
+    private createNotEnoughCharactersMessage(): void {
+        this.addListEntry(
+            'a-list-placeholder-restriction',
+            this.properties.notenoughcharacters,
+        );
     }
 
     private createNoItemsInListMessage(): void {
-        if (!this.listElement) return;
-        const placeholderElement = document.createElement('li');
-        placeholderElement.classList.add('a-list-placeholder-empty');
-        placeholderElement.innerHTML = this.properties.noitemsinlist;
-        this.listElement.appendChild(placeholderElement);
+        this.addListEntry(
+            'a-list-placeholder-empty',
+            this.properties.noitemsinlist,
+        );
     }
 
     private onClick(e: Event): void {
