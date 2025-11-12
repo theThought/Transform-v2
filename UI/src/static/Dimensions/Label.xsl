@@ -7,67 +7,77 @@
 
     <xsl:template match="*">
         <xsl:element name="root">
-        <xsl:choose>
-            <xsl:when test="Style/Image">
-                <xsl:call-template name="o-media-image" />
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:call-template name="a-label-question" />
-            </xsl:otherwise>
-        </xsl:choose>
+            <xsl:choose>
+                <xsl:when test="Text">
+                    <xsl:choose>
+                        <xsl:when test="Style/Image">
+                            <xsl:call-template name="o-media-image" />
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:call-template name="a-label-question" />
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:comment>No question label</xsl:comment>
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:element>
     </xsl:template>
 
     <xsl:template name="a-label-question">
-      <label>
-      <xsl:choose>
-        <xsl:when test="name()='Error'">
-          <xsl:attribute name="class">Error</xsl:attribute>
-          <xsl:call-template name="LabelBase"/>
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:choose>
-              <xsl:when test="$bIncludeElementIds and @ElementId != ''">
-                  <xsl:element name="label">
-                      <xsl:attribute name="for">
-                          <xsl:value-of select="@ElementId"/>
-                      </xsl:attribute>
-                      <xsl:call-template name="LabelBase"/>
-                  </xsl:element>
-              </xsl:when>
-              <xsl:otherwise>
+        <xsl:choose>
+            <xsl:when test="Style/@BgColor">
                 <xsl:call-template name="LabelBase"/>
-              </xsl:otherwise>
-          </xsl:choose>
-        </xsl:otherwise>
-      </xsl:choose>
-    </label>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:element name='label'>
+                    <xsl:choose>
+                        <xsl:when test="name()='Error'">
+                        <xsl:attribute name="class">Error</xsl:attribute>
+                        <xsl:call-template name="LabelBase"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                        <xsl:choose>
+                            <xsl:when test="$bIncludeElementIds and @ElementId != ''">
+                                <xsl:attribute name="for">
+                                    <xsl:value-of select="@ElementId"/>
+                                </xsl:attribute>
+                                <xsl:call-template name="LabelBase"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:call-template name="LabelBase"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:element>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
 
     <xsl:template name="LabelBase">
 
     <xsl:if test="Text">
-        <xsl:element name="span">
-            <xsl:choose>
-                <xsl:when test="$sLabelClass='mrBannerText'">
-                    <xsl:call-template name="Label"/>
-                </xsl:when>
-                <xsl:when test="$sLabelClass='mrQuestionText'">
-                    <xsl:attribute name="class">a-label-question</xsl:attribute>        
-                    <xsl:attribute name="style">
-                        <xsl:call-template name="LabelStyle"/>
-                        <xsl:if test="Style/@Width or Style/@Height">
-                            <xsl:call-template name="SpanStyle"/>
-                        </xsl:if>
-                        <xsl:call-template name="BlockStyle"/>
-                    </xsl:attribute>
-                    <xsl:call-template name="Label"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:call-template name="Label"/>
-                </xsl:otherwise>
-            </xsl:choose>   
-        </xsl:element>
+        <xsl:choose>
+            <xsl:when test="$sLabelClass='mrBannerText'">
+                <xsl:call-template name="Label"/>
+            </xsl:when>
+            <xsl:when test="$sLabelClass='mrQuestionText'">
+                <xsl:attribute name="class">a-label-question</xsl:attribute>        
+                <xsl:attribute name="style">
+                    <xsl:call-template name="LabelStyle"/>
+                    <xsl:if test="Style/@Width or Style/@Height">
+                        <xsl:call-template name="SpanStyle"/>
+                    </xsl:if>
+                    <xsl:call-template name="BlockStyle"/>
+                </xsl:attribute>
+                <xsl:call-template name="Label"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="Label"/>
+            </xsl:otherwise>
+        </xsl:choose>   
     </xsl:if>
     </xsl:template>
 
