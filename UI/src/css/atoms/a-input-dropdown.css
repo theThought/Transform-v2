@@ -1,0 +1,25 @@
+/* Combobox/dropdown */
+o-dropdown {
+    .a-input-dropdown {
+        background: var(--color-primary)
+            url('../../images/white-chevron-down.png') no-repeat right 12px
+            center;
+        border-color: var(--color-primary);
+        caret-color: transparent;
+        color: var(--color-lightest);
+        cursor: default;
+        padding-block: calc(var(--space-1) * 2);
+        padding-inline-end: calc(var(--space-4) * 3);
+        text-overflow: ellipsis;
+        width: 100%;
+
+        &::placeholder {
+            color: var(--color-lightest);
+        }
+    }
+}
+
+html[dir='rtl'] o-dropdown .a-input-dropdown {
+    background: var(--color-primary) url('../../images/white-chevron-down.png')
+        no-repeat left 12px center;
+}
