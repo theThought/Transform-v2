@@ -10,11 +10,6 @@ o-question {
     &:last-child {
         border: 0;
     }
-
-    &:has(o-response:focus-within) {
-        background: var(--color-white);
-        border-block-end-color: transparent;
-    }
 }
 
 .question-no-separator o-question,
@@ -22,7 +17,12 @@ o-question.question-no-separator {
     border-block-end-color: transparent;
 }
 
-body.focus-question
-    o-question:has(o-response:focus-within):not(.surroundcontent > o-question) {
-    box-shadow: var(--box-shadow);
+body.focus-question {
+    o-question:not([data-global]):has(o-response:focus-within) {
+        box-shadow: var(--box-shadow);
+    }
+
+    o-question[data-global] + o-question:has(o-response:focus-within) {
+        box-shadow: none;
+    }
 }
