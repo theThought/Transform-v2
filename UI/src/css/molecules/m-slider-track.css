@@ -4,6 +4,7 @@ m-slider-track {
     position: relative;
 
     output {
+        inset-block-start: -26px;
         position: absolute;
         visibility: hidden;
     }
@@ -24,16 +25,17 @@ m-slider-track {
         input[type='range']::-moz-range-thumb {
             visibility: visible;
         }
-
-        output {
-            /* specific value -26px to align the thumb with the standard padding applied to label */
-            transform: translate(-50%, -26px);
-        }
-
-        &.show-value {
-            output {
-                visibility: visible;
-            }
-        }
     }
+}
+
+[dir='ltr'] m-slider-track output {
+    transform: translateX(-50%);
+}
+
+[dir='rtl'] m-slider-track output {
+    transform: translateX(50%);
+}
+
+m-slider-track.show-value output {
+    visibility: visible;
 }

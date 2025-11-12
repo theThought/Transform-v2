@@ -120,16 +120,9 @@ export default class MSliderTrack extends Component implements Observer {
         const position = Number(((value - this.min) / range) * 100);
         const positionOffset =
             Math.round((thumbWidth * position) / 100) - thumbWidth / 2;
-        const positionPaddingOffset = Math.round((5 * position) / 100) - 2.5;
+        const positionPaddingOffset = Math.round((4 * position) / 100) - 2;
 
-        this.output.style.insetInlineStart =
-            'calc(' +
-            position +
-            '% - ' +
-            positionOffset +
-            'px - ' +
-            positionPaddingOffset +
-            'px)';
+        this.output.style.insetInlineStart = `calc(${position}% - ${positionOffset}px - ${positionPaddingOffset}px)`;
     }
 
     private configureMarks(): void {
@@ -161,20 +154,36 @@ export default class MSliderTrack extends Component implements Observer {
         const percentageFill =
             'calc(' + percentage + '% + ' + adjustmentCalc + 'px)';
 
-        this.element.style.setProperty(
-            'background',
-            'radial-gradient(farthest-side, var(--color-secondary) 100%, transparent 100%) 4px 4px / 10px 12px, ' +
+        if (document.dir === 'ltr') {
+            this.element.style.setProperty(
+                'background',
+                'radial-gradient(farthest-side, var(--color-secondary) 100%, transparent 100%) 4px 4px / 10px 12px, ' +
+                    'linear-gradient(to bottom, white 0, white 4px, transparent 4px, transparent 16px, white 16px),' +
+                    'linear-gradient(to right, white 0, white 8px, ' +
+                    'var(--color-secondary) ' +
+                    ' 8px, ' +
+                    'var(--color-secondary) ' +
+                    ' ' +
+                    percentageFill +
+                    ', transparent ' +
+                    percentageFill +
+                    ', transparent 100%)',
+            );
+        } else {
+            this.element.style.setProperty(
+                'background',
                 'linear-gradient(to bottom, white 0, white 4px, transparent 4px, transparent 16px, white 16px),' +
-                'linear-gradient(to right, white 0, white 8px, ' +
-                'var(--color-secondary) ' +
-                ' 8px, ' +
-                'var(--color-secondary) ' +
-                ' ' +
-                percentageFill +
-                ', transparent ' +
-                percentageFill +
-                ', transparent 100%)',
-        );
+                    'linear-gradient(to left, white 0, white 8px, ' +
+                    'var(--color-secondary) ' +
+                    ' 8px, ' +
+                    'var(--color-secondary) ' +
+                    ' ' +
+                    percentageFill +
+                    ', transparent ' +
+                    percentageFill +
+                    ', transparent 100%)',
+            );
+        }
 
         this.element.style.setProperty('background-repeat', 'no-repeat');
     }
