@@ -8,10 +8,10 @@ o-dropdown {
         caret-color: transparent;
         color: var(--color-lightest);
         cursor: default;
+        inline-size: 100%;
         padding-block: calc(var(--space-1) * 2);
         padding-inline-end: calc(var(--space-4) * 3);
         text-overflow: ellipsis;
-        width: 100%;
 
         &::placeholder {
             color: var(--color-lightest);

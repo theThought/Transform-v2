@@ -114,13 +114,26 @@ export default class ODropdown extends Component implements Subject {
 
     private setInputWidth(): void {
         if (!this.element) return;
-        const list = this.element.nextElementSibling;
+        const currentSize = this.element.placeholder.length;
+        if (currentSize) {
+            this.element.style.width = `${currentSize}ch`;
+        }
+        const currentWidth = this.element.offsetWidth;
+        const list = this.element.nextElementSibling as HTMLElement;
         if (!list) return;
+        const currentListWidth = list.offsetWidth;
+        if (currentListWidth < currentWidth) {
+            list.style.minWidth = `${currentWidth}px`;
+        }
 
         const resizeObserver = new ResizeObserver((entries) => {
             for (const entry of entries) {
                 if (!this.element) return;
-                this.element.style.maxWidth = `${entry.contentBoxSize[0].inlineSize}px`;
+                const newWidth = Math.max(
+                    currentWidth,
+                    entry.contentBoxSize[0].inlineSize,
+                );
+                this.element.style.maxWidth = `${newWidth}px`;
             }
         });
 
