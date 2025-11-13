@@ -76,13 +76,37 @@ export default {
                 category: 'Dimensions',
             },
         },
+        placeholder: {
+            control: 'text',
+            description: 'A short hint that describes the expected value',
+            table: {
+                type: { summary: 'string' },
+                category: 'Dimensions',
+            },
+        },
+        value: {
+            control: 'text',
+            description: 'Provide an initial value for the input',
+            table: {
+                type: { summary: 'string' },
+                category: 'Dimensions',
+            },
+        },
     },
 } as Meta;
 
 type Singleline = StoryObj<typeof InputStories.ASingleline>;
 export const Singleline: Singleline = {
     parameters: {
-        controls: { include: ['text-align', 'width', 'maxlength'] },
+        controls: {
+            include: [
+                'text-align',
+                'width',
+                'maxlength',
+                'placeholder',
+                'value',
+            ],
+        },
     },
     args: {
         type: 'text',
@@ -94,7 +118,16 @@ export const Singleline: Singleline = {
 type SinglelineNumber = StoryObj<typeof InputStories.ASingleline>;
 export const SinglelineNumber: SinglelineNumber = {
     parameters: {
-        controls: { include: ['text-align', 'width', 'minimum', 'maximum'] },
+        controls: {
+            include: [
+                'text-align',
+                'width',
+                'minimum',
+                'maximum',
+                'placeholder',
+                'value',
+            ],
+        },
     },
     args: {
         type: 'number',
@@ -119,7 +152,7 @@ type SinglelineRange = StoryObj<typeof InputStories.ASingleline>;
 export const SinglelineRange: SinglelineRange = {
     parameters: {
         controls: {
-            include: ['width', 'minimum', 'maximum'],
+            include: ['width', 'minimum', 'maximum', 'value'],
         },
     },
     args: {
@@ -132,7 +165,7 @@ type Multiline = StoryObj<typeof InputStories.AMultiline>;
 export const Multiline: Multiline = {
     parameters: {
         controls: {
-            include: ['text-align', 'width'],
+            include: ['text-align', 'width', 'value'],
         },
     },
     render: (args: object): HTMLTextAreaElement =>

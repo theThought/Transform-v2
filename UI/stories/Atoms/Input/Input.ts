@@ -3,8 +3,10 @@ export function ASingleline(args: any): HTMLInputElement {
     const alignment = args['text-align']
         ? `text-align: ${args['text-align']};`
         : '';
+    const value = args.value ? `${args.value}` : '';
     const component: HTMLInputElement = document.createElement('input');
     component.placeholder = args['placeholder'] ? `${args['placeholder']}` : '';
+    component.setAttribute('value', value);
 
     switch (args.type) {
         case 'text':
@@ -69,6 +71,7 @@ export function AMultiline(args: any): HTMLTextAreaElement {
         : '';
     const component: HTMLTextAreaElement = document.createElement('textarea');
     component.classList.add('a-multiline');
+    component.innerHTML = args.value;
 
     // Apply the width and alignment styles
     component.setAttribute('style', `${width} ${alignment}`);
