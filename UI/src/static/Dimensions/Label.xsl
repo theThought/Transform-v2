@@ -41,7 +41,14 @@
                         <xsl:choose>
                             <xsl:when test="$bIncludeElementIds and @ElementId != ''">
                                 <xsl:attribute name="for">
-                                    <xsl:value-of select="@ElementId"/>
+                                    <xsl:choose>
+                                        <xsl:when test="substring(@ElementId, string-length(@ElementId) - 1) = '_C'">
+                                            <xsl:value-of select="substring(@ElementId, 1, string-length(@ElementId) - 2)" />
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:value-of select="@ElementId" />
+                                        </xsl:otherwise>
+                                    </xsl:choose>
                                 </xsl:attribute>
                                 <xsl:call-template name="LabelBase"/>
                             </xsl:when>
