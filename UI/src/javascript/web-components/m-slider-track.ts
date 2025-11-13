@@ -154,12 +154,11 @@ export default class MSliderTrack extends Component implements Observer {
         const percentageFill =
             'calc(' + percentage + '% + ' + adjustmentCalc + 'px)';
 
-        if (document.dir === 'ltr') {
+        if (document.dir === 'rtl') {
             this.element.style.setProperty(
                 'background',
-                'radial-gradient(farthest-side, var(--color-secondary) 100%, transparent 100%) 4px 4px / 10px 12px, ' +
-                    'linear-gradient(to bottom, white 0, white 4px, transparent 4px, transparent 16px, white 16px),' +
-                    'linear-gradient(to right, white 0, white 8px, ' +
+                'linear-gradient(to bottom, white 0, white 4px, transparent 4px, transparent 16px, white 16px),' +
+                    'linear-gradient(to left, white 0, white 8px, ' +
                     'var(--color-secondary) ' +
                     ' 8px, ' +
                     'var(--color-secondary) ' +
@@ -172,8 +171,9 @@ export default class MSliderTrack extends Component implements Observer {
         } else {
             this.element.style.setProperty(
                 'background',
-                'linear-gradient(to bottom, white 0, white 4px, transparent 4px, transparent 16px, white 16px),' +
-                    'linear-gradient(to left, white 0, white 8px, ' +
+                'radial-gradient(farthest-side, var(--color-secondary) 100%, transparent 100%) 4px 4px / 10px 12px, ' +
+                    'linear-gradient(to bottom, white 0, white 4px, transparent 4px, transparent 16px, white 16px),' +
+                    'linear-gradient(to right, white 0, white 8px, ' +
                     'var(--color-secondary) ' +
                     ' 8px, ' +
                     'var(--color-secondary) ' +

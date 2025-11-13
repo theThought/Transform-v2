@@ -6,6 +6,7 @@ m-slider-track {
     output {
         inset-block-start: -26px;
         position: absolute;
+        transform: translateX(-50%);
         visibility: hidden;
     }
 
@@ -26,10 +27,6 @@ m-slider-track {
             visibility: visible;
         }
     }
-}
-
-[dir='ltr'] m-slider-track output {
-    transform: translateX(-50%);
 }
 
 [dir='rtl'] m-slider-track output {
