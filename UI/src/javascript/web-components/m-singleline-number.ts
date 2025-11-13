@@ -8,6 +8,7 @@ export default class MSinglelineNumber extends MSingleline {
         },
         allowPaste: false,
         step: 'any',
+        showspinner: false,
     };
 
     constructor() {
@@ -22,8 +23,14 @@ export default class MSinglelineNumber extends MSingleline {
         this.element.step = this.properties.step;
     }
 
+    private setSpinnerVisibility(): void {
+        if (!this.element || this.properties.showspinner) return;
+        this.element.classList.add('hide-spinner');
+    }
+
     public connectedCallback(): void {
         super.connectedCallback();
         this.setStep();
+        this.setSpinnerVisibility();
     }
 }

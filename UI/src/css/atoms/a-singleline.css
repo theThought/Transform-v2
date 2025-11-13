@@ -10,3 +10,13 @@ o-option-base [class^='a-singleline'] {
     border-block-start-color: transparent;
     border-inline-color: transparent;
 }
+
+input[type='number'].hide-spinner {
+    appearance: textfield;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+        appearance: none;
+        margin: 0;
+    }
+}
