@@ -16,6 +16,7 @@
     .a-label-option {
         padding-inline-end: calc(var(--space-1) * 1.5);
         padding-inline-start: 0;
+        text-align: start;
     }
 
     &[data-selected='true'] {
