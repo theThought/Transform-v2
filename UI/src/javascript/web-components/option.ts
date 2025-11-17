@@ -173,6 +173,24 @@ export default class Option extends Component implements Observer {
         this.style.minWidth = `${minWidth}`;
     }
 
+    private setupResizeNotifications(): void {
+        if (!this.sublist || !this.properties.onesize.state) {
+            return;
+        }
+
+        const observer = new ResizeObserver((entries) => {
+            for (const entry of entries) {
+                this.informSizeChange(
+                    entry.borderBoxSize[0].inlineSize,
+                    entry.borderBoxSize[0].blockSize,
+                );
+            }
+        });
+
+        // start listening for size changes
+        observer.observe(this);
+    }
+
     private informSizeChange(width: number, height: number): void {
         width = Math.ceil(width);
         height = Math.ceil(height);
@@ -196,24 +214,9 @@ export default class Option extends Component implements Observer {
         this.setBalanceWidth();
         this.setMaxOneSize();
         this.setReadonly();
+        this.setupResizeNotifications();
 
         if (this.sublist) this.sublist.addObserver(this);
-
-        if (!this.sublist || !this.properties.onesize.state) {
-            return;
-        }
-
-        const observer = new ResizeObserver((entries) => {
-            for (const entry of entries) {
-                this.informSizeChange(
-                    entry.borderBoxSize[0].inlineSize,
-                    entry.borderBoxSize[0].blockSize,
-                );
-            }
-        });
-
-        // start listening for size changes
-        observer.observe(this);
     }
 
     public disconnectedCallback(): void {

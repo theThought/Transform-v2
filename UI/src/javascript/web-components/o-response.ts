@@ -874,6 +874,20 @@ export default class OResponse extends Component implements Subject {
         this.dispatchEvent(requestSize);
     }
 
+    public forwardResizeMessage(
+        width?: number | null,
+        height?: number | null,
+    ): void {
+        const resizeMessage = new CustomEvent('resizeMessage', {
+            bubbles: true,
+            detail: {
+                width: width ?? '',
+                height: height ?? '',
+            },
+        });
+        this.notifyObservers('resizeMessage', resizeMessage);
+    }
+
     public configureInitialVisibility(): void {
         // lift the cover immediately if there are no visibility rules defined
         if (

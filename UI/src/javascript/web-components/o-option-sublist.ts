@@ -82,6 +82,9 @@ export default class OOptionSublist
                 if (this.contains(data.target as HTMLElement)) return;
                 this.notifyObservers('clearValue', data);
                 break;
+            case 'resizeMessage':
+                this.handleResizeFromExternalSource(data);
+                break;
         }
     }
 
@@ -116,6 +119,11 @@ export default class OOptionSublist
         }
     }
 
+    private handleResizeFromExternalSource(data: CustomEvent): void {
+        if (data.detail.width) this.checkOnesize(data.detail.width, 0);
+        if (data.detail.height) this.checkOnesize(0, data.detail.height);
+    }
+
     public checkOnesize(width: number, height: number): void {
         if (
             width > this.widest &&
@@ -126,6 +134,7 @@ export default class OOptionSublist
                 detail: { width: width },
             });
             this.notifyObservers('sizeChangeWidth', event);
+            this.response?.forwardResizeMessage(width, null);
         }
 
         if (height > this.tallest) {
@@ -134,6 +143,7 @@ export default class OOptionSublist
                 detail: { height: height },
             });
             this.notifyObservers('sizeChangeHeight', e);
+            this.response?.forwardResizeMessage(null, height);
         }
     }
 
