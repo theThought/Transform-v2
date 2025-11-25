@@ -33,6 +33,6 @@ m-slider-track {
     transform: translateX(50%);
 }
 
-m-slider-track.show-value output {
+m-slider-track.show-value.has-value output {
     visibility: visible;
 }
