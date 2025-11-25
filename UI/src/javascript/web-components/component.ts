@@ -71,15 +71,40 @@ export default class Component extends HTMLElement {
 
     protected configureSetBehaviour(): void {
         if (!this.element) return;
-        if (this.element.type === 'checkbox' || this.element.type === 'radio')
-            return;
 
+        if (this.element.type === 'checkbox' || this.element.type === 'radio') {
+            //this.configureSetProperty();
+        } else {
+            this.configureSetValue();
+        }
+    }
+
+    protected configureSetValue(): void {
         const { get, set } = Object.getOwnPropertyDescriptor(
             HTMLInputElement.prototype,
             'value',
         );
 
         Object.defineProperty(this.element, 'value', {
+            get() {
+                return get.call(this);
+            },
+            set(newVal) {
+                console.log(`New value assigned to ${this.id}: ` + newVal);
+                const result = set.call(this, newVal);
+                this.dispatchEvent(new Event('restore', { bubbles: true }));
+                return result;
+            },
+        });
+    }
+
+    protected configureSetProperty(): void {
+        const { get, set } = Object.getOwnPropertyDescriptor(
+            HTMLInputElement.prototype,
+            'checked',
+        );
+
+        Object.defineProperty(this.element, 'checked', {
             get() {
                 return get.call(this);
             },

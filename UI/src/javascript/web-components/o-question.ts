@@ -117,11 +117,15 @@ export default class OQuestion extends Component {
 
         this.initialFormValues.forEach((itemValue, itemName) => {
             const element: HTMLInputElement | null = this.querySelector(
-                `[name="${itemName}"]`,
+                `input[type="checkbox"][value="${itemValue}"], input[type="radio"][value="${itemValue}"], input:not([type="checkbox"]):not([type="radio"])[name="${itemName}"]`,
             );
             if (!element) return;
 
-            element.value = itemValue as string;
+            if (element.type === 'checkbox' || element.type === 'radio') {
+                element.checked = true;
+            } else {
+                element.value = itemValue as string;
+            }
         });
     }
 
