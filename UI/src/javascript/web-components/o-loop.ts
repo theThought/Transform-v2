@@ -445,8 +445,8 @@ export default class OLoop extends Component implements Subject {
             return;
         }
 
-        // add caption for tables with exactly two columns
-        if (this.element.rows[0] && this.element.rows[0].cells.length === 2) {
+        // add caption for tables with exactly one column of data
+        if (this.table.dataset.questionCount === '1') {
             this.addSingleColumnCaption();
             return;
         }
@@ -489,16 +489,25 @@ export default class OLoop extends Component implements Subject {
 
         const captionContent = this.createCaptionContent();
 
+        // get the column that requires a caption
+        const columnCount = this.table.rows[0].cells.length;
+
         // insert a blank row at the start of the existing grid
         const captionRow = this.table.insertRow(0);
         captionRow.className = 'm-structure-caption-row';
 
         const newTH = document.createElement('th');
         newTH.scope = 'col';
-        captionRow.appendChild(newTH);
+
+        if (columnCount > 1) {
+            // insert a blank cell at the start of the new row
+            newTH.colSpan = columnCount - 1;
+            captionRow.appendChild(newTH);
+        }
 
         // insert the caption cell into the new row
         const captionCell = newTH.cloneNode() as HTMLTableCellElement;
+        captionCell.colSpan = 1;
         captionCell.className = 'm-structure-cell m-structure-column-caption';
         captionCell.appendChild(captionContent);
         captionRow.appendChild(captionCell);
