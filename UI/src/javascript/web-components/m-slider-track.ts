@@ -13,7 +13,7 @@ export default class MSliderTrack extends Component implements Observer {
         step: 1,
     };
 
-    private element: HTMLInputElement | null = null;
+    protected element: HTMLInputElement | null = null;
     private output: HTMLOutputElement | null = null;
     private slider: OSlider | null = null;
     private min = 0;
@@ -28,6 +28,7 @@ export default class MSliderTrack extends Component implements Observer {
         switch (e.type) {
             case 'input':
                 this.onInput();
+                break;
         }
     }
 
@@ -39,8 +40,9 @@ export default class MSliderTrack extends Component implements Observer {
             case 'restoreData':
                 this.restoreData(e);
                 break;
+            case 'restore':
             case 'restoreInitialValue':
-                this.restoreInitialValue(e);
+                this.restoreValue(e);
                 break;
             case 'incrementValue':
                 this.incrementValue();
@@ -58,7 +60,7 @@ export default class MSliderTrack extends Component implements Observer {
 
     private restoreData(e: CustomEvent): void {
         if (!this.element) return;
-        this.element.value = e.detail.submittedElement.value;
+        this.element.value = e.detail.element.value;
         this.onInput();
     }
 
@@ -69,10 +71,12 @@ export default class MSliderTrack extends Component implements Observer {
         this.dispatchEvent(requestInitialValue);
     }
 
-    private restoreInitialValue(e: CustomEvent): void {
+    private restoreValue(e: CustomEvent): void {
         if (!this.element) return;
+
         this.element.value = e.detail.value;
         this.setValueClass();
+        this.setThumbDisplay(e.detail.value);
         this.setThumbValue(e.detail.value);
         this.setThumbLocation(Number(e.detail.value));
         this.updateFloodFill(Number(e.detail.value));
@@ -82,8 +86,8 @@ export default class MSliderTrack extends Component implements Observer {
         if (!this.element) return;
 
         const value = this.element.value;
-        this.setValueClass();
         this.setSliderInputValue();
+        this.setValueClass();
         this.setThumbDisplay(value);
         this.setThumbValue(value);
         this.setThumbLocation(Number(value));
@@ -252,15 +256,23 @@ export default class MSliderTrack extends Component implements Observer {
         this.element.step = String(this.properties.step);
     }
 
+    protected setElement(): void {
+        this.element = this.querySelector('.a-slider-input');
+    }
+
+    protected configureSetBehaviour(): void {
+        //super.configureSetBehaviour();
+    }
+
     public connectedCallback(): void {
         super.connectedCallback();
-        this.element = this.querySelector('.a-slider-input');
         this.output = this.querySelector('output');
         this.slider = this.closest('o-slider');
 
         if (!this.element) return;
 
         this.addEventListener('focusin', this.handleEvent);
+        this.addEventListener('restore', this.handleEvent);
         this.element.addEventListener('input', this);
 
         if (this.response) this.response.addObserver(this);

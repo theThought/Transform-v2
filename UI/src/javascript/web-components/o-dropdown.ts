@@ -2,7 +2,7 @@ import Component from './component';
 import { Observer, Subject } from '../interfaces';
 
 export default class ODropdown extends Component implements Subject {
-    private element: HTMLInputElement | null = null;
+    protected element: HTMLInputElement | null = null;
     private observers: Observer[] = [];
 
     constructor() {
@@ -152,9 +152,16 @@ export default class ODropdown extends Component implements Subject {
         this.querySelector('ul')?.setAttribute('tabindex', '-1');
     }
 
+    protected setElement(): void {
+        this.element = this.querySelector('.a-input-dropdown');
+    }
+
+    protected configureSetBehaviour(): void {
+        //super.configureSetBehaviour();
+    }
+
     public connectedCallback(): void {
         super.connectedCallback();
-        this.element = this.querySelector('.a-input-dropdown');
         this.setInputWidth();
         this.removeTabIndex();
         this.element?.addEventListener('blur', this);

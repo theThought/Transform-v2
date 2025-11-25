@@ -17,8 +17,8 @@ export default class OSlider extends Component implements Observer, Subject {
     };
 
     private observers: Observer[] = [];
-    private element: HTMLInputElement | null = null;
-    private submittedElement: HTMLInputElement | null = null;
+    private rangeElement: HTMLInputElement | null = null;
+    protected element: HTMLInputElement | null = null;
     private min = 0;
     private max = 100;
 
@@ -36,6 +36,9 @@ export default class OSlider extends Component implements Observer, Subject {
                 break;
             case 'decrementValue':
                 this.decrementValue();
+                break;
+            case 'restore':
+                this.restoreSelection();
                 break;
             case 'requestInitialValue':
                 this.sendInitialValue();
@@ -78,24 +81,34 @@ export default class OSlider extends Component implements Observer, Subject {
     }
 
     private clearValue(e: CustomEvent): void {
-        if (!this.submittedElement) return;
+        if (!this.element) return;
 
         if (e.target === this) {
             return;
         }
 
-        if (this.submittedElement.value) {
-            this.submittedElement.placeholder = this.submittedElement.value;
-            this.submittedElement.value = '';
+        if (this.element.value) {
+            this.element.placeholder = this.element.value;
+            this.element.value = '';
         }
     }
 
-    private restoreData(): void {
-        if (!this.element || !this.submittedElement) return;
+    private restoreSelection(): void {
+        if (!this.element || !this.element.value.length) return;
 
-        if (this.submittedElement.placeholder.length) {
-            this.submittedElement.value = this.submittedElement.placeholder;
-            this.submittedElement.placeholder = '';
+        const restoreValue = new CustomEvent('restore', {
+            detail: { value: this.element.value },
+        });
+
+        this.notifyObservers('restore', restoreValue);
+    }
+
+    private restoreData(): void {
+        if (!this.rangeElement || !this.element) return;
+
+        if (this.element.placeholder.length) {
+            this.element.value = this.element.placeholder;
+            this.element.placeholder = '';
             this.broadcastChange();
             const restoreEvent = new CustomEvent('restoreData', {
                 bubbles: true,
@@ -106,11 +119,10 @@ export default class OSlider extends Component implements Observer, Subject {
     }
 
     private sendInitialValue(): void {
-        if (!this.submittedElement || !this.submittedElement.value.length)
-            return;
+        if (!this.element || !this.element.value.length) return;
 
         const initialValue = new CustomEvent('restoreInitialValue', {
-            detail: { value: this.submittedElement.value },
+            detail: { value: this.element.value },
         });
 
         this.notifyObservers('restoreInitialValue', initialValue);
@@ -118,10 +130,10 @@ export default class OSlider extends Component implements Observer, Subject {
 
     private onSliderValueChange(e: CustomEvent): void {
         e.stopPropagation();
-        if (!this.submittedElement) return;
+        if (!this.element) return;
 
-        this.submittedElement.value = e.detail.element.value;
-        this.submittedElement.placeholder = '';
+        this.element.value = e.detail.element.value;
+        this.element.placeholder = '';
         this.broadcastChange();
     }
 
@@ -197,19 +209,32 @@ export default class OSlider extends Component implements Observer, Subject {
     }
 
     private setProperties(): void {
-        if (!this.element) return;
-        this.min = this.element.min ? Number(this.element.min) : this.min;
-        this.max = this.element.max ? Number(this.element.max) : this.max;
+        if (!this.rangeElement) return;
+        this.min = this.rangeElement.min
+            ? Number(this.rangeElement.min)
+            : this.min;
+        this.max = this.rangeElement.max
+            ? Number(this.rangeElement.max)
+            : this.max;
+    }
+
+    protected setRangeElement(): void {
+        this.rangeElement = this.querySelector('input[type="range"]');
+    }
+
+    protected setElement(): void {
+        this.element = this.querySelector('input[type="hidden"]');
     }
 
     public connectedCallback(): void {
         super.connectedCallback();
-        this.element = this.querySelector('input[type="range"]');
-        this.submittedElement = this.querySelector('input[type="hidden"]');
+        this.setRangeElement();
+        this.setElement();
 
         this.addEventListener('notifySlider', this.handleEvent);
         this.addEventListener('incrementValue', this.handleEvent);
         this.addEventListener('decrementValue', this.handleEvent);
+        this.addEventListener('restore', this.handleEvent);
         this.addEventListener('requestInitialValue', this.handleEvent);
         this.setProperties();
         this.setLabels();

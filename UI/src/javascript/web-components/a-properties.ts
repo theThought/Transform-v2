@@ -1,19 +1,20 @@
 import Component from './component';
 
 interface FocusProperties {
-    control?: boolean;
-    question?: boolean;
+    control: boolean;
+    question: boolean;
 }
 
 interface CustomProperties {
-    floatdetails?: boolean;
-    focus?: FocusProperties;
+    floatdetails: boolean;
+    focus: FocusProperties;
     jumptoerror?: boolean;
-    paste?: boolean;
-    separator?: boolean;
-    sidebyside?: number;
+    paste: boolean;
+    separator: boolean;
+    sidebyside: number;
     tab?: string;
     validate?: boolean;
+    resettonull: boolean;
 }
 
 export default class AProperties extends Component {
@@ -26,6 +27,7 @@ export default class AProperties extends Component {
         paste: false,
         separator: true,
         sidebyside: 30,
+        resettonull: true,
     };
 
     constructor() {
@@ -64,7 +66,7 @@ export default class AProperties extends Component {
             // If no error element is found, scroll to the first error message.
             firstError.scrollIntoView({ block: 'center' });
         } else {
-            // Scroll to the error element and focus it.
+            // Scroll to the error element and focus on it.
             errorElement.scrollIntoView({ block: 'center' });
             errorElement.focus();
         }
@@ -105,6 +107,11 @@ export default class AProperties extends Component {
         form.setAttribute('novalidate', 'true');
     }
 
+    private setQuestionResetMethod(): void {
+        if (this.properties.resettonull) return;
+        document.body.dataset.restoreInitialQuestionValues = 'true';
+    }
+
     public connectedCallback(): void {
         super.connectedCallback();
         this.setFloatDetailsStyle();
@@ -114,6 +121,7 @@ export default class AProperties extends Component {
         this.setPastePermissions();
         this.setSeparatorStyle();
         this.setSideBySideWidth();
+        this.setQuestionResetMethod();
         this.sendCurrentTab();
         this.setValidateFormAttribute();
     }

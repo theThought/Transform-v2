@@ -11,7 +11,7 @@ export default class OScale extends Component implements Subject, Observer {
     };
 
     private observers: Observer[] = [];
-    private element: HTMLInputElement | null = null;
+    protected element: HTMLInputElement | null = null;
 
     constructor() {
         super();
@@ -138,7 +138,6 @@ export default class OScale extends Component implements Subject, Observer {
             this.response.addObserver(this);
         }
 
-        this.element = this.querySelector('input');
         this.addEventListener('scaleUnitClick', this.handleEvent);
         this.setLabels();
     }

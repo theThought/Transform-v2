@@ -65,7 +65,7 @@ type TotalEntry = {
 };
 
 export default class OLoop extends Component implements Subject {
-    private element: HTMLTableElement | null = null;
+    private table: HTMLTableElement | null = null;
     private hasRowTotals = false;
     private rowTotals: TotalEntry[] = [];
     private columnTotals: TotalEntry[] = [];
@@ -95,10 +95,14 @@ export default class OLoop extends Component implements Subject {
         this.observers.forEach((observer) => observer.update(method, detail));
     }
 
+    protected setElement(): void {
+        this.element = null;
+    }
+
     public connectedCallback(): void {
         super.connectedCallback();
 
-        this.element = this.querySelector('table');
+        this.table = this.querySelector('table');
 
         this.configureTableCaption();
         this.configureTotals();
@@ -137,13 +141,13 @@ export default class OLoop extends Component implements Subject {
     // Heading utilities
     private configureTopHeadings(): void {
         if (
-            !this.element ||
+            !this.table ||
             !Array.isArray(this.properties.topheadings) ||
             !this.properties.topheadings.length
         )
             return;
 
-        const headingRow = this.element.insertRow(0);
+        const headingRow = this.table.insertRow(0);
         headingRow.className = 'm-structure-caption-row';
 
         for (let i = 0; i < this.properties.topheadings.length; i++) {
@@ -158,9 +162,9 @@ export default class OLoop extends Component implements Subject {
 
     // Row styling - required to avoid double-striping when errors are present
     private configureRowStyles(): void {
-        if (!this.element) return;
+        if (!this.table) return;
 
-        const tableRowList = this.element.querySelectorAll(
+        const tableRowList = this.table.querySelectorAll(
             'tr.m-structure-row, tr.m-structure-row-error',
         );
         let stripedRowIterator = 0;
@@ -190,22 +194,22 @@ export default class OLoop extends Component implements Subject {
 
     // Shading toggles
     private configureCellShading(): void {
-        if (!this.element) return;
+        if (!this.table) return;
 
         if (this.properties.cellshading?.headercolumn === true) {
-            this.element.classList.add('shade-header-column');
+            this.table.classList.add('shade-header-column');
         }
 
         if (this.properties.cellshading?.altcolumns === true) {
-            this.element.classList.add('shade-alt-columns');
+            this.table.classList.add('shade-alt-columns');
         }
 
         if (this.properties.cellshading?.headerrow === true) {
-            this.element.classList.add('shade-header-row');
+            this.table.classList.add('shade-header-row');
         }
 
         if (this.properties.cellshading?.altrows === true) {
-            this.element.classList.add('shade-alt-rows');
+            this.table.classList.add('shade-alt-rows');
         }
     }
 
@@ -229,11 +233,11 @@ export default class OLoop extends Component implements Subject {
     }
 
     private getTableInputElements(direction: 'row' | 'column'): void {
-        if (!this.element) return;
+        if (!this.table) return;
 
         for (
             let i = 0, row: HTMLTableRowElement | undefined;
-            (row = this.element.rows[i]);
+            (row = this.table.rows[i]);
             i++
         ) {
             for (
@@ -260,15 +264,16 @@ export default class OLoop extends Component implements Subject {
 
     private receiveBroadcast(e: CustomEvent): void {
         const detail = e.detail || {};
-        const element = detail.element as HTMLElement | undefined;
-        if (!element || element.tagName !== 'INPUT') {
+        const tableElement = detail.table as HTMLElement | undefined;
+        if (!tableElement || tableElement.tagName !== 'INPUT') {
             return;
         }
 
         this.notifyObservers('clearExclusives', e);
 
-        const id = detail.element.id as string;
-        const elementValue = Number((element as HTMLInputElement).value) || 0;
+        const id = detail.table.id as string;
+        const elementValue =
+            Number((tableElement as HTMLInputElement).value) || 0;
 
         const rowIndex = this.rowTotals.map((e) => e.id).indexOf(id);
         if (rowIndex !== -1) {
@@ -300,7 +305,7 @@ export default class OLoop extends Component implements Subject {
 
     // Separators
     public configureSeparators(): void {
-        if (!this.element) return;
+        if (!this.table) return;
 
         const style = document.createElement('style');
         const color = this.properties.separators?.color || '#002554';
@@ -309,14 +314,14 @@ export default class OLoop extends Component implements Subject {
         if (Array.isArray(this.properties.separators?.columns)) {
             for (const colIndex of this.properties.separators?.columns) {
                 generatedStyles += `.separator-column-${colIndex} tbody tr > :nth-child(${colIndex}) { border-right: .125rem solid ${color}; } `;
-                this.element.classList.add(`separator-column-${colIndex}`);
+                this.table.classList.add(`separator-column-${colIndex}`);
             }
         }
 
         if (Array.isArray(this.properties.separators?.rows)) {
             for (const rowIndex of this.properties.separators?.rows) {
                 generatedStyles += `.separator-row-${rowIndex} tbody tr:nth-of-type(${rowIndex}) { border-bottom: .125rem solid ${color}; } `;
-                this.element.classList.add(`separator-row-${rowIndex}`);
+                this.table.classList.add(`separator-row-${rowIndex}`);
             }
         }
 
@@ -326,9 +331,9 @@ export default class OLoop extends Component implements Subject {
 
     // Row totals calculation
     private recalculateRowTotals(): void {
-        if (!this.element) return;
+        if (!this.table) return;
 
-        const rowCount = this.element.rows.length;
+        const rowCount = this.table.rows.length;
         let grandTotal = 0;
 
         for (let row = 1; row < rowCount; row++) {
@@ -353,7 +358,7 @@ export default class OLoop extends Component implements Subject {
                 rowTotal += Number(entry.value) || 0;
             }
 
-            const totalDiv = this.element.querySelector(
+            const totalDiv = this.table.querySelector(
                 `div[data-rownumber="${row}"]`,
             );
             if (totalDiv) {
@@ -368,9 +373,9 @@ export default class OLoop extends Component implements Subject {
 
     // Column totals calculation
     private recalculateColumnTotals(): void {
-        if (!this.element || this.element.rows.length === 0) return;
+        if (!this.table || this.table.rows.length === 0) return;
 
-        const columnCount = this.element.rows[0].cells.length;
+        const columnCount = this.table.rows[0].cells.length;
         let grandTotal = 0;
 
         for (let column = 0; column < columnCount; column++) {
@@ -404,7 +409,7 @@ export default class OLoop extends Component implements Subject {
                 colTotal += Number(this.columnTotals[j].value) || 0;
             }
 
-            const totalDiv = this.element.querySelector(
+            const totalDiv = this.table.querySelector(
                 `div[data-colnumber="${column}"]`,
             );
             if (totalDiv) {
@@ -418,8 +423,8 @@ export default class OLoop extends Component implements Subject {
     }
 
     private updateGrandTotal(grandTotal: number): void {
-        if (!this.hasGrandTotal || !this.element) return;
-        const grand = this.element.querySelector('div.a-label-total-grand');
+        if (!this.hasGrandTotal || !this.table) return;
+        const grand = this.table.querySelector('div.a-label-total-grand');
         if (grand) {
             grand.innerHTML = `${grandTotal}`;
         }
@@ -427,15 +432,15 @@ export default class OLoop extends Component implements Subject {
 
     // Caption placement
     public configureTableCaption(): void {
-        if (!this.element) return;
+        if (!this.table) return;
         if (!this.properties.caption) return;
 
         // check for the presence of a heading row
         const heading =
-            this.element.querySelector('tr.m-structure-row-heading') || null;
+            this.table.querySelector('tr.m-structure-row-heading') || null;
 
         // add caption for tables with a heading row and a single row of data
-        if (this.element.rows.length === 2 && heading) {
+        if (this.table.rows.length === 2 && heading) {
             this.addSingleRowCaption();
             return;
         }
@@ -451,27 +456,27 @@ export default class OLoop extends Component implements Subject {
     }
 
     private addTableCaption(): void {
-        if (!this.element) return;
+        if (!this.table) return;
 
         const captionContent = this.createCaptionContent();
-        const newCaption = this.element.createCaption();
+        const newCaption = this.table.createCaption();
 
         newCaption.appendChild(captionContent);
     }
 
     private addSingleRowCaption(): void {
-        if (!this.element) return;
+        if (!this.table) return;
 
         const captionContent = this.createCaptionContent();
 
         // insert a blank cell at the start of the existing heading row
-        const headerRow = this.element.rows[0];
+        const headerRow = this.table.rows[0];
         const newTH = document.createElement('th');
         newTH.scope = 'col';
         headerRow.insertBefore(newTH, headerRow.firstChild);
 
         // get the row that requires a caption and add a cell at the start
-        const captionRow = this.element.rows[1];
+        const captionRow = this.table.rows[1];
         const captionCell = document.createElement('th');
         captionCell.scope = 'row';
         captionCell.className = 'm-structure-cell m-structure-column-caption';
@@ -480,15 +485,14 @@ export default class OLoop extends Component implements Subject {
     }
 
     private addSingleColumnCaption(): void {
-        if (!this.element) return;
+        if (!this.table) return;
 
         const captionContent = this.createCaptionContent();
 
         // insert a blank row at the start of the existing grid
-        const captionRow = this.element.insertRow(0);
+        const captionRow = this.table.insertRow(0);
         captionRow.className = 'm-structure-caption-row';
 
-        // insert a blank cell at the start of the new row
         const newTH = document.createElement('th');
         newTH.scope = 'col';
         captionRow.appendChild(newTH);
@@ -523,7 +527,7 @@ export default class OLoop extends Component implements Subject {
 
     // Totals configuration
     private configureRowTotals(): void {
-        if (!this.element || !this.properties.totals?.rows?.visible) {
+        if (!this.table || !this.properties.totals?.rows?.visible) {
             return;
         }
 
@@ -541,25 +545,25 @@ export default class OLoop extends Component implements Subject {
         const captionAlign = this.properties.totals?.rows?.caption?.align || '';
         const captionWidth = this.properties.totals?.rows?.caption?.width || '';
 
-        const headingRow = this.element.querySelector(
+        const headingRow = this.table.querySelector(
             'tr.m-structure-row-heading',
         );
 
         // Add a heading row if required
-        if (!headingRow && captionTitle.length > 0 && this.element.rows[1]) {
-            const captionRow = this.element.insertRow(0);
+        if (!headingRow && captionTitle.length > 0 && this.table.rows[1]) {
+            const captionRow = this.table.insertRow(0);
             captionRow.className = 'm-structure-caption-row';
 
             const newTH = document.createElement('th');
             newTH.scope = 'col';
-            newTH.colSpan = this.element.rows[1].cells.length;
+            newTH.colSpan = this.table.rows[1].cells.length;
             captionRow.appendChild(newTH);
         }
 
-        const rowCount = this.element.rows.length;
+        const rowCount = this.table.rows.length;
 
         for (let i = 0; i < rowCount; i++) {
-            const totalCell = this.element.rows[i].insertCell(-1);
+            const totalCell = this.table.rows[i].insertCell(-1);
             totalCell.classList.add('m-structure-cell');
 
             if (i === 0) {
@@ -578,7 +582,7 @@ export default class OLoop extends Component implements Subject {
                 // and skipping exclusion rows
 
                 if (
-                    this.element.rows[i].classList.contains(
+                    this.table.rows[i].classList.contains(
                         'm-structure-row-error',
                     )
                 ) {
@@ -618,12 +622,12 @@ export default class OLoop extends Component implements Subject {
     }
 
     private configureColumnTotals(): void {
-        if (!this.element || !this.properties.totals?.columns?.visible) {
+        if (!this.table || !this.properties.totals?.columns?.visible) {
             return;
         }
 
-        const columnCount = this.element.rows[0].cells.length;
-        const totalRow = this.element.insertRow(-1);
+        const columnCount = this.table.rows[0].cells.length;
+        const totalRow = this.table.insertRow(-1);
         totalRow.className = 'm-structure-column-totals';
 
         const columnAlign =

@@ -2,7 +2,7 @@
  * Parent class for all input methods
  *
  * Contains shared functionality that is inherited and common to all our
- * custom components. If you've written the same method twice ask whether
+ * custom components. If you've written the same method: twice ask whether
  * it belongs in this class instead of an individual component!
  */
 import OResponse from './o-response';
@@ -13,6 +13,11 @@ export default class Component extends HTMLElement {
     protected readonly qgroup: string;
     protected response: OResponse | null = null;
     protected properties: object = {};
+    protected element:
+        | HTMLInputElement
+        | HTMLSelectElement
+        | HTMLTextAreaElement
+        | null = null;
 
     constructor() {
         super();
@@ -60,8 +65,37 @@ export default class Component extends HTMLElement {
         this.dispatchEvent(broadcastChange);
     }
 
+    protected setElement(): void {
+        this.element = this.querySelector('input, select, textarea') ?? null;
+    }
+
+    protected configureSetBehaviour(): void {
+        if (!this.element) return;
+        if (this.element.type === 'checkbox' || this.element.type === 'radio')
+            return;
+
+        const { get, set } = Object.getOwnPropertyDescriptor(
+            HTMLInputElement.prototype,
+            'value',
+        );
+
+        Object.defineProperty(this.element, 'value', {
+            get() {
+                return get.call(this);
+            },
+            set(newVal) {
+                console.log(`New value assigned to ${this.id}: ` + newVal);
+                const result = set.call(this, newVal);
+                this.dispatchEvent(new Event('restore', { bubbles: true }));
+                return result;
+            },
+        });
+    }
+
     public connectedCallback(): void {
         this.response = this.closest('o-response') ?? null;
         this.parseProperties();
+        this.setElement();
+        this.configureSetBehaviour();
     }
 }

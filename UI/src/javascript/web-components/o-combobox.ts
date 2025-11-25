@@ -2,7 +2,7 @@ import Component from './component';
 import { Observer, Subject } from '../interfaces';
 
 export default class OCombobox extends Component implements Subject {
-    private element: HTMLInputElement | null = null;
+    protected element: HTMLInputElement | null = null;
     private observers: Observer[] = [];
 
     constructor() {
@@ -137,7 +137,7 @@ export default class OCombobox extends Component implements Subject {
         const list = this.element.nextElementSibling as HTMLElement;
         if (!list) return;
 
-        if (this.element.placeholder.length) {
+        if ('placeholder' in this.element && this.element.placeholder.length) {
             this.addListEntry(
                 list,
                 'a-list-placeholder-hidden-prompt',
@@ -172,9 +172,17 @@ export default class OCombobox extends Component implements Subject {
         this.querySelector('ul')?.setAttribute('tabindex', '-1');
     }
 
+    protected setElement(): void {
+        this.element = this.querySelector('.a-input-combobox');
+    }
+
+    protected configureSetBehaviour(): void {
+        //super.configureSetBehaviour();
+    }
+
     public connectedCallback(): void {
         super.connectedCallback();
-        this.element = this.querySelector('.a-input-combobox');
+        this.setElement();
         this.setInputWidth();
         this.removeTabIndex();
         this.element?.addEventListener('blur', this);

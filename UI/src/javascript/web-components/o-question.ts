@@ -10,6 +10,8 @@ export default class OQuestion extends Component {
         separator: true,
     };
 
+    private initialFormValues: FormData | null = null;
+
     constructor() {
         super();
     }
@@ -85,7 +87,42 @@ export default class OQuestion extends Component {
             this.classList.add('unavailable');
         } else {
             this.classList.remove('unavailable');
+            this.restoreInitialState();
         }
+    }
+
+    private storeInitialState(): void {
+        const initialFormValues = new FormData();
+        const formElements: NodeListOf<HTMLFormElement> = this.querySelectorAll(
+            'input, select, textarea',
+        );
+        if (formElements.length === 0) return;
+
+        formElements.forEach((formItem) => {
+            if (typeof formItem.name == 'undefined' || !formItem.name) return;
+            if (
+                (formItem.type === 'checkbox' || formItem.type === 'radio') &&
+                !formItem.checked
+            )
+                return;
+            initialFormValues.append(formItem.name, formItem.value);
+        });
+        this.initialFormValues = initialFormValues;
+    }
+
+    private restoreInitialState(): void {
+        const restoreSavedValues =
+            document.body.dataset.restoreInitialQuestionValues;
+        if (!restoreSavedValues || this.initialFormValues === null) return;
+
+        this.initialFormValues.forEach((itemValue, itemName) => {
+            const element: HTMLInputElement | null = this.querySelector(
+                `[name="${itemName}"]`,
+            );
+            if (!element) return;
+
+            element.value = itemValue as string;
+        });
     }
 
     private setCompleteFlag(): void {
@@ -94,6 +131,7 @@ export default class OQuestion extends Component {
 
     public connectedCallback(): void {
         this.cleanEmptyLayout();
+        this.storeInitialState();
         this.addEventListener('click', this.handleEvent);
         this.addEventListener('questionVisibility', this.handleEvent);
         this.addEventListener('setSeparatorStyle', this.handleEvent);

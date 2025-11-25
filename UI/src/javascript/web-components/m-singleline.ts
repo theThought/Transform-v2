@@ -120,11 +120,9 @@ export default class MSingleline extends Component implements Observer {
     public connectedCallback(): void {
         super.connectedCallback();
 
-        this.element = this.querySelector('input');
-        if (!this.element) return;
-
         this.sublist = this.closest('o-option-sublist');
 
+        if (!this.element) return;
         this.initialPlaceholder = this.element.placeholder;
 
         this.addEventListener('focusin', this.handleEvent);

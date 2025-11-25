@@ -60,7 +60,6 @@ export default class OResponse extends Component implements Subject {
     private hasOptionVisibilityRules = false;
     private alternativeRuleParsingComplete = false;
     private responses: Record<string, any> = [];
-    private element: HTMLInputElement | null = null;
     private sourceQuestions: Record<string, any> = [];
     private complexVisibilityRule = '';
     private expandedVisibilityRule = '';
@@ -1005,7 +1004,7 @@ export default class OResponse extends Component implements Subject {
     }
 
     public connectedCallback(): void {
-        super.connectedCallback();
+        this.parseProperties();
         this.addEventListener('exclusiveOn', this.handleEvent);
         this.addEventListener('exclusiveOff', this.handleEvent);
         this.addEventListener('broadcastChange', this.handleEvent);

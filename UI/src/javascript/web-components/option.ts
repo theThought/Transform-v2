@@ -201,7 +201,6 @@ export default class Option extends Component implements Observer {
     public connectedCallback(): void {
         super.connectedCallback();
 
-        this.element = this.querySelector('input');
         this.sublist =
             this.closest('o-option-sublist') ??
             this.closest('o-option-tabstrip') ??

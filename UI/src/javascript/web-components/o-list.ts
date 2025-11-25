@@ -29,7 +29,7 @@ export default class OList extends Component implements Observer {
 
     public mouseEvent = false;
 
-    private element: HTMLInputElement | null = null;
+    protected element: HTMLInputElement | null = null;
     private listElement: HTMLElement | null = null;
     private listPosition = -1;
     private control: OCombobox | ODropdown | null = null;
@@ -76,6 +76,7 @@ export default class OList extends Component implements Observer {
     private clearElementValue(): void {
         if (!this.element || !this.element.value.length) return;
 
+        this.element.placeholder = this.element.value;
         this.element.value = '';
         this.broadcastChange();
     }
@@ -118,6 +119,9 @@ export default class OList extends Component implements Observer {
                 break;
             case 'mouseover':
                 this.clearHighlightedOption();
+                break;
+            case 'restore':
+                this.restoreClearedValue();
                 break;
         }
     }
@@ -411,7 +415,7 @@ export default class OList extends Component implements Observer {
         this.clearFilteredOptions();
     }
 
-    private restoreSelection(): void {
+    protected restoreSelection(): void {
         if (!this.element) return;
 
         const listItem =
@@ -420,6 +424,7 @@ export default class OList extends Component implements Observer {
             ) ?? <HTMLElement>this.querySelector('[data-selected="true"]');
 
         if (listItem === null) {
+            this.clearSelectedOptions();
             return;
         }
 
@@ -431,6 +436,11 @@ export default class OList extends Component implements Observer {
         this.setOption(listItem);
         this.setValue(listItem);
         this.setLabel(listItem);
+    }
+
+    protected restoreClearedValue(): void {
+        if (!this.element) return;
+        this.restoreSelection();
     }
 
     private clearFilteredOptions(): void {
@@ -608,11 +618,14 @@ export default class OList extends Component implements Observer {
         this.tabIndex = -1;
     }
 
+    private setListElement(): void {
+        this.listElement = this.querySelector('ul');
+    }
+
     public connectedCallback(): void {
         super.connectedCallback();
 
-        this.element = this.querySelector('input');
-        this.listElement = this.querySelector('ul');
+        this.setListElement();
         this.buildList();
         this.buildVisibleList();
         this.setListHeight(); // setListHeight must precede restoreSelection to ensure a pre-selected item is correctly scrolled into view
@@ -625,6 +638,7 @@ export default class OList extends Component implements Observer {
         this.addEventListener('mouseover', this.handleEvent);
         this.addEventListener('keydown', this.handleEvent);
         this.addEventListener('keyup', this.handleEvent);
+        this.addEventListener('restore', this.handleEvent);
 
         if (this.response) this.response.addObserver(this);
 
