@@ -1669,6 +1669,12 @@
                 
                 <!-- Call CreateColgroups with the row at position firstDataRowPos -->
                 <xsl:variable name="firstQuestionRow" select="Row[position() = $firstDataRowPos]"/>
+                <xsl:variable name="questionCellCount" select="count($firstQuestionRow/Cell[.//Control])"/>
+
+                <xsl:attribute name="data-question-count">
+                    <xsl:value-of select="$questionCellCount"/>
+                </xsl:attribute>
+
                 <xsl:call-template name="CreateColgroups">
                     <xsl:with-param name="firstQuestionRow" select="$firstQuestionRow"/>
                 </xsl:call-template>
@@ -1836,7 +1842,7 @@
                     </xsl:for-each>
                     
                 </xsl:when>
-                <xsl:when test="name(*[1]) = 'Question'">
+                <xsl:when test="name(*[1]) = 'Question' or name(*[2]) = 'Question'">
                     <xsl:variable name="styleVerticalAlign">
                         <xsl:if test="Question/Style/@VerticalAlign">
                             <xsl:text>vertical-align:</xsl:text>
@@ -1872,7 +1878,7 @@
                         </xsl:call-template>
                     </xsl:for-each>
                 </xsl:when>
-                <xsl:when test="name(*[1]) = 'Control'">
+                <xsl:when test="name(*[1]) = 'Control' or name(*[2]) = 'Control'">
                     <xsl:variable name="styleVerticalAlign">
                         <xsl:if test="Control/Style/@VerticalAlign">
                             <xsl:text>vertical-align:</xsl:text>
