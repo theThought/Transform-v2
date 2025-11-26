@@ -74,19 +74,23 @@ export default class Component extends HTMLElement {
         if (this.element.type === 'checkbox' || this.element.type === 'radio')
             return;
 
-        const { get, set } = Object.getOwnPropertyDescriptor(
+        const descriptor = Object.getOwnPropertyDescriptor(
             HTMLInputElement.prototype,
             'value',
         );
+
+        const get = descriptor?.get;
+        const set = descriptor?.set;
+
+        if (!get || !set) return;
 
         Object.defineProperty(this.element, 'value', {
             get() {
                 return get.call(this);
             },
             set(newVal) {
-                const result = set.call(this, newVal);
+                set.call(this, newVal);
                 this.dispatchEvent(new Event('restore', { bubbles: true }));
-                return result;
             },
         });
     }
