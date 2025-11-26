@@ -1,19 +1,35 @@
 import { removeHTMLWhitespace } from './util';
 import Component from './component';
+import { Observer, Subject } from '../interfaces';
 
 interface CustomProperties {
     separator?: boolean;
 }
 
-export default class OQuestion extends Component {
+export default class OQuestion extends Component implements Subject {
     public properties: CustomProperties = {
         separator: true,
     };
 
-    private initialFormValues: FormData | null = null;
+    private observers: Observer[] = [];
 
     constructor() {
         super();
+    }
+
+    public addObserver(observer: Observer): void {
+        this.observers.push(observer);
+    }
+
+    public removeObserver(observer: Observer): void {
+        const index = this.observers.findIndex((obs) => obs === observer);
+        if (index >= 0) {
+            this.observers.splice(index, 1);
+        }
+    }
+
+    public notifyObservers(method: string, detail: CustomEvent): void {
+        this.observers.forEach((observer) => observer.update(method, detail));
     }
 
     private cleanEmptyLayout(): void {
@@ -91,42 +107,8 @@ export default class OQuestion extends Component {
         }
     }
 
-    private storeInitialState(): void {
-        const initialFormValues = new FormData();
-        const formElements: NodeListOf<HTMLFormElement> = this.querySelectorAll(
-            'input, select, textarea',
-        );
-        if (formElements.length === 0) return;
-
-        formElements.forEach((formItem) => {
-            if (typeof formItem.name == 'undefined' || !formItem.name) return;
-            if (
-                (formItem.type === 'checkbox' || formItem.type === 'radio') &&
-                !formItem.checked
-            )
-                return;
-            initialFormValues.append(formItem.name, formItem.value);
-        });
-        this.initialFormValues = initialFormValues;
-    }
-
     private restoreInitialState(): void {
-        const restoreSavedValues =
-            document.body.dataset.restoreInitialQuestionValues;
-        if (!restoreSavedValues || this.initialFormValues === null) return;
-
-        this.initialFormValues.forEach((itemValue, itemName) => {
-            const element: HTMLInputElement | null = this.querySelector(
-                `input[type="checkbox"][value="${itemValue}"], input[type="radio"][value="${itemValue}"], input:not([type="checkbox"]):not([type="radio"])[name="${itemName}"]`,
-            );
-            if (!element) return;
-
-            if (element.type === 'checkbox' || element.type === 'radio') {
-                element.checked = true;
-            } else {
-                element.value = itemValue as string;
-            }
-        });
+        this.notifyObservers('restore', new CustomEvent('restore'));
     }
 
     private setCompleteFlag(): void {
@@ -135,7 +117,6 @@ export default class OQuestion extends Component {
 
     public connectedCallback(): void {
         this.cleanEmptyLayout();
-        this.storeInitialState();
         this.addEventListener('click', this.handleEvent);
         this.addEventListener('questionVisibility', this.handleEvent);
         this.addEventListener('setSeparatorStyle', this.handleEvent);

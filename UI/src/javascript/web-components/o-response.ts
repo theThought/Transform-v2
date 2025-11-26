@@ -1,6 +1,7 @@
 import { Subject, Observer } from '../interfaces';
 import { decodeHTML, replaceHTMLPlaceholder } from './util';
 import Component from './component';
+import OQuestion from './o-question';
 
 interface QuestionProperties {
     filter: {
@@ -38,10 +39,11 @@ interface QuestionProperties {
         }>;
         separator?: string;
     };
-    separator?: boolean;
+    separator: boolean;
+    resettonull: boolean;
 }
 
-export default class OResponse extends Component implements Subject {
+export default class OResponse extends Component implements Subject, Observer {
     public properties: QuestionProperties = {
         filter: {
             source: '',
@@ -52,8 +54,10 @@ export default class OResponse extends Component implements Subject {
             visible: [],
         },
         separator: true,
+        resettonull: true,
     };
 
+    protected question: OQuestion | null = null;
     private observers: Observer[] = [];
     private ready = false;
     private optionRuleParsingComplete = false;
@@ -65,6 +69,7 @@ export default class OResponse extends Component implements Subject {
     private expandedVisibilityRule = '';
     private ruleParsingComplete = false;
     private available = true;
+    private initialValues: FormData | null = null;
 
     constructor() {
         super();
@@ -117,6 +122,14 @@ export default class OResponse extends Component implements Subject {
         });
 
         this.dispatchEvent(questionChange);
+    }
+
+    public update(method: string): void {
+        switch (method) {
+            case 'restore':
+                this.restoreInitialState();
+                break;
+        }
     }
 
     private handleQuestionChange(e: CustomEvent): void {
@@ -1003,8 +1016,63 @@ export default class OResponse extends Component implements Subject {
         this.dispatchEvent(separatorEvent);
     }
 
+    private storeInitialState(): void {
+        const initialFormValues = new FormData();
+        const formElements: NodeListOf<HTMLFormElement> = this.querySelectorAll(
+            'input, select, textarea',
+        );
+        if (formElements.length === 0) return;
+
+        formElements.forEach((formItem) => {
+            if (typeof formItem.name == 'undefined' || !formItem.name) return;
+            if (
+                (formItem.type === 'checkbox' || formItem.type === 'radio') &&
+                !formItem.checked
+            )
+                return;
+            initialFormValues.append(formItem.name, formItem.value);
+        });
+        this.initialValues = initialFormValues;
+    }
+
+    private restoreInitialState(): void {
+        const restoreSavedValues =
+            this.dataset.restoreInitialQuestionValues ??
+            document.body.dataset.restoreInitialQuestionValues;
+        if (!restoreSavedValues || this.initialValues === null) return;
+
+        this.initialValues.forEach((itemValue, itemName) => {
+            const element: HTMLInputElement | null = this.querySelector(
+                `input[type="checkbox"][value="${itemValue}"], input[type="radio"][value="${itemValue}"], input:not([type="checkbox"]):not([type="radio"])[name="${itemName}"]`,
+            );
+            if (!element) return;
+
+            if (element.type === 'checkbox' || element.type === 'radio') {
+                element.checked = true;
+            } else {
+                element.value = itemValue as string;
+            }
+        });
+    }
+
+    private setResetBehaviour(): void {
+        if (this.properties.resettonull) return;
+        this.dataset.restoreInitialQuestionValues = 'true';
+    }
+
+    private setQuestion(): void {
+        this.question = this.closest('o-question');
+
+        if (this.question) {
+            this.question.addObserver(this);
+        }
+    }
+
     public connectedCallback(): void {
         this.parseProperties();
+        this.setQuestion();
+        this.storeInitialState();
+        this.setResetBehaviour();
         this.addEventListener('exclusiveOn', this.handleEvent);
         this.addEventListener('exclusiveOff', this.handleEvent);
         this.addEventListener('broadcastChange', this.handleEvent);
@@ -1020,5 +1088,6 @@ export default class OResponse extends Component implements Subject {
 
     public disconnectedCallback(): void {
         document.removeEventListener('questionChange', this);
+        if (this.question) this.question.removeObserver(this);
     }
 }
