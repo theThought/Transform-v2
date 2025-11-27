@@ -298,28 +298,25 @@ export default class OList extends Component implements Observer {
     private filterList(e: CustomEvent): void {
         if (!this.listElement) return;
 
-        // temporarily remove the list from the DOM to improve performance
         const droplistParentNode = this.listElement.parentNode;
         if (!droplistParentNode) return;
-        droplistParentNode.removeChild(this.listElement);
 
-        this.clearSelectedOptions();
+        //this.clearSelectedOptions();
 
         let visibleItems = this.list.length;
         const userInput = e.detail.element.value.toLowerCase();
 
         if (userInput.length < this.properties.mincharactersforlist) {
-            this.clearSelectedOptions();
+            this.clearValue();
             this.displayEmptyMessage(false);
             this.displayMinCharacterMessage(true);
-            droplistParentNode.appendChild(this.listElement);
             return;
         } else {
             this.displayMinCharacterMessage(false);
         }
 
         this.list.forEach((node) => {
-            const itemLabel = node.innerText.toLowerCase();
+            const itemLabel = node.textContent?.toLowerCase() ?? '';
 
             if (this.properties.filtertype === 'starts') {
                 if (itemLabel.indexOf(userInput) === 0) {
@@ -351,7 +348,6 @@ export default class OList extends Component implements Observer {
             this.displayEmptyMessage(false);
         }
 
-        droplistParentNode.appendChild(this.listElement);
         this.buildVisibleList();
     }
 
