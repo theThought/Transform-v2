@@ -289,6 +289,12 @@ export default class OList extends Component implements Observer {
         }
     }
 
+    private initialMinCharacterMessage(): void {
+        if (this.properties.mincharactersforlist > 0) {
+            this.displayMinCharacterMessage(true);
+        }
+    }
+
     private filterList(e: CustomEvent): void {
         if (!this.listElement) return;
 
@@ -302,10 +308,7 @@ export default class OList extends Component implements Observer {
         let visibleItems = this.list.length;
         const userInput = e.detail.element.value.toLowerCase();
 
-        if (
-            userInput.length > 0 &&
-            userInput.length < this.properties.mincharactersforlist
-        ) {
+        if (userInput.length < this.properties.mincharactersforlist) {
             this.clearSelectedOptions();
             this.displayEmptyMessage(false);
             this.displayMinCharacterMessage(true);
@@ -633,6 +636,7 @@ export default class OList extends Component implements Observer {
         this.setFilterMethod();
         this.createNotEnoughCharactersMessage();
         this.createNoItemsInListMessage();
+        this.initialMinCharacterMessage();
 
         this.addEventListener('mousedown', this.handleEvent);
         this.addEventListener('mouseover', this.handleEvent);
