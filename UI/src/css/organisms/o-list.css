@@ -31,6 +31,10 @@ o-list {
     display: inline-block;
     inline-size: fit-content;
 
+    li[class*='list-placeholder'] {
+        pointer-events: none;
+    }
+
     li.a-list-placeholder-restriction {
         display: none;
     }
