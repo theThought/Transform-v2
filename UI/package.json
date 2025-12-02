@@ -24,7 +24,7 @@
         "storybook": "storybook dev -p 6006",
         "build-storybook": "storybook build",
         "publish-storybook": "npm run build && npm run build-storybook",
-        "prepare": "cd .. && husky install ui/.husky",
+        "prepare": "cd .. && husky init ui/.husky",
         "prelocalserver-watch": "rimraf .parcel-cache",
         "localserver-watch": "parcel watch src/javascript/index.ts --dist-dir _example-pages --hmr-port 1234 --target app --cache-dir .parcel-cache",
         "localserver-dev": "npx http-server _example-pages/",
