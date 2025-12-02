@@ -94,7 +94,7 @@
                 <xsl:if test="Style/Image/@Position='Top'">
                     <xsl:call-template name="Image">
                         <xsl:with-param name="properties">
-                            <xsl:value-of select="Style/Image/@Color"/>
+                            <xsl:value-of select="Style/@Color"/>
                         </xsl:with-param>
                     </xsl:call-template>
                 </xsl:if>
@@ -103,6 +103,9 @@
             <xsl:if test="Style/Image">
                 <xsl:if test="Style/Image/@Position='Bottom'">
                     <xsl:call-template name="Image">
+                        <xsl:with-param name="properties">
+                            <xsl:value-of select="Style/@Color"/>
+                        </xsl:with-param>
                     </xsl:call-template>
                 </xsl:if>
             </xsl:if>
@@ -212,7 +215,7 @@
     <xsl:template name="Image">   
         <xsl:param name="properties"/>
         <xsl:element name="div">
-            <xsl:attribute name="class">a-media-card</xsl:attribute>
+            <xsl:attribute name="class">o-media-card</xsl:attribute>
             <xsl:attribute name="data-properties">
                 <xsl:value-of select="$properties"/>
             </xsl:attribute>
@@ -248,20 +251,6 @@
                         <xsl:value-of select="Style/Image/@Height"/>
                     </xsl:attribute>
                 </xsl:if>
-            </xsl:element>
-
-            <xsl:element name="div">
-                <xsl:attribute name="class">a-media-buttonstrip</xsl:attribute>
-                <xsl:element name="img">
-                    <xsl:attribute name="class">a-icon-multistate</xsl:attribute>
-                    <xsl:attribute name="data-source">fullscreen</xsl:attribute>
-                    <xsl:attribute name="src">
-                        <xsl:text>https://media.ipsosinteractive.com/media/images/icons/fullscreen.png</xsl:text>
-                    </xsl:attribute>
-                    <xsl:attribute name="width">24</xsl:attribute>
-                    <xsl:attribute name="height">24</xsl:attribute>
-                    <xsl:attribute name="alt">Tap to expand to full screen</xsl:attribute>
-                </xsl:element>
             </xsl:element>
         </xsl:element>
     </xsl:template>
