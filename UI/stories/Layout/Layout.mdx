@@ -24,13 +24,13 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 ### Comparison of Flexbox/Grid behaviours
 
-Flexbox | Grid
---- | ---
-Flexbox works from the **content out**. | Grid works from the **layout in**.
-Flexbox uses `intrinsic sizing`. Each `flex item` is as large as it needs to be to contain its content. | Grid allows more structured control from the parent's perspective, placing `grid items` into `cells` whose dimensions are defined by the `grid-template`.
-By default, with no other CSS properties specified, **all direct children** of a flex container become **columns**, which may lead to horizontal overflow if there are too many to fit in the available space. | By default, **nothing happens to direct children** of a grid container if no `grid-template` has been defined.
-If you need more fine-grained control of the spacing and/or sizes of the flex items, you may have to adjust properties on both the flex container and the flex items (i.e. on multiple CSS selectors). | Modifying the `grid-template` may be all you need.
-There is **no relationship** between the rows/columns in a Flexbox layout. They are totally independent of each other. | Grid rows/columns **do** affect each other.
+| Flexbox                                                                                                                                                                                                        | Grid                                                                                                                                                      |
+|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Flexbox works from the **content out**.                                                                                                                                                                        | Grid works from the **layout in**.                                                                                                                        |
+| Flexbox uses `intrinsic sizing`. Each `flex item` is as large as it needs to be to contain its content.                                                                                                        | Grid allows more structured control from the parent's perspective, placing `grid items` into `cells` whose dimensions are defined by the `grid-template`. |
+| By default, with no other CSS properties specified, **all direct children** of a flex container become **columns**, which may lead to horizontal overflow if there are too many to fit in the available space. | By default, **nothing happens to direct children** of a grid container if no `grid-template` has been defined.                                            |
+| If you need more fine-grained control of the spacing and/or sizes of the flex items, you may have to adjust properties on both the flex container and the flex items (i.e. on multiple CSS selectors).         | Modifying the `grid-template` may be all you need.                                                                                                        |
+| There is **no relationship** between the rows/columns in a Flexbox layout. They are totally independent of each other.                                                                                         | Grid rows/columns **do** affect each other.                                                                                                               |
 
 ### Useful Flexbox vs Grid resources
 - https://www.youtube.com/watch?v=3elGSZSWTbM.
