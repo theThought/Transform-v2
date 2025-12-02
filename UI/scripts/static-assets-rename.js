@@ -13,7 +13,7 @@ const cheerio = require('cheerio');
 const validExt = require('./static-assets-config');
 const prodDirectoryPath = path.join(__dirname, '../public/build');
 
-// Read files in PRODUCTION folder, and process the valid ones.
+// Read files in the PRODUCTION folder and process the valid ones.
 const readProdDirectory = () => {
     fs.readdir(prodDirectoryPath, (err, files) => {
         if (err) {
@@ -35,7 +35,9 @@ const readIndexHtml = () =>
     new Promise((resolve, reject) => {
         fs.readFile(`${prodDirectoryPath}/index.html`, 'utf8', (err, data) => {
             if (err) {
-                reject(console.log(colors.red.bold('static-assets-rename:', err)));
+                reject(
+                    console.log(colors.red.bold('static-assets-rename:', err)),
+                );
             } else {
                 resolve(data);
             }
@@ -49,7 +51,7 @@ const processFile = (file) => {
     let renamed = hashed.substring(0, hashed.lastIndexOf('.'));
 
     // JS. Don't rename map files.
-    if (ext === '.js' && renamed === 'index') {
+    if (ext === '.js' && renamed === 'UI') {
         readIndexHtml().then((data) => {
             // Use cheerio to parse HTML DOM.
             const $ = cheerio.load(data);
@@ -90,9 +92,13 @@ const renameFile = (renamed, file) => {
         `${prodDirectoryPath}/${renamed}`,
         (err) => {
             if (err) {
-                return console.log(colors.red.bold('static-assets-rename:', err));
+                return console.log(
+                    colors.red.bold('static-assets-rename:', err),
+                );
             }
-            console.log(colors.green.bold(`Successfully renamed ${file} to ${renamed}`));
+            console.log(
+                colors.green.bold(`Successfully renamed ${file} to ${renamed}`),
+            );
         },
     );
 };
