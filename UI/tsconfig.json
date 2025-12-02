@@ -3,12 +3,9 @@
         "strict": true,
         "allowSyntheticDefaultImports": true,
         "forceConsistentCasingInFileNames": true,
-        "target": "es6",
+        "moduleResolution": "bundler",
+        "target": "es6"
     },
-    "include": [
-        "src/javascript/**/*",
-    ],
-    "exclude": [
-        "node_modules",
-    ],
+    "include": ["src/javascript/**/*", "stories/**/*", ".storybook/**/*"],
+    "exclude": ["node_modules"]
 }

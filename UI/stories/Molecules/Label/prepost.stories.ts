@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/web-components';
+import { Meta, StoryObj } from '@storybook/web-components-vite';
 import { MLabelPrePost, MLabelPrePostBoxed } from './prepost';
 
 const meta: Meta = {

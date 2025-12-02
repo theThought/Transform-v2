@@ -7,10 +7,12 @@ const config: StorybookConfig = {
         '../stories/**/*.mdx',
         '../stories/**/*.stories.@(js|jsx|ts|tsx)',
     ],
+
     staticDirs: [
         '../public',
         '../src/static', // Include the static folder
     ],
+
     addons: [
         '@storybook/addon-a11y',
         'storybook-addon-deep-controls',
@@ -24,22 +26,17 @@ const config: StorybookConfig = {
                 },
             },
         },
-        {
-            name: '@storybook/addon-essentials',
-            options: {
-                actions: false,
-                backgrounds: false,
-                docs: false,
-            },
-        },
         '@etchteam/storybook-addon-status',
     ],
+
     framework: {
         name: '@storybook/web-components-vite',
         options: {},
     },
-    docs: {
-        autodocs: true,
+
+    features: {
+        actions: false,
+        backgrounds: false,
     },
 };
 

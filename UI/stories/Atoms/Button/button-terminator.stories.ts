@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/web-components';
+import { StoryObj } from '@storybook/web-components-vite';
 import * as ButtonTerminatorStories from './button-terminator';
 
 export default {

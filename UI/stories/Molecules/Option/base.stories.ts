@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/web-components';
+import { Meta, StoryObj } from '@storybook/web-components-vite';
 import { MOptionBase_Story } from './base';
 import { MOptionBoolean } from './boolean';
 import { MOptionTab } from './tab';
