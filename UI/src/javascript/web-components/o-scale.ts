@@ -59,6 +59,21 @@ export default class OScale extends Component implements Subject, Observer {
         switch (e.type) {
             case 'scaleUnitClick':
                 this.onClick(<CustomEvent>e);
+                break;
+            case 'keyup':
+                this.handleKey(<KeyboardEvent>e);
+                break;
+        }
+    }
+
+    private handleKey(e: KeyboardEvent): void {
+        switch (e.key) {
+            case 'ArrowRight':
+                this.incrementValue();
+                break;
+            case 'ArrowLeft':
+                this.decrementValue();
+                break;
         }
     }
 
@@ -90,6 +105,40 @@ export default class OScale extends Component implements Subject, Observer {
             elemPost.innerHTML = this.properties.labels.post;
             this.classList.add('has-labels');
         }
+    }
+
+    private incrementValue(): void {
+        if (!this.element) return;
+
+        const currentValue = Number(this.element.value);
+        const maxValue = this.element.max ? Number(this.element.max) : 10;
+
+        if (currentValue == maxValue) {
+            return;
+        }
+
+        const newValue = currentValue + 1;
+
+        this.element.placeholder = String(newValue);
+        this.element.value = String(newValue);
+        this.notifyObservers('newValue', this.element.value);
+    }
+
+    private decrementValue(): void {
+        if (!this.element) return;
+
+        const currentValue = Number(this.element.value);
+        const minValue = this.element.min ? Number(this.element.min) : 0;
+
+        if (currentValue <= minValue) {
+            return;
+        }
+
+        const newValue = currentValue - 1;
+
+        this.element.placeholder = String(newValue);
+        this.element.value = String(newValue);
+        this.notifyObservers('newValue', this.element.value);
     }
 
     private setValue(e: CustomEvent): void {
@@ -131,6 +180,10 @@ export default class OScale extends Component implements Subject, Observer {
         this.notifyObservers('newValue', this.element.value);
     }
 
+    private setTabIndex(): void {
+        this.tabIndex = 0;
+    }
+
     public connectedCallback(): void {
         super.connectedCallback();
 
@@ -139,6 +192,8 @@ export default class OScale extends Component implements Subject, Observer {
         }
 
         this.addEventListener('scaleUnitClick', this.handleEvent);
+        this.addEventListener('keyup', this.handleEvent);
         this.setLabels();
+        this.setTabIndex();
     }
 }
