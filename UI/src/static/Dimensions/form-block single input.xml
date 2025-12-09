@@ -1,0 +1,16 @@
+<Questions>
+    <Question>
+        <Style BgColor="singleline:_QForm8SingleLinePage_QFormSingleLineBlock_Qtriggerword" ElementAlign="NewLine" Indent="1">
+            <Control Type="SingleLineEdit"></Control>
+        </Style>
+        <Label ElementId="_Q2_Q0" LabelID="_Q2_Q0">
+            <Style ElementAlign="NewLine"></Style>
+        </Label>
+        <Style BgColor="form:" ElementAlign="NewLine"></Style>
+        <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QForm8SingleLinePage_QFormSingleLineBlock_Qtriggerword" ElementID="_Q2_Q0" Value="" Length="100">
+            <Style BgColor="singleline:_QForm8SingleLinePage_QFormSingleLineBlock_Qtriggerword" ElementAlign="NewLine" Indent="1">
+                <Control Type="SingleLineEdit"></Control>
+            </Style>
+        </Control>
+    </Question>
+</Questions>

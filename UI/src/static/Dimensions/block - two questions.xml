@@ -1,0 +1,29 @@
+<Questions>
+    <Question>
+        <Style BgColor="singleline:_QForm8SingleLinePage_QFormSingleLineBlock_Qtriggerword" ElementAlign="NewLine" Indent="1">
+            <Control Type="SingleLineEdit"></Control>
+        </Style>
+        <Label ElementId="_Q2_Q0" LabelID="_Q2_Q0">
+            <Style ElementAlign="NewLine"></Style>
+            <Text>word1</Text>
+        </Label>
+        <Style BgColor="form:" ElementAlign="NewLine"></Style>
+        <Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QForm8SingleLinePage_QFormSingleLineBlock_Qtriggerword" ElementID="_Q2_Q0" Value="" Length="100">
+            <Style BgColor="singleline:_QForm8SingleLinePage_QFormSingleLineBlock_Qtriggerword" ElementAlign="NewLine" Indent="1">
+                <Control Type="SingleLineEdit"></Control>
+            </Style>
+        </Control>
+    </Question>
+    <Question>
+        <Style BgColor=":_QForm8SingleLinePage_QFormSingleLineBlock_Qtestquestion" ElementAlign="NewLine" Indent="1"></Style>
+        <Label LabelID="_Q2_Q1">
+            <Style ElementAlign="NewLine"></Style>
+            <Text>test</Text>
+        </Label>
+        <Style BgColor="form:" ElementAlign="NewLine"></Style>
+        <Control Type="CheckButton" QuestionName="_Q_DDynamicPage_QForm8SingleLinePage_QFormSingleLineBlock_Qtestquestion_F" ElementID="_Q2_Q1_F">
+            <Category Name="true" CategoryID="0"></Category>
+            <Style BgColor=":_QForm8SingleLinePage_QFormSingleLineBlock_Qtestquestion" ElementAlign="NewLine" Indent="1"></Style>
+        </Control>
+    </Question>
+</Questions>

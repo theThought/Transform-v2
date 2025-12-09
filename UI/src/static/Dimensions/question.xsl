@@ -15,6 +15,10 @@
     <xsl:template match="Questions">
         <!-- iterate through the questions eleents in the XML structure -->
             <xsl:for-each select="*">
+                <xsl:comment>
+                    <xsl:text>Parent: </xsl:text>
+                    <xsl:value-of select="../name()" />
+                </xsl:comment>
                 <xsl:choose>
                     <xsl:when test="name()='Question'">
                         <xsl:call-template name="Question" />
