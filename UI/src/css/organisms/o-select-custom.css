@@ -5,22 +5,30 @@
     o-list {
         block-size: 0;
         display: block;
+        margin-block-start: calc(var(--border-thickness) * -1);
         opacity: 0;
         pointer-events: none;
+        position: fixed;
         z-index: 1;
 
         li {
             white-space: wrap;
+        }
+
+        .o-list {
+            block-size: 0;
         }
     }
 
     &.focus {
         o-list {
             block-size: auto;
-            margin-block-start: calc(var(--border-thickness) * -1);
             opacity: 1;
             pointer-events: all;
-            position: absolute;
+
+            .o-list {
+                block-size: auto;
+            }
         }
 
         :where(.a-input-combobox, .a-input-dropdown) {

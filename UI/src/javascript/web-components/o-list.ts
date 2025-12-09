@@ -38,6 +38,12 @@ export default class OList extends Component implements Observer {
     private keyBuffer = '';
     private keyTimer: ReturnType<typeof setTimeout>;
     private keyBufferTimeout = 500;
+    private containerScrollLeft = 0;
+    private containerScrollTop = 0;
+    private documentScrollLeft = 0;
+    private documentScrollTop = 0;
+    private controlHeight = 0;
+    private height = 0;
 
     constructor() {
         super();
@@ -123,6 +129,64 @@ export default class OList extends Component implements Observer {
             case 'restore':
                 this.restoreClearedValue();
                 break;
+            case 'scroll':
+                this.updatePosition(e.target as HTMLElement);
+                break;
+        }
+    }
+
+    private updatePosition(target: HTMLElement): void {
+        if (target === this) {
+            return;
+        }
+
+        if (!target.contains(this)) {
+            return;
+        }
+
+        let scrollLeft;
+        let scrollTop;
+
+        if (typeof target.scrollLeft !== 'undefined') {
+            scrollLeft = target.scrollLeft;
+            if (scrollLeft !== this.containerScrollLeft) {
+                this.containerScrollLeft = scrollLeft;
+                this.style.marginLeft = 0 - scrollLeft + 'px';
+                return;
+            }
+        } else {
+            scrollLeft =
+                document.documentElement.scrollLeft || document.body.scrollLeft;
+            if (scrollLeft !== this.documentScrollLeft) {
+                this.documentScrollLeft = scrollLeft;
+                this.style.marginLeft = 0 - scrollLeft + 'px';
+                return;
+            }
+        }
+
+        if (typeof target.scrollTop !== 'undefined') {
+            scrollTop = target.scrollTop;
+
+            if (this.response?.classList.contains('direction-up')) {
+                scrollTop += this.height + this.controlHeight;
+            }
+
+            if (scrollTop !== this.containerScrollTop) {
+                this.containerScrollTop = scrollTop;
+                this.style.marginTop = 0 - scrollTop + 'px';
+            }
+        } else {
+            scrollTop =
+                document.documentElement.scrollTop || document.body.scrollTop;
+
+            if (this.response?.classList.contains('direction-up')) {
+                scrollTop += this.height + this.controlHeight;
+            }
+
+            if (scrollTop !== this.documentScrollTop) {
+                this.documentScrollTop = scrollTop;
+                this.style.marginTop = -2 - scrollTop + 'px';
+            }
         }
     }
 
@@ -639,6 +703,7 @@ export default class OList extends Component implements Observer {
         this.addEventListener('keydown', this.handleEvent);
         this.addEventListener('keyup', this.handleEvent);
         this.addEventListener('restore', this.handleEvent);
+        document.addEventListener('scroll', this);
 
         if (this.response) this.response.addObserver(this);
 
