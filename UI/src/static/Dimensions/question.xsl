@@ -13,23 +13,41 @@
     <xsl:strip-space elements="*"/>
 
     <xsl:template match="Questions">
-        <!-- iterate through the questions eleents in the XML structure -->
-            <xsl:for-each select="*">
-                <xsl:comment>
-                    <xsl:text>Parent: </xsl:text>
-                    <xsl:value-of select="../name()" />
-                </xsl:comment>
-                <xsl:choose>
-                    <xsl:when test="name()='Question'">
-                        <xsl:call-template name="Question" />
-                    </xsl:when>
-                    <xsl:otherwise>
-                    <Other>
-                        <xsl:value-of select="name()" />
-                    </Other>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:for-each>
+        <xsl:variable name="questionCount" select="count(Question)" />
+
+    <!-- iterate through the questions eleents in the XML structure -->
+        <xsl:choose>
+            <xsl:when test="$questionCount > 1">
+                <xsl:element name="Questions">
+                <xsl:for-each select="*">
+                    <xsl:choose>
+                        <xsl:when test="name()='Question'">
+                            <xsl:call-template name="Question" />
+                        </xsl:when>
+                        <xsl:otherwise>
+                        <Other>
+                            <xsl:value-of select="name()" />
+                        </Other>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:for-each>
+                </xsl:element>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:for-each select="*">
+                    <xsl:choose>
+                        <xsl:when test="name()='Question'">
+                            <xsl:call-template name="Question" />
+                        </xsl:when>
+                        <xsl:otherwise>
+                        <Other>
+                            <xsl:value-of select="name()" />
+                        </Other>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:for-each>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>    
 
     <xsl:template name="Question">
