@@ -86,6 +86,12 @@
             </xsl:choose>
         </xsl:variable>
 
+        <xsl:variable name="qCalcQuestionName">
+            <xsl:call-template name="funcGetQName">
+                <xsl:with-param name="qGroup" select="$qCalcGroup"/>
+            </xsl:call-template>
+        </xsl:variable>
+
         <xsl:variable name="qReadOnly">
             <xsl:choose>
                 <xsl:when test="Style/Control/@ReadOnly">
@@ -98,6 +104,10 @@
         </xsl:variable>
 
         <xsl:element name="o-question">
+            <xsl:attribute name="data-associate-question">
+                <xsl:value-of select="$qCalcQuestionName" />
+            </xsl:attribute>
+            
             <xsl:call-template name="response">
                 <xsl:with-param name="qType" select="$qType"/>
                 <xsl:with-param name="qGroup" select="$qCalcGroup"/>
@@ -586,27 +596,29 @@
 
     <xsl:template name="insert-label">
         <xsl:param name="subType" />
-        <xsl:element name="label">
-            <xsl:attribute name="for">
-                <xsl:value-of select="@ElementID" />
-                <xsl:value-of select="@ElementId" />
-            </xsl:attribute>
-            <xsl:element name="span">
-                <xsl:attribute name="class">
-                    <xsl:text>a-label</xsl:text>
-                    <xsl:if test="$subType != ''">
-                        <xsl:text>-</xsl:text>
-                        <xsl:value-of select="$subType" />
-                    </xsl:if>
+        <xsl:if test="Text[string-length(normalize-space(.)) &gt; 0]">
+            <xsl:element name="label">
+                <xsl:attribute name="for">
+                    <xsl:value-of select="@ElementID" />
+                    <xsl:value-of select="@ElementId" />
                 </xsl:attribute>
-                <xsl:call-template name="insert-common-labelstyle-attributes" />
-                
-                <xsl:call-template name="insert-label-text">
-                    <xsl:with-param name="content" select="Text" />
-                    <xsl:with-param name="wellformed" select="Text/@WellFormed" />
-                </xsl:call-template>      
+                <xsl:element name="span">
+                    <xsl:attribute name="class">
+                        <xsl:text>a-label</xsl:text>
+                        <xsl:if test="$subType != ''">
+                            <xsl:text>-</xsl:text>
+                            <xsl:value-of select="$subType" />
+                        </xsl:if>
+                    </xsl:attribute>
+                    <xsl:call-template name="insert-common-labelstyle-attributes" />
+                    
+                    <xsl:call-template name="insert-label-text">
+                        <xsl:with-param name="content" select="Text" />
+                        <xsl:with-param name="wellformed" select="Text/@WellFormed" />
+                    </xsl:call-template>      
+                </xsl:element>
             </xsl:element>
-        </xsl:element>
+        </xsl:if>
     </xsl:template>
 
     <xsl:template name="insert-label-heading">
@@ -3321,6 +3333,65 @@
         </xsl:variable>
 
         <xsl:value-of select="$qGroup"/>
+    </xsl:template>
+
+    <xsl:template name="funcGetQName">
+        <!-- Calculate Question Name from BgColor parameter -->
+        <!-- Question Name is placed after the last _Q within the text -->
+        <xsl:param name="qGroup" />
+
+        <xsl:variable name="lastQPos">
+            <xsl:call-template name="lastQPos">
+                <xsl:with-param name="str" select="$qGroup"/>
+                <xsl:with-param name="from" select="3"/>
+            </xsl:call-template>
+        </xsl:variable>
+
+        <xsl:message>lastQPos=[<xsl:value-of select="$lastQPos"/>]</xsl:message>
+
+        <xsl:variable name="qName" select="substring($qGroup, number($lastQPos) + 2)"/>
+
+        <xsl:value-of select="$qName"/>
+    </xsl:template>
+
+    <xsl:template name="lastQPos">
+    <xsl:param name="str"/>
+    <xsl:param name="from" select="1"/>
+    <xsl:variable name="nextQ" select="substring($str, $from)"/>
+    <xsl:variable name="pos" select="string-length(substring-before($nextQ, '_Q'))"/>
+    <xsl:variable name="isDoubleQ" select="substring($nextQ, $pos, 3) = '__Q'"/>
+    <xsl:choose>
+        <xsl:when test="$pos &gt; 0">
+        <xsl:variable name="newFrom" select="$from + $pos + 2"/>
+        <xsl:variable name="nextPos">
+            <xsl:call-template name="lastQPos">
+            <xsl:with-param name="str" select="$str"/>
+            <xsl:with-param name="from" select="$newFrom"/>
+            </xsl:call-template>
+        </xsl:variable>
+        <xsl:choose>
+            <xsl:when test="$nextPos &gt; 0">
+            <xsl:value-of select="$nextPos"/>
+            </xsl:when>
+            <xsl:otherwise>
+            <xsl:choose>
+                <xsl:when test="$isDoubleQ">
+                <xsl:call-template name="lastQPos">
+                    <xsl:with-param name="str" select="$str"/>
+                    <xsl:with-param name="from" select="$newFrom"/>
+                </xsl:call-template>
+                </xsl:when>
+                <xsl:otherwise>
+                <xsl:value-of select="$from + $pos"/>
+                </xsl:otherwise>
+            </xsl:choose>
+            </xsl:otherwise>
+        </xsl:choose>
+        </xsl:when>
+        <xsl:otherwise>
+        <xsl:value-of select="0"/>
+        </xsl:otherwise>
+    </xsl:choose>
     </xsl:template>
 
     <xsl:template name="loop-between">
