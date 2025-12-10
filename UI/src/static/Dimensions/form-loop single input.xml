@@ -1,6 +1,6 @@
 <Questions>
     <Question>
-        <Style BgColor="loop-hidden:_QForm8SingleLinePage_QFormSingleLineLoop" ElementAlign="NewLine"></Style>
+        <Style BgColor="palette-loop:_QForm8SingleLinePage_QFormSingleLineLoop" ElementAlign="NewLine"></Style>
         <Table UseTablesLayout="-1" Summary="This is the hidden table" TableName="_Q_DDynamicPage_QForm8SingleLinePage_QFormSingleLineLoop" TableID="_Q3" QuestionType="LoopNumeric">
             <Row Y="0">
                 <Cell X="0" Y="0">

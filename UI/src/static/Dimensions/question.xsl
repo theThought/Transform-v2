@@ -15,7 +15,7 @@
     <xsl:template match="Questions">
         <xsl:variable name="questionCount" select="count(Question)" />
 
-    <!-- iterate through the questions eleents in the XML structure -->
+        <!-- iterate through the questions eleents in the XML structure -->
         <xsl:choose>
             <xsl:when test="$questionCount > 1">
                 <xsl:element name="Questions">
@@ -206,14 +206,6 @@
             </xsl:choose>
         </xsl:variable>
 
-        <xsl:comment>
-        <xsl:text>type: </xsl:text>
-        <xsl:value-of select="$qType"/>
-        <xsl:text> [ </xsl:text>
-        <xsl:value-of select="$qTypeBase"/>
-        <xsl:text> ]</xsl:text>
-        </xsl:comment>
-
         <xsl:choose>
             <xsl:when test="$qTypeBase='singleline'">
                 <xsl:call-template name="singleline">
@@ -358,6 +350,13 @@
                     <xsl:with-param name="qSuppress" select="$qSuppress"/>
                 </xsl:call-template>
             </xsl:when>
+            <xsl:when test="$qTypeBase='palette-loop'">
+                <xsl:call-template name="palette-loop">
+                    <xsl:with-param name="qType" select="$qTypeBase" />
+                    <xsl:with-param name="qGroup" select="$qGroup"/>
+                    <xsl:with-param name="cellContext" select="$cellContext"/>
+                </xsl:call-template>
+            </xsl:when>
         </xsl:choose>
     </xsl:template>
 
@@ -397,11 +396,7 @@
                     <xsl:value-of select="$cellContext" />
                 </xsl:attribute>
             </xsl:if>
-<!--
-            <xsl:attribute name="aria-autocomplete">
-                <xsl:text>none</xsl:text>
-            </xsl:attribute>
--->            
+          
             <xsl:attribute name="autocomplete">
                 <xsl:text>off</xsl:text>
             </xsl:attribute>
@@ -1041,34 +1036,34 @@
 
     <!-- Functions -->
     <!-- ========= -->
-        <xsl:template name="rowOfNextStatic">
-            <xsl:param name="theRows" />
+    <xsl:template name="rowOfNextStatic">
+        <xsl:param name="theRows" />
 
-            <xsl:variable name="firstStaticRow" select="$theRows[Cell/Control/@Type = 'Static'][1]"/>
-            <xsl:variable name="positionInOriginalSet" select="count($firstStaticRow/preceding-sibling::*)"/>
+        <xsl:variable name="firstStaticRow" select="$theRows[Cell/Control/@Type = 'Static'][1]"/>
+        <xsl:variable name="positionInOriginalSet" select="count($firstStaticRow/preceding-sibling::*)"/>
 
-            <xsl:value-of select="$positionInOriginalSet"/>
-        </xsl:template>
+        <xsl:value-of select="$positionInOriginalSet"/>
+    </xsl:template>
 
-        <xsl:template name="endOfSublist">
-            <xsl:param name="theRows" />
-            <xsl:param name="startPosition" select="-1" />
-            <xsl:param name="currentCategoryID" />
-            <xsl:param name="lastRow" />
+    <xsl:template name="endOfSublist">
+        <xsl:param name="theRows" />
+        <xsl:param name="startPosition" select="-1" />
+        <xsl:param name="currentCategoryID" />
+        <xsl:param name="lastRow" />
 
-            <xsl:for-each select="$theRows">
-                <xsl:variable name="currentRow" select="$theRows[position()]" />
-                <xsl:variable name="nextRow" select="$theRows[position()+1]" />
-                <xsl:variable name="categoryID" select="$nextRow/Cell/Control/Category/@CategoryID" />
-                <xsl:choose>
-                    <xsl:when test="position() > $startPosition">
-                            <xsl:if test="not(substring-before($categoryID, '_S')=$currentCategoryID)">
-                                <xsl:value-of select="position()" />
-                            </xsl:if>
-                    </xsl:when>
-                </xsl:choose>
-            </xsl:for-each>
-        </xsl:template>
+        <xsl:for-each select="$theRows">
+            <xsl:variable name="currentRow" select="$theRows[position()]" />
+            <xsl:variable name="nextRow" select="$theRows[position()+1]" />
+            <xsl:variable name="categoryID" select="$nextRow/Cell/Control/Category/@CategoryID" />
+            <xsl:choose>
+                <xsl:when test="position() > $startPosition">
+                        <xsl:if test="not(substring-before($categoryID, '_S')=$currentCategoryID)">
+                            <xsl:value-of select="position()" />
+                        </xsl:if>
+                </xsl:when>
+            </xsl:choose>
+        </xsl:for-each>
+    </xsl:template>
 
     <!-- Response Types -->
     <!-- ============== -->
@@ -1141,7 +1136,7 @@
     </xsl:template>
 
     <xsl:template name="choice">
-        <xsl:param name="qType" />
+        <xsl:param name="qType" select="''" />
         <xsl:param name="qGroup" />
         <xsl:param name="Hidden" />
         <xsl:param name="qReadOnly" />
@@ -1666,6 +1661,7 @@
         </xsl:choose>
     </xsl:template>
 
+
     <!-- Table Structure -->
     <!-- ============== -->
     <xsl:template name="o-loop">
@@ -2094,8 +2090,344 @@
         </xsl:if>
     </xsl:template>
 
+    <!-- Palette Loop Structure -->
+    <!-- ====================== -->
+
+    <xsl:template name="palette-loop">
+        <xsl:param name="qType" />
+        <xsl:param name="qGroup" />
+        <xsl:param name="Hidden" />
+        <xsl:param name="cellContext" />
+        <xsl:param name="qReadOnly" />
+        <xsl:param name="qSuppress" select="false()" />
+
+        <xsl:variable name="questionId">
+            <xsl:value-of select="Control[./Style/Control/@Type='SingleLineEdit'][1]/@ElementID" />
+        </xsl:variable>
+        <xsl:for-each select="Table">
+            <xsl:call-template name='o-palette-loop'>
+                <xsl:with-param name="qGroup">
+                    <xsl:value-of select="$qGroup" />
+                </xsl:with-param>
+                <xsl:with-param name="cellContext" select="$cellContext"/>
+                <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
+            </xsl:call-template>
+        </xsl:for-each>
+    </xsl:template>
+
+    <xsl:template name="o-palette-loop">
+        <xsl:param name="qGroup" />
+        <xsl:param name="qReadOnly" />
+        <xsl:param name="cellContext" />
+
+        <xsl:variable name="tableName" select="@TableID"/>
+        <xsl:element name="o-palette-loop">
+            <xsl:element name="table">
+                <xsl:attribute name="class">
+                    <xsl:text>o-structure-table</xsl:text>
+                </xsl:attribute>
+                <!-- Calculate firstHeadingRowPos: first row where any Cell contains Control or Question (not under Style/Label/Style) -->
+                <xsl:variable name="firstDataRowPos">
+                    <xsl:for-each select="Row">
+                        <xsl:sort select="@Y" data-type="number" order="ascending"/>
+                        <xsl:if test="Cell[Control or Question] and not(preceding-sibling::Row[Cell[Control or Question]])">
+                            <xsl:value-of select="position()"/>
+                        </xsl:if>
+                    </xsl:for-each>
+                </xsl:variable>
+
+                <xsl:variable name="headerRowsCount">
+                    <xsl:choose>
+                        <xsl:when test="string($firstDataRowPos) != '' and not($firstDataRowPos != $firstDataRowPos)">
+                            <xsl:value-of select="number($firstDataRowPos) - 1" />
+                        </xsl:when>
+                        <xsl:otherwise>0</xsl:otherwise>
+                    </xsl:choose>
+                </xsl:variable>
+                <xsl:attribute name="data-header-rows-count">
+                    <xsl:value-of select="$headerRowsCount"/>
+                </xsl:attribute>
+                
+                <!-- Call CreateColgroups with the row at position firstDataRowPos -->
+                <xsl:variable name="firstQuestionRow" select="Row[position() = $firstDataRowPos]"/>
+                <xsl:variable name="questionCellCount" select="count($firstQuestionRow/Cell[.//Control])"/>
+
+                <xsl:attribute name="data-question-count">
+                    <xsl:value-of select="$questionCellCount"/>
+                </xsl:attribute>
+
+                <xsl:call-template name="CreateColgroups">
+                    <xsl:with-param name="firstQuestionRow" select="$firstQuestionRow"/>
+                </xsl:call-template>
+                
+                <!-- thead -->
+                <xsl:element name="thead">
+                    <xsl:for-each select="Row">
+                        <xsl:sort select="@Y" data-type="number" order="ascending"/>
+                        <xsl:if test="position() &lt;= $headerRowsCount">
+
+                                <xsl:call-template name="loopTopTitles">
+                                    <xsl:with-param name="rows" select="."/>
+                                    <xsl:with-param name="tableName" select="$tableName" />
+                                </xsl:call-template>
+                        </xsl:if>
+                    </xsl:for-each>
+                </xsl:element>
+                <!-- tbody -->
+                <tbody>
+                    <xsl:for-each select="Row">
+                        <xsl:sort select="@Y" data-type="number" order="ascending"/>
+                        <xsl:if test="position() &gt; $headerRowsCount">
+                            <xsl:call-template name="palette-loopRow">
+                                <xsl:with-param name="qGroup" select="$qGroup"/>
+                                <xsl:with-param name="tableName" select="$tableName" />
+                                <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
+                            </xsl:call-template>
+                        </xsl:if>
+                    </xsl:for-each>
+                </tbody>
+            </xsl:element>
+        </xsl:element>
+    </xsl:template>
+
+    <xsl:template name="palette-loopRow">
+        <xsl:param name="qGroup" />
+        <xsl:param name="tableName" />
+        <xsl:param name="qReadOnly" />
+
+        <xsl:element name="tr">
+            <xsl:variable name="inputCellsCount" select="count(Cell[.//Control])"/>
+            <xsl:attribute name="inputCellCount">
+                <xsl:value-of select="$inputCellsCount"/>
+            </xsl:attribute>
+            <xsl:attribute name="class">
+                <xsl:choose>
+                    <xsl:when test="$inputCellsCount &lt; 1">
+                        <xsl:text>m-structure-row-heading</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>m-structure-row</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:attribute>
+
+            <xsl:for-each select="Cell">
+                <xsl:sort select="@X" data-type="number" order="ascending"/>
+                <xsl:call-template name="palette-loopCell">
+                    <xsl:with-param name="qGroup" select="$qGroup" />
+                    <xsl:with-param name="currentCell" select="." />
+                    <xsl:with-param name="tableName" select="$tableName" />
+                    <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
+                </xsl:call-template>
+            </xsl:for-each>
+        </xsl:element>
+    </xsl:template>
+
+    <xsl:template name="palette-loopCell">
+        <xsl:param name="qGroup" />
+        <xsl:param name="currentCell" />
+        <xsl:param name="tableName" />
+        <xsl:param name="qReadOnly" />
+        
+        <xsl:variable name="cellContext">
+            <xsl:value-of select="concat($tableName, '!C', @X, ' ', $tableName, '!R', @Y)" />
+        </xsl:variable>
+
+        <xsl:variable name="cellType">
+            <xsl:choose>
+                <xsl:when test="name(*[1]) = 'Label'">
+                    <xsl:text>th</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>td</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+
+        <xsl:element name="{$cellType}">
+            <xsl:attribute name="data-X">
+                <xsl:value-of select="@X" />
+            </xsl:attribute>
+            <xsl:attribute name="data-Y">
+                <xsl:value-of select="@Y" />
+            </xsl:attribute>
+
+            <xsl:if test="@WeightY">
+                <xsl:attribute name="rowspan">
+                    <xsl:value-of select="@WeightY" />
+                </xsl:attribute>
+            </xsl:if>
+
+            <xsl:if test="@WeightX">
+                <xsl:attribute name="colspan">
+                    <xsl:value-of select="@WeightX" />
+                </xsl:attribute>
+            </xsl:if>
+
+            <xsl:attribute name="class">
+                <xsl:text>m-structure-cell</xsl:text>
+            </xsl:attribute>
+            <xsl:choose>
+                <xsl:when test="name(*[1]) = 'Label'">
+                    <xsl:attribute name="scope">
+                        <xsl:choose>
+                            <xsl:when test="@X = 0">
+                                <xsl:text>row</xsl:text>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:text>col</xsl:text>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:attribute>
+
+                    <xsl:for-each select="Label">
+                        <xsl:call-template name="insert-label-heading">
+                            <xsl:with-param name="X" select="../@X" />
+                            <xsl:with-param name="Y" select="../@Y" />
+                            <xsl:with-param name="pClass" select="../@Class" />
+                            <xsl:with-param name="tableName" select="$tableName" />
+                            <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
+                        </xsl:call-template>
+                    </xsl:for-each>
+                    
+                </xsl:when>
+                <xsl:when test="name(*[1]) = 'Question' or name(*[2]) = 'Question'">
+
+                    <xsl:for-each select="Question">
+                        <xsl:call-template name="palette-Question">
+                            <xsl:with-param name="cellContext" select="$cellContext" />
+                        </xsl:call-template>
+                    </xsl:for-each>
+                </xsl:when>
+            </xsl:choose>
+        </xsl:element>
+    </xsl:template> 
+
+    <xsl:template name="palette-Question">
+        <xsl:param name="cellContext" />
+        <!-- iterate through the question eleents in the XML structure -->
+        <!-- question elements are contained within the questions element -->
+
+        <xsl:variable name="BgColor">
+            <xsl:choose>
+                <xsl:when test="Style">
+                    <xsl:value-of select="Style/@BgColor"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="Control[1]/Style/@BgColor"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+
+        <xsl:variable name="qType">
+            <xsl:call-template name="funcGetQType">
+                <xsl:with-param name="BgColor" select="$BgColor"/>
+            </xsl:call-template>
+        </xsl:variable>
+
+        <xsl:variable name="qGroup">
+            <xsl:call-template name="funcGetQGroup">
+                <xsl:with-param name="BgColor" select="$BgColor"/>
+            </xsl:call-template>
+        </xsl:variable>
+
+        <xsl:variable name="qCalcQuestionName">
+            <xsl:call-template name="funcGetQName">
+                <xsl:with-param name="qGroup" select="$qGroup"/>
+            </xsl:call-template>
+        </xsl:variable>
+
+        <xsl:variable name="qReadOnly">
+            <xsl:choose>
+                <xsl:when test="Style/Control/@ReadOnly">
+                    <xsl:value-of select="true()"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="false()"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+
+        <xsl:element name="o-question">
+            <xsl:attribute name="data-associate-question">
+                <xsl:value-of select="$qCalcQuestionName" />
+            </xsl:attribute>
+            
+            <xsl:attribute name="data-associate-type">
+                <xsl:text>storage</xsl:text>
+            </xsl:attribute>
+
+            <xsl:call-template name="palette-response">
+                <xsl:with-param name="qType" select="$qType"/>
+                <xsl:with-param name="qGroup" select="$qGroup"/>
+                <xsl:with-param name="cellContext" select="$cellContext"/>
+                <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
+            </xsl:call-template>
+        </xsl:element>
+    </xsl:template>
+
+    <xsl:template name="palette-response">
+        <xsl:param name="qType" />
+        <xsl:param name="qGroup" />
+        <xsl:param name="cellContext" />
+        <xsl:param name="qReadOnly" select="false()" />
+
+        <xsl:element name="o-response">
+            <xsl:attribute name="data-question-group">
+                <xsl:value-of select="$qGroup" />  
+            </xsl:attribute>
+
+            <!--- Adds class to define below/side position -->
+                <xsl:call-template name="palette-singleline">
+                    <xsl:with-param name="qGroup" select="$qGroup"/>
+                    <xsl:with-param name="Hidden" select="false()"/>
+                    <xsl:with-param name="cellContext" select="$cellContext"/>  
+                </xsl:call-template>
+        </xsl:element>
+    </xsl:template>
+
+    <xsl:template name="palette-singleline">
+        <xsl:param name="qGroup" />
+        <xsl:param name="Hidden" />
+        <xsl:param name="subType" />
+        <xsl:param name="cellContext" />
+        <xsl:param name="qReadOnly" />
+        <xsl:param name="qSuppress" select="false()" />
+
+        <xsl:variable name="questionId">
+            <xsl:value-of select="Control[./Style/Control/@Type='SingleLineEdit'][1]/@ElementID" />
+        </xsl:variable>
+
+        <xsl:variable name="optionCount">
+            <xsl:value-of select="count(Control[not(./Style/Control/@Type='SingleLineEdit')])" />
+        </xsl:variable>
+
+        <xsl:for-each select="Label">
+            <xsl:call-template name="insert-label">
+                <xsl:with-param name="subType" select="'option'" />
+            </xsl:call-template>
+        </xsl:for-each>
+
+        <xsl:for-each select="Control[./Style/Control/@Type='SingleLineEdit']">
+            <xsl:call-template name='m-singleline'>
+                <xsl:with-param name="qGroup">
+                    <xsl:value-of select="$qGroup" />
+                </xsl:with-param>
+                <xsl:with-param name="subType" select="$subType" />
+                <xsl:with-param name="cellContext" select="$cellContext"/>
+            </xsl:call-template>
+        </xsl:for-each>
+        <xsl:if test="$optionCount > 0">
+            <xsl:call-template name="o-option-sublist">
+                <xsl:with-param name="qGroup" select="$qGroup" />
+                <xsl:with-param name="questionId" select="$questionId" />
+                <xsl:with-param name="optionCount" select="$optionCount" />
+                <xsl:with-param name="typeOverride" select="'checkbox'" />
+            </xsl:call-template>
+        </xsl:if>
+    </xsl:template>
     <!-- Organisms -->
-    <!-- ============== -->
+    <!-- ========= -->
 
     <xsl:template name="o-scale">
             <!-- inserts a basic edit box -->
@@ -3193,7 +3525,7 @@
     <!-- List Structures -->
     <!-- =============== -->
     <xsl:template name="o-option-sublist">
-        <xsl:param name="qType" />
+        <xsl:param name="qType" select="'choice'" />
         <xsl:param name="qGroup" />
         <xsl:param name="questionId" />
         <xsl:param name="optionCount" />
