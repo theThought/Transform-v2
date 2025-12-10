@@ -474,7 +474,6 @@ export default class OList extends Component implements Observer {
         this.clearSelectedOptions();
         this.setOption(listItem);
         this.setValue(listItem);
-        this.setLabel(listItem);
         this.clearFilteredOptions();
     }
 
@@ -570,7 +569,6 @@ export default class OList extends Component implements Observer {
 
         this.setOption(listItem);
         this.setValue(listItem);
-        this.setLabel(listItem);
         this.clearFilteredOptions();
     }
 
