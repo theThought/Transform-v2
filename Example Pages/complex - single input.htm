@@ -25,13 +25,13 @@
 		<meta name="theme-color" content="#ffffff"/>
 	</head>
 	<body>
-		<form name="mrForm" id="mrForm" action="./" method="post"><input type="hidden" name="I.Engine" value="Server"/><input type="hidden" name="I.Project" value="Transform_v2.1"/><input type="hidden" name="I.Session" value="5pm1mx5lkdie6a6zxrvjbjbp4qaqaaaa"/><input type="hidden" name="I.SavePoint" value="Form8SingleLinePage"/><input type="hidden" name="I.Language" value="en-US"/><input type="hidden" name="I.Renderer" value="HTMLPlayer"/><a-properties data-properties="{&quot;validate&quot;:true,&quot;floatdetails&quot;:false,&quot;separator&quot;:true,&quot;sidebyside&quot;:35,&quot;focus&quot;:{&quot;question&quot;:true,&quot;control&quot;:true},&quot;paste&quot;:false,&quot;jumptoerror&quot;:true,&quot;tab&quot;:&quot;Form1Question&quot;,&quot;resettonull&quot;:true}"><!-- Page Properties --></a-properties><header class="header">
+		<form name="mrForm" id="mrForm" action="./" method="post"><input type="hidden" name="I.Engine" value="Server"/><input type="hidden" name="I.Project" value="Transform_v2.1"/><input type="hidden" name="I.Session" value="cec4jdlx3bhedi6k12j34c1fjeaqaaaa"/><input type="hidden" name="I.SavePoint" value="Form8SingleLinePage"/><input type="hidden" name="I.Language" value="en-US"/><input type="hidden" name="I.Renderer" value="HTMLPlayer"/><a-properties data-properties="{&quot;validate&quot;:true,&quot;floatdetails&quot;:false,&quot;separator&quot;:true,&quot;sidebyside&quot;:35,&quot;focus&quot;:{&quot;question&quot;:true,&quot;control&quot;:true},&quot;paste&quot;:false,&quot;jumptoerror&quot;:true,&quot;tab&quot;:&quot;Form1Question&quot;,&quot;resettonull&quot;:true}"><!-- Page Properties --></a-properties><header class="header">
 				<img class="site-logo" alt="Ipsos Logo" title="Ipsos Logo" src="https://cdn.ipsosinteractive.com/sandbox/kevin.gray/transform/v2/staging/static/ipsoslogo192.png"/>
 			</header>
 			<main class="surroundcontent">
 				<h1><label>Welcome to this Transform Demonstration</label>
 				</h1>
-
+				<!--No question label-->
 				<o-question data-global="false">
 					<div class="l-cover"><!-- cover --></div>
 					<div class="l-row">
@@ -64,27 +64,29 @@
 									<!-- history -->
 								</header>
 								<div class="o-palette-form">
-									<div class="l-row">
-										<div class="l-column">
-											<div data-associate-question="triggerword" data-associate-type="label">
-												<!-- triggerword label -->
+									<div class="o-palette-active">
+										<div class="l-row">
+											<div class="l-column">
+												<div data-associate-question="triggerword" data-associate-type="label">
+													<!-- triggerword label -->
+												</div>
+											</div>
+										</div>
+										<div class="l-row">
+											<div class="l-column">
+												<div data-associate-question="triggerword" data-associate-type="question">
+													<!-- triggerword question -->
+												</div>
+											</div>
+											<div class="l-column">
+												<span class="o-palette-button" data-action="confirm"><!-- confirm button --></span>
+												<span class="o-palette-button" data-action="cancel"><!-- cancel button --></span>
 											</div>
 										</div>
 									</div>
-									<div class="l-row">
-										<div class="l-column">
-											<div data-associate-question="triggerword" data-associate-type="question">
-												<!-- triggerword question -->
-											</div>
-										</div>
-										<div class="l-column">
-											<span class="o-palette-button" data-action="confirm"><!-- confirm button --></span>
-											<span class="o-palette-button" data-action="cancel"><!-- cancel button --></span>
-										</div>
-									</div>
+									<div class="o-palette-empty"><!-- empty state --></div>
+									<div class="o-palette-end"><!-- end state --></div>
 								</div>
-								<div class="o-palette-empty"><!-- empty state --></div>
-								<div class="o-palette-end"><!-- end state --></div>
 							</section>
 							<!-- only used for tabstrips -->
 							<o-question data-global="false">
@@ -114,32 +116,17 @@
 								<div class="l-row">
 									<div class="l-column">
 										<!-- Question Controls -->
-										<o-question data-associate-question="triggerword">
-											<o-response data-question-group="_QForm8SingleLinePage_QFormSingleLineBlock_Qtriggerword" data-position="below">
-												<!--type: singleline [ singleline ]-->
-												<m-singleline data-question-group="_QForm8SingleLinePage_QFormSingleLineBlock_Qtriggerword" data-question-id="_Q2_Q0">
-													<span class="a-label-pre-boxed">
-														<!--pre label-boxed-->
-													</span>
-													<input data-question-group="_QForm8SingleLinePage_QFormSingleLineBlock_Qtriggerword" name="_Q_DDynamicPage_QForm8SingleLinePage_QFormSingleLineBlock_Qtriggerword" value="" data-xmlNode="Question/Control" data-hidden="false" autocomplete="off" id="_Q2_Q0" type="text" class="a-singleline" maxlength="100" style="text-align:left;"/>
-													<span class="a-label-post-boxed">
-														<!--post label-boxed-->
-													</span>
-												</m-singleline>
-											</o-response>
-										</o-question>
-										<o-question data-associate-question="testquestion">
-											<o-response data-question-group="_QForm8SingleLinePage_QFormSingleLineBlock_Qtestquestion" data-position="below">
-												<!--type: bool [ bool ]-->
-												<m-option-boolean data-exclusive="false" data-question-id="_Q2_Q1_F0" data-question-group="_QForm8SingleLinePage_QFormSingleLineBlock_Qtestquestion" class=" below " data-hidden="false">
-													<input data-question-group="_QForm8SingleLinePage_QFormSingleLineBlock_Qtestquestion" name="_Q_DDynamicPage_QForm8SingleLinePage_QFormSingleLineBlock_Qtestquestion_F" id="_Q2_Q1_F0" type="checkbox" value="true"/>
-													<!--boolean-->
-													<span class="a-icon-multistate" data-icon-type="checkbox">
-														<!--Icon-->
-													</span>
-												</m-option-boolean>
-											</o-response>
-										</o-question>
+										<o-response data-question-group="_QForm8SingleLinePage_QFormSingleLineBlock_Qtriggerword" data-position="below">
+											<m-singleline data-question-group="_QForm8SingleLinePage_QFormSingleLineBlock_Qtriggerword" data-question-id="_Q2_Q0">
+												<span class="a-label-pre-boxed">
+													<!--pre label-boxed-->
+												</span>
+												<input data-question-group="_QForm8SingleLinePage_QFormSingleLineBlock_Qtriggerword" name="_Q_DDynamicPage_QForm8SingleLinePage_QFormSingleLineBlock_Qtriggerword" value="" data-xmlNode="Question/Control" data-hidden="false" autocomplete="off" id="_Q2_Q0" type="text" class="a-singleline" maxlength="100" style="text-align:left;"/>
+												<span class="a-label-post-boxed">
+													<!--post label-boxed-->
+												</span>
+											</m-singleline>
+										</o-response>
 									</div>
 								</div>
 								<div class="l-row">
@@ -177,17 +164,17 @@
 									<div class="l-column">
 										<!-- Question Controls -->
 										<o-response data-question-group="_QForm8SingleLinePage_QFormSingleLineLoop" data-position="below">
-											<!--type: loop-hidden [ loop ]-->
-											<o-loop>
+											<o-palette-loop>
 												<table class="o-structure-table" data-header-rows-count="0" data-question-count="1">
 													<colgroup data-question-group="_Q_DDynamicPage_QForm8SingleLinePage_QFormSingleLineLoop_Q__1_Qtriggerword"/>
 													<thead></thead>
 													<tbody xmlns:fo="http://www.w3.org/1999/XSL/Format">
 														<tr inputCellCount="1" class="m-structure-row">
-															<td data-X="0" data-Y="0" class="m-structure-cell" style="vertical-align:Middle; text-align:Center; ">
-																<o-question data-associate-question="triggerword">
-																	<o-response data-question-group="_QForm8SingleLinePage_QFormSingleLineLoop_Q__1_Qtriggerword" data-position="below">
-																		<!--type: singleline-hidden [ singleline ]-->
+															<td data-X="0" data-Y="0" class="m-structure-cell">
+																<o-question data-associate-question="triggerword" data-associate-type="storage">
+																	<o-response data-question-group="_QForm8SingleLinePage_QFormSingleLineLoop_Q__1_Qtriggerword">
+																		<!--parent name:
+            Question; questionId: _Q3_Q0_Q0-->
 																		<m-singleline data-question-group="_QForm8SingleLinePage_QFormSingleLineLoop_Q__1_Qtriggerword" data-question-id="_Q3_Q0_Q0">
 																			<span class="a-label-pre-boxed">
 																				<!--pre label-boxed-->
@@ -202,10 +189,11 @@
 															</td>
 														</tr>
 														<tr inputCellCount="1" class="m-structure-row">
-															<td data-X="0" data-Y="1" class="m-structure-cell" style="vertical-align:Middle; text-align:Center; ">
-																<o-question data-associate-question="triggerword">
-																	<o-response data-question-group="_QForm8SingleLinePage_QFormSingleLineLoop_Q__2_Qtriggerword" data-position="below">
-																		<!--type: singleline-hidden [ singleline ]-->
+															<td data-X="0" data-Y="1" class="m-structure-cell">
+																<o-question data-associate-question="triggerword" data-associate-type="storage">
+																	<o-response data-question-group="_QForm8SingleLinePage_QFormSingleLineLoop_Q__2_Qtriggerword">
+																		<!--parent name:
+            Question; questionId: _Q3_Q1_Q0-->
 																		<m-singleline data-question-group="_QForm8SingleLinePage_QFormSingleLineLoop_Q__2_Qtriggerword" data-question-id="_Q3_Q1_Q0">
 																			<span class="a-label-pre-boxed">
 																				<!--pre label-boxed-->
@@ -220,10 +208,11 @@
 															</td>
 														</tr>
 														<tr inputCellCount="1" class="m-structure-row">
-															<td data-X="0" data-Y="2" class="m-structure-cell" style="vertical-align:Middle; text-align:Center; ">
-																<o-question data-associate-question="triggerword">
-																	<o-response data-question-group="_QForm8SingleLinePage_QFormSingleLineLoop_Q__3_Qtriggerword" data-position="below">
-																		<!--type: singleline-hidden [ singleline ]-->
+															<td data-X="0" data-Y="2" class="m-structure-cell">
+																<o-question data-associate-question="triggerword" data-associate-type="storage">
+																	<o-response data-question-group="_QForm8SingleLinePage_QFormSingleLineLoop_Q__3_Qtriggerword">
+																		<!--parent name:
+            Question; questionId: _Q3_Q2_Q0-->
 																		<m-singleline data-question-group="_QForm8SingleLinePage_QFormSingleLineLoop_Q__3_Qtriggerword" data-question-id="_Q3_Q2_Q0">
 																			<span class="a-label-pre-boxed">
 																				<!--pre label-boxed-->
@@ -238,10 +227,11 @@
 															</td>
 														</tr>
 														<tr inputCellCount="1" class="m-structure-row">
-															<td data-X="0" data-Y="3" class="m-structure-cell" style="vertical-align:Middle; text-align:Center; ">
-																<o-question data-associate-question="triggerword">
-																	<o-response data-question-group="_QForm8SingleLinePage_QFormSingleLineLoop_Q__4_Qtriggerword" data-position="below">
-																		<!--type: singleline-hidden [ singleline ]-->
+															<td data-X="0" data-Y="3" class="m-structure-cell">
+																<o-question data-associate-question="triggerword" data-associate-type="storage">
+																	<o-response data-question-group="_QForm8SingleLinePage_QFormSingleLineLoop_Q__4_Qtriggerword">
+																		<!--parent name:
+            Question; questionId: _Q3_Q3_Q0-->
 																		<m-singleline data-question-group="_QForm8SingleLinePage_QFormSingleLineLoop_Q__4_Qtriggerword" data-question-id="_Q3_Q3_Q0">
 																			<span class="a-label-pre-boxed">
 																				<!--pre label-boxed-->
@@ -256,10 +246,11 @@
 															</td>
 														</tr>
 														<tr inputCellCount="1" class="m-structure-row">
-															<td data-X="0" data-Y="4" class="m-structure-cell" style="vertical-align:Middle; text-align:Center; ">
-																<o-question data-associate-question="triggerword">
-																	<o-response data-question-group="_QForm8SingleLinePage_QFormSingleLineLoop_Q__5_Qtriggerword" data-position="below">
-																		<!--type: singleline-hidden [ singleline ]-->
+															<td data-X="0" data-Y="4" class="m-structure-cell">
+																<o-question data-associate-question="triggerword" data-associate-type="storage">
+																	<o-response data-question-group="_QForm8SingleLinePage_QFormSingleLineLoop_Q__5_Qtriggerword">
+																		<!--parent name:
+            Question; questionId: _Q3_Q4_Q0-->
 																		<m-singleline data-question-group="_QForm8SingleLinePage_QFormSingleLineLoop_Q__5_Qtriggerword" data-question-id="_Q3_Q4_Q0">
 																			<span class="a-label-pre-boxed">
 																				<!--pre label-boxed-->
@@ -274,10 +265,11 @@
 															</td>
 														</tr>
 														<tr inputCellCount="1" class="m-structure-row">
-															<td data-X="0" data-Y="5" class="m-structure-cell" style="vertical-align:Middle; text-align:Center; ">
-																<o-question data-associate-question="triggerword">
-																	<o-response data-question-group="_QForm8SingleLinePage_QFormSingleLineLoop_Q__6_Qtriggerword" data-position="below">
-																		<!--type: singleline-hidden [ singleline ]-->
+															<td data-X="0" data-Y="5" class="m-structure-cell">
+																<o-question data-associate-question="triggerword" data-associate-type="storage">
+																	<o-response data-question-group="_QForm8SingleLinePage_QFormSingleLineLoop_Q__6_Qtriggerword">
+																		<!--parent name:
+            Question; questionId: _Q3_Q5_Q0-->
 																		<m-singleline data-question-group="_QForm8SingleLinePage_QFormSingleLineLoop_Q__6_Qtriggerword" data-question-id="_Q3_Q5_Q0">
 																			<span class="a-label-pre-boxed">
 																				<!--pre label-boxed-->
@@ -292,10 +284,11 @@
 															</td>
 														</tr>
 														<tr inputCellCount="1" class="m-structure-row">
-															<td data-X="0" data-Y="6" class="m-structure-cell" style="vertical-align:Middle; text-align:Center; ">
-																<o-question data-associate-question="triggerword">
-																	<o-response data-question-group="_QForm8SingleLinePage_QFormSingleLineLoop_Q__7_Qtriggerword" data-position="below">
-																		<!--type: singleline-hidden [ singleline ]-->
+															<td data-X="0" data-Y="6" class="m-structure-cell">
+																<o-question data-associate-question="triggerword" data-associate-type="storage">
+																	<o-response data-question-group="_QForm8SingleLinePage_QFormSingleLineLoop_Q__7_Qtriggerword">
+																		<!--parent name:
+            Question; questionId: _Q3_Q6_Q0-->
 																		<m-singleline data-question-group="_QForm8SingleLinePage_QFormSingleLineLoop_Q__7_Qtriggerword" data-question-id="_Q3_Q6_Q0">
 																			<span class="a-label-pre-boxed">
 																				<!--pre label-boxed-->
@@ -310,10 +303,11 @@
 															</td>
 														</tr>
 														<tr inputCellCount="1" class="m-structure-row">
-															<td data-X="0" data-Y="7" class="m-structure-cell" style="vertical-align:Middle; text-align:Center; ">
-																<o-question data-associate-question="triggerword">
-																	<o-response data-question-group="_QForm8SingleLinePage_QFormSingleLineLoop_Q__8_Qtriggerword" data-position="below">
-																		<!--type: singleline-hidden [ singleline ]-->
+															<td data-X="0" data-Y="7" class="m-structure-cell">
+																<o-question data-associate-question="triggerword" data-associate-type="storage">
+																	<o-response data-question-group="_QForm8SingleLinePage_QFormSingleLineLoop_Q__8_Qtriggerword">
+																		<!--parent name:
+            Question; questionId: _Q3_Q7_Q0-->
 																		<m-singleline data-question-group="_QForm8SingleLinePage_QFormSingleLineLoop_Q__8_Qtriggerword" data-question-id="_Q3_Q7_Q0">
 																			<span class="a-label-pre-boxed">
 																				<!--pre label-boxed-->
@@ -329,7 +323,7 @@
 														</tr>
 													</tbody>
 												</table>
-											</o-loop>
+											</o-palette-loop>
 										</o-response>
 									</div>
 								</div>

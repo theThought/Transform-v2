@@ -2291,9 +2291,15 @@
                     </xsl:for-each>
                     
                 </xsl:when>
-                <xsl:when test="name(*[1]) = 'Question' or name(*[2]) = 'Question'">
-
+                <xsl:when test="name(*[1]) = 'Question'">
                     <xsl:for-each select="Question">
+                        <xsl:call-template name="palette-Question">
+                            <xsl:with-param name="cellContext" select="$cellContext" />
+                        </xsl:call-template>
+                    </xsl:for-each>
+                </xsl:when>
+                <xsl:when test="name(*[1]) = 'Control'">
+                    <xsl:for-each select="Control">
                         <xsl:call-template name="palette-Question">
                             <xsl:with-param name="cellContext" select="$cellContext" />
                         </xsl:call-template>
@@ -2378,11 +2384,11 @@
             </xsl:attribute>
 
             <!--- Adds class to define below/side position -->
-                <xsl:call-template name="palette-singleline">
-                    <xsl:with-param name="qGroup" select="$qGroup"/>
-                    <xsl:with-param name="Hidden" select="false()"/>
-                    <xsl:with-param name="cellContext" select="$cellContext"/>  
-                </xsl:call-template>
+            <xsl:call-template name="palette-singleline">
+                <xsl:with-param name="qGroup" select="$qGroup"/>
+                <xsl:with-param name="Hidden" select="false()"/>
+                <xsl:with-param name="cellContext" select="$cellContext"/>  
+            </xsl:call-template>
         </xsl:element>
     </xsl:template>
 
@@ -2395,20 +2401,54 @@
         <xsl:param name="qSuppress" select="false()" />
 
         <xsl:variable name="questionId">
-            <xsl:value-of select="Control[./Style/Control/@Type='SingleLineEdit'][1]/@ElementID" />
+            <xsl:choose>
+                <xsl:when test="(name()='Question')">
+                    <xsl:value-of select="Control[./Style/Control/@Type='SingleLineEdit']/@ElementID" />
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="@ElementID" />
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:variable>
 
-        <xsl:variable name="optionCount">
-            <xsl:value-of select="count(Control[not(./Style/Control/@Type='SingleLineEdit')])" />
-        </xsl:variable>
 
-        <xsl:for-each select="Label">
-            <xsl:call-template name="insert-label">
-                <xsl:with-param name="subType" select="'option'" />
-            </xsl:call-template>
-        </xsl:for-each>
+        <xsl:comment>parent name:
+            <xsl:value-of select='name()' />
+            <xsl:text>; questionId: </xsl:text>
+            <xsl:value-of select='$questionId' />
+        </xsl:comment>
+        <xsl:choose>
+            <xsl:when test="name()='Question'">
 
-        <xsl:for-each select="Control[./Style/Control/@Type='SingleLineEdit']">
+            <xsl:variable name="optionCount">
+                <xsl:value-of select="count(Control[not(./Style/Control/@Type='SingleLineEdit')])" />
+            </xsl:variable>
+            <!-- Not required ?
+            <xsl:for-each select="Label">
+                <xsl:call-template name="insert-label">
+                    <xsl:with-param name="subType" select="'option'" />
+                </xsl:call-template>
+            </xsl:for-each>
+            -->
+            <xsl:for-each select="Control[./Style/Control/@Type='SingleLineEdit']">
+                <xsl:call-template name='m-singleline'>
+                    <xsl:with-param name="qGroup">
+                        <xsl:value-of select="$qGroup" />
+                    </xsl:with-param>
+                    <xsl:with-param name="subType" select="$subType" />
+                    <xsl:with-param name="cellContext" select="$cellContext"/>
+                </xsl:call-template>
+            </xsl:for-each>
+            <xsl:if test="$optionCount > 0">
+                <xsl:call-template name="o-option-sublist">
+                    <xsl:with-param name="qGroup" select="$qGroup" />
+                    <xsl:with-param name="questionId" select="$questionId" />
+                    <xsl:with-param name="optionCount" select="$optionCount" />
+                    <xsl:with-param name="typeOverride" select="'checkbox'" />
+                </xsl:call-template>
+            </xsl:if>
+        </xsl:when>
+        <xsl:otherwise>
             <xsl:call-template name='m-singleline'>
                 <xsl:with-param name="qGroup">
                     <xsl:value-of select="$qGroup" />
@@ -2416,15 +2456,8 @@
                 <xsl:with-param name="subType" select="$subType" />
                 <xsl:with-param name="cellContext" select="$cellContext"/>
             </xsl:call-template>
-        </xsl:for-each>
-        <xsl:if test="$optionCount > 0">
-            <xsl:call-template name="o-option-sublist">
-                <xsl:with-param name="qGroup" select="$qGroup" />
-                <xsl:with-param name="questionId" select="$questionId" />
-                <xsl:with-param name="optionCount" select="$optionCount" />
-                <xsl:with-param name="typeOverride" select="'checkbox'" />
-            </xsl:call-template>
-        </xsl:if>
+        </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!-- Organisms -->
     <!-- ========= -->
