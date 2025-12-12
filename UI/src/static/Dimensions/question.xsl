@@ -86,12 +86,6 @@
             </xsl:choose>
         </xsl:variable>
 
-        <xsl:variable name="qCalcQuestionName">
-            <xsl:call-template name="funcGetQName">
-                <xsl:with-param name="qGroup" select="$qCalcGroup"/>
-            </xsl:call-template>
-        </xsl:variable>
-
         <xsl:variable name="qReadOnly">
             <xsl:choose>
                 <xsl:when test="Style/Control/@ReadOnly">
@@ -104,10 +98,18 @@
         </xsl:variable>
 
         <xsl:element name="o-question">
-            <xsl:attribute name="data-associate-question">
-                <xsl:value-of select="$qCalcQuestionName" />
-            </xsl:attribute>
-            
+            <xsl:comment>
+            <xsl:text>Parent: </xsl:text>
+            <xsl:value-of select="name(..)" />
+            <xsl:for-each select="../@*">
+                <xsl:text> </xsl:text>
+                <xsl:value-of select="name()" />
+                <xsl:text>="</xsl:text>
+                <xsl:value-of select="." />
+                <xsl:text>"</xsl:text>
+            </xsl:for-each>
+            </xsl:comment>
+
             <xsl:call-template name="response">
                 <xsl:with-param name="qType" select="$qType"/>
                 <xsl:with-param name="qGroup" select="$qCalcGroup"/>
@@ -123,9 +125,19 @@
         <xsl:param name="cellContext" />
         <xsl:param name="qReadOnly" select="false()" />
 
+        <xsl:variable name="qCalcQuestionName">
+            <xsl:call-template name="funcGetQName">
+                <xsl:with-param name="qGroup" select="$qGroup"/>
+            </xsl:call-template>
+        </xsl:variable>
+
         <xsl:element name="o-response">
             <xsl:attribute name="data-question-group">
                 <xsl:value-of select="$qGroup" />  
+            </xsl:attribute>
+
+            <xsl:attribute name="data-associate-question">
+                <xsl:value-of select="$qCalcQuestionName" />
             </xsl:attribute>
 
             <xsl:if test="$bShowOnly or $qReadOnly='true'">
@@ -2337,12 +2349,6 @@
             </xsl:call-template>
         </xsl:variable>
 
-        <xsl:variable name="qCalcQuestionName">
-            <xsl:call-template name="funcGetQName">
-                <xsl:with-param name="qGroup" select="$qGroup"/>
-            </xsl:call-template>
-        </xsl:variable>
-
         <xsl:variable name="qReadOnly">
             <xsl:choose>
                 <xsl:when test="Style/Control/@ReadOnly">
@@ -2355,14 +2361,6 @@
         </xsl:variable>
 
         <xsl:element name="o-question">
-            <xsl:attribute name="data-associate-question">
-                <xsl:value-of select="$qCalcQuestionName" />
-            </xsl:attribute>
-            
-            <xsl:attribute name="data-associate-type">
-                <xsl:text>storage</xsl:text>
-            </xsl:attribute>
-
             <xsl:call-template name="palette-response">
                 <xsl:with-param name="qType" select="$qType"/>
                 <xsl:with-param name="qGroup" select="$qGroup"/>
@@ -2378,11 +2376,25 @@
         <xsl:param name="cellContext" />
         <xsl:param name="qReadOnly" select="false()" />
 
+        <xsl:variable name="qCalcQuestionName">
+            <xsl:call-template name="funcGetQName">
+                <xsl:with-param name="qGroup" select="$qGroup"/>
+            </xsl:call-template>
+        </xsl:variable>
+
         <xsl:element name="o-response">
             <xsl:attribute name="data-question-group">
                 <xsl:value-of select="$qGroup" />  
             </xsl:attribute>
 
+            <xsl:attribute name="data-associate-question">
+                <xsl:value-of select="$qCalcQuestionName" />
+            </xsl:attribute>
+            
+            <xsl:attribute name="data-associate-type">
+                <xsl:text>storage</xsl:text>
+            </xsl:attribute>
+            
             <!--- Adds class to define below/side position -->
             <xsl:call-template name="palette-singleline">
                 <xsl:with-param name="qGroup" select="$qGroup"/>
