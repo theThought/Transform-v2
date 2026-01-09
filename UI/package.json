@@ -1,84 +1,84 @@
 {
-    "name": "project-transform-storybook",
-    "description": "Project Transform Storybook",
-    "author": "",
-    "version": "0.0.1",
-    "license": "ISC",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/theThought/Project-Transform"
-    },
-    "homepage": "https://theThought.github.io/Project-Transform",
-    "scripts": {
-        "reset": "rimraf node_modules/ && npm install",
-        "static-assets-rename": "node ./scripts/static-assets-rename",
-        "static-assets-move": "node ./scripts/static-assets-move",
-        "static-assets-move-localserver": "node ./scripts/static-assets-move-localserve",
-        "prestart": "rimraf .parcel-cache",
-        "start": "npm install && cross-env NODE_ENV=development && npm run start:parcel",
-        "start:parcel": "parcel watch src/javascript/index.ts --dist-dir public --hmr-port 1234 --target app --cache-dir .parcel-cache",
-        "prebuild": "rm -rf .parcel-cache && rm -rf public/build",
-        "build": "npm install && cross-env NODE_ENV=production && npm run build:parcel",
-        "build:parcel": "parcel build index.html --dist-dir public/build --cache-dir .parcel-cache",
-        "postbuild": "npm run static-assets-rename && npm run static-assets-move",
-        "storybook": "storybook dev -p 6006",
-        "build-storybook": "storybook build",
-        "publish-storybook": "npm run build && npm run build-storybook",
-        "prepare": "cd .. && husky ui/.husky",
-        "prelocalserver-watch": "rimraf .parcel-cache",
-        "localserver-watch": "parcel watch src/javascript/index.ts --dist-dir _example-pages --target app --cache-dir .parcel-cache",
-        "localserver-dev": "npx http-server _example-pages/",
-        "prelocalserver-prod": "rimraf ./_example-pages/build && npm run build && npm run static-assets-move-localserver",
-        "localserver-prod": "npx http-server _example-pages/"
-    },
-    "targets": {
-        "app": {}
-    },
-    "browserslist": [
-        "defaults",
-        "not dead"
+  "name": "project-transform-storybook",
+  "description": "Project Transform Storybook",
+  "author": "",
+  "version": "0.0.1",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/theThought/Project-Transform"
+  },
+  "homepage": "https://theThought.github.io/Project-Transform",
+  "scripts": {
+    "reset": "rimraf node_modules/ && npm install",
+    "static-assets-rename": "node ./scripts/static-assets-rename",
+    "static-assets-move": "node ./scripts/static-assets-move",
+    "static-assets-move-localserver": "node ./scripts/static-assets-move-localserve",
+    "prestart": "rimraf .parcel-cache",
+    "start": "npm install && cross-env NODE_ENV=development && npm run start:parcel",
+    "start:parcel": "parcel watch src/javascript/index.ts --dist-dir public --hmr-port 1234 --target app --cache-dir .parcel-cache",
+    "prebuild": "rm -rf .parcel-cache && rm -rf public/build",
+    "build": "npm install && cross-env NODE_ENV=production && npm run build:parcel",
+    "build:parcel": "parcel build index.html --dist-dir public/build --cache-dir .parcel-cache",
+    "postbuild": "npm run static-assets-rename && npm run static-assets-move",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "publish-storybook": "npm run build && npm run build-storybook",
+    "prepare": "cd .. && husky ui/.husky",
+    "prelocalserver-watch": "rimraf .parcel-cache",
+    "localserver-watch": "parcel watch src/javascript/index.ts --dist-dir _example-pages --target app --cache-dir .parcel-cache",
+    "localserver-dev": "npx http-server _example-pages/",
+    "prelocalserver-prod": "rimraf ./_example-pages/build && npm run build && npm run static-assets-move-localserver",
+    "localserver-prod": "npx http-server _example-pages/"
+  },
+  "targets": {
+    "app": {}
+  },
+  "browserslist": [
+    "defaults",
+    "not dead"
+  ],
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.28.5",
+    "@etchteam/storybook-addon-status": "^8.0.0",
+    "@storybook/addon-a11y": "^10.1.11",
+    "@storybook/addon-docs": "^10.1.11",
+    "@storybook/addon-links": "^10.1.11",
+    "@storybook/html-vite": "^10.1.11",
+    "@storybook/web-components-vite": "^10.1.11",
+    "@typescript-eslint/eslint-plugin": "^8.48.0",
+    "@typescript-eslint/parser": "^8.48.0",
+    "cheerio": "^1.1.2",
+    "colors": "^1.4.0",
+    "cross-env": "^10.1.0",
+    "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "eslint-plugin-storybook": "10.1.11",
+    "fs-extra": "^11.3.2",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
+    "parcel": "^2.16.3",
+    "postcss": "^8.4.18",
+    "prettier": "^3.7.3",
+    "remark-gfm": "^4.0.1",
+    "rimraf": "^6.1.2",
+    "storybook": "^10.1.11",
+    "storybook-addon-deep-controls": "^0.10.0",
+    "stylelint": "^16.26.1",
+    "stylelint-config-standard": "^39.0.1",
+    "stylelint-order": "^7.0.0",
+    "stylelint-prettier": "^5.0.3",
+    "typescript": "^5.9.3"
+  },
+  "lint-staged": {
+    "src/**/*.ts": [
+      "eslint --fix",
+      "prettier --write"
     ],
-    "devDependencies": {
-        "@babel/eslint-parser": "^7.28.5",
-        "@etchteam/storybook-addon-status": "^8.0.0",
-        "@storybook/addon-a11y": "^10.1.4",
-        "@storybook/addon-docs": "^10.1.4",
-        "@storybook/addon-links": "^10.1.4",
-        "@storybook/html-vite": "^10.1.4",
-        "@storybook/web-components-vite": "^10.1.4",
-        "@typescript-eslint/eslint-plugin": "^8.48.0",
-        "@typescript-eslint/parser": "^8.48.0",
-        "cheerio": "^1.1.2",
-        "colors": "^1.4.0",
-        "cross-env": "^10.1.0",
-        "eslint": "^9.39.1",
-        "eslint-config-prettier": "^10.1.8",
-        "eslint-plugin-prettier": "^5.5.4",
-        "eslint-plugin-storybook": "10.1.4",
-        "fs-extra": "^11.3.2",
-        "husky": "^9.1.7",
-        "lint-staged": "^16.2.7",
-        "parcel": "^2.16.1",
-        "postcss": "^8.4.18",
-        "prettier": "^3.7.3",
-        "remark-gfm": "^4.0.1",
-        "rimraf": "^6.1.2",
-        "storybook": "^10.1.4",
-        "storybook-addon-deep-controls": "^0.10.0",
-        "stylelint": "^16.26.1",
-        "stylelint-config-standard": "^39.0.1",
-        "stylelint-order": "^7.0.0",
-        "stylelint-prettier": "^5.0.3",
-        "typescript": "^5.9.3"
-    },
-    "lint-staged": {
-        "src/**/*.ts": [
-            "eslint --fix",
-            "prettier --write"
-        ],
-        "src/**/*.css": [
-            "stylelint",
-            "prettier --write"
-        ]
-    }
+    "src/**/*.css": [
+      "stylelint",
+      "prettier --write"
+    ]
+  }
 }
