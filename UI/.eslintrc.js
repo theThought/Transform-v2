@@ -28,6 +28,7 @@ module.exports = {
         '@typescript-eslint/explicit-function-return-type': 1,
         '@typescript-eslint/no-explicit-any': 1,
         'no-console': 1,
+        '@typescript-eslint/no-unused-expressions': { allowShortCircuit: true },
         'lines-between-class-members': [
             'error',
             'always',
