@@ -365,13 +365,10 @@ export default class OList extends Component implements Observer {
         const droplistParentNode = this.listElement.parentNode;
         if (!droplistParentNode) return;
 
-        //this.clearSelectedOptions();
-
         let visibleItems = this.list.length;
         const userInput = e.detail.element.value.toLowerCase();
 
         if (userInput.length < this.properties.mincharactersforlist) {
-            this.clearValue();
             this.displayEmptyMessage(false);
             this.displayMinCharacterMessage(true);
             return;
