@@ -251,6 +251,16 @@
                     <xsl:with-param name="qSuppress" select="$qSuppress"/>
                 </xsl:call-template>
             </xsl:when>
+            <xsl:when test="$qTypeBase='multiline'">
+                <xsl:call-template name="multiline">
+                    <xsl:with-param name="qType" select="$qTypeBase" />
+                    <xsl:with-param name="qGroup" select="$qGroup"/>
+                    <xsl:with-param name="Hidden" select="false()"/>
+                    <xsl:with-param name="cellContext" select="$cellContext"/>
+                    <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
+                    <xsl:with-param name="qSuppress" select="$qSuppress"/>
+                </xsl:call-template>
+            </xsl:when>
             <xsl:when test="$qTypeBase='bool'">
                 <xsl:call-template name="bool">
                     <xsl:with-param name="qType" select="$qTypeBase" />
@@ -380,162 +390,309 @@
         <xsl:param name="currentValue" select="''" />
         <xsl:param name="cellContext" />
         <xsl:param name="qReadOnly" />
+        
+        <xsl:comment>inputType: <xsl:value-of select="$inputType" /></xsl:comment>
 
-        <xsl:element name="input">
-            <!-- insert base attributes -->
-            <xsl:call-template name="insert-common-input-attributes">
-                <xsl:with-param name="qGroup" select="$qGroup" />
-            </xsl:call-template>
+        <xsl:choose>
+            <xsl:when test="$inputType='multiline'">
+                <xsl:element name="textarea">
+                                    <!-- insert base attributes -->
+                    <xsl:call-template name="insert-common-input-attributes">
+                        <xsl:with-param name="qGroup" select="$qGroup" />
+                    </xsl:call-template>
 
-            <xsl:attribute name="data-xmlNode">
-                <xsl:value-of select="name(..)" />
-                <xsl:text>/</xsl:text>
-                <xsl:value-of select="name()" />
-            </xsl:attribute>
+                    <xsl:attribute name="data-xmlNode">
+                        <xsl:value-of select="name(..)" />
+                        <xsl:text>/</xsl:text>
+                        <xsl:value-of select="name()" />
+                    </xsl:attribute>
 
-            <xsl:if test="$bShowOnly">
-                <xsl:attribute name="data-readonly">
-                    <xsl:text>true</xsl:text>
-                </xsl:attribute>
-            </xsl:if>
+                    <xsl:if test="$bShowOnly">
+                        <xsl:attribute name="data-readonly">
+                            <xsl:text>true</xsl:text>
+                        </xsl:attribute>
+                    </xsl:if>
 
-            <xsl:attribute name="data-hidden">
-                <xsl:value-of select="$isHidden" />
-            </xsl:attribute>
+                    <xsl:attribute name="data-hidden">
+                        <xsl:value-of select="$isHidden" />
+                    </xsl:attribute>
 
-            <xsl:if test="$cellContext != ''">
-                <xsl:attribute name="aria-labelledby">
-                    <xsl:value-of select="$cellContext" />
-                </xsl:attribute>
-            </xsl:if>
-          
-            <xsl:attribute name="autocomplete">
-                <xsl:text>off</xsl:text>
-            </xsl:attribute>
+                    <xsl:if test="$cellContext != ''">
+                        <xsl:attribute name="aria-labelledby">
+                            <xsl:value-of select="$cellContext" />
+                        </xsl:attribute>
+                    </xsl:if>
 
-            <xsl:variable name="questionId">
-                <xsl:choose>
-                    <xsl:when test="substring(@ElementID, string-length(@ElementID) - 1) = '_C'">
-                        <xsl:value-of select="substring(@ElementID, 1, string-length(@ElementID) - 2)" />
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:value-of select="@ElementID" />
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:variable>
-
-            <xsl:attribute name="id">
-                <xsl:value-of select="$questionId" />
-            </xsl:attribute>
-
-            <xsl:if test="preceding-sibling::Error">
-                <xsl:attribute name="aria-describedby">
-                    <xsl:text>error-</xsl:text>
-                    <xsl:value-of select="../Error" />
-                </xsl:attribute>
-            </xsl:if>
-            
-            <!--- Set Input specific attributes -->
-            <xsl:attribute name="type">
-                <xsl:value-of select="$inputType"/>
-            </xsl:attribute>
-
-            <xsl:if test="$isHidden = false()">
-                <xsl:attribute name="class">
-                    <xsl:text>a-singleline</xsl:text>
-                </xsl:attribute>
-            </xsl:if>
-
-            <xsl:if test="@MinValue">
-                <xsl:attribute name="min">
-                    <xsl:value-of select="@MinValue" />
-                </xsl:attribute>
-            </xsl:if>
-            <xsl:if test="@MaxValue">
-                <xsl:attribute name="max">
-                    <xsl:value-of select="@MaxValue" />
-                </xsl:attribute>
-            </xsl:if>
-            <xsl:if test="@Length">
-                <xsl:attribute name="maxlength">
-                    <xsl:value-of select="@Length" />
-                </xsl:attribute>
-            </xsl:if>
-            
-            <xsl:variable name="alignment">
-                <xsl:text>text-align:</xsl:text>
-                <xsl:choose>
-                    <xsl:when test="Style/@Align">
-                        <xsl:value-of select="Style/@Align" />
-                    </xsl:when>
-                    <xsl:otherwise>   
+                    <xsl:variable name="questionId">
                         <xsl:choose>
-                            <xsl:when test="$inputType='number'">
-                                <xsl:text>right</xsl:text>
+                            <xsl:when test="substring(@ElementID, string-length(@ElementID) - 1) = '_C'">
+                                <xsl:value-of select="substring(@ElementID, 1, string-length(@ElementID) - 2)" />
                             </xsl:when>
                             <xsl:otherwise>
-                                <xsl:text>left</xsl:text>
+                                <xsl:value-of select="@ElementID" />
                             </xsl:otherwise>
                         </xsl:choose>
-                    </xsl:otherwise>
-                </xsl:choose>
-                <xsl:text>;</xsl:text>
-            </xsl:variable>
+                    </xsl:variable>
 
-            <xsl:attribute name="style">
-                <xsl:value-of select="$alignment" />
-                <xsl:choose>
-                    <xsl:when test="Style/@Width">
-                        <xsl:text> </xsl:text>
-                        <xsl:text>width:</xsl:text>
-                        <xsl:value-of select="Style/@Width" />
+                    <xsl:attribute name="id">
+                        <xsl:value-of select="$questionId" />
+                    </xsl:attribute>
+
+                    <xsl:if test="preceding-sibling::Error">
+                        <xsl:attribute name="aria-describedby">
+                            <xsl:text>error-</xsl:text>
+                            <xsl:value-of select="../Error" />
+                        </xsl:attribute>
+                    </xsl:if>
+                    
+
+                    <xsl:if test="$isHidden = false()">
+                        <xsl:attribute name="class">
+                            <xsl:text>a-multiline</xsl:text>
+                        </xsl:attribute>
+                    </xsl:if>
+
+                    <xsl:if test="@Length">
+                        <xsl:attribute name="maxlength">
+                            <xsl:value-of select="@Length" />
+                        </xsl:attribute>
+                    </xsl:if>
+                    
+                    <xsl:variable name="alignment">
+                        <xsl:text>text-align:</xsl:text>
+                        <xsl:choose>
+                            <xsl:when test="Style/@Align">
+                                <xsl:value-of select="Style/@Align" />
+                            </xsl:when>
+                            <xsl:otherwise>   
+                                <xsl:choose>
+                                    <xsl:when test="$inputType='number'">
+                                        <xsl:text>right</xsl:text>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:text>left</xsl:text>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:otherwise>
+                        </xsl:choose>
                         <xsl:text>;</xsl:text>
-                    </xsl:when>
-                </xsl:choose>
-            </xsl:attribute>
+                    </xsl:variable>
 
-            <xsl:choose>
-                <xsl:when test="$currentValue != ''">
-                    <xsl:attribute name="value">
-                        <xsl:value-of select="$currentValue" />
-                    </xsl:attribute>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:attribute name="value">
+                    <xsl:attribute name="style">
+                        <xsl:value-of select="$alignment" />
                         <xsl:choose>
-                            <xsl:when test="@Value != ''">
-                                <xsl:value-of select="@Value" />
+                            <xsl:when test="Style/@Width">
+                                <xsl:text> </xsl:text>
+                                <xsl:text>width:</xsl:text>
+                                <xsl:value-of select="Style/@Width" />
+                                <xsl:text>;</xsl:text>
                             </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:value-of select="''" />
-                            </xsl:otherwise>
                         </xsl:choose>
                     </xsl:attribute>
-                </xsl:otherwise>
-            </xsl:choose>
 
-            <xsl:if test="Style/Control/@Placeholder != ''">
-                <xsl:attribute name="placeholder">
-                    <xsl:value-of select='Style/Control/@Placeholder' />
-                </xsl:attribute>
-            </xsl:if>
-            <!--- Accelerator access key -->
-            <xsl:if test="Style/Control/@Accelerator != ''">
-                <xsl:attribute name="accesskey">
-                    <xsl:value-of select="Style/Control/@Accelerator" />
-                </xsl:attribute>
-            </xsl:if>
+                    <xsl:choose>
+                        <xsl:when test="$currentValue != ''">
+                            <xsl:attribute name="value">
+                                <xsl:value-of select="$currentValue" />
+                            </xsl:attribute>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:attribute name="value">
+                                <xsl:choose>
+                                    <xsl:when test="@Value != ''">
+                                        <xsl:value-of select="@Value" />
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:value-of select="''" />
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:attribute>
+                        </xsl:otherwise>
+                    </xsl:choose>
 
-            <xsl:if test="$qReadOnly='true'">
-                <xsl:attribute name="readonly">
-                    <xsl:text>true</xsl:text>
-                </xsl:attribute>
+                    <xsl:if test="Style/Control/@Placeholder != ''">
+                        <xsl:attribute name="placeholder">
+                            <xsl:value-of select='Style/Control/@Placeholder' />
+                        </xsl:attribute>
+                    </xsl:if>
+                    <!--- Accelerator access key -->
+                    <xsl:if test="Style/Control/@Accelerator != ''">
+                        <xsl:attribute name="accesskey">
+                            <xsl:value-of select="Style/Control/@Accelerator" />
+                        </xsl:attribute>
+                    </xsl:if>
 
-                <xsl:attribute name="aria-disabled">
-                    <xsl:text>true</xsl:text>
-                </xsl:attribute>
-            </xsl:if>
-        </xsl:element>
+                    <xsl:if test="$qReadOnly='true'">
+                        <xsl:attribute name="readonly">
+                            <xsl:text>true</xsl:text>
+                        </xsl:attribute>
+
+                        <xsl:attribute name="aria-disabled">
+                            <xsl:text>true</xsl:text>
+                        </xsl:attribute>
+                    </xsl:if>
+                </xsl:element>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:element name="input">
+                    <!-- insert base attributes -->
+                    <xsl:call-template name="insert-common-input-attributes">
+                        <xsl:with-param name="qGroup" select="$qGroup" />
+                    </xsl:call-template>
+
+                    <xsl:attribute name="data-xmlNode">
+                        <xsl:value-of select="name(..)" />
+                        <xsl:text>/</xsl:text>
+                        <xsl:value-of select="name()" />
+                    </xsl:attribute>
+
+                    <xsl:if test="$bShowOnly">
+                        <xsl:attribute name="data-readonly">
+                            <xsl:text>true</xsl:text>
+                        </xsl:attribute>
+                    </xsl:if>
+
+                    <xsl:attribute name="data-hidden">
+                        <xsl:value-of select="$isHidden" />
+                    </xsl:attribute>
+
+                    <xsl:if test="$cellContext != ''">
+                        <xsl:attribute name="aria-labelledby">
+                            <xsl:value-of select="$cellContext" />
+                        </xsl:attribute>
+                    </xsl:if>
+                
+                    <xsl:attribute name="autocomplete">
+                        <xsl:text>off</xsl:text>
+                    </xsl:attribute>
+
+                    <xsl:variable name="questionId">
+                        <xsl:choose>
+                            <xsl:when test="substring(@ElementID, string-length(@ElementID) - 1) = '_C'">
+                                <xsl:value-of select="substring(@ElementID, 1, string-length(@ElementID) - 2)" />
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:value-of select="@ElementID" />
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:variable>
+
+                    <xsl:attribute name="id">
+                        <xsl:value-of select="$questionId" />
+                    </xsl:attribute>
+
+                    <xsl:if test="preceding-sibling::Error">
+                        <xsl:attribute name="aria-describedby">
+                            <xsl:text>error-</xsl:text>
+                            <xsl:value-of select="../Error" />
+                        </xsl:attribute>
+                    </xsl:if>
+                    
+                    <!--- Set Input specific attributes -->
+                    <xsl:attribute name="type">
+                        <xsl:value-of select="$inputType"/>
+                    </xsl:attribute>
+
+                    <xsl:if test="$isHidden = false()">
+                        <xsl:attribute name="class">
+                            <xsl:text>a-singleline</xsl:text>
+                        </xsl:attribute>
+                    </xsl:if>
+
+                    <xsl:if test="@MinValue">
+                        <xsl:attribute name="min">
+                            <xsl:value-of select="@MinValue" />
+                        </xsl:attribute>
+                    </xsl:if>
+                    <xsl:if test="@MaxValue">
+                        <xsl:attribute name="max">
+                            <xsl:value-of select="@MaxValue" />
+                        </xsl:attribute>
+                    </xsl:if>
+                    <xsl:if test="@Length">
+                        <xsl:attribute name="maxlength">
+                            <xsl:value-of select="@Length" />
+                        </xsl:attribute>
+                    </xsl:if>
+                    
+                    <xsl:variable name="alignment">
+                        <xsl:text>text-align:</xsl:text>
+                        <xsl:choose>
+                            <xsl:when test="Style/@Align">
+                                <xsl:value-of select="Style/@Align" />
+                            </xsl:when>
+                            <xsl:otherwise>   
+                                <xsl:choose>
+                                    <xsl:when test="$inputType='number'">
+                                        <xsl:text>right</xsl:text>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:text>left</xsl:text>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <xsl:text>;</xsl:text>
+                    </xsl:variable>
+
+                    <xsl:attribute name="style">
+                        <xsl:value-of select="$alignment" />
+                        <xsl:choose>
+                            <xsl:when test="Style/@Width">
+                                <xsl:text> </xsl:text>
+                                <xsl:text>width:</xsl:text>
+                                <xsl:value-of select="Style/@Width" />
+                                <xsl:text>;</xsl:text>
+                            </xsl:when>
+                        </xsl:choose>
+                    </xsl:attribute>
+
+                    <xsl:choose>
+                        <xsl:when test="$currentValue != ''">
+                            <xsl:attribute name="value">
+                                <xsl:value-of select="$currentValue" />
+                            </xsl:attribute>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:attribute name="value">
+                                <xsl:choose>
+                                    <xsl:when test="@Value != ''">
+                                        <xsl:value-of select="@Value" />
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:value-of select="''" />
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:attribute>
+                        </xsl:otherwise>
+                    </xsl:choose>
+
+                    <xsl:if test="Style/Control/@Placeholder != ''">
+                        <xsl:attribute name="placeholder">
+                            <xsl:value-of select='Style/Control/@Placeholder' />
+                        </xsl:attribute>
+                    </xsl:if>
+                    <!--- Accelerator access key -->
+                    <xsl:if test="Style/Control/@Accelerator != ''">
+                        <xsl:attribute name="accesskey">
+                            <xsl:value-of select="Style/Control/@Accelerator" />
+                        </xsl:attribute>
+                    </xsl:if>
+
+                    <xsl:if test="$qReadOnly='true'">
+                        <xsl:attribute name="readonly">
+                            <xsl:text>true</xsl:text>
+                        </xsl:attribute>
+
+                        <xsl:attribute name="aria-disabled">
+                            <xsl:text>true</xsl:text>
+                        </xsl:attribute>
+                    </xsl:if>
+                </xsl:element>
+            </xsl:otherwise>
+
+        </xsl:choose>
+
     </xsl:template>
 
     <xsl:template name="insert-input-option">
@@ -1139,6 +1296,73 @@
                             <xsl:value-of select="$qGroup" />
                         </xsl:with-param>
                         <xsl:with-param name="subType" select="$subType" />
+                        <xsl:with-param name="cellContext" select="$cellContext"/>
+                        <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
+                    </xsl:call-template>
+                </xsl:for-each>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+
+    <xsl:template name="multiline">
+        <xsl:param name="qType" />
+        <xsl:param name="qGroup" />
+        <xsl:param name="Hidden" />
+        <xsl:param name="subType" />
+        <xsl:param name="cellContext" />
+        <xsl:param name="qReadOnly" />
+        <xsl:param name="qSuppress" select="false()" />
+
+        <xsl:variable name="questionId">
+            <xsl:value-of select="Control[./Style/Control/@Type='SingleLineEdit'][1]/@ElementID" />
+        </xsl:variable>
+
+        <xsl:variable name="optionCount">
+            <xsl:value-of select="count(Control[not(./Style/Control/@Type='SingleLineEdit')])" />
+        </xsl:variable>
+
+        <xsl:for-each select="Label">
+            <xsl:call-template name="insert-label">
+                <xsl:with-param name="subType" select="'option'" />
+            </xsl:call-template>
+        </xsl:for-each>
+
+        <xsl:choose>
+            <xsl:when test="$optionCount > 0">
+                <xsl:element name="fieldset">
+                    <xsl:attribute name="aria-describedby">
+                        <xsl:value-of select="$questionId" />
+                        <xsl:text>_label_question</xsl:text>
+                    </xsl:attribute>
+                
+                    <xsl:for-each select="Control[./Style/Control/@Type='MultiLineEdit']">
+                        <xsl:call-template name='m-multiline'>
+                            <xsl:with-param name="qGroup">
+                                <xsl:value-of select="$qGroup" />
+                            </xsl:with-param>
+                            <xsl:with-param name="subType" select="'multiline'" />
+                            <xsl:with-param name="cellContext" select="$cellContext"/>
+                            <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
+                        </xsl:call-template>
+                    </xsl:for-each>
+
+                    <xsl:call-template name="o-option-sublist">
+                        <xsl:with-param name="qType" select="$qType" />
+                        <xsl:with-param name="qGroup" select="$qGroup" />
+                        <xsl:with-param name="questionId" select="$questionId" />
+                        <xsl:with-param name="optionCount" select="$optionCount" />
+                        <xsl:with-param name="typeOverride" select="'checkbox'" />
+                        <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
+                    </xsl:call-template>
+                </xsl:element>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:for-each select="Control[./Style/Control/@Type='MultiLineEdit']">
+                    <xsl:call-template name='m-multiline'>
+                        <xsl:with-param name="qGroup">
+                            <xsl:value-of select="$qGroup" />
+                        </xsl:with-param>
+                        <xsl:with-param name="subType" select="multiline" />
                         <xsl:with-param name="cellContext" select="$cellContext"/>
                         <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                     </xsl:call-template>
@@ -2922,6 +3146,28 @@
         </xsl:element>
     </xsl:template>
 
+    <xsl:template name="m-multiline">
+        <!-- inserts a basic edit box -->
+        <xsl:param name="qGroup" />
+        <xsl:param name="subType" />
+        <xsl:param name="cellContext" select="''" />
+        <xsl:param name="qReadOnly" />
+
+        <xsl:element name="m-multiline">
+            <xsl:call-template name="insert-common-questiontype-attributes">
+                <xsl:with-param name="qGroup" select="$qGroup" />
+            </xsl:call-template>
+
+            <!-- input -->
+            <xsl:call-template name="insert-input">
+                <xsl:with-param name="inputType" select="'multiline'" />
+                <xsl:with-param name="qGroup" select="$qGroup" />
+                <xsl:with-param name="cellContext" select="$cellContext" />
+                <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
+            </xsl:call-template>
+        </xsl:element>
+    </xsl:template>
+
     <xsl:template name="m-option-base">
         <xsl:param name="qType" />
         <xsl:param name="qGroup" />
@@ -3732,12 +3978,12 @@
     </xsl:template>
 
     <xsl:template name="lastQPos">
-    <xsl:param name="str"/>
-    <xsl:param name="from" select="1"/>
-    <xsl:variable name="nextQ" select="substring($str, $from)"/>
-    <xsl:variable name="pos" select="string-length(substring-before($nextQ, '_Q'))"/>
-    <xsl:variable name="isDoubleQ" select="substring($nextQ, $pos, 3) = '__Q'"/>
-    <xsl:choose>
+        <xsl:param name="str"/>
+        <xsl:param name="from" select="1"/>
+        <xsl:variable name="nextQ" select="substring($str, $from)"/>
+        <xsl:variable name="pos" select="string-length(substring-before($nextQ, '_Q'))"/>
+        <xsl:variable name="isDoubleQ" select="substring($nextQ, $pos, 3) = '__Q'"/>
+        <xsl:choose>
         <xsl:when test="$pos &gt; 0">
         <xsl:variable name="newFrom" select="$from + $pos + 2"/>
         <xsl:variable name="nextPos">
@@ -3768,7 +4014,7 @@
         <xsl:otherwise>
         <xsl:value-of select="0"/>
         </xsl:otherwise>
-    </xsl:choose>
+        </xsl:choose>
     </xsl:template>
 
     <xsl:template name="loop-between">
