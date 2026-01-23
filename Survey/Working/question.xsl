@@ -13,6 +13,7 @@
     <xsl:strip-space elements="*"/>
 
     <xsl:template match="Questions">
+        <xsl:element name="Question">
         <xsl:variable name="questionCount" select="count(Question)" />
 
         <!-- iterate through the questions eleents in the XML structure -->
@@ -48,6 +49,7 @@
                 </xsl:for-each>
             </xsl:otherwise>
         </xsl:choose>
+        </xsl:element>
     </xsl:template>    
 
     <xsl:template name="Question">
@@ -97,7 +99,7 @@
             </xsl:choose>
         </xsl:variable>
 
-        <xsl:element name="o-question">
+<!--         <xsl:element name="o-question"> -->
             <xsl:comment>
             <xsl:text>Parent: </xsl:text>
             <xsl:value-of select="name(..)" />
@@ -116,7 +118,7 @@
                 <xsl:with-param name="cellContext" select="$cellContext"/>
                 <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
             </xsl:call-template>
-        </xsl:element>
+<!--         </xsl:element>. -->
     </xsl:template>
 
     <xsl:template name="response">
