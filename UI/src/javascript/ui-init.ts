@@ -4,6 +4,7 @@ import WCExample from './web-components/wc-example';
 // Import modules for web components.
 import AButtonTerminator from './web-components/a-button-terminator';
 import AScaleUnit from './web-components/a-scale-unit';
+import MMultiline from './web-components/m-multiline';
 import MSingleline from './web-components/m-singleline';
 import MSinglelineNumber from './web-components/m-singleline-number';
 import MSinglelineDate from './web-components/m-singleline-date';
@@ -33,7 +34,7 @@ export const uiInit = (): void => {
     // Define custom elements in the client.
     // The order in which these elements are listed below is the order in which
     // the client will initialise the elements. It is therefore important to
-    // consider the sequence of define calls: i.e. inputs belong to a response
+    // consider the sequence of 'define' calls: i.e. inputs belong to a response
     // which belongs to a question and may require the question to be present.
 
     // Outer containers.
@@ -67,6 +68,8 @@ export const uiInit = (): void => {
     !customElements.get('a-button-terminator') &&
         customElements.define('a-button-terminator', AButtonTerminator);
 
+    !customElements.get('m-multiline') &&
+        customElements.define('m-multiline', MMultiline);
     !customElements.get('m-singleline') &&
         customElements.define('m-singleline', MSingleline);
     !customElements.get('m-singleline-number') &&

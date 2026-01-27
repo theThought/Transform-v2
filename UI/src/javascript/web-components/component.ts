@@ -71,7 +71,11 @@ export default class Component extends HTMLElement {
 
     protected configureSetBehaviour(): void {
         if (!this.element) return;
-        if (this.element.type === 'checkbox' || this.element.type === 'radio')
+        if (
+            this.element.type === 'checkbox' ||
+            this.element.type === 'radio' ||
+            this.element.type === 'textarea'
+        )
             return;
 
         const descriptor = Object.getOwnPropertyDescriptor(
