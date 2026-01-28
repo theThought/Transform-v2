@@ -492,26 +492,6 @@
                         </xsl:choose>
                     </xsl:attribute>
 
-                    <xsl:choose>
-                        <xsl:when test="$currentValue != ''">
-                            <xsl:attribute name="value">
-                                <xsl:value-of select="$currentValue" />
-                            </xsl:attribute>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:attribute name="value">
-                                <xsl:choose>
-                                    <xsl:when test="@Value != ''">
-                                        <xsl:value-of select="@Value" />
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                        <xsl:value-of select="''" />
-                                    </xsl:otherwise>
-                                </xsl:choose>
-                            </xsl:attribute>
-                        </xsl:otherwise>
-                    </xsl:choose>
-
                     <xsl:if test="Style/Control/@Placeholder != ''">
                         <xsl:attribute name="placeholder">
                             <xsl:value-of select='Style/Control/@Placeholder' />
@@ -533,6 +513,15 @@
                             <xsl:text>true</xsl:text>
                         </xsl:attribute>
                     </xsl:if>
+
+                    <xsl:choose>
+                        <xsl:when test="@Value != ''">
+                            <xsl:value-of select="@Value" />
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="' '" />
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </xsl:element>
             </xsl:when>
             <xsl:otherwise>
