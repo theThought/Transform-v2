@@ -11,6 +11,7 @@ export default class MSliderTrack extends Component implements Observer {
         },
         ticklabels: 0,
         step: 1,
+        floodtovalue: true,
     };
 
     protected element: HTMLInputElement | null = null;
@@ -149,6 +150,7 @@ export default class MSliderTrack extends Component implements Observer {
 
     private updateFloodFill(value: number): void {
         if (!this.element) return;
+        if (!this.properties.floodtovalue) return;
 
         const percentage =
             (Math.abs(value - this.min) / Math.abs(this.max - this.min)) * 100;
