@@ -25,6 +25,13 @@ import OScaleContainer from './web-components/m-scale-container';
 import OSlider from './web-components/o-slider';
 import OList from './web-components/o-list';
 import AProperties from './web-components/a-properties';
+import OMediaImage from './web-components/o-media-image';
+import OPalette from './web-components/o-palette';
+import OPaletteActive from './web-components/o-palette-active';
+import OPaletteEmpty from './web-components/o-palette-empty';
+import OPaletteEnd from './web-components/o-palette-end';
+import OPaletteForm from './web-components/o-palette-form';
+import OPaletteHistory from './web-components/o-palette-history';
 
 export const uiInit = (): void => {
     // DEMO web component for Storybook introduction.
@@ -57,6 +64,20 @@ export const uiInit = (): void => {
         customElements.define('o-scale-container', OScaleContainer);
     !customElements.get('o-slider') &&
         customElements.define('o-slider', OSlider);
+    !customElements.get('o-media-image') &&
+        customElements.define('o-media-image', OMediaImage);
+    !customElements.get('o-palette') &&
+        customElements.define('o-palette', OPalette);
+    !customElements.get('o-palette-active') &&
+        customElements.define('o-palette-active', OPaletteActive);
+    !customElements.get('o-palette-empty') &&
+        customElements.define('o-palette-empty', OPaletteEmpty);
+    !customElements.get('o-palette-end') &&
+        customElements.define('o-palette-end', OPaletteEnd);
+    !customElements.get('o-palette-form') &&
+        customElements.define('o-palette-form', OPaletteForm);
+    !customElements.get('o-palette-history') &&
+        customElements.define('o-palette-history', OPaletteHistory);
 
     // Properties last as it may broadcast settings to other components on the page
     !customElements.get('a-properties') &&
