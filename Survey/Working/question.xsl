@@ -99,7 +99,6 @@
             </xsl:choose>
         </xsl:variable>
 
-<!--         <xsl:element name="o-question"> -->
             <xsl:comment>
             <xsl:text>Parent: </xsl:text>
             <xsl:value-of select="name(..)" />
@@ -118,7 +117,7 @@
                 <xsl:with-param name="cellContext" select="$cellContext"/>
                 <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
             </xsl:call-template>
-<!--         </xsl:element>. -->
+
     </xsl:template>
 
     <xsl:template name="response">
@@ -749,6 +748,60 @@
         </xsl:element>
     </xsl:template>
 
+    <xsl:template name="insert-input-button">
+        <xsl:param name="qGroup" />
+        <xsl:param name="isHidden" select="false()" />
+        <xsl:param name="currentControl" />
+        <xsl:param name="controlId" />
+        <xsl:param name="qReadOnly" />
+
+            <!-- insert base attributes -->
+            <xsl:call-template name="insert-common-input-attributes">
+                <xsl:with-param name="qGroup" select="$qGroup" />
+            </xsl:call-template>
+
+            <xsl:attribute name="id">
+                <xsl:value-of select="$controlId" />
+            </xsl:attribute>
+
+            <xsl:if test="$bShowOnly">
+                <xsl:attribute name="data-readonly">
+                    <xsl:text>true</xsl:text>
+                </xsl:attribute>
+            </xsl:if>
+
+            <!--- Set Input specific attributes -->
+            <xsl:attribute name="type">
+                <xsl:text>button</xsl:text>
+            </xsl:attribute>
+
+            <!--- Accelerator access key -->
+            <xsl:if test="$currentControl/Style/Control/@Accelerator != ''">
+                <xsl:attribute name="accesskey">
+                    <xsl:value-of select="$currentControl/Style/Control/@Accelerator" />
+                </xsl:attribute>
+            </xsl:if>
+
+            <xsl:attribute name="name">
+                <xsl:value-of select="$currentControl/@QuestionName" />
+            </xsl:attribute>
+
+            <xsl:attribute name="value">
+                <xsl:value-of select="$currentControl/Category/@Name" />
+            </xsl:attribute>
+
+            <xsl:if test="$currentControl/Style/Control/@ReadOnly or $qReadOnly='true'">
+                <xsl:attribute name="readonly">
+                    <xsl:text>true</xsl:text>
+                </xsl:attribute>
+
+                <xsl:attribute name="aria-disabled">
+                    <xsl:text>true</xsl:text>
+                </xsl:attribute>
+            </xsl:if>
+            
+    </xsl:template>
+
     <xsl:template name="insert-label">
         <xsl:param name="subType" />
         <xsl:if test="Text[string-length(normalize-space(.)) &gt; 0]">
@@ -1129,6 +1182,9 @@
                                         <xsl:when test="Cell/Control/@Type = 'RadioButton'">
                                             <xsl:text>radio</xsl:text>
                                         </xsl:when>
+                                        <xsl:when test="Cell/Control/@Type = 'Button'">
+                                            <xsl:text>button</xsl:text>
+                                        </xsl:when>
                                         <xsl:otherwise>
                                             <xsl:text>other</xsl:text>
                                         </xsl:otherwise>
@@ -1140,26 +1196,55 @@
                                         <xsl:when test="$cType='choice'">
                                             <xsl:choose>
                                                 <xsl:when test=".//Question">
-                                                    <xsl:call-template name="m-option-base">
-                                                        <xsl:with-param name="qType" select="Cell/Control/@Type" />
-                                                        <xsl:with-param name="qGroup" select="$qGroup" />
-                                                        <xsl:with-param name="currentControl" select="Cell/Control" />
-                                                        <xsl:with-param name="typeOverride" select="$typeOverride" />
-                                                        <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
-                                                        <xsl:with-param name="otherQuestion" select="Cell/Question" />
-                                                        <xsl:with-param name="moro" select="true()" />
-                                                    </xsl:call-template>
+                                                    <xsl:choose>
+                                                        <xsl:when test="Cell/Control/@Type='Button'">
+                                                            <xsl:call-template name="a-option-button">
+                                                                <xsl:with-param name="qType" select="Cell/Control/@Type" />
+                                                                <xsl:with-param name="qGroup" select="$qGroup" />
+                                                                <xsl:with-param name="currentControl" select="Cell/Control" />
+                                                                <xsl:with-param name="typeOverride" select="$typeOverride" />
+                                                                <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
+                                                                <xsl:with-param name="otherQuestion" select="Cell/Question" />
+                                                            </xsl:call-template>
+                                                        </xsl:when>
+                                                        <xsl:otherwise>
+                                                            <xsl:call-template name="m-option-base">
+                                                                <xsl:with-param name="qType" select="Cell/Control/@Type" />
+                                                                <xsl:with-param name="qGroup" select="$qGroup" />
+                                                                <xsl:with-param name="currentControl" select="Cell/Control" />
+                                                                <xsl:with-param name="typeOverride" select="$typeOverride" />
+                                                                <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
+                                                                <xsl:with-param name="otherQuestion" select="Cell/Question" />
+                                                                <xsl:with-param name="moro" select="true()" />
+                                                            </xsl:call-template>
+                                                        </xsl:otherwise>
+                                                    </xsl:choose>
                                                 </xsl:when>
                                                 <xsl:otherwise>
-                                                    <xsl:call-template name="m-option-base">
-                                                        <xsl:with-param name="qType" select="Cell/Control/@Type" />
-                                                        <xsl:with-param name="qGroup" select="$qGroup" />
-                                                        <xsl:with-param name="currentControl" select="Cell/Control" />
-                                                        <xsl:with-param name="typeOverride" select="$typeOverride" />
-                                                        <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
-                                                        <xsl:with-param name="otherQuestion" select="Cell/Question" />
-                                                        <xsl:with-param name="moro" select="false()" />
-                                                    </xsl:call-template>
+                                                    <xsl:choose>
+                                                        <xsl:when test="Cell/Control/@Type='Button'">
+                                                            <xsl:call-template name="a-option-button">
+                                                                <xsl:with-param name="qType" select="Cell/Control/@Type" />
+                                                                <xsl:with-param name="qGroup" select="$qGroup" />
+                                                                <xsl:with-param name="currentControl" select="Cell/Control" />
+                                                                <xsl:with-param name="typeOverride" select="$typeOverride" />
+                                                                <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
+                                                                <xsl:with-param name="otherQuestion" select="Cell/Question" />
+                                                            </xsl:call-template>
+                                                        </xsl:when>
+                                                        <xsl:otherwise>
+                                                            <xsl:call-template name="m-option-base">
+                                                                <xsl:with-param name="qType" select="Cell/Control/@Type" />
+                                                                <xsl:with-param name="qGroup" select="$qGroup" />
+                                                                <xsl:with-param name="currentControl" select="Cell/Control" />
+                                                                <xsl:with-param name="typeOverride" select="$typeOverride" />
+                                                                <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
+                                                                <xsl:with-param name="otherQuestion" select="Cell/Question" />
+                                                                <xsl:with-param name="moro" select="false()" />
+                                                            </xsl:call-template>
+                                                        </xsl:otherwise>
+                                                    </xsl:choose>
+                                                    
                                                 </xsl:otherwise>
                                             </xsl:choose>
                                         </xsl:when>
@@ -3802,6 +3887,94 @@
             </xsl:attribute>
             <xsl:value-of select="$data-value" />
         </xsl:element>
+    </xsl:template>
+
+    <xsl:template name="a-option-button">
+        <xsl:param name="qType" />
+        <xsl:param name="qGroup" />
+        <xsl:param name="typeOverride" />
+        <xsl:param name="currentControl" />
+        <xsl:param name="qReadOnly" />
+        <xsl:param name="otherQuestion" />
+        <xsl:param name="moro" select="false()" />
+
+        <xsl:variable name="currentCategory" select="$currentControl/Category" />
+
+        <xsl:variable name="qCategoryID">
+            <xsl:value-of select="concat($currentControl/@ElementID, $currentCategory/@CategoryID)" />
+        </xsl:variable>
+
+        <xsl:element name="input">
+
+            <xsl:attribute name="data-question-id">
+                <xsl:value-of select="$qCategoryID" />
+            </xsl:attribute>
+
+            <xsl:attribute name="data-question-group">
+                <xsl:value-of select="$qGroup" />
+            </xsl:attribute>
+
+            <xsl:if test="$currentControl/Category/@Checked">
+                <xsl:attribute name="data-checked">
+                    <xsl:text>true</xsl:text>
+                </xsl:attribute>
+            </xsl:if>
+
+            <xsl:attribute name="class">
+                <xsl:text>a-option-button</xsl:text>
+                <xsl:choose>
+                    <xsl:when test="$currentControl/Style/@ElementAlign='NewLine'">
+                        <xsl:text> below </xsl:text>
+                    </xsl:when>
+                    <xsl:when test="$currentControl/Style/@ElementAlign='Right'">
+                        <xsl:text> side </xsl:text>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:attribute>
+
+            <xsl:attribute name='data-hidden'>
+                <xsl:choose>
+                <xsl:when test="$currentControl/Style/@Hidden='true'">
+                    <xsl:text>true</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>false</xsl:text>
+                </xsl:otherwise>
+                </xsl:choose>
+            </xsl:attribute>
+
+            <xsl:attribute name="alt">
+                <xsl:value-of select="$currentControl/Category/Label/Text" />
+            </xsl:attribute>
+            
+            <xsl:call-template name="set-data-position">
+                <xsl:with-param name="position" select="$currentControl/Style/@ElementAlign" />
+            </xsl:call-template>
+
+            <xsl:call-template name="insert-input-button">
+                <xsl:with-param name="qGroup" select="$qGroup" />
+                <xsl:with-param name="isHidden" select="true()" />
+                <xsl:with-param name="currentControl" select="$currentControl" />
+                <xsl:with-param name="controlId" select="$qCategoryID" />
+                <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
+            </xsl:call-template>
+
+            <xsl:element name="span">
+                <xsl:attribute name="class">
+                    <xsl:text>a-label-option</xsl:text>
+                </xsl:attribute>
+                
+                <xsl:call-template name="insert-common-labelstyle-attributes" />
+                
+                <xsl:call-template name="insert-label-text">
+                    <xsl:with-param name="content" select="$currentControl/Category/Label/Text" />
+                    <xsl:with-param name="wellformed" select="$currentControl/Category/Label/Text/@WellFormed" />
+                </xsl:call-template>
+
+            </xsl:element>
+
+        </xsl:element>
+
     </xsl:template>
 
     <!-- List Structures -->

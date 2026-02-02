@@ -1,0 +1,82 @@
+<Questions>
+<Question>
+        <Style BgColor="choice:_QChoiceAsButtons" ElementAlign="NewLine" Indent="1"></Style>
+        <Table UseTablesLayout="0" Summary="Select one of the following colours" TableName="_Q_DDynamicPage_QChoiceAsButtons" TableID="_Q1">
+            <Row Y="0">
+                <Cell X="0" Y="0">
+                    <Control Type="Button" QuestionName="_Q_DDynamicPage_QChoiceAsButtons_C" ElementID="_Q1_C">
+                        <Style ElementAlign="NewLine" Indent="1">
+                            <Control Type="Button"></Control>
+                        </Style>
+                        <Category Name="blue" CategoryID="0">
+                            <Label>
+                                <Style ElementAlign="Right"></Style>
+                                <Text>this is a blue button</Text>
+                            </Label>
+                        </Category>
+                    </Control>
+                </Cell>
+            </Row>
+            <Row Y="1">
+                <Cell X="0" Y="1">
+                    <Control Type="Button" QuestionName="_Q_DDynamicPage_QChoiceAsButtons_C" ElementID="_Q1_C">
+                        <Style ElementAlign="NewLine" Indent="1" Width="5em">
+                            <Control Type="Button"></Control>
+                        </Style>
+                        <Category Name="pink" CategoryID="1">
+                            <Label>
+                                <Style ElementAlign="Right"></Style>
+                                <Text>this button is a pretty pink</Text>
+                            </Label>
+                        </Category>
+                    </Control>
+                </Cell>
+            </Row>
+            <Row Y="2">
+                <Cell X="0" Y="2">
+                    <Control Type="Button" QuestionName="_Q_DDynamicPage_QChoiceAsButtons_C" ElementID="_Q1_C">
+                        <Style ElementAlign="NewLine" Indent="1">
+                            <Control Type="Button"></Control>
+                        </Style>
+                        <Category Name="yellow" CategoryID="2">
+                            <Label>
+                                <Style ElementAlign="Right"></Style>
+                                <Text>highlighter yellow</Text>
+                            </Label>
+                        </Category>
+                    </Control>
+                </Cell>
+            </Row>
+            <Row Y="3">
+                <Cell X="0" Y="3">
+                    <Control Type="Button" QuestionName="_Q_DDynamicPage_QChoiceAsButtons_C" ElementID="_Q1_C">
+                        <Style ElementAlign="NewLine" Indent="1">
+                            <Control Type="Button"></Control>
+                        </Style>
+                        <Category Name="lightgreen" CategoryID="3">
+                            <Label>
+                                <Style ElementAlign="Right"></Style>
+                                <Text>what a lovely light green colour this is, who would have thought</Text>
+                            </Label>
+                        </Category>
+                    </Control>
+                </Cell>
+            </Row>
+            <Row Y="4">
+                <Cell X="0" Y="4">
+                    <Control Type="Button" QuestionName="_Q_DDynamicPage_QChoiceAsButtons_C" ElementID="_Q1_C">
+                        <Style ElementAlign="NewLine" Indent="1">
+                            <Control Type="Button"></Control>
+                        </Style>
+                        <Category Name="orange" CategoryID="4">
+                            <Label>
+                                <Style ElementAlign="Right"></Style>
+                                <Text>orange</Text>
+                            </Label>
+                        </Category>
+                    </Control>
+                </Cell>
+            </Row>
+        </Table>
+    </Question>
+</Questions>
