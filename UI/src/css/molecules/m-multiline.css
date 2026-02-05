@@ -9,3 +9,10 @@ m-multiline {
         height: 128px;
     }
 }
+
+m-multiline[data-readonly='true'] {
+    textarea {
+        border: none;
+        cursor: default;
+    }
+}
