@@ -264,24 +264,26 @@ export default class OLoop extends Component implements Subject {
 
     private receiveBroadcast(e: CustomEvent): void {
         const detail = e.detail || {};
-        const tableElement = detail.table as HTMLElement | undefined;
-        if (!tableElement || tableElement.tagName !== 'INPUT') {
-            return;
-        }
 
-        this.notifyObservers('clearExclusives', e);
+        const rowindex = this.rowTotals
+            .map(function (detail) {
+                return detail.id;
+            })
+            .indexOf(detail.element.id);
 
-        const id = detail.table.id as string;
-        const elementValue =
-            Number((tableElement as HTMLInputElement).value) || 0;
+        const elementValue = Number(detail.element.value);
 
-        const rowIndex = this.rowTotals.map((e) => e.id).indexOf(id);
-        if (rowIndex !== -1) {
-            this.rowTotals[rowIndex].value = elementValue;
+        if (rowindex !== -1) {
+            this.rowTotals[rowindex].value = elementValue;
             this.recalculateRowTotals();
         }
 
-        const colindex = this.columnTotals.map((e) => e.id).indexOf(id);
+        const colindex = this.columnTotals
+            .map(function (detail) {
+                return detail.id;
+            })
+            .indexOf(detail.element.id);
+
         if (colindex !== -1) {
             this.columnTotals[colindex].value = elementValue;
             this.recalculateColumnTotals();
