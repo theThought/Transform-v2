@@ -1,2 +1,11 @@
 m-multiline {
+    align-items: center;
+    display: flex;
+    flex: 1 0 0;
+    padding: var(--space-1, 4px) var(--space-2, 8px);
+
+    textarea {
+        border-radius: var(--border-radius, 4px);
+        height: 128px;
+    }
 }
