@@ -147,9 +147,9 @@ export default class OResponse extends Component implements Subject, Observer {
     private processFilter(e: CustomEvent): void {
         // the incoming question is not included in the list of filter sources
         if (
-            e.detail.qgroup.toLowerCase() !==
-                this.properties.filter.source.toLowerCase() ||
-            !this.properties.filter.exclusions.indexOf(e.detail.element.value)
+            e.detail.qgroup
+                .toLowerCase()
+                .indexOf(this.properties.filter.source.toLowerCase()) === -1
         ) {
             return;
         }
