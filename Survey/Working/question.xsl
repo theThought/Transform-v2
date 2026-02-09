@@ -958,6 +958,9 @@
                     <xsl:when test="$iconType='checkbox'">
                         <xsl:text>checkbox</xsl:text>
                     </xsl:when>
+                    <xsl:when test="$iconType='button'">
+                        <xsl:text>button</xsl:text>
+                    </xsl:when>
                     <xsl:otherwise>
                         <xsl:value-of select="$iconType" />
                     </xsl:otherwise>
@@ -1208,7 +1211,7 @@
                                                             </xsl:call-template>
                                                         </xsl:when>
                                                         <xsl:otherwise>
-                                                            <xsl:call-template name="m-option-base">
+                                                            <xsl:call-template name="o-option-base">
                                                                 <xsl:with-param name="qType" select="Cell/Control/@Type" />
                                                                 <xsl:with-param name="qGroup" select="$qGroup" />
                                                                 <xsl:with-param name="currentControl" select="Cell/Control" />
@@ -3146,10 +3149,40 @@
     </xsl:template>
 
     <xsl:template name="o-option-base">
-            <xsl:param name="qGroup" />
-        <xsl:param name="qID" />
-        <xsl:param name="cellContext" />
+        <xsl:param name="qType" />
+        <xsl:param name="qGroup" />
+        <xsl:param name="typeOverride" />
+        <xsl:param name="currentControl" />
         <xsl:param name="qReadOnly" />
+        <xsl:param name="otherQuestion" />
+
+        <xsl:variable name="currentCategory" select="$currentControl/Category" />
+
+        <xsl:variable name="qCategoryID">
+            <xsl:value-of select="concat($currentControl/@ElementID, $currentCategory/@CategoryID)" />
+        </xsl:variable>
+
+        <xsl:element name="o-option-base">
+            <xsl:call-template name="m-option-base">
+                <xsl:with-param name="qType" select="$qType" />
+                <xsl:with-param name="qGroup" select="$qGroup" />
+                <xsl:with-param name="typeOverride" select="$typeOverride" />
+                <xsl:with-param name="currentControl" select="$currentControl" />
+                <xsl:with-param name="qReadOnly" select="$qReadOnly" />
+                <xsl:with-param name="otherQuestion" select="$otherQuestion" />
+            </xsl:call-template>
+
+        <xsl:if test="$otherQuestion">
+            <xsl:comment>
+                <xsl:text>Other Question</xsl:text>
+            </xsl:comment>
+            <xsl:for-each select="$otherQuestion">
+                <xsl:call-template name="Question" />
+            </xsl:for-each>
+        </xsl:if>
+        </xsl:element>
+
+
     </xsl:template>
 
 <!-- Molecules -->
@@ -3398,16 +3431,6 @@
                 <xsl:with-param name="controlId" select="$qCategoryID" />
                 <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
             </xsl:call-template>
-
-
-            <xsl:if test="$otherQuestion">
-                <xsl:comment>
-                    <xsl:text>Other Question</xsl:text>
-                </xsl:comment>
-                <xsl:for-each select="$otherQuestion">
-                    <xsl:call-template name="Question" />
-                </xsl:for-each>
-            </xsl:if>
 
         </xsl:element>
 
@@ -3872,7 +3895,7 @@
         </xsl:variable>
 
         <xsl:element name="m-option-button">
-            <xsl:element name="butto">
+            <xsl:element name="button">
 
                 <xsl:attribute name="data-question-id">
                     <xsl:value-of select="$qCategoryID" />
@@ -3927,6 +3950,9 @@
                     <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                 </xsl:call-template>
 
+                <xsl:call-template name="insert-label-icon-multistate">
+                    <xsl:with-param name="iconType" select="'button'" />
+                </xsl:call-template>
                 <xsl:element name="span">
                     <xsl:attribute name="class">
                         <xsl:text>a-label-option</xsl:text>
