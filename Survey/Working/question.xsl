@@ -1198,7 +1198,7 @@
                                                 <xsl:when test=".//Question">
                                                     <xsl:choose>
                                                         <xsl:when test="Cell/Control/@Type='Button'">
-                                                            <xsl:call-template name="a-option-button">
+                                                            <xsl:call-template name="m-option-button">
                                                                 <xsl:with-param name="qType" select="Cell/Control/@Type" />
                                                                 <xsl:with-param name="qGroup" select="$qGroup" />
                                                                 <xsl:with-param name="currentControl" select="Cell/Control" />
@@ -1223,7 +1223,7 @@
                                                 <xsl:otherwise>
                                                     <xsl:choose>
                                                         <xsl:when test="Cell/Control/@Type='Button'">
-                                                            <xsl:call-template name="a-option-button">
+                                                            <xsl:call-template name="m-option-button">
                                                                 <xsl:with-param name="qType" select="Cell/Control/@Type" />
                                                                 <xsl:with-param name="qGroup" select="$qGroup" />
                                                                 <xsl:with-param name="currentControl" select="Cell/Control" />
@@ -3145,6 +3145,13 @@
         </xsl:element>
     </xsl:template>
 
+    <xsl:template name="o-option-base">
+            <xsl:param name="qGroup" />
+        <xsl:param name="qID" />
+        <xsl:param name="cellContext" />
+        <xsl:param name="qReadOnly" />
+    </xsl:template>
+
 <!-- Molecules -->
 <!-- ============== -->
 
@@ -3848,48 +3855,8 @@
         </xsl:element>
     </xsl:template>
 
-    <!-- Atoms -->
-    <!-- ===== -->
 
-    <xsl:template name="a-label-pre">
-        <xsl:param name="boxed" select="false()" />
-        <xsl:element name="span">
-            <xsl:attribute name="class">
-                <xsl:text>a-label-pre</xsl:text>
-                <xsl:if test="$boxed"><xsl:text>-boxed</xsl:text></xsl:if>
-            </xsl:attribute>
-            <xsl:comment>
-                <xsl:text>pre label</xsl:text>
-                <xsl:if test="$boxed"><xsl:text>-boxed</xsl:text></xsl:if>
-            </xsl:comment>
-        </xsl:element>
-    </xsl:template>
-
-    <xsl:template name="a-label-post">
-        <xsl:param name="boxed" select="false()" />
-        <xsl:element name="span">
-            <xsl:attribute name="class">
-                <xsl:text>a-label-post</xsl:text>
-                <xsl:if test="$boxed"><xsl:text>-boxed</xsl:text></xsl:if>
-            </xsl:attribute>
-            <xsl:comment>
-                <xsl:text>post label</xsl:text>
-                <xsl:if test="$boxed"><xsl:text>-boxed</xsl:text></xsl:if>
-            </xsl:comment>
-        </xsl:element>
-    </xsl:template>
-
-    <xsl:template name="a-scale-unit">
-        <xsl:param name="data-value" />
-        <xsl:element name="a-scale-unit">
-            <xsl:attribute name="data-value">
-                <xsl:value-of select="$data-value" />
-            </xsl:attribute>
-            <xsl:value-of select="$data-value" />
-        </xsl:element>
-    </xsl:template>
-
-    <xsl:template name="a-option-button">
+    <xsl:template name="m-option-button">
         <xsl:param name="qType" />
         <xsl:param name="qGroup" />
         <xsl:param name="typeOverride" />
@@ -3903,9 +3870,9 @@
         <xsl:variable name="qCategoryID">
             <xsl:value-of select="concat($currentControl/@ElementID, $currentCategory/@CategoryID)" />
         </xsl:variable>
-        
-        <xsl:element name="a-option-button">
-            <xsl:element name="input">
+
+        <xsl:element name="m-option-button">
+            <xsl:element name="butto">
 
                 <xsl:attribute name="data-question-id">
                     <xsl:value-of select="$qCategoryID" />
@@ -3922,7 +3889,7 @@
                 </xsl:if>
 
                 <xsl:attribute name="class">
-                    <xsl:text>a-option-button</xsl:text>
+                    <xsl:text>m-option-button</xsl:text>
                     <xsl:choose>
                         <xsl:when test="$currentControl/Style/@ElementAlign='NewLine'">
                             <xsl:text> below </xsl:text>
@@ -3978,6 +3945,48 @@
         </xsl:element>
 
     </xsl:template>
+
+    <!-- Atoms -->
+    <!-- ===== -->
+
+    <xsl:template name="a-label-pre">
+        <xsl:param name="boxed" select="false()" />
+        <xsl:element name="span">
+            <xsl:attribute name="class">
+                <xsl:text>a-label-pre</xsl:text>
+                <xsl:if test="$boxed"><xsl:text>-boxed</xsl:text></xsl:if>
+            </xsl:attribute>
+            <xsl:comment>
+                <xsl:text>pre label</xsl:text>
+                <xsl:if test="$boxed"><xsl:text>-boxed</xsl:text></xsl:if>
+            </xsl:comment>
+        </xsl:element>
+    </xsl:template>
+
+    <xsl:template name="a-label-post">
+        <xsl:param name="boxed" select="false()" />
+        <xsl:element name="span">
+            <xsl:attribute name="class">
+                <xsl:text>a-label-post</xsl:text>
+                <xsl:if test="$boxed"><xsl:text>-boxed</xsl:text></xsl:if>
+            </xsl:attribute>
+            <xsl:comment>
+                <xsl:text>post label</xsl:text>
+                <xsl:if test="$boxed"><xsl:text>-boxed</xsl:text></xsl:if>
+            </xsl:comment>
+        </xsl:element>
+    </xsl:template>
+
+    <xsl:template name="a-scale-unit">
+        <xsl:param name="data-value" />
+        <xsl:element name="a-scale-unit">
+            <xsl:attribute name="data-value">
+                <xsl:value-of select="$data-value" />
+            </xsl:attribute>
+            <xsl:value-of select="$data-value" />
+        </xsl:element>
+    </xsl:template>
+
 
     <!-- List Structures -->
     <!-- =============== -->
