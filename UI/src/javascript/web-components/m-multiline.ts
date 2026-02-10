@@ -20,9 +20,6 @@ export default class MMultiline extends Component implements Observer {
             case 'input':
                 this.broadcastChange();
                 break;
-            case 'focusin':
-                this.onFocusIn();
-                break;
             case 'paste':
                 this.onPaste(e);
                 break;
@@ -37,19 +34,6 @@ export default class MMultiline extends Component implements Observer {
             case 'clearText':
                 this.clearValue(data);
                 break;
-            case 'exclusiveRestore':
-                this.onFocusIn();
-                break;
-        }
-    }
-
-    private onFocusIn(): void {
-        if (!this.element) return;
-
-        if (this.element.placeholder.length) {
-            this.element.value = this.element.placeholder;
-            this.element.placeholder = '';
-            this.broadcastChange();
         }
     }
 
@@ -76,17 +60,13 @@ export default class MMultiline extends Component implements Observer {
             return;
         }
 
-        if (this.element.textLength > 0) {
-            this.element.placeholder = this.element.value;
-            this.element.value = '';
-        }
+        this.element.value = '';
     }
 
     public connectedCallback(): void {
         super.connectedCallback();
 
         this.addEventListener('change', this.handleEvent);
-        this.addEventListener('focusin', this.handleEvent);
         this.addEventListener('input', this.handleEvent);
         this.addEventListener('paste', this.handleEvent);
 
