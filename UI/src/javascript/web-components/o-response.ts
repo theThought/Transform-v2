@@ -129,6 +129,9 @@ export default class OResponse extends Component implements Subject, Observer {
             case 'restore':
                 this.restoreInitialState();
                 break;
+            case 'clearValues':
+                this.clearChildren();
+                break;
         }
     }
 
@@ -797,7 +800,11 @@ export default class OResponse extends Component implements Subject, Observer {
         this.dispatchEvent(questionVisibility);
 
         this.cover();
-        this.clearChildren();
+
+        const clearChildren = new CustomEvent('clearChildren', {
+            bubbles: true,
+        });
+        this.dispatchEvent(clearChildren);
     }
 
     private attachLabels(): void {

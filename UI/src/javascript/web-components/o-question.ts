@@ -64,6 +64,9 @@ export default class OQuestion extends Component implements Subject {
 
     public handleEvent(e: Event): void {
         switch (e.type) {
+            case 'clearChildren':
+                this.clearChildren();
+                break;
             case 'click':
                 this.onClick(e);
                 break;
@@ -74,6 +77,10 @@ export default class OQuestion extends Component implements Subject {
                 this.setSeparatorStyle(e as CustomEvent);
                 break;
         }
+    }
+
+    private clearChildren(): void {
+        this.notifyObservers('clearValues', new CustomEvent('clearValues'));
     }
 
     private onClick(e: Event): void {
@@ -121,6 +128,7 @@ export default class OQuestion extends Component implements Subject {
 
     public connectedCallback(): void {
         this.cleanEmptyLayout();
+        this.addEventListener('clearChildren', this.handleEvent);
         this.addEventListener('click', this.handleEvent);
         this.addEventListener('questionVisibility', this.handleEvent);
         this.addEventListener('setSeparatorStyle', this.handleEvent);
