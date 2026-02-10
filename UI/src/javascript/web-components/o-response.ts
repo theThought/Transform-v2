@@ -778,16 +778,19 @@ export default class OResponse extends Component implements Subject, Observer {
         this.dispatchEvent(questionVisibility);
     }
 
-    public makeUnavailable(): void {
+    public makeUnavailable(collapse: boolean = true): void {
         if (!this.available) return;
 
+        if (!collapse) this.classList.add('do-not-collapse');
         this.classList.add('unavailable');
+
         this.available = false;
 
         const questionVisibility = new CustomEvent('questionVisibility', {
             bubbles: true,
             detail: {
                 hidden: true,
+                collapse: collapse,
             },
         });
 
@@ -905,8 +908,18 @@ export default class OResponse extends Component implements Subject, Observer {
             return;
         }
 
+        let collapse = true;
+
+        if (this.properties?.visible?.collapse === false) {
+            collapse = false;
+        }
+
+        if (this.properties?.invisible?.collapse === false) {
+            collapse = false;
+        }
+
         // this question has visibility rules so should begin in the hidden state
-        this.makeUnavailable();
+        this.makeUnavailable(collapse);
     }
 
     public processVisibilityRules(): void {
@@ -951,7 +964,8 @@ export default class OResponse extends Component implements Subject, Observer {
         if (this.evaluateRule(ruleString)) {
             this.makeAvailable();
         } else {
-            this.makeUnavailable();
+            const collapse = this.properties.visible?.collapse ?? true;
+            this.makeUnavailable(collapse);
         }
     }
 
@@ -977,7 +991,8 @@ export default class OResponse extends Component implements Subject, Observer {
         );
 
         if (this.evaluateRule(ruleString)) {
-            this.makeUnavailable();
+            const collapse = this.properties.invisible?.collapse ?? true;
+            this.makeUnavailable(collapse);
         } else {
             this.makeAvailable();
         }

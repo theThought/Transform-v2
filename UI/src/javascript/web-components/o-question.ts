@@ -99,6 +99,10 @@ export default class OQuestion extends Component implements Subject {
     private handleVisibility(e: CustomEvent): void {
         e.stopPropagation();
 
+        if (e.detail.collapse === false) {
+            this.classList.add('do-not-collapse');
+        }
+
         if (e.detail.hidden) {
             this.classList.add('unavailable');
         } else {
