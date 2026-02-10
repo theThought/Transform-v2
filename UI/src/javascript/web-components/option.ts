@@ -44,6 +44,9 @@ export default class Option extends Component implements Observer {
             case 'clearValue':
                 this.clearValue(data);
                 break;
+            case 'clearValueFromExternal':
+                this.clearValueFromExternal(data);
+                break;
             case 'sizeChangeWidth':
                 this.setOnesizeWidth(data.detail.width);
                 break;
@@ -88,6 +91,12 @@ export default class Option extends Component implements Observer {
     private clearValue(e: CustomEvent): void {
         if (e.target === this) return;
         if (e.detail && this.qgroup != e.detail.qgroup) return;
+        this.changeState(false);
+    }
+
+    private clearValueFromExternal(e: CustomEvent): void {
+        if (e.target === this) return;
+        if (e.detail && this.qgroup == e.detail.qgroup) return;
         this.changeState(false);
     }
 

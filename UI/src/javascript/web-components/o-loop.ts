@@ -64,7 +64,7 @@ type TotalEntry = {
     readonly: boolean;
 };
 
-export default class OLoop extends Component implements Subject {
+export default class OLoop extends Component implements Subject, Observer {
     private table: HTMLTableElement | null = null;
     private hasRowTotals = false;
     private rowTotals: TotalEntry[] = [];
@@ -78,6 +78,14 @@ export default class OLoop extends Component implements Subject {
 
     constructor() {
         super();
+    }
+
+    update(method: string, data: CustomEvent): void {
+        switch (method) {
+            case 'clearValue':
+                this.notifyObservers('clearValueFromExternal', data);
+                break;
+        }
     }
 
     public addObserver(observer: Observer): void {
@@ -97,23 +105,6 @@ export default class OLoop extends Component implements Subject {
 
     protected setElement(): void {
         this.element = null;
-    }
-
-    public connectedCallback(): void {
-        super.connectedCallback();
-
-        this.table = this.querySelector('table');
-
-        this.configureTableCaption();
-        this.configureTotals();
-        this.configureTopHeadings();
-        this.configureCellShading();
-        this.configureRowStyles();
-        this.configureSeparators();
-        this.setSeparatorStyle();
-
-        this.addEventListener('exclusiveOn', this.handleEvent);
-        this.addEventListener('questionChange', this.handleEvent);
     }
 
     public handleEvent(e: Event): void {
@@ -715,5 +706,23 @@ export default class OLoop extends Component implements Subject {
                 }
             }
         }
+    }
+
+    public connectedCallback(): void {
+        super.connectedCallback();
+
+        if (this.response) this.response.addObserver(this);
+        this.table = this.querySelector('table');
+
+        this.configureTableCaption();
+        this.configureTotals();
+        this.configureTopHeadings();
+        this.configureCellShading();
+        this.configureRowStyles();
+        this.configureSeparators();
+        this.setSeparatorStyle();
+
+        this.addEventListener('exclusiveOn', this.handleEvent);
+        this.addEventListener('questionChange', this.handleEvent);
     }
 }
