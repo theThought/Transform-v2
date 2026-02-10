@@ -195,15 +195,6 @@ export default class OResponse extends Component implements Subject, Observer {
 
         if (!option) return;
 
-        const optionVisibilityBroadcast = new CustomEvent(
-            this.qgroup + '_optionVisibility',
-            {
-                bubbles: true,
-                detail: { itemValue, hideMethod },
-            },
-        );
-        this.dispatchEvent(optionVisibilityBroadcast);
-
         if (option instanceof HTMLElement) {
             if (
                 option.tagName === 'INPUT' &&
@@ -214,13 +205,11 @@ export default class OResponse extends Component implements Subject, Observer {
                 if (parent) {
                     this.applyHideMethod(parent, hideMethod);
                 }
-            } else {
-                this.applyHideMethod(option, hideMethod);
             }
         }
 
+        this.sendOptionVisibilityChange(option, 'hidden');
         this.sendResizeNotifier();
-        this.sendOptionVisibilityChange();
     }
 
     private applyHideMethod(element: HTMLElement, method: string): void {
@@ -271,12 +260,17 @@ export default class OResponse extends Component implements Subject, Observer {
             }
         }
 
+        this.sendOptionVisibilityChange(option, 'visible');
         this.sendResizeNotifier();
-        this.sendOptionVisibilityChange();
     }
 
-    private sendOptionVisibilityChange(): void {
-        const detail = new CustomEvent('optionVisibilityChange', {});
+    private sendOptionVisibilityChange(
+        option: Element | null,
+        visibility: string,
+    ): void {
+        const detail = new CustomEvent('optionVisibilityChange', {
+            detail: { element: option, visibility: visibility },
+        });
         this.notifyObservers('optionVisibilityChange', detail);
     }
 
@@ -500,6 +494,7 @@ export default class OResponse extends Component implements Subject, Observer {
         try {
             return new Function(`return ${ruleString}`)();
         } catch (e) {
+            console.error(e);
             return false;
         }
     }

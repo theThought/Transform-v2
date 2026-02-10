@@ -55,9 +55,6 @@ export default class OList extends Component implements Observer {
 
     public update(method: string, data: CustomEvent | Event): void {
         switch (method) {
-            case 'filter':
-                this.processFilter(<CustomEvent>data);
-                break;
             case 'keypress':
                 this.handleEvent(<Event>data);
                 break;
@@ -68,7 +65,7 @@ export default class OList extends Component implements Observer {
                 this.filterList(<CustomEvent>data);
                 break;
             case 'optionVisibilityChange':
-                this.buildVisibleList();
+                this.processFilter(<CustomEvent>data);
                 break;
         }
     }
@@ -462,16 +459,9 @@ export default class OList extends Component implements Observer {
             return;
         }
 
-        if (listItem.dataset.selected === 'true') {
-            this.setLabel(listItem);
-            this.clearFilteredOptions();
-            return;
-        }
-
         this.clearSelectedOptions();
         this.setOption(listItem);
         this.setValue(listItem);
-        this.clearFilteredOptions();
     }
 
     protected restoreSelection(): void {
@@ -599,7 +589,7 @@ export default class OList extends Component implements Observer {
         let excluded = false;
         const matchingElement = <HTMLElement>(
             this.querySelector(
-                `[data-value="${e.detail.element.value}"]:not(.hidden-filter)`,
+                `[data-value="${e.detail.element.dataset.value}"]:not(.hidden-filter)`,
             )
         );
 
@@ -607,8 +597,9 @@ export default class OList extends Component implements Observer {
         if (
             e.detail.element.value &&
             this.properties.filter &&
-            this.properties.filter.exclusions.indexOf(e.detail.element.value) >=
-                0
+            this.properties.filter.exclusions.indexOf(
+                e.detail.element.dataset.value,
+            ) >= 0
         ) {
             excluded = true;
         }
