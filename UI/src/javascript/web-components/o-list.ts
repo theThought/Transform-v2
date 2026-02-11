@@ -595,7 +595,7 @@ export default class OList extends Component implements Observer {
 
         // the incoming value has been found in the exclusion list
         if (
-            e.detail.element.value &&
+            e.detail.element.dataset.value &&
             this.properties.filter &&
             this.properties.filter.exclusions.indexOf(
                 e.detail.element.dataset.value,
@@ -605,10 +605,17 @@ export default class OList extends Component implements Observer {
         }
 
         if (matchingElement === null || excluded) {
-            this.showOption(null, 'filter');
+            this.showOption(null, e.detail.hideMethod);
         } else {
-            this.clearFilteredOptions();
-            this.hideOption(matchingElement, 'filter');
+            if (e.detail.visibility === 'visible') {
+                this.showOption(
+                    e.detail.element.dataset.value,
+                    e.detail.hideMethod,
+                );
+            } else {
+                this.clearFilteredOptions();
+                this.hideOption(matchingElement, e.detail.hideMethod);
+            }
         }
     }
 

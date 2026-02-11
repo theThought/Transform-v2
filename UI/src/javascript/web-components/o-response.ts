@@ -124,8 +124,13 @@ export default class OResponse extends Component implements Subject, Observer {
         this.dispatchEvent(questionChange);
     }
 
-    public update(method: string): void {
+    public update(method: string, detail: CustomEvent): void {
         switch (method) {
+            case 'questionChange':
+                this.processVisibilityRulesFromExternalTrigger(detail);
+                this.processOptionVisibilityRulesFromExternalTrigger(detail);
+                this.handleQuestionChange(detail);
+                break;
             case 'restore':
                 this.restoreInitialState();
                 break;
@@ -211,7 +216,7 @@ export default class OResponse extends Component implements Subject, Observer {
             }
         }
 
-        this.sendOptionVisibilityChange(option, 'hidden');
+        this.sendOptionVisibilityChange(option, 'hidden', hideMethod);
         this.sendResizeNotifier();
     }
 
@@ -263,16 +268,21 @@ export default class OResponse extends Component implements Subject, Observer {
             }
         }
 
-        this.sendOptionVisibilityChange(option, 'visible');
+        this.sendOptionVisibilityChange(option, 'visible', hideMethod);
         this.sendResizeNotifier();
     }
 
     private sendOptionVisibilityChange(
         option: Element | null,
         visibility: string,
+        hideMethod: string = 'filter',
     ): void {
         const detail = new CustomEvent('optionVisibilityChange', {
-            detail: { element: option, visibility: visibility },
+            detail: {
+                element: option,
+                visibility: visibility,
+                hideMethod: hideMethod,
+            },
         });
         this.notifyObservers('optionVisibilityChange', detail);
     }
@@ -1093,7 +1103,7 @@ export default class OResponse extends Component implements Subject, Observer {
         this.addEventListener('exclusiveOn', this.handleEvent);
         this.addEventListener('exclusiveOff', this.handleEvent);
         this.addEventListener('broadcastChange', this.handleEvent);
-        document.addEventListener('questionChange', this);
+        this.addEventListener('questionChange', this.handleEvent);
         this.attachLabels();
         this.setSeparatorStyle();
         this.configureInitialVisibility();

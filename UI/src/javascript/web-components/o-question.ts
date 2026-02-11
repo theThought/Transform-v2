@@ -70,6 +70,9 @@ export default class OQuestion extends Component implements Subject {
             case 'click':
                 this.onClick(e);
                 break;
+            case 'questionChange':
+                this.handleQuestionChange(e as CustomEvent);
+                break;
             case 'questionVisibility':
                 this.handleVisibility(e as CustomEvent);
                 break;
@@ -103,6 +106,11 @@ export default class OQuestion extends Component implements Subject {
         this.dispatchEvent(clickEvent);
     }
 
+    private handleQuestionChange(e: CustomEvent): void {
+        if (this.contains(e.detail.element)) return;
+        this.notifyObservers('questionChange', e);
+    }
+
     private handleVisibility(e: CustomEvent): void {
         e.stopPropagation();
 
@@ -132,6 +140,13 @@ export default class OQuestion extends Component implements Subject {
         this.addEventListener('click', this.handleEvent);
         this.addEventListener('questionVisibility', this.handleEvent);
         this.addEventListener('setSeparatorStyle', this.handleEvent);
+
+        document.addEventListener('questionChange', this);
+
         this.setCompleteFlag();
+    }
+
+    public disconnectedCallback(): void {
+        document.removeEventListener('questionChange', this);
     }
 }
