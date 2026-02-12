@@ -199,8 +199,12 @@ export default class OResponse extends Component implements Subject, Observer {
 
     private hideOption(itemValue: string, hideMethod: string): void {
         const option =
-            this.querySelector(`[value='${itemValue}' i]`) ??
-            this.querySelector(`[data-value='${itemValue}' i]`);
+            this.querySelector(
+                `:not([type='hidden'])[value='${itemValue}' i]`,
+            ) ??
+            this.querySelector(
+                `:not([type='hidden'])[data-value='${itemValue}' i]`,
+            );
 
         if (!option) return;
 
