@@ -179,6 +179,7 @@ export default class OResponse extends Component implements Subject, Observer {
 
     public addObserver(observer: Observer): void {
         this.observers.push(observer);
+        if (observer.nodeName === 'O-LIST') this.processOptionVisibilityRules();
     }
 
     public removeObserver(observer: Observer): void {

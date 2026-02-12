@@ -1,4 +1,5 @@
 export interface Observer {
+    nodeName: string;
     update(method: string, detail: CustomEvent | Event | string): void;
 }
 
