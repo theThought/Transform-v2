@@ -103,11 +103,6 @@ export default class OQuestion extends Component implements Subject {
         this.dispatchEvent(clickEvent);
     }
 
-    private handleQuestionChange(e: CustomEvent): void {
-        if (this.contains(e.detail.element)) return;
-        this.notifyObservers('questionChange', e);
-    }
-
     private handleVisibility(e: CustomEvent): void {
         e.stopPropagation();
 

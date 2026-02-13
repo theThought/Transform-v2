@@ -95,6 +95,9 @@ export default class OResponse extends Component implements Subject, Observer {
                 );
                 this.handleQuestionChange(e as CustomEvent);
                 break;
+            case 'questionVisibility':
+                if (this !== e.target) e.stopImmediatePropagation();
+                break;
         }
     }
 
@@ -1108,6 +1111,7 @@ export default class OResponse extends Component implements Subject, Observer {
         this.addEventListener('exclusiveOn', this.handleEvent);
         this.addEventListener('exclusiveOff', this.handleEvent);
         this.addEventListener('broadcastChange', this.handleEvent);
+        this.addEventListener('questionVisibility', this.handleEvent);
         document.addEventListener('questionChange', this);
         this.attachLabels();
         this.setSeparatorStyle();
