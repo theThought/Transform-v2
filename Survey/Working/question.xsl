@@ -78,12 +78,20 @@
         <xsl:variable name="qCalcGroup">
             <xsl:choose>
                 <xsl:when test="$qGroup">
-                    <xsl:value-of select="$qGroup" />
+                    <xsl:call-template name="remove_C">
+                        <xsl:with-param name="str">
+                            <xsl:value-of select="$qGroup" />
+                        </xsl:with-param>
+                    </xsl:call-template>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:call-template name="funcGetQGroup">
-                        <xsl:with-param name="BgColor" select="$BgColor"/>
-                    </xsl:call-template>
+                <xsl:call-template name="remove_C">
+                    <xsl:with-param name="str">
+                        <xsl:call-template name="funcGetQGroup">
+                            <xsl:with-param name="BgColor" select="$BgColor"/>
+                        </xsl:call-template>
+                    </xsl:with-param>
+                </xsl:call-template>
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
@@ -111,6 +119,14 @@
             </xsl:for-each>
             </xsl:comment>
 
+            <xsl:comment>
+                <xsl:text>Current: </xsl:text>
+                <xsl:text>qCalcGroup=</xsl:text>
+                <xsl:value-of select="$qCalcGroup" />
+                <xsl:text>qGroup=</xsl:text>
+                <xsl:value-of select="$qGroup" />
+            </xsl:comment>
+
             <xsl:call-template name="response">
                 <xsl:with-param name="qType" select="$qType"/>
                 <xsl:with-param name="qGroup" select="$qCalcGroup"/>
@@ -133,8 +149,12 @@
         </xsl:variable>
 
         <xsl:element name="o-response">
+            <xsl:attribute name="data-in_table">
+                <xsl:value-of select="$cellContext!=''" />
+            </xsl:attribute>
+
             <xsl:attribute name="data-question-group">
-                <xsl:value-of select="$qGroup" />  
+                <xsl:value-of select="$qGroup" />
             </xsl:attribute>
 
             <xsl:attribute name="data-associate-question">
@@ -2687,7 +2707,7 @@
 
         <xsl:element name="o-response">
             <xsl:attribute name="data-question-group">
-                <xsl:value-of select="$qGroup" />  
+                <xsl:value-of select="$qGroup" />
             </xsl:attribute>
 
             <xsl:attribute name="data-associate-question">
@@ -4248,6 +4268,18 @@
 
     </xsl:template>
 
+    <xsl:template name="remove_C">
+        <xsl:param name="str" />
+        <xsl:choose>
+            <xsl:when test="string-length($str) &gt; 2 and substring($str, string-length($str) - 1) = '_C'">
+                <xsl:value-of select="substring($str, 1, string-length($str) - 2)"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$str"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    
     <xsl:template name="CreateColgroups">
       <xsl:param name="firstQuestionRow"/>
 <!--      <colgroup> -->
