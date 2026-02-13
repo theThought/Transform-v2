@@ -149,8 +149,8 @@
         </xsl:variable>
 
         <xsl:element name="o-response">
-            <xsl:attribute name="data-in_table">
-                <xsl:value-of select="$cellContext!=''" />
+            <xsl:attribute name="data-has-container">
+                <xsl:value-of select="not($cellContext!='')" />
             </xsl:attribute>
 
             <xsl:attribute name="data-question-group">
