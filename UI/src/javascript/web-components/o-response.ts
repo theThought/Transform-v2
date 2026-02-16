@@ -818,11 +818,7 @@ export default class OResponse extends Component implements Subject, Observer {
         this.dispatchEvent(questionVisibility);
 
         this.cover();
-
-        const clearChildren = new CustomEvent('clearChildren', {
-            bubbles: true,
-        });
-        this.dispatchEvent(clearChildren);
+        this.clearChildren();
     }
 
     private attachLabels(): void {

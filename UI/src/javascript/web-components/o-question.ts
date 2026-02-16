@@ -64,9 +64,6 @@ export default class OQuestion extends Component implements Subject {
 
     public handleEvent(e: Event): void {
         switch (e.type) {
-            case 'clearChildren':
-                this.clearChildren();
-                break;
             case 'click':
                 this.onClick(e);
                 break;
@@ -79,8 +76,19 @@ export default class OQuestion extends Component implements Subject {
         }
     }
 
-    private clearChildren(): void {
-        this.notifyObservers('clearValues', new CustomEvent('clearValues'));
+    private handleVisibility(e: CustomEvent): void {
+        e.stopPropagation();
+
+        if (e.detail.collapse === false) {
+            this.classList.add('do-not-collapse');
+        }
+
+        if (e.detail.hidden) {
+            this.classList.add('unavailable');
+        } else {
+            this.classList.remove('unavailable');
+            this.restoreInitialState();
+        }
     }
 
     private onClick(e: Event): void {
@@ -101,21 +109,6 @@ export default class OQuestion extends Component implements Subject {
         });
 
         this.dispatchEvent(clickEvent);
-    }
-
-    private handleVisibility(e: CustomEvent): void {
-        e.stopPropagation();
-
-        if (e.detail.collapse === false) {
-            this.classList.add('do-not-collapse');
-        }
-
-        if (e.detail.hidden) {
-            this.classList.add('unavailable');
-        } else {
-            this.classList.remove('unavailable');
-            this.restoreInitialState();
-        }
     }
 
     private restoreInitialState(): void {

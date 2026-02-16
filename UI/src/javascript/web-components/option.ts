@@ -213,7 +213,7 @@ export default class Option extends Component implements Observer {
         this.sublist =
             this.closest('o-option-sublist') ??
             this.closest('o-option-tabstrip') ??
-            this.closest('o-loop');
+            this.closest('o-response');
         this.isExclusive = this.getAttribute('data-exclusive') === 'true';
 
         this.addEventListener('click', this.handleEvent);
