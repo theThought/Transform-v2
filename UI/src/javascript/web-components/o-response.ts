@@ -58,6 +58,7 @@ export default class OResponse extends Component implements Subject, Observer {
     };
 
     protected question: OQuestion | null = null;
+    protected nestedResponse: OResponse | null = null;
     private observers: Observer[] = [];
     private ready = false;
     private optionRuleParsingComplete = false;
@@ -137,7 +138,7 @@ export default class OResponse extends Component implements Subject, Observer {
             case 'restore':
                 this.restoreInitialState();
                 break;
-            case 'clearValues':
+            case 'clearValue':
                 this.clearChildren();
                 break;
         }
@@ -1099,9 +1100,19 @@ export default class OResponse extends Component implements Subject, Observer {
         }
     }
 
+    private setNestedResponse(): void {
+        const parent = this.parentNode as HTMLElement;
+        this.nestedResponse = parent.closest('o-response');
+
+        if (this.nestedResponse) {
+            this.nestedResponse.addObserver(this);
+        }
+    }
+
     public connectedCallback(): void {
         this.parseProperties();
         this.setQuestion();
+        this.setNestedResponse();
         this.storeInitialState();
         this.setResetBehaviour();
         this.addEventListener('exclusiveOn', this.handleEvent);
