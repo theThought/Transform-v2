@@ -24,9 +24,6 @@ export default class MSingleline extends Component implements Observer {
     // Handle constructor() event listeners.
     public handleEvent(e: Event): void {
         switch (e.type) {
-            case 'focusin':
-                this.onFocusIn();
-                break;
             case 'change':
             case 'input':
                 this.broadcastChange();
@@ -97,7 +94,6 @@ export default class MSingleline extends Component implements Observer {
         }
 
         if (this.element.value) {
-            this.element.placeholder = this.element.value;
             this.element.value = '';
         }
     }
@@ -125,7 +121,6 @@ export default class MSingleline extends Component implements Observer {
         if (!this.element) return;
         this.initialPlaceholder = this.element.placeholder;
 
-        this.addEventListener('focusin', this.handleEvent);
         this.addEventListener('input', this.handleEvent);
         this.addEventListener('paste', this.handleEvent);
 
