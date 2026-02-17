@@ -107,9 +107,8 @@ export default class AProperties extends Component {
         form.setAttribute('novalidate', 'true');
     }
 
-    private setQuestionResetMethod(): void {
-        if (this.properties.resettonull) return;
-        document.body.dataset.restoreInitialQuestionValues = 'true';
+    private setQuestionRestoreBehaviour(): void {
+        this.dataset.restoreInitialQuestionValues = `${!this.properties.resettonull}`;
     }
 
     public connectedCallback(): void {
@@ -121,7 +120,7 @@ export default class AProperties extends Component {
         this.setPastePermissions();
         this.setSeparatorStyle();
         this.setSideBySideWidth();
-        this.setQuestionResetMethod();
+        this.setQuestionRestoreBehaviour();
         this.sendCurrentTab();
         this.setValidateFormAttribute();
     }

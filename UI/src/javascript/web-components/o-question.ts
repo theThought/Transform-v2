@@ -87,7 +87,6 @@ export default class OQuestion extends Component implements Subject {
             this.classList.add('unavailable');
         } else {
             this.classList.remove('unavailable');
-            this.restoreInitialState();
         }
     }
 
@@ -109,10 +108,6 @@ export default class OQuestion extends Component implements Subject {
         });
 
         this.dispatchEvent(clickEvent);
-    }
-
-    private restoreInitialState(): void {
-        this.notifyObservers('restore', new CustomEvent('restore'));
     }
 
     private setCompleteFlag(): void {

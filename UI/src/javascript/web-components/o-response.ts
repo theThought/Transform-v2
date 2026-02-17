@@ -135,9 +135,6 @@ export default class OResponse extends Component implements Subject, Observer {
                 this.processOptionVisibilityRulesFromExternalTrigger(detail);
                 this.handleQuestionChange(detail);
                 break;
-            case 'restore':
-                this.restoreInitialState();
-                break;
             case 'clearValue':
                 this.clearChildren();
                 break;
@@ -786,7 +783,7 @@ export default class OResponse extends Component implements Subject, Observer {
         this.classList.remove('unavailable');
 
         this.requestInitialSize();
-        this.resetValues();
+        this.restoreInitialState();
         this.liftCover();
         this.available = true;
 
@@ -867,17 +864,6 @@ export default class OResponse extends Component implements Subject, Observer {
 
             alternativesContainer.appendChild(alternative);
         });
-    }
-
-    private resetValues(): void {
-        if (this.available) return;
-
-        const restoreEntries = new CustomEvent('restoreEntries', {
-            bubbles: true,
-            detail: this,
-        });
-
-        this.dispatchEvent(restoreEntries);
     }
 
     private clearChildren(): void {
@@ -1071,7 +1057,9 @@ export default class OResponse extends Component implements Subject, Observer {
         const restoreSavedValues =
             this.dataset.restoreInitialQuestionValues ??
             document.body.dataset.restoreInitialQuestionValues;
-        if (!restoreSavedValues || this.initialValues === null) return;
+
+        if (restoreSavedValues === 'false' || this.initialValues === null)
+            return;
 
         this.initialValues.forEach((itemValue, itemName) => {
             const element: HTMLInputElement | null = this.querySelector(
@@ -1087,9 +1075,8 @@ export default class OResponse extends Component implements Subject, Observer {
         });
     }
 
-    private setResetBehaviour(): void {
-        if (this.properties.resettonull) return;
-        this.dataset.restoreInitialQuestionValues = 'true';
+    private setQuestionRestoreBehaviour(): void {
+        this.dataset.restoreInitialQuestionValues = `${!this.properties.resettonull}`;
     }
 
     private setQuestion(): void {
@@ -1114,7 +1101,7 @@ export default class OResponse extends Component implements Subject, Observer {
         this.setQuestion();
         this.setNestedResponse();
         this.storeInitialState();
-        this.setResetBehaviour();
+        this.setQuestionRestoreBehaviour();
         this.addEventListener('exclusiveOn', this.handleEvent);
         this.addEventListener('exclusiveOff', this.handleEvent);
         this.addEventListener('broadcastChange', this.handleEvent);
