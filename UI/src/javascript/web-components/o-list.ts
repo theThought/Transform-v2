@@ -573,7 +573,20 @@ export default class OList extends Component implements Observer {
     }
 
     private setLabel(option: HTMLElement): void {
-        this.dataset.label = `${option.innerText}`;
+        // retrieve the string using textContent - do not use innerText
+        // as this will not retrieve values from items that are hidden
+        let label = option.textContent;
+
+        // parse out certain non-printing characters that have been observed
+        label = label.replace(/\s\s+/g, ' ');
+
+        // trim leading/trailing spaces
+        label = label.trim();
+
+        // store the cleaned label to the data-label property
+        this.dataset.label = label;
+
+        // inform a combobox/droplist that a label change needs to occur
         this.broadcastLabelChange();
     }
 
