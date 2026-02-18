@@ -108,7 +108,7 @@ export default class AProperties extends Component {
     }
 
     private setQuestionRestoreBehaviour(): void {
-        this.dataset.restoreInitialQuestionValues = `${!this.properties.resettonull}`;
+        document.body.dataset.restoreInitialQuestionValues = `${!this.properties.resettonull}`;
     }
 
     public connectedCallback(): void {
