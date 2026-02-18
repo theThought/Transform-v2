@@ -156,10 +156,6 @@ export default class ODropdown extends Component implements Subject {
         this.element = this.querySelector('.a-input-dropdown');
     }
 
-    protected configureSetBehaviour(): void {
-        //super.configureSetBehaviour();
-    }
-
     public connectedCallback(): void {
         super.connectedCallback();
         this.setInputWidth();
