@@ -40,7 +40,7 @@ interface QuestionProperties {
         separator?: string;
     };
     separator: boolean;
-    resettonull: boolean;
+    resettonull: boolean | null;
 }
 
 export default class OResponse extends Component implements Subject, Observer {
@@ -54,7 +54,7 @@ export default class OResponse extends Component implements Subject, Observer {
             visible: [],
         },
         separator: true,
-        resettonull: true,
+        resettonull: null,
     };
 
     protected question: OQuestion | null = null;
