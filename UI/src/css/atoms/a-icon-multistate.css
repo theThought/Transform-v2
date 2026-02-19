@@ -7,8 +7,9 @@
 }
 
 .a-icon-multistate[data-icon-type='button'] {
-    background-image: url('../../images/checkboxes.png');
-    background-position-x: -42px;
+    mask-image: url('../../images/check.svg');
+    mask-position: center;
+    mask-repeat: no-repeat;
 }
 
 .a-icon-multistate[data-icon-type='checkbox'] {
@@ -35,9 +36,12 @@
     background-position: 0;
 }
 
+m-option-button[data-checked='true'] .a-icon-multistate {
+    background-color: var(--color-secondary);
+}
+
 [data-selected='true'] .a-icon-multistate,
 [data-selected='true'] label > .a-icon-multistate,
-m-option-button[data-checked='true'] .a-icon-multistate,
 [type='checkbox']:checked ~ .a-icon-multistate,
 [type='radio']:checked ~ .a-icon-multistate,
 [type='checkbox']:checked + label > .a-icon-multistate,
