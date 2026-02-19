@@ -1,6 +1,10 @@
 m-option-button {
+    border: var(--border-thickness) solid var(--color-border);
+    border-radius: var(--border-radius);
+
     button {
         align-items: center;
+        border: none;
         display: flex;
         min-height: 40px;
         min-width: 48px;
@@ -28,9 +32,7 @@ m-option-button {
     }
 
     &[data-checked='true'] {
-        button {
-            border-color: var(--theme-color-brand-secondary);
-        }
+        border-color: var(--theme-color-brand-secondary);
 
         .a-icon-multistate {
             border-color: var(--theme-color-brand-secondary);
