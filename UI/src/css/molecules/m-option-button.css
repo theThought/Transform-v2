@@ -1,6 +1,7 @@
 m-option-button {
     border: var(--border-thickness) solid var(--color-border);
     border-radius: var(--border-radius);
+    display: inline-flex;
 
     button {
         align-items: center;
@@ -9,6 +10,7 @@ m-option-button {
         min-height: 40px;
         min-width: 48px;
         padding: 0;
+        width: 100%;
 
         .a-label-option {
             align-items: flex-start;
