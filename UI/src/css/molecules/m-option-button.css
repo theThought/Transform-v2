@@ -1,0 +1,43 @@
+m-option-button {
+    button {
+        align-items: center;
+        display: flex;
+        min-height: 40px;
+        min-width: 48px;
+        padding: 0;
+
+        .a-label-option {
+            align-items: flex-start;
+            display: flex;
+            flex: 1 0 0;
+            padding: var(--space-1, 4px) var(--space-2, 8px);
+        }
+
+        .a-icon-multistate {
+            align-items: flex-start;
+            align-self: stretch;
+            border-right: var(--border-thickness) solid
+                var(--color-border, #2f469c);
+            display: flex;
+            gap: 8px;
+            height: 36px;
+            justify-content: center;
+            padding: var(--space-1, 4px);
+            width: 32px;
+        }
+    }
+
+    &[data-checked='true'] {
+        button {
+            border-color: var(--theme-color-brand-secondary);
+        }
+
+        .a-icon-multistate {
+            border-color: var(--theme-color-brand-secondary);
+        }
+
+        .a-label-option {
+            color: var(--theme-color-brand-secondary);
+        }
+    }
+}

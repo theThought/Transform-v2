@@ -5,6 +5,7 @@ import WCExample from './web-components/wc-example';
 import AButtonTerminator from './web-components/a-button-terminator';
 import AReadWriteEdit from './web-components/a-readwriteedit';
 import AScaleUnit from './web-components/a-scale-unit';
+import MOptionButton from './web-components/m-option-button';
 import MMultiline from './web-components/m-multiline';
 import MSingleline from './web-components/m-singleline';
 import MSinglelineNumber from './web-components/m-singleline-number';
@@ -92,6 +93,8 @@ export const uiInit = (): void => {
     !customElements.get('a-readwriteedit') &&
         customElements.define('a-readwriteedit', AReadWriteEdit);
 
+    !customElements.get('m-option-button') &&
+        customElements.define('m-option-button', MOptionButton);
     !customElements.get('m-multiline') &&
         customElements.define('m-multiline', MMultiline);
     !customElements.get('m-singleline') &&

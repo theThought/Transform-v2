@@ -17,6 +17,7 @@ export default class Component extends HTMLElement {
         | HTMLInputElement
         | HTMLSelectElement
         | HTMLTextAreaElement
+        | HTMLButtonElement
         | null = null;
 
     constructor() {
@@ -74,7 +75,8 @@ export default class Component extends HTMLElement {
         if (
             this.element.type === 'checkbox' ||
             this.element.type === 'radio' ||
-            this.element.type === 'textarea'
+            this.element.type === 'textarea' ||
+            this.element.type === 'button'
         )
             return;
 

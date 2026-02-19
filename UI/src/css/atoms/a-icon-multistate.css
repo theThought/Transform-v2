@@ -6,6 +6,11 @@
     inline-size: var(--option-icon-width);
 }
 
+.a-icon-multistate[data-icon-type='button'] {
+    background-image: url('../../images/checkboxes.png');
+    background-position-x: -42px;
+}
+
 .a-icon-multistate[data-icon-type='checkbox'] {
     background-image: url('../../images/checkboxes.png');
     background-position-x: -42px;
@@ -32,6 +37,7 @@
 
 [data-selected='true'] .a-icon-multistate,
 [data-selected='true'] label > .a-icon-multistate,
+m-option-button[data-checked='true'] .a-icon-multistate,
 [type='checkbox']:checked ~ .a-icon-multistate,
 [type='radio']:checked ~ .a-icon-multistate,
 [type='checkbox']:checked + label > .a-icon-multistate,

@@ -2,8 +2,20 @@ import Component from './component';
 import OOptionSublist from './o-option-sublist';
 import { Observer } from '../interfaces';
 
+interface CustomProperties {
+    balance?: {
+        state: boolean;
+        minwidth?: string;
+    };
+    onesize?: {
+        state: boolean;
+        maxwidth?: string;
+    };
+    submit?: boolean;
+}
+
 export default class Option extends Component implements Observer {
-    protected properties = {
+    protected properties: CustomProperties = {
         balance: {
             state: false,
             minwidth: '',
@@ -14,7 +26,7 @@ export default class Option extends Component implements Observer {
         },
     };
 
-    protected element: HTMLInputElement | null = null;
+    protected element: HTMLInputElement | HTMLButtonElement | null = null;
     private sublist: OOptionSublist | null = null;
     private isExclusive = false;
 
