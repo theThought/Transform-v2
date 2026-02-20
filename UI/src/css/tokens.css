@@ -11,7 +11,7 @@
 */
 :root {
     /* Colors */
-    --theme-color-brand-primary: #455b97;
+    --theme-color-brand-primary: #2f469c;
     --theme-color-brand-primary-alt: #324371;
     --theme-color-brand-secondary: #007675;
     --theme-color-neutral-100: #fff;
@@ -23,7 +23,7 @@
     --theme-color-neutral-700: #57699c;
     --theme-color-neutral-800: #324371;
     --theme-color-neutral-900: #212c4c;
-    --theme-color-neutral-1000: #002554;
+    --theme-color-neutral-1000: #2f469c;
     --theme-color-placeholder: #6b5b72;
     --theme-color-accent: #7a3996;
 

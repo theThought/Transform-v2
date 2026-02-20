@@ -7,9 +7,9 @@
 }
 
 .a-icon-multistate[data-icon-type='button'] {
-    mask-image: url('../../images/check.svg');
-    mask-position: center;
-    mask-repeat: no-repeat;
+    background-image: url('../../images/check.svg');
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .a-icon-multistate[data-icon-type='checkbox'] {
@@ -34,10 +34,6 @@
 
 [data-selected='true'] .a-icon-multistate[data-icon-type='listitem'] {
     background-position: 0;
-}
-
-m-option-button[data-checked='true'] .a-icon-multistate {
-    background-color: var(--color-secondary);
 }
 
 [data-selected='true'] .a-icon-multistate,

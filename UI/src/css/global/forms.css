@@ -26,6 +26,8 @@ body.focus-control {
     border: var(--border-thickness) solid var(--color-primary);
     border-radius: var(--border-radius);
     display: inline-block;
+    font-family: var(--font-family-primary);
+    font-size: var(--font-size);
     min-block-size: 2.5rem;
     min-inline-size: 3em;
     padding: var(--space-1) 1em;
