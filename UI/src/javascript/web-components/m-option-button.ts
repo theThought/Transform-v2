@@ -69,7 +69,6 @@ export default class MOptionButton extends Option {
         if (this.dataset.checked === 'true') {
             this.textElement.value = this.textElement.placeholder;
         } else {
-            this.textElement.placeholder = this.textElement.value;
             this.textElement.value = '';
         }
     }
