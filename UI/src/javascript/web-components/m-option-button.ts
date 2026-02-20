@@ -13,6 +13,7 @@ interface CustomProperties {
 }
 
 export default class MOptionButton extends Option {
+    private textElement: HTMLInputElement | null = null;
     protected properties: CustomProperties = {
         balance: {
             state: false,
@@ -25,8 +26,15 @@ export default class MOptionButton extends Option {
         submit: false,
     };
 
-    protected onClick(e: Event): void {
-        super.onClick(e);
+    protected onClick(): void {
+        if (!this.element) return;
+        if (this.element.disabled) return;
+
+        const check = this.dataset.checked === 'true';
+
+        this.changeState(!check);
+        this.onChange();
+        this.setTextElementValue();
 
         if (this.properties.submit) {
             this.closest('form')?.submit();
@@ -35,5 +43,36 @@ export default class MOptionButton extends Option {
 
     protected setElement(): void {
         this.element = this.querySelector('button') ?? null;
+        this.textElement = this.querySelector('input[type="hidden"]') ?? null;
+    }
+
+    private setInitialCheckState(): void {
+        if (!this.element) return;
+        if (this.element.dataset.checked === 'true') {
+            this.dataset.checked = 'true';
+        }
+    }
+
+    private storeInitialTextValues(): void {
+        if (!this.textElement) return;
+        this.textElement.placeholder = this.textElement.value;
+    }
+
+    private setTextElementValue(): void {
+        if (!this.textElement || !this.element) return;
+
+        if (this.dataset.checked === 'true') {
+            this.textElement.value = this.textElement.placeholder;
+        } else {
+            this.textElement.placeholder = this.textElement.value;
+            this.textElement.value = '';
+        }
+    }
+
+    public connectedCallback(): void {
+        super.connectedCallback();
+        this.setInitialCheckState();
+        this.storeInitialTextValues();
+        this.setTextElementValue();
     }
 }
