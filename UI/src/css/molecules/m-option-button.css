@@ -19,6 +19,7 @@ m-option-button {
                 var(--color-border);
             display: flex;
             padding: var(--space-1, 4px) var(--space-2, 8px);
+            text-align: start;
         }
 
         .a-icon-multistate {
