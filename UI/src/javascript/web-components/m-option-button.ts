@@ -41,6 +41,11 @@ export default class MOptionButton extends Option {
         }
     }
 
+    protected clearExclusives(e: CustomEvent): void {
+        super.clearExclusives(e);
+        this.setTextElementValue();
+    }
+
     protected setElement(): void {
         this.element = this.querySelector('button') ?? null;
         this.textElement = this.querySelector('input[type="hidden"]') ?? null;

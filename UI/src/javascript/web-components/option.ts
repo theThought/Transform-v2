@@ -121,7 +121,7 @@ export default class Option extends Component implements Observer {
         this.changeState(false);
     }
 
-    private clearExclusives(e: CustomEvent): void {
+    protected clearExclusives(e: CustomEvent): void {
         if (!this.element) return;
         if (!this.isExclusive) return;
         if (this.qgroup != e.detail.qgroup) return;
