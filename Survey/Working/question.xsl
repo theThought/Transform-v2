@@ -782,6 +782,7 @@
 
             <xsl:attribute name="id">
                 <xsl:value-of select="$controlId" />
+                <xsl:text>_button</xsl:text>
             </xsl:attribute>
 
             <xsl:if test="$bShowOnly">
@@ -802,13 +803,11 @@
                 </xsl:attribute>
             </xsl:if>
 
-            <xsl:attribute name="name">
-                <xsl:value-of select="$currentControl/@QuestionName" />
-            </xsl:attribute>
-
-            <xsl:attribute name="value">
-                <xsl:value-of select="$currentControl/Category/@Name" />
-            </xsl:attribute>
+            <xsl:if test="$currentControl/Category/@Checked">
+                <xsl:attribute name="data-checked">
+                    <xsl:text>true</xsl:text>
+                </xsl:attribute>
+            </xsl:if>
 
             <xsl:if test="$currentControl/Style/Control/@ReadOnly or $qReadOnly='true'">
                 <xsl:attribute name="readonly">
@@ -3915,16 +3914,19 @@
         </xsl:variable>
 
         <xsl:element name="m-option-button">
+            <xsl:attribute name="data-question-id">
+                <xsl:value-of select="$qCategoryID" />
+            </xsl:attribute>
+
+            <xsl:attribute name="data-question-group">
+                <xsl:value-of select="$qGroup" />
+            </xsl:attribute>
+
+            <xsl:attribute name="data-exclusive">
+                <xsl:text>true</xsl:text>
+            </xsl:attribute>
+
             <xsl:element name="button">
-
-                <xsl:attribute name="data-question-id">
-                    <xsl:value-of select="$qCategoryID" />
-                </xsl:attribute>
-
-                <xsl:attribute name="data-question-group">
-                    <xsl:value-of select="$qGroup" />
-                </xsl:attribute>
-
                 <xsl:if test="$currentControl/Category/@Checked">
                     <xsl:attribute name="data-checked">
                         <xsl:text>true</xsl:text>
@@ -3986,8 +3988,16 @@
                     </xsl:call-template>
 
                 </xsl:element>
-
             </xsl:element>
+
+            <xsl:call-template name="insert-input-option">
+                <xsl:with-param name="inputType" select="'hidden'" />
+                <xsl:with-param name="qGroup" select="$qGroup" />
+                <xsl:with-param name="isHidden" select="true()" />
+                <xsl:with-param name="currentControl" select="$currentControl" />
+                <xsl:with-param name="controlId" select="$qCategoryID" />
+                <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
+            </xsl:call-template>
         </xsl:element>
 
     </xsl:template>
