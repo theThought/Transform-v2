@@ -1076,6 +1076,13 @@ export default class OResponse extends Component implements Subject, Observer {
     }
 
     private setQuestionRestoreBehaviour(): void {
+        // if no local resettonull property has been defined, fall back to the
+        // document default property
+        if (this.properties.resettonull == null) {
+            this.properties.resettonull = !(
+                document.body.dataset.restoreInitialQuestionValues === 'true'
+            );
+        }
         this.dataset.restoreInitialQuestionValues = `${!this.properties.resettonull}`;
     }
 

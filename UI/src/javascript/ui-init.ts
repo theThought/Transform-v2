@@ -46,6 +46,10 @@ export const uiInit = (): void => {
     // consider the sequence of 'define' calls: i.e. inputs belong to a response
     // which belongs to a question and may require the question to be present.
 
+    // Page level properties first
+    !customElements.get('a-properties') &&
+        customElements.define('a-properties', AProperties);
+
     // Outer containers.
     !customElements.get('o-question') &&
         customElements.define('o-question', OQuestion);
@@ -80,10 +84,6 @@ export const uiInit = (): void => {
         customElements.define('o-palette-form', OPaletteForm);
     !customElements.get('o-palette-history') &&
         customElements.define('o-palette-history', OPaletteHistory);
-
-    // Properties last as it may broadcast settings to other components on the page
-    !customElements.get('a-properties') &&
-        customElements.define('a-properties', AProperties);
 
     // Inner components.
     !customElements.get('a-scale-unit') &&

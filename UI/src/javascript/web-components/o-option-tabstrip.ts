@@ -20,28 +20,9 @@ export default class OOptionTabstrip extends OOptionSublist {
 
     public handleEvent(e: Event): void {
         switch (e.type) {
-            case 'currentTab':
-                this.updateCurrentTab(e as CustomEvent);
-                break;
             case 'submitForm':
                 this.handleSubmit(e as CustomEvent);
                 break;
-        }
-    }
-
-    private updateCurrentTab(e: CustomEvent): void {
-        if (!this.currentTab) return;
-        const currentTabValue =
-            this.currentTab.querySelector('input')?.value.toLowerCase() ?? '';
-
-        if (currentTabValue !== e.detail.toLowerCase()) {
-            const desiredTabInput: HTMLInputElement | null = this.querySelector(
-                `m-option-tab input[value='${e.detail}' i]`,
-            );
-            const desiredTab = desiredTabInput?.parentElement;
-            if (!desiredTab) return;
-            this.currentTab.dataset.checked = 'false';
-            desiredTab.dataset.checked = 'true';
         }
     }
 
@@ -77,12 +58,29 @@ export default class OOptionTabstrip extends OOptionSublist {
         this.currentTab = this.querySelector(
             'm-option-tab[data-checked="true"]',
         );
+
+        const requestedTab = document.body.dataset.currentTab;
+
+        if (!this.currentTab || !requestedTab) return;
+
+        const currentTabValue =
+            this.currentTab.querySelector('input')?.value.toLowerCase() ?? '';
+
+        if (currentTabValue !== requestedTab.toLowerCase()) {
+            const requestedTabControl: HTMLInputElement | null =
+                this.querySelector(
+                    `m-option-tab input[value='${requestedTab}' i]`,
+                );
+            const desiredTab = requestedTabControl?.parentElement;
+            if (!desiredTab) return;
+            this.currentTab.dataset.checked = 'false';
+            desiredTab.dataset.checked = 'true';
+        }
     }
 
     public connectedCallback(): void {
         super.connectedCallback();
         this.setCurrentTab();
-        document.addEventListener('currentTab', this);
         this.addEventListener('submitForm', this.handleEvent);
     }
 }

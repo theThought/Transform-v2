@@ -17,6 +17,10 @@ interface CustomProperties {
     resettonull: boolean;
 }
 
+/** This component should not broadcast events as it is initialised before
+ * any other components on the page
+ */
+
 export default class AProperties extends Component {
     public properties: CustomProperties = {
         floatdetails: true,
@@ -90,14 +94,9 @@ export default class AProperties extends Component {
         );
     }
 
-    private sendCurrentTab(): void {
+    private setCurrentTab(): void {
         if (!this.properties.tab) return;
-
-        const tabEvent = new CustomEvent('currentTab', {
-            bubbles: true,
-            detail: this.properties.tab,
-        });
-        this.dispatchEvent(tabEvent);
+        document.body.dataset.currentTab = this.properties.tab;
     }
 
     private setValidateFormAttribute(): void {
@@ -121,7 +120,7 @@ export default class AProperties extends Component {
         this.setSeparatorStyle();
         this.setSideBySideWidth();
         this.setQuestionRestoreBehaviour();
-        this.sendCurrentTab();
+        this.setCurrentTab();
         this.setValidateFormAttribute();
     }
 }
