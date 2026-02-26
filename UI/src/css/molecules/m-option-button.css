@@ -9,21 +9,21 @@ m-option-button {
     }
 
     button {
-        align-items: center;
         border: none;
         display: flex;
-        min-height: 32px;
-        min-width: 48px;
+        min-block-size: 32px;
+        min-inline-size: 48px;
         padding: 0;
         width: 100%;
 
         .a-label-option {
-            align-items: center;
             align-self: stretch;
             border-inline-start: var(--border-thickness) solid
                 var(--color-border);
             display: flex;
-            padding: var(--space-1, 4px) var(--space-2, 8px);
+
+            /* In order to get the text to vertically align correctly a manual value of 6px was required */
+            padding: 6px var(--space-2) var(--space-1) var(--space-2);
             text-align: start;
         }
 

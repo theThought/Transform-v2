@@ -8,7 +8,7 @@
 
 .a-icon-multistate[data-icon-type='button'] {
     background-image: url('../../images/check.svg');
-    background-position: center;
+    background-position: center 0.25em;
     background-repeat: no-repeat;
 }
 
