@@ -3,6 +3,11 @@ m-option-button {
     border-radius: var(--border-radius);
     display: inline-flex;
 
+    &[data-readonly] {
+        opacity: 0.5;
+        pointer-events: none;
+    }
+
     button {
         align-items: center;
         border: none;

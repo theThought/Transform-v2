@@ -28,6 +28,7 @@ export default class MOptionButton extends Option {
 
     protected onClick(): void {
         if (!this.element) return;
+        if (this.dataset.readonly) return;
         if (this.element.disabled) return;
 
         const check = this.dataset.checked === 'true';
