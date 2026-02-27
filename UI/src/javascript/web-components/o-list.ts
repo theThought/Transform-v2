@@ -284,7 +284,9 @@ export default class OList extends Component implements Observer {
         )
             return;
 
-        const currentItem = this.querySelector('.highlight');
+        const currentItem =
+            this.querySelector('.highlight') ??
+            this.querySelector('[data-selected]');
         if (!currentItem) return;
 
         currentItem.scrollIntoView({ block: 'nearest', inline: 'nearest' });
