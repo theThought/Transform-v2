@@ -7,7 +7,7 @@ interface CustomProperties {
         state: boolean;
         minwidth?: string;
     };
-    onesize?: {
+    onesize: {
         state: boolean;
         maxwidth?: string;
     };
@@ -69,17 +69,17 @@ export default class Option extends Component implements Observer {
     }
 
     private setOnesizeWidth(width: number): void {
-        this.style.width = `${width}px`;
+        this.style.inlineSize = `${width}px`;
     }
 
     private setOnesizeHeight(height: number): void {
-        this.style.minHeight = `${height}px`;
+        this.style.minBlockSize = `${height}px`;
     }
 
     private setMaxOneSize(): void {
         if (!this.properties.onesize.state) return;
 
-        this.style.maxWidth = this.properties.onesize.maxwidth;
+        this.style.maxInlineSize = this.properties.onesize.maxwidth ?? 'auto';
     }
 
     protected changeState(check: boolean): void {
