@@ -67,16 +67,17 @@ export default class Component extends HTMLElement {
     }
 
     protected setElement(): void {
-        this.element = this.querySelector('input, select, textarea') ?? null;
+        this.element =
+            this.querySelector('input, select, textarea, button') ?? null;
     }
 
     protected configureSetBehaviour(): void {
         if (!this.element) return;
         if (
+            this.element.type === 'button' ||
             this.element.type === 'checkbox' ||
             this.element.type === 'radio' ||
-            this.element.type === 'textarea' ||
-            this.element.type === 'button'
+            this.element.type === 'textarea'
         )
             return;
 
