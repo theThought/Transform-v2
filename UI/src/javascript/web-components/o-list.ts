@@ -672,7 +672,7 @@ export default class OList extends Component implements Observer {
 
     private setListHeight(): void {
         const list = this.querySelector('ul');
-        const lineHeight = 31;
+        const lineHeight = 33;
         const padding = 8;
 
         if (list) {
