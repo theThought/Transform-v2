@@ -5,7 +5,7 @@ interface CustomProperties {
         state: boolean;
         minwidth?: string;
     };
-    onesize?: {
+    onesize: {
         state: boolean;
         maxwidth?: string;
     };
@@ -59,11 +59,6 @@ export default class MOptionButton extends Option {
         }
     }
 
-    private storeInitialTextValues(): void {
-        if (!this.textElement) return;
-        this.textElement.placeholder = this.textElement.value;
-    }
-
     private setTextElementValue(): void {
         if (!this.textElement || !this.element) return;
 
@@ -77,7 +72,6 @@ export default class MOptionButton extends Option {
     public connectedCallback(): void {
         super.connectedCallback();
         this.setInitialCheckState();
-        this.storeInitialTextValues();
         this.setTextElementValue();
     }
 }
