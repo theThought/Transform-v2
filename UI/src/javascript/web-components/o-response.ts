@@ -576,7 +576,9 @@ export default class OResponse extends Component implements Subject, Observer {
                         }
 
                         const questionValue = element.value;
-                        this.sourceQuestions[question].push(questionValue);
+                        if (questionValue.length) {
+                            this.sourceQuestions[question].push(questionValue);
+                        }
                     }
                 }
             }
