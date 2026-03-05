@@ -745,9 +745,18 @@
                 <xsl:value-of select="$currentControl/@QuestionName" />
             </xsl:attribute>
 
-            <xsl:attribute name="value">
-                <xsl:value-of select="$currentControl/Category/@Name" />
-            </xsl:attribute>
+            <xsl:choose>
+                <xsl:when test="$currentControl/@Type='button'">
+                    <xsl:attribute name="value">
+                        <xsl:value-of select="$currentControl/Category/@Name" />
+                    </xsl:attribute>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:attribute name="placeholder">
+                        <xsl:value-of select="$currentControl/Category/@Name" />
+                    </xsl:attribute>
+                </xsl:otherwise>
+            </xsl:choose>
 
             <xsl:if test="$currentControl/Category/@Checked">
                 <xsl:attribute name="checked">
@@ -805,16 +814,6 @@
 
             <xsl:if test="$currentControl/Category/@Checked">
                 <xsl:attribute name="data-checked">
-                    <xsl:text>true</xsl:text>
-                </xsl:attribute>
-            </xsl:if>
-
-            <xsl:if test="$currentControl/Style/Control/@ReadOnly or $qReadOnly='true'">
-                <xsl:attribute name="readonly">
-                    <xsl:text>true</xsl:text>
-                </xsl:attribute>
-
-                <xsl:attribute name="aria-disabled">
                     <xsl:text>true</xsl:text>
                 </xsl:attribute>
             </xsl:if>
@@ -3925,6 +3924,16 @@
             <xsl:attribute name="data-exclusive">
                 <xsl:text>true</xsl:text>
             </xsl:attribute>
+
+            <xsl:if test="$currentControl/Style/Control/@ReadOnly or $qReadOnly='true' or $bShowOnly">
+                <xsl:attribute name="data-readonly">
+                    <xsl:text>true</xsl:text>
+                </xsl:attribute>
+
+                <xsl:attribute name="aria-disabled">
+                    <xsl:text>true</xsl:text>
+                </xsl:attribute>
+            </xsl:if>
 
             <xsl:element name="button">
                 <xsl:if test="$currentControl/Category/@Checked">
