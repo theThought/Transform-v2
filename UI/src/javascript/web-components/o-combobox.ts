@@ -38,6 +38,7 @@ export default class OCombobox extends Component implements Subject {
     }
 
     private setFocus(): void {
+        if (this.classList.contains('focus')) return;
         this.classList.add('focus');
     }
 
@@ -104,7 +105,8 @@ export default class OCombobox extends Component implements Subject {
             default:
                 this.setFocus();
                 this.sendValueToList();
-                this.classList.remove('exact');
+                if (this.classList.contains('exact'))
+                    this.classList.remove('exact');
                 break;
         }
     }

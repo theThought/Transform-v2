@@ -17,6 +17,14 @@ interface CustomProperties {
     noitemsinlist: string;
 }
 
+interface Overflow {
+    top?: boolean;
+    bottom?: boolean;
+    left?: boolean;
+    right?: boolean;
+    any: boolean;
+}
+
 export default class OList extends Component implements Observer {
     public properties: CustomProperties = {
         exact: true,
@@ -42,7 +50,7 @@ export default class OList extends Component implements Observer {
     private containerScrollTop = 0;
     private documentScrollLeft = 0;
     private documentScrollTop = 0;
-    private controlHeight = 0;
+    private controlHeight = 38;
     private height = 0;
 
     constructor() {
@@ -132,7 +140,7 @@ export default class OList extends Component implements Observer {
         }
     }
 
-    private updatePosition(target: HTMLElement): void {
+    private updatePosition(target: HTMLElement | Document): void {
         if (target === this) {
             return;
         }
@@ -164,7 +172,7 @@ export default class OList extends Component implements Observer {
         if (typeof target.scrollTop !== 'undefined') {
             scrollTop = target.scrollTop;
 
-            if (this.response?.classList.contains('direction-up')) {
+            if (this.classList.contains('direction-up')) {
                 scrollTop += this.height + this.controlHeight;
             }
 
@@ -176,13 +184,13 @@ export default class OList extends Component implements Observer {
             scrollTop =
                 document.documentElement.scrollTop || document.body.scrollTop;
 
-            if (this.response?.classList.contains('direction-up')) {
+            if (this.classList.contains('direction-up')) {
                 scrollTop += this.height + this.controlHeight;
             }
 
             if (scrollTop !== this.documentScrollTop) {
                 this.documentScrollTop = scrollTop;
-                this.style.marginTop = -2 - scrollTop + 'px';
+                this.style.marginTop = 0 - scrollTop + 'px';
             }
         }
     }
@@ -693,6 +701,91 @@ export default class OList extends Component implements Observer {
         this.listElement = this.querySelector('ul');
     }
 
+    private checkCollision(
+        firstElement: HTMLElement,
+        secondElement: HTMLElement,
+    ): boolean {
+        let firstElementBottom = 0;
+        let secondElementTop = 0;
+
+        if (firstElement) {
+            firstElementBottom = firstElement.getBoundingClientRect().bottom;
+        }
+        if (secondElement) {
+            secondElementTop = secondElement.getBoundingClientRect().top;
+        }
+
+        return firstElementBottom > secondElementTop;
+    }
+
+    private checkViewportBounds(element: HTMLElement): Overflow {
+        const bounding = element.getBoundingClientRect();
+        const overflow: Overflow = { any: false };
+
+        overflow.top = bounding.top < 0;
+        overflow.left = bounding.left < 0;
+        overflow.bottom =
+            bounding.bottom >
+            (window.innerHeight || document.documentElement.clientHeight);
+        overflow.right =
+            bounding.right >
+            (window.innerWidth || document.documentElement.clientWidth);
+        overflow.any =
+            overflow.top || overflow.left || overflow.bottom || overflow.right;
+
+        return overflow;
+    }
+
+    private setDropListDirection(): void {
+        if (!this.listElement) return;
+
+        // reset to the default direction before performing overflow checks
+        this.classList.remove('direction-up');
+        this.classList.add('direction-down');
+
+        if (this.listElement.getBoundingClientRect().height > 0) {
+            this.height = this.listElement.getBoundingClientRect().height;
+        }
+
+        const tempMargin = this.listElement.style.marginTop || '';
+
+        this.listElement.style.marginTop = '';
+
+        const viewportBounds = this.checkViewportBounds(this.listElement);
+        const distanceToTop = this.listElement.getBoundingClientRect().top;
+        const distanceToBottom =
+            window.innerHeight -
+            this.listElement.getBoundingClientRect().bottom;
+
+        this.listElement.style.marginTop = tempMargin;
+
+        if (distanceToTop > distanceToBottom && viewportBounds.bottom) {
+            this.classList.remove('direction-down');
+            this.classList.add('direction-up');
+        }
+
+        this.updatePosition(document);
+    }
+
+    private addVisibilityObserver(): void {
+        if (!this.control) return;
+
+        // Options for the observer (which mutations to observe)
+        const config = {
+            attributeFilter: ['style', 'class'],
+        };
+
+        const mutationObserver = (): void => {
+            this.setDropListDirection();
+        };
+
+        // Create an observer instance linked to the callback function
+        const observer = new MutationObserver(mutationObserver);
+
+        // Start observing the target node for configured mutations
+        observer.observe(this.control, config);
+    }
+
     public connectedCallback(): void {
         super.connectedCallback();
 
@@ -716,7 +809,9 @@ export default class OList extends Component implements Observer {
         if (this.response) this.response.addObserver(this);
 
         this.control = this.closest('o-dropdown, o-combobox');
+
         if (this.control) {
+            this.addVisibilityObserver();
             this.control.addObserver(this);
             this.removeTabIndex();
         }
