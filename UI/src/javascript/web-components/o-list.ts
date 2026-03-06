@@ -701,23 +701,6 @@ export default class OList extends Component implements Observer {
         this.listElement = this.querySelector('ul');
     }
 
-    private checkCollision(
-        firstElement: HTMLElement,
-        secondElement: HTMLElement,
-    ): boolean {
-        let firstElementBottom = 0;
-        let secondElementTop = 0;
-
-        if (firstElement) {
-            firstElementBottom = firstElement.getBoundingClientRect().bottom;
-        }
-        if (secondElement) {
-            secondElementTop = secondElement.getBoundingClientRect().top;
-        }
-
-        return firstElementBottom > secondElementTop;
-    }
-
     private checkViewportBounds(element: HTMLElement): Overflow {
         const bounding = element.getBoundingClientRect();
         const overflow: Overflow = { any: false };
