@@ -746,13 +746,13 @@
             </xsl:attribute>
 
             <xsl:choose>
-                <xsl:when test="$currentControl/@Type='button'">
-                    <xsl:attribute name="value">
+                <xsl:when test="$currentControl/@Type='Button'">
+                    <xsl:attribute name="placeholder">
                         <xsl:value-of select="$currentControl/Category/@Name" />
                     </xsl:attribute>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:attribute name="placeholder">
+                    <xsl:attribute name="value">
                         <xsl:value-of select="$currentControl/Category/@Name" />
                     </xsl:attribute>
                 </xsl:otherwise>
@@ -824,6 +824,9 @@
         <xsl:param name="subType" />
         <xsl:if test="Text[string-length(normalize-space(.)) &gt; 0]">
             <xsl:element name="label">
+                <xsl:attribute name="data-associate-type">
+                    <xsl:text>label</xsl:text>
+                </xsl:attribute>
                 <xsl:attribute name="for">
                     <xsl:value-of select="@ElementID" />
                     <xsl:value-of select="@ElementId" />
