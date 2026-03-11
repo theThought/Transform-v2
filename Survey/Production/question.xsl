@@ -78,12 +78,20 @@
         <xsl:variable name="qCalcGroup">
             <xsl:choose>
                 <xsl:when test="$qGroup">
-                    <xsl:value-of select="$qGroup" />
+                    <xsl:call-template name="remove_C">
+                        <xsl:with-param name="str">
+                            <xsl:value-of select="$qGroup" />
+                        </xsl:with-param>
+                    </xsl:call-template>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:call-template name="funcGetQGroup">
-                        <xsl:with-param name="BgColor" select="$BgColor"/>
-                    </xsl:call-template>
+                <xsl:call-template name="remove_C">
+                    <xsl:with-param name="str">
+                        <xsl:call-template name="funcGetQGroup">
+                            <xsl:with-param name="BgColor" select="$BgColor"/>
+                        </xsl:call-template>
+                    </xsl:with-param>
+                </xsl:call-template>
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
@@ -111,6 +119,14 @@
             </xsl:for-each>
             </xsl:comment>
 
+            <xsl:comment>
+                <xsl:text>Current: </xsl:text>
+                <xsl:text>qCalcGroup=</xsl:text>
+                <xsl:value-of select="$qCalcGroup" />
+                <xsl:text>qGroup=</xsl:text>
+                <xsl:value-of select="$qGroup" />
+            </xsl:comment>
+
             <xsl:call-template name="response">
                 <xsl:with-param name="qType" select="$qType"/>
                 <xsl:with-param name="qGroup" select="$qCalcGroup"/>
@@ -133,8 +149,12 @@
         </xsl:variable>
 
         <xsl:element name="o-response">
+            <xsl:attribute name="data-has-container">
+                <xsl:value-of select="not($cellContext!='')" />
+            </xsl:attribute>
+
             <xsl:attribute name="data-question-group">
-                <xsl:value-of select="$qGroup" />  
+                <xsl:value-of select="$qGroup" />
             </xsl:attribute>
 
             <xsl:attribute name="data-associate-question">
@@ -725,9 +745,18 @@
                 <xsl:value-of select="$currentControl/@QuestionName" />
             </xsl:attribute>
 
-            <xsl:attribute name="value">
-                <xsl:value-of select="$currentControl/Category/@Name" />
-            </xsl:attribute>
+            <xsl:choose>
+                <xsl:when test="$currentControl/@Type='Button'">
+                    <xsl:attribute name="placeholder">
+                        <xsl:value-of select="$currentControl/Category/@Name" />
+                    </xsl:attribute>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:attribute name="value">
+                        <xsl:value-of select="$currentControl/Category/@Name" />
+                    </xsl:attribute>
+                </xsl:otherwise>
+            </xsl:choose>
 
             <xsl:if test="$currentControl/Category/@Checked">
                 <xsl:attribute name="checked">
@@ -762,6 +791,7 @@
 
             <xsl:attribute name="id">
                 <xsl:value-of select="$controlId" />
+                <xsl:text>_button</xsl:text>
             </xsl:attribute>
 
             <xsl:if test="$bShowOnly">
@@ -782,20 +812,8 @@
                 </xsl:attribute>
             </xsl:if>
 
-            <xsl:attribute name="name">
-                <xsl:value-of select="$currentControl/@QuestionName" />
-            </xsl:attribute>
-
-            <xsl:attribute name="value">
-                <xsl:value-of select="$currentControl/Category/@Name" />
-            </xsl:attribute>
-
-            <xsl:if test="$currentControl/Style/Control/@ReadOnly or $qReadOnly='true'">
-                <xsl:attribute name="readonly">
-                    <xsl:text>true</xsl:text>
-                </xsl:attribute>
-
-                <xsl:attribute name="aria-disabled">
+            <xsl:if test="$currentControl/Category/@Checked">
+                <xsl:attribute name="data-checked">
                     <xsl:text>true</xsl:text>
                 </xsl:attribute>
             </xsl:if>
@@ -806,6 +824,9 @@
         <xsl:param name="subType" />
         <xsl:if test="Text[string-length(normalize-space(.)) &gt; 0]">
             <xsl:element name="label">
+                <xsl:attribute name="data-associate-type">
+                    <xsl:text>label</xsl:text>
+                </xsl:attribute>
                 <xsl:attribute name="for">
                     <xsl:value-of select="@ElementID" />
                     <xsl:value-of select="@ElementId" />
@@ -2687,7 +2708,7 @@
 
         <xsl:element name="o-response">
             <xsl:attribute name="data-question-group">
-                <xsl:value-of select="$qGroup" />  
+                <xsl:value-of select="$qGroup" />
             </xsl:attribute>
 
             <xsl:attribute name="data-associate-question">
@@ -3895,16 +3916,29 @@
         </xsl:variable>
 
         <xsl:element name="m-option-button">
+            <xsl:attribute name="data-question-id">
+                <xsl:value-of select="$qCategoryID" />
+            </xsl:attribute>
+
+            <xsl:attribute name="data-question-group">
+                <xsl:value-of select="$qGroup" />
+            </xsl:attribute>
+
+            <xsl:attribute name="data-exclusive">
+                <xsl:text>true</xsl:text>
+            </xsl:attribute>
+
+            <xsl:if test="$currentControl/Style/Control/@ReadOnly or $qReadOnly='true' or $bShowOnly">
+                <xsl:attribute name="data-readonly">
+                    <xsl:text>true</xsl:text>
+                </xsl:attribute>
+
+                <xsl:attribute name="aria-disabled">
+                    <xsl:text>true</xsl:text>
+                </xsl:attribute>
+            </xsl:if>
+
             <xsl:element name="button">
-
-                <xsl:attribute name="data-question-id">
-                    <xsl:value-of select="$qCategoryID" />
-                </xsl:attribute>
-
-                <xsl:attribute name="data-question-group">
-                    <xsl:value-of select="$qGroup" />
-                </xsl:attribute>
-
                 <xsl:if test="$currentControl/Category/@Checked">
                     <xsl:attribute name="data-checked">
                         <xsl:text>true</xsl:text>
@@ -3966,8 +4000,16 @@
                     </xsl:call-template>
 
                 </xsl:element>
-
             </xsl:element>
+
+            <xsl:call-template name="insert-input-option">
+                <xsl:with-param name="inputType" select="'hidden'" />
+                <xsl:with-param name="qGroup" select="$qGroup" />
+                <xsl:with-param name="isHidden" select="true()" />
+                <xsl:with-param name="currentControl" select="$currentControl" />
+                <xsl:with-param name="controlId" select="$qCategoryID" />
+                <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
+            </xsl:call-template>
         </xsl:element>
 
     </xsl:template>
@@ -4248,6 +4290,18 @@
 
     </xsl:template>
 
+    <xsl:template name="remove_C">
+        <xsl:param name="str" />
+        <xsl:choose>
+            <xsl:when test="string-length($str) &gt; 2 and substring($str, string-length($str) - 1) = '_C'">
+                <xsl:value-of select="substring($str, 1, string-length($str) - 2)"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$str"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    
     <xsl:template name="CreateColgroups">
       <xsl:param name="firstQuestionRow"/>
 <!--      <colgroup> -->
