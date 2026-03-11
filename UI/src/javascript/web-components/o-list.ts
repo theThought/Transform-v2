@@ -173,24 +173,24 @@ export default class OList extends Component implements Observer {
             scrollTop = target.scrollTop;
 
             if (this.classList.contains('direction-up')) {
-                scrollTop += this.height + this.controlHeight;
+                scrollTop += this.height - 2 + this.controlHeight;
             }
 
             if (scrollTop !== this.containerScrollTop) {
                 this.containerScrollTop = scrollTop;
-                this.style.marginTop = 0 - scrollTop + 'px';
+                this.style.marginTop = 0 - 2 - scrollTop + 'px';
             }
         } else {
             scrollTop =
                 document.documentElement.scrollTop || document.body.scrollTop;
 
             if (this.classList.contains('direction-up')) {
-                scrollTop += this.height + this.controlHeight;
+                scrollTop += this.height - 2 + this.controlHeight;
             }
 
             if (scrollTop !== this.documentScrollTop) {
                 this.documentScrollTop = scrollTop;
-                this.style.marginTop = 0 - scrollTop + 'px';
+                this.style.marginTop = 0 - 2 - scrollTop + 'px';
             }
         }
     }
@@ -378,6 +378,7 @@ export default class OList extends Component implements Observer {
         if (userInput.length < this.properties.mincharactersforlist) {
             this.displayEmptyMessage(false);
             this.displayMinCharacterMessage(true);
+            this.setDropListDirection();
             return;
         } else {
             this.displayMinCharacterMessage(false);
@@ -416,6 +417,7 @@ export default class OList extends Component implements Observer {
             this.displayEmptyMessage(false);
         }
 
+        this.setDropListDirection();
         this.buildVisibleList();
     }
 
@@ -723,16 +725,18 @@ export default class OList extends Component implements Observer {
         if (!this.listElement) return;
 
         // reset to the default direction before performing overflow checks
-        this.classList.remove('direction-up');
-        this.classList.add('direction-down');
+        if (this.classList.contains('direction-up')) {
+            this.classList.remove('direction-up');
+        }
+
+        this.updatePosition(document);
 
         if (this.listElement.getBoundingClientRect().height > 0) {
             this.height = this.listElement.getBoundingClientRect().height;
         }
 
-        const tempMargin = this.listElement.style.marginTop || '';
-
-        this.listElement.style.marginTop = '';
+        const tempMargin = this.style.marginTop || '';
+        //this.style.marginTop = '';
 
         const viewportBounds = this.checkViewportBounds(this.listElement);
         const distanceToTop = this.listElement.getBoundingClientRect().top;
@@ -740,11 +744,11 @@ export default class OList extends Component implements Observer {
             window.innerHeight -
             this.listElement.getBoundingClientRect().bottom;
 
-        this.listElement.style.marginTop = tempMargin;
+        this.style.marginTop = tempMargin;
 
-        if (distanceToTop > distanceToBottom && viewportBounds.bottom) {
-            this.classList.remove('direction-down');
-            this.classList.add('direction-up');
+        if (viewportBounds.bottom) {
+            if (!this.classList.contains('direction-up'))
+                this.classList.add('direction-up');
         }
 
         this.updatePosition(document);
