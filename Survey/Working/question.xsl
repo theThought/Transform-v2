@@ -1112,7 +1112,13 @@
                 <xsl:when test="$controlType = 'Static'">
                     <xsl:variable name="rowsInSublist" select="$theRows[starts-with(Cell/Control/Category/@CategoryID, concat($categoryID, '_S'))]" />   
                     <xsl:variable name="howManyRows" select="count($rowsInSublist)" />
-
+                    <!-- <xsl:comment>
+                        <xsl:text>Static control with CategoryID: </xsl:text>
+                        <xsl:value-of select="$categoryID" />
+                        <xsl:text> includes </xsl:text>
+                        <xsl:value-of select="$howManyRows" />
+                        <xsl:text> rows in sublist</xsl:text>
+                    </xsl:comment> -->
                     <xsl:element name='fieldset'>
                         <xsl:attribute name="aria-describedby">
                             <xsl:value-of select="//@TableID" />
@@ -1134,37 +1140,69 @@
                                         <xsl:when test="Cell/Control/@Type = 'RadioButton'">
                                             <xsl:text>radio</xsl:text>
                                         </xsl:when>
+                                        <xsl:when test="Cell/Control/@Type = 'Button'">
+                                            <xsl:text>button</xsl:text>
+                                        </xsl:when>
                                         <xsl:otherwise>
                                             <xsl:text>other</xsl:text>
                                         </xsl:otherwise>
                                     </xsl:choose>
                                 </xsl:variable>
 
-                                <xsl:if test="$typeOverride != 'other'">   
+                                <xsl:if test="$typeOverride != 'other'">
                                     <xsl:choose>
                                         <xsl:when test="$cType='choice'">
                                             <xsl:choose>
                                                 <xsl:when test=".//Question">
-                                                    <xsl:call-template name="m-option-base">
-                                                        <xsl:with-param name="qType" select="Cell/Control/@Type" />
-                                                        <xsl:with-param name="qGroup" select="$qGroup" />
-                                                        <xsl:with-param name="currentControl" select="Cell/Control" />
-                                                        <xsl:with-param name="typeOverride" select="$typeOverride" />
-                                                        <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
-                                                        <xsl:with-param name="otherQuestion" select="Cell/Question" />
-                                                        <xsl:with-param name="moro" select="true()" />
-                                                    </xsl:call-template>
+                                                    <xsl:choose>
+                                                        <xsl:when test="Cell/Control/@Type='Button'">
+                                                            <xsl:call-template name="m-option-button">
+                                                                <xsl:with-param name="qType" select="Cell/Control/@Type" />
+                                                                <xsl:with-param name="qGroup" select="$qGroup" />
+                                                                <xsl:with-param name="currentControl" select="Cell/Control" />
+                                                                <xsl:with-param name="typeOverride" select="$typeOverride" />
+                                                                <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
+                                                                <xsl:with-param name="otherQuestion" select="Cell/Question" />
+                                                            </xsl:call-template>
+                                                        </xsl:when>
+                                                        <xsl:otherwise>
+                                                            <xsl:call-template name="o-option-base">
+                                                                <xsl:with-param name="qType" select="Cell/Control/@Type" />
+                                                                <xsl:with-param name="qGroup" select="$qGroup" />
+                                                                <xsl:with-param name="currentControl" select="Cell/Control" />
+                                                                <xsl:with-param name="typeOverride" select="$typeOverride" />
+                                                                <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
+                                                                <xsl:with-param name="otherQuestion" select="Cell/Question" />
+                                                                <xsl:with-param name="moro" select="true()" />
+                                                            </xsl:call-template>
+                                                        </xsl:otherwise>
+                                                    </xsl:choose>
                                                 </xsl:when>
                                                 <xsl:otherwise>
-                                                    <xsl:call-template name="m-option-base">
-                                                        <xsl:with-param name="qType" select="Cell/Control/@Type" />
-                                                        <xsl:with-param name="qGroup" select="$qGroup" />
-                                                        <xsl:with-param name="currentControl" select="Cell/Control" />
-                                                        <xsl:with-param name="typeOverride" select="$typeOverride" />
-                                                        <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
-                                                        <xsl:with-param name="otherQuestion" select="Cell/Question" />
-                                                        <xsl:with-param name="moro" select="false()" />
-                                                    </xsl:call-template>
+                                                    <xsl:choose>
+                                                        <xsl:when test="Cell/Control/@Type='Button'">
+                                                            <xsl:call-template name="m-option-button">
+                                                                <xsl:with-param name="qType" select="Cell/Control/@Type" />
+                                                                <xsl:with-param name="qGroup" select="$qGroup" />
+                                                                <xsl:with-param name="currentControl" select="Cell/Control" />
+                                                                <xsl:with-param name="typeOverride" select="$typeOverride" />
+                                                                <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
+                                                                <xsl:with-param name="otherQuestion" select="Cell/Question" />
+                                                            </xsl:call-template>
+                                                        </xsl:when>
+                                                        <xsl:otherwise>
+                                                            <xsl:call-template name="m-option-base">
+                                                                <xsl:with-param name="qType" select="Cell/Control/@Type" />
+                                                                <xsl:with-param name="qGroup" select="$qGroup" />
+                                                                <xsl:with-param name="currentControl" select="Cell/Control" />
+                                                                <xsl:with-param name="typeOverride" select="$typeOverride" />
+                                                                <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
+                                                                <xsl:with-param name="otherQuestion" select="Cell/Question" />
+                                                                <xsl:with-param name="moro" select="false()" />
+                                                            </xsl:call-template>
+                                                        </xsl:otherwise>
+                                                    </xsl:choose>
+                                                    
                                                 </xsl:otherwise>
                                             </xsl:choose>
                                         </xsl:when>
