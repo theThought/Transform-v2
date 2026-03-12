@@ -52,6 +52,7 @@ export default class OList extends Component implements Observer {
     private documentScrollTop = 0;
     private controlHeight = 38;
     private height = 0;
+    private initialHeight = 0;
 
     constructor() {
         super();
@@ -152,7 +153,10 @@ export default class OList extends Component implements Observer {
         let scrollLeft;
         let scrollTop;
 
-        if (typeof target.scrollLeft !== 'undefined') {
+        if (
+            target instanceof HTMLElement &&
+            typeof target.scrollLeft !== 'undefined'
+        ) {
             scrollLeft = target.scrollLeft;
             if (scrollLeft !== this.containerScrollLeft) {
                 this.containerScrollLeft = scrollLeft;
@@ -169,7 +173,10 @@ export default class OList extends Component implements Observer {
             }
         }
 
-        if (typeof target.scrollTop !== 'undefined') {
+        if (
+            target instanceof HTMLElement &&
+            typeof target.scrollTop !== 'undefined'
+        ) {
             scrollTop = target.scrollTop;
 
             if (this.classList.contains('direction-up')) {
@@ -686,7 +693,9 @@ export default class OList extends Component implements Observer {
         const padding = 8;
 
         if (list) {
-            list.style.maxHeight = `${padding * 2 + lineHeight * this.properties.listsize}px`;
+            this.initialHeight =
+                padding * 2 + lineHeight * this.properties.listsize;
+            list.style.maxHeight = `${this.initialHeight}px`;
         }
     }
 
@@ -732,6 +741,7 @@ export default class OList extends Component implements Observer {
         this.updatePosition(document);
 
         if (this.listElement.getBoundingClientRect().height > 0) {
+            this.listElement.style.maxHeight = `${this.initialHeight}px`;
             this.height = this.listElement.getBoundingClientRect().height;
         }
 
@@ -741,9 +751,29 @@ export default class OList extends Component implements Observer {
         const distanceToBottom =
             window.innerHeight - this.listElement.getBoundingClientRect().top;
 
-        if (viewportBounds.bottom && distanceToBottom < distanceToTop) {
-            if (!this.classList.contains('direction-up'))
-                this.classList.add('direction-up');
+        if (viewportBounds.bottom) {
+            if (distanceToBottom < distanceToTop) {
+                // there's more space available above the item, appear above
+                if (!this.classList.contains('direction-up')) {
+                    this.classList.add('direction-up');
+                }
+                if (
+                    this.listElement.getBoundingClientRect().height >
+                    distanceToTop - this.controlHeight
+                ) {
+                    this.height = distanceToTop;
+                    this.listElement.style.maxHeight = `${distanceToTop}px`;
+                }
+            } else {
+                // there's more space available below the item, appear below
+                if (
+                    this.listElement.getBoundingClientRect().height >
+                    distanceToBottom
+                ) {
+                    this.height = distanceToBottom;
+                    this.listElement.style.maxHeight = `${distanceToBottom}px`;
+                }
+            }
         }
 
         this.updatePosition(document);
