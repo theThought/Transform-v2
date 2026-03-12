@@ -747,16 +747,28 @@
 
             <xsl:choose>
                 <xsl:when test="$currentControl/@Type='Button'">
-                    <xsl:attribute name="placeholder">
-                        <xsl:value-of select="$currentControl/Category/@Name" />
+                    <xsl:attribute name="test">
+                        <xsl:value-of select="$currentControl/Category/@Checked" />
                     </xsl:attribute>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:attribute name="value">
-                        <xsl:value-of select="$currentControl/Category/@Name" />
-                    </xsl:attribute>
-                </xsl:otherwise>
-            </xsl:choose>
+                    <xsl:choose>
+                        <xsl:when test="$currentControl/Category/@Checked">
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="$currentControl/Category/@Name" />
+                        </xsl:attribute>
+                        </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:attribute name="placeholder">
+                            <xsl:value-of select="$currentControl/Category/@Name" />
+                        </xsl:attribute>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:attribute name="value">
+                    <xsl:value-of select="$currentControl/Category/@Name" />
+                </xsl:attribute>
+            </xsl:otherwise>
+        </xsl:choose>
 
             <xsl:if test="$currentControl/Category/@Checked">
                 <xsl:attribute name="checked">
@@ -3955,7 +3967,7 @@
                     </xsl:choose>
                 </xsl:attribute>
             </xsl:if>
-            
+
             <xsl:element name="button">
                 <xsl:if test="$currentControl/Category/@Checked">
                     <xsl:attribute name="data-checked">
