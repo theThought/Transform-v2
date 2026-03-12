@@ -735,18 +735,13 @@ export default class OList extends Component implements Observer {
             this.height = this.listElement.getBoundingClientRect().height;
         }
 
-        const tempMargin = this.style.marginTop || '';
-        //this.style.marginTop = '';
-
         const viewportBounds = this.checkViewportBounds(this.listElement);
-        const distanceToTop = this.listElement.getBoundingClientRect().top;
+        const distanceToTop =
+            this.listElement.getBoundingClientRect().top - this.controlHeight;
         const distanceToBottom =
-            window.innerHeight -
-            this.listElement.getBoundingClientRect().bottom;
+            window.innerHeight - this.listElement.getBoundingClientRect().top;
 
-        this.style.marginTop = tempMargin;
-
-        if (viewportBounds.bottom) {
+        if (viewportBounds.bottom && distanceToBottom < distanceToTop) {
             if (!this.classList.contains('direction-up'))
                 this.classList.add('direction-up');
         }
