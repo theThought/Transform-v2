@@ -830,6 +830,12 @@
                 </xsl:attribute>
             </xsl:if>
 
+            <xsl:if test="$currentControl/Category/@Checked">
+                <xsl:attribute name="data-checked">
+                    <xsl:text>true</xsl:text>
+                </xsl:attribute>
+            </xsl:if>
+            
             <xsl:attribute name="aria-disabled">
                 <xsl:text>true</xsl:text>
             </xsl:attribute>
@@ -3981,6 +3987,12 @@
                 <xsl:text>true</xsl:text>
             </xsl:attribute>
 
+            <xsl:if test="$currentControl/Style/@Color">
+                <xsl:attribute name="data-properties">
+                    <xsl:value-of select="$currentControl/Style/@Color" />
+                </xsl:attribute>
+            </xsl:if>
+            
             <xsl:if test="$currentControl/Style/Control/@ReadOnly or $qReadOnly='true' or $bShowOnly">
                 <xsl:attribute name="data-readonly">
                     <xsl:text>true</xsl:text>
