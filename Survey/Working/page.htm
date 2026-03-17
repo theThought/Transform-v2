@@ -32,14 +32,18 @@
 </head>
 
 <body>
-	<mrBannerText name="PageProperties"><!-- Page Properties --> </mrBannerText>
+	<mrBannerText Name="PageProperties"><!-- Page Properties --> </mrBannerText>
 	<header class="header">
 		<img class="site-logo" alt="Ipsos Logo" title="Ipsos Logo" src="https://cdn.ipsosinteractive.com/sandbox/kevin.gray/transform/v2/staging/static/ipsoslogo192.png" />
+		<h2>
+			<!-- Page Header Banner -->
+			<mrBannerText Name="pageHeader"></mrBannerText>
+		</h2>
 	</header>
 
 	<mrPage IncludeElementIDs="true" QuestionXSL="question.xsl" LabelXSL="label.xsl" NavigationXSL="navigation.xsl" UseTablesLayout="false" ErrorTemplate="error.htm" BannerTemplate="banner.htm" />
 	<main class='surroundcontent'>
-		<h1><mrPageTitle /></h1>
+
 		<mrData>Questions here</mrData>
 	</main>
 	<footer class="footer">
