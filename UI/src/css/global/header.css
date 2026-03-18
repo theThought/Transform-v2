@@ -7,4 +7,9 @@
     img {
         inline-size: 75px;
     }
+
+    img + h1 {
+        margin-block-end: 0;
+        margin-inline-start: var(--space-4);
+    }
 }
