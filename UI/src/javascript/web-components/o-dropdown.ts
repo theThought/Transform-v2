@@ -89,8 +89,6 @@ export default class ODropdown extends Component implements Subject {
                 break;
             default:
                 this.sendKeyToList(e);
-                if (this.classList.contains('exact'))
-                    this.classList.remove('exact');
                 break;
         }
     }

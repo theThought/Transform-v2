@@ -98,15 +98,12 @@ export default class OCombobox extends Component implements Subject {
             case e.key === 'Delete':
                 this.setFocus();
                 this.sendValueToList();
-                this.classList.remove('exact');
                 break;
             case e.key.length > 1:
                 break;
             default:
                 this.setFocus();
                 this.sendValueToList();
-                if (this.classList.contains('exact'))
-                    this.classList.remove('exact');
                 break;
         }
     }
@@ -150,7 +147,7 @@ export default class OCombobox extends Component implements Subject {
         const resizeObserver = new ResizeObserver((entries) => {
             for (const entry of entries) {
                 if (!this.element) return;
-                this.element.style.maxWidth = `${entry.contentBoxSize[0].inlineSize}px`;
+                this.element.style.width = `${entry.contentBoxSize[0].inlineSize}px`;
             }
         });
 
