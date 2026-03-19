@@ -5,7 +5,7 @@
     padding-block-end: var(--space-2);
     padding-block-start: var(--space-2);
     padding-inline-end: var(--space-4);
-    padding-inline-start: calc(var(--space-4) * 2);
+    padding-inline-start: calc(var(--space-3) * 3);
     position: relative;
 
     &::before {
@@ -17,11 +17,15 @@
         inset-inline-start: 0.5rem;
         position: absolute;
     }
+
+    p:last-child {
+        margin-block-end: 0;
+    }
 }
 
 /* Uses color-mix() function to fix a11y color contrast. */
 .m-message-error {
-    background-color: rgba(var(--color-error), 0.15);
+    background-color: rgb(var(--color-error), 0.15);
     color: rgb(var(--color-error));
 
     &::before {
@@ -30,7 +34,7 @@
 }
 
 .m-message-warning {
-    background-color: rgba(var(--color-warning), 0.15);
+    background-color: rgb(var(--color-warning), 0.15);
     color: rgb(var(--color-warning));
 
     &::before {
@@ -39,7 +43,7 @@
 }
 
 .m-message-success {
-    background-color: rgba(var(--color-success), 0.15);
+    background-color: rgb(var(--color-success), 0.15);
     color: rgb(var(--color-success));
 
     &::before {
@@ -48,7 +52,7 @@
 }
 
 .m-message-information {
-    background-color: rgba(var(--color-information), 0.15);
+    background-color: rgb(var(--color-information), 0.15);
     color: rgb(var(--color-information));
 
     &::before {
