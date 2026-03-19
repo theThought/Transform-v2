@@ -12,9 +12,33 @@ export default class OQuestion extends Component implements Subject {
     };
 
     private observers: Observer[] = [];
+    private responses: Record<string, any> = [];
 
     constructor() {
         super();
+    }
+
+    public handleEvent(e: Event): void {
+        switch (e.type) {
+            case 'broadcastChange':
+                this.handleChange(e as CustomEvent);
+                break;
+            case 'click':
+                this.onClick(e);
+                break;
+            case 'exclusiveOn':
+                this.exclusiveOn(e as CustomEvent);
+                break;
+            case 'exclusiveOff':
+                this.exclusiveOff(e as CustomEvent);
+                break;
+            case 'questionVisibility':
+                this.handleVisibility(e as CustomEvent);
+                break;
+            case 'setSeparatorStyle':
+                this.setSeparatorStyle(e as CustomEvent);
+                break;
+        }
     }
 
     public addObserver(observer: Observer): void {
@@ -30,6 +54,35 @@ export default class OQuestion extends Component implements Subject {
 
     public notifyObservers(method: string, detail: CustomEvent): void {
         this.observers.forEach((observer) => observer.update(method, detail));
+    }
+
+    private handleChange(e: CustomEvent): void {
+        e.stopPropagation();
+        this.notifyOtherQuestions(e);
+        this.updateAnswerCount(e);
+        if (!e.detail.element.value) return;
+        this.notifyObservers('clearExclusives', e);
+    }
+
+    private notifyOtherQuestions(e: CustomEvent): void {
+        const questionChange = new CustomEvent('questionChange', {
+            bubbles: true,
+            detail: e.detail,
+        });
+
+        this.dispatchEvent(questionChange);
+    }
+
+    private exclusiveOn(e: CustomEvent): void {
+        this.notifyObservers('clearValue', e);
+    }
+
+    private exclusiveOff(e: CustomEvent): void {
+        this.notifyObservers('exclusiveRestore', e);
+    }
+
+    private updateAnswerCount(e: CustomEvent): void {
+        this.responses[e.detail.qid] = e.detail.value;
     }
 
     private cleanEmptyLayout(): void {
@@ -60,20 +113,6 @@ export default class OQuestion extends Component implements Subject {
             detail: { separator: false, questionGroup: e.detail.questionGroup },
         });
         this.dispatchEvent(separatorEvent);
-    }
-
-    public handleEvent(e: Event): void {
-        switch (e.type) {
-            case 'click':
-                this.onClick(e);
-                break;
-            case 'questionVisibility':
-                this.handleVisibility(e as CustomEvent);
-                break;
-            case 'setSeparatorStyle':
-                this.setSeparatorStyle(e as CustomEvent);
-                break;
-        }
     }
 
     private handleVisibility(e: CustomEvent): void {
@@ -116,8 +155,11 @@ export default class OQuestion extends Component implements Subject {
 
     public connectedCallback(): void {
         this.cleanEmptyLayout();
+        this.addEventListener('broadcastChange', this.handleEvent);
         this.addEventListener('clearChildren', this.handleEvent);
         this.addEventListener('click', this.handleEvent);
+        this.addEventListener('exclusiveOn', this.handleEvent);
+        this.addEventListener('exclusiveOff', this.handleEvent);
         this.addEventListener('questionVisibility', this.handleEvent);
         this.addEventListener('setSeparatorStyle', this.handleEvent);
 

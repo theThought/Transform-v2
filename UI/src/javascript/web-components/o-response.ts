@@ -64,7 +64,6 @@ export default class OResponse extends Component implements Subject, Observer {
     private optionRuleParsingComplete = false;
     private hasOptionVisibilityRules = false;
     private alternativeRuleParsingComplete = false;
-    private responses: Record<string, any> = [];
     private sourceQuestions: Record<string, any> = [];
     private complexVisibilityRule = '';
     private expandedVisibilityRule = '';
@@ -78,15 +77,6 @@ export default class OResponse extends Component implements Subject, Observer {
 
     public handleEvent(e: Event): void {
         switch (e.type) {
-            case 'exclusiveOn':
-                this.exclusiveOn(e as CustomEvent);
-                break;
-            case 'exclusiveOff':
-                this.exclusiveOff(e as CustomEvent);
-                break;
-            case 'broadcastChange':
-                this.handleChange(e as CustomEvent);
-                break;
             case 'questionChange':
                 this.processVisibilityRulesFromExternalTrigger(
                     e as CustomEvent,
@@ -102,32 +92,6 @@ export default class OResponse extends Component implements Subject, Observer {
         }
     }
 
-    private exclusiveOn(e: CustomEvent): void {
-        this.notifyObservers('clearValue', e);
-    }
-
-    private exclusiveOff(e: CustomEvent): void {
-        e.stopPropagation();
-        this.notifyObservers('exclusiveRestore', e);
-    }
-
-    private handleChange(e: CustomEvent): void {
-        e.stopPropagation();
-        this.notifyOtherQuestions(e);
-        this.updateAnswerCount(e);
-        if (!e.detail.element.value) return;
-        this.notifyObservers('clearExclusives', e);
-    }
-
-    private notifyOtherQuestions(e: CustomEvent): void {
-        const questionChange = new CustomEvent('questionChange', {
-            bubbles: true,
-            detail: e.detail,
-        });
-
-        this.dispatchEvent(questionChange);
-    }
-
     public update(method: string, detail: CustomEvent): void {
         switch (method) {
             case 'questionChange':
@@ -136,7 +100,16 @@ export default class OResponse extends Component implements Subject, Observer {
                 this.handleQuestionChange(detail);
                 break;
             case 'clearValue':
-                this.clearChildren();
+                this.clearChildren(detail);
+                break;
+            case 'clearExclusives':
+                this.notifyObservers('clearExclusives', detail);
+                break;
+            case 'exclusiveOn':
+                this.notifyObservers('clearValue', detail);
+                break;
+            case 'exclusiveOff':
+                this.notifyObservers('exclusiveRestore', detail);
                 break;
         }
     }
@@ -192,10 +165,6 @@ export default class OResponse extends Component implements Subject, Observer {
 
     public notifyObservers(method: string, detail: CustomEvent): void {
         this.observers.forEach((observer) => observer.update(method, detail));
-    }
-
-    private updateAnswerCount(e: CustomEvent): void {
-        this.responses[e.detail.qid] = e.detail.value;
     }
 
     private hideOption(itemValue: string, hideMethod: string): void {
@@ -818,7 +787,7 @@ export default class OResponse extends Component implements Subject, Observer {
         this.dispatchEvent(questionVisibility);
 
         this.cover();
-        this.clearChildren();
+        this.clearVisibility();
     }
 
     private attachLabels(): void {
@@ -868,7 +837,11 @@ export default class OResponse extends Component implements Subject, Observer {
         });
     }
 
-    private clearChildren(): void {
+    private clearChildren(e: CustomEvent): void {
+        this.notifyObservers('clearValue', e);
+    }
+
+    private clearVisibility(): void {
         const clearVisibility = new CustomEvent('clearVisibility', {
             bubbles: true,
             detail: this,
@@ -1111,9 +1084,6 @@ export default class OResponse extends Component implements Subject, Observer {
         this.setNestedResponse();
         this.storeInitialState();
         this.setQuestionRestoreBehaviour();
-        this.addEventListener('exclusiveOn', this.handleEvent);
-        this.addEventListener('exclusiveOff', this.handleEvent);
-        this.addEventListener('broadcastChange', this.handleEvent);
         this.addEventListener('questionVisibility', this.handleEvent);
         document.addEventListener('questionChange', this);
         this.attachLabels();

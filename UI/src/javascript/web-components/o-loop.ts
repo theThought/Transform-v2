@@ -112,15 +112,7 @@ export default class OLoop extends Component implements Subject, Observer {
             case 'questionChange':
                 this.receiveBroadcast(e as CustomEvent);
                 break;
-            case 'exclusiveOn':
-                this.exclusiveOn(e as CustomEvent);
-                break;
         }
-    }
-
-    private exclusiveOn(e: CustomEvent): void {
-        e.stopPropagation();
-        this.notifyObservers('clearValue', e);
     }
 
     private replaceHTMLPlaceholder(content?: string): string {
