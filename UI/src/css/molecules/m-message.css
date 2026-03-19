@@ -2,6 +2,7 @@
     border-radius: var(--border-radius);
     font-size: var(--font-size-s);
     inline-size: fit-content;
+    margin-block-end: var(--space-2);
     padding-block-end: var(--space-2);
     padding-block-start: var(--space-2);
     padding-inline-end: var(--space-4);
