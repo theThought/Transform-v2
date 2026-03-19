@@ -375,7 +375,6 @@ export default class OList extends Component implements Observer {
 
     private filterList(e: CustomEvent): void {
         if (!this.listElement) return;
-        this.clearElementValue();
 
         const droplistParentNode = this.listElement.parentNode;
         if (!droplistParentNode) return;
