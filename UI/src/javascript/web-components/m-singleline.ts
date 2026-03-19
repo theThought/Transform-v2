@@ -28,6 +28,10 @@ export default class MSingleline extends Component implements Observer {
             case 'input':
                 this.broadcastChange();
                 break;
+            case 'keydown':
+            case 'mouseup':
+                e.stopImmediatePropagation();
+                break;
             case 'paste':
                 this.onPaste(e);
                 break;
@@ -122,6 +126,8 @@ export default class MSingleline extends Component implements Observer {
         this.initialPlaceholder = this.element.placeholder;
 
         this.addEventListener('input', this.handleEvent);
+        this.addEventListener('keydown', this.handleEvent);
+        this.addEventListener('mouseup', this.handleEvent);
         this.addEventListener('paste', this.handleEvent);
 
         this.setLabels();
