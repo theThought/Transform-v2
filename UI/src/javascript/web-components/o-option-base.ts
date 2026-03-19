@@ -34,8 +34,10 @@ export default class OOptionBase extends Option {
         // prevent radio buttons from de-selecting
         if (this.element.checked && this.element.type === 'radio') return;
 
-        this.changeState(!this.element.checked);
-        this.onChange();
+        if (this.additionalInputElement?.value.length) {
+            this.changeState(!this.element.checked);
+            this.onChange();
+        }
         this.additionalInputElement?.focus();
     }
 
