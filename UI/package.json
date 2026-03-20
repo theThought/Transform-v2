@@ -6,9 +6,9 @@
     "license": "ISC",
     "repository": {
         "type": "git",
-        "url": "https://github.com/theThought/Project-Transform"
+        "url": "https://github.com/theThought/Transform-v2"
     },
-    "homepage": "https://theThought.github.io/Project-Transform",
+    "homepage": "https://thethought.github.io/Transform-v2",
     "scripts": {
         "reset": "rimraf node_modules/ && npm install",
         "static-assets-rename": "node ./scripts/static-assets-rename",
@@ -38,6 +38,10 @@
         "defaults",
         "not dead"
     ],
+    "engines": {
+        "node": ">=25.2",
+        "npm": ">=11.6"
+    },
     "devDependencies": {
         "@babel/eslint-parser": "^7.28.5",
         "@etchteam/storybook-addon-status": "^8.0.0",
