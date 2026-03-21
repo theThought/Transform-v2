@@ -32,38 +32,45 @@
 </head>
 
 <body>
+	<mrBannerText Name="PageProperties"><!-- Page Properties --> </mrBannerText>
 	<header class="header">
 		<img class="site-logo" alt="Ipsos Logo" title="Ipsos Logo" src="https://cdn.ipsosinteractive.com/sandbox/kevin.gray/transform/v2/staging/static/ipsoslogo192.png" />
+		<h1>
+			<!-- Page Header Banner -->
+			<mrBannerText Name="pageHeader"></mrBannerText>
+		</h1>
 	</header>
 	<mrPage IncludeElementIDs="true" QuestionXSL="question.xsl" LabelXSL="Label.xsl" NavigationXSL="navigation.xsl" UseTablesLayout="false" ErrorTemplate="error.htm" BannerTemplate="banner.htm" />
 
 	<main class='surroundcontent'>
-	<h1><mrPageTitle /></h1>
-	<article id="question2" class="full-width-article">
-		<mrData QuestionName="Tabs">tabstrip</mrData>
-	</article>
+		<article id="question2" class="full-width-article">
+			<mrData QuestionName="Tabs">tabstrip</mrData>
+		</article>
 
 		<article id="question2" class="full-width-article">
-		<mrData QuestionName="LayoutInformation">LayoutInformation</mrData>
-	</article>
+			<mrData QuestionName="LayoutInformation">LayoutInformation</mrData>
+		</article>
+
 	<div class="row">
 		<article id="question3">
-		<mrData QuestionName="AdultsandChildren">AdultsandChildren</mrData>
+			<mrData QuestionName="AdultsandChildren">AdultsandChildren</mrData>
 		</article>
 		<article id="question4">
-		<mrData QuestionName="financiallydependent">financiallydependent</mrData>
+			<mrData QuestionName="financiallydependent">financiallydependent</mrData>
 		</article>
 	</div>
+
 	<article id="question5" class="full-width-article">
 		<mrData QuestionName="sidebysidelayout">sidebysidelayout</mrData>
 	</article>
+
 	<div class="row">
 		<article id="question6">
-		<mrData QuestionName="WhichQuestion">WhichQuestion</mrData>
+			<mrData QuestionName="WhichQuestion">WhichQuestion</mrData>
 		</article>
 		<article id="question7">
-		<mrData QuestionName="Howmany1">Howmany1</mrData>
-		<mrData QuestionName="Howmany2">Howmany2</mrData>
+			<mrData QuestionName="Howmany1">Howmany1</mrData>
+			<mrData QuestionName="Howmany2">Howmany2</mrData>
 		</article>
 	</div>
 	</main>

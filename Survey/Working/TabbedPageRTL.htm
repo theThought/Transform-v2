@@ -32,29 +32,33 @@
 </head>
 
 <body>
-		<mrBannerText name="PageProperties"><!-- Page Properties --> </mrBannerText>
-		<header class="header">
-			<img class="site-logo" alt="Ipsos Logo" title="Ipsos Logo" src="https://cdn.ipsosinteractive.com/sandbox/kevin.gray/transform/v2/staging/static/ipsoslogo192.png" />
-		</header>
+	<mrBannerText Name="PageProperties"><!-- Page Properties --> </mrBannerText>
+	<header class="header">
+		<img class="site-logo" alt="Ipsos Logo" title="Ipsos Logo" src="https://cdn.ipsosinteractive.com/sandbox/kevin.gray/transform/v2/staging/static/ipsoslogo192.png" />
+		<h1>
+			<!-- Page Header Banner -->
+			<mrBannerText Name="pageHeader"></mrBannerText>
+		</h1>
+	</header>
 
-		<mrPage IncludeElementIDs="true" QuestionXSL="question.xsl" LabelXSL="Label.xsl" NavigationXSL="navigation.xsl" UseTablesLayout="false" ErrorTemplate="error.htm" BannerTemplate="banner.htm" />
+	<mrPage IncludeElementIDs="true" QuestionXSL="question.xsl" LabelXSL="Label.xsl" NavigationXSL="navigation.xsl" UseTablesLayout="false" ErrorTemplate="error.htm" BannerTemplate="banner.htm" />
 
-		<main class='surroundcontent'>
-			<h1><mrPageTitle /></h1>
-			
-			<mrData>Questions here</mrData>
-		</main>
-		<footer class="footer">
+	<main class='surroundcontent'>
+		<h1><mrPageTitle /></h1>
+		
+		<mrData>Questions here</mrData>
+	</main>
+	<footer class="footer">
+		<div class="m-button-group">
+			<mrNavButton Name="Next">Next</mrNavButton>
+
 			<div class="m-button-group">
-				<mrNavButton Name="Next">Next</mrNavButton>
-
-				<div class="m-button-group">
-					<mrNavButton Name="Prev">Previous</mrNavButton>
-					<mrNavButton Name="Stop">Stop</mrNavButton>
-				</div>
+				<mrNavButton Name="Prev">Previous</mrNavButton>
+				<mrNavButton Name="Stop">Stop</mrNavButton>
 			</div>
-			<nav class="m-page-links" aria-label="Links to supporting documents"><a href="#">Privacy Policy</a><a href="#">Terms and Conditions</a><a href="#">Unsubscribe</a></nav>
-		</footer>
+		</div>
+		<nav class="m-page-links" aria-label="Links to supporting documents"><a href="#">Privacy Policy</a><a href="#">Terms and Conditions</a><a href="#">Unsubscribe</a></nav>
+	</footer>
 </body>
 
 <script type="module" src="https://cdn.ipsosinteractive.com/sandbox/kevin.gray/transform/v2/staging/javascript/index.js"><!-- core code --></script>
