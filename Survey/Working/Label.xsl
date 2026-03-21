@@ -34,9 +34,15 @@
                 <xsl:element name='label'>
                     <xsl:choose>
                         <xsl:when test="name()='Error'">
-                        <xsl:attribute name="class">Error</xsl:attribute>
-                        <xsl:call-template name="LabelBase"/>
+                            <xsl:attribute name="class">Error</xsl:attribute>
+                            <xsl:call-template name="LabelBase"/>
                         </xsl:when>
+                            <xsl:when test="$sLabelClass='mrBannerText'">
+                                <xsl:comment><xsl:text>Banner:</xsl:text>
+                                    <xsl:value-of select="@Name"/>
+                                </xsl:comment>
+                                <xsl:call-template name="Banner" />
+                            </xsl:when>
                         <xsl:otherwise>
                         <xsl:choose>
                             <xsl:when test="$bIncludeElementIds and @ElementId != ''">
@@ -63,8 +69,33 @@
         </xsl:choose>
     </xsl:template>
 
-    <xsl:template name="LabelBase">
+    <xsl:template name="Banner">
+        <xsl:choose>
+            <xsl:when test="@Name='Instruction'">
+                <xsl:element name="div">
+                    <xsl:attribute name="class">m-message-information</xsl:attribute>
+                    <xsl:call-template name="LabelBase"/>
+                </xsl:element>
+            </xsl:when>
+            <xsl:when test="@Name='Warning'">
+                <xsl:element name="div">
+                    <xsl:attribute name="class">m-message-warning</xsl:attribute>
+                    <xsl:call-template name="LabelBase"/>
+                </xsl:element>
+            </xsl:when>
+            <xsl:when test="@Name='Warning'">
+                <xsl:element name="div">
+                    <xsl:attribute name="class">m-message-error</xsl:attribute>
+                    <xsl:call-template name="LabelBase"/>
+                </xsl:element>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="LabelBase"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
 
+    <xsl:template name="LabelBase">
     <xsl:if test="Text">
         <xsl:choose>
             <xsl:when test="$sLabelClass='mrBannerText'">

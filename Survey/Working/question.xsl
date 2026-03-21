@@ -1597,6 +1597,7 @@
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:variable>
+
             <xsl:call-template name="m-option-boolean">
                 <xsl:with-param name="qType" select="qType" />
                 <xsl:with-param name="qGroup" select="$qGroup" />
@@ -3992,7 +3993,7 @@
                     <xsl:value-of select="$currentControl/Style/@Color" />
                 </xsl:attribute>
             </xsl:if>
-            
+
             <xsl:if test="$currentControl/Style/Control/@ReadOnly or $qReadOnly='true' or $bShowOnly">
                 <xsl:attribute name="data-readonly">
                     <xsl:text>true</xsl:text>
