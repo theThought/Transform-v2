@@ -33,7 +33,7 @@ export default class AReadWriteEdit extends Component {
 
     constructor() {
         super();
-        this.parser = new UAParser();
+        //this.parser = new UAParser();
     }
 
     public handleEvent(e: Event): void {
