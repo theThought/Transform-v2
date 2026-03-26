@@ -1,5 +1,5 @@
 import Component from './component';
-import UAParser from 'ua-parser-js';
+import { UAParser } from 'ua-parser-js';
 
 type StorageDestination = 'LocalStorage';
 type ReadSource = 'UserAgent' | 'LocalStorage';
