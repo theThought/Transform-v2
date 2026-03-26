@@ -4,6 +4,7 @@
         "allowSyntheticDefaultImports": true,
         "forceConsistentCasingInFileNames": true,
         "moduleResolution": "bundler",
+        "module": "esnext",
         "target": "es6"
     },
     "include": ["src/javascript/**/*", "stories/**/*", ".storybook/**/*"],
