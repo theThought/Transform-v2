@@ -1086,6 +1086,29 @@
 
     </xsl:template>
 
+    <xsl:template name="insert-common-cell-attributes">
+        <xsl:attribute name="test"><xsl:text>test</xsl:text><xsl:value-of select="Label/Style/Cell/@Width" /></xsl:attribute>
+        <xsl:if test="Label/Style/Cell/@Width">
+            <xsl:attribute name="style">
+                <xsl:text>width:</xsl:text>
+                <xsl:value-of select="Label/Style/Cell/@Width" />
+                <xsl:text>;</xsl:text>
+            </xsl:attribute>
+        </xsl:if>
+
+        <xsl:if test="Label/Style/@Align">
+            <xsl:attribute name="text-align">
+                <xsl:value-of select="Label/Style/@Align" />
+            </xsl:attribute>
+        </xsl:if>
+
+        <xsl:if test="Label/Style/@VerticalAlign">
+            <xsl:attribute name="vertical-align">
+                <xsl:value-of select="Label/Style/@VerticalAlign" />
+            </xsl:attribute>
+        </xsl:if>
+    </xsl:template>
+
     <xsl:template name="process-option-rows">
         <xsl:param name="qGroup" />
         <xsl:param name="theRows" />
@@ -2216,6 +2239,8 @@
             <xsl:attribute name="class">
                 <xsl:text>m-structure-cell</xsl:text>
             </xsl:attribute>
+            
+
             <xsl:choose>
                 <xsl:when test="name(*[1]) = 'Label'">
                     <xsl:attribute name="scope">
@@ -2230,23 +2255,23 @@
                     </xsl:attribute>
 
                     <xsl:variable name="styleVerticalAlign">
-                        <xsl:if test="Style/@VerticalAlign">
+                        <xsl:if test="Label/Style/@VerticalAlign">
                             <xsl:text>vertical-align:</xsl:text>
-                            <xsl:value-of select="Style/@VerticalAlign" />
+                            <xsl:value-of select="Label/Style/@VerticalAlign" />
                             <xsl:text>; </xsl:text>
                         </xsl:if>
                     </xsl:variable>
                     <xsl:variable name="styleHorizontalAlign">
-                        <xsl:if test="Style/@Align">
+                        <xsl:if test="Label/Style/@Align">
                             <xsl:text>text-align:</xsl:text>
-                            <xsl:value-of select="Style/@Align" />
+                            <xsl:value-of select="Label/Style/@Align" />
                             <xsl:text>; </xsl:text>
                         </xsl:if>
                     </xsl:variable>
                     <xsl:variable name="styleWidth">
-                        <xsl:if test="Style/Cell/@Width">
+                        <xsl:if test="Label/Style/Cell/@Width">
                             <xsl:text>width:</xsl:text>
-                            <xsl:value-of select="Style/Cell/@Width" />
+                            <xsl:value-of select="Label/Style/Cell/@Width" />
                             <xsl:text>; </xsl:text>
                         </xsl:if>
                     </xsl:variable>
@@ -2387,7 +2412,7 @@
                     <xsl:value-of select="@WeightX" />
                 </xsl:attribute>
             </xsl:if>
-
+            
             <xsl:for-each select="Label">
                 <xsl:call-template name="insert-label-heading">
                     <xsl:with-param name="X" select="$currentCell/@X" />
@@ -2663,6 +2688,7 @@
             <xsl:attribute name="class">
                 <xsl:text>m-structure-cell</xsl:text>
             </xsl:attribute>
+
             <xsl:choose>
                 <xsl:when test="name(*[1]) = 'Label'">
                     <xsl:attribute name="scope">
@@ -3258,7 +3284,9 @@
                 <xsl:text>Other Question</xsl:text>
             </xsl:comment>
             <xsl:for-each select="$otherQuestion">
-                <xsl:call-template name="Question" />
+                <xsl:call-template name="Question">
+                    <xsl:with-param name="qGroup" select="$qGroup" />
+                </xsl:call-template>
             </xsl:for-each>
         </xsl:if>
         </xsl:element>
