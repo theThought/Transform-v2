@@ -1,20 +1,51 @@
 import Option from './option';
+import MSingleline from './m-singleline';
+import MOptionBase from './m-option-base';
 
 export default class OOptionBase extends Option {
-    private additionalInputElement: HTMLInputElement | null = null;
+    private additionalInputElement: MSingleline | null = null;
+    private optionElement: MOptionBase | null = null;
 
     public handleEvent(e: Event): void {
         switch (e.type) {
+            case 'broadcastChange':
+                this.onChange(e as CustomEvent);
+                break;
             case 'click':
             case 'questionClick':
                 this.onClick(<MouseEvent>e);
                 break;
-            case 'focusin':
-                this.onFocus();
-                break;
             case 'keydown':
                 this.onKeydown(<KeyboardEvent>e);
                 break;
+        }
+    }
+
+    protected onChange(e: CustomEvent): void {
+        if (!this.optionElement) return;
+        if (!this.additionalInputElement) return;
+
+        if (e.target === this.additionalInputElement) {
+            if (
+                !this.optionElement.getChecked() &&
+                this.additionalInputElement.getLength()
+            ) {
+                this.optionElement.changeState(true);
+                if (this.optionElement.isExclusive) {
+                    const exclusiveOn = new CustomEvent('exclusiveOn', {
+                        bubbles: true,
+                        detail: this,
+                    });
+                    this.dispatchEvent(exclusiveOn);
+                }
+            }
+        } else {
+            if (
+                !this.optionElement.getChecked() &&
+                this.additionalInputElement.getLength()
+            ) {
+                this.additionalInputElement.setValue('');
+            }
         }
     }
 
@@ -25,29 +56,10 @@ export default class OOptionBase extends Option {
         if (this.element.disabled) return;
         if (this.element.readOnly) return;
 
-        // prevent focus from being stolen by the checkbox where the other-specifier text was clicked
-        const target = e.target as HTMLElement;
-        if (target === this.additionalInputElement) {
-            this.element.focus();
-        }
-
         // prevent radio buttons from de-selecting
         if (this.element.checked && this.element.type === 'radio') return;
 
-        if (this.additionalInputElement?.value.length) {
-            this.changeState(!this.element.checked);
-            this.onChange();
-        }
-        this.additionalInputElement?.focus();
-    }
-
-    protected onFocus(): void {
-        if (!this.element) return;
-
-        if (this.additionalInputElement?.value.length) {
-            this.changeState(true);
-            this.onChange();
-        }
+        this.additionalInputElement?.element.focus();
     }
 
     protected onKeydown(e: KeyboardEvent): void {
@@ -72,13 +84,14 @@ export default class OOptionBase extends Option {
             this.onChange();
         }
 
-        this.additionalInputElement?.focus();
+        this.additionalInputElement?.element.focus();
     }
 
     public connectedCallback(): void {
         super.connectedCallback();
+        this.addEventListener('broadcastChange', this.handleEvent);
         this.addEventListener('questionClick', this.handleEvent);
-        this.addEventListener('focusin', this.handleEvent);
-        this.additionalInputElement = this.querySelector('input[type="text"]');
+        this.optionElement = this.querySelector('m-option-base');
+        this.additionalInputElement = this.querySelector('m-singleline');
     }
 }

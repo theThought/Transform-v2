@@ -1,6 +1,7 @@
 import Component from './component';
 import OOptionSublist from './o-option-sublist';
 import { Observer } from '../interfaces';
+import MOptionBase from './m-option-base';
 
 interface CustomProperties {
     balance?: {
@@ -27,8 +28,9 @@ export default class Option extends Component implements Observer {
     };
 
     protected element: HTMLInputElement | HTMLButtonElement | null = null;
+
     private sublist: OOptionSublist | null = null;
-    private isExclusive = false;
+    public isExclusive = false;
 
     constructor() {
         super();
@@ -82,7 +84,7 @@ export default class Option extends Component implements Observer {
         this.style.maxInlineSize = this.properties.onesize.maxwidth ?? 'auto';
     }
 
-    protected changeState(check: boolean): void {
+    public changeState(check: boolean): void {
         if (!this.element) return;
 
         if (check) {
@@ -132,7 +134,7 @@ export default class Option extends Component implements Observer {
         this.changeState(false);
     }
 
-    protected onChange(): void {
+    protected onChange(e: CustomEvent): void {
         if (!this.element) return;
 
         if (this.isExclusive && this.element.checked) {
@@ -210,6 +212,10 @@ export default class Option extends Component implements Observer {
 
         // start listening for size changes
         observer.observe(this);
+    }
+
+    public getChecked(): boolean {
+        return this.element?.checked ?? false;
     }
 
     private informSizeChange(width: number, height: number): void {

@@ -38,6 +38,15 @@ export default class MSingleline extends Component implements Observer {
         }
     }
 
+    public getLength(): number {
+        return this.element?.value.length ?? 0;
+    }
+
+    public setValue(val: string): void {
+        if (!this.element) return;
+        this.element.value = val;
+    }
+
     public update(method: string, data: CustomEvent): void {
         switch (method) {
             case 'clearValue':
