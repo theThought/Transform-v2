@@ -2412,7 +2412,36 @@
                     <xsl:value-of select="@WeightX" />
                 </xsl:attribute>
             </xsl:if>
-            
+
+            <xsl:variable name="styleVerticalAlign">
+                <xsl:if test="Style/@VerticalAlign">
+                    <xsl:text>vertical-align:</xsl:text>
+                    <xsl:value-of select="Style/@VerticalAlign" />
+                    <xsl:text>; </xsl:text>
+                </xsl:if>
+            </xsl:variable>
+            <xsl:variable name="styleHorizontalAlign">
+                <xsl:if test="Style/@Align">
+                    <xsl:text>text-align:</xsl:text>
+                    <xsl:value-of select="Style/@Align" />
+                    <xsl:text>; </xsl:text>
+                </xsl:if>
+            </xsl:variable>
+            <xsl:variable name="styleWidth">
+                <xsl:if test="Style/@Width">
+                    <xsl:text>width:</xsl:text>
+                    <xsl:value-of select="Style/@Width" />
+                    <xsl:text>; </xsl:text>
+                </xsl:if>
+            </xsl:variable>
+            <xsl:if test="$styleVerticalAlign or $styleHorizontalAlign or $styleWidth">
+                <xsl:attribute name="style">
+                    <xsl:value-of select="$styleVerticalAlign" />
+                    <xsl:value-of select="$styleHorizontalAlign" />
+                    <xsl:value-of select="$styleWidth" />
+                </xsl:attribute>
+            </xsl:if>
+
             <xsl:for-each select="Label">
                 <xsl:call-template name="insert-label-heading">
                     <xsl:with-param name="X" select="$currentCell/@X" />
