@@ -448,7 +448,12 @@ export default class OList extends Component implements Observer {
         if (!this.listElement) return;
         const newEntry = document.createElement('li');
         newEntry.classList.add(className);
-        newEntry.innerHTML = content;
+        newEntry.classList.add('m-list-option');
+
+        const newEntryContent = document.createElement('div');
+        newEntryContent.innerHTML = content;
+
+        newEntry.appendChild(newEntryContent);
         this.listElement.appendChild(newEntry);
     }
 
