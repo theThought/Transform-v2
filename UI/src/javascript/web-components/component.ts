@@ -10,7 +10,7 @@ import { mergeDeep } from './util';
 
 export default class Component extends HTMLElement {
     protected readonly qid: string;
-    protected readonly qgroup: string;
+    protected qgroup: string;
     protected response: OResponse | null = null;
     protected properties: object = {};
     protected element:
@@ -100,6 +100,14 @@ export default class Component extends HTMLElement {
                 this.dispatchEvent(new Event('restore', { bubbles: true }));
             },
         });
+    }
+
+    public getQuestionGroup(): string {
+        return this.qgroup;
+    }
+
+    protected setQuestionGroup(questionGroup: string): void {
+        this.qgroup = questionGroup;
     }
 
     public connectedCallback(): void {

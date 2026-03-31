@@ -11,6 +11,9 @@ export default class OOptionBase extends Option {
             case 'broadcastChange':
                 this.onChange(e as CustomEvent);
                 break;
+            case 'exclusiveOn':
+                this.onExclusiveOn(e as CustomEvent);
+                break;
             case 'click':
             case 'questionClick':
                 this.onClick(<MouseEvent>e);
@@ -21,7 +24,20 @@ export default class OOptionBase extends Option {
         }
     }
 
+    public update(method: string, data: CustomEvent): void {
+        switch (method) {
+            case 'exclusiveClear':
+                this.exclusiveClear(data);
+                break;
+            case 'clearExclusives':
+                this.clearExclusives(data);
+                break;
+        }
+    }
+
     protected onChange(e: CustomEvent): void {
+        if (e.target === this) return;
+        e.stopImmediatePropagation();
         if (!this.optionElement) return;
         if (!this.additionalInputElement) return;
 
@@ -47,6 +63,8 @@ export default class OOptionBase extends Option {
                 this.additionalInputElement.setValue('');
             }
         }
+
+        this.broadcastChange();
     }
 
     protected onClick(e: MouseEvent): void {
@@ -60,6 +78,16 @@ export default class OOptionBase extends Option {
         if (this.element.checked && this.element.type === 'radio') return;
 
         this.additionalInputElement?.element.focus();
+    }
+
+    protected onExclusiveOn(e: CustomEvent): void {
+        if (e.target === this) return;
+        this.qgroup = e.detail.qgroup;
+        const exclusiveOn = new CustomEvent('exclusiveOn', {
+            bubbles: true,
+            detail: this,
+        });
+        this.dispatchEvent(exclusiveOn);
     }
 
     protected onKeydown(e: KeyboardEvent): void {
@@ -90,8 +118,11 @@ export default class OOptionBase extends Option {
     public connectedCallback(): void {
         super.connectedCallback();
         this.addEventListener('broadcastChange', this.handleEvent);
+        this.addEventListener('exclusiveOn', this.handleEvent);
         this.addEventListener('questionClick', this.handleEvent);
         this.optionElement = this.querySelector('m-option-base');
         this.additionalInputElement = this.querySelector('m-singleline');
+        if (this.optionElement)
+            this.setQuestionGroup(this.optionElement.getQuestionGroup());
     }
 }

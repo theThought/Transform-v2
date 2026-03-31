@@ -114,10 +114,11 @@ export default class Option extends Component implements Observer {
         this.changeState(false);
     }
 
-    private exclusiveClear(e: CustomEvent): void {
+    protected exclusiveClear(e: CustomEvent): void {
         if (!this.element) return;
         if (this.isExclusive) return;
         if (e.target === this) return;
+        if (this.contains(e.target)) return;
         if (this.qgroup != e.detail.qgroup) return;
 
         this.changeState(false);
