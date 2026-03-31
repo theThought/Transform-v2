@@ -3299,6 +3299,10 @@
         </xsl:variable>
 
         <xsl:element name="o-option-base">
+            <xsl:attribute name="data-question-group">
+                <xsl:value-of select="$qGroup" />
+            </xsl:attribute>
+            
             <xsl:call-template name="m-option-base">
                 <xsl:with-param name="qType" select="$qType" />
                 <xsl:with-param name="qGroup" select="$qGroup" />
