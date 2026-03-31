@@ -382,9 +382,22 @@ export default class OList extends Component implements Observer {
         let visibleItems = this.list.length;
         const userInput = e.detail.element.value.toLowerCase();
 
+        const displayMinCharacterMessage =
+            userInput.length < this.properties.mincharactersforlist;
+
+        if (userInput.length === 0) {
+            this.displayEmptyMessage(false);
+            this.displayMinCharacterMessage(displayMinCharacterMessage);
+            this.clearValue();
+            this.clearFilteredOptions();
+            this.buildVisibleList();
+            return;
+        }
+
         if (userInput.length < this.properties.mincharactersforlist) {
             this.displayEmptyMessage(false);
             this.displayMinCharacterMessage(true);
+            this.clearElementValue();
             this.setDropListDirection();
             return;
         } else {
