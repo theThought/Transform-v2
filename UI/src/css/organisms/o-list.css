@@ -54,6 +54,7 @@ o-list {
             border: 0;
             display: block;
             height: 0;
+            overflow: hidden;
             padding-block-end: 0;
             padding-block-start: 0;
             visibility: hidden;
