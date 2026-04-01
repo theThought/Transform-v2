@@ -50,8 +50,6 @@ export default class MSingleline extends Component implements Observer {
     public update(method: string, data: CustomEvent): void {
         switch (method) {
             case 'clearValue':
-                this.clearValue(data);
-                break;
             case 'clearText':
                 this.clearValue(data);
                 break;
@@ -105,6 +103,9 @@ export default class MSingleline extends Component implements Observer {
         if (target && (target === this || target.contains(this))) {
             return;
         }
+
+        // prevent other responses from clearing the current value
+        if (e.detail.response != this.response) return;
 
         if (this.element.value) {
             this.element.value = '';
