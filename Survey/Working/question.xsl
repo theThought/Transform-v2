@@ -893,7 +893,14 @@
 
         <xsl:element name="span">
             <xsl:attribute name="class">
-                <xsl:text>a-label-question</xsl:text>
+            <xsl:choose>
+                <xsl:when test="@Class='mrGridCategoryText'">
+                    <xsl:text>a-label-iteration</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>a-label-question</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
             </xsl:attribute>
             <xsl:attribute name="id">
                 <xsl:value-of select="$cellContext" />
@@ -2240,7 +2247,6 @@
                 <xsl:text>m-structure-cell</xsl:text>
             </xsl:attribute>
             
-
             <xsl:choose>
                 <xsl:when test="name(*[1]) = 'Label'">
                     <xsl:attribute name="scope">
@@ -4020,7 +4026,6 @@
         </xsl:element>
     </xsl:template>
 
-
     <xsl:template name="m-option-button">
         <xsl:param name="qType" />
         <xsl:param name="qGroup" />
@@ -4197,7 +4202,6 @@
             <xsl:value-of select="$data-value" />
         </xsl:element>
     </xsl:template>
-
 
     <!-- List Structures -->
     <!-- =============== -->
