@@ -104,8 +104,7 @@ export default class MSingleline extends Component implements Observer {
             return;
         }
 
-        // prevent other responses from clearing the current value
-        if (e.detail.response != this.response) return;
+        if (this.qgroup != e.detail?.qgroup) return;
 
         if (this.element.value) {
             this.element.value = '';

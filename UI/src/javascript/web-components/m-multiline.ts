@@ -60,6 +60,8 @@ export default class MMultiline extends Component implements Observer {
             return;
         }
 
+        if (this.qgroup != e.detail?.qgroup) return;
+
         this.element.value = '';
     }
 
