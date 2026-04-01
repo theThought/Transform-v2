@@ -894,7 +894,7 @@
         <xsl:element name="span">
             <xsl:attribute name="class">
             <xsl:choose>
-                <xsl:when test="@Class='mrGridCategoryText'">
+                <xsl:when test="../@Class='mrGridCategoryText'">
                     <xsl:text>a-label-iteration</xsl:text>
                 </xsl:when>
                 <xsl:otherwise>
