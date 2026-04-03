@@ -53,13 +53,10 @@ export default class MMultiline extends Component implements Observer {
 
     // Clears the value when an exclusive option is enabled.
     private clearValue(e: CustomEvent): void {
-        if (!this.element) return;
         const target = e.target as HTMLElement;
 
-        if (target && (target === this || target.contains(this))) {
-            return;
-        }
-
+        if (!this.element) return;
+        if (target && (target === this || target.contains(this))) return;
         if (this.qgroup != e.detail?.qgroup) return;
 
         this.element.value = '';

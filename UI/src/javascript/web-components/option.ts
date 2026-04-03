@@ -1,7 +1,6 @@
 import Component from './component';
 import OOptionSublist from './o-option-sublist';
 import { Observer } from '../interfaces';
-import MOptionBase from './m-option-base';
 
 interface CustomProperties {
     balance?: {
@@ -104,7 +103,8 @@ export default class Option extends Component implements Observer {
 
     private clearValue(e: CustomEvent): void {
         if (e.target === this) return;
-        if (e.detail && this.qgroup != e.detail.qgroup) return;
+        if (this.qgroup !== e.detail?.qgroup) return;
+
         this.changeState(false);
     }
 
@@ -118,7 +118,7 @@ export default class Option extends Component implements Observer {
         if (!this.element) return;
         if (this.isExclusive) return;
         if (e.target === this) return;
-        if (this.contains(e.target)) return;
+        if (this.contains(e.target as HTMLElement)) return;
         if (this.qgroup != e.detail.qgroup) return;
 
         this.changeState(false);
@@ -137,6 +137,7 @@ export default class Option extends Component implements Observer {
 
     protected onChange(e: CustomEvent): void {
         if (!this.element) return;
+        if (!this.contains(e.target as HTMLElement)) return;
 
         if (this.isExclusive && this.element.checked) {
             const exclusiveOn = new CustomEvent('exclusiveOn', {
@@ -170,7 +171,7 @@ export default class Option extends Component implements Observer {
         if (this.element.checked && this.element.type === 'radio') return;
 
         this.changeState(!this.element.checked);
-        this.onChange();
+        this.onChange(e);
     }
 
     protected onKeydown(e: KeyboardEvent): void {
@@ -185,10 +186,10 @@ export default class Option extends Component implements Observer {
 
         if (e.key === ' ') {
             this.changeState(!this.element.checked);
-            this.onChange();
+            this.onChange(e);
         } else if (target.type == 'text' && !this.element.checked) {
             this.changeState(true);
-            this.onChange();
+            this.onChange(e);
         }
     }
 
