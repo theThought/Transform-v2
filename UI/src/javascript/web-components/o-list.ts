@@ -87,6 +87,11 @@ export default class OList extends Component implements Observer {
         this.clearLabel();
     }
 
+    private clearValueFromLocal(): void {
+        this.clearSelectedOptions();
+        this.clearElementValue();
+    }
+
     private clearElementValue(): void {
         if (!this.element || !this.element.value.length) return;
 
@@ -118,6 +123,9 @@ export default class OList extends Component implements Observer {
     }
 
     private indexVisibleList(): void {
+        this.list.forEach((node) => {
+            node.dataset.position = ``;
+        });
         this.visibleList.forEach((node, index) => {
             node.dataset.position = `${index}`;
         });
@@ -406,7 +414,7 @@ export default class OList extends Component implements Observer {
             this.displayMinCharacterMessage(false);
         }
 
-        this.list.forEach((node) => {
+        for (const node of this.list) {
             const itemLabel = node.textContent?.toLowerCase() ?? '';
 
             if (this.properties.filtertype === 'starts') {
@@ -430,8 +438,11 @@ export default class OList extends Component implements Observer {
             if (itemLabel === userInput && this.properties.exact) {
                 this.listPosition = parseInt(node.dataset.position ?? '0');
                 this.setSelectedOptionByIndex();
+                return;
+            } else if (this.element?.value && this.properties.exact) {
+                this.clearValueFromLocal();
             }
-        });
+        }
 
         if (visibleItems === 0) {
             this.displayEmptyMessage(true);
@@ -596,6 +607,7 @@ export default class OList extends Component implements Observer {
         this.setOption(listItem);
         this.setValue(listItem);
         this.clearFilteredOptions();
+        this.buildVisibleList();
     }
 
     private setValue(option: HTMLElement): void {
@@ -603,6 +615,7 @@ export default class OList extends Component implements Observer {
             return;
 
         this.element.value = `${option.dataset.value}`;
+        this.element.placeholder = '';
         this.broadcastChange();
     }
 
@@ -667,6 +680,7 @@ export default class OList extends Component implements Observer {
             } else {
                 this.clearFilteredOptions();
                 this.hideOption(matchingElement, e.detail.hideMethod);
+                this.buildVisibleList();
             }
         }
     }
