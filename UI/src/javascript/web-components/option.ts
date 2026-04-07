@@ -159,11 +159,18 @@ export default class Option extends Component implements Observer {
     }
 
     protected onClick(e: Event): void {
-        e.preventDefault();
+        // the following allows the default click event to occur when the option
+        // is selected via a remote label with a 'for' attribute, e.g. boolean.
+        // We usually want to manage this process ourselves and prevent the
+        // default. However, it's more complex when the event starts remotely.
+        if (e.target !== this.element) {
+            e.preventDefault();
+        }
         e.stopPropagation();
         if (!this.element) return;
         if (this.element.disabled) return;
         if (this.element.readOnly) return;
+        if (e.target === this.element) return;
 
         this.element.focus();
 
