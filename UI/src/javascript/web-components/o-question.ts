@@ -131,8 +131,11 @@ export default class OQuestion extends Component implements Subject {
 
     private onClick(e: Event): void {
         e.stopImmediatePropagation();
-        if (this.parentElement?.tagName === 'TD' && e.target === this) {
-            const clickableElement = this.querySelector(
+
+        const target = e.target as HTMLElement;
+
+        if (target.tagName === 'TD') {
+            const clickableElement = target.querySelector(
                 'm-option-base, m-option-boolean, input[type="text"]',
             ) as HTMLElement;
             if (clickableElement) {
