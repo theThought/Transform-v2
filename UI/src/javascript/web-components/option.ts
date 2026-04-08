@@ -135,9 +135,9 @@ export default class Option extends Component implements Observer {
         this.changeState(false);
     }
 
-    protected onChange(e: CustomEvent): void {
+    protected onChange(e?: CustomEvent): void {
         if (!this.element) return;
-        if (!this.contains(e.target as HTMLElement)) return;
+        if (e && !this.contains(e.target as HTMLElement)) return;
 
         if (this.isExclusive && this.element.checked) {
             const exclusiveOn = new CustomEvent('exclusiveOn', {
