@@ -47,6 +47,14 @@ o-response > label {
     }
 }
 
+:is(.a-label-pre) {
+    text-align: start;
+}
+
+:is(.a-label-post) {
+    text-align: end;
+}
+
 :is(.a-label-pre-boxed, .a-label-post-boxed) {
     background: var(--color-background);
     border: var(--border-thickness) solid var(--color-border);
