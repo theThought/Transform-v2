@@ -264,6 +264,25 @@ export default class MSliderTrack extends Component implements Observer {
         this.element = this.querySelector('.a-slider-input');
     }
 
+    private setExternalLabelWidth(): void {
+        const label = this.slider?.querySelector(
+            '.m-label-prepost',
+        ) as HTMLElement;
+
+        if (!label) return;
+
+        label.style.width = `${this.offsetWidth}px`;
+
+        const resizeObserver = new ResizeObserver((entries) => {
+            for (const entry of entries) {
+                const slider = entry.target as HTMLElement;
+                label.style.width = `${slider.offsetWidth}px`;
+            }
+        });
+
+        resizeObserver.observe(this);
+    }
+
     protected configureSetBehaviour(): void {
         //super.configureSetBehaviour();
     }
@@ -288,6 +307,7 @@ export default class MSliderTrack extends Component implements Observer {
         this.configureMarks();
         this.tickLabels();
         this.thumbValue();
+        this.setExternalLabelWidth();
         this.requestInitialValue();
     }
 }
