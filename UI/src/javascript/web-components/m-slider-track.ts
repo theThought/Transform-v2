@@ -27,6 +27,7 @@ export default class MSliderTrack extends Component implements Observer {
     // Handle constructor() event listeners.
     public handleEvent(e: Event): void {
         switch (e.type) {
+            case 'click':
             case 'input':
                 this.onInput();
                 break;
@@ -296,6 +297,7 @@ export default class MSliderTrack extends Component implements Observer {
 
         this.addEventListener('focusin', this.handleEvent);
         this.addEventListener('restore', this.handleEvent);
+        this.element.addEventListener('click', this);
         this.element.addEventListener('input', this);
 
         if (this.response) this.response.addObserver(this);
