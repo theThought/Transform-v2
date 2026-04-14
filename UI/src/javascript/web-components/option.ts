@@ -83,20 +83,21 @@ export default class Option extends Component implements Observer {
         this.style.maxInlineSize = this.properties.onesize.maxwidth ?? 'auto';
     }
 
+    private get input(): HTMLInputElement | null {
+        return this.element instanceof HTMLInputElement ? this.element : null;
+    }
+
     public changeState(check: boolean): void {
         if (!this.element) return;
 
-        if (check) {
-            this.element.checked = true;
-            this.dataset.checked = 'true';
-        } else {
-            this.element.checked = false;
-            this.dataset.checked = 'false';
+        if ('checked' in this.element) {
+            this.element.checked = check;
         }
+        this.dataset.checked = String(check);
     }
 
     private setReadonly(): void {
-        if (this.element && this.element.readOnly) {
+        if (this.input?.readOnly) {
             this.setAttribute('data-readonly', 'true');
         }
     }
@@ -135,24 +136,17 @@ export default class Option extends Component implements Observer {
         this.changeState(false);
     }
 
-    protected onChange(e?: CustomEvent): void {
+    protected onChange(e?: Event): void {
         if (!this.element) return;
         if (e && !this.contains(e.target as HTMLElement)) return;
 
-        if (this.isExclusive && this.element.checked) {
-            const exclusiveOn = new CustomEvent('exclusiveOn', {
-                bubbles: true,
-                detail: this,
-            });
-            this.dispatchEvent(exclusiveOn);
-        }
-
-        if (this.isExclusive && !this.element.checked) {
-            const exclusiveOff = new CustomEvent('exclusiveOff', {
-                bubbles: true,
-                detail: this,
-            });
-            this.dispatchEvent(exclusiveOff);
+        if (this.isExclusive) {
+            const eventName = this.input?.checked
+                ? 'exclusiveOn'
+                : 'exclusiveOff';
+            this.dispatchEvent(
+                new CustomEvent(eventName, { bubbles: true, detail: this }),
+            );
         }
 
         this.broadcastChange();
@@ -169,39 +163,39 @@ export default class Option extends Component implements Observer {
         e.stopPropagation();
         if (!this.element) return;
         if (this.element.disabled) return;
-        if (this.element.readOnly) return;
+        if (this.input?.readOnly) return;
         if (e.target === this.element) return;
 
         this.element.focus();
 
-        // prevent radio buttons from de-selecting
-        if (this.element.checked && this.element.type === 'radio') return;
+        // prevent radio buttons from deselecting
+        if (this.input?.checked && this.input.type === 'radio') return;
 
-        this.changeState(!this.element.checked);
+        this.changeState(!this.input?.checked);
         this.onChange(e);
     }
 
     protected onKeydown(e: KeyboardEvent): void {
         if (!this.element) return;
         if (this.element.disabled) return;
-        if (this.element.readOnly) return;
+        if (this.input?.readOnly) return;
 
-        // prevent radio buttons from de-selecting
-        if (this.element.checked && this.element.type === 'radio') return;
+        // prevent radio buttons from deselecting
+        if (this.input?.checked && this.input.type === 'radio') return;
 
         const target = e.target as HTMLInputElement;
 
         if (e.key === ' ') {
-            this.changeState(!this.element.checked);
+            this.changeState(!this.input?.checked);
             this.onChange(e);
-        } else if (target.type == 'text' && !this.element.checked) {
+        } else if (target.type == 'text' && !this.input?.checked) {
             this.changeState(true);
             this.onChange(e);
         }
     }
 
     private setBalanceWidth(): void {
-        const minWidth: string = this.properties.balance.minwidth ?? '0';
+        const minWidth: string = this.properties.balance?.minwidth ?? '0';
         this.style.minWidth = `${minWidth}`;
     }
 
@@ -224,7 +218,7 @@ export default class Option extends Component implements Observer {
     }
 
     public getChecked(): boolean {
-        return this.element?.checked ?? false;
+        return this.input?.checked ?? false;
     }
 
     private informSizeChange(width: number, height: number): void {
