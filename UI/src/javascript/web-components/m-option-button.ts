@@ -28,17 +28,34 @@ export default class MOptionButton extends Option {
 
     protected onClick(): void {
         if (!this.element) return;
-        if (this.dataset.readonly) return;
         if (this.element.disabled) return;
+        if (this.dataset.readonly) return;
 
         const check = this.dataset.checked === 'true';
 
         this.changeState(!check);
-        this.onChange();
         this.setTextElementValue();
+        this.onChange();
 
         if (this.properties.submit) {
             this.closest('form')?.submit();
+        }
+    }
+
+    protected onKeydown(e: KeyboardEvent): void {
+        if (!this.element) return;
+        if (this.element.disabled) return;
+        if (this.dataset.readonly) return;
+
+        const check = this.dataset.checked === 'true';
+
+        if (e.key === ' ') {
+            this.changeState(!check);
+            this.onChange(e);
+
+            if (this.properties.submit) {
+                this.closest('form')?.submit();
+            }
         }
     }
 
