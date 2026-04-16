@@ -186,6 +186,7 @@ export default class Option extends Component implements Observer {
         const target = e.target as HTMLInputElement;
 
         if (e.key === ' ') {
+            e.preventDefault();
             this.changeState(!this.input?.checked);
             this.onChange(e);
         } else if (target.type == 'text' && !this.input?.checked) {
