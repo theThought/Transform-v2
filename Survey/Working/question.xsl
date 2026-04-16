@@ -871,6 +871,36 @@
         </xsl:if>
     </xsl:template>
 
+    <xsl:template name="insert-error">
+        <xsl:if test="Text[string-length(normalize-space(.)) &gt; 0]">
+            <xsl:element name="span">
+                <xsl:attribute name="data-associate-type">
+                    <xsl:text>error</xsl:text>
+                </xsl:attribute>
+
+                <xsl:element name="span">
+                    <xsl:attribute name="id">
+                        <xsl:text>error-</xsl:text>
+                        <xsl:value-of select="../@ElementID" />
+                        <xsl:value-of select="../@ElementId" />
+                    </xsl:attribute>
+                    <xsl:attribute name="class">
+                        <xsl:text>a-label-error</xsl:text>
+                    </xsl:attribute>
+                    <xsl:attribute name="style">
+                        <xsl:text>color:#D92911;</xsl:text>
+                    </xsl:attribute>
+                    <xsl:call-template name="insert-common-labelstyle-attributes" />
+
+                    <xsl:call-template name="insert-label-text">
+                        <xsl:with-param name="content" select="Text" />
+                        <xsl:with-param name="wellformed" select="true" />
+                    </xsl:call-template>
+                </xsl:element>
+            </xsl:element>
+        </xsl:if>
+    </xsl:template>
+
     <xsl:template name="insert-label-heading">
         <xsl:param name="X" />
         <xsl:param name="Y" />  
@@ -1491,6 +1521,12 @@
                 </xsl:for-each>
             </xsl:otherwise>
         </xsl:choose>
+
+        <xsl:for-each select="Error">
+            <xsl:comment>Error</xsl:comment>
+            <xsl:call-template name="insert-error" />
+        </xsl:for-each>
+
     </xsl:template>
 
     <xsl:template name="multiline">
