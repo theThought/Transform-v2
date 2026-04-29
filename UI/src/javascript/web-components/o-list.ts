@@ -152,13 +152,14 @@ export default class OList extends Component implements Observer {
     }
 
     private updatePosition(target: HTMLElement | Document): void {
-        if (target === this) {
-            return;
-        }
+        // Do not update position if it is the list that is being scrolled
+        if (target === this) return;
 
-        if (!target.contains(this)) {
-            return;
-        }
+        // Do not update position if list is not a child of scroll target
+        if (!target.contains(this)) return;
+
+        // Do not update position if there is no parent control to align with
+        if (!this.control) return;
 
         let scrollLeft;
         let scrollTop;
