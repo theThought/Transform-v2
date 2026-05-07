@@ -76,6 +76,9 @@ export default class OList extends Component implements Observer {
             case 'optionVisibilityChange':
                 this.processFilter(<CustomEvent>data);
                 break;
+            case 'hidden':
+                this.clearHighlightedOption();
+                break;
         }
     }
 
@@ -214,6 +217,8 @@ export default class OList extends Component implements Observer {
     }
 
     private handleKey(e: KeyboardEvent): void {
+        if (!this.checkVisibility({ opacityProperty: true })) return;
+
         this.mouseEvent = false;
         e.stopPropagation();
 

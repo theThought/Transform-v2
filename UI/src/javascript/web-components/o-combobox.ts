@@ -35,6 +35,7 @@ export default class OCombobox extends Component implements Subject {
     private clearFocus(e?: MouseEvent): void {
         if (e && e.relatedTarget === this.querySelector('o-list')) return;
         this.classList.remove('focus');
+        this.notifyVisibilityChange();
     }
 
     private setFocus(): void {
@@ -44,6 +45,13 @@ export default class OCombobox extends Component implements Subject {
 
     private toggleFocus(): void {
         this.classList.toggle('focus');
+        this.notifyVisibilityChange();
+    }
+
+    private notifyVisibilityChange(): void {
+        if (this.classList.contains('focus')) return;
+        const hiddenEvent = new CustomEvent('hidden', {});
+        this.notifyObservers('hidden', hiddenEvent);
     }
 
     addObserver(observer: Observer): void {
