@@ -13,6 +13,7 @@ export default class OCombobox extends Component implements Subject {
         switch (e.type) {
             case 'blur':
                 this.clearFocus(e as MouseEvent);
+                this.sendBlurToList();
                 break;
             case 'mousedown':
                 this.toggleFocus();
@@ -30,6 +31,14 @@ export default class OCombobox extends Component implements Subject {
                 this.onKeyup(<KeyboardEvent>e);
                 break;
         }
+    }
+
+    private sendBlurToList(): void {
+        const blurEvent = new CustomEvent('blur', {
+            bubbles: true,
+            detail: this,
+        });
+        this.notifyObservers('blur', blurEvent);
     }
 
     private clearFocus(e?: MouseEvent): void {

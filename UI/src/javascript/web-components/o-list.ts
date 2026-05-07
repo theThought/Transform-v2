@@ -79,6 +79,9 @@ export default class OList extends Component implements Observer {
             case 'hidden':
                 this.clearHighlightedOption();
                 break;
+            case 'blur':
+                this.clearLabelIfNoValuePresentOnBlur();
+                break;
         }
     }
 
@@ -582,6 +585,13 @@ export default class OList extends Component implements Observer {
         option.dataset.selected = 'true';
         option.ariaSelected = 'true';
         this.updateScrollPosition();
+    }
+
+    private clearLabelIfNoValuePresentOnBlur(): void {
+        if (!this.element?.value) {
+            this.clearLabel();
+            this.clearFilteredOptions();
+        }
     }
 
     private clearHighlightedOption(): void {
