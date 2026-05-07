@@ -373,7 +373,7 @@ export default class OList extends Component implements Observer {
             // through with an existing selection
             if (listPasses === 0 && i === this.visibleList.length - 1) {
                 listPasses = 1;
-                i = 0;
+                i = -1;
             }
         }
     }
