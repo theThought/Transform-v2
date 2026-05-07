@@ -768,7 +768,10 @@ export default class OResponse extends Component implements Subject, Observer {
         this.dispatchEvent(questionVisibility);
     }
 
-    public makeUnavailable(collapse: boolean = true): void {
+    public makeUnavailable(
+        collapse: boolean = true,
+        fromInitial: boolean = false,
+    ): void {
         if (!this.available) return;
 
         if (!collapse) this.classList.add('do-not-collapse');
@@ -784,10 +787,14 @@ export default class OResponse extends Component implements Subject, Observer {
             },
         });
 
+        this.cover();
         this.dispatchEvent(questionVisibility);
 
-        this.cover();
-        this.clearVisibility();
+        // only send the 'clear questions' instruction if we are changing
+        // state after the page has already loaded
+        if (!fromInitial) {
+            this.clearVisibility();
+        }
     }
 
     private attachLabels(): void {
