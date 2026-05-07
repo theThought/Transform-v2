@@ -9,6 +9,8 @@ o-option-base [class^='a-singleline'] {
     border-block-end-color: var(--color-border);
     border-block-start-color: transparent;
     border-inline-color: transparent;
+    padding-block: 0;
+    padding-inline: var(--space-1);
 }
 
 input[type='number'].hide-spinner {
