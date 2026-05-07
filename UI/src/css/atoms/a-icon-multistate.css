@@ -17,6 +17,11 @@
     background-position-x: -42px;
 }
 
+.a-icon-multistate[data-icon-type='diamond'] {
+    background-image: url('../../images/diamonds.png');
+    background-position-x: -42px;
+}
+
 .a-icon-multistate[data-icon-type='radio'] {
     background-image: url('../../images/radiobuttons.png');
     background-position-x: -42px;

@@ -228,6 +228,14 @@ export default class Option extends Component implements Observer {
         this.sublist?.checkOnesize(width, height);
     }
 
+    private setExclusive(): void {
+        this.isExclusive = this.getAttribute('data-exclusive') === 'true';
+        if (this.isExclusive) {
+            const icon = this.querySelector('span.a-icon-multistate');
+            icon?.setAttribute('data-icon-type', 'diamond');
+        }
+    }
+
     // Handle (global) event listeners which are not part of this web component.
     public connectedCallback(): void {
         super.connectedCallback();
@@ -236,11 +244,11 @@ export default class Option extends Component implements Observer {
             this.closest('o-option-sublist') ??
             this.closest('o-option-tabstrip') ??
             this.closest('o-response');
-        this.isExclusive = this.getAttribute('data-exclusive') === 'true';
 
         this.addEventListener('click', this.handleEvent);
         this.addEventListener('keydown', this.handleEvent);
 
+        this.setExclusive();
         this.setBalanceWidth();
         this.setMaxOneSize();
         this.setReadonly();
