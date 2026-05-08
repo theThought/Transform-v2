@@ -228,7 +228,7 @@ export default class Option extends Component implements Observer {
         this.sublist?.checkOnesize(width, height);
     }
 
-    private setExclusive(): void {
+    protected setExclusive(): void {
         this.isExclusive = this.getAttribute('data-exclusive') === 'true';
         if (this.isExclusive) {
             const icon = this.querySelector('span.a-icon-multistate');

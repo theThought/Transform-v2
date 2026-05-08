@@ -73,6 +73,10 @@ export default class MOptionButton extends Option {
         }
     }
 
+    protected setExclusive(): void {
+        this.isExclusive = this.getAttribute('data-exclusive') === 'true';
+    }
+
     public connectedCallback(): void {
         super.connectedCallback();
         this.setInitialCheckState();
