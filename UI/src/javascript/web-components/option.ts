@@ -230,8 +230,12 @@ export default class Option extends Component implements Observer {
 
     protected setExclusive(): void {
         this.isExclusive = this.getAttribute('data-exclusive') === 'true';
-        if (this.isExclusive) {
-            const icon = this.querySelector('span.a-icon-multistate');
+        const icon = this.querySelector('span.a-icon-multistate');
+
+        if (
+            this.isExclusive &&
+            icon?.getAttribute('data-icon-type') === 'checkbox'
+        ) {
             icon?.setAttribute('data-icon-type', 'diamond');
         }
     }
