@@ -2,6 +2,7 @@ import { Subject, Observer } from '../interfaces';
 import { decodeHTML, replaceHTMLPlaceholder } from './util';
 import Component from './component';
 import OQuestion from './o-question';
+import { UAParser } from 'ua-parser-js';
 
 interface QuestionProperties {
     filter: {
@@ -41,6 +42,14 @@ interface QuestionProperties {
     };
     separator: boolean;
     resettonull: boolean | null;
+    read?: {
+        source: string;
+        value: string;
+    };
+    write?: {
+        destination: string;
+        name: string;
+    };
 }
 
 export default class OResponse extends Component implements Subject, Observer {
@@ -85,6 +94,7 @@ export default class OResponse extends Component implements Subject, Observer {
                     e as CustomEvent,
                 );
                 this.handleQuestionChange(e as CustomEvent);
+                this.updateStorage(e as CustomEvent);
                 break;
             case 'questionVisibility':
                 if (this !== e.target) e.stopImmediatePropagation();
@@ -154,6 +164,7 @@ export default class OResponse extends Component implements Subject, Observer {
     public addObserver(observer: Observer): void {
         this.observers.push(observer);
         if (observer.nodeName === 'O-LIST') this.processOptionVisibilityRules();
+        if (observer.nodeName === 'M-SINGLELINE') this.readFromStorage();
     }
 
     public removeObserver(observer: Observer): void {
@@ -1031,6 +1042,7 @@ export default class OResponse extends Component implements Subject, Observer {
             )
                 return;
             initialFormValues.append(formItem.name, formItem.value);
+            this.writeToLocalStorage(formItem.value);
         });
         this.initialValues = initialFormValues;
     }
@@ -1085,10 +1097,98 @@ export default class OResponse extends Component implements Subject, Observer {
         }
     }
 
+    private writeToLocalStorage(value: string): void {
+        if (!this.properties.write) return;
+        localStorage.setItem(this.properties.write.name, value);
+    }
+
+    private updateStorage(e: CustomEvent): void {
+        const originalElement = e.target as HTMLElement;
+
+        if (!this.properties.write) return;
+        if (!originalElement.contains(this)) return;
+
+        localStorage.setItem(
+            this.properties.write.name,
+            e.detail.element.value,
+        );
+    }
+
+    private readFromStorage(): void {
+        if (!this.properties.read) return;
+
+        let value: string = '';
+
+        switch (this.properties.read.source) {
+            case 'LocalStorage':
+                value = this.readFromLocalStorage(this.properties.read.value);
+                break;
+            case 'UserAgent':
+                value = this.readFromUserAgent(this.properties.read.value);
+                break;
+        }
+
+        if (!value.length) return;
+
+        const event = new CustomEvent('setValueFromLocalStorage', {
+            bubbles: true,
+            detail: value,
+        });
+
+        this.notifyObservers('setValueFromLocalStorage', event);
+    }
+
+    private readFromLocalStorage(source: string): string {
+        return localStorage.getItem(source) || '';
+    }
+
+    private readFromUserAgent(source: string): string {
+        switch (source) {
+            case 'Browser':
+                return this.detectBrowser();
+            case 'BrowserVersion':
+                return this.detectBrowserVersion();
+            case 'OperatingSystem':
+                return this.detectOS();
+            case 'OperatingSystemVersion':
+                return this.detectOSVersion();
+            case 'Display':
+                return this.detectDisplay();
+            default:
+                console.warn('Requested unknown UserAgent value', source);
+                return '';
+        }
+    }
+
+    private detectBrowser(): string {
+        const browserParser = new UAParser();
+        return browserParser.getBrowser().name ?? '';
+    }
+
+    private detectBrowserVersion(): string {
+        const browserParser = new UAParser();
+        return browserParser.getBrowser().version ?? '';
+    }
+
+    private detectOS(): string {
+        const browserParser = new UAParser();
+        return browserParser.getOS().name ?? '';
+    }
+
+    private detectOSVersion(): string {
+        const browserParser = new UAParser();
+        return browserParser.getOS().version ?? '';
+    }
+
+    private detectDisplay(): string {
+        return `${screen.width}x${screen.height}`;
+    }
+
     public connectedCallback(): void {
         this.parseProperties();
         this.setQuestion();
         this.setNestedResponse();
+        this.readFromStorage();
         this.storeInitialState();
         this.setQuestionRestoreBehaviour();
         this.addEventListener('questionVisibility', this.handleEvent);

@@ -56,6 +56,9 @@ export default class MSingleline extends Component implements Observer {
             case 'exclusiveRestore':
                 this.onFocusIn();
                 break;
+            case 'setValueFromLocalStorage':
+                this.setValue(data.detail);
+                break;
         }
     }
 

@@ -3,7 +3,6 @@ import WCExample from './web-components/wc-example';
 
 // Import modules for web components.
 import AButtonTerminator from './web-components/a-button-terminator';
-import AReadWriteEdit from './web-components/a-readwriteedit';
 import AScaleUnit from './web-components/a-scale-unit';
 import MOptionButton from './web-components/m-option-button';
 import MMultiline from './web-components/m-multiline';
@@ -90,8 +89,6 @@ export const uiInit = (): void => {
         customElements.define('a-scale-unit', AScaleUnit);
     !customElements.get('a-button-terminator') &&
         customElements.define('a-button-terminator', AButtonTerminator);
-    !customElements.get('a-readwriteedit') &&
-        customElements.define('a-readwriteedit', AReadWriteEdit);
 
     !customElements.get('m-option-button') &&
         customElements.define('m-option-button', MOptionButton);
