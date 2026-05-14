@@ -5,23 +5,22 @@ const preview: Preview = {
         deepControls: { enabled: true },
         options: {
             storySort: (a, b) => {
-                // Custom order for the "Responses" folder
+                // Custom order for the "Responses" folder using story id
                 const responsesOrder = [
                     'responses-general-information--docs',
                     'responses-choice--docs',
                 ];
-                // If both stories are in "Responses", use custom order
                 if (
-                    a[1].title.startsWith('Responses/') &&
-                    b[1].title.startsWith('Responses/')
+                    a[1].id.startsWith('responses-') &&
+                    b[1].id.startsWith('responses-')
                 ) {
-                    const aIdx = responsesOrder.indexOf(a[1].title);
-                    const bIdx = responsesOrder.indexOf(b[1].title);
+                    const aIdx = responsesOrder.indexOf(a[1].id);
+                    const bIdx = responsesOrder.indexOf(b[1].id);
                     if (aIdx !== -1 && bIdx !== -1) return aIdx - bIdx;
                     if (aIdx !== -1) return -1;
                     if (bIdx !== -1) return 1;
                 }
-                // Default: alphabetical
+                // Default: alphabetical by title
                 return a[1].title.localeCompare(b[1].title, undefined, { numeric: true });
             },
         },
