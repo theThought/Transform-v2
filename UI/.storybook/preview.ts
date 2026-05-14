@@ -4,16 +4,25 @@ const preview: Preview = {
     parameters: {
         deepControls: { enabled: true },
         options: {
-            storySort: {
-                order: [
-                    'Introduction',
-                    'Layout',
-                    'Atoms',
-                    'Molecules',
-                    'Organisms',
-                    'Templates',
-                    'Pages',
-                ],
+            storySort: (a, b) => {
+                // Custom order for the "Responses" folder
+                const responsesOrder = [
+                    'Responses/General Information',
+                    'Responses/Choice',
+                ];
+                // If both stories are in "Responses", use custom order
+                if (
+                    a[1].title.startsWith('Responses/') &&
+                    b[1].title.startsWith('Responses/')
+                ) {
+                    const aIdx = responsesOrder.indexOf(a[1].title);
+                    const bIdx = responsesOrder.indexOf(b[1].title);
+                    if (aIdx !== -1 && bIdx !== -1) return aIdx - bIdx;
+                    if (aIdx !== -1) return -1;
+                    if (bIdx !== -1) return 1;
+                }
+                // Default: alphabetical
+                return a[1].title.localeCompare(b[1].title, undefined, { numeric: true });
             },
         },
         docs: {
