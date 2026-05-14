@@ -7,8 +7,8 @@ const preview: Preview = {
             storySort: (a, b) => {
                 // Custom order for the "Responses" folder
                 const responsesOrder = [
-                    'Responses/General Information',
-                    'Responses/Choice',
+                    'responses-general-information--docs',
+                    'responses-choice--docs',
                 ];
                 // If both stories are in "Responses", use custom order
                 if (
