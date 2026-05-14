@@ -1,14 +1,36 @@
 import { Meta } from '@storybook/addon-docs/blocks';
 
-<Meta title="Responses" />
+<Meta title="Responses/General Information" />
 
 # Scope
-Researcher documentation is focused on the different response types that they can use within the Transform platform.  Within the platform the question is considered the way the request is presented to the user where as the response is considered the way that the respondent provides an answer.  To this end, what have previously been called question types are now called response types (ways in which the respondent can respond to a question).
+Researcher documentation is focused on the different response-types that they can use within the Transform platform.  Within the platform the question is considered the way the request is presented to the user where as the response is considered the way that the respondent provides an answer.  To this end, what have previously been called question types are now called response-types (ways in which the respondent can respond to a question).
 
-# Template
-Each Response type is presented in a similar way to aid in rapidly finding the reuired information.  Within these pages the high-level definition of the response type is provided.  Embedded within this are links to more detailed defiitions that show how the response type is constructed.
-To produce a consisstent design across response types each type has been broken down into a hierarchical structure of components.  These components are defined and then shared across response types.
+# A response-type template
+Each response-type is presented in a similar way to aid in rapidly finding the reuired information.  Within these pages the high-level definition of the response-type is provided.  Embedded within this are links to more detailed defiitions that show how the response-type is constructed.
+To produce a consisstent design across response-types each type has been broken down into a hierarchical structure of components.  These components are defined and then shared across response-types.
 
-## Structure and Variations
-After a brief description of the response type the first main section defines the repsonse types stucture. This details the components that a response type is made of.  Components are hierarchical and so some components may be made up of other components.  This is not shown in the structure, but diving into the details of each component provides access to the lower levels of component definition.  This information is not genearally required to implement a response type.
-Accompanying the structure is detail of any variations that can be found within the response type, different ways in which the response type can be laid out / composed.
+## Description
+The definition of each response-type starts with a description.  This includes and explanation of the purpose of the response-type to indicate where it should be used and where it should be avoided.
+
+## Variations
+Some response types have variations on a theme, these variations are the same response type, where layout or content may differ.  Every response-type has a right-to-left variation to demonstrate how it is presented for Arabic languages.
+
+## States
+A critical part of User Interface and User Experience design is a recognition that the interface is not fixed, but adapts to the current situation. When looking at the opportunity to respond to a question a component can be presented in any one of several states.  State can changed while the component is being used.  The states employed within this design system are:
+- Active
+- Answered
+- Read-only / Disabled
+This section of each response-type shows the way the component changes between states, when there is any change.
+
+## Skeleton
+Each Response-type is constructed from components.  The Skeleton describes the combination of components used. Components are hierarchical; many components are composed of other components.  This is not shown in the Skeleton.  It is, however possible to use the Skeleton to navigate to the definitions of each component and so dive into greater detail.
+Dfferent implementations of the same response-type often involve different combinations of the allowed components.  The Skeleton defines the frequency rules for each component.  These rules are described below:
+- Mandatory - only usable once
+- Mandatory - usable more than once
+- Optional - only usable once
+- Optional - usable more than once
+Components can be mutually exclusive, where one component in the group can be used preventing the use of the other components in the group.
+This is expressed in the Skeleton by grouping components (for mutual exclusivity) and defining the minimum and maximum number of implementations.
+
+## Accessibility
+The Transform platform is fully WCAG 2.2 AA level compliant from the outset. Each response-type includes documentation regarding the way the response-type handles accessiblity. Accessiblity requires effort from multiple parties, it is not just the responsibility of the technology. If there are accessiblity rules relating to the response-type such as information that must be provided then this will be detailed in this section.
