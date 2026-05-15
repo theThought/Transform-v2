@@ -18,7 +18,7 @@ o-dropdown {
         }
     }
 
-    o-list > ul {
+    .o-list li {
         padding: var(--space-1) calc(var(--space-4) * 2) var(--space-1)
             var(--space-4);
     }

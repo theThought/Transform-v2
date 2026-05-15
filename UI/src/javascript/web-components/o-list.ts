@@ -82,7 +82,15 @@ export default class OList extends Component implements Observer {
             case 'blur':
                 this.clearLabelIfNoValuePresentOnBlur();
                 break;
+            case 'widthChange':
+                this.newWidthFromControl(<CustomEvent>data);
+                break;
         }
+    }
+
+    private newWidthFromControl(e: CustomEvent): void {
+        console.log('newWidthFromControl', e.detail);
+        //this.style.maxWidth = e.detail;
     }
 
     private clearValue(e: CustomEvent): void {

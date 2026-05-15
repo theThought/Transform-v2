@@ -143,6 +143,23 @@ export default class ODropdown extends Component implements Subject {
         resizeObserver.observe(list);
     }
 
+    private monitorInputWidth(): void {
+        if (!this.element) return;
+
+        const resizeObserver = new ResizeObserver((entries) => {
+            for (const entry of entries) {
+                if (!this.element) return;
+                const widthChange = new CustomEvent('widthChange', {
+                    bubbles: true,
+                    detail: `${entry.contentBoxSize[0].inlineSize}px`,
+                });
+                this.notifyObservers('widthChange', widthChange);
+            }
+        });
+
+        resizeObserver.observe(this.element);
+    }
+
     public addListEntry(
         list: HTMLElement,
         className: string,
@@ -167,6 +184,7 @@ export default class ODropdown extends Component implements Subject {
     public connectedCallback(): void {
         super.connectedCallback();
         this.setInputWidth();
+        this.monitorInputWidth();
         this.removeTabIndex();
         this.element?.addEventListener('blur', this);
         this.element?.addEventListener('mousedown', this);
