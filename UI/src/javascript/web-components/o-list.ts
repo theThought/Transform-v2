@@ -331,7 +331,7 @@ export default class OList extends Component implements Observer {
             this.querySelector('[data-selected]');
         if (!currentItem) return;
 
-        currentItem.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+        currentItem.scrollIntoView({ block: 'center', inline: 'nearest' });
     }
 
     private jumpToLetter(input: string): void {
