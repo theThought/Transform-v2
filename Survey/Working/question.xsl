@@ -1935,6 +1935,12 @@
             <xsl:value-of select="count(Control[not(./Style/Control/@Type='SingleLineEdit')])" />
         </xsl:variable>
 
+        <xsl:for-each select="Label">
+            <xsl:call-template name="insert-label">
+                <xsl:with-param name="subType" select="'option'" />
+            </xsl:call-template>
+        </xsl:for-each>
+        
         <xsl:choose>
             <xsl:when test="$optionCount > 1">
                 <xsl:element name="fieldset">
