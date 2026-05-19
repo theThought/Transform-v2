@@ -44,7 +44,7 @@ interface QuestionProperties {
     resettonull: boolean | null;
     read?: {
         source: string;
-        value: string;
+        name: string;
     };
     write?: {
         destination: string;
@@ -1121,10 +1121,10 @@ export default class OResponse extends Component implements Subject, Observer {
 
         switch (this.properties.read.source) {
             case 'LocalStorage':
-                value = this.readFromLocalStorage(this.properties.read.value);
+                value = this.readFromLocalStorage(this.properties.read.name);
                 break;
             case 'UserAgent':
-                value = this.readFromUserAgent(this.properties.read.value);
+                value = this.readFromUserAgent(this.properties.read.name);
                 break;
         }
 
@@ -1138,12 +1138,12 @@ export default class OResponse extends Component implements Subject, Observer {
         this.notifyObservers('setValueFromLocalStorage', event);
     }
 
-    private readFromLocalStorage(source: string): string {
-        return localStorage.getItem(source) || '';
+    private readFromLocalStorage(name: string): string {
+        return localStorage.getItem(name) || '';
     }
 
-    private readFromUserAgent(source: string): string {
-        switch (source) {
+    private readFromUserAgent(name: string): string {
+        switch (name) {
             case 'Browser':
                 return this.detectBrowser();
             case 'BrowserVersion':
@@ -1155,7 +1155,7 @@ export default class OResponse extends Component implements Subject, Observer {
             case 'Display':
                 return this.detectDisplay();
             default:
-                console.warn('Requested unknown UserAgent value', source);
+                console.warn('Requested unknown UserAgent value', name);
                 return '';
         }
     }
