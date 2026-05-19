@@ -1,0 +1,98 @@
+import { Meta } from '@storybook/blocks';
+import { TokenTable } from '../../src/components/TokenTable.jsx';
+
+<Meta title="Foundation/Size & Spacing" />
+
+# Size & Spacing
+
+Spacing tokens define the standard distances used for padding, margin, and gap across all components
+and layouts. Built on a consistent scale, they remove guesswork from spacing decisions and ensure
+visual rhythm and alignment throughout the interface.
+
+---
+
+## Global Units
+
+The base unit of measurement all spacing should be based off.
+
+### Base
+
+<TokenTable
+  type="spacing"
+  showDescription={false}
+  tokens={[
+    { name: '--base-unit-2',   value: '0.125rem' },
+    { name: '--base-unit-4',   value: '0.25rem'  },
+    { name: '--base-unit-8',   value: '0.5rem'   },
+    { name: '--base-unit-12',  value: '0.75rem'  },
+    { name: '--base-unit-16',  value: '1rem'     },
+    { name: '--base-unit-20',  value: '1.25rem'  },
+    { name: '--base-unit-24',  value: '1.5rem'   },
+    { name: '--base-unit-32',  value: '2rem'     },
+    { name: '--base-unit-40',  value: '2.5rem'   },
+    { name: '--base-unit-48',  value: '3rem'     },
+    { name: '--base-unit-56',  value: '3.5rem'   },
+    { name: '--base-unit-64',  value: '4rem'     },
+    { name: '--base-unit-72',  value: '4.5rem'   },
+    { name: '--base-unit-80',  value: '5rem'     },
+    { name: '--base-unit-88',  value: '5.5rem'   },
+    { name: '--base-unit-96',  value: '6rem'     },
+    { name: '--base-unit-104', value: '6.5rem'   },
+    { name: '--base-unit-112', value: '7rem'     },
+    { name: '--base-unit-120', value: '7.5rem'   },
+    { name: '--base-unit-128', value: '8rem'     },
+  ]}
+/>
+
+---
+
+## Space
+
+The core spacing scale. Use these tokens to define overall padding, margin, and gap values in
+components and layouts.
+
+<TokenTable
+  type="spacing"
+  tokens={[
+    { name: '--space-xs', value: '.25rem',  description: '4px — Extra small gap, icon padding' },
+    { name: '--space-sm', value: '.5rem',   description: '8px — Small internal padding' },
+    { name: '--space-md', value: '.75rem',  description: '12px — Medium padding, compact components' },
+    { name: '--space-lg', value: '1rem',    description: '16px — Default component padding' },
+    { name: '--space-xl', value: '1.5rem',  description: '24px — Large padding, section spacing' },
+  ]}
+/>
+
+---
+
+## Border Radius
+
+Tokens for corner radius values. Apply these to define the roundness of UI elements, from
+sharp-cornered to softly rounded surfaces.
+
+<TokenTable
+  type="radius"
+  tokens={[
+    { name: '--border-radius-none', value: '0rem',    description: '0px — No rounding' },
+    { name: '--border-radius-xs',   value: '.125rem', description: '2px — Subtle rounding' },
+    { name: '--border-radius-sm',   value: '.25rem',  description: '4px — Default component rounding' },
+    { name: '--border-radius-md',   value: '.5rem',   description: '8px — Cards, modals, and panels' },
+  ]}
+/>
+
+---
+
+## Layout
+
+Structural tokens that define the overall page layout. These values set the maximum content width,
+page margins, column gaps, and standard input widths.
+
+<TokenTable
+  type="layout"
+  tokens={[
+    { name: '--page-max-width',   value: '85rem',   description: '1360px — Maximum content width' },
+    { name: '--page-margin',      value: '2rem',    description: '32px — Horizontal page margin' },
+    { name: '--column-gap',       value: '2rem',    description: '32px — Gap between layout columns' },
+    { name: '--input-width',      value: '12.5rem', description: '200px — Standard input field width' },
+    { name: '--border-thickness', value: '.125rem', description: '2px — Default border stroke width' },
+  ]}
+/>

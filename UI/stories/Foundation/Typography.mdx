@@ -1,0 +1,70 @@
+import { Meta } from '@storybook/blocks';
+import { TokenTable } from '../../src/components/TokenTable.jsx';
+
+<Meta title="Foundation/Typography" />
+
+# Typography
+
+Defines the typeface pairings, font size scale, and default line height used across the design
+system. These tokens establish the typographic foundation for all text styles — for both
+left-to-right (LTR) and right-to-left (RTL) reading directions.
+
+---
+
+## Font Size
+
+The type scale defining all available text sizes.
+
+<TokenTable
+  type="typography"
+  showDescription={true}
+  tokens={[
+    { name: '--font-size-xs',   value: '.75rem',   description: '12px — Labels, captions, and fine print' },
+    { name: '--font-size-sm',   value: '.875rem',  description: '14px — Secondary text, helper copy' },
+    { name: '--font-size-base', value: '1rem',     description: '16px — Default body text size' },
+    { name: '--font-size-md',   value: '1.125rem', description: '18px — Slightly elevated body or lead copy' },
+    { name: '--font-size-lg',   value: '1.25rem',  description: '20px — Subheadings and prominent labels' },
+    { name: '--font-size-xl',   value: '1.5rem',   description: '24px — Section headings and display text' },
+  ]}
+/>
+
+---
+
+## Line Height
+
+The default line height applied across all text styles. Expressed as a unitless multiplier
+relative to the font size.
+
+<TokenTable
+  type="spacing"
+  showDescription={true}
+  tokens={[
+    { name: '--line-height', value: '1.5', description: '150% — Unitless ratio multiplied by the element\'s font size' },
+  ]}
+/>
+
+---
+
+## Font Family LTR
+
+<TokenTable
+  type="font-family"
+  showDescription={true}
+  tokens={[
+    { name: '--font-family-ltr-primary',   value: '"Karla", "KarlaLocal", sans-serif',         description: 'Karla — Primary sans-serif for LTR body copy and UI text' },
+    { name: '--font-family-ltr-secondary', value: '"Merriweather", "MerriweatherLocal", serif', description: 'Merriweather — Secondary serif for LTR editorial and display use' },
+  ]}
+/>
+
+---
+
+## Font Family RTL
+
+<TokenTable
+  type="font-family"
+  showDescription={true}
+  tokens={[
+    { name: '--font-family-rtl-primary',   value: '"Rubik", "RubikLocal", sans-serif', description: 'Rubik — Primary sans-serif for RTL body copy and UI text' },
+    { name: '--font-family-rtl-secondary', value: '"Rubik", "RubikLocal", sans-serif', description: 'Rubik — Secondary face for RTL interfaces' },
+  ]}
+/>

@@ -1,0 +1,145 @@
+import { Meta } from '@storybook/blocks';
+import { TokenTable } from '../../src/components/TokenTable.jsx';
+
+<Meta title="Foundation/Color Primitives" />
+
+# Color Primitives
+
+The foundational color palette of the design system. These raw values define every available color and serve exclusively as the source for semantic color tokens. Primitive colors should never be applied directly to components — always reference them through semantic tokens.
+
+---
+
+## Brand Primary
+
+The core colors that express the primary visual identity of the brand.
+
+<TokenTable
+  type="color"
+  showDescription={false}
+  tokens={[
+    { name: '--base-color-brand-primary-5',  value: '#F1F6FD', description: 'Lightest tint — subtle brand backgrounds' },
+    { name: '--base-color-brand-primary-50', value: '#5284DF', description: 'Mid-weight — interactive states' },
+    { name: '--base-color-brand-primary-75', value: '#2F469C', description: 'Full-strength brand blue' },
+  ]}
+/>
+
+---
+
+## Brand Secondary
+
+Complementary colors that support and contrast the primary brand palette.
+
+<TokenTable
+  type="color"
+  showDescription={false}
+  tokens={[
+    { name: '--base-color-brand-secondary-5',  value: '#F1FCFB', description: 'Lightest tint — subtle secondary backgrounds' },
+    { name: '--base-color-brand-secondary-50', value: '#1EAEA7', description: 'Mid-weight — interactive states' },
+    { name: '--base-color-brand-secondary-75', value: '#007675', description: 'Full-strength brand teal' },
+  ]}
+/>
+
+---
+
+## Neutral
+
+A full range of neutral tones, from white to near-black, used for backgrounds, borders, and text. 
+
+<TokenTable
+  type="color"
+  showDescription={false}
+  tokens={[
+    { name: '--base-color-neutral-10', value: '#FFFFFF', description: 'Pure white — primary surface' },
+    { name: '--base-color-neutral-20', value: '#FAFAFA', description: 'Off-white — secondary surface' },
+    { name: '--base-color-neutral-30', value: '#ECEFF5', description: 'Muted background, divider fill' },
+    { name: '--base-color-neutral-40', value: '#D6DDEB', description: 'Default border color' },
+    { name: '--base-color-neutral-50', value: '#B4BDDB', description: 'Muted fill, disabled states' },
+    { name: '--base-color-neutral-60', value: '#8797C8', description: 'Tertiary background, placeholder icons' },
+    { name: '--base-color-neutral-70', value: '#57699C', description: 'Muted text' },
+    { name: '--base-color-neutral-80', value: '#324371', description: 'Secondary text' },
+    { name: '--base-color-neutral-90', value: '#212C4C', description: 'Primary text — darkest neutral' },
+  ]}
+/>
+
+---
+
+## System — Success
+
+Colors reserved for communicating specific system states: success, error, warning, and information. Each state includes three tonal variations to support background, fill, and text applications consistently.
+
+### System Success
+
+Colors reserved for positive feedback, confirmation states, and success messages.
+
+<TokenTable
+  type="color"
+  showDescription={false}
+  tokens={[
+    { name: '--base-color-system-success-5',  value: '#F1FCFB', description: 'Subtle success background' },
+    { name: '--base-color-system-success-50', value: '#1EAEA7', description: 'Mid-weight success' },
+    { name: '--base-color-system-success-75', value: '#007675', description: 'Full-strength success' },
+  ]}
+/>
+
+---
+
+## System — Error
+
+Colors reserved for errors, destructive actions, and validation failures.
+
+<TokenTable
+  type="color"
+  showDescription={false}
+  tokens={[
+    { name: '--base-color-system-error-5',  value: '#FFF3F1', description: 'Subtle error background' },
+    { name: '--base-color-system-error-50', value: '#FD4E36', description: 'Mid-weight error' },
+    { name: '--base-color-system-error-75', value: '#D92911', description: 'Full-strength error' },
+  ]}
+/>
+
+---
+
+## System — Warning
+
+Colors reserved for cautionary feedback, non-blocking alerts, and attention states.
+
+<TokenTable
+  type="color"
+  showDescription={false}
+  tokens={[
+    { name: '--base-color-system-warning-5',  value: '#FFF6E5', description: 'Subtle warning background' },
+    { name: '--base-color-system-warning-50', value: '#D4AA49', description: 'Mid-weight warning' },
+    { name: '--base-color-system-warning-75', value: '#8F6400', description: 'Full-strength warning' },
+  ]}
+/>
+
+---
+
+## System — Information
+
+Colors reserved for informational messages, help text, and neutral notifications.
+
+<TokenTable
+  type="color"
+  showDescription={false}
+  tokens={[
+    { name: '--base-color-system-information-5',  value: '#F1F6FD', description: 'Subtle information background' },
+    { name: '--base-color-system-information-50', value: '#5284DF', description: 'Mid-weight information' },
+    { name: '--base-color-system-information-75', value: '#2F469C', description: 'Full-strength information' },
+  ]}
+/>
+
+---
+
+## Accent
+
+Supplementary colors used in very specific UI contexts that fall outside the scope of the brand or system palettes. Use sparingly and intentionally.
+
+<TokenTable
+  type="color"
+  showDescription={false}
+  tokens={[
+    { name: '--base-color-accent-purple', value: '#7A3996', description: 'Purple accent' },
+    { name: '--base-color-accent-gray',   value: '#6b5b72', description: 'Gray accent' },
+  ]}
+/>
