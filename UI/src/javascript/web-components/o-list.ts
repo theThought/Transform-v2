@@ -432,7 +432,9 @@ export default class OList extends Component implements Observer {
         }
 
         for (const node of this.list) {
-            const itemLabel = node.textContent?.toLowerCase() ?? '';
+            const itemLabelWrapper =
+                node.getElementsByClassName('a-label-option')[0];
+            const itemLabel = itemLabelWrapper.textContent?.toLowerCase() ?? '';
 
             if (this.properties.filtertype === 'starts') {
                 if (itemLabel.indexOf(userInput) === 0) {
