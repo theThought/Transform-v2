@@ -31,7 +31,7 @@ module.exports = {
             'error',
             { allowShortCircuit: true },
         ],
-        'no-console': 1,
+        'no-console': ['error', { allow: ['warn', 'error'] }],
         'lines-between-class-members': [
             'error',
             'always',
