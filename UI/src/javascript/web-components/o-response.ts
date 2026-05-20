@@ -273,9 +273,7 @@ export default class OResponse extends Component implements Subject, Observer {
         if (typeof Event === 'function') {
             window.dispatchEvent(new Event('resize'));
         } else {
-            const evt = document.createEvent('UIEvents');
-            evt.initUIEvent('resize', true, false, window, 0);
-            window.dispatchEvent(evt);
+            window.dispatchEvent(new UIEvent('resize', { bubbles: true }));
         }
     }
 
