@@ -13,10 +13,6 @@ export default class OScale extends Component implements Subject, Observer {
     private observers: Observer[] = [];
     protected element: HTMLInputElement | null = null;
 
-    constructor() {
-        super();
-    }
-
     addObserver(observer: Observer): void {
         this.observers.push(observer);
         this.sendInitialValue();

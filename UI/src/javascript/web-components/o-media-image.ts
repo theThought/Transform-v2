@@ -18,8 +18,4 @@ export default class OMediaImage extends Component {
             position: 'top',
         },
     };
-
-    constructor() {
-        super();
-    }
 }

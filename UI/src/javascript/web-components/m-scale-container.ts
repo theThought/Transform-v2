@@ -2,10 +2,6 @@ export default class MScaleContainer extends HTMLElement {
     private minValue = 0;
     private maxValue = 10;
 
-    constructor() {
-        super();
-    }
-
     public set minimum(value: number) {
         if (!value) {
             value = 1;

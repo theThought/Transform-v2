@@ -3,10 +3,6 @@ import Component from './component';
 export default class AButtonTerminator extends Component {
     private behaviour = 'increment';
 
-    constructor() {
-        super();
-    }
-
     public handleEvent(e: Event): void {
         switch (e.type) {
             case 'click':

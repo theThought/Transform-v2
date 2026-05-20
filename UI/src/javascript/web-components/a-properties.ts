@@ -34,10 +34,6 @@ export default class AProperties extends Component {
         resettonull: true,
     };
 
-    constructor() {
-        super();
-    }
-
     private setFloatDetailsStyle(): void {
         if (this.properties.floatdetails) return;
         document.body.classList.add('details-inline');

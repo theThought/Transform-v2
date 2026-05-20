@@ -5,10 +5,6 @@ export default class ODropdown extends Component implements Subject {
     protected element: HTMLInputElement | null = null;
     private observers: Observer[] = [];
 
-    constructor() {
-        super();
-    }
-
     public handleEvent(e: Event): void {
         switch (e.type) {
             case 'blur':

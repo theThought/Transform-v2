@@ -11,10 +11,6 @@ export default class MSinglelineNumber extends MSingleline {
         showspinner: false,
     };
 
-    constructor() {
-        super();
-    }
-
     private setStep(): void {
         if (!this.element || !this.properties.hasOwnProperty('step')) {
             return;

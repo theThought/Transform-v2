@@ -76,10 +76,6 @@ export default class OLoop extends Component implements Subject, Observer {
 
     public properties: GridProperties = {};
 
-    constructor() {
-        super();
-    }
-
     update(method: string, data: CustomEvent): void {
         switch (method) {
             case 'clearValue':

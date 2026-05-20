@@ -80,10 +80,6 @@ export default class OResponse extends Component implements Subject, Observer {
     private available = true;
     private initialValues: FormData | null = null;
 
-    constructor() {
-        super();
-    }
-
     public handleEvent(e: Event): void {
         switch (e.type) {
             case 'questionChange':

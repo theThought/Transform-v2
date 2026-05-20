@@ -44,10 +44,6 @@ export default class OOptionSublist
     public widest = 0;
     public maxwidth = 0;
 
-    constructor() {
-        super();
-    }
-
     public handleEvent(e: Event): void {
         switch (e.type) {
             case 'exclusiveOn':

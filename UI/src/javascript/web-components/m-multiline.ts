@@ -9,10 +9,6 @@ export default class MMultiline extends Component implements Observer {
     protected properties: CustomProperties = {};
     protected element: HTMLTextAreaElement | null = null;
 
-    constructor() {
-        super();
-    }
-
     // Handle constructor() event listeners.
     public handleEvent(e: Event): void {
         switch (e.type) {

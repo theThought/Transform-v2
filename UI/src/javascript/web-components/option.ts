@@ -31,10 +31,6 @@ export default class Option extends Component implements Observer {
     private sublist: OOptionSublist | null = null;
     public isExclusive = false;
 
-    constructor() {
-        super();
-    }
-
     public handleEvent(e: Event): void {
         switch (e.type) {
             case 'click':

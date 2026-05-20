@@ -20,10 +20,6 @@ export default class MSliderTrack extends Component implements Observer {
     private min = 0;
     private max = 100;
 
-    constructor() {
-        super();
-    }
-
     // Handle constructor() event listeners.
     public handleEvent(e: Event): void {
         switch (e.type) {

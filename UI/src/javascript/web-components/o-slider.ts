@@ -22,10 +22,6 @@ export default class OSlider extends Component implements Observer, Subject {
     private min = 0;
     private max = 100;
 
-    constructor() {
-        super();
-    }
-
     public handleEvent(e: Event): void {
         switch (e.type) {
             case 'notifySlider':

@@ -5,10 +5,6 @@ import { Observer } from '../interfaces';
 export default class AScaleUnit extends Component implements Observer {
     protected scale: OScale | null = null;
 
-    constructor() {
-        super();
-    }
-
     public handleEvent(e: Event): void {
         switch (e.type) {
             case 'click':

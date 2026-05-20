@@ -14,10 +14,6 @@ export default class OOptionTabstrip extends OOptionSublist {
 
     private currentTab: HTMLInputElement | null = null;
 
-    constructor() {
-        super();
-    }
-
     public handleEvent(e: Event): void {
         switch (e.type) {
             case 'submitForm':
