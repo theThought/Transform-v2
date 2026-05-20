@@ -39,6 +39,10 @@ export default class Option extends Component implements Observer {
             case 'keydown':
                 this.onKeydown(<KeyboardEvent>e);
                 break;
+            case 'change':
+                this.changeState(this.input?.checked || false);
+                this.onChange(e);
+                break;
         }
     }
 
@@ -245,6 +249,7 @@ export default class Option extends Component implements Observer {
             this.closest('o-option-tabstrip') ??
             this.closest('o-response');
 
+        this.addEventListener('change', this.handleEvent);
         this.addEventListener('click', this.handleEvent);
         this.addEventListener('keydown', this.handleEvent);
 
