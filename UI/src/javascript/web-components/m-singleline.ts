@@ -42,6 +42,11 @@ export default class MSingleline extends Component implements Observer {
         return this.element?.value.length ?? 0;
     }
 
+    public setFocus(): void {
+        if (!this.element) return;
+        this.element.focus();
+    }
+
     public setValue(val: string): void {
         if (!this.element) return;
         this.element.value = val;

@@ -70,14 +70,14 @@ export default class OOptionBase extends Option {
     protected onClick(e: MouseEvent): void {
         e.preventDefault();
         e.stopPropagation();
-        if (!this.element) return;
+        if (!this.element || !this.additionalInputElement) return;
         if (this.element.disabled) return;
-        if (this.element.readOnly) return;
+        if (this.input?.readOnly) return;
 
         // prevent radio buttons from de-selecting
-        if (this.element.checked && this.element.type === 'radio') return;
+        if (this.input?.checked && this.element.type === 'radio') return;
 
-        this.additionalInputElement?.element.focus();
+        this.additionalInputElement.setFocus();
     }
 
     protected onExclusiveOn(e: CustomEvent): void {
@@ -93,26 +93,21 @@ export default class OOptionBase extends Option {
     protected onKeydown(e: KeyboardEvent): void {
         if (!this.element) return;
         if (this.element.disabled) return;
-        if (this.element.readOnly) return;
+        if (this.input?.readOnly) return;
 
         // prevent radio buttons from de-selecting
-        if (this.element.checked && this.element.type === 'radio') return;
+        if (this.input?.checked && this.element.type === 'radio') return;
 
         const target = e.target as HTMLInputElement;
 
-        if (e.key === ' ') {
-            this.changeState(!this.element.checked);
-            this.onChange();
-        } else if (
+        if (
+            e.key === ' ' &&
             e.key.length === 1 &&
-            target.type == 'text' &&
-            !this.element.checked
+            target.type !== 'text' &&
+            this.input?.checked
         ) {
-            this.changeState(true);
-            this.onChange();
+            this.additionalInputElement?.setFocus();
         }
-
-        this.additionalInputElement?.element.focus();
     }
 
     public connectedCallback(): void {

@@ -83,7 +83,7 @@ export default class Option extends Component implements Observer {
         this.style.maxInlineSize = this.properties.onesize.maxwidth ?? 'auto';
     }
 
-    private get input(): HTMLInputElement | null {
+    protected get input(): HTMLInputElement | null {
         return this.element instanceof HTMLInputElement ? this.element : null;
     }
 
