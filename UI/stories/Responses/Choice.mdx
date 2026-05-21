@@ -26,20 +26,6 @@ A choice question contains a list of possible responses from which the responden
 ### Sub-Headings
 Options can be presented as a single list or with sub-headings, when sub-headings are used an additional separator can be shown to help separate the parts of the option list.  This is particularly useful when there is a mix of options in a sublist and options outside a sublist in the single question.
 
-{/* PLACEHOLDER START
-id: PH-subheadings-m-option-base
-type: figma
-file: m-option-sublist
-section: Variation
-purpose: Show the look and feel of a sublist
-owner: Joäo
-status: todo
-notes:
-  - Use the sublist variation with heading and divider
-  - Ensure visual clarity and accessibility
-last-updated: 2026-05-21
-PLACEHOLDER END */}
-
 <Placeholder
   id="PH-subheadings-m-option-base"
   type="figma"
@@ -56,20 +42,69 @@ PLACEHOLDER END */}
 ### Using Horizontal Space
 By Default response options are presented as a single vertical list.  This works well for mobile devices as they rarely have the space to show options side by side.  On wider devices (laptops, desktops, kiosks) the single column list is not a good use of space.  Option Lists can be balanced.  This is where the available horizontal space is fully utilised with options listed horizontally rather than vertically.  The options still have to fit within the bounds of the device's screen as horizontal scrolling of a single question is not allowed. When each row is filled the subsequent options start on the next row.
 
+<Placeholder
+  id="PH-balance"
+  type="html response fragment"
+  purpose="demonstrate balance in an option list"
+  owner="Richard"
+  status="todo"
+  source="choice question"
+  notes={[
+    Just show the html for the option list,
+    twp sets of options one outside a sublist, followed by one inside ,
+  ]}
+/>
+
 Sub Headings always cause a break in the horizontal flow with options listed horizontally underneath them.  This helps to ensure the headings are easy to read and the groupings of options under those headings is clear.
 
 ### Avoiding bias
 By default options are sized based upon their content.  As the content varies between options; by default so does the size.  When options are listed below each other this is rarely an issue, when the option list is balanced and so options are displayed horizontally, different sized options can create bias. Options with little text will be small and so become less likely to be seen and selected.  An additonal option called one-size ensures that all options are presented in the same size "space" with padding to fill the space for smaller items.  This increases the size of the question but does eliminate bias issues.
 
+<Placeholder
+  id="PH-onesize"
+  type="html response fragment"
+  purpose="demonstrate one-size in a balanced list"
+  owner="Richard"
+  status="todo"
+  source="choice question"
+  notes={[
+    show one option list with different size options
+    one-size is switched off ,
+  ]}
+/>
+
+<Placeholder
+  id="PH-onesize"
+  type="html response fragment"
+  purpose="demonstrate one-size in a balanced list"
+  owner="Richard"
+  status="todo"
+  source="choice question"
+  notes={[
+    show one option list with different size options
+    one-size is switched on ,
+  ]}
+/>
 ## States
+Individual options in a choice question have different states depending on whether the option is selected and whether it is selectable.
 
-## HTML Structure
-
-## Accessibility
-
+<Placeholder
+  id="PH-option-states"
+  type="Figma"
+  purpose="show the different states of m-option-base
+  owner="Joäo"
+  status="todo"
+  source="choice question"
+  notes={[
+    show the four permissable states,
+  ]}
+/>
 
 ## Custom properties
 
 ## Configure
 
 ## Organic Structure
+
+## Accessibility
+
