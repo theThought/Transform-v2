@@ -9,6 +9,19 @@ All the options are presented in a way that optimises readability while avoiding
 If there are lots of items in the list (making them difficult scan when reading) or they cannot be guaranteed to fit on a single screen then other response-types may be more suitable.
 Options within the response list can be at a single level or they can be grouped into sub-levels with a heading (these are called sublists).
 
+<Placeholder
+  id="PH-choice-variations"
+  type="figma"
+  purpose="Show the variations for from o-choice"
+  owner="Joäo"
+  status="todo"
+  source="o-choice variation"
+  notes={[
+    'Shows the basic structure of a choice question',
+    'include both LTR and RTL',
+  ]}
+/>
+
 ## Single, Multi-answer lists
 When respondents are limited to chosing a maximum of one option then the list is considered single-answer.  In this instance each option is classically represented as a radio button.
 When respondents can choose more than one option, the list is is considered multi-answer.  In this instance each option is classically represented by a checkbox.
@@ -61,7 +74,7 @@ Sub Headings always cause a break in the horizontal flow with options listed hor
 By default options are sized based upon their content.  As the content varies between options; by default so does the size.  When options are listed below each other this is rarely an issue, when the option list is balanced and so options are displayed horizontally, different sized options can create bias. Options with little text will be small and so become less likely to be seen and selected.  An additonal option called one-size ensures that all options are presented in the same size "space" with padding to fill the space for smaller items.  This increases the size of the question but does eliminate bias issues.
 
 <Placeholder
-  id="PH-onesize"
+  id="PH-onesize-off"
   type="html response fragment"
   purpose="demonstrate one-size in a balanced list"
   owner="Richard"
@@ -74,7 +87,7 @@ By default options are sized based upon their content.  As the content varies be
 />
 
 <Placeholder
-  id="PH-onesize"
+  id="PH-onesize-on"
   type="html response fragment"
   purpose="demonstrate one-size in a balanced list"
   owner="Richard"
