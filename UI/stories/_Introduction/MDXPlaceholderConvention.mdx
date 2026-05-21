@@ -1,0 +1,166 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { Placeholder } from '../_shared/Placeholder';
+
+<Meta title="Introduction/MDX Placeholder Convention" />
+
+# MDX Placeholder Convention
+
+Use placeholders in MDX as MDX comments (`{/* ... */}`) so they are visible in source code, easy to search, and not rendered in the final page.
+
+If you need placeholders visible in rendered Storybook docs, use the React component pattern in the section "Visible Placeholder for Storybook".
+
+## Goals
+
+- Show what kind of insert is needed (`figma`, `image`, `c4`, `component`, etc.).
+- Explain why it is needed (purpose).
+- Capture notes for the teammate doing the insert.
+
+## Standard Block Format
+
+Use this exact block where content should be inserted:
+
+```mdx
+{/* PLACEHOLDER START
+id: PH-<section>-<short-name>
+type: <figma|image|c4|component|table|other>
+purpose: <why this exists for the reader>
+owner: <name-or-role>
+status: <todo|in-progress|done|blocked>
+source: <url|file-path|tbd>
+notes:
+  - <note 1>
+  - <note 2>
+last-updated: <YYYY-MM-DD>
+PLACEHOLDER END */}
+```
+
+## Quick Rules
+
+- `id` must be unique in the file.
+- Keep `type` from a fixed list so placeholders can be filtered quickly.
+- Keep `purpose` user-focused (what this helps the reader understand).
+- Use `notes` for constraints (size, style, data freshness, accessibility, etc.).
+- Always include `owner` and `status` so handoffs are clear.
+
+## Practical Examples
+
+### 1) Figma Insert
+
+```mdx
+{/* PLACEHOLDER START
+id: PH-onboarding-hero-wireframe
+type: figma
+purpose: Show onboarding hero layout before implementation review
+owner: ux-team
+status: todo
+source: tbd
+notes:
+  - Use latest approved desktop frame
+  - Include mobile variant below desktop
+  - Keep width <= 960px in docs layout
+last-updated: 2026-05-21
+PLACEHOLDER END */}
+```
+
+### 2) Image Insert
+
+```mdx
+{/* PLACEHOLDER START
+id: PH-awards-badge-preview
+type: image
+purpose: Preview badge style used in awards section
+owner: content-team
+status: in-progress
+source: /assets/images/awards/badge-preview.png
+notes:
+  - Export as webp when final
+  - Provide alt text: "Award badge preview"
+last-updated: 2026-05-21
+PLACEHOLDER END */}
+```
+
+### 3) C4 Diagram Insert
+
+```mdx
+{/* PLACEHOLDER START
+id: PH-architecture-context-diagram
+type: c4
+purpose: Explain system boundaries and external actors
+owner: architecture-team
+status: todo
+source: /Documentation/C4 Models/context-system.mmd
+notes:
+  - Keep terminology aligned with Product Management epics
+  - Include player, sponsor, and analytics actor roles
+last-updated: 2026-05-21
+PLACEHOLDER END */}
+```
+
+## Optional: Single-Line Placeholder
+
+If you need a very compact marker:
+
+```mdx
+{/* PH:id=PH-tools-usage-chart type=image purpose="Show tool usage trend" owner=stats-team status=todo source=tbd */}
+```
+
+Use the block format by default. Use single-line only for minor insertions.
+
+## Team Workflow Suggestion
+
+- Writer adds block with `status: todo`.
+- Contributor updates `source`, edits `notes`, sets `status: in-progress`.
+- Reviewer validates insertion and marks `status: done`.
+
+This keeps all collaboration metadata in the MDX file without affecting rendered output.
+
+## Visible Placeholder for Storybook
+
+If proofreaders must see missing content in rendered docs, use a visible MDX component.
+
+### Shared Component Location
+
+Use the shared component at `stories/_shared/Placeholder.tsx`.
+
+### MDX Usage
+
+```mdx
+import { Placeholder } from '../_shared/Placeholder';
+
+<Placeholder
+  id="PH-architecture-context-diagram"
+  type="c4"
+  purpose="Explain system boundaries and external actors"
+  owner="architecture-team"
+  status="todo"
+  source="/Documentation/C4 Models/context-system.mmd"
+  notes={[
+    'Keep terminology aligned with Product Management epics',
+    'Include player, sponsor, and analytics actor roles',
+  ]}
+/>
+```
+
+### Rendered Example
+
+<Placeholder
+    id="PH-architecture-context-diagram"
+    type="c4"
+    purpose="Explain system boundaries and external actors"
+    owner="architecture-team"
+    status="todo"
+    source="/Documentation/C4 Models/context-system.mmd"
+    notes={[
+        'Keep terminology aligned with Product Management epics',
+        'Include player, sponsor, and analytics actor roles',
+    ]}
+/>
+
+### Hybrid Recommendation
+
+Use both markers in the same file when possible:
+
+- Visible component for proofreaders and Storybook output.
+- Hidden MDX comment block for searchable metadata and editor workflows.
+
+This gives teams both rendered visibility and source control precision.
