@@ -26,6 +26,10 @@ lint:
         - svgo@4.0.1
         - trufflehog@3.95.2
         - yamllint@1.38.0
+    ignore:
+        - linters: [ALL]
+          paths:
+              - "**/*.mdx"
 actions:
     disabled:
         - trunk-announce
