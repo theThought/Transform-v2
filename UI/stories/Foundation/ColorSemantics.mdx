@@ -1,5 +1,4 @@
-import { Meta } from '@storybook/addon-docs/blocks';
-// import { TokenTable } from '../../src/components/TokenTable.jsx';
+import { Meta, ColorPalette, ColorItem } from '@storybook/addon-docs/blocks';
 
 <Meta title="Foundation/Color Semantics" />
 
@@ -7,195 +6,138 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 Semantic tokens map raw color primitives to specific UI roles and purposes. Rather than referencing color values directly, components and layouts consume these tokens — ensuring consistent application, simplified theming, and a clear single source of truth for every color decision across the design system.
 
----
-
 ## Background
 
 Tokens for surface and container fill colors. Apply these to page backgrounds, cards, containers, and other structural areas to establish visual hierarchy and communicate element states.
 
-### Background — Neutral
+### Neutral
 
-<TokenTable
-  type="color"
-  showDescription={true}
-  tokens={[
-    { name: '--color-bg-neutral-primary',   value: 'var(--base-color-neutral-10)', description: 'Main page background across all layouts.' },
-    { name: '--color-bg-neutral-secondary', value: 'var(--base-color-neutral-20)', description: 'Cards, panels, and secondary container surfaces.' },
-    { name: '--color-bg-neutral-tertiary',  value: 'var(--base-color-neutral-60)', description: 'Read-only state for elements with theme-primary backgrounds.' },
-    { name: '--color-bg-neutral-muted',     value: 'var(--base-color-neutral-30)', description: 'Disabled or read-only element backgrounds.' },
-  ]}
-/>
+<ColorPalette>
+  <ColorItem title="--color-bg-neutral-primary"   colors={{ 'var(--base-color-neutral-10)': '#FFFFFF' }} />
+  <ColorItem title="--color-bg-neutral-secondary" colors={{ 'var(--base-color-neutral-20)': '#FAFAFA' }} />
+  <ColorItem title="--color-bg-neutral-tertiary"  colors={{ 'var(--base-color-neutral-60)': '#8797C8' }} />
+  <ColorItem title="--color-bg-neutral-muted"     colors={{ 'var(--base-color-neutral-30)': '#ECEFF5' }} />
+</ColorPalette>
 
-### Background — Brand
+### Brand
 
-<TokenTable
-  type="color"
-  showDescription={true}
-  tokens={[
-    { name: '--color-bg-brand-primary',   value: 'var(--base-color-brand-primary-75)',   description: 'Primary brand containers and high-emphasis branded surfaces.' },
-    { name: '--color-bg-brand-secondary', value: 'var(--base-color-brand-secondary-75)', description: 'Secondary brand containers and complementary branded surfaces.' },
-  ]}
-/>
+<ColorPalette>
+  <ColorItem title="--color-bg-brand-primary"   colors={{ 'var(--base-color-brand-primary-75)':   '#2F469C' }} />
+  <ColorItem title="--color-bg-brand-secondary" colors={{ 'var(--base-color-brand-secondary-75)': '#007675' }} />
+</ColorPalette>
 
-### Background — System
+### System
 
-<TokenTable
-  type="color"
-  showDescription={true}
-  tokens={[
-    { name: '--color-bg-system-success',             value: 'var(--base-color-system-success-75)',     description: 'Containers in a success or positive context.' },
-    { name: '--color-bg-system-success-subtle',      value: 'var(--base-color-system-success-5)',      description: 'Low-emphasis containers in a success or positive context.' },
-    { name: '--color-bg-system-error',               value: 'var(--base-color-system-error-75)',       description: 'Containers in an error or negative context.' },
-    { name: '--color-bg-system-error-subtle',        value: 'var(--base-color-system-error-5)',        description: 'Low-emphasis containers in an error or negative context.' },
-    { name: '--color-bg-system-warning',             value: 'var(--base-color-system-warning-50)',     description: 'Containers in a warning or alert context.' },
-    { name: '--color-bg-system-warning-subtle',      value: 'var(--base-color-system-warning-5)',      description: 'Low-emphasis containers in a warning or alert context.' },
-    { name: '--color-bg-system-information',         value: 'var(--base-color-system-information-75)', description: 'Containers in an informational context.' },
-    { name: '--color-bg-system-information-subtle',  value: 'var(--base-color-system-information-5)',  description: 'Low-emphasis containers in an informational context.' },
-  ]}
-/>
-
----
+<ColorPalette>
+  <ColorItem title="--color-bg-system-success"            colors={{ 'var(--base-color-system-success-75)':      '#007675' }} />
+  <ColorItem title="--color-bg-system-success-subtle"     colors={{ 'var(--base-color-system-success-5)':       '#F1FCFB' }} />
+  <ColorItem title="--color-bg-system-error"              colors={{ 'var(--base-color-system-error-75)':        '#D92911' }} />
+  <ColorItem title="--color-bg-system-error-subtle"       colors={{ 'var(--base-color-system-error-5)':         '#FFF3F1' }} />
+  <ColorItem title="--color-bg-system-warning"            colors={{ 'var(--base-color-system-warning-50)':      '#D4AA49' }} />
+  <ColorItem title="--color-bg-system-warning-subtle"     colors={{ 'var(--base-color-system-warning-5)':       '#FFF6E5' }} />
+  <ColorItem title="--color-bg-system-information"        colors={{ 'var(--base-color-system-information-75)':  '#2F469C' }} />
+  <ColorItem title="--color-bg-system-information-subtle" colors={{ 'var(--base-color-system-information-5)':   '#F1F6FD' }} />
+</ColorPalette>
 
 ## Fill
 
 Tokens for icons, shapes and decorative elements. Use these to convey meaning and state through visual fills, independent of text or borders.
 
-### Fill — Neutral
+### Neutral
 
-<TokenTable
-  type="color"
-  showDescription={true}
-  tokens={[
-    { name: '--color-fill-neutral-inverse', value: 'var(--base-color-neutral-10)', description: 'Icons and decorative elements placed on dark backgrounds.' },
-    { name: '--color-fill-neutral-muted',   value: 'var(--base-color-neutral-50)', description: 'Icons and decorative elements in a disabled or read-only state.' },
-  ]}
-/>
+<ColorPalette>
+  <ColorItem title="--color-fill-neutral-inverse" colors={{ 'var(--base-color-neutral-10)': '#FFFFFF' }} />
+  <ColorItem title="--color-fill-neutral-muted"   colors={{ 'var(--base-color-neutral-50)': '#B4BDDB' }} />
+</ColorPalette>
 
-### Fill — Brand
+### Brand
 
-<TokenTable
-  type="color"
-  showDescription={true}
-  tokens={[
-    { name: '--color-fill-brand-primary',   value: 'var(--base-color-brand-primary-75)',   description: 'Icons and decorative elements that carry the primary brand color.' },
-    { name: '--color-fill-brand-secondary', value: 'var(--base-color-brand-secondary-75)', description: 'Icons and decorative elements that carry the secondary brand color.' },
-  ]}
-/>
+<ColorPalette>
+  <ColorItem title="--color-fill-brand-primary"   colors={{ 'var(--base-color-brand-primary-75)':   '#2F469C' }} />
+  <ColorItem title="--color-fill-brand-secondary" colors={{ 'var(--base-color-brand-secondary-75)': '#007675' }} />
+</ColorPalette>
 
-### Fill — System
+### System
 
-<TokenTable
-  type="color"
-  showDescription={true}
-  tokens={[
-    { name: '--color-fill-system-success',     value: 'var(--base-color-system-success-75)',     description: 'Icons and decorative elements in a success or positive context.' },
-    { name: '--color-fill-system-error',       value: 'var(--base-color-system-error-75)',       description: 'Icons and decorative elements in an error or negative context.' },
-    { name: '--color-fill-system-warning',     value: 'var(--base-color-system-warning-50)',     description: 'Icons and decorative elements in a warning or alert context.' },
-    { name: '--color-fill-system-information', value: 'var(--base-color-system-information-75)', description: 'Icons and decorative elements in an informational context.' },
-  ]}
-/>
+<ColorPalette>
+  <ColorItem title="--color-fill-system-success"     colors={{ 'var(--base-color-system-success-75)':     '#007675' }} />
+  <ColorItem title="--color-fill-system-error"       colors={{ 'var(--base-color-system-error-75)':       '#D92911' }} />
+  <ColorItem title="--color-fill-system-warning"     colors={{ 'var(--base-color-system-warning-50)':     '#D4AA49' }} />
+  <ColorItem title="--color-fill-system-information" colors={{ 'var(--base-color-system-information-75)': '#2F469C' }} />
+</ColorPalette>
 
----
+### Accent
+
+<ColorPalette>
+  <ColorItem title="--color-fill-accent-purple" colors={{ 'var(--base-color-accent-purple)': '#7A3996' }} />
+</ColorPalette>
 
 ## Text
 
 Tokens for all typographic content. Apply to headings, body copy, labels, captions, placeholders, and any other text element to ensure legibility and consistent semantic meaning.
 
-### Text — Neutral
+### Neutral
 
-<TokenTable
-  type="color"
-  showDescription={true}
-  tokens={[
-    { name: '--color-text-neutral-primary',   value: 'var(--base-color-neutral-90)', description: 'Primary text such as page headings and high-emphasis labels.' },
-    { name: '--color-text-neutral-secondary', value: 'var(--base-color-neutral-80)', description: 'Secondary text such as subheadings and supporting labels.' },
-    { name: '--color-text-neutral-muted',     value: 'var(--base-color-neutral-70)', description: 'Muted text in read-only or disabled states.' },
-    { name: '--color-text-neutral-inverse',   value: 'var(--base-color-neutral-10)', description: 'Text placed on dark or brand-colored backgrounds.' },
-  ]}
-/>
+<ColorPalette>
+  <ColorItem title="--color-text-neutral-primary"   colors={{ 'var(--base-color-neutral-90)': '#212C4C' }} />
+  <ColorItem title="--color-text-neutral-secondary" colors={{ 'var(--base-color-neutral-80)': '#324371' }} />
+  <ColorItem title="--color-text-neutral-muted"     colors={{ 'var(--base-color-neutral-70)': '#57699C' }} />
+  <ColorItem title="--color-text-neutral-inverse"   colors={{ 'var(--base-color-neutral-10)': '#FFFFFF' }} />
+</ColorPalette>
 
-### Text — Brand
+### Brand
 
-<TokenTable
-  type="color"
-  showDescription={true}
-  tokens={[
-    { name: '--color-text-brand-primary',   value: 'var(--base-color-brand-primary-75)',   description: 'Branded texts and primary interactive text elements.' },
-    { name: '--color-text-brand-secondary', value: 'var(--base-color-brand-secondary-75)', description: 'Accented text and secondary branded content.' },
-  ]}
-/>
+<ColorPalette>
+  <ColorItem title="--color-text-brand-primary"   colors={{ 'var(--base-color-brand-primary-75)':   '#2F469C' }} />
+  <ColorItem title="--color-text-brand-secondary" colors={{ 'var(--base-color-brand-secondary-75)': '#007675' }} />
+</ColorPalette>
 
-### Text — System
+### System
 
-<TokenTable
-  type="color"
-  showDescription={true}
-  tokens={[
-    { name: '--color-text-system-success',     value: 'var(--base-color-system-success-75)',     description: 'Text in success states, such as answered states, confirmation messages or completion indicators.' },
-    { name: '--color-text-system-error',       value: 'var(--base-color-system-error-75)',       description: 'Text in error states, such as validation messages and field-level errors.' },
-    { name: '--color-text-system-warning',     value: 'var(--base-color-system-warning-75)',     description: 'Text in warning or alert states.' },
-    { name: '--color-text-system-information', value: 'var(--base-color-system-information-75)', description: 'Text in informational states.' },
-  ]}
-/>
+<ColorPalette>
+  <ColorItem title="--color-text-system-success"     colors={{ 'var(--base-color-system-success-75)':     '#007675' }} />
+  <ColorItem title="--color-text-system-error"       colors={{ 'var(--base-color-system-error-75)':       '#D92911' }} />
+  <ColorItem title="--color-text-system-warning"     colors={{ 'var(--base-color-system-warning-75)':     '#8F6400' }} />
+  <ColorItem title="--color-text-system-information" colors={{ 'var(--base-color-system-information-75)': '#2F469C' }} />
+</ColorPalette>
 
-### Text — Accent
+### Accent
 
-<TokenTable
-  type="color"
-  showDescription={true}
-  tokens={[
-    { name: '--color-text-accent-placeholder', value: 'var(--base-color-accent-gray)', description: 'Placeholder text inside input and form fields.' },
-  ]}
-/>
-
----
+<ColorPalette>
+  <ColorItem title="--color-text-accent-placeholder" colors={{ 'var(--base-color-accent-gray)': '#6b5b72' }} />
+</ColorPalette>
 
 ## Border
 
 Tokens for outlines, dividers, and strokes. Use these to define element boundaries, separate content areas, and communicate state through line elements.
 
-### Border — Default
+### Default
 
-<TokenTable
-  type="color"
-  showDescription={true}
-  tokens={[
-    { name: '--color-border-primary',   value: 'var(--base-color-brand-primary-75)', description: 'Default border for interactive components such as buttons and inputs.' },
-    { name: '--color-border-secondary', value: 'var(--base-color-neutral-40)',        description: 'Dividers, separators, and secondary container outlines.' },
-    { name: '--color-border-tertiary',  value: 'var(--base-color-neutral-30)',        description: 'Borders on disabled or read-only elements.' },
-  ]}
-/>
+<ColorPalette>
+  <ColorItem title="--color-border-primary"   colors={{ 'var(--base-color-brand-primary-75)': '#2F469C' }} />
+  <ColorItem title="--color-border-secondary" colors={{ 'var(--base-color-neutral-40)':        '#D6DDEB' }} />
+  <ColorItem title="--color-border-tertiary"  colors={{ 'var(--base-color-neutral-30)':        '#ECEFF5' }} />
+</ColorPalette>
 
-### Border — Brand
+### Brand
 
-<TokenTable
-  type="color"
-  showDescription={true}
-  tokens={[
-    { name: '--color-border-brand-primary',   value: 'var(--base-color-brand-primary-75)',   description: 'Branded component outlines.' },
-    { name: '--color-border-brand-secondary', value: 'var(--base-color-brand-secondary-75)', description: 'Bordered elements that carry secondary brand emphasis.' },
-  ]}
-/>
+<ColorPalette>
+  <ColorItem title="--color-border-brand-primary"   colors={{ 'var(--base-color-brand-primary-75)':   '#2F469C' }} />
+  <ColorItem title="--color-border-brand-secondary" colors={{ 'var(--base-color-brand-secondary-75)': '#007675' }} />
+</ColorPalette>
 
-### Border — System
+### System
 
-<TokenTable
-  type="color"
-  showDescription={true}
-  tokens={[
-    { name: '--color-border-system-success',     value: 'var(--base-color-system-success-75)',     description: 'Borders on elements in a success or positive context.' },
-    { name: '--color-border-system-error',       value: 'var(--base-color-system-error-75)',       description: 'Borders on elements in an error or negative context.' },
-    { name: '--color-border-system-warning',     value: 'var(--base-color-system-warning-50)',     description: 'Borders on elements in a warning or alert context.' },
-    { name: '--color-border-system-information', value: 'var(--base-color-system-information-75)', description: 'Borders on elements in an informational context.' },
-  ]}
-/>
+<ColorPalette>
+  <ColorItem title="--color-border-system-success"     colors={{ 'var(--base-color-system-success-75)':     '#007675' }} />
+  <ColorItem title="--color-border-system-error"       colors={{ 'var(--base-color-system-error-75)':       '#D92911' }} />
+  <ColorItem title="--color-border-system-warning"        colors={{ 'var(--base-color-system-warning-50)':     '#D4AA49' }} />
+  <ColorItem title="--color-border-system-warning-strong" colors={{ 'var(--base-color-system-warning-75)':     '#8F6400' }} />
+  <ColorItem title="--color-border-system-information"    colors={{ 'var(--base-color-system-information-75)': '#2F469C' }} />
+</ColorPalette>
 
-### Border — Accent
+### Accent
 
-<TokenTable
-  type="color"
-  showDescription={true}
-  tokens={[
-    { name: '--color-border-accent-purple', value: 'var(--base-color-accent-purple)', description: 'Specific contexts where the accent purple carries intentional semantic meaning.' },
-  ]}
-/>
+<ColorPalette>
+  <ColorItem title="--color-border-accent-purple" colors={{ 'var(--base-color-accent-purple)': '#7A3996' }} />
+</ColorPalette>

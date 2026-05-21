@@ -1,0 +1,85 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Foundation/Effects" />
+
+# Effects
+
+Effect tokens define shadows and motion behaviour. They communicate depth, elevation, and interactivity in a consistent way across all components.
+
+## Shadow
+
+Shadow tokens apply depth and visual feedback to components. They are used to communicate interactive state changes such as focus or activation.
+
+<div style={{overflowX: 'auto'}}>
+<table style={{width: '100%'}}>
+  <colgroup>
+    <col style={{width: '22%'}} />
+    <col style={{width: '38%'}} />
+    <col style={{width: '40%'}} />
+  </colgroup>
+  <thead style={{textAlign: 'left'}}>
+    <tr>
+      <th>Token</th>
+      <th>Value</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>--shadow-active</td>
+      <td>0 0 11px 2px rgba(33, 44, 76, 0.2)</td>
+      <td>Glow applied to interactive inputs in their Active state.</td>
+    </tr>
+    <tr>
+      <td>--shadow-highlight</td>
+      <td>0px 0px 16px 0px rgba(255, 219, 77, 0.75)</td>
+      <td>Glow applied to a component when its state is triggered by another component.</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+## Transition
+
+Transition tokens define the timing and easing of state changes across all components. A global rule applies `--transition-base` to every element, so interactive state changes — hover, focus, active, disabled — animate consistently without per-component declarations.
+
+The composite token covers only properties that change on interaction. Layout properties such as `width`, `height`, `padding`, and `transform` are intentionally excluded to prevent unintended animation.
+
+<div style={{overflowX: 'auto'}}>
+<table style={{width: '100%'}}>
+  <colgroup>
+    <col style={{width: '20%'}} />
+    <col style={{width: '30%'}} />
+    <col style={{width: '50%'}} />
+  </colgroup>
+  <thead style={{textAlign: 'left'}}>
+    <tr>
+      <th>Token</th>
+      <th>Value</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>--transition-duration-fast</td>
+      <td>0.15s</td>
+      <td>For subtle micro-interactions.</td>
+    </tr>
+    <tr>
+      <td>--transition-duration-base</td>
+      <td>0.2s</td>
+      <td>Default duration for state transitions.</td>
+    </tr>
+    <tr>
+      <td>--transition-easing-default</td>
+      <td>ease</td>
+      <td>Default easing curve.</td>
+    </tr>
+    <tr>
+      <td>--transition-base</td>
+      <td>background-color, color, border-color, opacity, box-shadow</td>
+      <td>Composite token applied globally to all elements. Each property transitions with --transition-duration-base and --transition-easing-default.</td>
+    </tr>
+  </tbody>
+</table>
+</div>
