@@ -17,11 +17,44 @@ As Market Research does not operate well with uncertainty, it is preferrable tha
 In Healthcare, this is extended further with mutually exclusive options.  This is where two or more options in a multi-answer list can not be selected together.  They effectively represent a single-answer question within a multi-answer list.  When one of the options in a mutually exclusive group is selected then all options within that group are de-selected.  Selections outside of the group (except exclusive options - described above) do not affect this groups selection.
 
 ## Variations
+Choice is the most commonly implemented response-type, consequently there are a lot of variations available.
+
+### Option-types
+A choice question contains a list of possible responses from which the respondent selects.  Traditionally there are two types of option (single-answer and multi-answer).  The normal convention is that Single-answer options are shown as a radio button and multi-answer as a checkbox.  This is the default used, however it is possible to adjust both of these through configuration.  A third option type has been added to handle situations specific to Healthcare.  This is where two or more options are mutually exclusive to each other but not to other items in the list.  Mutually exclusive options are represented as a Hexagon as a mid-way between the squares of checkboxes and the circles of radio buttons.
+
+### Sub-Headings
+Options can be presented as a single list or with sub-headings, when sub-headings are used an additional separator can be shown to help separate the parts of the option list.  This is particularly useful when there is a mix of options in a sublist and options outside a sublist in the single question.
+
+<!-- PLACEHOLDER START
+id: PH-subheadings-m-option-base
+type: figma
+purpose: Demonstrate the look and feel of a sublist (variation in Figma file m-option-base)
+owner: ux-team
+status: todo
+source: https://www.figma.com/file/your-m-option-base-link-here
+notes:
+  - Use the sublist variation with heading and divider
+  - Ensure visual clarity and accessibility
+last-updated: 2026-05-21
+PLACEHOLDER END -->
+
+### Using Horizontal Space
+By Default response options are presented as a single vertical list.  This works well for mobile devices as they rarely have the space to show options side by side.  On wider devices (laptops, desktops, kiosks) the single column list is not a good use of space.  Option Lists can be balanced.  This is where the available horizontal space is fully utilised with options listed horizontally rather than vertically.  The options still have to fit within the bounds of the device's screen as horizontal scrolling of a single question is not allowed. When each row is filled the subsequent options start on the next row.
+
+Sub Headings always cause a break in the horizontal flow with options listed horizontally underneath them.  This helps to ensure the headings are easy to read and the groupings of options under those headings is clear.
+
+### Avoiding bias
+By default options are sized based upon their content.  As the content varies between options; by default so does the size.  When options are listed below each other this is rarely an issue, when the option list is balanced and so options are displayed horizontally, different sized options can create bias. Options with little text will be small and so become less likely to be seen and selected.  An additonal option called one-size ensures that all options are presented in the same size "space" with padding to fill the space for smaller items.  This increases the size of the question but does eliminate bias issues.
 
 ## States
 
-## Skeleton
+## HTML Structure
 
 ## Accessibility
 
-## HTML Structure
+
+## Custom properties
+
+## Configure
+
+## Organic Structure
