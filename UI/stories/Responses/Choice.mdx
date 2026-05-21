@@ -1,4 +1,5 @@
 import { Meta } from '@storybook/addon-docs/blocks';
+import { Placeholder } from '../_shared/Placeholder';
 
 <Meta title="Responses/Types/Choice" />
 
@@ -38,6 +39,19 @@ notes:
   - Ensure visual clarity and accessibility
 last-updated: 2026-05-21
 PLACEHOLDER END */}
+
+<Placeholder
+  id="PH-subheadings-m-option-base"
+  type="figma"
+  purpose="Show the look and feel of a sublist"
+  owner="Joäo"
+  status="todo"
+  source="m-option-base / m-option-sublist variation"
+  notes={[
+    'Use the sublist variation with heading and divider',
+    'Ensure visual clarity and accessibility',
+  ]}
+/>
 
 ### Using Horizontal Space
 By Default response options are presented as a single vertical list.  This works well for mobile devices as they rarely have the space to show options side by side.  On wider devices (laptops, desktops, kiosks) the single column list is not a good use of space.  Option Lists can be balanced.  This is where the available horizontal space is fully utilised with options listed horizontally rather than vertically.  The options still have to fit within the bounds of the device's screen as horizontal scrolling of a single question is not allowed. When each row is filled the subsequent options start on the next row.

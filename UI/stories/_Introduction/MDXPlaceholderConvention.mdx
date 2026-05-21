@@ -7,6 +7,8 @@ import { Placeholder } from '../_shared/Placeholder';
 
 Use placeholders in MDX as MDX comments (`{/* ... */}`) so they are visible in source code, easy to search, and not rendered in the final page.
 
+Important: MDX comments are intentionally hidden in Storybook docs output. If you need something visible on the rendered page, add a `<Placeholder />` component as well.
+
 If you need placeholders visible in rendered Storybook docs, use the React component pattern in the section "Visible Placeholder for Storybook".
 
 ## Goals
@@ -113,6 +115,38 @@ Use the block format by default. Use single-line only for minor insertions.
 - Reviewer validates insertion and marks `status: done`.
 
 This keeps all collaboration metadata in the MDX file without affecting rendered output.
+
+## Recommended Pattern (Most Cases)
+
+Use both a hidden metadata block and a visible placeholder component together:
+
+```mdx
+{/* PLACEHOLDER START
+id: PH-subheadings-m-option-base
+type: figma
+purpose: Show the look and feel of a sublist
+owner: ux-team
+status: todo
+source: m-option-base (variation: m-option-sublist)
+notes:
+  - Show heading and sublist divider treatment
+  - Keep spacing and visual hierarchy aligned with design tokens
+last-updated: 2026-05-21
+PLACEHOLDER END */}
+
+<Placeholder
+  id="PH-subheadings-m-option-base"
+  type="figma"
+  purpose="Show the look and feel of a sublist"
+  owner="ux-team"
+  status="todo"
+  source="m-option-base (variation: m-option-sublist)"
+  notes={[
+    'Show heading and sublist divider treatment',
+    'Keep spacing and visual hierarchy aligned with design tokens',
+  ]}
+/>
+```
 
 ## Visible Placeholder for Storybook
 
