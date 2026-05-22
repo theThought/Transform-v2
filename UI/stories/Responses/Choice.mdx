@@ -1,116 +1,169 @@
 import { Meta } from '@storybook/addon-docs/blocks';
 import { Placeholder } from '../_shared/Placeholder';
+import ltrImage from '../_shared/images/response-choice-variations-LTR.jpg';
+import rtlImage from '../_shared/images/response-choice-variations-RTL.jpg';
 
 <Meta title="Responses/Types/Choice" />
 
 # Choice Response-Type
-Choice responses are used when the respondent is asked to select from an option list and where either that list is very short or space is not limited. 
+
+Choice responses are used when the respondent is asked to select from an option list and where either that list is very short or space is not limited.
 All the options are presented in a way that optimises readability while avoiding potential bias. Bias can be caused by options appearing above and below "the fold", ie some options are on screen when the question is asked while others are off screen.
 If there are lots of items in the list (making them difficult scan when reading) or they cannot be guaranteed to fit on a single screen then other response-types may be more suitable.
 Options within the response list can be at a single level or they can be grouped into sub-levels with a heading (these are called sublists).
 
+<div className="docs-table-wrapper">
+    <table className="docs-table">
+        <thead>
+            <tr>
+                <th>LTR</th>
+                <th>RTL</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <img
+                        src={ltrImage}
+                        alt="LTR layout"
+                        style={{
+                            width: '100%',
+                            maxWidth: '320px',
+                            objectFit: 'contain',
+                        }}
+                    />
+                </td>
+                <td>
+                    <img
+                        src={rtlImage}
+                        alt="RTL layout"
+                        style={{
+                            width: '100%',
+                            maxWidth: '320px',
+                            objectFit: 'contain',
+                        }}
+                    />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <a
+        href="https://www.figma.com/design/IOjm3xFXw2tcMF4MrkdS5j/o-choice?node-id=1-2&t=kHdhoAbrZscVhc6k-1"
+        className="figma-link"
+        target="_blank"
+        rel="noreferrer"
+    >
+        Open in Figma
+    </a>
+</div>
+{/* 
 <Placeholder
-  id="PH-choice-variations"
-  type="figma"
-  purpose="Show the variations for from o-choice"
-  owner="Joäo"
-  status="todo"
-  source="o-choice variation"
-  notes={[
-    'Shows the basic structure of a choice question',
-    'include both LTR and RTL',
-  ]}
-/>
+    id="PH-choice-variations"
+    type="figma"
+    purpose="Show the variations for from o-choice"
+    owner="Joäo"
+    status="todo"
+    source="o-choice variation"
+    notes={[
+        'Shows the basic structure of a choice question',
+        'include both LTR and RTL',
+    ]}
+/> */}
 
 ## Single, Multi-answer lists
-When respondents are limited to chosing a maximum of one option then the list is considered single-answer.  In this instance each option is classically represented as a radio button.
-When respondents can choose more than one option, the list is is considered multi-answer.  In this instance each option is classically represented by a checkbox.
+
+When respondents are limited to chosing a maximum of one option then the list is considered single-answer. In this instance each option is classically represented as a radio button.
+When respondents can choose more than one option, the list is is considered multi-answer. In this instance each option is classically represented by a checkbox.
 
 ## Exclusivity
-As Market Research does not operate well with uncertainty, it is preferrable that all questions are answered, even if none of the options presented is acceptable.  This is achieved through exclusive options, which when selected dismiss all other options.  Exclusive options can not be selected in combination with any other option in the list, so selecting any other option causes the exclusive option to be automatically deselected.
-In Healthcare, this is extended further with mutually exclusive options.  This is where two or more options in a multi-answer list can not be selected together.  They effectively represent a single-answer question within a multi-answer list.  When one of the options in a mutually exclusive group is selected then all options within that group are de-selected.  Selections outside of the group (except exclusive options - described above) do not affect this groups selection.
+
+As Market Research does not operate well with uncertainty, it is preferrable that all questions are answered, even if none of the options presented is acceptable. This is achieved through exclusive options, which when selected dismiss all other options. Exclusive options can not be selected in combination with any other option in the list, so selecting any other option causes the exclusive option to be automatically deselected.
+In Healthcare, this is extended further with mutually exclusive options. This is where two or more options in a multi-answer list can not be selected together. They effectively represent a single-answer question within a multi-answer list. When one of the options in a mutually exclusive group is selected then all options within that group are de-selected. Selections outside of the group (except exclusive options - described above) do not affect this groups selection.
 
 ## Variations
+
 Choice is the most commonly implemented response-type, consequently there are a lot of variations available.
 
 ### Option-types
-A choice question contains a list of possible responses from which the respondent selects.  Traditionally there are two types of option (single-answer and multi-answer).  The normal convention is that Single-answer options are shown as a radio button and multi-answer as a checkbox.  This is the default used, however it is possible to adjust both of these through configuration.  A third option type has been added to handle situations specific to Healthcare.  This is where two or more options are mutually exclusive to each other but not to other items in the list.  Mutually exclusive options are represented as a Hexagon as a mid-way between the squares of checkboxes and the circles of radio buttons.
+
+A choice question contains a list of possible responses from which the respondent selects. Traditionally there are two types of option (single-answer and multi-answer). The normal convention is that Single-answer options are shown as a radio button and multi-answer as a checkbox. This is the default used, however it is possible to adjust both of these through configuration. A third option type has been added to handle situations specific to Healthcare. This is where two or more options are mutually exclusive to each other but not to other items in the list. Mutually exclusive options are represented as a Hexagon as a mid-way between the squares of checkboxes and the circles of radio buttons.
 
 ### Sub-Headings
-Options can be presented as a single list or with sub-headings, when sub-headings are used an additional separator can be shown to help separate the parts of the option list.  This is particularly useful when there is a mix of options in a sublist and options outside a sublist in the single question.
+
+Options can be presented as a single list or with sub-headings, when sub-headings are used an additional separator can be shown to help separate the parts of the option list. This is particularly useful when there is a mix of options in a sublist and options outside a sublist in the single question.
 
 <Placeholder
-  id="PH-subheadings-m-option-base"
-  type="figma"
-  purpose="Show the look and feel of a sublist"
-  owner="Joäo"
-  status="todo"
-  source="m-option-base / m-option-sublist variation"
-  notes={[
-    'Use the sublist variation with heading and divider',
-    'Ensure visual clarity and accessibility',
-  ]}
+    id="PH-subheadings-m-option-base"
+    type="figma"
+    purpose="Show the look and feel of a sublist"
+    owner="Joäo"
+    status="todo"
+    source="m-option-base / m-option-sublist variation"
+    notes={[
+        'Use the sublist variation with heading and divider',
+        'Ensure visual clarity and accessibility',
+    ]}
 />
 
 ### Using Horizontal Space
-By Default response options are presented as a single vertical list.  This works well for mobile devices as they rarely have the space to show options side by side.  On wider devices (laptops, desktops, kiosks) the single column list is not a good use of space.  Option Lists can be balanced.  This is where the available horizontal space is fully utilised with options listed horizontally rather than vertically.  The options still have to fit within the bounds of the device's screen as horizontal scrolling of a single question is not allowed. When each row is filled the subsequent options start on the next row.
+
+By Default response options are presented as a single vertical list. This works well for mobile devices as they rarely have the space to show options side by side. On wider devices (laptops, desktops, kiosks) the single column list is not a good use of space. Option Lists can be balanced. This is where the available horizontal space is fully utilised with options listed horizontally rather than vertically. The options still have to fit within the bounds of the device's screen as horizontal scrolling of a single question is not allowed. When each row is filled the subsequent options start on the next row.
 
 <Placeholder
-  id="PH-balance"
-  type="html response fragment"
-  purpose="demonstrate balance in an option list"
-  owner="Richard"
-  status="todo"
-  source="choice question"
-  notes={[
-    'Just show the html for the option list',
-    'two sets of options one outside a sublist, followed by one inside',
-  ]}
+    id="PH-balance"
+    type="html response fragment"
+    purpose="demonstrate balance in an option list"
+    owner="Richard"
+    status="todo"
+    source="choice question"
+    notes={[
+        'Just show the html for the option list',
+        'two sets of options one outside a sublist, followed by one inside',
+    ]}
 />
 
-Sub Headings always cause a break in the horizontal flow with options listed horizontally underneath them.  This helps to ensure the headings are easy to read and the groupings of options under those headings is clear.
+Sub Headings always cause a break in the horizontal flow with options listed horizontally underneath them. This helps to ensure the headings are easy to read and the groupings of options under those headings is clear.
 
 ### Avoiding bias
-By default options are sized based upon their content.  As the content varies between options; by default so does the size.  When options are listed below each other this is rarely an issue, when the option list is balanced and so options are displayed horizontally, different sized options can create bias. Options with little text will be small and so become less likely to be seen and selected.  An additonal option called one-size ensures that all options are presented in the same size "space" with padding to fill the space for smaller items.  This increases the size of the question but does eliminate bias issues.
+
+By default options are sized based upon their content. As the content varies between options; by default so does the size. When options are listed below each other this is rarely an issue, when the option list is balanced and so options are displayed horizontally, different sized options can create bias. Options with little text will be small and so become less likely to be seen and selected. An additonal option called one-size ensures that all options are presented in the same size "space" with padding to fill the space for smaller items. This increases the size of the question but does eliminate bias issues.
 
 <Placeholder
-  id="PH-onesize-off"
-  type="html response fragment"
-  purpose="demonstrate one-size in a balanced list"
-  owner="Richard"
-  status="todo"
-  source="choice question"
-  notes={[
-    'show one option list with different size options',
-    'one-size is switched off',
-  ]}
+    id="PH-onesize-off"
+    type="html response fragment"
+    purpose="demonstrate one-size in a balanced list"
+    owner="Richard"
+    status="todo"
+    source="choice question"
+    notes={[
+        'show one option list with different size options',
+        'one-size is switched off',
+    ]}
 />
 
 <Placeholder
-  id="PH-onesize-on"
-  type="html response fragment"
-  purpose="demonstrate one-size in a balanced list"
-  owner="Richard"
-  status="todo"
-  source="choice question"
-  notes={[
-    'show one option list with different size options',
-    'one-size is switched on',
-  ]}
+    id="PH-onesize-on"
+    type="html response fragment"
+    purpose="demonstrate one-size in a balanced list"
+    owner="Richard"
+    status="todo"
+    source="choice question"
+    notes={[
+        'show one option list with different size options',
+        'one-size is switched on',
+    ]}
 />
-## States
-Individual options in a choice question have different states depending on whether the option is selected and whether it is selectable.
+## States Individual options in a choice question have different states
+depending on whether the option is selected and whether it is selectable.
 
 <Placeholder
-  id="PH-option-states"
-  type="Figma"
-  purpose="show the different states of m-option-base"
-  owner="Joäo"
-  status="todo"
-  source="choice question"
-  notes={[
-    'show the four permissible states',
-  ]}
+    id="PH-option-states"
+    type="Figma"
+    purpose="show the different states of m-option-base"
+    owner="Joäo"
+    status="todo"
+    source="choice question"
+    notes={['show the four permissible states']}
 />
 
 ## Custom properties
@@ -120,4 +173,3 @@ Individual options in a choice question have different states depending on wheth
 ## Organic Structure
 
 ## Accessibility
-

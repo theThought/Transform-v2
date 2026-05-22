@@ -19,4 +19,74 @@ Overrides for Storybook Docs and UI.
             }
         }
     }
+
+    .docs-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        border-radius: 4px;
+        box-shadow: rgba(0, 0, 0, 0.1) 0 1px 3px 0;
+        overflow: hidden;
+        margin: 16px 0 32px 0 !important;
+    }
+
+    .docs-table thead th {
+        background-color: #f6f9fc;
+        padding: 8px 16px;
+        text-align: left;
+        font-weight: 600;
+        font-size: 14px;
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+    .docs-table tbody td {
+        padding: 16px !important;
+        vertical-align: top;
+        text-align: center;
+    }
+}
+
+.docs-table-wrapper {
+    position: relative;
+    display: block;
+}
+
+.docs-table-wrapper .figma-link {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 8px;
+    background: #f6f9fc;
+    outline: 1px solid #d9d9d9;
+    border-radius: 4px;
+    font-weight: 500;
+    color: #333;
+    font-size: 12px;
+    line-height: 16px;
+    text-decoration: none;
+    white-space: nowrap;
+    transform: translateY(calc(100% + 12px));
+    opacity: 0;
+    transition:
+        transform 0.25s ease,
+        opacity 0.25s ease,
+        outline-color 0.15s ease,
+        color 0.15s ease;
+}
+
+.docs-table-wrapper:hover .figma-link {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.docs-table-wrapper .figma-link p {
+    margin: 0;
+}
+
+.docs-table-wrapper .figma-link:hover {
+    color: #0078ff !important;
+    outline: 2px solid #0078ff;
+    box-sizing: border-box;
 }
