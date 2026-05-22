@@ -20,6 +20,7 @@ Overrides for Storybook Docs and UI.
         }
     }
 
+    /* Base table style used across all documentation pages to present structured content (e.g. variations, states, LTR/RTL comparisons). Applied via className="docs-table" on a <table> element. */
     .docs-table {
         width: 100%;
         border-collapse: separate;
@@ -30,6 +31,7 @@ Overrides for Storybook Docs and UI.
         margin: 16px 0 32px 0 !important;
     }
 
+    /* Column headers in the table head — used to label each column, e.g. "LTR", "RTL", "Unanswered", "Answered". */
     .docs-table thead th {
         background-color: #f6f9fc;
         padding: 8px 16px;
@@ -39,32 +41,40 @@ Overrides for Storybook Docs and UI.
         border-bottom: 1px solid #e2e8f0;
     }
 
+    /* Data cells holding the main content of each row, typically images or code examples. */
     .docs-table tbody td {
         padding: 16px !important;
         vertical-align: top;
         text-align: center;
     }
+
+    /* Section divider row inside <tbody> used to label a group of rows below it (e.g. "Sub-heading: False", "Sub-heading: True"). Applied via className="docs-table-group" on the <tr> element. */
+    .docs-table-group th {
+        background-color: #f6f9fc;
+        padding: 8px 16px;
+        text-align: left;
+        font-weight: 600;
+        font-size: 14px;
+        border-top: 1px solid #e2e8f0;
+    }
 }
 
+/* Wrapper around a .docs-table that enables the Figma link overlay. Required when a table has a corresponding "Open in Figma" link. */
 .docs-table-wrapper {
     position: relative;
     display: block;
 }
 
-.docs-table-wrapper .figma-link {
+/* A link to the corresponding Figma file or component, anchored to the bottom-right corner of .docs-table-wrapper. Hidden by default and revealed with a slide-up animation on wrapper hover. */
+.figma-link {
     position: absolute;
     bottom: 8px;
     right: 8px;
     display: inline-flex;
     align-items: center;
     padding: 4px 8px;
-    background: #f6f9fc;
-    outline: 1px solid #d9d9d9;
+    background: #006deb;
     border-radius: 4px;
-    font-weight: 500;
-    color: #333;
-    font-size: 12px;
-    line-height: 16px;
     text-decoration: none;
     white-space: nowrap;
     transform: translateY(calc(100% + 12px));
@@ -76,17 +86,22 @@ Overrides for Storybook Docs and UI.
         color 0.15s ease;
 }
 
+.figma-link p {
+    margin: 0;
+    color: #ffffff;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 700;
+}
+
+/* Highlights the Figma link on direct hover to signal it is interactive. */
+.figma-link:hover {
+    background: #1a84ff;
+    box-sizing: border-box;
+}
+
+/* Reveals the Figma link when the user hovers over the table wrapper. */
 .docs-table-wrapper:hover .figma-link {
     transform: translateY(0);
     opacity: 1;
-}
-
-.docs-table-wrapper .figma-link p {
-    margin: 0;
-}
-
-.docs-table-wrapper .figma-link:hover {
-    color: #0078ff !important;
-    outline: 2px solid #0078ff;
-    box-sizing: border-box;
 }
