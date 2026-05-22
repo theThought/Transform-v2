@@ -19,44 +19,44 @@ Overrides for Storybook Docs and UI.
             }
         }
     }
+}
 
-    /* Base table style used across all documentation pages to present structured content (e.g. variations, states, LTR/RTL comparisons). Applied via className="docs-table" on a <table> element. */
-    .docs-table {
-        width: 100%;
-        border-collapse: separate;
-        border-spacing: 0;
-        border-radius: 4px;
-        box-shadow: rgba(0, 0, 0, 0.1) 0 1px 3px 0;
-        overflow: hidden;
-        margin: 16px 0 32px 0 !important;
-    }
+/* Base table style used across all documentation pages to present structured content (e.g. variations, states, LTR/RTL comparisons). Applied via className="docs-table" on a <table> element. */
+.docs-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 4px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 1px 3px 0;
+    overflow: hidden;
+    margin: 16px 0 32px 0 !important;
+}
 
-    /* Column headers in the table head — used to label each column, e.g. "LTR", "RTL", "Unanswered", "Answered". */
-    .docs-table thead th {
-        background-color: #f6f9fc;
-        padding: 8px 16px;
-        text-align: left;
-        font-weight: 600;
-        font-size: 14px;
-        border-bottom: 1px solid #e2e8f0;
-    }
+/* Column headers in the table head — used to label each column, e.g. "LTR", "RTL", "Unanswered", "Answered". */
+.docs-table thead th {
+    background-color: #f6f9fc;
+    padding: 8px 16px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 14px;
+    border-bottom: 1px solid #e2e8f0;
+}
 
-    /* Data cells holding the main content of each row, typically images or code examples. */
-    .docs-table tbody td {
-        padding: 16px !important;
-        vertical-align: top;
-        text-align: center;
-    }
+/* Data cells holding the main content of each row, typically images or code examples. */
+.docs-table tbody td {
+    padding: 16px !important;
+    vertical-align: top;
+    text-align: center;
+}
 
-    /* Section divider row inside <tbody> used to label a group of rows below it (e.g. "Sub-heading: False", "Sub-heading: True"). Applied via className="docs-table-group" on the <tr> element. */
-    .docs-table-group th {
-        background-color: #f6f9fc;
-        padding: 8px 16px;
-        text-align: left;
-        font-weight: 600;
-        font-size: 14px;
-        border-top: 1px solid #e2e8f0;
-    }
+/* Section divider row inside <tbody> used to label a group of rows below it (e.g. "Sub-heading: False", "Sub-heading: True"). Applied via className="docs-table-group" on the <tr> element. */
+.docs-table-group th {
+    background-color: #f6f9fc;
+    padding: 8px 16px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 14px;
+    border-top: 1px solid #e2e8f0;
 }
 
 /* Wrapper around a .docs-table that enables the Figma link overlay. Required when a table has a corresponding "Open in Figma" link. */
