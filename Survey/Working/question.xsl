@@ -511,11 +511,21 @@
                         </xsl:choose>
                     </xsl:attribute>
 
-                    <xsl:if test="Style/Control/@Placeholder != ''">
-                        <xsl:attribute name="placeholder">
-                            <xsl:value-of select='Style/Control/@Placeholder' />
-                        </xsl:attribute>
-                    </xsl:if>
+
+                    <xsl:choose>
+                        <xsl:when test="../Error">
+                            <xsl:call-template name="insert-error-placeholder">
+                                <xsl:with-param name="errorString" select="../Error/Text" />
+                            </xsl:call-template>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:if test="Style/Control/@Placeholder != ''">
+                                <xsl:attribute name="placeholder">
+                                    <xsl:value-of select='Style/Control/@Placeholder' />
+                                </xsl:attribute>
+                            </xsl:if>
+                        </xsl:otherwise>
+                    </xsl:choose>
                     <!--- Accelerator access key -->
                     <xsl:if test="Style/Control/@Accelerator != ''">
                         <xsl:attribute name="accesskey">
@@ -590,13 +600,6 @@
                     <xsl:attribute name="id">
                         <xsl:value-of select="$questionId" />
                     </xsl:attribute>
-
-                    <xsl:if test="preceding-sibling::Error">
-                        <xsl:attribute name="aria-describedby">
-                            <xsl:text>error-</xsl:text>
-                            <xsl:value-of select="../Error" />
-                        </xsl:attribute>
-                    </xsl:if>
                     
                     <!--- Set Input specific attributes -->
                     <xsl:attribute name="type">
@@ -677,11 +680,20 @@
                         </xsl:otherwise>
                     </xsl:choose>
 
-                    <xsl:if test="Style/Control/@Placeholder != ''">
-                        <xsl:attribute name="placeholder">
-                            <xsl:value-of select='Style/Control/@Placeholder' />
-                        </xsl:attribute>
-                    </xsl:if>
+                    <xsl:choose>
+                        <xsl:when test="../Error">
+                            <xsl:call-template name="insert-error-placeholder">
+                                <xsl:with-param name="errorString" select="../Error/Text" />
+                            </xsl:call-template>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:if test="Style/Control/@Placeholder != ''">
+                                <xsl:attribute name="placeholder">
+                                    <xsl:value-of select='Style/Control/@Placeholder' />
+                                </xsl:attribute>
+                            </xsl:if>
+                        </xsl:otherwise>
+                    </xsl:choose>
                     <!--- Accelerator access key -->
                     <xsl:if test="Style/Control/@Accelerator != ''">
                         <xsl:attribute name="accesskey">
@@ -898,6 +910,20 @@
                     </xsl:call-template>
                 </xsl:element>
             </xsl:element>
+        </xsl:if>
+    </xsl:template>
+
+    <xsl:template name="insert-error-placeholder">
+        <xsl:param name="errorString" />
+
+        <xsl:attribute name="aria-invalid">
+            <xsl:text>true</xsl:text>
+        </xsl:attribute>
+
+        <xsl:if test="string-length(normalize-space($errorString)) &gt; 0">
+            <xsl:attribute name="placeholder">
+                <xsl:value-of select="$errorString" />
+            </xsl:attribute>
         </xsl:if>
     </xsl:template>
 
@@ -1503,7 +1529,6 @@
                         <xsl:with-param name="qGroup" select="$qGroup" />
                         <xsl:with-param name="questionId" select="$questionId" />
                         <xsl:with-param name="optionCount" select="$optionCount" />
-                        <xsl:with-param name="typeOverride" select="'checkbox'" />
                         <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                     </xsl:call-template>
                 </xsl:element>
@@ -1576,7 +1601,7 @@
                         <xsl:with-param name="qGroup" select="$qGroup" />
                         <xsl:with-param name="questionId" select="$questionId" />
                         <xsl:with-param name="optionCount" select="$optionCount" />
-                        <xsl:with-param name="typeOverride" select="'checkbox'" />
+                        <xsl:with-param name="typeOverride" />
                         <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                     </xsl:call-template>
                 </xsl:element>
@@ -1718,7 +1743,7 @@
                         <xsl:with-param name="qGroup" select="$qGroup" />
                         <xsl:with-param name="questionId" select="$questionId" />
                         <xsl:with-param name="optionCount" select="$optionCount" />
-                        <xsl:with-param name="typeOverride" select="'checkbox'" />
+                        <xsl:with-param name="typeOverride" />
                         <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                     </xsl:call-template>
                 </xsl:element>
@@ -1783,7 +1808,7 @@
                         <xsl:with-param name="qGroup" select="$qGroup" />
                         <xsl:with-param name="questionId" select="$questionId" />
                         <xsl:with-param name="optionCount" select="$optionCount" />
-                        <xsl:with-param name="typeOverride" select="'checkbox'" />
+                        <xsl:with-param name="typeOverride" />
                         <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                     </xsl:call-template>
                 </xsl:element>
@@ -1884,7 +1909,7 @@
                         <xsl:with-param name="qGroup" select="$qGroup" />
                         <xsl:with-param name="questionId" select="Control[1]/@ElementID" />
                         <xsl:with-param name="optionCount" select="$optionCount" />
-                        <xsl:with-param name="typeOverride" select="'checkbox'" />
+                        <xsl:with-param name="typeOverride" />
                         <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                     </xsl:call-template>
                 </xsl:element>
@@ -1940,7 +1965,7 @@
                 <xsl:with-param name="subType" select="'option'" />
             </xsl:call-template>
         </xsl:for-each>
-        
+
         <xsl:choose>
             <xsl:when test="$optionCount > 1">
                 <xsl:element name="fieldset">
@@ -1972,7 +1997,7 @@
                         <xsl:with-param name="qGroup" select="$qGroup" />
                         <xsl:with-param name="questionId" select="Control[1]/@ElementID" />
                         <xsl:with-param name="optionCount" select="$optionCount" />
-                        <xsl:with-param name="typeOverride" select="'checkbox'" />
+                        <xsl:with-param name="typeOverride" />
                         <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                     </xsl:call-template>
                 </xsl:element>
@@ -2044,7 +2069,7 @@
                     <xsl:with-param name="qGroup" select="$qGroup" />
                     <xsl:with-param name="questionId" select="Control[1]/@ElementID" />
                     <xsl:with-param name="optionCount" select="$optionCount" />
-                    <xsl:with-param name="typeOverride" select="'checkbox'" />
+                    <xsl:with-param name="typeOverride" />
                     <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                 </xsl:call-template>
             </xsl:when>
@@ -2110,7 +2135,7 @@
                         <xsl:with-param name="qGroup" select="$qGroup" />
                         <xsl:with-param name="questionId" select="$questionId" />
                         <xsl:with-param name="optionCount" select="$optionCount" />
-                        <xsl:with-param name="typeOverride" select="'checkbox'" />
+                        <xsl:with-param name="typeOverride" />
                         <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                     </xsl:call-template>
                 </xsl:element>
@@ -2943,7 +2968,7 @@
                     <xsl:with-param name="qGroup" select="$qGroup" />
                     <xsl:with-param name="questionId" select="$questionId" />
                     <xsl:with-param name="optionCount" select="$optionCount" />
-                    <xsl:with-param name="typeOverride" select="'checkbox'" />
+                    <xsl:with-param name="typeOverride" />
                 </xsl:call-template>
             </xsl:if>
         </xsl:when>
@@ -3189,9 +3214,18 @@
                     <xsl:text>off</xsl:text>
                 </xsl:attribute>
 
-                <xsl:attribute name="placeholder">
-                    <xsl:value-of select="Style/Control/@Placeholder" />
-                </xsl:attribute>
+                <xsl:choose>
+                    <xsl:when test="../Error">
+                        <xsl:call-template name="insert-error-placeholder">
+                            <xsl:with-param name="errorString" select="../Error/Text" />
+                        </xsl:call-template>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:attribute name="placeholder">
+                            <xsl:value-of select="Style/Control/@Placeholder" />
+                        </xsl:attribute>
+                    </xsl:otherwise>
+                </xsl:choose>
 
             </xsl:element>
 
@@ -3256,9 +3290,18 @@
                     <xsl:text>a-input-dropdown</xsl:text>
                 </xsl:attribute>
 
-                <xsl:attribute name="placeholder">
-                    <xsl:value-of select="Style/Control/@Placeholder" />
-                </xsl:attribute>
+                <xsl:choose>
+                    <xsl:when test="../Error">
+                        <xsl:call-template name="insert-error-placeholder">
+                            <xsl:with-param name="errorString" select="../Error/Text" />
+                        </xsl:call-template>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:attribute name="placeholder">
+                            <xsl:value-of select="Style/Control/@Placeholder" />
+                        </xsl:attribute>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:element>
 
             <xsl:call-template name="o-list">
@@ -4293,11 +4336,23 @@
                         </xsl:attribute>
                         <!-- not(./Style/Control/@Type='SingleLineEdit') -->
                         <xsl:for-each select="Control[position()>$nonOptionCount]">
+                            <xsl:variable name="testforOverride">
+                                <xsl:if test="./Style/Control/@Type">
+                                    <xsl:choose>
+                                        <xsl:when test="./Style/Control/@Type='RadioButton'">
+                                            <xsl:text>radio</xsl:text>
+                                        </xsl:when>
+                                        <xsl:when test="./Style/Control/@Type='CheckButton'">
+                                            <xsl:text>checkbox</xsl:text>
+                                        </xsl:when>
+                                    </xsl:choose>
+                                </xsl:if>
+                            </xsl:variable>
                             <xsl:call-template name="m-option-base">
                                 <xsl:with-param name="qType" select="@Type" />
                                 <xsl:with-param name="qGroup" select="$qGroup" />
                                 <xsl:with-param name="currentControl" select="." />
-                                <xsl:with-param name="typeOverride" select="$typeOverride" />
+                                <xsl:with-param name="typeOverride" select="$testforOverride" />
                                 <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                             </xsl:call-template>
                         </xsl:for-each>
@@ -4312,11 +4367,24 @@
                     </xsl:attribute>
 
                     <xsl:for-each select="Control[position()>$nonOptionCount]">
+                        <xsl:variable name="testforOverride">
+                            <xsl:if test="./Style/Control/@Type">
+                                <xsl:choose>
+                                    <xsl:when test="./Style/Control/@Type='RadioButton'">
+                                        <xsl:text>radio</xsl:text>
+                                    </xsl:when>
+                                    <xsl:when test="./Style/Control/@Type='CheckButton'">
+                                        <xsl:text>checkbox</xsl:text>
+                                    </xsl:when>
+                                </xsl:choose>
+                            </xsl:if>
+                        </xsl:variable>
+
                         <xsl:call-template name="m-option-base">
                             <xsl:with-param name="qType" select="@Type" />
                             <xsl:with-param name="qGroup" select="$qGroup" />
                             <xsl:with-param name="currentControl" select="." />
-                            <xsl:with-param name="typeOverride" select="$typeOverride" />
+                            <xsl:with-param name="typeOverride" select="$testforOverride" />
                             <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                         </xsl:call-template>
                     </xsl:for-each>
