@@ -21,87 +21,31 @@ Overrides for Storybook Docs and UI.
     }
 }
 
-/* Base table style used across all documentation pages to present structured content (e.g. variations, states, LTR/RTL comparisons). Applied via className="docs-table" on a <table> element. */
-.docs-table {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    border-radius: 4px;
-    box-shadow: rgba(0, 0, 0, 0.1) 0 1px 3px 0;
-    overflow: hidden;
+/*
+    CSS grid for FigmaEmbed components.
+    Column count is controlled via --cols (default: 2).
+    Collapses to 1 column below 700px automatically.
+    Examples:
+      1-column : style={{ "--cols": 1 }}
+      2-column : <div className="docs-figma-grid"> (default)
+      3-column : style={{ "--cols": 3 }}
+      4-column : style={{ "--cols": 4 }}
+*/
+.docs-figma-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--cols, 2), 1fr);
+    gap: 1rem;
     margin: 16px 0 32px 0 !important;
 }
 
-/* Column headers in the table head — used to label each column, e.g. "LTR", "RTL", "Unanswered", "Answered". */
-.docs-table thead th {
-    background-color: #f6f9fc;
-    padding: 8px 16px;
-    text-align: left;
-    font-weight: 600;
-    font-size: 14px;
-    border-bottom: 1px solid #e2e8f0;
+/* Makes a grid item span all columns — use on a wrapper div inside .docs-figma-grid. */
+.docs-figma-span-full {
+    grid-column: 1 / -1;
 }
 
-/* Data cells holding the main content of each row, typically images or code examples. */
-.docs-table tbody td {
-    padding: 16px !important;
-    vertical-align: top;
-    text-align: center;
+@media (max-width: 700px) {
+    .docs-figma-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
-/* Section divider row inside <tbody> used to label a group of rows below it (e.g. "Sub-heading: False", "Sub-heading: True"). Applied via className="docs-table-group" on the <tr> element. */
-.docs-table-group th {
-    background-color: #f6f9fc;
-    padding: 8px 16px;
-    text-align: left;
-    font-weight: 600;
-    font-size: 14px;
-    border-top: 1px solid #e2e8f0;
-}
-
-/* Wrapper around a .docs-table that enables the Figma link overlay. Required when a table has a corresponding "Open in Figma" link. */
-.docs-table-wrapper {
-    position: relative;
-    display: block;
-}
-
-/* A link to the corresponding Figma file or component, anchored to the bottom-right corner of .docs-table-wrapper. Hidden by default and revealed with a slide-up animation on wrapper hover. */
-.figma-link {
-    position: absolute;
-    bottom: 8px;
-    right: 8px;
-    display: inline-flex;
-    align-items: center;
-    padding: 4px 8px;
-    background: #006deb;
-    border-radius: 4px;
-    text-decoration: none;
-    white-space: nowrap;
-    transform: translateY(calc(100% + 12px));
-    opacity: 0;
-    transition:
-        transform 0.25s ease,
-        opacity 0.25s ease,
-        outline-color 0.15s ease,
-        color 0.15s ease;
-}
-
-.figma-link p {
-    margin: 0;
-    color: #ffffff;
-    font-size: 14px;
-    line-height: 20px;
-    font-weight: 700;
-}
-
-/* Highlights the Figma link on direct hover to signal it is interactive. */
-.figma-link:hover {
-    background: #1a84ff;
-    box-sizing: border-box;
-}
-
-/* Reveals the Figma link when the user hovers over the table wrapper. */
-.docs-table-wrapper:hover .figma-link {
-    transform: translateY(0);
-    opacity: 1;
-}

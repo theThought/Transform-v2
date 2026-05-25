@@ -1,16 +1,6 @@
 import { Meta } from '@storybook/addon-docs/blocks';
 import { Placeholder } from '../_shared/Placeholder';
-import choiceLtrImage from '../_shared/images/response/choice/variations-LTR.jpg';
-import choiceRtlImage from '../_shared/images/response/choice/variations-RTL.jpg';
-import sublistLtrImage from '../_shared/images/response/choice/sublist-LTR.jpg';
-import sublistRtlImage from '../_shared/images/response/choice/sublist-RTL.jpg';
-import sublistHeadingLtrImage from '../_shared/images/response/choice/sublist-heading-LTR.jpg';
-import sublistHeadingRtlImage from '../_shared/images/response/choice/sublist-heading-RTL.jpg';
-import optionStatesImage from '../_shared/images/response/choice/option-states.jpg';
-import optionStatesUnansweredImage from '../_shared/images/response/choice/option-states-unanswered.jpg';
-import optionStatesAnsweredImage from '../_shared/images/response/choice/option-states-answered.jpg';
-import optionStatesUnansweredReadOnlyImage from '../_shared/images/response/choice/option-states-unanswered-readonly.jpg';
-import optionStatesAnsweredReadOnlyImage from '../_shared/images/response/choice/option-states-answered-readonly.jpg';
+import { FigmaEmbed } from '../_shared/FigmaEmbed';
 
 <Meta title="Responses/Types/Choice" />
 
@@ -21,49 +11,9 @@ All the options are presented in a way that optimises readability while avoiding
 If there are lots of items in the list (making them difficult scan when reading) or they cannot be guaranteed to fit on a single screen then other response-types may be more suitable.
 Options within the response list can be at a single level or they can be grouped into sub-levels with a heading (these are called sublists).
 
-<div className="docs-table-wrapper">
-    <table className="docs-table">
-        <thead>
-            <tr>
-                <th>LTR</th>
-                <th>RTL</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>
-                    <img
-                        src={choiceLtrImage}
-                        alt="LTR layout"
-                        style={{
-                            width: '100%',
-                            maxWidth: '320px',
-                            objectFit: 'contain',
-                        }}
-                    />
-                </td>
-                <td>
-                    <img
-                        src={choiceRtlImage}
-                        alt="RTL layout"
-                        style={{
-                            width: '100%',
-                            maxWidth: '320px',
-                            objectFit: 'contain',
-                        }}
-                    />
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <a
-        href="https://www.figma.com/design/IOjm3xFXw2tcMF4MrkdS5j/o-choice?node-id=0-1&t=kHdhoAbrZscVhc6k-1"
-        className="figma-link"
-        target="_blank"
-        rel="noreferrer"
-    >
-        Open in Figma
-    </a>
+<div className="docs-figma-grid">
+    <FigmaEmbed fileKey="IOjm3xFXw2tcMF4MrkdS5j" nodeId="2123-1545" />
+    <FigmaEmbed fileKey="IOjm3xFXw2tcMF4MrkdS5j" nodeId="2123-1342" />
 </div>
 {/* 
 <Placeholder
@@ -101,79 +51,27 @@ A choice question contains a list of possible responses from which the responden
 
 Options can be presented as a single list or with sub-headings, when sub-headings are used an additional separator can be shown to help separate the parts of the option list. This is particularly useful when there is a mix of options in a sublist and options outside a sublist in the single question.
 
-<div className="docs-table-wrapper">
-    <table className="docs-table">
-        <thead>
-            <tr>
-                <th>LTR</th>
-                <th>RTL</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr className="docs-table-group">
-                <th colSpan={2}>Sub-heading: False</th>
-            </tr>
-            <tr style={{ background: '#fff' }}>
-                <td>
-                    <img
-                        src={sublistLtrImage}
-                        alt="LTR layout"
-                        style={{
-                            width: '100%',
-                            maxWidth: '200px',
-                            objectFit: 'contain',
-                        }}
-                    />
-                </td>
-                <td>
-                    <img
-                        src={sublistRtlImage}
-                        alt="RTL layout"
-                        style={{
-                            width: '100%',
-                            maxWidth: '200px',
-                            objectFit: 'contain',
-                        }}
-                    />
-                </td>
-            </tr>
-            <tr className="docs-table-group">
-                <th colSpan={2}>Sub-heading: True</th>
-            </tr>
-            <tr style={{ background: '#fff' }}>
-                <td>
-                    <img
-                        src={sublistHeadingLtrImage}
-                        alt="LTR layout"
-                        style={{
-                            width: '100%',
-                            maxWidth: '200px',
-                            objectFit: 'contain',
-                        }}
-                    />
-                </td>
-                <td>
-                    <img
-                        src={sublistHeadingRtlImage}
-                        alt="RTL layout"
-                        style={{
-                            width: '100%',
-                            maxWidth: '200px',
-                            objectFit: 'contain',
-                        }}
-                    />
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <a
-        href="https://www.figma.com/design/XkbtFRIgZLDqYGVPnQgXR7/o-option-sublist?node-id=0-1&t=3cGbvns7oN0G4dT2-1"
-        className="figma-link"
-        target="_blank"
-        rel="noreferrer"
-    >
-        Open in Figma
-    </a>
+<div className="docs-figma-grid">
+    <FigmaEmbed
+        fileKey="XkbtFRIgZLDqYGVPnQgXR7"
+        nodeId="133-1163"
+        height={320}
+    />
+    <FigmaEmbed
+        fileKey="XkbtFRIgZLDqYGVPnQgXR7"
+        nodeId="133-1164"
+        height={320}
+    />
+    <FigmaEmbed
+        fileKey="XkbtFRIgZLDqYGVPnQgXR7"
+        nodeId="133-1246"
+        height={400}
+    />
+    <FigmaEmbed
+        fileKey="XkbtFRIgZLDqYGVPnQgXR7"
+        nodeId="133-1247"
+        height={400}
+    />
 </div>
 {/* 
 <Placeholder
@@ -240,84 +138,34 @@ By default options are sized based upon their content. As the content varies bet
 ## States Individual options in a choice question have different states
 Depending on whether the option is selected and whether it is selectable.
 
-<div className="docs-table-wrapper">
-    <table className="docs-table">
-        <tbody>
-            <tr>
-                <td colSpan={4}>
-                    <img
-                        src={optionStatesImage}
-                        alt="Option states overview"
-                        style={{
-                            width: '100%',
-                            maxWidth: '200px',
-                            objectFit: 'contain',
-                        }}
-                    />
-                </td>
-            </tr>
-            <tr>
-                <th>Unanswered</th>
-                <th>Answered</th>
-                <th>Unanswered Read-Only</th>
-                <th>Answered Read-Only</th>
-            </tr>
-            <tr>
-                <td>
-                    <img
-                        src={optionStatesUnansweredImage}
-                        alt="Unanswered state"
-                        style={{
-                            width: '100%',
-                            maxWidth: '200px',
-                            objectFit: 'contain',
-                        }}
-                    />
-                </td>
-                <td>
-                    <img
-                        src={optionStatesAnsweredImage}
-                        alt="Answered state"
-                        style={{
-                            width: '100%',
-                            maxWidth: '200px',
-                            objectFit: 'contain',
-                        }}
-                    />
-                </td>
-                <td>
-                    <img
-                        src={optionStatesUnansweredReadOnlyImage}
-                        alt="Unanswered read-only state"
-                        style={{
-                            width: '100%',
-                            maxWidth: '200px',
-                            objectFit: 'contain',
-                        }}
-                    />
-                </td>
-                <td>
-                    <img
-                        src={optionStatesAnsweredReadOnlyImage}
-                        alt="Answered read-only state"
-                        style={{
-                            width: '100%',
-                            maxWidth: '200px',
-                            objectFit: 'contain',
-                        }}
-                    />
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <a
-        href="https://www.figma.com/design/sumLsNNNqp83i61KSt2pL0/m-option-base?node-id=1-2&t=lQlKh4kpz7cABjnY-1"
-        className="figma-link"
-        target="_blank"
-        rel="noreferrer"
-    >
-        Open in Figma
-    </a>
+<div className="docs-figma-grid">
+    <div className="docs-figma-span-full">
+        <FigmaEmbed
+            fileKey="XkbtFRIgZLDqYGVPnQgXR7"
+            nodeId="134-1330"
+            height={400}
+        />
+    </div>
+    <FigmaEmbed
+        fileKey="sumLsNNNqp83i61KSt2pL0"
+        nodeId="6191-1356"
+        height={200}
+    />
+    <FigmaEmbed
+        fileKey="sumLsNNNqp83i61KSt2pL0"
+        nodeId="6191-1357"
+        height={200}
+    />
+    <FigmaEmbed
+        fileKey="sumLsNNNqp83i61KSt2pL0"
+        nodeId="6191-1372"
+        height={200}
+    />
+    <FigmaEmbed
+        fileKey="sumLsNNNqp83i61KSt2pL0"
+        nodeId="6191-1373"
+        height={200}
+    />
 </div>
 {/* 
 <Placeholder
