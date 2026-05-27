@@ -60,6 +60,39 @@ export default class OList extends Component implements Observer {
         this.keyTimer = setTimeout(() => {
             this.clearKeyBuffer();
         }, this.keyBufferTimeout);
+
+        this.setListElement();
+        this.buildList();
+        this.buildVisibleList();
+        this.setListHeight();
+
+        this.createNotEnoughCharactersMessage();
+        this.createNoItemsInListMessage();
+        this.initialMinCharacterMessage();
+        this.setFilterMethod();
+    }
+
+    public connectedCallback(): void {
+        super.connectedCallback();
+
+        this.restoreSelection();
+
+        this.addEventListener('mousedown', this.handleEvent);
+        this.addEventListener('mouseover', this.handleEvent);
+        this.addEventListener('keydown', this.handleEvent);
+        this.addEventListener('keyup', this.handleEvent);
+        this.addEventListener('restore', this.handleEvent);
+        document.addEventListener('scroll', this);
+
+        if (this.response) this.response.addObserver(this);
+
+        this.control = this.closest('o-dropdown, o-combobox');
+
+        if (this.control) {
+            this.addVisibilityObserver();
+            this.control.addObserver(this);
+            this.removeTabIndex();
+        }
     }
 
     public update(method: string, data: CustomEvent | Event): void {
@@ -856,36 +889,5 @@ export default class OList extends Component implements Observer {
 
         // Start observing the target node for configured mutations
         observer.observe(this.control, config);
-    }
-
-    public connectedCallback(): void {
-        super.connectedCallback();
-
-        this.setListElement();
-        this.buildList();
-        this.buildVisibleList();
-        this.setListHeight(); // setListHeight must precede restoreSelection to ensure a pre-selected item is correctly scrolled into view
-        this.restoreSelection();
-        this.setFilterMethod();
-        this.createNotEnoughCharactersMessage();
-        this.createNoItemsInListMessage();
-        this.initialMinCharacterMessage();
-
-        this.addEventListener('mousedown', this.handleEvent);
-        this.addEventListener('mouseover', this.handleEvent);
-        this.addEventListener('keydown', this.handleEvent);
-        this.addEventListener('keyup', this.handleEvent);
-        this.addEventListener('restore', this.handleEvent);
-        document.addEventListener('scroll', this);
-
-        if (this.response) this.response.addObserver(this);
-
-        this.control = this.closest('o-dropdown, o-combobox');
-
-        if (this.control) {
-            this.addVisibilityObserver();
-            this.control.addObserver(this);
-            this.removeTabIndex();
-        }
     }
 }
