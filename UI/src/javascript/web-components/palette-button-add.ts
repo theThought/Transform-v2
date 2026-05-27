@@ -16,14 +16,25 @@ export default class PaletteButtonAdd extends Component implements Observer {
 
     private onClick(e: Event): void {
         e.preventDefault();
-        if (this.palette?.getAnswersRemainCount()) {
-            console.log('add entry');
+        if (this.palette?.getRemainingAnswerCount()) {
+            this.cloneQuestion();
         } else {
-            alert('No more answers remain to be completed.');
+            console.warn('The loop is fully populated.');
         }
     }
 
-    public update(method: string, detail: CustomEvent): void {}
+    private cloneQuestion(): void {
+        const cloneEvent = new CustomEvent('cloneQuestion', { bubbles: true });
+        this.dispatchEvent(cloneEvent);
+    }
+
+    public update(method: string, e: CustomEvent): void {
+        switch (method) {
+            case 'answerCountChange':
+                this.updateActiveState(e.detail.remainingAnswerCount);
+                break;
+        }
+    }
 
     private createButton(): void {
         const button = document.createElement('button');
@@ -40,11 +51,11 @@ export default class PaletteButtonAdd extends Component implements Observer {
         this.appendChild(button);
     }
 
-    private setActiveState(): void {
-        if (!this.palette?.getAnswersRemainCount()) {
-            this.closest('div.palette-empty')?.classList.add('inactive');
+    private updateActiveState(remainingAnswerCount: string): void {
+        if (!remainingAnswerCount) {
+            this.classList.add('inactive');
         } else {
-            this.closest('div.palette-empty')?.classList.remove('inactive');
+            this.classList.remove('inactive');
         }
     }
 
@@ -55,7 +66,5 @@ export default class PaletteButtonAdd extends Component implements Observer {
         this.palette = this.closest('o-palette');
 
         if (this.palette) this.palette.addObserver(this);
-
-        this.setActiveState();
     }
 }

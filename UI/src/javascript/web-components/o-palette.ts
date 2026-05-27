@@ -7,8 +7,48 @@ export default class OPalette extends Component implements Subject {
     private SubmitButton: HTMLElement | null = null;
     private CancelButton: HTMLElement | null = null;
     private loop: OPaletteLoop | null = null;
-    private AnswersRemainCount: number = 0;
-    private AnswerCurrentCount: number = 0;
+    private RemainingAnswerCount: number = 0;
+
+    public handleEvent(e: CustomEvent): void {
+        switch (e.type) {
+            case 'cloneQuestion':
+                this.cloneQuestion(e);
+                break;
+        }
+    }
+
+    private cloneQuestion(e: CustomEvent): void {
+        e.stopImmediatePropagation();
+
+        const destination = this.querySelector('.palette-inprogress');
+        if (!destination) return;
+
+        const elements: NodeListOf<HTMLElement> = destination.querySelectorAll(
+            '[data-associate-type]',
+        );
+
+        elements.forEach((element) => {
+            const associateType = element.dataset.associateType;
+            const associateName = element.dataset.associateQuestion;
+            let source: Node | null = null;
+
+            switch (associateType) {
+                case 'label':
+                    source = document.querySelector(
+                        `o-response[data-associate-question="${associateName}"] label[data-associate-type="${associateType}"]`,
+                    );
+                    break;
+                case 'control':
+                    source = document.querySelector(
+                        `o-response[data-associate-question="${associateName}"]`,
+                    );
+                    break;
+            }
+
+            if (!source) return;
+            element.appendChild(source);
+        });
+    }
 
     private configureSubmitButton(): void {
         this.SubmitButton = this.querySelector('button.a-button-icon.submit');
@@ -45,19 +85,23 @@ export default class OPalette extends Component implements Subject {
     private updateRemainingAnswers(): void {
         if (!this.loop) return;
 
-        this.AnswersRemainCount =
+        this.RemainingAnswerCount =
             this.loop.getExpectedAnswerCount() -
             this.loop.getCurrentAnswerCount();
-
-        console.log(`Remaining answers: ${this.AnswersRemainCount}`);
     }
 
-    public getAnswersRemainCount(): number {
-        return this.AnswersRemainCount;
+    public getRemainingAnswerCount(): number {
+        return this.RemainingAnswerCount;
     }
 
     addObserver(observer: Observer): void {
         this.observers.push(observer);
+        const answerCount = new CustomEvent('answerCountChange', {
+            detail: {
+                remainingAnswerCount: this.getRemainingAnswerCount(),
+            },
+        });
+        observer.update('answerCountChange', answerCount);
     }
 
     removeObserver(observer: Observer): void {
@@ -80,6 +124,7 @@ export default class OPalette extends Component implements Subject {
     }
 
     public connectedCallback(): void {
+        this.addEventListener('cloneQuestion', this);
         this.configureSubmitButton();
         this.configureCancelButton();
         this.configureLoop();
