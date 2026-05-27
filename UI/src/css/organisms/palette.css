@@ -1,21 +1,21 @@
 .palette-empty {
-    border: 1px solid red;
+    border: var(--border-thickness) solid var(--color-light1);
+    margin: var(--space-2) 0;
 }
 
 .palette-inprogress {
-    border: 1px solid orange;
-
-    &::before {
-        content: '(CSS PLACEHOLDER TEXT: In-progress palette area)';
-    }
+    border: var(--border-thickness) solid var(--color-light1);
+    margin: var(--space-2) 0;
 }
 
 .palette-complete {
-    border: 1px solid green;
+    border: var(--border-thickness) solid var(--color-light1);
+    margin: var(--space-2) 0;
 }
 
 .history-empty {
-    border: 1px solid red;
+    border: var(--border-thickness) solid var(--color-light1);
+    margin: var(--space-2) 0;
 
     &::before {
         content: attr(caption);
