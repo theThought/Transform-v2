@@ -4,6 +4,7 @@ import { Observer, Subject } from '../interfaces';
 
 export default class OPalette extends Component implements Subject {
     protected observers: Observer[] = [];
+    private Block: HTMLElement | null = null;
     private SubmitButton: HTMLElement | null = null;
     private CancelButton: HTMLElement | null = null;
     private loop: OPaletteLoop | null = null;
@@ -20,10 +21,9 @@ export default class OPalette extends Component implements Subject {
     private cloneQuestion(e: CustomEvent): void {
         e.stopImmediatePropagation();
 
-        const destination = this.querySelector('.palette-inprogress');
-        if (!destination) return;
+        if (!this.Block) return;
 
-        const elements: NodeListOf<HTMLElement> = destination.querySelectorAll(
+        const elements: NodeListOf<HTMLElement> = this.Block.querySelectorAll(
             '[data-associate-type]',
         );
 
@@ -39,14 +39,19 @@ export default class OPalette extends Component implements Subject {
                     );
                     break;
                 case 'control':
-                    source = document.querySelector(
-                        `o-response[data-associate-question="${associateName}"]`,
+                    source = document.createElement('o-question');
+                    const control = <Node>(
+                        document.querySelector(
+                            `o-response[data-associate-question="${associateName}"]`,
+                        )
                     );
+                    source.appendChild(control);
                     break;
             }
 
             if (!source) return;
             element.appendChild(source);
+            this.Block?.classList.remove('inactive');
         });
     }
 
@@ -123,11 +128,17 @@ export default class OPalette extends Component implements Subject {
         }
     }
 
+    private configureBlock(): void {
+        this.Block = this.querySelector('.palette-inprogress');
+        this.Block?.classList.add('inactive');
+    }
+
     public connectedCallback(): void {
         this.addEventListener('cloneQuestion', this);
         this.configureSubmitButton();
         this.configureCancelButton();
         this.configureLoop();
+        this.configureBlock();
         this.updateRemainingAnswers();
     }
 }

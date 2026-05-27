@@ -1,7 +1,7 @@
 import Component from './component';
 import OLoop from './o-palette-loop';
 
-export default class OPaletteHistory extends Component {
+export default class OHistory extends Component {
     public values: Array<HTMLInputElement> = [];
     private EmptyMessage: HTMLElement | null = null;
     private HistoryDestination: HTMLElement | null = null;

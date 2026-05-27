@@ -16,8 +16,10 @@ export default class PaletteButtonAdd extends Component implements Observer {
 
     private onClick(e: Event): void {
         e.preventDefault();
+
         if (this.palette?.getRemainingAnswerCount()) {
             this.cloneQuestion();
+            this.updateActiveState(0);
         } else {
             console.warn('The loop is fully populated.');
         }
@@ -51,12 +53,8 @@ export default class PaletteButtonAdd extends Component implements Observer {
         this.appendChild(button);
     }
 
-    private updateActiveState(remainingAnswerCount: string): void {
-        if (!remainingAnswerCount) {
-            this.classList.add('inactive');
-        } else {
-            this.classList.remove('inactive');
-        }
+    private updateActiveState(remainingAnswerCount: number): void {
+        this.classList.toggle('inactive', !remainingAnswerCount);
     }
 
     public connectedCallback(): void {
