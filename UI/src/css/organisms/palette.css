@@ -1,0 +1,74 @@
+.palette-empty {
+    border: 1px solid red;
+}
+
+.palette-inprogress {
+    border: 1px solid orange;
+
+    &::before {
+        content: '(CSS PLACEHOLDER TEXT: In-progress palette area)';
+    }
+}
+
+.palette-complete {
+    border: 1px solid green;
+}
+
+.history-empty {
+    border: 1px solid red;
+
+    &::before {
+        content: attr(caption);
+    }
+}
+
+.a-button-icon.add {
+    background-color: transparent;
+    display: flex;
+    padding: 0;
+
+    span.icon {
+        background-color: var(--color-primary);
+        color: white;
+        font-size: 28px;
+        width: 40px;
+    }
+
+    span.caption {
+        align-content: center;
+        color: var(--color-primary);
+        padding-inline: var(--space-2);
+    }
+}
+
+.a-button-icon.submit {
+    background-color: transparent;
+    background-image: url('../../images/save.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.a-button-icon.cancel {
+    background-color: transparent;
+    background-image: url('../../images/cancel.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+palette-message-information {
+    background-color: var(--color-information);
+
+    &::before {
+        content: attr(caption);
+    }
+}
+
+o-palette-loop {
+    display: block;
+}
+
+.inactive {
+    background-color: var(--color-light1);
+    opacity: 0.3;
+    pointer-events: none;
+}

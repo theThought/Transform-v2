@@ -28,11 +28,11 @@ import OList from './web-components/o-list';
 import AProperties from './web-components/a-properties';
 import OMediaImage from './web-components/o-media-image';
 import OPalette from './web-components/o-palette';
-import OPaletteActive from './web-components/o-palette-active';
-import OPaletteEmpty from './web-components/o-palette-empty';
-import OPaletteEnd from './web-components/o-palette-end';
-import OPaletteForm from './web-components/o-palette-form';
+import OPaletteLoop from './web-components/o-palette-loop';
 import OPaletteHistory from './web-components/o-palette-history';
+import OPaletteHistoryEntry from './web-components/o-palette-history-entry';
+import PaletteButtonAdd from './web-components/palette-button-add';
+import PaletteMessageInformation from './web-components/palette-message-information';
 
 export const uiInit = (): void => {
     // DEMO web component for Storybook introduction.
@@ -71,18 +71,22 @@ export const uiInit = (): void => {
         customElements.define('o-slider', OSlider);
     !customElements.get('o-media-image') &&
         customElements.define('o-media-image', OMediaImage);
+
+    !customElements.get('o-palette-loop') &&
+        customElements.define('o-palette-loop', OPaletteLoop);
     !customElements.get('o-palette') &&
         customElements.define('o-palette', OPalette);
-    !customElements.get('o-palette-active') &&
-        customElements.define('o-palette-active', OPaletteActive);
-    !customElements.get('o-palette-empty') &&
-        customElements.define('o-palette-empty', OPaletteEmpty);
-    !customElements.get('o-palette-end') &&
-        customElements.define('o-palette-end', OPaletteEnd);
-    !customElements.get('o-palette-form') &&
-        customElements.define('o-palette-form', OPaletteForm);
     !customElements.get('o-palette-history') &&
         customElements.define('o-palette-history', OPaletteHistory);
+    !customElements.get('o-palette-history-entry') &&
+        customElements.define('o-palette-history-entry', OPaletteHistoryEntry);
+    !customElements.get('palette-button-add') &&
+        customElements.define('palette-button-add', PaletteButtonAdd);
+    !customElements.get('palette-message-information') &&
+        customElements.define(
+            'palette-message-information',
+            PaletteMessageInformation,
+        );
 
     // Inner components.
     !customElements.get('a-scale-unit') &&
