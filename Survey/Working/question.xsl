@@ -21,6 +21,7 @@
             <xsl:when test="$questionCount > 1">
                 <xsl:element name="Questions">
                 <xsl:for-each select="*">
+                    <xsl:element name="o-question">>
                     <xsl:choose>
                         <xsl:when test="name()='Question'">
                             <xsl:call-template name="Question" />
@@ -31,6 +32,7 @@
                         </Other>
                         </xsl:otherwise>
                     </xsl:choose>
+                    </xsl:element>
                 </xsl:for-each>
                 </xsl:element>
             </xsl:when>

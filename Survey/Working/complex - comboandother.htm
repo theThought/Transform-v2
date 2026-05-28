@@ -1,0 +1,116 @@
+<mrSubTemplate>
+    <o-palette>
+        <div class="palette-empty">
+            <span class="a-label-history" data-translate="palette-empty"></span>
+        </div>
+        <div class="palette-complete">
+            <span class="a-label-history" data-translate="palette-complete" data-translate-purpose="content"></span>
+        </div>
+        <div class="palette-inprogress">
+            <style>
+                .palette-inprogress {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    grid-template-rows: auto auto auto;
+
+                    column-gap: 16px;
+                    row-gap: 8px;
+
+                    width: 90%;
+                }
+                .label-cbDrugTest {
+                    grid-column: 1;
+                    grid-row: 1;
+                }
+                .label-otherdrug {
+                    grid-column: 1;
+                    grid-row: 2;
+                }
+                .control-cbDrugTest {
+                    grid-column: 2;
+                    grid-row: 1;
+                }
+                .control-otherdrug {
+                    grid-column: 2;
+                    grid-row: 2;
+                }
+                .palette-button-row {
+                    grid-column: 2;
+                    grid-row: 3;
+
+                    justify-self: end;
+
+                    display: grid;
+                    grid-auto-flow: column;
+                    gap: 12px;
+                }
+            </style>
+            <div class="label-cbDrugTest" data-associate-type="label" data-associate-question="cb_drugtest">
+                <!-- drugtest label -->
+            </div>
+            <div class="control-cbDrugTest" data-associate-question="cb_drugtest" data-associate-type="control">
+                <!-- drugtest control -->
+            </div>
+            <div class="label-otherdrug" data-associate-type="label" data-associate-question="otherdrug">
+                <!-- otherdrug label -->
+            </div>
+            <div class="control-otherdrug" data-associate-question="otherdrug" data-associate-type="control">
+                <!-- otherdrug control -->
+            </div>
+
+            <div class="palette-button-row">
+                <button class="a-button-icon cancel">
+                    <!-- cancel button -->
+                    <img class="a-icon-singlestate" alt="Cancel changes" src="https://cdn.ipsosinteractive.com/sandbox/kevin.gray/transform/v2/staging/static/cancel.svg" />
+                </button>
+                <button class="a-button-icon submit">
+                    <img class="a-icon-singlestate" alt="Save changes" src="https://cdn.ipsosinteractive.com/sandbox/kevin.gray/transform/v2/staging/static/save.svg" />
+                </button>           
+            </div>
+        </div>
+         <o-history>
+            <template class="l-row-template">
+                    <div class="l-col-history-ftd">
+                        <ftd type="span" color="{'visible':{'colapse':true,'rules':'drugtest.containsAny('other1','other2')'}}">
+                            <strong>
+                                <ftd type="static" data-translate="other" data-translate-purpose="content"><!-- string --></ftd>
+                                <span>: </span>
+                            </strong>
+                            <ftd type="variable" data-associate-control="otherdrug"><!-- Otherdrug Value --></ftd>
+                        </ftd>
+                        <ftd type="variable" data-associate-control="otherdrug" color="{'invisible':{'colapse':true,'rules':'drugtest.containsAny('other1','other2')'}}"><!-- cb_drugtest Value --></ftd>
+                    </div>
+                    <div class="l-col-history">
+                        <div class="l-history-edit">
+                            <button class="a-button-icon edit">
+                                <img class="a-icon-singlestate" data-translate="history-button-edit" data-translate-purpose="alt" src="https://cdn.ipsosinteractive.com/sandbox/kevin.gray/transform/v2/staging/static/edit.svg" />
+                            </button>
+                            <img class="a-icon-singlestate " data-translate="history-indicator-edit" data-translate-purpose="alt" src="https://cdn.ipsosinteractive.com/sandbox/kevin.gray/transform/v2/staging/static/edit.svg" alt="Edit record" />
+                        </div>
+                        <div class="l-history-delete">
+                            <button class="a-button-icon delete">
+                                <img class="a-icon-singlestate" data-translate="history-button-delete" data-translate-purpose="alt" src="https://cdn.ipsosinteractive.com/sandbox/kevin.gray/transform/v2/staging/static/delete.svg" />
+                            </button>
+                            <button class="a-button-icon reset">
+                                <img class="a-icon-singlestate" data-translate="history-button-reset" data-translate-purpose="alt" src="https://cdn.ipsosinteractive.com/sandbox/kevin.gray/transform/v2/staging/static/reset.svg" />
+                            </button>
+                        </div>
+                    </div>
+                </template>
+            <div class="history-empty">
+                <span class="a-label-history" data-translate="history-empty" data-translate-purpose="content"></span>
+            </div>
+            <div class="history-inprogress">
+                
+                <div class="l-row-header">
+                    <div class="l-col">
+                        <span class="a-label-question" data-associate-question="triggerword" data-associate-type="label"><!-- Question label --></span>
+                    </div>
+                </div>
+                <div class="l-row-history">
+                    <!-- history rows will be dynamically inserted here -->
+                </div>
+            </div>
+        </o-history>
+    </o-palette>
+</mrSubTemplate>
