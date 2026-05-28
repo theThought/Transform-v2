@@ -1,22 +1,4 @@
-.palette-empty {
-    border: var(--border-thickness) solid var(--color-light1);
-    margin: var(--space-2) 0;
-}
-
-.palette-inprogress {
-    border: var(--border-thickness) solid var(--color-light1);
-    margin: var(--space-2) 0;
-}
-
-.palette-complete {
-    border: var(--border-thickness) solid var(--color-light1);
-    margin: var(--space-2) 0;
-}
-
 .history-empty {
-    border: var(--border-thickness) solid var(--color-light1);
-    margin: var(--space-2) 0;
-
     &::before {
         content: attr(caption);
     }
