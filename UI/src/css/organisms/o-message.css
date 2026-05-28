@@ -13,6 +13,8 @@ details {
         border-end-start-radius: var(--border-radius);
         inset-inline-start: 0;
         padding: 0 var(--space-2);
+        padding-block-end: var(--space-2);
+        padding-inline-end: var(--space-4);
         position: absolute;
         width: 100%;
     }
@@ -20,6 +22,7 @@ details {
     > summary {
         list-style: none;
         padding-block-end: var(--space-2);
+        padding-inline-end: var(--space-4);
 
         &::marker {
             content: none;
