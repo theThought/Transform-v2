@@ -1,10 +1,14 @@
 <mrSubTemplate>
     <o-palette>
         <div class="palette-empty">
-            <span class="a-label-history" data-translate="palette-empty"></span>
+            <button class="m-button-action" data-translate="add-button" data-translate-purpose="caption">
+                <!-- Add button -->
+            </button>
         </div>
         <div class="palette-complete">
-            <span class="a-label-history" data-translate="palette-complete" data-translate-purpose="content"></span>
+            <div class="m-message-information" data-translate="palette-complete" data-translate-purpose="content">
+                <!-- empty content message -->
+            </div>
         </div>
         <div class="palette-inprogress">
             <style>
@@ -61,10 +65,10 @@
             <div class="palette-button-row">
                 <button class="a-button-icon cancel">
                     <!-- cancel button -->
-                    <img class="a-icon-singlestate" alt="Cancel changes" src="https://cdn.ipsosinteractive.com/sandbox/kevin.gray/transform/v2/staging/static/cancel.svg" />
+                    <img class="a-icon-singlestate" data-translate="Cancel-alt" data-translate-purpose="alt" src="https://cdn.ipsosinteractive.com/sandbox/kevin.gray/transform/v2/staging/static/cancel.svg" />
                 </button>
                 <button class="a-button-icon submit">
-                    <img class="a-icon-singlestate" alt="Save changes" src="https://cdn.ipsosinteractive.com/sandbox/kevin.gray/transform/v2/staging/static/save.svg" />
+                    <img class="a-icon-singlestate" data-translate="Save-alt" data-translate-purpose="alt" src="https://cdn.ipsosinteractive.com/sandbox/kevin.gray/transform/v2/staging/static/save.svg" />
                 </button>           
             </div>
         </div>
@@ -73,7 +77,7 @@
                     <div class="l-col-history-ftd">
                         <ftd type="span" color="{'visible':{'colapse':true,'rules':'drugtest.containsAny('other1','other2')'}}">
                             <strong>
-                                <ftd type="static" data-translate="other" data-translate-purpose="content"><!-- string --></ftd>
+                                <ftd type="static" data-translate="ftd-other" data-translate-purpose="content"><!-- string --></ftd>
                                 <span>: </span>
                             </strong>
                             <ftd type="variable" data-associate-control="otherdrug"><!-- Otherdrug Value --></ftd>

@@ -25,7 +25,7 @@
 		<meta name="theme-color" content="#ffffff"/>
 	</head>
 	<body>
-		<form name="mrForm" id="mrForm" action="./" method="post"><input type="hidden" name="I.Engine" value="Server"/><input type="hidden" name="I.Project" value="TRANSFORMV2"/><input type="hidden" name="I.Session" value="e5xumhzvf1nebna6i6dp6frco3aqaaaa"/><input type="hidden" name="I.SavePoint" value="FormComboAndOtherPage"/><input type="hidden" name="I.Language" value="en-US"/><input type="hidden" name="I.Renderer" value="HTMLPlayer"/><a-properties data-properties="{&quot;validate&quot;:true,&quot;floatdetails&quot;:false,&quot;separator&quot;:true,&quot;sidebyside&quot;:35,&quot;focus&quot;:{&quot;question&quot;:true,&quot;control&quot;:true},&quot;paste&quot;:false,&quot;jumptoerror&quot;:true,&quot;tab&quot;:&quot;Form1Question&quot;,&quot;resettonull&quot;:true}"><!-- Page Properties --></a-properties><header class="header">
+		<form name="mrForm" id="mrForm" action="./" method="post"><input type="hidden" name="I.Engine" value="Server"/><input type="hidden" name="I.Project" value="TRANSFORMV2"/><input type="hidden" name="I.Session" value="whtx2izo5xxurnbvlra2thagcuaqaaaa"/><input type="hidden" name="I.SavePoint" value="FormComboAndOtherPage"/><input type="hidden" name="I.Language" value="en-US"/><input type="hidden" name="I.Renderer" value="HTMLPlayer"/><a-properties data-properties="{&quot;validate&quot;:true,&quot;floatdetails&quot;:false,&quot;separator&quot;:true,&quot;sidebyside&quot;:35,&quot;focus&quot;:{&quot;question&quot;:true,&quot;control&quot;:true},&quot;paste&quot;:false,&quot;jumptoerror&quot;:true,&quot;tab&quot;:&quot;Form1Question&quot;,&quot;resettonull&quot;:true}"><!-- Page Properties --></a-properties><header class="header">
 				<img class="site-logo" alt="Ipsos Logo" title="Ipsos Logo" src="https://cdn.ipsosinteractive.com/sandbox/kevin.gray/transform/v2/staging/static/ipsoslogo192.png"/>
 				<h1>
 					<!-- Page Header Banner -->
@@ -34,123 +34,17 @@
 				</h1>
 			</header>
 			<main class="surroundcontent">
-				<!--No question label-->
-				<!-- only used for tabstrips -->
 				<o-page>
 					<o-question data-global="false">
 						<!--No question label-->
-						<o-palette>
-							<div class="palette-empty">
-								<span class="a-label-history" data-translate="palette-empty"></span>
-							</div>
-							<div class="palette-complete">
-								<span class="a-label-history" data-translate="palette-complete" data-translate-purpose="content"></span>
-							</div>
-							<div class="palette-inprogress">
-								<style>
-                                    .palette-inprogress {
-                                        display: grid;
-                                        grid-template-columns: 1fr 1fr;
-                                        grid-template-rows: auto auto auto;
-
-                                        column-gap: 16px;
-                                        row-gap: 8px;
-
-                                        width: 90%;
-                                    }
-                                    .label-cbDrugTest {
-                                        grid-column: 1;
-                                        grid-row: 1;
-                                    }
-                                    .label-otherdrug {
-                                        grid-column: 1;
-                                        grid-row: 2;
-                                    }
-                                    .control-cbDrugTest {
-                                        grid-column: 2;
-                                        grid-row: 1;
-                                    }
-                                    .control-otherdrug {
-                                        grid-column: 2;
-                                        grid-row: 2;
-                                    }
-                                    .palette-button-row {
-                                        grid-column: 2;
-                                        grid-row: 3;
-
-                                        justify-self: end;
-
-                                        display: grid;
-                                        grid-auto-flow: column;
-                                        gap: 12px;
-                                    }
-                                </style>
-								<div class="label-cbDrugTest" data-associate-type="label" data-associate-question="cb_drugtest">
-									<!-- drugtest label -->
-								</div>
-								<div class="control-cbDrugTest" data-associate-question="cb_drugtest" data-associate-type="control">
-									<!-- drugtest control -->
-								</div>
-								<div class="label-otherdrug" data-associate-type="label" data-associate-question="otherdrug">
-									<!-- otherdrug label -->
-								</div>
-								<div class="control-otherdrug" data-associate-question="otherdrug" data-associate-type="control">
-									<!-- otherdrug control -->
-								</div>
-								<div class="palette-button-row">
-									<button class="a-button-icon cancel">
-										<!-- cancel button -->
-										<img class="a-icon-singlestate" alt="Cancel changes" src="https://cdn.ipsosinteractive.com/sandbox/kevin.gray/transform/v2/staging/static/cancel.svg"/>
-									</button>
-									<button class="a-button-icon submit">
-										<img class="a-icon-singlestate" alt="Save changes" src="https://cdn.ipsosinteractive.com/sandbox/kevin.gray/transform/v2/staging/static/save.svg"/>
-									</button>
-								</div>
-							</div>
-							<o-history>
-								<template class="l-row-template">
-									<div class="l-col-history-ftd">
-										<ftd type="span" color="{'visible':{'colapse':true,'rules':'drugtest.containsAny('other1','other2')'}}">
-											<strong>
-												<ftd type="static" data-translate="other" data-translate-purpose="content"><!-- string --></ftd>
-												<span>: </span>
-											</strong>
-											<ftd type="variable" data-associate-control="otherdrug"><!-- Otherdrug Value --></ftd>
-										</ftd>
-										<ftd type="variable" data-associate-control="otherdrug" color="{'invisible':{'colapse':true,'rules':'drugtest.containsAny('other1','other2')'}}"><!-- cb_drugtest Value --></ftd>
-									</div>
-									<div class="l-col-history">
-										<div class="l-history-edit">
-											<button class="a-button-icon edit">
-												<img class="a-icon-singlestate" data-translate="history-button-edit" data-translate-purpose="alt" src="https://cdn.ipsosinteractive.com/sandbox/kevin.gray/transform/v2/staging/static/edit.svg"/>
-											</button>
-											<img class="a-icon-singlestate " data-translate="history-indicator-edit" data-translate-purpose="alt" src="https://cdn.ipsosinteractive.com/sandbox/kevin.gray/transform/v2/staging/static/edit.svg" alt="Edit record"/>
-										</div>
-										<div class="l-history-delete">
-											<button class="a-button-icon delete">
-												<img class="a-icon-singlestate" data-translate="history-button-delete" data-translate-purpose="alt" src="https://cdn.ipsosinteractive.com/sandbox/kevin.gray/transform/v2/staging/static/delete.svg"/>
-											</button>
-											<button class="a-button-icon reset">
-												<img class="a-icon-singlestate" data-translate="history-button-reset" data-translate-purpose="alt" src="https://cdn.ipsosinteractive.com/sandbox/kevin.gray/transform/v2/staging/static/reset.svg"/>
-											</button>
-										</div>
-									</div>
-								</template>
-								<div class="history-empty">
-									<span class="a-label-history" data-translate="history-empty" data-translate-purpose="content"></span>
-								</div>
-								<div class="history-inprogress">
-									<div class="l-row-header">
-										<div class="l-col">
-											<span class="a-label-question" data-associate-question="triggerword" data-associate-type="label"><!-- Question label --></span>
-										</div>
-									</div>
-									<div class="l-row-history">
-										<!-- history rows will be dynamically inserted here -->
-									</div>
-								</div>
-							</o-history>
-						</o-palette>
+						<o-page>
+							<o-question data-global="false">
+								<!--No question label-->
+								<!--Parent: Questions-->
+								<!--Current: qCalcGroup=_QFormComboAndOtherPage_QpaletteqGroup=-->
+								<o-response data-has-container="true" data-question-group="_QFormComboAndOtherPage_Qpalette" data-associate-question="palette" data-position="below"/>
+							</o-question>
+						</o-page>
 						<o-question data-global="false">
 							<div class="l-cover"><!-- cover --></div>
 							<div class="l-row">
