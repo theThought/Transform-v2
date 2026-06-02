@@ -5,6 +5,8 @@ import { Observer, Subject } from '../interfaces';
 export default class OPalette extends Component implements Subject {
     protected observers: Observer[] = [];
     private Block: HTMLElement | null = null;
+    private Complete: HTMLElement | null = null;
+    private Empty: HTMLElement | null = null;
     private SubmitButton: HTMLElement | null = null;
     private CancelButton: HTMLElement | null = null;
     private loop: OPaletteLoop | null = null;
@@ -45,11 +47,23 @@ export default class OPalette extends Component implements Subject {
                             `o-response[data-associate-question="${associateName}"]`,
                         )
                     );
+                    if (!control) {
+                        console.warn(
+                            `Palette source element ${associateName} not found!`,
+                        );
+                        return;
+                    }
                     source.appendChild(control);
                     break;
             }
 
-            if (!source) return;
+            if (!source) {
+                console.warn(
+                    `Palette source element ${associateName} not found!`,
+                );
+                return;
+            }
+
             element.appendChild(source);
             this.Block?.classList.remove('inactive');
         });
@@ -133,12 +147,24 @@ export default class OPalette extends Component implements Subject {
         this.Block?.classList.add('inactive');
     }
 
+    private configureComplete(): void {
+        this.Complete = this.querySelector('.palette-complete');
+        this.Complete?.classList.add('inactive');
+    }
+
+    private configureEmpty(): void {
+        this.Empty = this.querySelector('.palette-empty');
+        this.Empty?.classList.add('inactive');
+    }
+
     public connectedCallback(): void {
         this.addEventListener('cloneQuestion', this);
         this.configureSubmitButton();
         this.configureCancelButton();
         this.configureLoop();
+        this.configureEmpty();
         this.configureBlock();
+        this.configureComplete();
         this.updateRemainingAnswers();
     }
 }

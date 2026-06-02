@@ -39,7 +39,9 @@ export default class PaletteButtonAdd extends Component implements Observer {
     }
 
     private createButton(): void {
-        const button = document.createElement('button');
+        const button = this.querySelector('button');
+        if (!button) return;
+
         const icon = document.createElement('span');
         const caption = document.createElement('span');
         caption.innerText = this.getAttribute('caption') || this.caption;
