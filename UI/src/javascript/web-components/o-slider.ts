@@ -214,6 +214,8 @@ export default class OSlider extends Component implements Observer, Subject {
 
     protected setRangeElement(): void {
         this.rangeElement = this.querySelector('input[type="range"]');
+        if (this.rangeElement && this.isReadonly)
+            this.rangeElement.readOnly = true;
     }
 
     protected setElement(): void {

@@ -83,7 +83,8 @@ export default class MSliderTrack extends Component implements Observer {
     }
 
     private onInput(): void {
-        if (!this.element) return;
+        if (this.isReadonly) return;
+        if (!this.element || this.element.readOnly) return;
 
         const value = this.element.value;
         this.setSliderInputValue();
@@ -229,7 +230,9 @@ export default class MSliderTrack extends Component implements Observer {
     }
 
     private incrementValue(): void {
-        if (!this.element) return;
+        if (this.isReadonly) return;
+        if (!this.element || this.element.readOnly) return;
+
         const requestedValue =
             Number(this.element.value) + this.properties.step;
         if (requestedValue <= this.max) {
@@ -239,7 +242,9 @@ export default class MSliderTrack extends Component implements Observer {
     }
 
     private decrementValue(): void {
-        if (!this.element) return;
+        if (this.isReadonly) return;
+        if (!this.element || this.element.readOnly) return;
+
         const requestedValue =
             Number(this.element.value) - this.properties.step;
         if (requestedValue >= this.min) {

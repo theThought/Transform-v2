@@ -108,6 +108,7 @@ export default class OScale extends Component implements Subject, Observer {
     }
 
     private incrementValue(): void {
+        if (this.isReadonly) return;
         if (!this.element) return;
 
         const currentValue = Number(this.element.value);
@@ -125,6 +126,7 @@ export default class OScale extends Component implements Subject, Observer {
     }
 
     private decrementValue(): void {
+        if (this.isReadonly) return;
         if (!this.element) return;
 
         const currentValue = Number(this.element.value);
