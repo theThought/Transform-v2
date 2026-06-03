@@ -10,7 +10,7 @@ import { mergeDeep } from './util';
 
 export default class Component extends HTMLElement {
     protected readonly qid: string;
-    protected static observedAttributes = ['readonly'];
+    protected static observedAttributes = ['readonly', 'data-readonly'];
     protected qgroup: string;
     protected response: OResponse | null = null;
     protected properties: object = {};
@@ -121,7 +121,10 @@ export default class Component extends HTMLElement {
     ): void {
         switch (name) {
             case 'readonly':
+                this.isReadonly = newValue == 'true';
                 this.dataset.readonly = newValue;
+                break;
+            case 'data-readonly':
                 this.isReadonly = newValue == 'true';
                 break;
         }
