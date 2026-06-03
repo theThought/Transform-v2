@@ -1122,6 +1122,7 @@
     <xsl:template name="insert-common-questiontype-attributes">
         <xsl:param name="qGroup" />
         <xsl:param name="qIdOverride" />
+        <xsl:param name="qReadOnly" select="false()" />
 
         <xsl:variable name="questionId">
             <xsl:choose>
@@ -1149,6 +1150,15 @@
             <xsl:value-of select="$questionId" />
         </xsl:attribute>
 
+        <xsl:if test="Style/Control/@ReadOnly or $qReadOnly='true'">
+            <xsl:attribute name="data-readonly">
+                <xsl:text>true</xsl:text>
+            </xsl:attribute>
+
+            <xsl:attribute name="aria-disabled">
+                <xsl:text>true</xsl:text>
+            </xsl:attribute>
+        </xsl:if>
     </xsl:template>
 
     <xsl:template name="insert-common-cell-attributes">
