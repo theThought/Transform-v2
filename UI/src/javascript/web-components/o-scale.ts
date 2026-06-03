@@ -65,6 +65,8 @@ export default class OScale extends Component implements Subject, Observer {
     }
 
     private handleKey(e: KeyboardEvent): void {
+        if (this.isReadonly) return;
+
         switch (e.key) {
             case 'ArrowRight':
                 this.incrementValue();

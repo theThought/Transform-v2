@@ -10,9 +10,11 @@ import { mergeDeep } from './util';
 
 export default class Component extends HTMLElement {
     protected readonly qid: string;
+    protected static observedAttributes = ['readonly'];
     protected qgroup: string;
     protected response: OResponse | null = null;
     protected properties: object = {};
+    protected isReadonly: boolean = false;
     protected element:
         | HTMLInputElement
         | HTMLSelectElement
@@ -110,6 +112,19 @@ export default class Component extends HTMLElement {
 
     protected setQuestionGroup(questionGroup: string): void {
         this.qgroup = questionGroup;
+    }
+
+    public attributeChangedCallback(
+        name: string,
+        oldValue: string,
+        newValue: string,
+    ): void {
+        switch (name) {
+            case 'readonly':
+                this.dataset.readonly = newValue;
+                this.isReadonly = newValue == 'true';
+                break;
+        }
     }
 
     public connectedCallback(): void {

@@ -94,6 +94,7 @@ export default class OOptionBase extends Option {
         if (!this.element) return;
         if (this.element.disabled) return;
         if (this.input?.readOnly) return;
+        if (this.isReadonly) return;
 
         // prevent radio buttons from de-selecting
         if (this.input?.checked && this.element.type === 'radio') return;

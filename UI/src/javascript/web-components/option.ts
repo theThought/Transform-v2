@@ -179,6 +179,7 @@ export default class Option extends Component implements Observer {
         if (!this.element) return;
         if (this.element.disabled) return;
         if (this.input?.readOnly) return;
+        if (this.isReadonly) return;
 
         // prevent radio buttons from deselecting
         if (this.input?.checked && this.input.type === 'radio') return;

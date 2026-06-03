@@ -83,6 +83,8 @@ export default class OCombobox extends Component implements Subject {
     }
 
     private onKeydown(e: KeyboardEvent): void {
+        if (this.isReadonly) return;
+
         switch (e.key) {
             case 'Tab':
                 break;
@@ -106,6 +108,8 @@ export default class OCombobox extends Component implements Subject {
     }
 
     private onKeyup(e: KeyboardEvent): void {
+        if (this.isReadonly) return;
+
         switch (true) {
             case e.key === 'Backspace':
             case e.key === 'Delete':
@@ -186,6 +190,7 @@ export default class OCombobox extends Component implements Subject {
 
     protected setElement(): void {
         this.element = this.querySelector('.a-input-combobox');
+        if (this.element && this.isReadonly) this.element.readOnly = true;
     }
 
     protected configureSetBehaviour(): void {

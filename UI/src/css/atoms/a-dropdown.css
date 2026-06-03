@@ -17,11 +17,6 @@ o-dropdown {
             color: var(--color-lightest);
         }
     }
-
-    .o-list li {
-        padding: var(--space-1) calc(var(--space-4) * 2) var(--space-1)
-            var(--space-4);
-    }
 }
 
 html[dir='rtl'] o-dropdown .a-input-dropdown {

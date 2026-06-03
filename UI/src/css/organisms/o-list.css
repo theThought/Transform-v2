@@ -1,3 +1,10 @@
+o-dropdown {
+    .o-list > li {
+        padding: var(--space-1) calc(var(--space-4) * 2) var(--space-1)
+            var(--space-4);
+    }
+}
+
 .o-list {
     --color-border: var(--color-primary);
 
@@ -73,5 +80,12 @@ o-list {
         li.a-list-placeholder-empty {
             display: block;
         }
+    }
+}
+
+o-combobox[data-readonly],
+o-dropdown[data-readonly] {
+    .o-list {
+        opacity: 0;
     }
 }

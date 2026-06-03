@@ -261,6 +261,7 @@ export default class OList extends Component implements Observer {
     }
 
     private handleKey(e: KeyboardEvent): void {
+        if (this.isReadonly) return;
         if (!this.checkVisibility({ opacityProperty: true })) return;
 
         this.mouseEvent = false;

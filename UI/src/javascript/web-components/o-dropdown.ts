@@ -71,6 +71,8 @@ export default class ODropdown extends Component implements Subject {
     }
 
     private onKeydown(e: KeyboardEvent): void {
+        if (this.isReadonly) return;
+
         switch (e.key) {
             case 'Tab':
                 this.blur();
