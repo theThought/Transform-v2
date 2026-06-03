@@ -161,6 +161,14 @@ export default class OCombobox extends Component implements Subject {
             );
         }
 
+        if (this.style.width) {
+            this.element.style.width = this.style.width;
+            const listItems = list.querySelector('ul');
+            if (!listItems) return;
+            listItems.style.width = this.style.width;
+            return;
+        }
+
         const resizeObserver = new ResizeObserver((entries) => {
             for (const entry of entries) {
                 if (!this.element) return;

@@ -1,4 +1,6 @@
 o-response {
+    display: inline-block;
+
     &[data-readonly='true'] {
         opacity: 0.5;
     }
