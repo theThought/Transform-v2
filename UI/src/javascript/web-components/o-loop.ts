@@ -105,7 +105,7 @@ export default class OLoop extends Component implements Subject, Observer {
 
     public handleEvent(e: Event): void {
         switch (e.type) {
-            case 'questionChange':
+            case 'broadcastChange':
                 this.receiveBroadcast(e as CustomEvent);
                 break;
         }
@@ -711,6 +711,6 @@ export default class OLoop extends Component implements Subject, Observer {
         this.setSeparatorStyle();
 
         this.addEventListener('exclusiveOn', this.handleEvent);
-        this.addEventListener('questionChange', this.handleEvent);
+        this.addEventListener('broadcastChange', this.handleEvent);
     }
 }
