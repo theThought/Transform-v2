@@ -39,7 +39,8 @@ export default class OList extends Component implements Observer {
 
     protected element: HTMLInputElement | null = null;
     private listElement: HTMLElement | null = null;
-    private listPosition = -1;
+    private listHighlightedIndex = -1;
+    private listSelectedIndex = -1;
     private control: OCombobox | ODropdown | null = null;
     private list: Array<HTMLLIElement> = [];
     private visibleList: Array<HTMLLIElement> = [];
@@ -78,6 +79,7 @@ export default class OList extends Component implements Observer {
         this.restoreSelection();
 
         this.addEventListener('mousedown', this.handleEvent);
+        this.addEventListener('mouseleave', this.handleEvent);
         this.addEventListener('mouseover', this.handleEvent);
         this.addEventListener('keydown', this.handleEvent);
         this.addEventListener('keyup', this.handleEvent);
@@ -112,11 +114,31 @@ export default class OList extends Component implements Observer {
             case 'hidden':
                 this.clearHighlightedOption();
                 break;
-            case 'blur':
-                this.clearLabelIfNoValuePresentOnBlur();
-                break;
             case 'widthChange':
                 this.newWidthFromControl(<CustomEvent>data);
+                break;
+        }
+    }
+
+    public handleEvent(e: Event): void {
+        switch (e.type) {
+            case 'keydown':
+                this.handleKey(<KeyboardEvent>e);
+                break;
+            case 'mousedown':
+                this.onClick(e);
+                break;
+            case 'mouseover':
+                this.updateHighlightedOption(e);
+                break;
+            case 'mouseleave':
+                this.clearHighlightedOption(e);
+                break;
+            case 'restore':
+                this.restoreClearedValue();
+                break;
+            case 'scroll':
+                this.updatePosition(e.target as HTMLElement);
                 break;
         }
     }
@@ -176,26 +198,6 @@ export default class OList extends Component implements Observer {
         this.visibleList.forEach((node, index) => {
             node.dataset.position = `${index}`;
         });
-    }
-
-    public handleEvent(e: Event): void {
-        switch (e.type) {
-            case 'keydown':
-                this.handleKey(<KeyboardEvent>e);
-                break;
-            case 'mousedown':
-                this.onClick(e);
-                break;
-            case 'mouseover':
-                this.clearHighlightedOption();
-                break;
-            case 'restore':
-                this.restoreClearedValue();
-                break;
-            case 'scroll':
-                this.updatePosition(e.target as HTMLElement);
-                break;
-        }
     }
 
     private updatePosition(target: HTMLElement | Document): void {
@@ -310,27 +312,27 @@ export default class OList extends Component implements Observer {
 
     private navigateFirst(): void {
         this.clearHighlightedOption();
-        this.listPosition = 0;
+        this.listSelectedIndex = 0;
         this.setHighlightedOption();
         this.updateScrollPosition();
     }
 
     private navigateLast(): void {
         this.clearHighlightedOption();
-        this.listPosition = this.visibleList.length - 1;
+        this.listSelectedIndex = this.visibleList.length - 1;
         this.setHighlightedOption();
         this.updateScrollPosition();
     }
 
     private navigateUp(): void {
-        if (this.listPosition === 0) return;
+        if (this.listSelectedIndex === 0) return;
 
         this.clearHighlightedOption();
 
-        if (this.listPosition === -1) {
-            this.listPosition = 0;
+        if (this.listSelectedIndex === -1) {
+            this.listSelectedIndex = 0;
         } else {
-            this.listPosition--;
+            this.listSelectedIndex--;
         }
 
         this.setHighlightedOption();
@@ -340,13 +342,13 @@ export default class OList extends Component implements Observer {
     private navigateDown(): void {
         const lastPosition = this.visibleList.length - 1;
 
-        if (this.listPosition === lastPosition) return;
+        if (this.listSelectedIndex === lastPosition) return;
         this.clearHighlightedOption();
 
-        if (this.listPosition === -1) {
-            this.listPosition = 0;
+        if (this.listSelectedIndex === -1) {
+            this.listSelectedIndex = 0;
         } else {
-            this.listPosition++;
+            this.listSelectedIndex++;
         }
 
         this.setHighlightedOption();
@@ -384,12 +386,12 @@ export default class OList extends Component implements Observer {
                 highlightEl.textContent?.substring(0, 1).toLowerCase() || '';
         } else {
             firstLetter =
-                this.visibleList[this.listPosition]?.textContent
+                this.visibleList[this.listSelectedIndex]?.textContent
                     ?.substring(0, 1)
                     .toLowerCase() || '';
         }
 
-        const startPos = Math.max(0, this.listPosition, highlightPos);
+        const startPos = Math.max(0, this.listSelectedIndex, highlightPos);
 
         for (let i = startPos; i < this.visibleList.length; i++) {
             const currentItem = this.visibleList[i];
@@ -399,7 +401,7 @@ export default class OList extends Component implements Observer {
                 if (
                     (listPasses === 0 &&
                         firstLetter === input.substring(0, 1) &&
-                        i < this.listPosition) ||
+                        i < this.listSelectedIndex) ||
                     (currentItem.classList.contains('highlight') &&
                         input.length === 1)
                 ) {
@@ -411,7 +413,7 @@ export default class OList extends Component implements Observer {
                     }
                     continue;
                 } else {
-                    this.listPosition = i;
+                    this.listSelectedIndex = i;
                     this.clearHighlightedOption();
                     this.setHighlightedOption();
                     this.updateScrollPosition();
@@ -488,12 +490,15 @@ export default class OList extends Component implements Observer {
                 }
             }
 
-            if (itemLabel === userInput && this.properties.exact) {
-                this.listPosition = parseInt(node.dataset.position ?? '0');
-                this.setSelectedOptionByIndex();
-                return;
-            } else if (this.element?.value && this.properties.exact) {
-                this.clearValueFromLocal();
+            if (this.properties.exact) {
+                if (itemLabel === userInput) {
+                    this.listSelectedIndex = parseInt(
+                        node.dataset.position ?? '0',
+                    );
+                    this.setSelectedOptionByIndex();
+                } else if (this.element?.value) {
+                    this.clearValueFromLocal();
+                }
             }
         }
 
@@ -608,7 +613,7 @@ export default class OList extends Component implements Observer {
     }
 
     private clearSelectedOptions(): void {
-        this.listPosition = -1;
+        this.listSelectedIndex = -1;
         const selectedOptions = <NodeListOf<HTMLElement>>(
             this.querySelectorAll('[data-selected="true"]')
         );
@@ -625,17 +630,10 @@ export default class OList extends Component implements Observer {
 
     private setOption(option: HTMLElement): void {
         const optionPosition = option.dataset.position ?? '0';
-        this.listPosition = parseInt(optionPosition);
+        this.listSelectedIndex = parseInt(optionPosition);
         option.dataset.selected = 'true';
         option.ariaSelected = 'true';
         this.updateScrollPosition();
-    }
-
-    private clearLabelIfNoValuePresentOnBlur(): void {
-        if (!this.element?.value) {
-            this.clearLabel();
-            this.clearFilteredOptions();
-        }
     }
 
     private clearHighlightedOption(): void {
@@ -644,14 +642,36 @@ export default class OList extends Component implements Observer {
         currentHighlightedOption.classList.remove('highlight');
     }
 
+    private updateHighlightedOption(e: Event): void {
+        const target = e.target as HTMLElement;
+        if (!target) return;
+        if (!target.dataset.position) return;
+
+        const highlightIndex = Number(target.dataset.position);
+        if (highlightIndex === this.listHighlightedIndex) return;
+
+        this.visibleList[this.listHighlightedIndex]?.classList.remove(
+            'highlight',
+        );
+
+        this.listHighlightedIndex = highlightIndex;
+        this.visibleList[this.listHighlightedIndex].classList.add('highlight');
+    }
+
     private setHighlightedOption(): void {
-        const listItem = this.visibleList[this.listPosition];
+        this.visibleList[this.listHighlightedIndex].classList.remove(
+            'highlight',
+        );
+        const listItem = this.visibleList[this.listSelectedIndex];
         if (!listItem) return;
         listItem.classList.add('highlight');
+        this.listHighlightedIndex = Number(
+            this.visibleList[this.listSelectedIndex].dataset.position,
+        );
     }
 
     private setSelectedOptionByIndex(): void {
-        const listItem = this.visibleList[this.listPosition];
+        const listItem = this.visibleList[this.listSelectedIndex];
 
         if (listItem?.dataset.readonly === 'true') {
             return;
@@ -671,8 +691,11 @@ export default class OList extends Component implements Observer {
     }
 
     private setValue(option: HTMLElement): void {
-        if (!this.element || this.element.value === option.dataset.value)
+        if (!this.element) return;
+        if (this.element.value === option.dataset.value) {
+            this.sendClickEvent();
             return;
+        }
 
         this.element.value = `${option.dataset.value}`;
         this.element.placeholder = '';
@@ -682,6 +705,14 @@ export default class OList extends Component implements Observer {
     private clearLabel(): void {
         this.dataset.label = '';
         this.broadcastLabelChange();
+    }
+
+    private sendClickEvent(): void {
+        const clickEvent = new CustomEvent('clickEvent', {
+            bubbles: true,
+            detail: this,
+        });
+        this.dispatchEvent(clickEvent);
     }
 
     private setLabel(option: HTMLElement): void {
@@ -782,15 +813,14 @@ export default class OList extends Component implements Observer {
     }
 
     private setListHeight(): void {
-        const list = this.querySelector('ul');
+        if (!this.listElement) return;
+
         const lineHeight = 33;
         const padding = 8;
 
-        if (list) {
-            this.initialHeight =
-                padding * 2 + lineHeight * this.properties.listsize;
-            list.style.maxHeight = `${this.initialHeight}px`;
-        }
+        this.initialHeight =
+            padding * 2 + lineHeight * this.properties.listsize;
+        this.listElement.style.maxHeight = `${this.initialHeight}px`;
     }
 
     private setFilterMethod(): void {
@@ -882,6 +912,16 @@ export default class OList extends Component implements Observer {
         };
 
         const mutationObserver = (): void => {
+            if (
+                !this.element?.value &&
+                !this.checkVisibility({
+                    opacityProperty: true,
+                    visibilityProperty: true,
+                })
+            ) {
+                this.listSelectedIndex = -1;
+                this.clearHighlightedOption();
+            }
             this.setDropListDirection();
         };
 
