@@ -132,7 +132,7 @@ export default class OList extends Component implements Observer {
                 this.updateHighlightedOption(e);
                 break;
             case 'mouseleave':
-                this.clearHighlightedOption(e);
+                this.clearHighlightedOption();
                 break;
             case 'restore':
                 this.restoreClearedValue();
