@@ -311,47 +311,37 @@ export default class OList extends Component implements Observer {
     }
 
     private navigateFirst(): void {
-        this.clearHighlightedOption();
-        this.listSelectedIndex = 0;
-        this.setHighlightedOption();
+        this.setHighlightedOption(0);
         this.updateScrollPosition();
     }
 
     private navigateLast(): void {
-        this.clearHighlightedOption();
-        this.listSelectedIndex = this.visibleList.length - 1;
-        this.setHighlightedOption();
+        const lastEntry = this.visibleList.length - 1;
+        this.setHighlightedOption(lastEntry);
         this.updateScrollPosition();
     }
 
     private navigateUp(): void {
-        if (this.listSelectedIndex === 0) return;
+        const newPosition =
+            this.listHighlightedIndex < 1 ? 0 : this.listHighlightedIndex - 1;
 
-        this.clearHighlightedOption();
-
-        if (this.listSelectedIndex === -1) {
-            this.listSelectedIndex = 0;
-        } else {
-            this.listSelectedIndex--;
-        }
-
-        this.setHighlightedOption();
+        this.setHighlightedOption(newPosition);
         this.updateScrollPosition();
     }
 
     private navigateDown(): void {
         const lastPosition = this.visibleList.length - 1;
+        let newPosition = 0;
 
-        if (this.listSelectedIndex === lastPosition) return;
-        this.clearHighlightedOption();
+        if (this.listHighlightedIndex === lastPosition) return;
 
-        if (this.listSelectedIndex === -1) {
-            this.listSelectedIndex = 0;
+        if (this.listHighlightedIndex === -1) {
+            newPosition = 0;
         } else {
-            this.listSelectedIndex++;
+            newPosition = this.listHighlightedIndex + 1;
         }
 
-        this.setHighlightedOption();
+        this.setHighlightedOption(newPosition);
         this.updateScrollPosition();
     }
 
@@ -368,6 +358,13 @@ export default class OList extends Component implements Observer {
         if (!currentItem) return;
 
         currentItem.scrollIntoView({ block: 'center', inline: 'nearest' });
+    }
+
+    private resetScrollPosition(): void {
+        const currentPosition =
+            this.listSelectedIndex > 0 ? this.listSelectedIndex : 0;
+        const currentItem = this.visibleList[currentPosition];
+        currentItem.scrollIntoView({ block: 'start' });
     }
 
     private jumpToLetter(input: string): void {
@@ -414,8 +411,7 @@ export default class OList extends Component implements Observer {
                     continue;
                 } else {
                     this.listSelectedIndex = i;
-                    this.clearHighlightedOption();
-                    this.setHighlightedOption();
+                    this.setHighlightedOption(i);
                     this.updateScrollPosition();
                     return;
                 }
@@ -639,7 +635,14 @@ export default class OList extends Component implements Observer {
     private clearHighlightedOption(): void {
         const currentHighlightedOption = this.querySelector('.highlight');
         if (!currentHighlightedOption) return;
-        currentHighlightedOption.classList.remove('highlight');
+
+        if (this.listSelectedIndex !== -1) {
+            this.setHighlightedOption(this.listSelectedIndex);
+        } else {
+            this.listHighlightedIndex = -1;
+            currentHighlightedOption.classList.remove('highlight');
+            this.updateScrollPosition();
+        }
     }
 
     private updateHighlightedOption(e: Event): void {
@@ -658,20 +661,18 @@ export default class OList extends Component implements Observer {
         this.visibleList[this.listHighlightedIndex].classList.add('highlight');
     }
 
-    private setHighlightedOption(): void {
-        this.visibleList[this.listHighlightedIndex].classList.remove(
+    private setHighlightedOption(position: number): void {
+        this.visibleList[this.listHighlightedIndex]?.classList.remove(
             'highlight',
         );
-        const listItem = this.visibleList[this.listSelectedIndex];
+        const listItem = this.visibleList[position];
         if (!listItem) return;
         listItem.classList.add('highlight');
-        this.listHighlightedIndex = Number(
-            this.visibleList[this.listSelectedIndex].dataset.position,
-        );
+        this.listHighlightedIndex = position;
     }
 
     private setSelectedOptionByIndex(): void {
-        const listItem = this.visibleList[this.listSelectedIndex];
+        const listItem = this.visibleList[this.listHighlightedIndex];
 
         if (listItem?.dataset.readonly === 'true') {
             return;
@@ -682,7 +683,6 @@ export default class OList extends Component implements Observer {
         }
 
         this.clearSelectedOptions();
-        this.clearHighlightedOption();
 
         this.setOption(listItem);
         this.setValue(listItem);
@@ -913,14 +913,17 @@ export default class OList extends Component implements Observer {
 
         const mutationObserver = (): void => {
             if (
-                !this.element?.value &&
                 !this.checkVisibility({
                     opacityProperty: true,
                     visibilityProperty: true,
                 })
             ) {
-                this.listSelectedIndex = -1;
-                this.clearHighlightedOption();
+                if (this.element?.value) {
+                    this.updateScrollPosition(true);
+                } else {
+                    this.clearHighlightedOption();
+                    this.resetScrollPosition();
+                }
             }
             this.setDropListDirection();
         };
