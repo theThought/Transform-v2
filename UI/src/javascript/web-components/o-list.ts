@@ -501,6 +501,7 @@ export default class OList extends Component implements Observer {
         if (visibleItems === 0) {
             this.displayEmptyMessage(true);
         } else {
+            this.setHighlightedOption(0);
             this.displayEmptyMessage(false);
         }
 
