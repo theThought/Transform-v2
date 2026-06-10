@@ -364,7 +364,7 @@ export default class OList extends Component implements Observer {
         const currentPosition =
             this.listSelectedIndex > 0 ? this.listSelectedIndex : 0;
         const currentItem = this.visibleList[currentPosition];
-        currentItem.scrollIntoView({ block: 'start' });
+        currentItem.scrollIntoView({ block: 'center' });
     }
 
     private jumpToLetter(input: string): void {
@@ -914,7 +914,7 @@ export default class OList extends Component implements Observer {
 
         const mutationObserver = (): void => {
             if (
-                !this.checkVisibility({
+                this.checkVisibility({
                     opacityProperty: true,
                     visibilityProperty: true,
                 })
