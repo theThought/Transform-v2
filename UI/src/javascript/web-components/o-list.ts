@@ -322,8 +322,13 @@ export default class OList extends Component implements Observer {
     }
 
     private navigateUp(): void {
+        if (this.listHighlightedIndex === -1) {
+            this.navigateLast();
+            return;
+        }
+
         const newPosition =
-            this.listHighlightedIndex < 1 ? 0 : this.listHighlightedIndex - 1;
+            this.listHighlightedIndex === 0 ? 0 : this.listHighlightedIndex - 1;
 
         this.setHighlightedOption(newPosition);
         this.updateScrollPosition();
