@@ -54,6 +54,7 @@ export default class OList extends Component implements Observer {
     private controlHeight = 38;
     private height = 0;
     private initialHeight = 0;
+    private isConfigured = false;
 
     constructor() {
         super();
@@ -63,20 +64,13 @@ export default class OList extends Component implements Observer {
         }, this.keyBufferTimeout);
 
         this.setListElement();
-        this.buildList();
-        this.buildVisibleList();
-        this.setListHeight();
-
-        this.createNotEnoughCharactersMessage();
-        this.createNoItemsInListMessage();
-        this.initialMinCharacterMessage();
-        this.setFilterMethod();
     }
 
     public connectedCallback(): void {
         super.connectedCallback();
 
         this.restoreSelection();
+        this.oneTimeConfiguration();
 
         this.addEventListener('mousedown', this.handleEvent);
         this.addEventListener('mouseleave', this.handleEvent);
@@ -95,6 +89,33 @@ export default class OList extends Component implements Observer {
             this.control.addObserver(this);
             this.removeTabIndex();
         }
+    }
+
+    public disconnectedCallback(): void {
+        this.removeEventListener('mousedown', this.handleEvent);
+        this.removeEventListener('mouseleave', this.handleEvent);
+        this.removeEventListener('mouseover', this.handleEvent);
+        this.removeEventListener('keydown', this.handleEvent);
+        this.removeEventListener('keyup', this.handleEvent);
+        this.removeEventListener('restore', this.handleEvent);
+        document.removeEventListener('scroll', this);
+
+        if (this.response) this.response.removeObserver(this);
+        if (this.control) this.control.removeObserver(this);
+    }
+
+    private oneTimeConfiguration(): void {
+        if (this.isConfigured) return;
+
+        this.buildList();
+        this.buildVisibleList();
+        this.setListHeight();
+
+        this.createNotEnoughCharactersMessage();
+        this.createNoItemsInListMessage();
+        this.initialMinCharacterMessage();
+        this.setFilterMethod();
+        this.isConfigured = true;
     }
 
     public update(method: string, data: CustomEvent | Event): void {
