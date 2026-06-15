@@ -1,6 +1,5 @@
 [class^='m-message'] {
     border-radius: var(--border-radius);
-    font-size: var(--font-size-s);
     inline-size: fit-content;
     margin-block-end: var(--space-2);
     min-block-size: calc(var(--space-4) * 3);
