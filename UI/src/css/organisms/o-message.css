@@ -2,8 +2,7 @@ details {
     background-color: var(--color-light1);
     border-radius: var(--border-radius);
     color: var(--color-dark1);
-    font-size: var(--font-size-s);
-    padding: var(--space-2) var(--space-2) 0 var(--space-2);
+    padding: var(--space-2) var(--space-2) 0 calc(var(--space-3) * 3);
     position: relative;
     z-index: 99;
 
@@ -47,12 +46,6 @@ details {
 }
 
 details.o-message-information {
-    padding-inline-start: 32px;
-
-    > div {
-        padding-inline-start: 32px;
-    }
-
     &::before {
         background-image: url('../../images/icon-information.svg');
         background-repeat: no-repeat;
