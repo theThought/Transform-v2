@@ -67,8 +67,9 @@ export default class OList extends Component implements Observer {
     public connectedCallback(): void {
         super.connectedCallback();
 
-        this.restoreSelection();
         this.oneTimeConfiguration();
+        this.restoreSelection();
+        this.updateScrollPosition();
 
         this.addEventListener('mousedown', this.handleEvent);
         this.addEventListener('mouseleave', this.handleEvent);
