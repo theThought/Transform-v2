@@ -603,6 +603,7 @@ export default class OList extends Component implements Observer {
         }
 
         this.setSelectedOption(listItem);
+        this.updateScrollPosition();
     }
 
     private setSelectedOption(option: HTMLLIElement): void {
@@ -610,7 +611,6 @@ export default class OList extends Component implements Observer {
         this.setOption(option);
         this.setValue(option);
         this.clearFilteredOptions();
-        this.buildVisibleList();
     }
 
     protected restoreSelection(): void {
@@ -651,7 +651,6 @@ export default class OList extends Component implements Observer {
         });
 
         this.buildVisibleList();
-        this.updateScrollPosition();
     }
 
     private clearSelectedOptions(): void {
@@ -675,7 +674,6 @@ export default class OList extends Component implements Observer {
         this.listSelectedIndex = parseInt(optionPosition);
         option.dataset.selected = 'true';
         option.ariaSelected = 'true';
-        this.updateScrollPosition();
     }
 
     private setHighlightedOptionFromMouse(e: Event): void {
