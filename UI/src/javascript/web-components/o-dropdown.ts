@@ -10,6 +10,9 @@ export default class ODropdown extends Component implements Subject {
             case 'blur':
                 this.clearFocus(e as MouseEvent);
                 break;
+            case 'clickEvent':
+                this.clearFocus(e as MouseEvent);
+                break;
             case 'mousedown':
                 this.toggleFocus();
                 break;
@@ -190,6 +193,7 @@ export default class ODropdown extends Component implements Subject {
         this.element?.addEventListener('blur', this);
         this.element?.addEventListener('mousedown', this);
         this.element?.addEventListener('focusin', this);
+        this.addEventListener('clickEvent', this.handleEvent);
         this.addEventListener('labelChange', this.handleEvent);
         this.addEventListener('keydown', this.handleEvent);
         this.configureElement();
