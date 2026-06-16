@@ -35,8 +35,6 @@ export default class OList extends Component implements Observer {
         noitemsinlist: 'No matching entries',
     };
 
-    public mouseEvent = false;
-
     protected element: HTMLInputElement | null = null;
     private listElement: HTMLElement | null = null;
     private listHighlightedIndex = -1;
@@ -135,9 +133,6 @@ export default class OList extends Component implements Observer {
             case 'hidden':
                 this.clearHighlightedOption();
                 break;
-            case 'widthChange':
-                this.newWidthFromControl(<CustomEvent>data);
-                break;
         }
     }
 
@@ -150,10 +145,10 @@ export default class OList extends Component implements Observer {
                 this.onClick(e);
                 break;
             case 'mouseover':
-                this.updateHighlightedOption(e);
+                this.setHighlightedOptionFromMouse(e);
                 break;
             case 'mouseleave':
-                this.clearHighlightedOption();
+                //this.resetHighlightedOption();
                 break;
             case 'restore':
                 this.restoreClearedValue();
@@ -162,11 +157,6 @@ export default class OList extends Component implements Observer {
                 this.updatePosition(e.target as HTMLElement);
                 break;
         }
-    }
-
-    private newWidthFromControl(e: CustomEvent): void {
-        console.log('newWidthFromControl', e.detail);
-        //this.style.maxWidth = e.detail;
     }
 
     private clearValue(e: CustomEvent): void {
@@ -209,15 +199,16 @@ export default class OList extends Component implements Observer {
     private indexList(): void {
         this.list.forEach((node, index) => {
             node.dataset.position = `${index}`;
+            node.dataset.visiblePosition = `${index}`;
         });
     }
 
     private indexVisibleList(): void {
         this.list.forEach((node) => {
-            node.dataset.position = ``;
+            node.dataset.visiblePosition = ``;
         });
         this.visibleList.forEach((node, index) => {
-            node.dataset.position = `${index}`;
+            node.dataset.visiblePosition = `${index}`;
         });
     }
 
@@ -287,7 +278,6 @@ export default class OList extends Component implements Observer {
         if (this.isReadonly) return;
         if (!this.checkVisibility({ opacityProperty: true })) return;
 
-        this.mouseEvent = false;
         e.stopPropagation();
 
         switch (e.key) {
@@ -332,43 +322,47 @@ export default class OList extends Component implements Observer {
     }
 
     private navigateFirst(): void {
-        this.setHighlightedOption(0);
+        if (!this.visibleList.length) return;
+
+        const firstVisibleItem = this.visibleList[0];
+        this.setHighlightedOption(firstVisibleItem);
         this.updateScrollPosition();
     }
 
     private navigateLast(): void {
-        const lastEntry = this.visibleList.length - 1;
-        this.setHighlightedOption(lastEntry);
+        if (!this.visibleList.length) return;
+
+        const lastVisibleItem = this.visibleList[this.visibleList.length - 1];
+        this.setHighlightedOption(lastVisibleItem);
         this.updateScrollPosition();
     }
 
     private navigateUp(): void {
+        if (this.listHighlightedIndex === 0) return;
+        if (!this.visibleList.length) return;
+
         if (this.listHighlightedIndex === -1) {
             this.navigateLast();
-            return;
+        } else {
+            const previousVisibleItem =
+                this.visibleList[this.listHighlightedIndex - 1];
+            this.setHighlightedOption(previousVisibleItem);
+            this.updateScrollPosition();
         }
-
-        const newPosition =
-            this.listHighlightedIndex === 0 ? 0 : this.listHighlightedIndex - 1;
-
-        this.setHighlightedOption(newPosition);
-        this.updateScrollPosition();
     }
 
     private navigateDown(): void {
-        const lastPosition = this.visibleList.length - 1;
-        let newPosition = 0;
-
-        if (this.listHighlightedIndex === lastPosition) return;
+        if (this.listHighlightedIndex === this.visibleList.length - 1) return;
+        if (!this.visibleList.length) return;
 
         if (this.listHighlightedIndex === -1) {
-            newPosition = 0;
+            this.navigateFirst();
         } else {
-            newPosition = this.listHighlightedIndex + 1;
+            const nextVisibleItem =
+                this.visibleList[this.listHighlightedIndex + 1];
+            this.setHighlightedOption(nextVisibleItem);
+            this.updateScrollPosition();
         }
-
-        this.setHighlightedOption(newPosition);
-        this.updateScrollPosition();
     }
 
     private updateScrollPosition(skipVisibilityCheck = false): void {
@@ -390,7 +384,9 @@ export default class OList extends Component implements Observer {
         const currentPosition =
             this.listSelectedIndex > 0 ? this.listSelectedIndex : 0;
         const currentItem = this.visibleList[currentPosition];
-        currentItem.scrollIntoView({ block: 'center' });
+        if (currentItem) {
+            currentItem.scrollIntoView({ block: 'start' });
+        }
     }
 
     private jumpToLetter(input: string): void {
@@ -437,7 +433,7 @@ export default class OList extends Component implements Observer {
                     continue;
                 } else {
                     this.listSelectedIndex = i;
-                    this.setHighlightedOption(i);
+                    this.setHighlightedOption(currentItem);
                     this.updateScrollPosition();
                     return;
                 }
@@ -464,7 +460,6 @@ export default class OList extends Component implements Observer {
         const droplistParentNode = this.listElement.parentNode;
         if (!droplistParentNode) return;
 
-        let visibleItems = this.list.length;
         const userInput = e.detail.element.value.toLowerCase();
 
         const displayMinCharacterMessage =
@@ -475,6 +470,7 @@ export default class OList extends Component implements Observer {
             this.displayMinCharacterMessage(displayMinCharacterMessage);
             this.clearValue(e);
             this.clearFilteredOptions();
+            this.clearHighlightedOption();
             this.buildVisibleList();
             return;
         }
@@ -484,55 +480,72 @@ export default class OList extends Component implements Observer {
             this.displayMinCharacterMessage(true);
             this.clearElementValue();
             this.setDropListDirection();
+            this.clearHighlightedOption();
             return;
         } else {
             this.displayMinCharacterMessage(false);
         }
 
-        for (const node of this.list) {
+        for (const currentItem of this.list) {
             const itemLabelWrapper =
-                node.getElementsByClassName('a-label-option')[0];
+                currentItem.getElementsByClassName('a-label-option')[0];
             const itemLabel = itemLabelWrapper.textContent?.toLowerCase() ?? '';
 
             if (this.properties.filtertype === 'starts') {
                 if (itemLabel.indexOf(userInput) === 0) {
-                    node.classList.remove('hidden-filter');
+                    currentItem.classList.remove('hidden-filter');
                 } else {
-                    node.classList.add('hidden-filter');
-                    visibleItems--;
+                    currentItem.classList.add('hidden-filter');
                 }
             }
 
             if (this.properties.filtertype === 'contains') {
                 if (itemLabel.indexOf(userInput) !== -1) {
-                    node.classList.remove('hidden-filter');
+                    currentItem.classList.remove('hidden-filter');
                 } else {
-                    node.classList.add('hidden-filter');
-                    visibleItems--;
+                    currentItem.classList.add('hidden-filter');
                 }
             }
 
             if (this.properties.exact) {
                 if (itemLabel === userInput) {
                     this.listSelectedIndex = parseInt(
-                        node.dataset.position ?? '0',
+                        currentItem.dataset.position ?? '0',
                     );
+                    this.setHighlightedOption(currentItem);
                     this.setSelectedOptionByIndex();
+                    return;
                 } else if (this.element?.value) {
+                    this.clearHighlightedOption();
                     this.clearValueFromLocal();
                 }
             }
         }
 
-        if (visibleItems === 0) {
-            this.displayEmptyMessage(true);
-        } else {
-            this.setHighlightedOption(0);
-            this.displayEmptyMessage(false);
-        }
-
-        this.setDropListDirection();
         this.buildVisibleList();
+        this.setDropListDirection();
+
+        if (this.visibleList.length) {
+            this.displayEmptyMessage(false);
+            this.navigateFirst();
+        } else {
+            this.clearHighlightedOption();
+            this.displayEmptyMessage(true);
+        }
+    }
+
+    private createNotEnoughCharactersMessage(): void {
+        this.addListEntry(
+            'a-list-placeholder-restriction',
+            this.properties.notenoughcharacters,
+        );
+    }
+
+    private createNoItemsInListMessage(): void {
+        this.addListEntry(
+            'a-list-placeholder-empty',
+            this.properties.noitemsinlist,
+        );
     }
 
     private displayEmptyMessage(visibility: boolean): void {
@@ -564,25 +577,10 @@ export default class OList extends Component implements Observer {
         this.listElement.appendChild(newEntry);
     }
 
-    private createNotEnoughCharactersMessage(): void {
-        this.addListEntry(
-            'a-list-placeholder-restriction',
-            this.properties.notenoughcharacters,
-        );
-    }
-
-    private createNoItemsInListMessage(): void {
-        this.addListEntry(
-            'a-list-placeholder-empty',
-            this.properties.noitemsinlist,
-        );
-    }
-
     private onClick(e: Event): void {
         e.preventDefault();
         e.stopPropagation();
 
-        this.mouseEvent = true;
         const clickedElement = <HTMLElement>e.target;
         const listItem = clickedElement.closest('li');
 
@@ -590,9 +588,29 @@ export default class OList extends Component implements Observer {
             return;
         }
 
+        this.setSelectedOption(listItem);
+    }
+
+    private setSelectedOptionByIndex(): void {
+        const listItem = this.visibleList[this.listHighlightedIndex];
+
+        if (listItem?.dataset.readonly === 'true') {
+            return;
+        }
+
+        if (typeof listItem === 'undefined') {
+            return;
+        }
+
+        this.setSelectedOption(listItem);
+    }
+
+    private setSelectedOption(option: HTMLLIElement): void {
         this.clearSelectedOptions();
-        this.setOption(listItem);
-        this.setValue(listItem);
+        this.setOption(option);
+        this.setValue(option);
+        this.clearFilteredOptions();
+        this.buildVisibleList();
     }
 
     protected restoreSelection(): void {
@@ -632,6 +650,7 @@ export default class OList extends Component implements Observer {
             option.classList.remove('hidden-filter');
         });
 
+        this.buildVisibleList();
         this.updateScrollPosition();
     }
 
@@ -659,62 +678,34 @@ export default class OList extends Component implements Observer {
         this.updateScrollPosition();
     }
 
+    private setHighlightedOptionFromMouse(e: Event): void {
+        const target = e.target as HTMLLIElement;
+        if (!target?.dataset.position) return;
+
+        this.setHighlightedOption(target);
+    }
+
+    private setHighlightedOption(option: HTMLLIElement): void {
+        this.visibleList[this.listSelectedIndex]?.classList.remove('highlight');
+        this.visibleList[this.listHighlightedIndex]?.classList.remove(
+            'highlight',
+        );
+        option.classList.add('highlight');
+        this.listHighlightedIndex = Number(option.dataset.visiblePosition);
+    }
+
     private clearHighlightedOption(): void {
         const currentHighlightedOption = this.querySelector('.highlight');
         if (!currentHighlightedOption) return;
+        this.listHighlightedIndex = -1;
 
-        if (this.listSelectedIndex !== -1) {
-            this.setHighlightedOption(this.listSelectedIndex);
-        } else {
-            this.listHighlightedIndex = -1;
-            currentHighlightedOption.classList.remove('highlight');
-            this.updateScrollPosition();
-        }
+        currentHighlightedOption.classList.remove('highlight');
+        this.updateScrollPosition();
     }
 
-    private updateHighlightedOption(e: Event): void {
-        const target = e.target as HTMLElement;
-        if (!target) return;
-        if (!target.dataset.position) return;
-
-        const highlightIndex = Number(target.dataset.position);
-        if (highlightIndex === this.listHighlightedIndex) return;
-
-        this.visibleList[this.listHighlightedIndex]?.classList.remove(
-            'highlight',
-        );
-
-        this.listHighlightedIndex = highlightIndex;
-        this.visibleList[this.listHighlightedIndex].classList.add('highlight');
-    }
-
-    private setHighlightedOption(position: number): void {
-        this.visibleList[this.listHighlightedIndex]?.classList.remove(
-            'highlight',
-        );
-        const listItem = this.visibleList[position];
-        if (!listItem) return;
-        listItem.classList.add('highlight');
-        this.listHighlightedIndex = position;
-    }
-
-    private setSelectedOptionByIndex(): void {
-        const listItem = this.visibleList[this.listHighlightedIndex];
-
-        if (listItem?.dataset.readonly === 'true') {
-            return;
-        }
-
-        if (typeof listItem === 'undefined') {
-            return;
-        }
-
-        this.clearSelectedOptions();
-
-        this.setOption(listItem);
-        this.setValue(listItem);
-        this.clearFilteredOptions();
-        this.buildVisibleList();
+    private resetHighlightedOption(): void {
+        if (this.listSelectedIndex === -1) return;
+        this.setHighlightedOption(this.list[this.listSelectedIndex]);
     }
 
     private setValue(option: HTMLElement): void {
@@ -946,6 +937,7 @@ export default class OList extends Component implements Observer {
                 })
             ) {
                 if (this.element?.value) {
+                    this.resetHighlightedOption();
                     this.updateScrollPosition(true);
                 } else {
                     this.clearHighlightedOption();

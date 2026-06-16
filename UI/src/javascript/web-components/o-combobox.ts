@@ -136,11 +136,6 @@ export default class OCombobox extends Component implements Subject {
     private updateLabel(e: CustomEvent): void {
         if (!this.element) return;
         this.element.value = e.detail.dataset.label;
-
-        if (e.detail.mouseEvent) {
-            this.element.focus();
-            this.clearFocus();
-        }
     }
 
     private setInputWidth(): void {
