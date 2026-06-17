@@ -510,6 +510,7 @@ export default class OList extends Component implements Observer {
                     this.listSelectedIndex = Number(
                         currentItem.dataset.position ?? '0',
                     );
+                    this.displayEmptyMessage(false);
                     this.setHighlightedOption(currentItem);
                     this.setSelectedOptionByIndex();
                     return;
@@ -940,10 +941,10 @@ export default class OList extends Component implements Observer {
                 if (this.element?.value) {
                     this.resetHighlightedOption();
                     this.updateScrollPosition();
-                } else {
-                    this.clearHighlightedOption();
-                    this.resetScrollPosition();
                 }
+            } else {
+                this.clearHighlightedOption();
+                this.resetScrollPosition();
             }
             this.setDropListDirection();
         };
