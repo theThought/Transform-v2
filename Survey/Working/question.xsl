@@ -516,9 +516,10 @@
 
                     <xsl:choose>
                         <xsl:when test="../Error">
-                            <xsl:call-template name="insert-error-placeholder">
+                            <!-- <xsl:call-template name="insert-error-placeholder">
                                 <xsl:with-param name="errorString" select="../Error/Text" />
                             </xsl:call-template>
+                            -->
                         </xsl:when>
                         <xsl:otherwise>
                             <xsl:if test="Style/Control/@Placeholder != ''">
@@ -682,20 +683,11 @@
                         </xsl:otherwise>
                     </xsl:choose>
 
-                    <xsl:choose>
-                        <xsl:when test="../Error">
-                            <xsl:call-template name="insert-error-placeholder">
-                                <xsl:with-param name="errorString" select="../Error/Text" />
-                            </xsl:call-template>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:if test="Style/Control/@Placeholder != ''">
-                                <xsl:attribute name="placeholder">
-                                    <xsl:value-of select='Style/Control/@Placeholder' />
-                                </xsl:attribute>
-                            </xsl:if>
-                        </xsl:otherwise>
-                    </xsl:choose>
+                    <xsl:if test="Style/Control/@Placeholder != ''">
+                        <xsl:attribute name="placeholder">
+                            <xsl:value-of select='Style/Control/@Placeholder' />
+                        </xsl:attribute>
+                    </xsl:if>
                     <!--- Accelerator access key -->
                     <xsl:if test="Style/Control/@Accelerator != ''">
                         <xsl:attribute name="accesskey">
@@ -1558,12 +1550,13 @@
                 </xsl:for-each>
             </xsl:otherwise>
         </xsl:choose>
-
-        <xsl:for-each select="Error">
-            <xsl:comment>Error</xsl:comment>
-            <xsl:call-template name="insert-error" />
-        </xsl:for-each>
-
+        <xsl:comment><xsl:text>Cell context: </xsl:text><xsl:value-of select="$cellContext"/></xsl:comment>
+        <xsl:if test="$cellContext=''">
+            <xsl:for-each select="Error">
+                <xsl:comment>Error</xsl:comment>
+                <xsl:call-template name="insert-error" />
+            </xsl:for-each>
+        </xsl:if>
     </xsl:template>
 
     <xsl:template name="multiline">
