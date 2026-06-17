@@ -526,6 +526,7 @@ export default class OList extends Component implements Observer {
 
         if (this.visibleList.length) {
             this.displayEmptyMessage(false);
+            this.clearHighlightedOption();
             this.navigateFirst();
         } else {
             this.clearHighlightedOption();
