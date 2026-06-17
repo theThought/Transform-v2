@@ -468,7 +468,7 @@ export default class OList extends Component implements Observer {
             this.clearFilteredOptions();
             this.clearHighlightedOption();
             this.buildVisibleList();
-            this.updateScrollPosition();
+            this.resetScrollPosition();
             return;
         }
 
@@ -531,7 +531,7 @@ export default class OList extends Component implements Observer {
             this.navigateFirst();
         } else {
             this.clearHighlightedOption();
-            this.updateScrollPosition();
+            this.resetScrollPosition();
             this.displayEmptyMessage(true);
         }
     }
