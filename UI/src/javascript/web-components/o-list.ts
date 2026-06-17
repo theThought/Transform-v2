@@ -394,7 +394,7 @@ export default class OList extends Component implements Observer {
         let firstLetter: string;
         const highlightEl = this.querySelector('.highlight') as HTMLElement;
         const highlightId = highlightEl?.dataset.position ?? '-1';
-        const highlightPos = parseInt(highlightId);
+        const highlightPos = Number(highlightId);
 
         if (highlightPos > -1) {
             firstLetter =
@@ -507,7 +507,7 @@ export default class OList extends Component implements Observer {
 
             if (this.properties.exact) {
                 if (itemLabel === userInput) {
-                    this.listSelectedIndex = parseInt(
+                    this.listSelectedIndex = Number(
                         currentItem.dataset.position ?? '0',
                     );
                     this.setHighlightedOption(currentItem);
@@ -671,7 +671,7 @@ export default class OList extends Component implements Observer {
 
     private setOption(option: HTMLElement): void {
         const optionPosition = option.dataset.position ?? '0';
-        this.listSelectedIndex = parseInt(optionPosition);
+        this.listSelectedIndex = Number(optionPosition);
         option.dataset.selected = 'true';
         option.ariaSelected = 'true';
     }
