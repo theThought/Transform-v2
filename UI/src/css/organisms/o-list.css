@@ -15,6 +15,7 @@ o-dropdown {
     min-inline-size: 3em;
     overflow: auto;
     overflow-block: auto;
+    padding: var(--space-1);
 
     > li {
         border-block-end: 1px solid transparent;
