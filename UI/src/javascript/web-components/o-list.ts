@@ -133,6 +133,7 @@ export default class OList extends Component implements Observer {
                 break;
             case 'hidden':
                 this.clearHighlightedOption();
+                this.updateScrollPosition();
                 break;
         }
     }
@@ -149,7 +150,7 @@ export default class OList extends Component implements Observer {
                 this.setHighlightedOptionFromMouse(e);
                 break;
             case 'mouseleave':
-                //this.resetHighlightedOption();
+                this.resetHighlightedOption();
                 break;
             case 'restore':
                 this.restoreClearedValue();
@@ -473,6 +474,7 @@ export default class OList extends Component implements Observer {
             this.clearFilteredOptions();
             this.clearHighlightedOption();
             this.buildVisibleList();
+            this.updateScrollPosition();
             return;
         }
 
@@ -482,6 +484,7 @@ export default class OList extends Component implements Observer {
             this.clearElementValue();
             this.setDropListDirection();
             this.clearHighlightedOption();
+            this.updateScrollPosition();
             return;
         } else {
             this.displayMinCharacterMessage(false);
@@ -518,6 +521,7 @@ export default class OList extends Component implements Observer {
                     return;
                 } else if (this.element?.value) {
                     this.clearHighlightedOption();
+                    this.updateScrollPosition();
                     this.clearValueFromLocal();
                 }
             }
@@ -531,6 +535,7 @@ export default class OList extends Component implements Observer {
             this.navigateFirst();
         } else {
             this.clearHighlightedOption();
+            this.updateScrollPosition();
             this.displayEmptyMessage(true);
         }
     }
@@ -699,7 +704,6 @@ export default class OList extends Component implements Observer {
         this.listHighlightedIndex = -1;
 
         currentHighlightedOption.classList.remove('highlight');
-        this.updateScrollPosition();
     }
 
     private resetHighlightedOption(): void {
