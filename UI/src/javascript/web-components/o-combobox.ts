@@ -169,6 +169,23 @@ export default class OCombobox extends Component implements Subject {
         resizeObserver.observe(list);
     }
 
+    private monitorInputWidth(): void {
+        if (!this.element) return;
+
+        const resizeObserver = new ResizeObserver((entries) => {
+            for (const entry of entries) {
+                if (!this.element) return;
+                const widthChange = new CustomEvent('widthChange', {
+                    bubbles: true,
+                    detail: `${entry.contentBoxSize[0].inlineSize}px`,
+                });
+                this.notifyObservers('widthChange', widthChange);
+            }
+        });
+
+        resizeObserver.observe(this.element);
+    }
+
     public addListEntry(
         list: HTMLElement,
         className: string,
@@ -199,13 +216,14 @@ export default class OCombobox extends Component implements Subject {
         super.connectedCallback();
         this.setElement();
         this.setInputWidth();
+        this.monitorInputWidth();
         this.removeTabIndex();
         this.element?.addEventListener('blur', this);
         this.element?.addEventListener('mousedown', this);
         this.element?.addEventListener('focusin', this);
         this.addEventListener('clickEvent', this.handleEvent);
-        this.addEventListener('labelChange', this.handleEvent);
         this.addEventListener('keydown', this.handleEvent);
         this.addEventListener('keyup', this.handleEvent);
+        this.addEventListener('labelChange', this.handleEvent);
     }
 }

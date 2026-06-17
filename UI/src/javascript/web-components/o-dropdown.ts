@@ -78,7 +78,6 @@ export default class ODropdown extends Component implements Subject {
 
         switch (e.key) {
             case 'Tab':
-                this.blur();
                 break;
             case 'Enter':
                 e.preventDefault();
@@ -86,6 +85,7 @@ export default class ODropdown extends Component implements Subject {
                 this.clearFocus();
                 break;
             case 'Escape':
+                this.clearFocus();
                 this.sendKeyToList(e);
                 break;
             case 'End':
@@ -111,17 +111,12 @@ export default class ODropdown extends Component implements Subject {
         this.element.value = e.detail.dataset.label;
     }
 
-    private configureElement(): void {
-        if (!this.element) return;
-        this.element.readOnly = true;
-    }
-
     private setInputWidth(): void {
         if (!this.element) return;
         const list = this.element.nextElementSibling as HTMLElement;
         if (!list) return;
 
-        if (this.element.placeholder.length) {
+        if ('placeholder' in this.element && this.element.placeholder.length) {
             this.addListEntry(
                 list,
                 'a-list-placeholder-hidden-prompt',
@@ -183,10 +178,12 @@ export default class ODropdown extends Component implements Subject {
 
     protected setElement(): void {
         this.element = this.querySelector('.a-input-dropdown');
+        if (this.element) this.element.readOnly = true;
     }
 
     public connectedCallback(): void {
         super.connectedCallback();
+        this.setElement();
         this.setInputWidth();
         this.monitorInputWidth();
         this.removeTabIndex();
@@ -194,8 +191,7 @@ export default class ODropdown extends Component implements Subject {
         this.element?.addEventListener('mousedown', this);
         this.element?.addEventListener('focusin', this);
         this.addEventListener('clickEvent', this.handleEvent);
-        this.addEventListener('labelChange', this.handleEvent);
         this.addEventListener('keydown', this.handleEvent);
-        this.configureElement();
+        this.addEventListener('labelChange', this.handleEvent);
     }
 }
