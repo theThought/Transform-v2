@@ -367,13 +367,7 @@ export default class OList extends Component implements Observer {
         }
     }
 
-    private updateScrollPosition(skipVisibilityCheck = false): void {
-        if (
-            !skipVisibilityCheck &&
-            !this.checkVisibility({ opacityProperty: true })
-        )
-            return;
-
+    private updateScrollPosition(): void {
         const currentItem =
             this.querySelector('.highlight') ??
             this.querySelector('[data-selected]');
@@ -386,9 +380,9 @@ export default class OList extends Component implements Observer {
         const currentPosition =
             this.listSelectedIndex > 0 ? this.listSelectedIndex : 0;
         const currentItem = this.visibleList[currentPosition];
-        if (currentItem) {
-            currentItem.scrollIntoView({ block: 'start' });
-        }
+        if (!currentItem) return;
+
+        currentItem.scrollIntoView({ block: 'start' });
     }
 
     private jumpToLetter(input: string): void {
@@ -707,7 +701,10 @@ export default class OList extends Component implements Observer {
     }
 
     private resetHighlightedOption(): void {
-        if (this.listSelectedIndex === -1) return;
+        if (this.listSelectedIndex === -1) {
+            this.clearHighlightedOption();
+            return;
+        }
         this.setHighlightedOption(this.list[this.listSelectedIndex]);
     }
 
@@ -941,7 +938,7 @@ export default class OList extends Component implements Observer {
             ) {
                 if (this.element?.value) {
                     this.resetHighlightedOption();
-                    this.updateScrollPosition(true);
+                    this.updateScrollPosition();
                 } else {
                     this.clearHighlightedOption();
                     this.resetScrollPosition();
