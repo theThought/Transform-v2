@@ -3221,9 +3221,11 @@
 
                 <xsl:choose>
                     <xsl:when test="../Error">
+                    <!-- 
                         <xsl:call-template name="insert-error-placeholder">
                             <xsl:with-param name="errorString" select="../Error/Text" />
                         </xsl:call-template>
+                    -->
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:attribute name="placeholder">
@@ -3297,9 +3299,10 @@
 
                 <xsl:choose>
                     <xsl:when test="../Error">
-                        <xsl:call-template name="insert-error-placeholder">
+                    <!--   <xsl:call-template name="insert-error-placeholder">
                             <xsl:with-param name="errorString" select="../Error/Text" />
                         </xsl:call-template>
+                    -->
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:attribute name="placeholder">
