@@ -42,11 +42,9 @@ export default class OPalette extends Component implements Subject {
                     break;
                 case 'control':
                     source = document.createElement('o-question');
-                    const control = <Node>(
-                        document.querySelector(
-                            `o-response[data-associate-question="${associateName}"]`,
-                        )
-                    );
+                    const control = document.querySelector(
+                        `o-response[data-associate-question="${associateName}"]`,
+                    ) as Node;
                     if (!control) {
                         console.warn(
                             `Palette source element ${associateName} not found!`,

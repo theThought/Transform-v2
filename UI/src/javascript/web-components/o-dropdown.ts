@@ -20,10 +20,10 @@ export default class ODropdown extends Component implements Subject {
                 this.setFocus();
                 break;
             case 'labelChange':
-                this.updateLabel(<CustomEvent>e);
+                this.updateLabel(e as CustomEvent);
                 break;
             case 'keydown':
-                this.onKeydown(<KeyboardEvent>e);
+                this.onKeydown(e as KeyboardEvent);
                 break;
         }
     }

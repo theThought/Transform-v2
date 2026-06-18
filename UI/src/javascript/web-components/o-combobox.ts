@@ -20,13 +20,13 @@ export default class OCombobox extends Component implements Subject {
                 this.setFocus();
                 break;
             case 'labelChange':
-                this.updateLabel(<CustomEvent>e);
+                this.updateLabel(e as CustomEvent);
                 break;
             case 'keydown':
-                this.onKeydown(<KeyboardEvent>e);
+                this.onKeydown(e as KeyboardEvent);
                 break;
             case 'keyup':
-                this.onKeyup(<KeyboardEvent>e);
+                this.onKeyup(e as KeyboardEvent);
                 break;
         }
     }

@@ -16,10 +16,10 @@ export default class OOptionBase extends Option {
                 break;
             case 'click':
             case 'questionClick':
-                this.onClick(<MouseEvent>e);
+                this.onClick(e as MouseEvent);
                 break;
             case 'keydown':
-                this.onKeydown(<KeyboardEvent>e);
+                this.onKeydown(e as KeyboardEvent);
                 break;
         }
     }

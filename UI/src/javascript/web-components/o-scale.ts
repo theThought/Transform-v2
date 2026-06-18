@@ -56,10 +56,10 @@ export default class OScale extends Component implements Subject, Observer {
     public handleEvent(e: Event): void {
         switch (e.type) {
             case 'scaleUnitClick':
-                this.onClick(<CustomEvent>e);
+                this.onClick(e as CustomEvent);
                 break;
             case 'keyup':
-                this.handleKey(<KeyboardEvent>e);
+                this.handleKey(e as KeyboardEvent);
                 break;
         }
     }

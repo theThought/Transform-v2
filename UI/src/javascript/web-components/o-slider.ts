@@ -25,7 +25,7 @@ export default class OSlider extends Component implements Observer, Subject {
     public handleEvent(e: Event): void {
         switch (e.type) {
             case 'notifySlider':
-                this.onSliderValueChange(<CustomEvent>e);
+                this.onSliderValueChange(e as CustomEvent);
                 break;
             case 'incrementValue':
                 this.incrementValue();

@@ -47,10 +47,10 @@ export default class OOptionSublist
     public handleEvent(e: Event): void {
         switch (e.type) {
             case 'exclusiveOn':
-                this.exclusiveOn(<CustomEvent>e);
+                this.exclusiveOn(e as CustomEvent);
                 break;
             case 'broadcastChange':
-                this.handleChange(<CustomEvent>e);
+                this.handleChange(e as CustomEvent);
                 break;
         }
     }

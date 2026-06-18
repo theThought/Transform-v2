@@ -37,7 +37,7 @@ export default class Option extends Component implements Observer {
                 this.onClick(e);
                 break;
             case 'keydown':
-                this.onKeydown(<KeyboardEvent>e);
+                this.onKeydown(e as KeyboardEvent);
                 break;
             case 'change':
                 this.changeState(this.input?.checked || false);

@@ -120,16 +120,16 @@ export default class OList extends Component implements Observer {
     public update(method: string, data: CustomEvent | Event): void {
         switch (method) {
             case 'keypress':
-                this.handleEvent(<Event>data);
+                this.handleEvent(data);
                 break;
             case 'clearValue':
-                this.clearValue(<CustomEvent>data);
+                this.clearValue(data as CustomEvent);
                 break;
             case 'newValue':
-                this.filterList(<CustomEvent>data);
+                this.filterList(data as CustomEvent);
                 break;
             case 'optionVisibilityChange':
-                this.processFilter(<CustomEvent>data);
+                this.processFilter(data as CustomEvent);
                 break;
             case 'hidden':
                 this.clearHighlightedOption();
@@ -141,7 +141,7 @@ export default class OList extends Component implements Observer {
     public handleEvent(e: Event): void {
         switch (e.type) {
             case 'keydown':
-                this.handleKey(<KeyboardEvent>e);
+                this.handleKey(e as KeyboardEvent);
                 break;
             case 'mousedown':
                 this.onClick(e);
@@ -583,7 +583,7 @@ export default class OList extends Component implements Observer {
         e.preventDefault();
         e.stopPropagation();
 
-        const clickedElement = <HTMLElement>e.target;
+        const clickedElement = e.target as HTMLElement;
         const listItem = clickedElement.closest('li');
 
         if (!listItem) {
@@ -619,9 +619,10 @@ export default class OList extends Component implements Observer {
         if (!this.element) return;
 
         const listItem =
-            <HTMLElement>(
-                this.querySelector('[data-value="' + this.element.value + '"]')
-            ) ?? <HTMLElement>this.querySelector('[data-selected="true"]');
+            (this.querySelector(
+                '[data-value="' + this.element.value + '"]',
+            ) as HTMLElement) ??
+            (this.querySelector('[data-selected="true"]') as HTMLElement);
 
         if (listItem === null) {
             this.clearSelectedOptions();
@@ -644,9 +645,9 @@ export default class OList extends Component implements Observer {
     }
 
     private clearFilteredOptions(): void {
-        const filteredOptions = <NodeListOf<HTMLElement>>(
-            this.querySelectorAll('.hidden-filter')
-        );
+        const filteredOptions = this.querySelectorAll(
+            '.hidden-filter',
+        ) as NodeListOf<HTMLElement>;
 
         filteredOptions.forEach((option) => {
             option.classList.remove('hidden-filter');
@@ -657,9 +658,9 @@ export default class OList extends Component implements Observer {
 
     private clearSelectedOptions(): void {
         this.listSelectedIndex = -1;
-        const selectedOptions = <NodeListOf<HTMLElement>>(
-            this.querySelectorAll('[data-selected="true"]')
-        );
+        const selectedOptions = this.querySelectorAll(
+            '[data-selected="true"]',
+        ) as NodeListOf<HTMLElement>;
 
         selectedOptions.forEach((option) => {
             this.clearOption(option);
@@ -763,11 +764,9 @@ export default class OList extends Component implements Observer {
 
     private processFilter(e: CustomEvent): void {
         let excluded = false;
-        const matchingElement = <HTMLElement>(
-            this.querySelector(
-                `[data-value="${e.detail.element.dataset.value}"]:not(.hidden-filter)`,
-            )
-        );
+        const matchingElement = this.querySelector(
+            `[data-value="${e.detail.element.dataset.value}"]:not(.hidden-filter)`,
+        ) as HTMLElement;
 
         // the incoming value has been found in the exclusion list
         if (
