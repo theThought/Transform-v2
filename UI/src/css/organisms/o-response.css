@@ -13,3 +13,9 @@ o-response {
         opacity: 0.5;
     }
 }
+
+o-loop {
+    tr:has(o-response:focus-within) {
+        box-shadow: var(--box-shadow);
+    }
+}
