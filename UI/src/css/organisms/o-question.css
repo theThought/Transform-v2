@@ -20,7 +20,9 @@ o-question.question-no-separator {
 }
 
 body.focus-question {
-    o-question:not([data-global='true']):has(o-response:focus-within) {
+    o-question:not([data-global='true'], :has(o-loop)):has(
+            o-response:focus-within
+        ) {
         box-shadow: var(--box-shadow);
 
         o-question {
