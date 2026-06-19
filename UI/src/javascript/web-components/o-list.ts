@@ -135,6 +135,9 @@ export default class OList extends Component implements Observer {
                 this.clearHighlightedOption();
                 this.updateScrollPosition();
                 break;
+            case 'widthChange':
+                this.newWidthFromControl(<CustomEvent>data);
+                break;
         }
     }
 
@@ -159,6 +162,10 @@ export default class OList extends Component implements Observer {
                 this.updatePosition(e.target as HTMLElement);
                 break;
         }
+    }
+
+    private newWidthFromControl(e: CustomEvent): void {
+        this.style.maxWidth = parseInt(e.detail) + 'px';
     }
 
     private clearValue(e: CustomEvent): void {

@@ -162,7 +162,8 @@ export default class OCombobox extends Component implements Subject {
         const resizeObserver = new ResizeObserver((entries) => {
             for (const entry of entries) {
                 if (!this.element) return;
-                this.element.style.width = `${entry.contentBoxSize[0].inlineSize}px`;
+                const newWidth = Math.round(entry.contentBoxSize[0].inlineSize);
+                this.element.style.maxWidth = `${newWidth}px`;
             }
         });
 
@@ -177,7 +178,7 @@ export default class OCombobox extends Component implements Subject {
                 if (!this.element) return;
                 const widthChange = new CustomEvent('widthChange', {
                     bubbles: true,
-                    detail: `${entry.contentBoxSize[0].inlineSize}px`,
+                    detail: entry.borderBoxSize[0].inlineSize + 0.5,
                 });
                 this.notifyObservers('widthChange', widthChange);
             }
