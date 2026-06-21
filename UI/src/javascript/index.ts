@@ -21,7 +21,7 @@ window.addEventListener('pageshow', () => {
 
     const allVisible = Array.from(
         document.querySelectorAll(
-            'input, textarea',
+            'o-question:not([data-global="true"]) input, o-question:not([data-global="true"]) textarea',
         ) as NodeListOf<HTMLInputElement>,
     ).filter(visible);
 
