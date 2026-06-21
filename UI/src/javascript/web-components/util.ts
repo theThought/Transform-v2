@@ -17,6 +17,10 @@ export function replaceHTMLPlaceholder(html: string): string {
     return html;
 }
 
+export function visible(elem: HTMLInputElement): boolean {
+    return !(elem.clientHeight === 0 || elem.clientWidth === 0);
+}
+
 export function mergeDeep(
     ...objects: Record<string, any>[]
 ): Record<string, any> {
