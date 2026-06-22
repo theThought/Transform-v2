@@ -15,7 +15,7 @@ if (browserSupportsAllFeatures()) {
         .catch((e) => console.error(e));
 }
 
-window.addEventListener('pageshow', () => {
+window.addEventListener('load', () => {
     let first;
     let firstOffY;
 
@@ -35,5 +35,7 @@ window.addEventListener('pageshow', () => {
         }
     }
 
-    first?.focus();
+    if (!first) return;
+    const firstResponse = first.closest('o-response') as HTMLElement;
+    firstResponse.dataset.autofocus = 'true';
 });

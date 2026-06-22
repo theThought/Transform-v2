@@ -10,7 +10,12 @@ import { mergeDeep } from './util';
 
 export default class Component extends HTMLElement {
     protected readonly qid: string;
-    protected static observedAttributes = ['readonly', 'data-readonly'];
+    protected static observedAttributes = [
+        'readonly',
+        'data-readonly',
+        'data-autofocus',
+    ];
+
     protected qgroup: string;
     protected response: OResponse | null = null;
     protected properties: object = {};
@@ -123,6 +128,11 @@ export default class Component extends HTMLElement {
             case 'readonly':
                 this.isReadonly = newValue == 'true';
                 this.dataset.readonly = newValue;
+                break;
+            case 'data-autofocus':
+                this.tabIndex = 1;
+                this.focus();
+                this.removeAttribute('tabindex');
                 break;
             case 'data-readonly':
                 this.isReadonly = newValue == 'true';
