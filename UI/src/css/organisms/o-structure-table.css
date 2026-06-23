@@ -11,8 +11,6 @@ body.question-no-separator {
 .o-structure-table {
     --color-stripe: var(--color-light2);
 
-    width: 100%;
-
     colgroup[data-question-group] {
         border-inline-end: var(--border-thickness) solid var(--color-darkest);
 
