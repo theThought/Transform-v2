@@ -11,5 +11,10 @@ m-option-boolean {
         opacity: 0;
         position: absolute;
         z-index: -1;
+
+        &:focus + span {
+            box-shadow: var(--box-shadow);
+            outline: var(--focus-outline);
+        }
     }
 }
