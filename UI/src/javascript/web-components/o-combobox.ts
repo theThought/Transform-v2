@@ -111,8 +111,6 @@ export default class OCombobox extends Component implements Subject {
                 this.setFocus();
                 this.sendValueToList();
                 break;
-            case e.key.length > 1:
-                break;
             default:
                 this.setFocus();
                 this.sendValueToList();
