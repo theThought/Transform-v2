@@ -475,6 +475,7 @@ export default class OList extends Component implements Observer {
             this.clearFilteredOptions();
             this.clearHighlightedOption();
             this.buildVisibleList();
+            this.setDropListDirection();
             this.resetScrollPosition();
             return;
         }
@@ -530,7 +531,6 @@ export default class OList extends Component implements Observer {
         }
 
         this.buildVisibleList();
-        this.setDropListDirection();
 
         if (this.visibleList.length) {
             this.displayEmptyMessage(false);
@@ -541,6 +541,8 @@ export default class OList extends Component implements Observer {
             this.resetScrollPosition();
             this.displayEmptyMessage(true);
         }
+
+        this.setDropListDirection();
     }
 
     private createNotEnoughCharactersMessage(): void {
