@@ -771,6 +771,7 @@ export default class OResponse extends Component implements Subject, Observer {
         });
 
         this.dispatchEvent(questionVisibility);
+        this.notifyObservers('questionVisibility', questionVisibility);
     }
 
     public makeUnavailable(
