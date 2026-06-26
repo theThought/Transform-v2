@@ -165,6 +165,7 @@ export default class OList extends Component implements Observer {
     }
 
     private newWidthFromControl(e: CustomEvent): void {
+        if (!this.checkVisibility({ opacityProperty: true })) return;
         this.style.maxWidth = parseInt(e.detail) + 'px';
     }
 

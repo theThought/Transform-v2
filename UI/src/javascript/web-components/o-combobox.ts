@@ -1,7 +1,7 @@
 import Component from './component';
 import { Observer, Subject } from '../interfaces';
 
-export default class OCombobox extends Component implements Subject {
+export default class OCombobox extends Component implements Subject, Observer {
     protected element: HTMLInputElement | null = null;
     private observers: Observer[] = [];
     private useExplicitWidth: boolean = false;
@@ -74,6 +74,12 @@ export default class OCombobox extends Component implements Subject {
     notifyObservers(method: string, detail: Event): void {
         for (const observer of this.observers) {
             observer.update(method, detail);
+        }
+    }
+
+    update(method: string): void {
+        if (method === 'questionVisibility') {
+            this.calculateInputWidth();
         }
     }
 
@@ -237,6 +243,7 @@ export default class OCombobox extends Component implements Subject {
         this.calculateInputWidth();
         this.monitorInputWidth();
         this.removeTabIndex();
+
         this.element?.addEventListener('blur', this);
         this.element?.addEventListener('mousedown', this);
         this.element?.addEventListener('focusin', this);
@@ -244,5 +251,7 @@ export default class OCombobox extends Component implements Subject {
         this.addEventListener('keydown', this.handleEvent);
         this.addEventListener('keyup', this.handleEvent);
         this.addEventListener('labelChange', this.handleEvent);
+
+        if (this.response) this.response.addObserver(this);
     }
 }
