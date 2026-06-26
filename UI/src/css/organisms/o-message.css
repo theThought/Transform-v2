@@ -4,7 +4,7 @@ details {
     color: var(--color-dark1);
     padding: var(--space-2) var(--space-2) 0 calc(var(--space-3) * 3);
     position: relative;
-    z-index: 99;
+    z-index: 5;
 
     > div {
         background-color: var(--color-light1);

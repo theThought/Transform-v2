@@ -5,6 +5,11 @@ o-dropdown {
     }
 }
 
+o-dropdown .o-list,
+o-combobox .o-list {
+    z-index: 9;
+}
+
 .o-list {
     --color-border: var(--color-primary);
 
