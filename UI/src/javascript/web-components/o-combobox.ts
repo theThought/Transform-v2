@@ -106,6 +106,18 @@ export default class OCombobox extends Component implements Subject {
         if (this.isReadonly) return;
 
         switch (true) {
+            case e.key === 'Tab':
+            case e.key === 'Enter':
+            case e.key === 'Escape':
+            case e.key === 'End':
+            case e.key === 'Home':
+            case e.key === 'ArrowUp':
+            case e.key === 'ArrowDown':
+            case e.key === 'ArrowLeft':
+            case e.key === 'ArrowRight':
+            case e.key === 'Control':
+            case e.key === 'Shift':
+                break;
             case e.key === 'Backspace':
             case e.key === 'Delete':
                 this.setFocus();
