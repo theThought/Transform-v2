@@ -4,6 +4,7 @@ import { Observer, Subject } from '../interfaces';
 export default class ODropdown extends Component implements Subject {
     protected element: HTMLInputElement | null = null;
     private observers: Observer[] = [];
+    private useExplicitWidth: boolean = false;
 
     public handleEvent(e: Event): void {
         switch (e.type) {
@@ -111,7 +112,13 @@ export default class ODropdown extends Component implements Subject {
         this.element.value = e.detail.dataset.label;
     }
 
-    private setInputWidth(): void {
+    private setWidthMethod(): void {
+        if (this.closest('.m-structure-cell')) {
+            this.useExplicitWidth = true;
+        }
+    }
+
+    private calculateInputWidth(): void {
         if (!this.element) return;
         const list = this.element.nextElementSibling as HTMLElement;
         if (!list) return;
@@ -131,7 +138,15 @@ export default class ODropdown extends Component implements Subject {
             listItems.style.width = this.style.width;
             return;
         } else {
-            this.style.maxWidth = list.offsetWidth + 'px';
+            this.setInputWidth(list.offsetWidth);
+        }
+    }
+
+    private setInputWidth(width: number): void {
+        if (this.useExplicitWidth) {
+            this.style.width = width + 'px';
+        } else {
+            this.style.maxWidth = width + 'px';
         }
     }
 
@@ -177,7 +192,8 @@ export default class ODropdown extends Component implements Subject {
     public connectedCallback(): void {
         super.connectedCallback();
         this.setElement();
-        this.setInputWidth();
+        this.setWidthMethod();
+        this.calculateInputWidth();
         this.monitorInputWidth();
         this.removeTabIndex();
         this.element?.addEventListener('blur', this);
