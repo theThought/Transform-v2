@@ -60,8 +60,8 @@ export default class OOptionSublist
     }
 
     private handleChange(e: CustomEvent): void {
+        if (e.detail.dataset.checked === 'false') return;
         this.notifyObservers('clearExclusives', e);
-        //this.notifyObservers('clearText', e);
     }
 
     public update(method: string, data: CustomEvent): void {

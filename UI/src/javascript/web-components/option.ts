@@ -15,6 +15,8 @@ interface CustomProperties {
 }
 
 export default class Option extends Component implements Observer {
+    static observedAttributes = ['data-checked'];
+
     protected properties: CustomProperties = {
         balance: {
             state: false,
@@ -30,6 +32,11 @@ export default class Option extends Component implements Observer {
 
     private sublist: OOptionSublist | null = null;
     public isExclusive = false;
+
+    constructor() {
+        super();
+        if (!this.dataset.checked) this.dataset.checked = 'false';
+    }
 
     public handleEvent(e: Event): void {
         switch (e.type) {
@@ -149,7 +156,7 @@ export default class Option extends Component implements Observer {
             );
         }
 
-        this.broadcastChange();
+        //this.broadcastChange();
     }
 
     protected onClick(e: Event): void {
@@ -265,5 +272,14 @@ export default class Option extends Component implements Observer {
 
     public disconnectedCallback(): void {
         if (this.sublist) this.sublist.removeObserver(this);
+    }
+
+    public attributeChangedCallback(
+        name: string,
+        oldValue: string,
+        newValue: string,
+    ): void {
+        if (oldValue === newValue) return;
+        if (name === 'data-checked') this.broadcastChange();
     }
 }

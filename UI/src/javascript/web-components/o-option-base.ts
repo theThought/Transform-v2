@@ -37,11 +37,11 @@ export default class OOptionBase extends Option {
 
     protected onChange(e: CustomEvent): void {
         if (e.target === this) return;
-        e.stopImmediatePropagation();
         if (!this.optionElement) return;
         if (!this.additionalInputElement) return;
 
         if (e.target === this.additionalInputElement) {
+            e.stopImmediatePropagation();
             if (
                 !this.optionElement.getChecked() &&
                 this.additionalInputElement.getLength()
@@ -63,8 +63,6 @@ export default class OOptionBase extends Option {
                 this.additionalInputElement.setValue('');
             }
         }
-
-        this.broadcastChange();
     }
 
     protected onClick(e: MouseEvent): void {
