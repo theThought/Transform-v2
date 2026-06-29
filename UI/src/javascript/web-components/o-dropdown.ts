@@ -26,9 +26,6 @@ export default class ODropdown extends Component implements Subject, Observer {
             case 'keydown':
                 this.onKeydown(e as KeyboardEvent);
                 break;
-            case 'requestSize':
-                this.calculateInputWidth();
-                break;
         }
     }
 
@@ -152,6 +149,8 @@ export default class ODropdown extends Component implements Subject, Observer {
     }
 
     private setInputWidth(width: number): void {
+        if (width === 0) return;
+
         if (this.useExplicitWidth) {
             this.style.width = width + 'px';
         } else {

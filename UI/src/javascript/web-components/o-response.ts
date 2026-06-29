@@ -105,6 +105,9 @@ export default class OResponse extends Component implements Subject, Observer {
                 this.processOptionVisibilityRulesFromExternalTrigger(detail);
                 this.handleQuestionChange(detail);
                 break;
+            case 'questionVisibility':
+                this.notifyObserversOfVisibility();
+                break;
             case 'clearValue':
                 this.clearChildren(detail);
                 break;
@@ -763,6 +766,11 @@ export default class OResponse extends Component implements Subject, Observer {
         this.liftCover();
         this.available = true;
 
+        this.notifyParentsOfVisibility();
+        this.notifyObserversOfVisibility();
+    }
+
+    private notifyParentsOfVisibility(): void {
         const questionVisibility = new CustomEvent('questionVisibility', {
             bubbles: true,
             detail: {
@@ -771,6 +779,16 @@ export default class OResponse extends Component implements Subject, Observer {
         });
 
         this.dispatchEvent(questionVisibility);
+    }
+
+    private notifyObserversOfVisibility(): void {
+        const questionVisibility = new CustomEvent('questionVisibility', {
+            bubbles: true,
+            detail: {
+                hidden: false,
+            },
+        });
+
         this.notifyObservers('questionVisibility', questionVisibility);
     }
 

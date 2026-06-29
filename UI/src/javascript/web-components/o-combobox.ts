@@ -29,9 +29,6 @@ export default class OCombobox extends Component implements Subject, Observer {
             case 'keyup':
                 this.onKeyup(e as KeyboardEvent);
                 break;
-            case 'requestSize':
-                this.calculateInputWidth();
-                break;
         }
     }
 
@@ -189,6 +186,8 @@ export default class OCombobox extends Component implements Subject, Observer {
     }
 
     private setInputWidth(width: number): void {
+        if (width === 0) return;
+
         if (this.useExplicitWidth) {
             this.style.width = width + 'px';
         } else {
