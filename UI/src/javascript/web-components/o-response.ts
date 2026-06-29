@@ -754,7 +754,7 @@ export default class OResponse extends Component implements Subject, Observer {
     }
 
     public makeAvailable(): void {
-        if (this.available) return;
+    //    if (this.available) return;
 
         this.classList.remove('unavailable');
 
