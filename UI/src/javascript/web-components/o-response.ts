@@ -778,7 +778,7 @@ export default class OResponse extends Component implements Subject, Observer {
         collapse: boolean = true,
         fromInitial: boolean = false,
     ): void {
-        if (!this.available) return;
+        //if (!this.available) return;
 
         if (!collapse) this.classList.add('do-not-collapse');
         this.classList.add('unavailable');
