@@ -29,6 +29,9 @@ export default class OCombobox extends Component implements Subject, Observer {
             case 'keyup':
                 this.onKeyup(e as KeyboardEvent);
                 break;
+            case 'requestSize':
+                this.calculateInputWidth();
+                break;
         }
     }
 
