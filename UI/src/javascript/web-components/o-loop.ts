@@ -243,6 +243,7 @@ export default class OLoop extends Component implements Subject, Observer {
 
     private receiveBroadcast(e: CustomEvent): void {
         const detail = e.detail || {};
+        if (!e.detail.element) return;
 
         const rowindex = this.rowTotals
             .map(function (detail) {

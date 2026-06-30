@@ -56,7 +56,7 @@ export default class OQuestion extends Component implements Subject {
         e.stopPropagation();
         this.notifyOtherQuestions(e);
         this.updateAnswerCount(e);
-        if (!e.detail.element.value) return;
+        if (!e.detail.element?.value) return;
         this.notifyObservers('clearExclusives', e);
     }
 
