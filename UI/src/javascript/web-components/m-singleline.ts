@@ -105,10 +105,10 @@ export default class MSingleline extends Component implements Observer {
 
         if (!this.element) return;
         if (target && (target === this || target.contains(this))) return;
-        if (this.qgroup != e.detail?.qgroup) return;
 
         if (this.element.value) {
             this.element.value = '';
+            this.broadcastChange();
         }
     }
 

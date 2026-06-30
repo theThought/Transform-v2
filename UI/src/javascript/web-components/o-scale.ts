@@ -37,10 +37,10 @@ export default class OScale extends Component implements Subject, Observer {
         }
     }
 
-    public update(method: string, data: CustomEvent): void {
+    public update(method: string): void {
         switch (method) {
             case 'clearValue':
-                this.clearValue(data);
+                this.clearValue();
                 break;
             case 'exclusiveRestore':
                 this.exclusiveRestore();
@@ -159,9 +159,8 @@ export default class OScale extends Component implements Subject, Observer {
         this.notifyObservers('newValue', this.element.value);
     }
 
-    private clearValue(e: CustomEvent): void {
+    private clearValue(): void {
         if (!this.element) return;
-        if (this.qgroup != e.detail?.qgroup) return;
         if (this.element.value === '') return;
 
         this.element.placeholder = this.element.value;

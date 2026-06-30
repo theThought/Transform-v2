@@ -1,5 +1,5 @@
 import Component from './component';
-import { Observer, Subject } from '../interfaces';
+import { Observer } from '../interfaces';
 
 interface CaptionProps {
     content?: string;
@@ -64,7 +64,7 @@ type TotalEntry = {
     readonly: boolean;
 };
 
-export default class OLoop extends Component implements Subject, Observer {
+export default class OLoop extends Component implements Observer {
     private table: HTMLTableElement | null = null;
     private hasRowTotals = false;
     private rowTotals: TotalEntry[] = [];
@@ -72,31 +72,18 @@ export default class OLoop extends Component implements Subject, Observer {
     private excludeRowReadOnly = true;
     private excludeColumnReadOnly = true;
     private hasGrandTotal = false;
-    private observers: Observer[] = [];
 
     public properties: GridProperties = {};
 
-    update(method: string, data: CustomEvent): void {
+    update(method: string): void {
         switch (method) {
-            case 'clearValue':
-                this.notifyObservers('clearValueFromExternal', data);
+            case 'questionVisibility':
+                this.getTableInputElements('row');
+                this.getTableInputElements('column');
+                this.recalculateRowTotals();
+                this.recalculateColumnTotals();
                 break;
         }
-    }
-
-    public addObserver(observer: Observer): void {
-        this.observers.push(observer);
-    }
-
-    public removeObserver(observer: Observer): void {
-        const index = this.observers.findIndex((obs) => obs === observer);
-        if (index >= 0) {
-            this.observers.splice(index, 1);
-        }
-    }
-
-    public notifyObservers(method: string, detail: CustomEvent): void {
-        this.observers.forEach((observer) => observer.update(method, detail));
     }
 
     protected setElement(): void {
@@ -213,6 +200,7 @@ export default class OLoop extends Component implements Subject, Observer {
 
     private getTableInputElements(direction: 'row' | 'column'): void {
         if (!this.table) return;
+        this[`${direction}Totals`] = [];
 
         for (
             let i = 0, row: HTMLTableRowElement | undefined;

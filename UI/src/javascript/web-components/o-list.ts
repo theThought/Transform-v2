@@ -123,7 +123,7 @@ export default class OList extends Component implements Observer {
                 this.handleEvent(data);
                 break;
             case 'clearValue':
-                this.clearValue(data as CustomEvent);
+                this.clearValue();
                 break;
             case 'newValue':
                 this.filterList(data as CustomEvent);
@@ -169,9 +169,7 @@ export default class OList extends Component implements Observer {
         this.style.maxWidth = parseInt(e.detail) + 'px';
     }
 
-    private clearValue(e: CustomEvent): void {
-        if (this.qgroup != e.detail?.qgroup) return;
-
+    private clearValue(): void {
         this.clearSelectedOptions();
         this.clearElementValue();
         this.clearLabel();
@@ -472,7 +470,7 @@ export default class OList extends Component implements Observer {
         if (userInput.length === 0) {
             this.displayEmptyMessage(false);
             this.displayMinCharacterMessage(displayMinCharacterMessage);
-            this.clearValue(e);
+            this.clearValue();
             this.clearFilteredOptions();
             this.clearHighlightedOption();
             this.buildVisibleList();

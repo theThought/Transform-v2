@@ -79,7 +79,6 @@ export default class OSlider extends Component implements Observer, Subject {
     private clearValue(e: CustomEvent): void {
         if (!this.element) return;
         if (e.target === this) return;
-        if (this.qgroup != e.detail?.qgroup) return;
 
         if (this.element.value) {
             this.element.placeholder = this.element.value;

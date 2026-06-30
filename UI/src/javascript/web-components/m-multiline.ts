@@ -53,7 +53,6 @@ export default class MMultiline extends Component implements Observer {
 
         if (!this.element) return;
         if (target && (target === this || target.contains(this))) return;
-        if (this.qgroup != e.detail?.qgroup) return;
 
         this.element.value = '';
     }
