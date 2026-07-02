@@ -14,6 +14,9 @@ export default class OCombobox extends Component implements Subject, Observer {
             case 'clickEvent':
                 this.clearFocus(e as MouseEvent);
                 break;
+            case 'input':
+                this.onInput(e as KeyboardEvent);
+                break;
             case 'mousedown':
                 this.toggleFocus();
                 break;
@@ -25,9 +28,6 @@ export default class OCombobox extends Component implements Subject, Observer {
                 break;
             case 'keydown':
                 this.onKeydown(e as KeyboardEvent);
-                break;
-            case 'keyup':
-                this.onKeyup(e as KeyboardEvent);
                 break;
         }
     }
@@ -88,6 +88,7 @@ export default class OCombobox extends Component implements Subject, Observer {
 
         switch (e.key) {
             case 'Tab':
+            case 'Meta':
                 break;
             case 'Enter':
                 e.preventDefault();
@@ -109,7 +110,7 @@ export default class OCombobox extends Component implements Subject, Observer {
         }
     }
 
-    private onKeyup(e: KeyboardEvent): void {
+    private onInput(e: KeyboardEvent): void {
         if (this.isReadonly) return;
 
         switch (true) {
@@ -247,11 +248,11 @@ export default class OCombobox extends Component implements Subject, Observer {
         this.removeTabIndex();
 
         this.element?.addEventListener('blur', this);
+        this.element?.addEventListener('input', this);
         this.element?.addEventListener('mousedown', this);
         this.element?.addEventListener('focusin', this);
         this.addEventListener('clickEvent', this.handleEvent);
         this.addEventListener('keydown', this.handleEvent);
-        this.addEventListener('keyup', this.handleEvent);
         this.addEventListener('labelChange', this.handleEvent);
 
         if (this.response) this.response.addObserver(this);
