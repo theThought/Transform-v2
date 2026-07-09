@@ -184,16 +184,16 @@ export default class OLoop extends Component implements Observer {
         if (this.properties.totals?.rows?.visible) {
             this.excludeRowReadOnly =
                 this.properties.totals?.rows.excludereadonly ?? true;
-            this.configureRowTotals();
             this.getTableInputElements('row');
+            this.configureRowTotals();
             this.recalculateRowTotals();
         }
 
         if (this.properties.totals?.columns?.visible) {
             this.excludeColumnReadOnly =
                 this.properties.totals?.columns.excludereadonly ?? true;
-            this.configureColumnTotals();
             this.getTableInputElements('column');
+            this.configureColumnTotals();
             this.recalculateColumnTotals();
         }
     }
@@ -652,6 +652,9 @@ export default class OLoop extends Component implements Observer {
                     // regular total in other columns
                     totalCell.classList.add('grid-column-total');
                     totalCell.classList.add(`align-${columnAlign}`);
+
+                    if (this.columnTotals.find((n) => n.column !== i))
+                        totalCell.classList.add('no-input-items-found');
 
                     if (
                         Array.isArray(

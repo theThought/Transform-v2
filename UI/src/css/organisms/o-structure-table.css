@@ -141,6 +141,10 @@ body.question-no-separator {
         text-align: end;
     }
 
+    .no-input-items-found * {
+        visibility: hidden;
+    }
+
     :where(.grid-column-total-title, .grid-column-total, .grid-grandtotal) {
         border-block-start: var(--border-thickness) solid var(--color-darkest);
         font-size: var(--font-size-m);
