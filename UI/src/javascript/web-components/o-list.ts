@@ -80,14 +80,6 @@ export default class OList extends Component implements Observer {
         document.addEventListener('scroll', this);
 
         if (this.response) this.response.addObserver(this);
-
-        this.control = this.closest('o-dropdown, o-combobox');
-
-        if (this.control) {
-            this.addVisibilityObserver();
-            this.control.addObserver(this);
-            this.removeTabIndex();
-        }
     }
 
     public disconnectedCallback(): void {
@@ -100,7 +92,6 @@ export default class OList extends Component implements Observer {
         document.removeEventListener('scroll', this);
 
         if (this.response) this.response.removeObserver(this);
-        if (this.control) this.control.removeObserver(this);
     }
 
     private oneTimeConfiguration(): void {
@@ -114,6 +105,14 @@ export default class OList extends Component implements Observer {
         this.createNoItemsInListMessage();
         this.initialMinCharacterMessage();
         this.setFilterMethod();
+
+        this.control = this.closest('o-dropdown, o-combobox');
+
+        if (this.control) {
+            this.control.addObserver(this);
+            this.removeTabIndex();
+        }
+
         this.isConfigured = true;
     }
 
@@ -137,6 +136,12 @@ export default class OList extends Component implements Observer {
                 break;
             case 'widthChange':
                 this.newWidthFromControl(<CustomEvent>data);
+                break;
+            case 'addPlaceholderEntry':
+                this.addListEntry(
+                    (data as CustomEvent).detail.className,
+                    (data as CustomEvent).detail.content,
+                );
                 break;
         }
     }
@@ -165,7 +170,7 @@ export default class OList extends Component implements Observer {
     }
 
     private newWidthFromControl(e: CustomEvent): void {
-        if (!this.checkVisibility({ opacityProperty: true })) return;
+        if (!e.detail || e.detail < 1) return;
         this.style.maxWidth = parseInt(e.detail) + 'px';
     }
 
@@ -928,38 +933,5 @@ export default class OList extends Component implements Observer {
         }
 
         this.updatePosition(document);
-    }
-
-    private addVisibilityObserver(): void {
-        if (!this.control) return;
-
-        // Options for the observer (which mutations to observe)
-        const config = {
-            attributeFilter: ['style', 'class'],
-        };
-
-        const mutationObserver = (): void => {
-            if (
-                this.checkVisibility({
-                    opacityProperty: true,
-                    visibilityProperty: true,
-                })
-            ) {
-                if (this.element?.value) {
-                    this.resetHighlightedOption();
-                    this.updateScrollPosition();
-                }
-            } else {
-                this.clearHighlightedOption();
-                this.resetScrollPosition();
-            }
-            this.setDropListDirection();
-        };
-
-        // Create an observer instance linked to the callback function
-        const observer = new MutationObserver(mutationObserver);
-
-        // Start observing the target node for configured mutations
-        observer.observe(this.control, config);
     }
 }

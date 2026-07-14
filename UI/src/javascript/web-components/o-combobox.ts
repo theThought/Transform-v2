@@ -1,10 +1,9 @@
 import Component from './component';
 import { Observer, Subject } from '../interfaces';
 
-export default class OCombobox extends Component implements Subject, Observer {
+export default class OCombobox extends Component implements Subject {
     protected element: HTMLInputElement | null = null;
     private observers: Observer[] = [];
-    private useExplicitWidth: boolean = false;
 
     public handleEvent(e: Event): void {
         switch (e.type) {
@@ -56,6 +55,7 @@ export default class OCombobox extends Component implements Subject, Observer {
 
     addObserver(observer: Observer): void {
         this.observers.push(observer);
+        this.addPlaceholderToList();
     }
 
     removeObserver(observer: Observer): void {
@@ -74,12 +74,6 @@ export default class OCombobox extends Component implements Subject, Observer {
     notifyObservers(method: string, detail: Event): void {
         for (const observer of this.observers) {
             observer.update(method, detail);
-        }
-    }
-
-    update(method: string): void {
-        if (method === 'questionVisibility') {
-            this.calculateInputWidth();
         }
     }
 
@@ -156,61 +150,51 @@ export default class OCombobox extends Component implements Subject, Observer {
         this.element.value = e.detail.dataset.label;
     }
 
-    private setWidthMethod(): void {
-        if (this.closest('.m-structure-cell')) {
-            this.useExplicitWidth = true;
-        }
+    private addPlaceholderToList(): void {
+        if (!this.element?.placeholder?.length) return;
+
+        const placeholderData = new CustomEvent('addPlaceholderEntry', {
+            bubbles: false,
+            detail: {
+                className: 'a-list-placeholder-hidden-prompt',
+                content: this.element.placeholder,
+            },
+        });
+
+        this.notifyObservers('addPlaceholderEntry', placeholderData);
     }
 
-    private calculateInputWidth(): void {
-        if (!this.element) return;
-        const list = this.element.nextElementSibling as HTMLElement;
-        if (!list) return;
+    private monitorContainerWidth(): void {
+        const closestLayoutContainer = this.closest('div.l-column');
+        const list = this.element?.nextElementSibling as HTMLElement;
+        const listItems = list.querySelector('ul');
+        const isGrid = !!this.closest('o-loop');
 
-        if ('placeholder' in this.element && this.element.placeholder.length) {
-            this.addListEntry(
-                list,
-                'a-list-placeholder-hidden-prompt',
-                this.element.placeholder,
-            );
-        }
+        if (!closestLayoutContainer) return;
+        if (!listItems) return;
 
-        if (this.style.width) {
-            this.element.style.width = this.style.width;
-            const listItems = list.querySelector('ul');
-            if (!listItems) return;
-            listItems.style.width = this.style.width;
-            return;
-        } else {
-            this.setInputWidth(list.offsetWidth);
-        }
-    }
-
-    private setInputWidth(width: number): void {
-        if (width === 0) return;
-
-        if (this.useExplicitWidth) {
-            this.style.width = width + 'px';
-        } else {
-            this.style.maxWidth = width + 'px';
-        }
-    }
-
-    private monitorInputWidth(): void {
-        if (!this.element) return;
-
-        const resizeObserver = new ResizeObserver((entries) => {
+        const observer = new ResizeObserver((entries) => {
             for (const entry of entries) {
-                if (!this.element) return;
                 const widthChange = new CustomEvent('widthChange', {
-                    bubbles: true,
-                    detail: entry.borderBoxSize[0].inlineSize + 0.5,
+                    bubbles: false,
+                    detail: entry.borderBoxSize[0].inlineSize,
                 });
+
+                if (listItems.offsetWidth > entry.contentRect.width) {
+                    this.style.width = isGrid
+                        ? `calc(${entry.contentRect.width}px - var(--space-3))`
+                        : `${entry.contentRect.width}px`;
+                } else {
+                    this.style.width = isGrid
+                        ? `calc(${listItems.offsetWidth}px - var(--space-3))`
+                        : `${listItems.offsetWidth}px`;
+                }
+
                 this.notifyObservers('widthChange', widthChange);
             }
         });
 
-        resizeObserver.observe(this.element);
+        observer.observe(closestLayoutContainer);
     }
 
     public addListEntry(
@@ -242,9 +226,8 @@ export default class OCombobox extends Component implements Subject, Observer {
     public connectedCallback(): void {
         super.connectedCallback();
         this.setElement();
-        this.setWidthMethod();
-        this.calculateInputWidth();
-        this.monitorInputWidth();
+        this.addPlaceholderToList();
+        this.monitorContainerWidth();
         this.removeTabIndex();
 
         this.element?.addEventListener('blur', this);
@@ -254,7 +237,5 @@ export default class OCombobox extends Component implements Subject, Observer {
         this.addEventListener('clickEvent', this.handleEvent);
         this.addEventListener('keydown', this.handleEvent);
         this.addEventListener('labelChange', this.handleEvent);
-
-        if (this.response) this.response.addObserver(this);
     }
 }
