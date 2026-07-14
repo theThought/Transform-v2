@@ -4,6 +4,7 @@ import { Observer, Subject } from '../interfaces';
 export default class ODropdown extends Component implements Subject {
     protected element: HTMLInputElement | null = null;
     private observers: Observer[] = [];
+    private explicitWidth: boolean = false;
 
     public handleEvent(e: Event): void {
         switch (e.type) {
@@ -37,11 +38,13 @@ export default class ODropdown extends Component implements Subject {
     private setFocus(): void {
         if (this.classList.contains('focus')) return;
         this.classList.add('focus');
+        this.sendCurrentWidth();
     }
 
     private toggleFocus(): void {
         this.classList.toggle('focus');
         this.notifyVisibilityChange();
+        this.sendCurrentWidth();
     }
 
     private notifyVisibilityChange(): void {
@@ -127,7 +130,29 @@ export default class ODropdown extends Component implements Subject {
         this.notifyObservers('addPlaceholderEntry', placeholderData);
     }
 
+    private setWidthMethod(): void {
+        if (!this.element) return;
+        this.explicitWidth = !!this.element.style.width;
+    }
+
+    private sendCurrentWidth(): void {
+        if (!this.element) return;
+        if (!this.explicitWidth) return;
+
+        const widthChange = new CustomEvent('widthChange', {
+            bubbles: false,
+            detail: {
+                width: this.element.offsetWidth,
+                explicit: this.explicitWidth,
+            },
+        });
+
+        this.notifyObservers('widthChange', widthChange);
+    }
+
     private monitorContainerWidth(): void {
+        if (this.explicitWidth) return;
+
         const closestLayoutContainer = this.closest('div.l-column');
         const list = this.element?.nextElementSibling as HTMLElement;
         const listItems = list.querySelector('ul');
@@ -140,7 +165,10 @@ export default class ODropdown extends Component implements Subject {
             for (const entry of entries) {
                 const widthChange = new CustomEvent('widthChange', {
                     bubbles: false,
-                    detail: entry.borderBoxSize[0].inlineSize,
+                    detail: {
+                        width: entry.borderBoxSize[0].inlineSize,
+                        explicit: this.explicitWidth,
+                    },
                 });
 
                 if (listItems.offsetWidth > entry.contentRect.width) {
@@ -173,6 +201,7 @@ export default class ODropdown extends Component implements Subject {
         super.connectedCallback();
         this.setElement();
         this.addPlaceholderToList();
+        this.setWidthMethod();
         this.monitorContainerWidth();
         this.removeTabIndex();
 

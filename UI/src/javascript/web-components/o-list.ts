@@ -170,8 +170,13 @@ export default class OList extends Component implements Observer {
     }
 
     private newWidthFromControl(e: CustomEvent): void {
-        if (!e.detail || e.detail < 1) return;
-        this.style.maxWidth = parseInt(e.detail) + 'px';
+        if (!e.detail || e.detail.width < 1) return;
+
+        if (e.detail.explicit) {
+            this.style.width = parseInt(e.detail.width) + 'px';
+        } else {
+            this.style.maxWidth = parseInt(e.detail.width) + 'px';
+        }
     }
 
     private clearValue(): void {
