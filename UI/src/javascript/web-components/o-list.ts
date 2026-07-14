@@ -107,6 +107,7 @@ export default class OList extends Component implements Observer {
         this.setFilterMethod();
 
         this.control = this.closest('o-dropdown, o-combobox');
+        this.closest('o-question')?.addEventListener('scroll', this);
 
         if (this.control) {
             this.control.addObserver(this);
