@@ -770,28 +770,6 @@ export default class OResponse extends Component implements Subject, Observer {
         this.notifyObserversOfVisibility();
     }
 
-    private notifyParentsOfVisibility(): void {
-        const questionVisibility = new CustomEvent('questionVisibility', {
-            bubbles: true,
-            detail: {
-                hidden: false,
-            },
-        });
-
-        this.dispatchEvent(questionVisibility);
-    }
-
-    private notifyObserversOfVisibility(): void {
-        const questionVisibility = new CustomEvent('questionVisibility', {
-            bubbles: true,
-            detail: {
-                hidden: false,
-            },
-        });
-
-        this.notifyObservers('questionVisibility', questionVisibility);
-    }
-
     public makeUnavailable(
         collapse: boolean = true,
         fromInitial: boolean = false,
@@ -819,6 +797,28 @@ export default class OResponse extends Component implements Subject, Observer {
         if (!fromInitial) {
             this.clearVisibility();
         }
+    }
+
+    private notifyParentsOfVisibility(): void {
+        const questionVisibility = new CustomEvent('questionVisibility', {
+            bubbles: true,
+            detail: {
+                hidden: false,
+            },
+        });
+
+        this.dispatchEvent(questionVisibility);
+    }
+
+    private notifyObserversOfVisibility(): void {
+        const questionVisibility = new CustomEvent('questionVisibility', {
+            bubbles: false,
+            detail: {
+                hidden: false,
+            },
+        });
+
+        this.notifyObservers('questionVisibility', questionVisibility);
     }
 
     private attachLabels(): void {
