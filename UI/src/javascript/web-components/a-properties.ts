@@ -111,12 +111,12 @@ export default class AProperties extends Component {
         this.setFloatDetailsStyle();
         this.setFocusOnControlStyle();
         this.setFocusOnQuestionStyle();
-        this.jumpToErrorMessage();
         this.setPastePermissions();
         this.setSeparatorStyle();
         this.setSideBySideWidth();
         this.setQuestionRestoreBehaviour();
         this.setCurrentTab();
         this.setValidateFormAttribute();
+        this.jumpToErrorMessage();
     }
 }
