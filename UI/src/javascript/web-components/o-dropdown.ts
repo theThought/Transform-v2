@@ -137,7 +137,6 @@ export default class ODropdown extends Component implements Subject {
 
     private sendCurrentWidth(): void {
         if (!this.element) return;
-        if (!this.explicitWidth) return;
 
         const widthChange = new CustomEvent('widthChange', {
             bubbles: false,
@@ -171,6 +170,8 @@ export default class ODropdown extends Component implements Subject {
                     },
                 });
 
+                this.notifyObservers('widthChange', widthChange);
+
                 if (listItems.offsetWidth > entry.contentRect.width) {
                     this.style.width = isGrid
                         ? `calc(${entry.contentRect.width}px - var(--space-3))`
@@ -180,8 +181,6 @@ export default class ODropdown extends Component implements Subject {
                         ? `calc(${listItems.offsetWidth}px - var(--space-3))`
                         : `${listItems.offsetWidth}px`;
                 }
-
-                this.notifyObservers('widthChange', widthChange);
             }
         });
 

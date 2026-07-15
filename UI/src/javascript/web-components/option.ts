@@ -74,7 +74,7 @@ export default class Option extends Component implements Observer {
     }
 
     private setOnesizeWidth(width: number): void {
-        this.style.inlineSize = `${width}px`;
+        this.style.minInlineSize = `${width}px`;
     }
 
     private setOnesizeHeight(height: number): void {

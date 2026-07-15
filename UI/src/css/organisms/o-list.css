@@ -7,6 +7,7 @@ o-dropdown {
 
 o-dropdown .o-list,
 o-combobox .o-list {
+    width: 100%;
     z-index: 9;
 }
 

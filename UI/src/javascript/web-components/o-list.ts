@@ -174,6 +174,7 @@ export default class OList extends Component implements Observer {
         if (!e.detail || e.detail.width < 1) return;
 
         if (e.detail.explicit) {
+            this.style.maxWidth = '';
             this.style.width = parseInt(e.detail.width) + 'px';
         } else {
             this.style.maxWidth = parseInt(e.detail.width) + 'px';

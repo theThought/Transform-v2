@@ -208,6 +208,8 @@ export default class OCombobox extends Component implements Subject {
                     },
                 });
 
+                this.dispatchEvent(widthChange);
+
                 if (listItems.offsetWidth > entry.contentRect.width) {
                     this.style.width = isGrid
                         ? `calc(${entry.contentRect.width}px - var(--space-3))`
@@ -217,8 +219,6 @@ export default class OCombobox extends Component implements Subject {
                         ? `calc(${listItems.offsetWidth}px - var(--space-3))`
                         : `${listItems.offsetWidth}px`;
                 }
-
-                this.notifyObservers('widthChange', widthChange);
             }
         });
 
