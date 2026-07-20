@@ -514,21 +514,11 @@
                     </xsl:attribute>
 
 
-                    <xsl:choose>
-                        <xsl:when test="../Error">
-                            <!-- <xsl:call-template name="insert-error-placeholder">
-                                <xsl:with-param name="errorString" select="../Error/Text" />
-                            </xsl:call-template>
-                            -->
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:if test="Style/Control/@Placeholder != ''">
-                                <xsl:attribute name="placeholder">
-                                    <xsl:value-of select='Style/Control/@Placeholder' />
-                                </xsl:attribute>
-                            </xsl:if>
-                        </xsl:otherwise>
-                    </xsl:choose>
+                    <xsl:if test="Style/Control/@Placeholder != ''">
+                        <xsl:attribute name="placeholder">
+                            <xsl:value-of select='Style/Control/@Placeholder' />
+                        </xsl:attribute>
+                    </xsl:if>
                     <!--- Accelerator access key -->
                     <xsl:if test="Style/Control/@Accelerator != ''">
                         <xsl:attribute name="accesskey">
@@ -2940,25 +2930,13 @@
             </xsl:choose>
         </xsl:variable>
 
-
-        <xsl:comment>parent name:
-            <xsl:value-of select='name()' />
-            <xsl:text>; questionId: </xsl:text>
-            <xsl:value-of select='$questionId' />
-        </xsl:comment>
         <xsl:choose>
             <xsl:when test="name()='Question'">
 
             <xsl:variable name="optionCount">
                 <xsl:value-of select="count(Control[not(./Style/Control/@Type='SingleLineEdit')])" />
             </xsl:variable>
-            <!-- Not required ?
-            <xsl:for-each select="Label">
-                <xsl:call-template name="insert-label">
-                    <xsl:with-param name="subType" select="'option'" />
-                </xsl:call-template>
-            </xsl:for-each>
-            -->
+
             <xsl:for-each select="Control[./Style/Control/@Type='SingleLineEdit']">
                 <xsl:call-template name='m-singleline'>
                     <xsl:with-param name="qGroup">
@@ -3219,20 +3197,9 @@
                     <xsl:text>off</xsl:text>
                 </xsl:attribute>
 
-                <xsl:choose>
-                    <xsl:when test="../Error">
-                    <!-- 
-                        <xsl:call-template name="insert-error-placeholder">
-                            <xsl:with-param name="errorString" select="../Error/Text" />
-                        </xsl:call-template>
-                    -->
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:attribute name="placeholder">
-                            <xsl:value-of select="Style/Control/@Placeholder" />
-                        </xsl:attribute>
-                    </xsl:otherwise>
-                </xsl:choose>
+                <xsl:attribute name="placeholder">
+                    <xsl:value-of select="Style/Control/@Placeholder" />
+                </xsl:attribute>
 
             </xsl:element>
 
@@ -3297,19 +3264,9 @@
                     <xsl:text>a-input-dropdown</xsl:text>
                 </xsl:attribute>
 
-                <xsl:choose>
-                    <xsl:when test="../Error">
-                    <!--   <xsl:call-template name="insert-error-placeholder">
-                            <xsl:with-param name="errorString" select="../Error/Text" />
-                        </xsl:call-template>
-                    -->
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:attribute name="placeholder">
-                            <xsl:value-of select="Style/Control/@Placeholder" />
-                        </xsl:attribute>
-                    </xsl:otherwise>
-                </xsl:choose>
+                <xsl:attribute name="placeholder">
+                    <xsl:value-of select="Style/Control/@Placeholder" />
+                </xsl:attribute>
             </xsl:element>
 
             <xsl:call-template name="o-list">
