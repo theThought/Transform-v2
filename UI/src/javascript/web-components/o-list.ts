@@ -898,64 +898,68 @@ export default class OList extends Component implements Observer {
     private setDropListDirection(): void {
         if (!this.listElement) return;
 
-        // reset to the default direction before performing overflow checks
+        // Reset direction to default
         if (this.classList.contains('direction-up')) {
             this.classList.remove('direction-up');
         }
 
+        // Update position to align with the control
         this.updatePosition(document);
 
-        if (this.listElement.getBoundingClientRect().height > 0) {
+        // Get list dimensions
+        const listRect = this.listElement.getBoundingClientRect();
+        const listHeight = listRect.height;
+
+        // If the list has height, set initial maxHeight
+        if (listHeight > 0) {
             this.listElement.style.maxHeight = `${this.initialHeight}px`;
-            this.height = this.listElement.getBoundingClientRect().height;
+            this.height = listHeight;
         }
 
-        const viewportBounds = checkViewportBounds(this.listElement);
-
+        // Check for footer collision
         const footer = document.querySelector('footer') as HTMLElement;
         const footerCollision = checkCollision(this.listElement, footer);
-
-        const distanceToTop =
-            this.listElement.getBoundingClientRect().top - this.controlHeight;
-        const distanceToBottom =
-            window.innerHeight - this.listElement.getBoundingClientRect().top;
+        const distanceToTop = listRect.top - this.controlHeight;
 
         if (footerCollision) {
+            // Force upward direction if footer is in the way
             if (!this.classList.contains('direction-up')) {
                 this.classList.add('direction-up');
             }
-            if (
-                this.listElement.getBoundingClientRect().height >
-                distanceToTop - this.controlHeight
-            ) {
+
+            // Adjust height to fit above the footer
+            if (listHeight > distanceToTop - this.controlHeight) {
                 this.height = distanceToTop;
                 this.listElement.style.maxHeight = `${distanceToTop}px`;
             }
-        } else if (viewportBounds.bottom) {
-            if (distanceToBottom < distanceToTop) {
-                // there's more space available above the item, appear above
-                if (!this.classList.contains('direction-up')) {
-                    this.classList.add('direction-up');
-                }
-                if (
-                    this.listElement.getBoundingClientRect().height >
-                    distanceToTop - this.controlHeight
-                ) {
-                    this.height = distanceToTop;
-                    this.listElement.style.maxHeight = `${distanceToTop}px`;
-                }
-            } else {
-                // there's more space available below the item, appear below
-                if (
-                    this.listElement.getBoundingClientRect().height >
-                    distanceToBottom
-                ) {
-                    this.height = distanceToBottom;
-                    this.listElement.style.maxHeight = `${distanceToBottom}px`;
+        } else {
+            // No footer collision, check viewport bounds
+            const viewportBounds = checkViewportBounds(this.listElement);
+
+            if (viewportBounds.bottom) {
+                // Calculate space above and below
+                const distanceToBottom = window.innerHeight - listRect.top;
+
+                if (distanceToBottom < distanceToTop) {
+                    // More space above, show upward
+                    if (!this.classList.contains('direction-up')) {
+                        this.classList.add('direction-up');
+                    }
+                    if (listHeight > distanceToTop - this.controlHeight) {
+                        this.height = distanceToTop;
+                        this.listElement.style.maxHeight = `${distanceToTop}px`;
+                    }
+                } else {
+                    // More space below, show downward
+                    if (listHeight > distanceToBottom) {
+                        this.height = distanceToBottom;
+                        this.listElement.style.maxHeight = `${distanceToBottom}px`;
+                    }
                 }
             }
         }
 
+        // Final position update
         this.updatePosition(document);
     }
 }

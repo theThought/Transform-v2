@@ -150,6 +150,10 @@ body.question-no-separator {
         font-size: inherit;
     }
 
+    :where(.grid-grandtotal) {
+        border-inline-start: var(--border-thickness) solid var(--color-darkest);
+    }
+
     :where(.grid-row-total-title, .grid-row-total) {
         border-inline-start: var(--border-thickness) solid var(--color-darkest);
         font-size: inherit;
