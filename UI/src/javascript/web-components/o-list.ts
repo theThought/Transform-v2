@@ -104,6 +104,7 @@ export default class OList extends Component implements Observer {
 
         if (this.control) {
             this.control.addObserver(this);
+            this.addVisibilityObserver();
             this.removeTabIndex();
         }
 
@@ -868,22 +869,30 @@ export default class OList extends Component implements Observer {
         this.listElement = this.querySelector('ul');
     }
 
-    private checkViewportBounds(element: HTMLElement): Overflow {
-        const bounding = element.getBoundingClientRect();
-        const overflow: Overflow = { any: false };
+    private addVisibilityObserver(): void {
+        if (!this.control) return;
 
-        overflow.top = bounding.top < 0;
-        overflow.left = bounding.left < 0;
-        overflow.bottom =
-            bounding.bottom >
-            (window.innerHeight || document.documentElement.clientHeight);
-        overflow.right =
-            bounding.right >
-            (window.innerWidth || document.documentElement.clientWidth);
-        overflow.any =
-            overflow.top || overflow.left || overflow.bottom || overflow.right;
+        // Options for the observer (which mutations to observe)
+        const config = {
+            attributeFilter: ['style', 'class'],
+        };
 
-        return overflow;
+        const mutationObserver = (): void => {
+            if (
+                this.checkVisibility({
+                    opacityProperty: true,
+                    visibilityProperty: true,
+                })
+            ) {
+                this.setDropListDirection();
+            }
+        };
+
+        // Create an observer instance linked to the callback function
+        const observer = new MutationObserver(mutationObserver);
+
+        // Start observing the target node for configured mutations
+        observer.observe(this.control, config);
     }
 
     private setDropListDirection(): void {
