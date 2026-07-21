@@ -556,9 +556,21 @@ export default class OLoop extends Component implements Observer {
                 if (captionWidth) totalTH.style.width = captionWidth;
                 totalTH.innerHTML = this.replaceHTMLPlaceholder(captionTitle);
                 totalCell.replaceWith(totalTH);
+
+                const details: TotalEntry = {
+                    id: 'inputElement.id',
+                    value: 0,
+                    column: 0,
+                    row: i,
+                    readonly: true,
+                };
+
+                this.rowTotals.unshift(details);
             } else {
                 // regular total in other rows, avoiding any error rows
                 // and skipping exclusion rows
+                totalCell.classList.add('grid-row-total');
+                totalCell.classList.add(`align-${columnAlign}`);
 
                 if (
                     this.table.rows[i].classList.contains(
@@ -574,9 +586,6 @@ export default class OLoop extends Component implements Observer {
                 ) {
                     continue;
                 }
-
-                totalCell.classList.add('grid-row-total');
-                totalCell.classList.add(`align-${columnAlign}`);
 
                 let htmlString = '';
                 const totalWrapper = document.createElement('div');
@@ -639,6 +648,16 @@ export default class OLoop extends Component implements Observer {
                 if (captionWidth) totalTH.style.width = captionWidth;
                 totalTH.innerHTML = this.replaceHTMLPlaceholder(captionTitle);
                 totalCell.replaceWith(totalTH);
+
+                const details: TotalEntry = {
+                    id: 'inputElement.id',
+                    value: 0,
+                    column: 0,
+                    row: i,
+                    readonly: true,
+                };
+
+                this.columnTotals.unshift(details);
             } else {
                 if (this.hasRowTotals && i === columnCount - 1) {
                     // grand total in the last column
@@ -653,7 +672,7 @@ export default class OLoop extends Component implements Observer {
                     totalCell.classList.add('grid-column-total');
                     totalCell.classList.add(`align-${columnAlign}`);
 
-                    if (this.columnTotals.find((n) => n.column !== i))
+                    if (!this.columnTotals.find((n) => n.column === i))
                         totalCell.classList.add('no-input-items-found');
 
                     if (
