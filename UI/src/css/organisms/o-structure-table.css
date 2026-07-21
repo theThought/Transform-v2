@@ -147,12 +147,12 @@ body.question-no-separator {
 
     :where(.grid-column-total-title, .grid-column-total, .grid-grandtotal) {
         border-block-start: var(--border-thickness) solid var(--color-darkest);
-        font-size: var(--font-size-m);
+        font-size: inherit;
     }
 
-    :where(.grid-row-total-title, .grid-row-total, .grid-grandtotal) {
+    :where(.grid-row-total-title, .grid-row-total) {
         border-inline-start: var(--border-thickness) solid var(--color-darkest);
-        font-size: var(--font-size-m);
+        font-size: inherit;
     }
 
     :where(.grid-row-total, .grid-grandtotal) {

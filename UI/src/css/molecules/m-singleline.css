@@ -1,6 +1,7 @@
 m-singleline,
 m-singleline-number,
-m-singleline-date {
+m-singleline-date,
+.m-grid-total {
     align-items: center;
     display: inline-flex;
 
