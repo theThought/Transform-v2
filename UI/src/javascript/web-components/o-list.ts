@@ -2,6 +2,7 @@ import Component from './component';
 import OCombobox from './o-combobox';
 import ODropdown from './o-dropdown';
 import { Observer } from '../interfaces';
+import { checkCollision, checkViewportBounds } from './util';
 
 interface CustomProperties {
     exact: boolean;
@@ -15,14 +16,6 @@ interface CustomProperties {
     mincharactersforlist: number;
     notenoughcharacters: string;
     noitemsinlist: string;
-}
-
-interface Overflow {
-    top?: boolean;
-    bottom?: boolean;
-    left?: boolean;
-    right?: boolean;
-    any: boolean;
 }
 
 export default class OList extends Component implements Observer {
@@ -908,13 +901,28 @@ export default class OList extends Component implements Observer {
             this.height = this.listElement.getBoundingClientRect().height;
         }
 
-        const viewportBounds = this.checkViewportBounds(this.listElement);
+        const viewportBounds = checkViewportBounds(this.listElement);
+
+        const footer = document.querySelector('footer') as HTMLElement;
+        const footerCollision = checkCollision(this.listElement, footer);
+
         const distanceToTop =
             this.listElement.getBoundingClientRect().top - this.controlHeight;
         const distanceToBottom =
             window.innerHeight - this.listElement.getBoundingClientRect().top;
 
-        if (viewportBounds.bottom) {
+        if (footerCollision) {
+            if (!this.classList.contains('direction-up')) {
+                this.classList.add('direction-up');
+            }
+            if (
+                this.listElement.getBoundingClientRect().height >
+                distanceToTop - this.controlHeight
+            ) {
+                this.height = distanceToTop;
+                this.listElement.style.maxHeight = `${distanceToTop}px`;
+            }
+        } else if (viewportBounds.bottom) {
             if (distanceToBottom < distanceToTop) {
                 // there's more space available above the item, appear above
                 if (!this.classList.contains('direction-up')) {

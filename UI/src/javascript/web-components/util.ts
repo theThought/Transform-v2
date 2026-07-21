@@ -1,3 +1,11 @@
+interface Overflow {
+    top?: boolean;
+    bottom?: boolean;
+    left?: boolean;
+    right?: boolean;
+    any: boolean;
+}
+
 export function removeHTMLWhitespace(html: string): string {
     html = '>' + html + '<';
     html = html.replace(/>\s+</gim, '><');
@@ -19,6 +27,34 @@ export function replaceHTMLPlaceholder(html: string): string {
 
 export function visible(elem: HTMLInputElement): boolean {
     return !(elem.clientHeight === 0 || elem.clientWidth === 0);
+}
+
+export function checkViewportBounds(element: HTMLElement): Overflow {
+    const bounding = element.getBoundingClientRect();
+    const overflow: Overflow = { any: false };
+
+    overflow.top = bounding.top < 0;
+    overflow.left = bounding.left < 0;
+    overflow.bottom =
+        bounding.bottom >
+        (window.innerHeight || document.documentElement.clientHeight);
+    overflow.right =
+        bounding.right >
+        (window.innerWidth || document.documentElement.clientWidth);
+    overflow.any =
+        overflow.top || overflow.left || overflow.bottom || overflow.right;
+
+    return overflow;
+}
+
+export function checkCollision(
+    firstElement: HTMLElement,
+    secondElement: HTMLElement,
+): boolean {
+    const firstElementBottom = firstElement.getBoundingClientRect().bottom;
+    const secondElementTop = secondElement.getBoundingClientRect().top;
+
+    return firstElementBottom > secondElementTop;
 }
 
 export function mergeDeep(
