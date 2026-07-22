@@ -345,7 +345,9 @@ export default class OLoop extends Component implements Observer {
     private recalculateColumnTotals(): void {
         if (!this.table || this.table.rows.length === 0) return;
 
-        const th = this.table.querySelectorAll('thead tr:first-child th');
+        const th = this.table.querySelectorAll(
+            'tbody tr:first-child th, tbody tr:first-child td',
+        );
         const thArray = Array.from(th) as HTMLTableCellElement[];
 
         const columnCount = thArray.reduce((total, cell) => {
@@ -620,7 +622,15 @@ export default class OLoop extends Component implements Observer {
             return;
         }
 
-        const columnCount = this.table.rows[0].cells.length;
+        const th = this.table.querySelectorAll(
+            'tbody tr:first-child th, tbody tr:first-child td',
+        );
+        const thArray = Array.from(th) as HTMLTableCellElement[];
+
+        const columnCount = thArray.reduce((total, cell) => {
+            return total + cell.colSpan;
+        }, 0);
+
         const totalRow = this.table.insertRow(-1);
         totalRow.className = 'm-structure-column-totals';
 
