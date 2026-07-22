@@ -345,7 +345,13 @@ export default class OLoop extends Component implements Observer {
     private recalculateColumnTotals(): void {
         if (!this.table || this.table.rows.length === 0) return;
 
-        const columnCount = this.table.rows[0].cells.length;
+        const th = this.table.querySelectorAll('thead tr:first-child th');
+        const thArray = Array.from(th) as HTMLTableCellElement[];
+
+        const columnCount = thArray.reduce((total, cell) => {
+            return total + cell.colSpan;
+        }, 0);
+
         let grandTotal = 0;
 
         for (let column = 0; column < columnCount; column++) {
