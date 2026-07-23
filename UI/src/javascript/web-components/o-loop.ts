@@ -219,8 +219,8 @@ export default class OLoop extends Component implements Observer {
                     const details: TotalEntry = {
                         id: inputElement.id,
                         value: Number(inputElement.value) || 0,
-                        column: Number(col.dataset.x),
-                        row: Number(col.dataset.y),
+                        column: Number(j),
+                        row: Number(i),
                         readonly: inputElement.readOnly,
                     };
                     this[`${direction}Totals`].push(details);
