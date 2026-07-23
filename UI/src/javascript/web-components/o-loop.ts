@@ -680,7 +680,9 @@ export default class OLoop extends Component implements Observer {
                     this.hasGrandTotal = true;
                     totalCell.classList.add('m-structure-cell-total');
                     totalCell.classList.add('grid-grandtotal');
-                    totalCell.classList.add(`align-${columnAlign}`);
+                    const grandTotalAlign =
+                        this.properties.totals?.rows?.align ?? 'default';
+                    totalCell.classList.add(`align-${grandTotalAlign}`);
                     totalCell.innerHTML = `<div class="a-label-total-grand a-label-total" style="${figureWidth}"><span>0</span></div>`;
                 } else {
                     // regular total in other columns
