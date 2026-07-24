@@ -154,7 +154,13 @@ body.question-no-separator {
         border-inline-start: var(--border-thickness) solid var(--color-darkest);
     }
 
-    :where(.grid-row-total-title, .grid-row-total) {
+    .grid-row-total-title {
+        border-inline-start: var(--border-thickness) solid var(--color-darkest);
+        font-size: var(--font-size-m);
+        vertical-align: middle;
+    }
+
+    :where(.grid-row-total) {
         border-inline-start: var(--border-thickness) solid var(--color-darkest);
         font-size: inherit;
     }
