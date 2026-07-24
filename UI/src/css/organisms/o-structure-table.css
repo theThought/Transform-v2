@@ -152,6 +152,8 @@ body.question-no-separator {
 
     :where(.grid-grandtotal) {
         border-inline-start: var(--border-thickness) solid var(--color-darkest);
+        padding-block-start: 0.5em;
+        text-align: end;
     }
 
     .grid-row-total-title {
@@ -163,18 +165,11 @@ body.question-no-separator {
     :where(.grid-row-total) {
         border-inline-start: var(--border-thickness) solid var(--color-darkest);
         font-size: inherit;
-    }
-
-    :where(.grid-row-total, .grid-grandtotal) {
         text-align: end;
     }
 
     :where(.grid-row-total, .grid-column-total, .grid-grandtotal) {
         white-space: nowrap;
-    }
-
-    :where(.grid-grandtotal) {
-        padding-block-start: 0.5em;
     }
 
     caption {

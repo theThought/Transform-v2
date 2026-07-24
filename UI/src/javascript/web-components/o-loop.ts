@@ -629,12 +629,30 @@ export default class OLoop extends Component implements Observer {
                 if (this.hasRowTotals && i === columnCount - 1) {
                     // grand total in the last column
                     this.hasGrandTotal = true;
+
+                    const grandTotalWrapper = document.createElement('div');
+                    grandTotalWrapper.className = 'm-grid-total';
+
+                    const grandTotalFigureAlign = this.properties.totals?.rows
+                        ?.align
+                        ? `text-align: ${this.properties.totals?.rows?.align};`
+                        : '';
+
+                    const grandTotalFigureWidth = this.properties.totals?.rows
+                        ?.width
+                        ? `width: ${this.properties.totals?.rows?.width};`
+                        : '';
+
+                    const grandTotalColumnAlign =
+                        this.properties.totals?.rows?.elementalign ?? 'default';
+
                     totalCell.classList.add('m-structure-cell-total');
                     totalCell.classList.add('grid-grandtotal');
-                    const grandTotalAlign =
-                        this.properties.totals?.rows?.align ?? 'default';
-                    totalCell.classList.add(`align-${grandTotalAlign}`);
-                    totalCell.innerHTML = `<div class="a-label-total-grand a-label-total" style="${figureWidth}"><span>0</span></div>`;
+                    totalCell.classList.add(`align-${grandTotalColumnAlign}`);
+
+                    grandTotalWrapper.innerHTML = `<div class="a-label-total-grand a-label-total" style="${grandTotalFigureWidth} ${grandTotalFigureAlign}"><span>0</span></div>`;
+
+                    totalCell.append(grandTotalWrapper);
                 } else {
                     // regular total in other columns
                     totalCell.classList.add('grid-column-total');
