@@ -57,18 +57,15 @@ interface GridProperties {
 }
 
 type TotalEntry = {
-    id: string;
-    value: number;
+    input: HTMLInputElement;
     column: number;
     row: number;
-    readonly: boolean;
 };
 
 export default class OLoop extends Component implements Observer {
     private table: HTMLTableElement | null = null;
     private hasRowTotals = false;
-    private rowTotals: TotalEntry[] = [];
-    private columnTotals: TotalEntry[] = [];
+    private totalEntries = new Map<number, Map<number, TotalEntry[]>>();
     private excludeRowReadOnly = true;
     private excludeColumnReadOnly = true;
     private hasGrandTotal = false;
@@ -78,8 +75,7 @@ export default class OLoop extends Component implements Observer {
     update(method: string): void {
         switch (method) {
             case 'questionVisibility':
-                this.getTableInputElements('row');
-                this.getTableInputElements('column');
+                this.collectTableInputs();
                 this.recalculateRowTotals();
                 this.recalculateColumnTotals();
                 break;
@@ -181,10 +177,16 @@ export default class OLoop extends Component implements Observer {
 
     // Totals setup
     private configureTotals(): void {
+        if (
+            this.properties.totals?.rows?.visible ||
+            this.properties.totals?.columns?.visible
+        ) {
+            this.collectTableInputs();
+        }
+
         if (this.properties.totals?.rows?.visible) {
             this.excludeRowReadOnly =
                 this.properties.totals?.rows.excludereadonly ?? true;
-            this.getTableInputElements('row');
             this.configureRowTotals();
             this.recalculateRowTotals();
         }
@@ -192,70 +194,45 @@ export default class OLoop extends Component implements Observer {
         if (this.properties.totals?.columns?.visible) {
             this.excludeColumnReadOnly =
                 this.properties.totals?.columns.excludereadonly ?? true;
-            this.getTableInputElements('column');
             this.configureColumnTotals();
             this.recalculateColumnTotals();
         }
     }
 
-    private getTableInputElements(direction: 'row' | 'column'): void {
+    private collectTableInputs(): void {
         if (!this.table) return;
-        this[`${direction}Totals`] = [];
+        this.totalEntries.clear();
 
-        for (
-            let i = 0, row: HTMLTableRowElement | undefined;
-            (row = this.table.rows[i]);
-            i++
-        ) {
-            for (
-                let j = 0, col: HTMLTableCellElement | undefined;
-                (col = row.cells[j] as HTMLTableCellElement);
-                j++
-            ) {
-                const inputElement = col.querySelector(
-                    'input',
-                ) as HTMLInputElement | null;
-                if (inputElement) {
-                    const details: TotalEntry = {
-                        id: inputElement.id,
-                        value: Number(inputElement.value) || 0,
-                        column: Number(j),
-                        row: Number(i),
-                        readonly: inputElement.readOnly,
-                    };
-                    this[`${direction}Totals`].push(details);
+        this.table
+            .querySelectorAll<HTMLInputElement>('input')
+            .forEach((input) => {
+                const cell =
+                    input.closest<HTMLTableCellElement>('[data-X][data-Y]');
+                if (!cell) return;
+
+                const column = Number(cell.dataset.x);
+                const row = Number(cell.dataset.y);
+                if (isNaN(column) || isNaN(row)) return;
+
+                let rowEntries = this.totalEntries.get(row);
+                if (!rowEntries) {
+                    rowEntries = new Map<number, TotalEntry[]>();
+                    this.totalEntries.set(row, rowEntries);
                 }
-            }
-        }
+
+                const columnEntries = rowEntries.get(column) || [];
+                columnEntries.push({ input, column, row });
+                rowEntries.set(column, columnEntries);
+            });
     }
 
     private receiveBroadcast(e: CustomEvent): void {
-        const detail = e.detail || {};
-        if (!e.detail.element) return;
+        const element = e.detail?.element;
+        if (!(element instanceof HTMLInputElement) || !this.contains(element))
+            return;
 
-        const rowindex = this.rowTotals
-            .map(function (detail) {
-                return detail.id;
-            })
-            .indexOf(detail.element.id);
-
-        const elementValue = Number(detail.element.value);
-
-        if (rowindex !== -1) {
-            this.rowTotals[rowindex].value = elementValue;
-            this.recalculateRowTotals();
-        }
-
-        const colindex = this.columnTotals
-            .map(function (detail) {
-                return detail.id;
-            })
-            .indexOf(detail.element.id);
-
-        if (colindex !== -1) {
-            this.columnTotals[colindex].value = elementValue;
-            this.recalculateColumnTotals();
-        }
+        this.recalculateRowTotals();
+        this.recalculateColumnTotals();
     }
 
     private setSeparatorStyle(): void {
@@ -300,43 +277,52 @@ export default class OLoop extends Component implements Observer {
     }
 
     // Row totals calculation
+    private isException(
+        exceptions: number[] | undefined,
+        index: number,
+    ): boolean {
+        return Array.isArray(exceptions) && exceptions.indexOf(index) >= 0;
+    }
+
+    private getEntryValue(entry: TotalEntry): number {
+        return Number(entry.input.value) || 0;
+    }
+
+    private setTotalValue(element: Element, value: number): void {
+        const valueElement = element.querySelector('span') || element;
+        valueElement.textContent = `${value}`;
+    }
+
     private recalculateRowTotals(): void {
         if (!this.table) return;
 
-        const rowCount = this.table.rows.length;
         let grandTotal = 0;
 
-        for (let row = 1; row < rowCount; row++) {
-            let rowTotal = 0;
+        this.table
+            .querySelectorAll<HTMLElement>('.a-label-total-row[data-rownumber]')
+            .forEach((totalElement) => {
+                const row = Number(totalElement.dataset.rownumber);
+                let rowTotal = 0;
 
-            const rowEx = this.properties.totals?.rows?.exceptions;
-            if (Array.isArray(rowEx) && rowEx.indexOf(row) >= 0) {
-                continue;
-            }
+                this.totalEntries.get(row)?.forEach((entries, column) => {
+                    if (
+                        this.isException(
+                            this.properties.totals?.columns?.exceptions,
+                            column,
+                        )
+                    )
+                        return;
 
-            for (let k = 0; k < this.rowTotals.length; k++) {
-                const entry = this.rowTotals[k];
+                    entries.forEach((entry) => {
+                        if (this.excludeRowReadOnly && entry.input.readOnly)
+                            return;
+                        rowTotal += this.getEntryValue(entry);
+                    });
+                });
 
-                const colEx = this.properties.totals?.columns?.exceptions;
-                if (Array.isArray(colEx) && colEx.indexOf(entry.column) >= 0) {
-                    continue;
-                }
-
-                if (entry.row !== row) continue;
-                if (this.excludeRowReadOnly && entry.readonly) continue;
-
-                rowTotal += Number(entry.value) || 0;
-            }
-
-            const totalDiv = this.table.querySelector(
-                `div[data-rownumber="${row}"]`,
-            );
-            if (totalDiv) {
-                totalDiv.innerHTML = `${rowTotal}`;
-            }
-
-            grandTotal += rowTotal;
-        }
+                this.setTotalValue(totalElement, rowTotal);
+                grandTotal += rowTotal;
+            });
 
         this.updateGrandTotal(grandTotal);
     }
@@ -345,57 +331,35 @@ export default class OLoop extends Component implements Observer {
     private recalculateColumnTotals(): void {
         if (!this.table || this.table.rows.length === 0) return;
 
-        const th = this.table.querySelectorAll(
-            'tbody tr:first-child th, tbody tr:first-child td',
-        );
-        const thArray = Array.from(th) as HTMLTableCellElement[];
-
-        const columnCount = thArray.reduce((total, cell) => {
-            return total + cell.colSpan;
-        }, 0);
-
         let grandTotal = 0;
 
-        for (let column = 0; column < columnCount; column++) {
-            let colTotal = 0;
+        this.table
+            .querySelectorAll<HTMLElement>(
+                '.a-label-total-column[data-colnumber]',
+            )
+            .forEach((totalElement) => {
+                const column = Number(totalElement.dataset.colnumber);
+                let colTotal = 0;
 
-            for (let j = 0; j < this.columnTotals.length; j++) {
-                const rowEntry = this.rowTotals[j]; // May be undefined if arrays differ in length
+                this.totalEntries.forEach((columns, row) => {
+                    if (
+                        this.isException(
+                            this.properties.totals?.rows?.exceptions,
+                            row,
+                        )
+                    )
+                        return;
 
-                const colEx = this.properties.totals?.columns?.exceptions;
-                if (
-                    Array.isArray(colEx) &&
-                    rowEntry &&
-                    colEx.indexOf(rowEntry.column) >= 0
-                ) {
-                    continue;
-                }
+                    columns.get(column)?.forEach((entry) => {
+                        if (this.excludeColumnReadOnly && entry.input.readOnly)
+                            return;
+                        colTotal += this.getEntryValue(entry);
+                    });
+                });
 
-                const rowEx = this.properties.totals?.rows?.exceptions;
-                if (
-                    Array.isArray(rowEx) &&
-                    rowEntry &&
-                    rowEx.indexOf(rowEntry.row) >= 0
-                ) {
-                    continue;
-                }
-
-                if (this.columnTotals[j].column !== column) continue;
-                if (this.excludeColumnReadOnly && this.columnTotals[j].readonly)
-                    continue;
-
-                colTotal += Number(this.columnTotals[j].value) || 0;
-            }
-
-            const totalDiv = this.table.querySelector(
-                `div[data-colnumber="${column}"]`,
-            );
-            if (totalDiv) {
-                totalDiv.innerHTML = `<span>${colTotal}</span>`;
-            }
-
-            grandTotal += colTotal;
-        }
+                this.setTotalValue(totalElement, colTotal);
+                grandTotal += colTotal;
+            });
 
         this.updateGrandTotal(grandTotal);
     }
@@ -404,7 +368,7 @@ export default class OLoop extends Component implements Observer {
         if (!this.hasGrandTotal || !this.table) return;
         const grand = this.table.querySelector('div.a-label-total-grand');
         if (grand) {
-            grand.innerHTML = `${grandTotal}`;
+            this.setTotalValue(grand, grandTotal);
         }
     }
 
@@ -564,16 +528,6 @@ export default class OLoop extends Component implements Observer {
                 if (captionWidth) totalTH.style.width = captionWidth;
                 totalTH.innerHTML = this.replaceHTMLPlaceholder(captionTitle);
                 totalCell.replaceWith(totalTH);
-
-                const details: TotalEntry = {
-                    id: 'inputElement.id',
-                    value: 0,
-                    column: 0,
-                    row: i,
-                    readonly: true,
-                };
-
-                this.rowTotals.unshift(details);
             } else {
                 // regular total in other rows, avoiding any error rows
                 // and skipping exclusion rows
@@ -588,9 +542,16 @@ export default class OLoop extends Component implements Observer {
                     continue;
                 }
 
+                const coordinateCell =
+                    this.table.rows[i].querySelector<HTMLElement>('[data-Y]');
+                const row = Number(coordinateCell?.dataset.y);
+                if (isNaN(row)) continue;
+
                 if (
-                    Array.isArray(this.properties.totals?.rows?.exceptions) &&
-                    this.properties.totals?.rows?.exceptions.indexOf(i) >= 0
+                    this.isException(
+                        this.properties.totals?.rows?.exceptions,
+                        row,
+                    )
                 ) {
                     continue;
                 }
@@ -603,7 +564,7 @@ export default class OLoop extends Component implements Observer {
                     htmlString += `<span class="a-label-pre">${this.properties.totals?.rows?.labels.pre}</span>`;
                 }
 
-                htmlString += `<div class="a-label-total-row a-label-total" data-rownumber="${i}" style="${figureWidth} ${figureAlign}"><span>0</span></div>`;
+                htmlString += `<div class="a-label-total-row a-label-total" data-rownumber="${row}" style="${figureWidth} ${figureAlign}"><span>0</span></div>`;
 
                 if (this.properties.totals?.rows?.labels?.post) {
                     htmlString += `<span class="a-label-post">${this.properties.totals?.rows?.labels.post}</span>`;
@@ -664,16 +625,6 @@ export default class OLoop extends Component implements Observer {
                 if (captionWidth) totalTH.style.width = captionWidth;
                 totalTH.innerHTML = this.replaceHTMLPlaceholder(captionTitle);
                 totalCell.replaceWith(totalTH);
-
-                const details: TotalEntry = {
-                    id: 'inputElement.id',
-                    value: 0,
-                    column: 0,
-                    row: i,
-                    readonly: true,
-                };
-
-                this.columnTotals.unshift(details);
             } else {
                 if (this.hasRowTotals && i === columnCount - 1) {
                     // grand total in the last column
@@ -689,7 +640,10 @@ export default class OLoop extends Component implements Observer {
                     totalCell.classList.add('grid-column-total');
                     totalCell.classList.add(`align-${columnAlign}`);
 
-                    if (!this.columnTotals.find((n) => n.column === i))
+                    const hasInput = Array.from(
+                        this.totalEntries.values(),
+                    ).some((columns) => columns.has(i));
+                    if (!hasInput)
                         totalCell.classList.add('no-input-items-found');
 
                     if (
