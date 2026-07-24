@@ -63,6 +63,7 @@ o-list {
         overflow: hidden;
         padding-block-end: 0;
         padding-block-start: 0;
+        position: static;
         visibility: hidden;
     }
 

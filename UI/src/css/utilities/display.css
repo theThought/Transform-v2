@@ -27,6 +27,7 @@ The CSS utility class behaves the same as the HTML attribute.
 
 .hidden-filter,
 .hidden-rule {
+    position: absolute;
     visibility: hidden;
     white-space: nowrap;
 }
