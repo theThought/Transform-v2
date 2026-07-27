@@ -670,6 +670,18 @@ export default class OList extends Component implements Observer {
         this.buildVisibleList();
     }
 
+    private clearExternallyFilteredOptions(): void {
+        const filteredOptions = this.querySelectorAll(
+            '.hidden-external-filter',
+        ) as NodeListOf<HTMLElement>;
+
+        filteredOptions.forEach((option) => {
+            option.classList.remove('hidden-external-filter');
+        });
+
+        this.buildVisibleList();
+    }
+
     private clearSelectedOptions(): void {
         this.listSelectedIndex = -1;
         const selectedOptions = this.querySelectorAll(
@@ -779,7 +791,7 @@ export default class OList extends Component implements Observer {
     private processFilter(e: CustomEvent): void {
         let excluded = false;
         const matchingElement = this.querySelector(
-            `[data-value="${e.detail.element.dataset.value}"]:not(.hidden-filter)`,
+            `[data-value="${e.detail.element.dataset.value}"]:not(.hidden-external-filter)`,
         ) as HTMLElement;
 
         // the incoming value has been found in the exclusion list
@@ -802,7 +814,7 @@ export default class OList extends Component implements Observer {
                     e.detail.hideMethod,
                 );
             } else {
-                this.clearFilteredOptions();
+                this.clearExternallyFilteredOptions();
                 this.hideOption(matchingElement, e.detail.hideMethod);
                 this.buildVisibleList();
             }
@@ -817,7 +829,7 @@ export default class OList extends Component implements Observer {
         }
 
         if (hideMethod === 'filter') {
-            option.classList.add('hidden-filter');
+            option.classList.add('hidden-external-filter');
         } else {
             option.classList.add('hidden-rule');
         }
