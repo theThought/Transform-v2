@@ -38,12 +38,7 @@ export default class OList extends Component implements Observer {
     private keyBuffer = '';
     private keyTimer: ReturnType<typeof setTimeout>;
     private keyBufferTimeout = 500;
-    private containerScrollLeft = 0;
-    private containerScrollTop = 0;
-    private documentScrollLeft = 0;
-    private documentScrollTop = 0;
     private controlHeight = 38;
-    private height = 0;
     private initialHeight = 0;
     private isConfigured = false;
 
@@ -227,65 +222,60 @@ export default class OList extends Component implements Observer {
     }
 
     private updatePosition(target: HTMLElement | Document): void {
-        // Do not update position if it is the list that is being scrolled
+        // Skip if list is being scrolled directly
         if (target === this) return;
 
-        // Do not update position if list is not a child of scroll target
+        // Skip if list is not a child of scroll target
         if (!target.contains(this)) return;
 
-        // Do not update position if there is no parent control to align with
+        // Skip if no parent control to align with
         if (!this.control) return;
 
-        let scrollLeft;
-        let scrollTop;
+        // Rather than relying on how far control has moved via scroll offsets
+        // (problematic where the visual and layout viewports differ (i.e. iOS
+        // with the on-screen keyboard or pinch zoom) measure the gap between
+        // the list and the control and close
+        const anchor = this.control;
+        const anchorRect = anchor.getBoundingClientRect();
+        const listRect = this.getBoundingClientRect();
+        const style = window.getComputedStyle(this);
 
-        if (
-            target instanceof HTMLElement &&
-            typeof target.scrollLeft !== 'undefined'
-        ) {
-            scrollLeft = target.scrollLeft;
-            if (scrollLeft !== this.containerScrollLeft) {
-                this.containerScrollLeft = scrollLeft;
-                this.style.marginLeft = 0 - scrollLeft + 'px';
-                return;
-            }
-        } else {
-            scrollLeft =
-                document.documentElement.scrollLeft || document.body.scrollLeft;
-            if (scrollLeft !== this.documentScrollLeft) {
-                this.documentScrollLeft = scrollLeft;
-                this.style.marginLeft = 0 - scrollLeft + 'px';
-                return;
-            }
-        }
+        // Overlap the shared border between control and list
+        const border = this.getBorderThickness();
 
-        if (
-            target instanceof HTMLElement &&
-            typeof target.scrollTop !== 'undefined'
-        ) {
-            scrollTop = target.scrollTop;
+        const desiredLeft = anchorRect.left;
+        const desiredTop = this.classList.contains('direction-up')
+            ? anchorRect.top - listRect.height + 7
+            : anchorRect.bottom - border;
 
-            if (this.classList.contains('direction-up')) {
-                scrollTop += this.height - 2 + this.controlHeight;
-            }
+        this.applyOffset('marginLeft', style, desiredLeft - listRect.left);
+        this.applyOffset('marginTop', style, desiredTop - listRect.top);
+    }
 
-            if (scrollTop !== this.containerScrollTop) {
-                this.containerScrollTop = scrollTop;
-                this.style.marginTop = 0 - 2 - scrollTop + 'px';
-            }
-        } else {
-            scrollTop =
-                document.documentElement.scrollTop || document.body.scrollTop;
+    private getBorderThickness(): number {
+        if (!this.listElement) return 0;
 
-            if (this.classList.contains('direction-up')) {
-                scrollTop += this.height - 2 + this.controlHeight;
-            }
+        // The border lives on the inner list, and is rem based, so measure it
+        // rather than assuming 2px - iOS text size adjustment can inflate it
+        const width = parseFloat(
+            window.getComputedStyle(this.listElement).borderBlockStartWidth,
+        );
 
-            if (scrollTop !== this.documentScrollTop) {
-                this.documentScrollTop = scrollTop;
-                this.style.marginTop = 0 - 2 - scrollTop + 'px';
-            }
-        }
+        return Number.isNaN(width) ? 0 : width;
+    }
+
+    private applyOffset(
+        property: 'marginLeft' | 'marginTop',
+        style: CSSStyleDeclaration,
+        delta: number,
+    ): void {
+        // Sub-pixel drift is not worth a style write on every scroll frame
+        if (Math.abs(delta) < 0.5) return;
+
+        const current = parseFloat(style[property]);
+
+        this.style[property] =
+            `${(Number.isNaN(current) ? 0 : current) + delta}px`;
     }
 
     private handleKey(e: KeyboardEvent): void {
@@ -925,7 +915,6 @@ export default class OList extends Component implements Observer {
         // If the list has height, set initial maxHeight
         if (listHeight > 0) {
             this.listElement.style.maxHeight = `${this.initialHeight}px`;
-            this.height = listHeight;
         }
 
         // Check for footer collision
@@ -941,7 +930,6 @@ export default class OList extends Component implements Observer {
 
             // Adjust height to fit above the footer
             if (listHeight > distanceToTop - this.controlHeight) {
-                this.height = distanceToTop;
                 this.listElement.style.maxHeight = `${distanceToTop}px`;
             }
         } else {
@@ -958,13 +946,11 @@ export default class OList extends Component implements Observer {
                         this.classList.add('direction-up');
                     }
                     if (listHeight > distanceToTop - this.controlHeight) {
-                        this.height = distanceToTop;
                         this.listElement.style.maxHeight = `${distanceToTop}px`;
                     }
                 } else {
                     // More space below, show downward
                     if (listHeight > distanceToBottom) {
-                        this.height = distanceToBottom;
                         this.listElement.style.maxHeight = `${distanceToBottom}px`;
                     }
                 }
