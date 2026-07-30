@@ -21,25 +21,37 @@ export function visible(elem: HTMLInputElement): boolean {
     return !(elem.clientHeight === 0 || elem.clientWidth === 0);
 }
 
-export function mergeDeep(
-    ...objects: Record<string, any>[]
-): Record<string, any> {
-    const isObject = (obj: object): boolean => obj && typeof obj === 'object';
+type JsonPrimitive = string | number | boolean | null;
+type JsonValue = JsonPrimitive | JsonArray | JsonObject;
+type JsonArray = JsonValue[];
+type JsonObject = { [key: string]: JsonValue };
 
-    return objects.reduce((prev, obj) => {
+function isJsonObject(value: unknown): value is JsonObject {
+    return value !== null && typeof value === 'object' && !Array.isArray(value);
+}
+
+export function mergeDeep(...objects: JsonObject[]): JsonObject {
+    return objects.reduce<JsonObject>((prev, obj) => {
+        const next = { ...prev };
+
         Object.keys(obj).forEach((key) => {
-            const pVal = prev[key];
+            // Security: Prevent prototype pollution from user-set properties
+            if (key === '__proto__' || key === 'constructor') {
+                return;
+            }
+
+            const pVal = next[key];
             const oVal = obj[key];
 
             if (Array.isArray(pVal) && Array.isArray(oVal)) {
-                prev[key] = pVal.concat(...oVal);
-            } else if (isObject(pVal) && isObject(oVal)) {
-                prev[key] = mergeDeep(pVal, oVal);
+                next[key] = pVal.concat(oVal);
+            } else if (isJsonObject(pVal) && isJsonObject(oVal)) {
+                next[key] = mergeDeep(pVal, oVal);
             } else {
-                prev[key] = oVal;
+                next[key] = oVal;
             }
         });
 
-        return prev;
+        return next;
     }, {});
 }
