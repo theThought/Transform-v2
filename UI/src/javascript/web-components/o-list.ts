@@ -96,7 +96,7 @@ export default class OList extends Component implements Observer {
 
         this.buildList();
         this.buildVisibleList();
-        this.setListHeight();
+        this.setInitialListHeight();
 
         this.createNotEnoughCharactersMessage();
         this.createNoItemsInListMessage();
@@ -864,7 +864,7 @@ export default class OList extends Component implements Observer {
         }
     }
 
-    private setListHeight(): void {
+    private setInitialListHeight(): void {
         if (!this.listElement) return;
 
         const lineHeight = 33;
