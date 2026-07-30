@@ -41,6 +41,7 @@ export default class OList extends Component implements Observer {
     private controlHeight = 38;
     private initialHeight = 0;
     private isConfigured = false;
+    private positionFrame: number | null = null;
 
     constructor() {
         super();
@@ -66,6 +67,8 @@ export default class OList extends Component implements Observer {
         this.addEventListener('keyup', this.handleEvent);
         this.addEventListener('restore', this.handleEvent);
         document.addEventListener('scroll', this);
+        window.visualViewport?.addEventListener('resize', this);
+        window.visualViewport?.addEventListener('scroll', this);
 
         if (this.response) this.response.addObserver(this);
     }
@@ -78,6 +81,13 @@ export default class OList extends Component implements Observer {
         this.removeEventListener('keyup', this.handleEvent);
         this.removeEventListener('restore', this.handleEvent);
         document.removeEventListener('scroll', this);
+        window.visualViewport?.removeEventListener('resize', this);
+        window.visualViewport?.removeEventListener('scroll', this);
+
+        if (this.positionFrame !== null) {
+            cancelAnimationFrame(this.positionFrame);
+            this.positionFrame = null;
+        }
 
         if (this.response) this.response.removeObserver(this);
     }
@@ -154,7 +164,8 @@ export default class OList extends Component implements Observer {
                 this.restoreClearedValue();
                 break;
             case 'scroll':
-                this.updatePosition(e.target as HTMLElement);
+            case 'resize':
+                this.schedulePositionUpdate(e.target as HTMLElement | Document);
                 break;
         }
     }
@@ -221,32 +232,39 @@ export default class OList extends Component implements Observer {
         });
     }
 
+    private schedulePositionUpdate(target: HTMLElement | Document): void {
+        if (this.positionFrame !== null) {
+            cancelAnimationFrame(this.positionFrame);
+        }
+
+        this.positionFrame = requestAnimationFrame(() => {
+            this.positionFrame = null;
+
+            if (target instanceof VisualViewport) {
+                this.updatePosition(document);
+                return;
+            }
+
+            this.updatePosition(target);
+        });
+    }
+
     private updatePosition(target: HTMLElement | Document): void {
-        // Skip if list is being scrolled directly
         if (target === this) return;
-
-        // Skip if list is not a child of scroll target
         if (!target.contains(this)) return;
-
-        // Skip if no parent control to align with
         if (!this.control) return;
+        if (!this.checkVisibility({ opacityProperty: true })) return;
 
-        // Rather than relying on how far control has moved via scroll offsets
-        // (problematic where the visual and layout viewports differ (i.e. iOS
-        // with the on-screen keyboard or pinch zoom) measure the gap between
-        // the list and the control and close
-        const anchor = this.control;
-        const anchorRect = anchor.getBoundingClientRect();
+        const controlRect = this.control.getBoundingClientRect();
         const listRect = this.getBoundingClientRect();
         const style = window.getComputedStyle(this);
-
-        // Overlap the shared border between control and list
         const border = this.getBorderThickness();
 
-        const desiredLeft = anchorRect.left;
-        const desiredTop = this.classList.contains('direction-up')
-            ? anchorRect.top - listRect.height + 7
-            : anchorRect.bottom - border;
+        const opensUp = this.classList.contains('direction-up');
+        const desiredLeft = controlRect.left;
+        const desiredTop = opensUp
+            ? controlRect.top - listRect.height + 7
+            : controlRect.bottom - border;
 
         this.applyOffset('marginLeft', style, desiredLeft - listRect.left);
         this.applyOffset('marginTop', style, desiredTop - listRect.top);
@@ -470,7 +488,7 @@ export default class OList extends Component implements Observer {
             this.clearFilteredOptions();
             this.clearHighlightedOption();
             this.buildVisibleList();
-            this.setDropListDirection();
+            this.setDropListDirection(true);
             this.resetScrollPosition();
             return;
         }
@@ -479,7 +497,7 @@ export default class OList extends Component implements Observer {
             this.displayEmptyMessage(false);
             this.displayMinCharacterMessage(true);
             this.clearElementValue();
-            this.setDropListDirection();
+            this.setDropListDirection(true);
             this.clearHighlightedOption();
             this.updateScrollPosition();
             return;
@@ -537,7 +555,7 @@ export default class OList extends Component implements Observer {
             this.displayEmptyMessage(true);
         }
 
-        this.setDropListDirection();
+        this.setDropListDirection(true);
     }
 
     private createNotEnoughCharactersMessage(): void {
@@ -886,7 +904,10 @@ export default class OList extends Component implements Observer {
                     visibilityProperty: true,
                 })
             ) {
-                this.setDropListDirection();
+                requestAnimationFrame(() => {
+                    this.setDropListDirection();
+                    this.schedulePositionUpdate(document);
+                });
             }
         };
 
@@ -897,67 +918,68 @@ export default class OList extends Component implements Observer {
         observer.observe(this.control, config);
     }
 
-    private setDropListDirection(): void {
-        if (!this.listElement) return;
+    private setDropListDirection(allowDownwardReset = false): void {
+        if (!this.listElement || !this.control) return;
 
-        // Reset direction to default
-        if (this.classList.contains('direction-up')) {
-            this.classList.remove('direction-up');
-        }
+        const visualViewport = window.visualViewport;
+        const viewportTop = visualViewport?.offsetTop ?? 0;
+        const viewportBottom =
+            viewportTop + (visualViewport?.height ?? window.innerHeight);
+        const controlRect = this.control.getBoundingClientRect();
 
-        // Update position to align with the control
-        this.updatePosition(document);
+        this.listElement.style.maxHeight = `${this.initialHeight}px`;
 
-        // Get list dimensions
-        const listRect = this.listElement.getBoundingClientRect();
-        const listHeight = listRect.height;
+        const measuredListHeight = this.listElement.scrollHeight;
+        const listHasContent = this.visibleList.length > 0;
+        const fullListHeight =
+            measuredListHeight > 0 || !listHasContent
+                ? measuredListHeight
+                : this.initialHeight;
+        const listHeight = Math.min(fullListHeight, this.initialHeight);
 
-        // If the list has height, set initial maxHeight
-        if (listHeight > 0) {
-            this.listElement.style.maxHeight = `${this.initialHeight}px`;
-        }
+        const footerRect = document
+            .querySelector('footer')
+            ?.getBoundingClientRect();
+        const lowerBoundary =
+            footerRect && footerRect.top > controlRect.bottom
+                ? Math.min(viewportBottom, footerRect.top)
+                : viewportBottom;
 
-        // Check for footer collision
-        const footer = document.querySelector('footer') as HTMLElement;
-        const footerCollision = checkCollision(this.listElement, footer);
-        const distanceToTop = listRect.top - this.controlHeight;
+        const spaceAbove = Math.max(0, controlRect.top - viewportTop);
+        const spaceBelow = Math.max(0, lowerBoundary - controlRect.bottom);
+        const opensUp = this.classList.contains('direction-up');
 
-        if (footerCollision) {
-            // Force upward direction if footer is in the way
-            if (!this.classList.contains('direction-up')) {
-                this.classList.add('direction-up');
-            }
+        // Prevent jitter when the available space above and below is nearly equal.
+        const switchThreshold = this.controlHeight;
 
-            // Adjust height to fit above the footer
-            if (listHeight > distanceToTop - this.controlHeight) {
-                this.listElement.style.maxHeight = `${distanceToTop}px`;
-            }
+        let shouldOpenUp = opensUp;
+
+        if (opensUp) {
+            const listNowFitsBelow = listHeight <= spaceBelow;
+            const belowIsClearlyBetter =
+                spaceBelow > spaceAbove + switchThreshold;
+
+            shouldOpenUp =
+                !(allowDownwardReset && listNowFitsBelow) &&
+                !belowIsClearlyBetter &&
+                (spaceAbove >= spaceBelow || spaceBelow < listHeight);
         } else {
-            // No footer collision, check viewport bounds
-            const viewportBounds = checkViewportBounds(this.listElement);
+            const aboveIsClearlyBetter =
+                spaceAbove > spaceBelow + switchThreshold;
+            const listDoesNotFitBelow = spaceBelow < listHeight;
 
-            if (viewportBounds.bottom) {
-                // Calculate space above and below
-                const distanceToBottom = window.innerHeight - listRect.top;
-
-                if (distanceToBottom < distanceToTop) {
-                    // More space above, show upward
-                    if (!this.classList.contains('direction-up')) {
-                        this.classList.add('direction-up');
-                    }
-                    if (listHeight > distanceToTop - this.controlHeight) {
-                        this.listElement.style.maxHeight = `${distanceToTop}px`;
-                    }
-                } else {
-                    // More space below, show downward
-                    if (listHeight > distanceToBottom) {
-                        this.listElement.style.maxHeight = `${distanceToBottom}px`;
-                    }
-                }
-            }
+            shouldOpenUp = aboveIsClearlyBetter && listDoesNotFitBelow;
         }
 
-        // Final position update
-        this.updatePosition(document);
+        this.classList.toggle('direction-up', shouldOpenUp);
+
+        const availableSpace = shouldOpenUp ? spaceAbove : spaceBelow;
+
+        if (listHeight > availableSpace) {
+            this.listElement.style.maxHeight = `${availableSpace}px`;
+        }
+
+        // Final position update after class/max-height changes have affected layout
+        this.schedulePositionUpdate(document);
     }
 }
