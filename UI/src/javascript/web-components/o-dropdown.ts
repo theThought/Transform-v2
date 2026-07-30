@@ -5,6 +5,7 @@ export default class ODropdown extends Component implements Subject {
     protected element: HTMLInputElement | null = null;
     private observers: Observer[] = [];
     private explicitWidth: boolean = false;
+    private containerResizeObserver: ResizeObserver | null = null;
 
     public handleEvent(e: Event): void {
         switch (e.type) {
@@ -133,6 +134,7 @@ export default class ODropdown extends Component implements Subject {
     private setWidthMethod(): void {
         if (!this.element) return;
         this.explicitWidth = !!this.element.style.width;
+        if (this.explicitWidth) this.dataset.explicitWidth = 'true';
     }
 
     private sendCurrentWidth(): void {
@@ -141,8 +143,8 @@ export default class ODropdown extends Component implements Subject {
         const widthChange = new CustomEvent('widthChange', {
             bubbles: false,
             detail: {
-                width: this.element.offsetWidth,
-                explicit: this.explicitWidth,
+                width: this.getAppliedWidth(),
+                explicit: this.explicitWidth || this.isInTable(),
             },
         });
 
@@ -150,41 +152,101 @@ export default class ODropdown extends Component implements Subject {
     }
 
     private monitorContainerWidth(): void {
-        if (this.explicitWidth) return;
-
         const closestLayoutContainer = this.closest('div.l-column');
-        const list = this.element?.nextElementSibling as HTMLElement;
-        const listItems = list.querySelector('ul');
-        const isGrid = !!this.closest('o-loop');
 
         if (!closestLayoutContainer) return;
-        if (!listItems) return;
 
-        const observer = new ResizeObserver((entries) => {
-            for (const entry of entries) {
-                const widthChange = new CustomEvent('widthChange', {
-                    bubbles: false,
-                    detail: {
-                        width: entry.borderBoxSize[0].inlineSize,
-                        explicit: this.explicitWidth,
-                    },
-                });
+        this.applyWidthFromContainer(closestLayoutContainer);
 
-                this.notifyObservers('widthChange', widthChange);
-
-                if (listItems.offsetWidth > entry.contentRect.width) {
-                    this.style.width = isGrid
-                        ? `calc(${entry.contentRect.width}px - var(--space-3))`
-                        : `${entry.contentRect.width}px`;
-                } else {
-                    this.style.width = isGrid
-                        ? `calc(${listItems.offsetWidth}px - var(--space-3))`
-                        : `${listItems.offsetWidth}px`;
-                }
-            }
+        this.containerResizeObserver = new ResizeObserver(() => {
+            this.applyWidthFromContainer(closestLayoutContainer);
         });
 
-        observer.observe(closestLayoutContainer);
+        this.containerResizeObserver.observe(closestLayoutContainer);
+    }
+
+    private applyWidthFromContainer(container: Element): void {
+        if (!this.element) return;
+
+        const availableWidth = this.getAvailableContainerWidth(container);
+
+        if (this.explicitWidth) {
+            this.sendCurrentWidth();
+            return;
+        }
+
+        const listWidth = this.getListContentWidth();
+        const targetWidth = Math.min(listWidth, availableWidth);
+        const width = this.getAdjustedWidth(targetWidth);
+
+        this.style.width = `${width}px`;
+
+        if (this.isInTable()) {
+            this.element.style.width = `${width}px`;
+        }
+
+        const widthChange = new CustomEvent('widthChange', {
+            bubbles: false,
+            detail: {
+                width,
+                explicit: this.isInTable(),
+            },
+        });
+
+        this.notifyObservers('widthChange', widthChange);
+    }
+
+    private getAvailableContainerWidth(container: Element): number {
+        const width = container.getBoundingClientRect().width;
+
+        return Math.max(0, width);
+    }
+
+    private getListContentWidth(): number {
+        const list = this.querySelector('o-list');
+        const listItems = list?.querySelector('ul');
+
+        if (!listItems) return this.getAppliedWidth();
+
+        const clone = listItems.cloneNode(true) as HTMLElement;
+
+        clone.style.blockSize = 'auto';
+        clone.style.inlineSize = 'max-content';
+        clone.style.maxBlockSize = 'none';
+        clone.style.maxInlineSize = 'none';
+        clone.style.minInlineSize = '0';
+        clone.style.overflow = 'visible';
+        clone.style.position = 'absolute';
+        clone.style.visibility = 'hidden';
+        clone.style.whiteSpace = 'nowrap';
+
+        document.body.appendChild(clone);
+
+        const width = Math.ceil(clone.getBoundingClientRect().width);
+
+        clone.remove();
+
+        return width;
+    }
+
+    private getAppliedWidth(): number {
+        return Math.ceil(this.getBoundingClientRect().width);
+    }
+
+    private getAdjustedWidth(width: number): number {
+        if (!this.closest('o-loop')) return width;
+
+        const spacing = Number.parseFloat(
+            getComputedStyle(document.documentElement).getPropertyValue(
+                '--space-3',
+            ),
+        );
+
+        return width - (Number.isNaN(spacing) ? 0 : spacing);
+    }
+
+    private isInTable(): boolean {
+        return !!this.closest('table');
     }
 
     private removeTabIndex(): void {
@@ -210,5 +272,10 @@ export default class ODropdown extends Component implements Subject {
         this.addEventListener('clickEvent', this.handleEvent);
         this.addEventListener('keydown', this.handleEvent);
         this.addEventListener('labelChange', this.handleEvent);
+    }
+
+    public disconnectedCallback(): void {
+        this.containerResizeObserver?.disconnect();
+        this.containerResizeObserver = null;
     }
 }
