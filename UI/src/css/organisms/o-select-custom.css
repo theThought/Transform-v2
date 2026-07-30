@@ -3,7 +3,6 @@
     position: relative;
 
     o-list {
-        block-size: 0;
         display: block;
         margin-block-start: calc(var(--border-thickness) * -1);
         opacity: 0;
@@ -13,10 +12,6 @@
 
         li {
             white-space: wrap;
-        }
-
-        .o-list {
-            block-size: 0;
         }
     }
 

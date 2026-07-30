@@ -252,7 +252,6 @@ export default class OList extends Component implements Observer {
         if (target === this) return;
         if (!target.contains(this)) return;
         if (!this.control) return;
-        if (!this.checkVisibility({ opacityProperty: true })) return;
 
         const controlRect = this.control.getBoundingClientRect();
         const listRect = this.getBoundingClientRect();
@@ -890,6 +889,7 @@ export default class OList extends Component implements Observer {
 
     private addVisibilityObserver(): void {
         if (!this.control) return;
+        this.updatePosition(document);
 
         // Options for the observer (which mutations to observe)
         const config = {
@@ -897,17 +897,10 @@ export default class OList extends Component implements Observer {
         };
 
         const mutationObserver = (): void => {
-            if (
-                this.checkVisibility({
-                    opacityProperty: true,
-                    visibilityProperty: true,
-                })
-            ) {
-                requestAnimationFrame(() => {
-                    this.setDropListDirection();
-                    this.schedulePositionUpdate(document);
-                });
-            }
+            requestAnimationFrame(() => {
+                this.setDropListDirection();
+                this.schedulePositionUpdate(document);
+            });
         };
 
         // Create an observer instance linked to the callback function
@@ -921,9 +914,8 @@ export default class OList extends Component implements Observer {
         if (!this.listElement || !this.control) return;
 
         const visualViewport = window.visualViewport;
-        const viewportTop = visualViewport?.offsetTop ?? 0;
-        const viewportBottom =
-            viewportTop + (visualViewport?.height ?? window.innerHeight);
+        const viewportTop = 0;
+        const viewportBottom = visualViewport?.height ?? window.innerHeight;
         const controlRect = this.control.getBoundingClientRect();
 
         this.listElement.style.maxHeight = `${this.initialHeight}px`;
@@ -951,7 +943,8 @@ export default class OList extends Component implements Observer {
         // Prevent jitter when the available space above and below is nearly equal.
         const switchThreshold = this.controlHeight;
 
-        let shouldOpenUp = opensUp;
+        // flag indicating final direction decision.
+        let shouldOpenUp: boolean;
 
         if (opensUp) {
             const listNowFitsBelow = listHeight <= spaceBelow;
