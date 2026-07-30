@@ -6,7 +6,7 @@
  * it belongs in this class instead of an individual component!
  */
 import OResponse from './o-response';
-import { mergeDeep } from './util';
+import { mergeDeep, type JsonObject } from './util';
 
 export default class Component extends HTMLElement {
     protected readonly qid: string;
@@ -18,7 +18,7 @@ export default class Component extends HTMLElement {
 
     protected qgroup: string;
     protected response: OResponse | null = null;
-    protected properties: object = {};
+    protected properties: JsonObject = {};
     protected isReadonly: boolean = false;
     protected element:
         | HTMLInputElement
@@ -49,10 +49,7 @@ export default class Component extends HTMLElement {
         properties = properties.replace(/&apos;/g, "'");
         if (!properties.length) properties = '{}';
 
-        const propertiesAsJson: Record<
-            string,
-            string | number | boolean | object
-        > = JSON.parse(properties.toString());
+        const propertiesAsJson: JsonObject = JSON.parse(properties.toString());
 
         if (this.response?.properties) {
             this.properties = mergeDeep(

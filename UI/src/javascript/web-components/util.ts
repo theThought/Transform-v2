@@ -21,27 +21,28 @@ export function visible(elem: HTMLInputElement): boolean {
     return !(elem.clientHeight === 0 || elem.clientWidth === 0);
 }
 
-type JsonPrimitive = string | number | boolean | null;
-type JsonValue = JsonPrimitive | JsonArray | JsonObject;
-type JsonArray = JsonValue[];
-type JsonObject = { [key: string]: JsonValue };
+export type JsonPrimitive = string | number | boolean | null;
+export type JsonValue = JsonPrimitive | JsonArray | JsonObject;
+export type JsonArray = JsonValue[];
+export type JsonObject = { [key: string]: JsonValue };
 
 function isJsonObject(value: unknown): value is JsonObject {
     return value !== null && typeof value === 'object' && !Array.isArray(value);
 }
 
-export function mergeDeep(...objects: JsonObject[]): JsonObject {
+export function mergeDeep(...objects: object[]): JsonObject {
     return objects.reduce<JsonObject>((prev, obj) => {
         const next = { ...prev };
+        const jsonObj = obj as JsonObject;
 
-        Object.keys(obj).forEach((key) => {
+        Object.keys(jsonObj).forEach((key) => {
             // Security: Prevent prototype pollution from user-set properties
             if (key === '__proto__' || key === 'constructor') {
                 return;
             }
 
             const pVal = next[key];
-            const oVal = obj[key];
+            const oVal = jsonObj[key];
 
             if (Array.isArray(pVal) && Array.isArray(oVal)) {
                 next[key] = pVal.concat(oVal);
