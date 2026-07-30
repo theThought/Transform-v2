@@ -2,7 +2,6 @@ import Component from './component';
 import OCombobox from './o-combobox';
 import ODropdown from './o-dropdown';
 import { Observer } from '../interfaces';
-import { checkCollision, checkViewportBounds } from './util';
 
 interface CustomProperties {
     exact: boolean;
