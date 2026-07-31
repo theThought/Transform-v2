@@ -871,11 +871,7 @@ export default class OResponse extends Component implements Subject, Observer {
                 replaceHTMLPlaceholder(item.label ?? ''),
             );
 
-            if (
-                this.properties.labels?.separator !== 'undefined' &&
-                this.properties.labels?.separator?.length &&
-                idx !== arr.length - 1
-            ) {
+            if ((this.properties.labels?.separator ?? '') !== '' && idx !== arr.length - 1) {
                 const alternativeSeparator = document.createElement('span');
                 alternativeSeparator.className =
                     'a-label-alternative-separator';
@@ -1131,14 +1127,14 @@ export default class OResponse extends Component implements Subject, Observer {
     }
 
     private writeToLocalStorage(value: string): void {
-        if (!this.properties.write) return;
+        if (!(this.properties.write?.name ?? '').length) return;
         localStorage.setItem(this.properties.write.name, value);
     }
 
     private updateStorage(e: CustomEvent): void {
         const originalElement = e.target as HTMLElement;
 
-        if (!this.properties.write) return;
+        if (!(this.properties.write?.name ?? '').length) return;
         if (!originalElement.contains(this)) return;
 
         localStorage.setItem(
@@ -1148,7 +1144,7 @@ export default class OResponse extends Component implements Subject, Observer {
     }
 
     private readFromStorage(): void {
-        if (!this.properties.read) return;
+        if (!((this.properties.read?.source ?? '').length && (this.properties.read?.name ?? '').length)) return;
 
         let value: string = '';
 
