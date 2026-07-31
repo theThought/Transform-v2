@@ -25,6 +25,7 @@ export default class OList extends Component implements Observer {
             source: '',
             exclusions: [],
         },
+        filtertype: '',
         jumptofirstletter: false,
         listsize: 6,
         mincharactersforlist: 0,
