@@ -213,19 +213,19 @@ export default class OLoop extends Component implements Observer {
     private configureCellShading(): void {
         if (!this.table) return;
 
-        if (this.properties.cellshading?.headercolumn === true) {
+        if (this.properties.cellshading?.headercolumn) {
             this.table.classList.add('shade-header-column');
         }
 
-        if (this.properties.cellshading?.altcolumns === true) {
+        if (this.properties.cellshading?.altcolumns) {
             this.table.classList.add('shade-alt-columns');
         }
 
-        if (this.properties.cellshading?.headerrow === true) {
+        if (this.properties.cellshading?.headerrow) {
             this.table.classList.add('shade-header-row');
         }
 
-        if (this.properties.cellshading?.altrows === true) {
+        if (this.properties.cellshading?.altrows) {
             this.table.classList.add('shade-alt-rows');
         }
     }

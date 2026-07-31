@@ -43,7 +43,7 @@ export default class MMultiline extends Component implements Observer {
             : false;
 
         if (
-            this.properties.paste === false ||
+            !this.properties.paste ||
             (!this.properties.paste && !globalPaste)
         ) {
             e.preventDefault();

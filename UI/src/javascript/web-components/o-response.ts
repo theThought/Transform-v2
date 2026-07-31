@@ -866,7 +866,10 @@ export default class OResponse extends Component implements Subject, Observer {
                 replaceHTMLPlaceholder(item.label ?? ''),
             );
 
-            if ((this.properties.labels?.separator ?? '') !== '' && idx !== arr.length - 1) {
+            if (
+                (this.properties.labels?.separator ?? '') !== '' &&
+                idx !== arr.length - 1
+            ) {
                 const alternativeSeparator = document.createElement('span');
                 alternativeSeparator.className =
                     'a-label-alternative-separator';
@@ -935,11 +938,11 @@ export default class OResponse extends Component implements Subject, Observer {
 
         let collapse = true;
 
-        if (this.properties?.visible?.collapse === false) {
+        if (!this.properties?.visible?.collapse) {
             collapse = false;
         }
 
-        if (this.properties?.invisible?.collapse === false) {
+        if (!this.properties?.invisible?.collapse) {
             collapse = false;
         }
 
@@ -995,7 +998,10 @@ export default class OResponse extends Component implements Subject, Observer {
     }
 
     private processInvisibleRules(): void {
-        if (!this.ruleParsingComplete && this.properties.invisible.rules !== '') {
+        if (
+            !this.ruleParsingComplete &&
+            this.properties.invisible.rules !== ''
+        ) {
             this.complexVisibilityRule = this.properties.invisible.rules;
             this.expandedVisibilityRule = this.parseVisibilityRules(
                 this.complexVisibilityRule,
@@ -1139,7 +1145,13 @@ export default class OResponse extends Component implements Subject, Observer {
     }
 
     private readFromStorage(): void {
-        if (!((this.properties.read?.source ?? '').length && (this.properties.read?.name ?? '').length)) return;
+        if (
+            !(
+                (this.properties.read?.source ?? '').length &&
+                (this.properties.read?.name ?? '').length
+            )
+        )
+            return;
 
         let value: string = '';
 

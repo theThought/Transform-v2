@@ -286,19 +286,6 @@ export default class OCombobox extends Component implements Subject {
         return !!this.closest('table');
     }
 
-    public addListEntry(
-        list: HTMLElement,
-        className: string,
-        content: string,
-    ): void {
-        const listEntries = list.querySelector('ul');
-        if (!listEntries) return;
-        const newEntry = document.createElement('li');
-        newEntry.classList.add(className);
-        newEntry.innerHTML = `***${content}***`;
-        listEntries.appendChild(newEntry);
-    }
-
     private removeTabIndex(): void {
         this.querySelector('ul')?.setAttribute('tabindex', '-1');
     }
