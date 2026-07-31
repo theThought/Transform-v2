@@ -457,12 +457,7 @@ export default class OResponse extends Component implements Subject, Observer {
     }
 
     private parseAlternativeVisibilityRules(): void {
-        if (typeof this.properties.labels === 'undefined') {
-            this.alternativeRuleParsingComplete = true;
-            return;
-        }
-
-        if (typeof this.properties.labels.alternatives === 'undefined') {
+        if (this.properties.labels.alternatives.length === 0) {
             this.alternativeRuleParsingComplete = true;
             return;
         }
@@ -931,8 +926,8 @@ export default class OResponse extends Component implements Subject, Observer {
     public configureInitialVisibility(): void {
         // lift the cover immediately if there are no visibility rules defined
         if (
-            typeof this.properties.visible === 'undefined' &&
-            typeof this.properties.invisible === 'undefined'
+            this.properties.visible.rules === '' &&
+            this.properties.invisible.rules === ''
         ) {
             this.makeAvailable();
             return;
@@ -954,24 +949,24 @@ export default class OResponse extends Component implements Subject, Observer {
 
     public processVisibilityRules(): void {
         if (
-            typeof this.properties.visible === 'undefined' &&
-            typeof this.properties.invisible === 'undefined'
+            this.properties.visible.rules === '' &&
+            this.properties.invisible.rules === ''
         ) {
             this.ruleParsingComplete = true;
             return;
         }
 
-        if (typeof this.properties.visible !== 'undefined') {
+        if (this.properties.visible.rules !== '') {
             this.processVisibleRules();
         }
 
-        if (typeof this.properties.invisible !== 'undefined') {
+        if (this.properties.invisible.rules !== '') {
             this.processInvisibleRules();
         }
     }
 
     private processVisibleRules(): void {
-        if (!this.ruleParsingComplete && this.properties.visible) {
+        if (!this.ruleParsingComplete && this.properties.visible.rules !== '') {
             this.complexVisibilityRule = this.properties.visible.rules;
             this.expandedVisibilityRule = this.parseVisibilityRules(
                 this.complexVisibilityRule,
@@ -1000,7 +995,7 @@ export default class OResponse extends Component implements Subject, Observer {
     }
 
     private processInvisibleRules(): void {
-        if (!this.ruleParsingComplete && this.properties.invisible) {
+        if (!this.ruleParsingComplete && this.properties.invisible.rules !== '') {
             this.complexVisibilityRule = this.properties.invisible.rules;
             this.expandedVisibilityRule = this.parseVisibilityRules(
                 this.complexVisibilityRule,
@@ -1035,11 +1030,11 @@ export default class OResponse extends Component implements Subject, Observer {
             return;
         }
 
-        if (typeof this.properties.visible !== 'undefined') {
+        if (this.properties.visible.rules !== '') {
             this.processVisibleRules();
         }
 
-        if (typeof this.properties.invisible !== 'undefined') {
+        if (this.properties.invisible.rules !== '') {
             this.processInvisibleRules();
         }
     }

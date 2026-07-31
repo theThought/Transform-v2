@@ -126,7 +126,7 @@ export default class MSingleline extends Component implements Observer {
 
         if (
             this.properties.paste === false ||
-            (typeof this.properties.paste === 'undefined' && !globalPaste)
+            (!this.properties.paste && !globalPaste)
         ) {
             e.preventDefault();
             e.stopPropagation();
