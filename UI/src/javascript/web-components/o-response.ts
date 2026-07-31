@@ -60,11 +60,11 @@ export default class OResponse extends Component implements Subject, Observer {
         },
         visible: {
             rules: '',
-            collapse: false,
+            collapse: true,
         },
         invisible: {
             rules: '',
-            collapse: false,
+            collapse: true,
         },
         options: {
             invisible: [],
