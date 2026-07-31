@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/web-components-vite';
+import { Meta, StoryObj } from '@storybook/web-components';
 
 import * as TChoice from './choice';
 
@@ -75,10 +75,10 @@ export const TSimplelist: StoryObj<typeof TChoice.TChoice_Story> = {
                         : 'choice - simple - single.xml';
 
                 const xmlResponse = await fetch(
-                    `./src/static/Dimensions/${xmlFileName}`,
+                    `./build/static/Dimensions/${xmlFileName}`,
                 );
                 const xslResponse = await fetch(
-                    './src/static/Dimensions/question.xsl',
+                    './build/static/Dimensions/question.xsl',
                 );
 
                 if (!xmlResponse.ok || !xslResponse.ok) {
@@ -109,10 +109,10 @@ export const TSimplePlusExclusive: StoryObj<typeof TChoice.TChoice_Story> = {
 
             try {
                 const xmlResponse = await fetch(
-                    './src/static/Dimensions/choice - simple with exclusive.xml',
+                    './build/static/Dimensions/choice - simple with exclusive.xml',
                 );
                 const xslResponse = await fetch(
-                    './src/static/Dimensions/question.xsl',
+                    './build/static/Dimensions/question.xsl',
                 );
 
                 if (!xmlResponse.ok || !xslResponse.ok) {
@@ -148,10 +148,10 @@ export const TSimpleSublist: StoryObj<typeof TChoice.TChoice_Story> = {
                         : 'choice - simple sublist - single.xml';
 
                 const xmlResponse = await fetch(
-                    `./src/static/Dimensions/${xmlFileName}`,
+                    `./build/static/Dimensions/${xmlFileName}`,
                 );
                 const xslResponse = await fetch(
-                    './src/static/Dimensions/question.xsl',
+                    './build/static/Dimensions/question.xsl',
                 );
 
                 if (!xmlResponse.ok || !xslResponse.ok) {
@@ -182,10 +182,10 @@ export const TSublistPlusExclusive: StoryObj<typeof TChoice.TChoice_Story> = {
 
             try {
                 const xmlResponse = await fetch(
-                    './src/static/Dimensions/choice - sublist with exclusive.xml',
+                    './build/static/Dimensions/choice - sublist with exclusive.xml',
                 );
                 const xslResponse = await fetch(
-                    './src/static/Dimensions/question.xsl',
+                    './build/static/Dimensions/question.xsl',
                 );
 
                 if (!xmlResponse.ok || !xslResponse.ok) {
@@ -222,10 +222,10 @@ export const TComplexlist: StoryObj<typeof TChoice.TChoice_Story> = {
                         : 'choice - complex - single.xml';
 
                 const xmlResponse = await fetch(
-                    `./src/static/Dimensions/${xmlFileName}`,
+                    `./build/static/Dimensions/${xmlFileName}`,
                 );
                 const xslResponse = await fetch(
-                    './src/static/Dimensions/question.xsl',
+                    './build/static/Dimensions/question.xsl',
                 );
 
                 if (!xmlResponse.ok || !xslResponse.ok) {

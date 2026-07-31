@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/web-components-vite';
+import { Meta, StoryObj } from '@storybook/web-components';
 
 import * as TSingleline from './singleline';
 
@@ -170,10 +170,10 @@ export const TextStory = {
         async () => {
             try {
                 const xmlResponse = await fetch(
-                    './src/static/Dimensions/singleline.xml',
+                    './build/static/Dimensions/singleline.xml',
                 );
                 const xslResponse = await fetch(
-                    './src/static/Dimensions/question.xsl',
+                    './build/static/Dimensions/question.xsl',
                 );
 
                 if (!xmlResponse.ok || !xslResponse.ok) {
@@ -224,10 +224,10 @@ export const NumberStory = {
         async () => {
             try {
                 const xmlResponse = await fetch(
-                    './src/static/Dimensions/singleline-number.xml',
+                    './build/static/Dimensions/singleline-number.xml',
                 );
                 const xslResponse = await fetch(
-                    './src/static/Dimensions/question.xsl',
+                    './build/static/Dimensions/question.xsl',
                 );
 
                 if (!xmlResponse.ok || !xslResponse.ok) {
@@ -254,6 +254,7 @@ export const NumberStory = {
     render: (args, { loaded }) => TSingleline.TSingleLine_Story(args, loaded),
 };
 
+
 type DateStory = StoryObj<typeof TSingleline.TSingleLine_Story>;
 export const DateStory = {
     parameters: {
@@ -278,10 +279,10 @@ export const DateStory = {
         async () => {
             try {
                 const xmlResponse = await fetch(
-                    './src/static/Dimensions/singleline-date.xml',
+                    './build/static/Dimensions/singleline-date.xml',
                 );
                 const xslResponse = await fetch(
-                    './src/static/Dimensions/question.xsl',
+                    './build/static/Dimensions/question.xsl',
                 );
 
                 if (!xmlResponse.ok || !xslResponse.ok) {
