@@ -6,7 +6,7 @@ export default class MSinglelineNumber extends MSingleline {
             pre: '',
             post: '',
         },
-        allowPaste: false,
+        paste: false,
         step: 'any',
         showspinner: false,
     };
