@@ -2,14 +2,15 @@ import Component from './component';
 import OCombobox from './o-combobox';
 import ODropdown from './o-dropdown';
 import { Observer } from '../interfaces';
+import { JsonObject } from './util';
 
-interface CustomProperties {
+interface CustomProperties extends JsonObject {
     exact: boolean;
-    filter?: {
+    filter: {
         source: string;
         exclusions: Array<string>;
     };
-    filtertype?: string;
+    filtertype: string;
     jumptofirstletter: boolean;
     listsize: number;
     mincharactersforlist: number;
@@ -20,6 +21,10 @@ interface CustomProperties {
 export default class OList extends Component implements Observer {
     public properties: CustomProperties = {
         exact: true,
+        filter: {
+            source: '',
+            exclusions: [],
+        },
         jumptofirstletter: false,
         listsize: 6,
         mincharactersforlist: 0,

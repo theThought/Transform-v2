@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/web-components';
+import { Meta, StoryObj } from '@storybook/web-components-vite';
 
 import * as TScale from './scale';
 
@@ -81,10 +81,10 @@ export const TenPointScale: TenPointScale = {
         async () => {
             try {
                 const xmlResponse = await fetch(
-                    './build/static/Dimensions/scale.xml',
+                    './src/static/Dimensions/scale.xml',
                 );
                 const xslResponse = await fetch(
-                    './build/static/Dimensions/question.xsl',
+                    './src/static/Dimensions/question.xsl',
                 );
 
                 if (!xmlResponse.ok || !xslResponse.ok) {

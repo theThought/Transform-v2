@@ -1,13 +1,14 @@
 import Option from './option';
+import { JsonObject } from './util';
 
-interface CustomProperties {
-    balance?: {
+interface CustomProperties extends JsonObject {
+    balance: {
         state: boolean;
-        minwidth?: string;
+        minwidth: string;
     };
     onesize: {
         state: boolean;
-        maxwidth?: string;
+        maxwidth: string;
     };
     submit: boolean;
 }

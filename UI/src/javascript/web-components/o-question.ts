@@ -1,9 +1,9 @@
-import { removeHTMLWhitespace } from './util';
+import { removeHTMLWhitespace, JsonObject } from './util';
 import Component from './component';
 import { Observer, Subject } from '../interfaces';
 
-interface CustomProperties {
-    separator?: boolean;
+interface CustomProperties extends JsonObject {
+    separator: boolean;
 }
 
 export default class OQuestion extends Component implements Subject {

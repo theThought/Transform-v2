@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/web-components';
+import { Meta, StoryObj } from '@storybook/web-components-vite';
 
 import * as TCombo from './combo';
 
@@ -96,12 +96,11 @@ export const TCombobox_Short: StoryObj<typeof TCombo.TCombo_Story> = {
             const { args } = context; // Extract args from context
 
             try {
-
                 const xmlResponse = await fetch(
-                    `./build/static/Dimensions/combo - simple.xml`,
+                    `./src/static/Dimensions/combo - simple.xml`,
                 );
                 const xslResponse = await fetch(
-                    './build/static/Dimensions/question.xsl',
+                    './src/static/Dimensions/question.xsl',
                 );
 
                 if (!xmlResponse.ok || !xslResponse.ok) {
@@ -134,12 +133,11 @@ export const TCombobox_Long: StoryObj<typeof TCombo.TCombo_Story> = {
             const { args } = context; // Extract args from context
 
             try {
-
                 const xmlResponse = await fetch(
-                    `./build/static/Dimensions/combo - drugs.xml`,
+                    `./src/static/Dimensions/combo - drugs.xml`,
                 );
                 const xslResponse = await fetch(
-                    './build/static/Dimensions/question.xsl',
+                    './src/static/Dimensions/question.xsl',
                 );
 
                 if (!xmlResponse.ok || !xslResponse.ok) {
@@ -161,7 +159,7 @@ export const TCombobox_Long: StoryObj<typeof TCombo.TCombo_Story> = {
             listsize: 10,
         },
         placeholder: 'Select a drug',
-        },
+    },
     render: (args, { loaded }) => TCombo.TCombo_Story(args, loaded),
 };
 TCombobox_Long.storyName = 'Combobox - few items';

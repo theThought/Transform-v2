@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/web-components';
+import { Meta, StoryObj } from '@storybook/web-components-vite';
 
 import * as TList from './list';
 
@@ -28,12 +28,11 @@ export const TListbox_Short: StoryObj<typeof TList.TList_Story> = {
             const { args } = context; // Extract args from context
 
             try {
-
                 const xmlResponse = await fetch(
-                    `./build/static/Dimensions/list - organisation.xml`,
+                    `./src/static/Dimensions/list - organisation.xml`,
                 );
                 const xslResponse = await fetch(
-                    './build/static/Dimensions/question.xsl',
+                    './src/static/Dimensions/question.xsl',
                 );
 
                 if (!xmlResponse.ok || !xslResponse.ok) {
@@ -65,12 +64,11 @@ export const TListbox_Long: StoryObj<typeof TList.TList_Story> = {
             const { args } = context; // Extract args from context
 
             try {
-
                 const xmlResponse = await fetch(
-                    `./build/static/Dimensions/list - drugs.xml`,
+                    `./src/static/Dimensions/list - drugs.xml`,
                 );
                 const xslResponse = await fetch(
-                    './build/static/Dimensions/question.xsl',
+                    './src/static/Dimensions/question.xsl',
                 );
 
                 if (!xmlResponse.ok || !xslResponse.ok) {

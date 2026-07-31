@@ -1,7 +1,8 @@
 import Component from './component';
 import { Observer, Subject } from '../interfaces';
+import { JsonObject } from './util';
 
-interface CustomProperties {
+interface CustomProperties extends JsonObject {
     balance: {
         state: boolean;
         minwidth: string;
@@ -10,11 +11,11 @@ interface CustomProperties {
         state: boolean;
         maxwidth: string;
     };
-    tabstrip?: {
+    tabstrip: {
         question: string;
         tab: string;
     };
-    sublistline?: {
+    sublistline: {
         state: boolean;
         length: number;
     };
@@ -33,6 +34,10 @@ export default class OOptionSublist
         onesize: {
             state: false,
             maxwidth: '',
+        },
+        tabstrip: {
+            question: '',
+            tab: '',
         },
         sublistline: {
             state: false,

@@ -1,17 +1,18 @@
 import Component from './component';
 import OOptionSublist from './o-option-sublist';
 import { Observer } from '../interfaces';
+import { JsonObject } from './util';
 
-interface CustomProperties {
-    balance?: {
+interface CustomProperties extends JsonObject {
+    balance: {
         state: boolean;
-        minwidth?: string;
+        minwidth: string;
     };
     onesize: {
         state: boolean;
-        maxwidth?: string;
+        maxwidth: string;
     };
-    submit?: boolean;
+    submit: boolean;
 }
 
 export default class Option extends Component implements Observer {
@@ -26,6 +27,7 @@ export default class Option extends Component implements Observer {
             state: false,
             maxwidth: '',
         },
+        submit: false,
     };
 
     protected element: HTMLInputElement | HTMLButtonElement | null = null;

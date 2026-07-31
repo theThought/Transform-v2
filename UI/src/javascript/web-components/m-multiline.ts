@@ -1,12 +1,16 @@
 import Component from './component';
 import { Observer } from '../interfaces';
+import { JsonObject } from './util';
 
-interface CustomProperties {
-    paste?: boolean;
+interface CustomProperties extends JsonObject {
+    paste: boolean;
 }
 
 export default class MMultiline extends Component implements Observer {
-    protected properties: CustomProperties = {};
+    protected properties: CustomProperties = {
+        paste: true,
+    };
+
     protected element: HTMLTextAreaElement | null = null;
 
     // Handle constructor() event listeners.

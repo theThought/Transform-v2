@@ -1,18 +1,25 @@
 import Component from './component';
-import { removeHTMLWhitespace } from './util';
+import { JsonObject, removeHTMLWhitespace } from './util';
 import { Observer } from '../interfaces';
 import OOptionSublist from './o-option-sublist';
 
-interface CustomProperties {
-    labels?: {
-        pre?: string;
-        post?: string;
+interface CustomProperties extends JsonObject {
+    labels: {
+        pre: string;
+        post: string;
     };
-    paste?: boolean;
+    paste: boolean;
 }
 
 export default class MSingleline extends Component implements Observer {
-    protected properties: CustomProperties = {};
+    protected properties: CustomProperties = {
+        labels: {
+            pre: '',
+            post: '',
+        },
+        paste: true,
+    };
+
     protected element: HTMLInputElement | null = null;
     private sublist: OOptionSublist | null = null;
     private initialPlaceholder = '';

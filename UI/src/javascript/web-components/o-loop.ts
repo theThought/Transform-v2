@@ -1,59 +1,60 @@
 import Component from './component';
 import { Observer } from '../interfaces';
+import { JsonObject } from './util';
 
-interface CaptionProps {
-    content?: string;
-    align?: 'left' | 'right' | 'center' | 'default' | string;
-    width?: string;
+interface CaptionProps extends JsonObject {
+    content: string;
+    align: 'left' | 'right' | 'center' | 'default' | string;
+    width: string;
 }
 
-interface CellShadingProps {
-    altcolumns?: boolean;
-    altrows?: boolean;
-    headercolumn?: boolean;
-    headerrow?: boolean;
+interface CellShadingProps extends JsonObject {
+    altcolumns: boolean;
+    altrows: boolean;
+    headercolumn: boolean;
+    headerrow: boolean;
 }
 
-interface TopHeadingsCaptionProp {
-    caption?: string;
-    colspan?: number;
+interface TopHeadingsCaptionProp extends JsonObject {
+    caption: string;
+    colspan: number;
 }
 
 type TopHeadingsProps = Array<TopHeadingsCaptionProp>;
 
-interface LabelProps {
-    pre?: string;
-    post?: string;
+interface LabelProps extends JsonObject {
+    pre: string;
+    post: string;
 }
 
-interface TotalsProps {
-    visible?: boolean;
-    excludereadonly?: boolean;
-    elementalign?: 'left' | 'right' | 'center' | 'default' | string; // input within column
-    align?: 'left' | 'right' | 'center' | 'default' | string; // text within input
-    width?: string;
-    caption?: CaptionProps;
-    labels?: LabelProps;
-    exceptions?: number[];
+interface TotalsProps extends JsonObject {
+    visible: boolean;
+    excludereadonly: boolean;
+    elementalign: 'left' | 'right' | 'center' | 'default' | string; // input within column
+    align: 'left' | 'right' | 'center' | 'default' | string; // text within input
+    width: string;
+    caption: CaptionProps;
+    labels: LabelProps;
+    exceptions: number[];
 }
 
-interface GridTotalsProps {
-    rows?: TotalsProps;
-    columns?: TotalsProps;
+interface GridTotalsProps extends JsonObject {
+    rows: TotalsProps;
+    columns: TotalsProps;
 }
 
-interface GridSeparatorsProps {
-    columns?: number[];
-    rows?: number[];
-    color?: string;
+interface GridSeparatorsProps extends JsonObject {
+    columns: number[];
+    rows: number[];
+    color: string;
 }
 
-interface GridProperties {
-    totals?: GridTotalsProps;
-    cellshading?: CellShadingProps;
-    topheadings?: TopHeadingsProps;
-    separators?: GridSeparatorsProps;
-    caption?: CaptionProps;
+interface GridProperties extends JsonObject {
+    totals: GridTotalsProps;
+    cellshading: CellShadingProps;
+    topheadings: TopHeadingsProps;
+    separators: GridSeparatorsProps;
+    caption: CaptionProps;
 }
 
 type TotalEntry = {
@@ -70,7 +71,61 @@ export default class OLoop extends Component implements Observer {
     private excludeColumnReadOnly = true;
     private hasGrandTotal = false;
 
-    public properties: GridProperties = {};
+    public properties: GridProperties = {
+        totals: {
+            rows: {
+                visible: false,
+                excludereadonly: true,
+                elementalign: 'default',
+                align: 'default',
+                width: '',
+                caption: {
+                    content: '',
+                    align: 'default',
+                    width: '',
+                },
+                labels: {
+                    pre: '',
+                    post: '',
+                },
+                exceptions: [],
+            },
+            columns: {
+                visible: false,
+                excludereadonly: true,
+                elementalign: 'default',
+                align: 'default',
+                width: '',
+                caption: {
+                    content: '',
+                    align: 'default',
+                    width: '',
+                },
+                labels: {
+                    pre: '',
+                    post: '',
+                },
+                exceptions: [],
+            },
+        },
+        cellshading: {
+            altcolumns: false,
+            altrows: false,
+            headercolumn: false,
+            headerrow: false,
+        },
+        topheadings: [],
+        separators: {
+            columns: [],
+            rows: [],
+            color: '#002554',
+        },
+        caption: {
+            content: '',
+            align: 'default',
+            width: '',
+        },
+    };
 
     update(method: string): void {
         switch (method) {

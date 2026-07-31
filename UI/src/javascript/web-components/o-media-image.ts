@@ -1,6 +1,7 @@
 import Component from './component';
+import { JsonObject } from './util';
 
-interface CustomProperties {
+interface CustomProperties extends JsonObject {
     iconset: {
         fullscreen: boolean;
         orientation: boolean;

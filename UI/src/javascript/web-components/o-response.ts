@@ -1,52 +1,52 @@
 import { Subject, Observer } from '../interfaces';
-import { decodeHTML, replaceHTMLPlaceholder } from './util';
+import { decodeHTML, replaceHTMLPlaceholder, JsonObject } from './util';
 import Component from './component';
 import OQuestion from './o-question';
 import { UAParser } from 'ua-parser-js';
 
-interface QuestionProperties {
+interface QuestionProperties extends JsonObject {
     filter: {
         source: string;
         exclusions: string[];
     };
-    visible?: {
+    visible: {
         rules: string;
-        collapse?: boolean;
+        collapse: boolean;
     };
-    invisible?: {
+    invisible: {
         rules: string;
-        collapse?: boolean;
+        collapse: boolean;
     };
-    options?: {
-        invisible?: Array<{
+    options: {
+        invisible: Array<{
             name: string;
             rules: string;
-            parsedRule?: string;
+            parsedRule: string;
         }>;
-        visible?: Array<{
+        visible: Array<{
             name: string;
             rules: string;
-            parsedRule?: string;
+            parsedRule: string;
         }>;
     };
-    labels?: {
-        alternatives?: Array<{
-            visible?: { rules: string };
-            invisible?: { rules: string };
-            name?: string;
-            block?: boolean;
-            label?: string;
-            parsedRule?: string;
+    labels: {
+        alternatives: Array<{
+            visible: { rules: string };
+            invisible: { rules: string };
+            name: string;
+            block: boolean;
+            label: string;
+            parsedRule: string;
         }>;
-        separator?: string;
+        separator: string;
     };
     separator: boolean;
     resettonull: boolean | null;
-    read?: {
+    read: {
         source: string;
         name: string;
     };
-    write?: {
+    write: {
         destination: string;
         name: string;
     };
@@ -58,12 +58,32 @@ export default class OResponse extends Component implements Subject, Observer {
             source: '',
             exclusions: [],
         },
+        visible: {
+            rules: '',
+            collapse: false,
+        },
+        invisible: {
+            rules: '',
+            collapse: false,
+        },
         options: {
             invisible: [],
             visible: [],
         },
+        labels: {
+            alternatives: [],
+            separator: '',
+        },
         separator: true,
         resettonull: null,
+        read: {
+            source: '',
+            name: '',
+        },
+        write: {
+            destination: '',
+            name: '',
+        },
     };
 
     protected question: OQuestion | null = null;

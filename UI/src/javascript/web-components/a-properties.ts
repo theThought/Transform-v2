@@ -1,19 +1,20 @@
 import Component from './component';
+import { JsonObject } from './util';
 
-interface FocusProperties {
+interface FocusProperties extends JsonObject {
     control: boolean;
     question: boolean;
 }
 
-interface CustomProperties {
+interface CustomProperties extends JsonObject {
     floatdetails: boolean;
     focus: FocusProperties;
-    jumptoerror?: boolean;
+    jumptoerror: boolean;
     paste: boolean;
     separator: boolean;
     sidebyside: number;
-    tab?: string;
-    validate?: boolean;
+    tab: string;
+    validate: boolean;
     resettonull: boolean;
 }
 
@@ -28,9 +29,12 @@ export default class AProperties extends Component {
             control: true,
             question: true,
         },
+        jumptoerror: true,
         paste: false,
         separator: true,
         sidebyside: 30,
+        tab: '',
+        validate: false,
         resettonull: true,
     };
 
