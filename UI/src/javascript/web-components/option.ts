@@ -63,6 +63,10 @@ export default class Option extends Component implements Observer {
             case 'clearExclusives':
                 this.clearExclusives(data);
                 break;
+            case 'exclusiveOn':
+                this.exclusiveClear(data);
+                this.clearExclusives(data);
+                break;
             case 'clearValue':
                 this.clearValue(data);
                 break;

@@ -56,7 +56,16 @@ export default class OQuestion extends Component implements Subject {
         e.stopPropagation();
         this.notifyOtherQuestions(e);
         this.updateAnswerCount(e);
-        if (!e.detail.element?.value) return;
+
+        const element = e.detail.element as HTMLInputElement | undefined;
+
+        if (!element?.value) return;
+        if (
+            (element.type === 'checkbox' || element.type === 'radio') &&
+            !element.checked
+        )
+            return;
+
         this.notifyObservers('clearExclusives', e);
     }
 
@@ -70,7 +79,9 @@ export default class OQuestion extends Component implements Subject {
     }
 
     private exclusiveOn(e: CustomEvent): void {
-        this.notifyObservers('clearValue', e);
+        // this action is triggered when an exclusive option has been enabled;
+        // other components in the same group must clear their value
+        this.notifyObservers('exclusiveOn', e);
     }
 
     private exclusiveOff(e: CustomEvent): void {

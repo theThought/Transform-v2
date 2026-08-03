@@ -135,7 +135,7 @@ export default class OResponse extends Component implements Subject, Observer {
                 this.notifyObservers('clearExclusives', detail);
                 break;
             case 'exclusiveOn':
-                this.notifyObservers('clearValue', detail);
+                this.notifyObservers('exclusiveOn', detail);
                 break;
             case 'exclusiveOff':
                 this.notifyObservers('exclusiveRestore', detail);
