@@ -29,8 +29,7 @@ export default class MMultiline extends Component implements Observer {
     public update(method: string, data: CustomEvent): void {
         switch (method) {
             case 'clearValue':
-                this.clearValue(data);
-                break;
+            case 'clearExclusives':
             case 'clearText':
                 this.clearValue(data);
                 break;

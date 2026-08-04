@@ -58,6 +58,7 @@ export default class MSingleline extends Component implements Observer {
     public update(method: string, data: CustomEvent): void {
         switch (method) {
             case 'clearValue':
+            case 'clearExclusives':
             case 'clearText':
                 this.clearValue(data);
                 break;
