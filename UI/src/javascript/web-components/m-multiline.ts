@@ -29,7 +29,6 @@ export default class MMultiline extends Component implements Observer {
     public update(method: string, data: CustomEvent): void {
         switch (method) {
             case 'clearValue':
-            case 'clearExclusives':
             case 'clearText':
                 this.clearValue(data);
                 break;
@@ -50,7 +49,6 @@ export default class MMultiline extends Component implements Observer {
         }
     }
 
-    // Clears the value when an exclusive option is enabled.
     private clearValue(e: CustomEvent): void {
         const target = e.target as HTMLElement;
 
