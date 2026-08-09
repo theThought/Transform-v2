@@ -765,7 +765,7 @@ export default class OLoop extends Component implements Observer {
         this.configureSeparators();
         this.setSeparatorStyle();
 
-        this.addEventListener('exclusiveOn', this.handleEvent);
+        this.addEventListener('exclusiveSelected', this.handleEvent);
         this.addEventListener('broadcastChange', this.handleEvent);
     }
 }

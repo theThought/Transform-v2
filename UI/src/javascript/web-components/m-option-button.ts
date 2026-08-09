@@ -47,8 +47,8 @@ export default class MOptionButton extends Option {
         return;
     }
 
-    protected clearExclusives(e: CustomEvent): void {
-        super.clearExclusives(e);
+    protected clearExclusiveOptions(e: CustomEvent): void {
+        super.clearExclusiveOptions(e);
         this.setTextElementValue();
     }
 

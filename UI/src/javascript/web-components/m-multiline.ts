@@ -32,7 +32,7 @@ export default class MMultiline extends Component implements Observer {
             case 'clearText':
                 this.clearValue(data);
                 break;
-            case 'exclusiveOn':
+            case 'clearOtherValues':
                 this.clearValue(data);
                 break;
         }

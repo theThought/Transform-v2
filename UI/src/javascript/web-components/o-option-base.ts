@@ -11,8 +11,8 @@ export default class OOptionBase extends Option {
             case 'broadcastChange':
                 this.onChange(e as CustomEvent);
                 break;
-            case 'exclusiveOn':
-                this.onExclusiveOn(e as CustomEvent);
+            case 'exclusiveSelected':
+                this.onExclusiveSelected(e as CustomEvent);
                 break;
             case 'click':
             case 'questionClick':
@@ -26,11 +26,11 @@ export default class OOptionBase extends Option {
 
     public update(method: string, data: CustomEvent): void {
         switch (method) {
-            case 'exclusiveClear':
-                this.exclusiveClear(data);
+            case 'clearOtherValues':
+                this.clearOtherValues(data);
                 break;
-            case 'clearExclusives':
-                this.clearExclusives(data);
+            case 'clearExclusiveOptions':
+                this.clearExclusiveOptions(data);
                 break;
         }
     }
@@ -48,11 +48,14 @@ export default class OOptionBase extends Option {
             ) {
                 this.optionElement.changeState(true);
                 if (this.optionElement.isExclusive) {
-                    const exclusiveOn = new CustomEvent('exclusiveOn', {
-                        bubbles: true,
-                        detail: this,
-                    });
-                    this.dispatchEvent(exclusiveOn);
+                    const exclusiveSelected = new CustomEvent(
+                        'exclusiveSelected',
+                        {
+                            bubbles: true,
+                            detail: this,
+                        },
+                    );
+                    this.dispatchEvent(exclusiveSelected);
                 }
             }
         } else {
@@ -78,14 +81,14 @@ export default class OOptionBase extends Option {
         this.additionalInputElement.setFocus();
     }
 
-    protected onExclusiveOn(e: CustomEvent): void {
+    protected onExclusiveSelected(e: CustomEvent): void {
         if (e.target === this) return;
         this.qgroup = e.detail.qgroup;
-        const exclusiveOn = new CustomEvent('exclusiveOn', {
+        const exclusiveSelected = new CustomEvent('exclusiveSelected', {
             bubbles: true,
             detail: this,
         });
-        this.dispatchEvent(exclusiveOn);
+        this.dispatchEvent(exclusiveSelected);
     }
 
     protected onKeydown(e: KeyboardEvent): void {
@@ -112,7 +115,7 @@ export default class OOptionBase extends Option {
     public connectedCallback(): void {
         super.connectedCallback();
         this.addEventListener('broadcastChange', this.handleEvent);
-        this.addEventListener('exclusiveOn', this.handleEvent);
+        this.addEventListener('exclusiveSelected', this.handleEvent);
         this.addEventListener('questionClick', this.handleEvent);
         this.optionElement = this.querySelector('m-option-base');
         this.additionalInputElement = this.querySelector('m-singleline');

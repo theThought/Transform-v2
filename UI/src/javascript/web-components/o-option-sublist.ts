@@ -51,8 +51,8 @@ export default class OOptionSublist
 
     public handleEvent(e: Event): void {
         switch (e.type) {
-            case 'exclusiveOn':
-                this.exclusiveOn(e as CustomEvent);
+            case 'exclusiveSelected':
+                this.exclusiveSelected(e as CustomEvent);
                 break;
             case 'broadcastChange':
                 this.handleChange(e as CustomEvent);
@@ -60,27 +60,27 @@ export default class OOptionSublist
         }
     }
 
-    private exclusiveOn(e: CustomEvent): void {
-        this.notifyObservers('exclusiveClear', e);
+    private exclusiveSelected(e: CustomEvent): void {
+        this.notifyObservers('clearOtherValues', e);
     }
 
     private handleChange(e: CustomEvent): void {
         if (e.detail.dataset.checked === 'false') return;
-        this.notifyObservers('clearExclusives', e);
+        this.notifyObservers('clearExclusiveOptions', e);
     }
 
     public update(method: string, data: CustomEvent): void {
         switch (method) {
-            case 'clearExclusives':
+            case 'clearExclusiveOptions':
                 if (this.contains(data.target as HTMLElement)) return;
                 this.handleChange(data);
                 break;
-            case 'exclusiveClear':
+            case 'clearOtherValues':
                 if (this.contains(data.target as HTMLElement)) return;
-                this.notifyObservers('exclusiveClear', data);
+                this.notifyObservers('clearOtherValues', data);
                 break;
-            case 'exclusiveOn':
-                this.notifyObservers('exclusiveOn', data);
+            case 'exclusiveSelected':
+                this.notifyObservers('exclusiveSelected', data);
                 break;
             case 'clearValue':
                 if (this.contains(data.target as HTMLElement)) return;
@@ -165,7 +165,7 @@ export default class OOptionSublist
 
         if (this.response) this.response.addObserver(this);
 
-        this.addEventListener('exclusiveOn', this.handleEvent);
+        this.addEventListener('exclusiveSelected', this.handleEvent);
         this.addEventListener('broadcastChange', this.handleEvent);
         this.setBalance();
         this.addSeparatorLine();

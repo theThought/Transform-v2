@@ -42,16 +42,16 @@ export default class OScale extends Component implements Subject, Observer {
             case 'clearValue':
                 this.clearValue();
                 break;
-            case 'clearExclusives':
+            case 'clearExclusiveOptions':
                 this.clearValueFromExclusive(data);
                 break;
-            case 'exclusiveRestore':
-                this.exclusiveRestore();
+            case 'restoreOtherValues':
+                this.restoreOtherValues();
                 break;
         }
     }
 
-    private exclusiveRestore(): void {
+    private restoreOtherValues(): void {
         if (!this.element) return;
         this.restoreValue();
     }

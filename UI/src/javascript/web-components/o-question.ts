@@ -22,11 +22,11 @@ export default class OQuestion extends Component implements Subject {
             case 'click':
                 this.onClick(e);
                 break;
-            case 'exclusiveOn':
-                this.exclusiveOn(e as CustomEvent);
+            case 'exclusiveSelected':
+                this.exclusiveSelected(e as CustomEvent);
                 break;
-            case 'exclusiveOff':
-                this.exclusiveOff(e as CustomEvent);
+            case 'exclusiveDeselected':
+                this.exclusiveDeselected(e as CustomEvent);
                 break;
             case 'questionVisibility':
                 this.handleVisibility(e as CustomEvent);
@@ -66,7 +66,7 @@ export default class OQuestion extends Component implements Subject {
         )
             return;
 
-        this.notifyObservers('clearExclusives', e);
+        this.notifyObservers('clearExclusiveOptions', e);
     }
 
     private notifyOtherQuestions(e: CustomEvent): void {
@@ -78,14 +78,14 @@ export default class OQuestion extends Component implements Subject {
         this.dispatchEvent(questionChange);
     }
 
-    private exclusiveOn(e: CustomEvent): void {
-        // this action is triggered when an exclusive option has been enabled;
+    private exclusiveSelected(e: CustomEvent): void {
+        // This action is triggered when an exclusive option is selected;
         // other components in the same group must clear their value
-        this.notifyObservers('exclusiveOn', e);
+        this.notifyObservers('clearOtherValues', e);
     }
 
-    private exclusiveOff(e: CustomEvent): void {
-        this.notifyObservers('exclusiveRestore', e);
+    private exclusiveDeselected(e: CustomEvent): void {
+        this.notifyObservers('restoreOtherValues', e);
     }
 
     private updateAnswerCount(e: CustomEvent): void {
@@ -168,8 +168,8 @@ export default class OQuestion extends Component implements Subject {
         this.addEventListener('broadcastChange', this.handleEvent);
         this.addEventListener('clearChildren', this.handleEvent);
         this.addEventListener('click', this.handleEvent);
-        this.addEventListener('exclusiveOn', this.handleEvent);
-        this.addEventListener('exclusiveOff', this.handleEvent);
+        this.addEventListener('exclusiveSelected', this.handleEvent);
+        this.addEventListener('exclusiveDeselected', this.handleEvent);
         this.addEventListener('questionVisibility', this.handleEvent);
         this.addEventListener('setSeparatorStyle', this.handleEvent);
 

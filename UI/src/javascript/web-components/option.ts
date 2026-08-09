@@ -57,15 +57,15 @@ export default class Option extends Component implements Observer {
 
     public update(method: string, data: CustomEvent): void {
         switch (method) {
-            case 'exclusiveClear':
-                this.exclusiveClear(data);
+            case 'clearOtherValues':
+                this.clearOtherValues(data);
                 break;
-            case 'clearExclusives':
-                this.clearExclusives(data);
+            case 'clearExclusiveOptions':
+                this.clearExclusiveOptions(data);
                 break;
-            case 'exclusiveOn':
-                this.exclusiveClear(data);
-                this.clearExclusives(data);
+            case 'exclusiveSelected':
+                this.clearOtherValues(data);
+                this.clearExclusiveOptions(data);
                 break;
             case 'clearValue':
                 this.clearValue(data);
@@ -118,7 +118,7 @@ export default class Option extends Component implements Observer {
         this.changeState(false);
     }
 
-    protected exclusiveClear(e: CustomEvent): void {
+    protected clearOtherValues(e: CustomEvent): void {
         if (!this.element) return;
         if (this.isExclusive) return;
         if (e.target === this) return;
@@ -128,7 +128,7 @@ export default class Option extends Component implements Observer {
         this.changeState(false);
     }
 
-    protected clearExclusives(e: CustomEvent): void {
+    protected clearExclusiveOptions(e: CustomEvent): void {
         if (!this.element) return;
         if (!this.isExclusive) return;
         if (this.qgroup != e.detail.qgroup) return;
@@ -145,8 +145,8 @@ export default class Option extends Component implements Observer {
 
         if (this.isExclusive) {
             const eventName = this.input?.checked
-                ? 'exclusiveOn'
-                : 'exclusiveOff';
+                ? 'exclusiveSelected'
+                : 'exclusiveDeselected';
             this.dispatchEvent(
                 new CustomEvent(eventName, { bubbles: true, detail: this }),
             );

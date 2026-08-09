@@ -61,10 +61,10 @@ export default class MSingleline extends Component implements Observer {
             case 'clearText':
                 this.clearValue(data);
                 break;
-            case 'exclusiveOn':
+            case 'clearOtherValues':
                 this.clearValue(data);
                 break;
-            case 'exclusiveRestore':
+            case 'restoreOtherValues':
                 this.onFocusIn();
                 break;
             case 'setValueFromLocalStorage':
