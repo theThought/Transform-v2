@@ -7,6 +7,11 @@
         "module": "esnext",
         "target": "es6"
     },
-    "include": ["src/javascript/**/*", "stories/**/*", ".storybook/**/*"],
+    "include": [
+        "src/javascript/**/*",
+        "stories/**/*",
+        ".storybook/**/*",
+        "components/*"
+    ],
     "exclude": ["node_modules"]
 }
