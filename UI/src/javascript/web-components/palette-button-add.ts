@@ -42,6 +42,8 @@ export default class PaletteButtonAdd extends Component implements Observer {
         const button = this.querySelector('button');
         if (!button) return;
 
+        if (button.querySelector('.icon')) return;
+
         const icon = document.createElement('span');
         const caption = document.createElement('span');
         caption.innerText = this.getAttribute('caption') || this.caption;
@@ -52,7 +54,6 @@ export default class PaletteButtonAdd extends Component implements Observer {
         button.classList.add('add');
         button.appendChild(icon);
         button.appendChild(caption);
-        this.appendChild(button);
     }
 
     private updateActiveState(remainingAnswerCount: number): void {
@@ -60,11 +61,17 @@ export default class PaletteButtonAdd extends Component implements Observer {
     }
 
     public connectedCallback(): void {
+        super.connectedCallback();
         this.createButton();
-        this.addEventListener('click', this.handleEvent);
+        this.addEventListener('click', this);
 
         this.palette = this.closest('o-palette');
 
         if (this.palette) this.palette.addObserver(this);
+    }
+
+    public disconnectedCallback(): void {
+        this.removeEventListener('click', this);
+        this.palette?.removeObserver(this);
     }
 }

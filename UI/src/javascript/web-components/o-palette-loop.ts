@@ -5,14 +5,42 @@ export default class OPaletteLoop extends Component {
     private ExpectedAnswerCount = 0;
     private CurrentAnswerCount = 0;
 
+    private notifyCountChange(): void {
+        this.dispatchEvent(
+            new CustomEvent('answerCountChange', {
+                bubbles: true,
+                detail: {
+                    currentAnswerCount: this.getCurrentAnswerCount(),
+                    expectedAnswerCount: this.getExpectedAnswerCount(),
+                    remainingAnswerCount: this.getRemainingAnswerCount(),
+                },
+            }),
+        );
+    }
+
     private retrieveValues(): void {
-        const inputs = this.querySelectorAll('input');
+        const inputs = this.querySelectorAll<HTMLInputElement>('input');
 
         inputs.forEach((input) => {
             this.ExpectedAnswerCount++;
             this.values.push(input);
-            if (input.value.length) this.CurrentAnswerCount++;
         });
+
+        this.refreshAnswerCount();
+    }
+
+    public refreshAnswerCount(notify = true): void {
+        this.CurrentAnswerCount = this.values.filter(
+            (input) => input.value.trim().length > 0,
+        ).length;
+
+        if (notify) this.notifyCountChange();
+    }
+
+    public getNextAvailableInput(): HTMLInputElement | null {
+        return (
+            this.values.find((input) => input.value.trim().length === 0) ?? null
+        );
     }
 
     public getExpectedAnswerCount(): number {
@@ -35,5 +63,8 @@ export default class OPaletteLoop extends Component {
         super.connectedCallback();
         this.retrieveValues();
         this.setInteractionStatus();
+
+        this.addEventListener('input', () => this.refreshAnswerCount());
+        this.addEventListener('change', () => this.refreshAnswerCount());
     }
 }

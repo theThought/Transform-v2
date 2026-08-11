@@ -51,7 +51,7 @@ export default class OPaletteHistoryEntry extends HTMLElement {
     render(): void {
         const innerSlot = this.shadowRoot?.querySelector('.l-col-history-ftd');
         if (!innerSlot) return;
-        innerSlot.innerHTML = this.getAttribute('data-value') || '';
+        innerSlot.textContent = this.getAttribute('data-value') || '';
     }
 
     private configureEditButton(): void {
@@ -66,7 +66,15 @@ export default class OPaletteHistoryEntry extends HTMLElement {
 
         this.EditButton.addEventListener('click', (e) => {
             e.preventDefault();
-            console.log('edit');
+            this.dispatchEvent(
+                new CustomEvent('paletteRecordEdit', {
+                    bubbles: true,
+                    detail: {
+                        value: this.getAttribute('data-value') || '',
+                        entry: this,
+                    },
+                }),
+            );
         });
     }
 
@@ -82,7 +90,15 @@ export default class OPaletteHistoryEntry extends HTMLElement {
 
         this.DeleteButton.addEventListener('click', (e) => {
             e.preventDefault();
-            console.log('delete');
+            this.dispatchEvent(
+                new CustomEvent('paletteRecordDelete', {
+                    bubbles: true,
+                    detail: {
+                        value: this.getAttribute('data-value') || '',
+                        entry: this,
+                    },
+                }),
+            );
         });
     }
 
@@ -98,7 +114,15 @@ export default class OPaletteHistoryEntry extends HTMLElement {
 
         this.ResetButton.addEventListener('click', (e) => {
             e.preventDefault();
-            console.log('reset');
+            this.dispatchEvent(
+                new CustomEvent('paletteRecordReset', {
+                    bubbles: true,
+                    detail: {
+                        value: this.getAttribute('data-value') || '',
+                        entry: this,
+                    },
+                }),
+            );
         });
     }
 

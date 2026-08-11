@@ -12,6 +12,12 @@ export default class OPalette extends Component implements Subject {
     private loop: OPaletteLoop | null = null;
     private RemainingAnswerCount: number = 0;
 
+    private setState(state: 'empty' | 'inprogress' | 'complete'): void {
+        this.Empty?.classList.toggle('inactive', state !== 'empty');
+        this.Block?.classList.toggle('inactive', state !== 'inprogress');
+        this.Complete?.classList.toggle('inactive', state !== 'complete');
+    }
+
     public handleEvent(e: CustomEvent): void {
         switch (e.type) {
             case 'cloneQuestion':
@@ -24,6 +30,8 @@ export default class OPalette extends Component implements Subject {
         e.stopImmediatePropagation();
 
         if (!this.Block) return;
+
+        this.clearBlock();
 
         const elements: NodeListOf<HTMLElement> = this.Block.querySelectorAll(
             '[data-associate-type]',
@@ -42,16 +50,16 @@ export default class OPalette extends Component implements Subject {
                     break;
                 case 'control':
                     source = document.createElement('o-question');
-                    const control = document.querySelector(
+                    const control = document.querySelector<HTMLElement>(
                         `o-response[data-associate-question="${associateName}"]`,
-                    ) as Node;
+                    );
                     if (!control) {
                         console.warn(
                             `Palette source element ${associateName} not found!`,
                         );
                         return;
                     }
-                    source.appendChild(control);
+                    source.appendChild(control.cloneNode(true));
                     break;
             }
 
@@ -63,8 +71,17 @@ export default class OPalette extends Component implements Subject {
             }
 
             element.appendChild(source);
-            this.Block?.classList.remove('inactive');
         });
+
+        this.setState('inprogress');
+    }
+
+    private clearBlock(): void {
+        this.Block?.querySelectorAll('[data-associate-type]').forEach(
+            (element) => {
+                element.replaceChildren();
+            },
+        );
     }
 
     private configureSubmitButton(): void {
@@ -77,7 +94,7 @@ export default class OPalette extends Component implements Subject {
 
         this.SubmitButton.addEventListener('click', (e) => {
             e.preventDefault();
-            console.log('submit');
+            this.submitRecord();
         });
     }
 
@@ -91,8 +108,40 @@ export default class OPalette extends Component implements Subject {
 
         this.CancelButton.addEventListener('click', (e) => {
             e.preventDefault();
-            console.log('cancel');
+            this.cancelRecord();
         });
+    }
+
+    private submitRecord(): void {
+        if (!this.loop || !this.Block) return;
+
+        const target = this.loop.getNextAvailableInput();
+        const value =
+            this.Block.querySelector<HTMLInputElement>('input')?.value;
+
+        if (!target || value === undefined || !value.trim()) return;
+
+        target.value = value;
+        target.dispatchEvent(new Event('input', { bubbles: true }));
+        target.dispatchEvent(new Event('change', { bubbles: true }));
+        this.loop.refreshAnswerCount();
+        this.clearBlock();
+        this.updateRemainingAnswers();
+        this.setState(this.RemainingAnswerCount === 0 ? 'complete' : 'empty');
+        this.dispatchEvent(
+            new CustomEvent('paletteRecordCommitted', {
+                bubbles: true,
+                detail: { value, index: this.loop.values.indexOf(target) },
+            }),
+        );
+    }
+
+    private cancelRecord(): void {
+        this.clearBlock();
+        this.setState(this.RemainingAnswerCount === 0 ? 'complete' : 'empty');
+        this.dispatchEvent(
+            new CustomEvent('paletteRecordCancelled', { bubbles: true }),
+        );
     }
 
     private configureLoop(): void {
@@ -102,9 +151,13 @@ export default class OPalette extends Component implements Subject {
     private updateRemainingAnswers(): void {
         if (!this.loop) return;
 
-        this.RemainingAnswerCount =
-            this.loop.getExpectedAnswerCount() -
-            this.loop.getCurrentAnswerCount();
+        this.RemainingAnswerCount = this.loop.getRemainingAnswerCount();
+        this.notifyObservers(
+            'answerCountChange',
+            new CustomEvent('answerCountChange', {
+                detail: { remainingAnswerCount: this.RemainingAnswerCount },
+            }),
+        );
     }
 
     public getRemainingAnswerCount(): number {
@@ -156,6 +209,7 @@ export default class OPalette extends Component implements Subject {
     }
 
     public connectedCallback(): void {
+        super.connectedCallback();
         this.addEventListener('cloneQuestion', this);
         this.configureSubmitButton();
         this.configureCancelButton();
@@ -164,5 +218,14 @@ export default class OPalette extends Component implements Subject {
         this.configureBlock();
         this.configureComplete();
         this.updateRemainingAnswers();
+        this.setState(this.RemainingAnswerCount === 0 ? 'complete' : 'empty');
+
+        queueMicrotask(() => {
+            if (!this.loop) this.configureLoop();
+            this.updateRemainingAnswers();
+            this.setState(
+                this.RemainingAnswerCount === 0 ? 'complete' : 'empty',
+            );
+        });
     }
 }
