@@ -14,10 +14,9 @@ export default class OPalette extends Component implements Subject {
     private isInitialized: boolean = false;
 
     private setState(state: 'empty' | 'inprogress' | 'complete'): void {
-        // TODO: Debug the state initialization timing before re-enabling these toggles
-        // this.Empty?.classList.toggle('inactive', state !== 'empty');
-        // this.Block?.classList.toggle('inactive', state !== 'inprogress');
-        // this.Complete?.classList.toggle('inactive', state !== 'complete');
+        this.Empty?.classList.toggle('inactive', state !== 'empty');
+        this.Block?.classList.toggle('inactive', state !== 'inprogress');
+        this.Complete?.classList.toggle('inactive', state !== 'complete');
     }
 
     public handleEvent(e: CustomEvent): void {
@@ -189,7 +188,7 @@ export default class OPalette extends Component implements Subject {
 
     addObserver(observer: Observer): void {
         this.observers.push(observer);
-        
+
         // Only notify immediately if palette is already initialized
         // Otherwise, the observer will be notified once initialization is complete
         if (this.isInitialized) {
@@ -223,17 +222,14 @@ export default class OPalette extends Component implements Subject {
 
     private configureBlock(): void {
         this.Block = this.querySelector('.palette-inprogress');
-        this.Block?.classList.add('inactive');
     }
 
     private configureComplete(): void {
         this.Complete = this.querySelector('.palette-complete');
-        this.Complete?.classList.add('inactive');
     }
 
     private configureEmpty(): void {
         this.Empty = this.querySelector('.palette-empty');
-        this.Empty?.classList.add('inactive');
     }
 
     public connectedCallback(): void {
@@ -250,7 +246,7 @@ export default class OPalette extends Component implements Subject {
         queueMicrotask(() => {
             // Ensure loop is found
             if (!this.loop) this.configureLoop();
-            
+
             // Wait for loop to finish initializing its row count
             if (this.loop && !this.loop.isLoopInitialized?.()) {
                 queueMicrotask(() => {
@@ -263,7 +259,9 @@ export default class OPalette extends Component implements Subject {
                     this.notifyObservers(
                         'answerCountChange',
                         new CustomEvent('answerCountChange', {
-                            detail: { remainingAnswerCount: this.RemainingAnswerCount },
+                            detail: {
+                                remainingAnswerCount: this.RemainingAnswerCount,
+                            },
                         }),
                     );
                 });
@@ -278,7 +276,9 @@ export default class OPalette extends Component implements Subject {
                 this.notifyObservers(
                     'answerCountChange',
                     new CustomEvent('answerCountChange', {
-                        detail: { remainingAnswerCount: this.RemainingAnswerCount },
+                        detail: {
+                            remainingAnswerCount: this.RemainingAnswerCount,
+                        },
                     }),
                 );
             }
