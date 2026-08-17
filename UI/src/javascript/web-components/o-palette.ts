@@ -137,23 +137,47 @@ export default class OPalette extends Component implements Subject {
     private submitRecord(): void {
         if (!this.loop || !this.Block) return;
 
-        const target = this.loop.getNextAvailableInput();
-        const value =
-            this.Block.querySelector<HTMLInputElement>('input')?.value;
+        const nextRow = this.loop.getNextAvailableRow();
+        if (!nextRow) return;
 
-        if (!target || value === undefined || !value.trim()) return;
+        // Collect all inputs in the palette-inprogress block with their associate questions
+        const inputsByQuestion = new Map<string, HTMLInputElement>();
+        this.Block.querySelectorAll<HTMLInputElement>('input').forEach((input) => {
+            const response = input.closest('o-response');
+            const associateQuestion = response?.dataset.associateQuestion;
+            if (associateQuestion && input.value.trim()) {
+                inputsByQuestion.set(associateQuestion, input);
+            }
+        });
 
-        target.value = value;
-        target.dispatchEvent(new Event('input', { bubbles: true }));
-        target.dispatchEvent(new Event('change', { bubbles: true }));
+        if (inputsByQuestion.size === 0) return;
+
+        // Fill all cells in the next row that have matching associate questions
+        let rowDataFound = false;
+        nextRow.querySelectorAll<HTMLInputElement>('input').forEach((input) => {
+            const response = input.closest('o-response');
+            const associateQuestion = response?.dataset.associateQuestion;
+            if (associateQuestion && inputsByQuestion.has(associateQuestion)) {
+                const sourceInput = inputsByQuestion.get(associateQuestion)!;
+                input.value = sourceInput.value;
+                input.dispatchEvent(new Event('input', { bubbles: true }));
+                input.dispatchEvent(new Event('change', { bubbles: true }));
+                rowDataFound = true;
+            }
+        });
+
+        if (!rowDataFound) return;
+
         this.loop.refreshAnswerCount();
         this.clearBlock();
         this.updateRemainingAnswers();
         this.setState(this.RemainingAnswerCount === 0 ? 'complete' : 'empty');
+        
+        const firstValue = Array.from(inputsByQuestion.values())[0]?.value || '';
         this.dispatchEvent(
             new CustomEvent('paletteRecordCommitted', {
                 bubbles: true,
-                detail: { value, index: this.loop.values.indexOf(target) },
+                detail: { value: firstValue, row: nextRow },
             }),
         );
     }
@@ -167,7 +191,7 @@ export default class OPalette extends Component implements Subject {
     }
 
     private configureLoop(): void {
-        this.loop = this.querySelector('o-palette-loop');
+        this.loop = document.querySelector('o-palette-loop');
     }
 
     private updateRemainingAnswers(): void {
@@ -189,8 +213,8 @@ export default class OPalette extends Component implements Subject {
     addObserver(observer: Observer): void {
         this.observers.push(observer);
 
-        // Only notify immediately if palette is already initialized
-        // Otherwise, the observer will be notified once initialization is complete
+        // Only notify immediately if palette is already initialised
+        // Otherwise, the observer will be notified once initialisation is complete
         if (this.isInitialized) {
             const answerCount = new CustomEvent('answerCountChange', {
                 detail: {

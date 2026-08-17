@@ -72,6 +72,15 @@ export default class OPaletteLoop extends Component {
         return availableRow?.querySelector<HTMLInputElement>('input') ?? null;
     }
 
+    public getNextAvailableRow(): HTMLTableRowElement | null {
+        return this.rows.find(
+            (row) =>
+                !Array.from(
+                    row.querySelectorAll<HTMLInputElement>('input'),
+                ).some((input) => input.value.trim().length > 0),
+        ) ?? null;
+    }
+
     public getExpectedAnswerCount(): number {
         return this.ExpectedAnswerCount;
     }
