@@ -175,9 +175,12 @@ export default class OPalette extends Component implements Subject {
         
         const firstValue = Array.from(inputsByQuestion.values())[0]?.value || '';
         console.log('Dispatching paletteRecordCommitted with row:', nextRow, 'value:', firstValue);
-        this.dispatchEvent(
+        
+        // Dispatch on window so all o-history elements can listen regardless of nesting
+        window.dispatchEvent(
             new CustomEvent('paletteRecordCommitted', {
                 bubbles: true,
+                composed: true,
                 detail: { value: firstValue, row: nextRow },
             }),
         );
