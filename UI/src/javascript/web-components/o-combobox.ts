@@ -243,9 +243,10 @@ export default class OCombobox extends Component implements Subject {
         const list = this.querySelector('o-list');
         const listItems = list?.querySelector('ul');
 
-        if (!listItems) return this.getAppliedWidth();
+        if (!list || !listItems) return this.getAppliedWidth();
 
         const clone = listItems.cloneNode(true) as HTMLElement;
+        const listStyle = getComputedStyle(listItems);
 
         clone.style.blockSize = 'auto';
         clone.style.inlineSize = 'max-content';
@@ -257,9 +258,23 @@ export default class OCombobox extends Component implements Subject {
         clone.style.visibility = 'hidden';
         clone.style.whiteSpace = 'nowrap';
 
-        document.body.appendChild(clone);
+        // Keep the clone in the same component context, so general list
+        // styles, such as dropdown option padding, are included in the
+        // measured width. Also account for the possible presence of scrollbar.
+        list.appendChild(clone);
 
-        const width = Math.ceil(clone.getBoundingClientRect().width);
+        const borderWidth =
+            parseFloat(listStyle.borderInlineStartWidth) +
+            parseFloat(listStyle.borderInlineEndWidth);
+        const scrollbarWidth = Math.max(
+            0,
+            listItems.offsetWidth -
+                listItems.clientWidth -
+                (Number.isNaN(borderWidth) ? 0 : borderWidth),
+        );
+        const width = Math.ceil(
+            clone.getBoundingClientRect().width + scrollbarWidth,
+        );
 
         clone.remove();
 
