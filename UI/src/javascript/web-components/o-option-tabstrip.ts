@@ -10,6 +10,14 @@ export default class OOptionTabstrip extends OOptionSublist {
             state: false,
             maxwidth: '',
         },
+        tabstrip: {
+            question: '',
+            tab: '',
+        },
+        sublistline: {
+            state: false,
+            length: 100,
+        },
     };
 
     private currentTab: HTMLInputElement | null = null;
