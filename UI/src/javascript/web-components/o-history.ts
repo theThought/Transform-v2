@@ -12,15 +12,11 @@ export default class OHistory extends Component {
         rowData: Map<string, string>,
         rowIndex: number,
     ): void {
-        console.log('createHistoryEntry called with:', rowData, rowIndex);
-        
         if (!this.HistoryDestination) {
-            console.warn('HistoryDestination not set');
             return;
         }
         
         if (rowData.size === 0) {
-            console.warn('rowData is empty');
             return;
         }
 
@@ -29,12 +25,10 @@ export default class OHistory extends Component {
         // Store each field value as a data attribute with key data-{associateControl}
         rowData.forEach((value, associateControl) => {
             historyEntry.setAttribute(`data-${associateControl}`, value);
-            console.log(`Set history entry attribute: data-${associateControl}=${value}`);
         });
 
         historyEntry.setAttribute('data-index', rowIndex.toString());
         this.HistoryDestination.appendChild(historyEntry);
-        console.log('History entry appended to:', this.HistoryDestination);
         this.AnswerCount++;
     }
 
@@ -78,7 +72,6 @@ export default class OHistory extends Component {
     private displayValues(): void {
         this.values.forEach((input) => {
             if (!input.value.length) return;
-            console.log(input.value);
         });
     }
 
@@ -96,20 +89,16 @@ export default class OHistory extends Component {
     }
 
     private handleRecordCommitted = (event: Event): void => {
-        console.log('paletteRecordCommitted received', event);
         const customEvent = event as CustomEvent;
         const detail = customEvent.detail;
-        console.log('Detail:', detail);
         
         if (!detail || !detail.row) {
-            console.warn('No row in paletteRecordCommitted event detail');
             return;
         }
         
         const row = detail.row as HTMLTableRowElement;
         const tbody = row.closest('tbody');
         const rowIndex = tbody ? Array.from(tbody.querySelectorAll('tr')).indexOf(row) : -1;
-        console.log('Row index:', rowIndex);
 
         // Collect all field values from the submitted row
         const rowData = new Map<string, string>();
@@ -119,12 +108,10 @@ export default class OHistory extends Component {
                 const associateQuestion = response?.dataset.associateQuestion;
                 if (associateQuestion) {
                     rowData.set(associateQuestion, input.value);
-                    console.log(`Set ${associateQuestion} = ${input.value}`);
                 }
             }
         });
 
-        console.log('Row data size:', rowData.size);
         if (rowData.size > 0) {
             this.createHistoryEntry(rowData, rowIndex);
             this.updateEmptyMessage();

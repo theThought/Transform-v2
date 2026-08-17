@@ -174,7 +174,6 @@ export default class OPalette extends Component implements Subject {
         this.setState(this.RemainingAnswerCount === 0 ? 'complete' : 'empty');
         
         const firstValue = Array.from(inputsByQuestion.values())[0]?.value || '';
-        console.log('Dispatching paletteRecordCommitted with row:', nextRow, 'value:', firstValue);
         
         // Dispatch on window so all o-history elements can listen regardless of nesting
         window.dispatchEvent(
