@@ -14,9 +14,10 @@ export default class OPalette extends Component implements Subject {
     private isInitialized: boolean = false;
 
     private setState(state: 'empty' | 'inprogress' | 'complete'): void {
-        this.Empty?.classList.toggle('inactive', state !== 'empty');
-        this.Block?.classList.toggle('inactive', state !== 'inprogress');
-        this.Complete?.classList.toggle('inactive', state !== 'complete');
+        // TODO: Debug the state initialization timing before re-enabling these toggles
+        // this.Empty?.classList.toggle('inactive', state !== 'empty');
+        // this.Block?.classList.toggle('inactive', state !== 'inprogress');
+        // this.Complete?.classList.toggle('inactive', state !== 'complete');
     }
 
     public handleEvent(e: CustomEvent): void {
@@ -222,17 +223,17 @@ export default class OPalette extends Component implements Subject {
 
     private configureBlock(): void {
         this.Block = this.querySelector('.palette-inprogress');
-        // this.Block?.classList.add('inactive');
+        this.Block?.classList.add('inactive');
     }
 
     private configureComplete(): void {
         this.Complete = this.querySelector('.palette-complete');
-        // this.Complete?.classList.add('inactive');
+        this.Complete?.classList.add('inactive');
     }
 
     private configureEmpty(): void {
         this.Empty = this.querySelector('.palette-empty');
-        // this.Empty?.classList.add('inactive');
+        this.Empty?.classList.add('inactive');
     }
 
     public connectedCallback(): void {
