@@ -133,11 +133,12 @@ export default class OHistory extends Component {
 
     public connectedCallback(): void {
         super.connectedCallback();
-        this.addEventListener(
+        // Listen for events on the window since paletteRecordCommitted is dispatched there
+        window.addEventListener(
             'paletteRecordCommitted',
             this.handleRecordCommitted,
         );
-        this.addEventListener('paletteRecordDelete', this.handleRecordDelete);
+        window.addEventListener('paletteRecordDelete', this.handleRecordDelete);
         this.loop = document.querySelector('o-palette-loop');
 
         this.retrieveHistoryTemplate();
@@ -148,11 +149,11 @@ export default class OHistory extends Component {
     }
 
     public disconnectedCallback(): void {
-        this.removeEventListener(
+        window.removeEventListener(
             'paletteRecordCommitted',
             this.handleRecordCommitted,
         );
-        this.removeEventListener(
+        window.removeEventListener(
             'paletteRecordDelete',
             this.handleRecordDelete,
         );
