@@ -57,7 +57,7 @@ export default class PaletteButtonAdd extends Component implements Observer {
     }
 
     private updateActiveState(remainingAnswerCount: number): void {
-        //this.classList.toggle('inactive', !remainingAnswerCount);
+        this.classList.toggle('inactive', !remainingAnswerCount);
     }
 
     public connectedCallback(): void {
