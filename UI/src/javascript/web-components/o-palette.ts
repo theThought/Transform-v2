@@ -222,17 +222,17 @@ export default class OPalette extends Component implements Subject {
 
     private configureBlock(): void {
         this.Block = this.querySelector('.palette-inprogress');
-        this.Block?.classList.add('inactive');
+        // this.Block?.classList.add('inactive');
     }
 
     private configureComplete(): void {
         this.Complete = this.querySelector('.palette-complete');
-        this.Complete?.classList.add('inactive');
+        // this.Complete?.classList.add('inactive');
     }
 
     private configureEmpty(): void {
         this.Empty = this.querySelector('.palette-empty');
-        this.Empty?.classList.add('inactive');
+        // this.Empty?.classList.add('inactive');
     }
 
     public connectedCallback(): void {
