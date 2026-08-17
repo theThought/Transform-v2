@@ -49,9 +49,18 @@ export default class OPaletteHistoryEntry extends HTMLElement {
     }
 
     render(): void {
-        const innerSlot = this.shadowRoot?.querySelector('.l-col-history-ftd');
-        if (!innerSlot) return;
-        innerSlot.textContent = this.getAttribute('data-value') || '';
+        // Populate ftd type="variable" elements with values from data attributes
+        const ftdVariables = this.shadowRoot?.querySelectorAll('ftd[type="variable"]');
+        if (!ftdVariables) return;
+
+        ftdVariables.forEach((ftd) => {
+            const associateControl = ftd.getAttribute('data-associate-control');
+            if (associateControl) {
+                const dataKey = `data-${associateControl}`;
+                const value = this.getAttribute(dataKey) || '';
+                ftd.textContent = value;
+            }
+        });
     }
 
     private configureEditButton(): void {

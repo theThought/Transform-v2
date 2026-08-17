@@ -8,14 +8,17 @@ export default class OHistory extends Component {
     private AnswerCount = 0;
     private loop: OLoop | null = null;
 
-    private createHistoryEntry(value: string, index?: number): void {
-        if (!this.HistoryDestination || !value.length) return;
+    private createHistoryEntry(rowData: Map<string, string>, rowIndex: number): void {
+        if (!this.HistoryDestination || rowData.size === 0) return;
 
         const historyEntry = document.createElement('o-palette-history-entry');
-        historyEntry.setAttribute('data-value', value);
-        if (index !== undefined) {
-            historyEntry.setAttribute('data-index', index.toString());
-        }
+        
+        // Store each field value as a data attribute with key data-{associateControl}
+        rowData.forEach((value, associateControl) => {
+            historyEntry.setAttribute(`data-${associateControl}`, value);
+        });
+        
+        historyEntry.setAttribute('data-index', rowIndex.toString());
         this.HistoryDestination.appendChild(historyEntry);
         this.AnswerCount++;
     }
@@ -27,14 +30,27 @@ export default class OHistory extends Component {
     private layoutValues(): void {
         if (!this.loop) return;
 
-        this.loop.values.forEach((input) => {
-            const InputElement = input as HTMLInputElement;
-            if (!InputElement.value.length) return;
+        // Group inputs by row and collect all values with their associate-questions
+        const rows = this.loop.values[0]?.closest('tbody')?.querySelectorAll('tr') || [];
+        
+        rows.forEach((row, rowIndex) => {
+            const rowData = new Map<string, string>();
+            let hasData = false;
 
-            this.createHistoryEntry(
-                InputElement.value,
-                this.loop?.values.indexOf(InputElement),
-            );
+            row.querySelectorAll<HTMLInputElement>('input').forEach((input) => {
+                if (input.value.trim()) {
+                    const response = input.closest('o-response');
+                    const associateQuestion = response?.dataset.associateQuestion;
+                    if (associateQuestion) {
+                        rowData.set(associateQuestion, input.value);
+                        hasData = true;
+                    }
+                }
+            });
+
+            if (hasData) {
+                this.createHistoryEntry(rowData, rowIndex);
+            }
         });
     }
 
@@ -63,10 +79,26 @@ export default class OHistory extends Component {
     }
 
     private handleRecordCommitted = (event: Event): void => {
-        const detail = (event as CustomEvent<{ value: string; index: number }>)
-            .detail;
-        this.createHistoryEntry(detail.value, detail.index);
-        this.updateEmptyMessage();
+        const detail = (event as CustomEvent<{ row: HTMLTableRowElement }>).detail;
+        const row = detail.row;
+        const rowIndex = Array.from(row.closest('tbody')?.querySelectorAll('tr') || []).indexOf(row);
+        
+        // Collect all field values from the submitted row
+        const rowData = new Map<string, string>();
+        row.querySelectorAll<HTMLInputElement>('input').forEach((input) => {
+            if (input.value.trim()) {
+                const response = input.closest('o-response');
+                const associateQuestion = response?.dataset.associateQuestion;
+                if (associateQuestion) {
+                    rowData.set(associateQuestion, input.value);
+                }
+            }
+        });
+
+        if (rowData.size > 0) {
+            this.createHistoryEntry(rowData, rowIndex);
+            this.updateEmptyMessage();
+        }
     };
 
     private handleRecordDelete = (event: Event): void => {
