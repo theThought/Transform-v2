@@ -127,6 +127,7 @@ export default class OList extends Component implements Observer {
                 this.handleEvent(data);
                 break;
             case 'clearValue':
+            case 'clearOtherValues':
                 this.clearValue();
                 break;
             case 'newValue':

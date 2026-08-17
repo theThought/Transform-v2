@@ -76,7 +76,6 @@ export default class OOptionSublist
                 this.handleChange(data);
                 break;
             case 'clearOtherValues':
-                if (this.contains(data.target as HTMLElement)) return;
                 this.notifyObservers('clearOtherValues', data);
                 break;
             case 'exclusiveSelected':
