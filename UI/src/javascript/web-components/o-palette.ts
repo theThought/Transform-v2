@@ -11,6 +11,7 @@ export default class OPalette extends Component implements Subject {
     private CancelButton: HTMLElement | null = null;
     private loop: OPaletteLoop | null = null;
     private RemainingAnswerCount: number = 0;
+    private isInitialized: boolean = false;
 
     private setState(state: 'empty' | 'inprogress' | 'complete'): void {
         this.Empty?.classList.toggle('inactive', state !== 'empty');
@@ -187,12 +188,17 @@ export default class OPalette extends Component implements Subject {
 
     addObserver(observer: Observer): void {
         this.observers.push(observer);
-        const answerCount = new CustomEvent('answerCountChange', {
-            detail: {
-                remainingAnswerCount: this.getRemainingAnswerCount(),
-            },
-        });
-        observer.update('answerCountChange', answerCount);
+        
+        // Only notify immediately if palette is already initialized
+        // Otherwise, the observer will be notified once initialization is complete
+        if (this.isInitialized) {
+            const answerCount = new CustomEvent('answerCountChange', {
+                detail: {
+                    remainingAnswerCount: this.getRemainingAnswerCount(),
+                },
+            });
+            observer.update('answerCountChange', answerCount);
+        }
     }
 
     removeObserver(observer: Observer): void {
@@ -240,22 +246,39 @@ export default class OPalette extends Component implements Subject {
         this.configureBlock();
         this.configureComplete();
 
-        // Wait for the loop to initialize before setting state
         queueMicrotask(() => {
+            // Ensure loop is found
             if (!this.loop) this.configureLoop();
             
-            // If loop is still initializing, wait for the next microtask
+            // Wait for loop to finish initializing its row count
             if (this.loop && !this.loop.isLoopInitialized?.()) {
                 queueMicrotask(() => {
                     this.updateRemainingAnswers();
                     this.setState(
                         this.RemainingAnswerCount === 0 ? 'complete' : 'empty',
                     );
+                    this.isInitialized = true;
+                    // Notify all observers that were added before initialization
+                    this.notifyObservers(
+                        'answerCountChange',
+                        new CustomEvent('answerCountChange', {
+                            detail: { remainingAnswerCount: this.RemainingAnswerCount },
+                        }),
+                    );
                 });
             } else {
+                // Loop is already initialized or doesn't exist, update now
                 this.updateRemainingAnswers();
                 this.setState(
                     this.RemainingAnswerCount === 0 ? 'complete' : 'empty',
+                );
+                this.isInitialized = true;
+                // Notify all observers that were added before initialization
+                this.notifyObservers(
+                    'answerCountChange',
+                    new CustomEvent('answerCountChange', {
+                        detail: { remainingAnswerCount: this.RemainingAnswerCount },
+                    }),
                 );
             }
         });
