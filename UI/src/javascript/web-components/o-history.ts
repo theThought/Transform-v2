@@ -8,18 +8,33 @@ export default class OHistory extends Component {
     private AnswerCount = 0;
     private loop: OLoop | null = null;
 
-    private createHistoryEntry(rowData: Map<string, string>, rowIndex: number): void {
-        if (!this.HistoryDestination || rowData.size === 0) return;
+    private createHistoryEntry(
+        rowData: Map<string, string>,
+        rowIndex: number,
+    ): void {
+        console.log('createHistoryEntry called with:', rowData, rowIndex);
+        
+        if (!this.HistoryDestination) {
+            console.warn('HistoryDestination not set');
+            return;
+        }
+        
+        if (rowData.size === 0) {
+            console.warn('rowData is empty');
+            return;
+        }
 
         const historyEntry = document.createElement('o-palette-history-entry');
-        
+
         // Store each field value as a data attribute with key data-{associateControl}
         rowData.forEach((value, associateControl) => {
             historyEntry.setAttribute(`data-${associateControl}`, value);
+            console.log(`Set history entry attribute: data-${associateControl}=${value}`);
         });
-        
+
         historyEntry.setAttribute('data-index', rowIndex.toString());
         this.HistoryDestination.appendChild(historyEntry);
+        console.log('History entry appended to:', this.HistoryDestination);
         this.AnswerCount++;
     }
 
@@ -31,8 +46,9 @@ export default class OHistory extends Component {
         if (!this.loop) return;
 
         // Group inputs by row and collect all values with their associate-questions
-        const rows = this.loop.values[0]?.closest('tbody')?.querySelectorAll('tr') || [];
-        
+        const rows =
+            this.loop.values[0]?.closest('tbody')?.querySelectorAll('tr') || [];
+
         rows.forEach((row, rowIndex) => {
             const rowData = new Map<string, string>();
             let hasData = false;
@@ -40,7 +56,8 @@ export default class OHistory extends Component {
             row.querySelectorAll<HTMLInputElement>('input').forEach((input) => {
                 if (input.value.trim()) {
                     const response = input.closest('o-response');
-                    const associateQuestion = response?.dataset.associateQuestion;
+                    const associateQuestion =
+                        response?.dataset.associateQuestion;
                     if (associateQuestion) {
                         rowData.set(associateQuestion, input.value);
                         hasData = true;
@@ -79,10 +96,21 @@ export default class OHistory extends Component {
     }
 
     private handleRecordCommitted = (event: Event): void => {
-        const detail = (event as CustomEvent<{ row: HTMLTableRowElement }>).detail;
-        const row = detail.row;
-        const rowIndex = Array.from(row.closest('tbody')?.querySelectorAll('tr') || []).indexOf(row);
+        console.log('paletteRecordCommitted received', event);
+        const customEvent = event as CustomEvent;
+        const detail = customEvent.detail;
+        console.log('Detail:', detail);
         
+        if (!detail || !detail.row) {
+            console.warn('No row in paletteRecordCommitted event detail');
+            return;
+        }
+        
+        const row = detail.row as HTMLTableRowElement;
+        const tbody = row.closest('tbody');
+        const rowIndex = tbody ? Array.from(tbody.querySelectorAll('tr')).indexOf(row) : -1;
+        console.log('Row index:', rowIndex);
+
         // Collect all field values from the submitted row
         const rowData = new Map<string, string>();
         row.querySelectorAll<HTMLInputElement>('input').forEach((input) => {
@@ -91,10 +119,12 @@ export default class OHistory extends Component {
                 const associateQuestion = response?.dataset.associateQuestion;
                 if (associateQuestion) {
                     rowData.set(associateQuestion, input.value);
+                    console.log(`Set ${associateQuestion} = ${input.value}`);
                 }
             }
         });
 
+        console.log('Row data size:', rowData.size);
         if (rowData.size > 0) {
             this.createHistoryEntry(rowData, rowIndex);
             this.updateEmptyMessage();
