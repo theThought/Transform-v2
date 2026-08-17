@@ -174,6 +174,7 @@ export default class OPalette extends Component implements Subject {
         this.setState(this.RemainingAnswerCount === 0 ? 'complete' : 'empty');
         
         const firstValue = Array.from(inputsByQuestion.values())[0]?.value || '';
+        console.log('Dispatching paletteRecordCommitted with row:', nextRow, 'value:', firstValue);
         this.dispatchEvent(
             new CustomEvent('paletteRecordCommitted', {
                 bubbles: true,
