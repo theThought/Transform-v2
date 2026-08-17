@@ -23,6 +23,22 @@ export default class OPalette extends Component implements Subject {
             case 'cloneQuestion':
                 this.cloneQuestion(e);
                 break;
+            case 'answerCountChange':
+                this.handleAnswerCountChange(e);
+                break;
+        }
+    }
+
+    private handleAnswerCountChange(e: CustomEvent): void {
+        this.RemainingAnswerCount = e.detail.remainingAnswerCount;
+        this.notifyObservers('answerCountChange', e);
+
+        // The loop can finish initialising after the palette. In that case,
+        // use its first count event to make the empty state interactive.
+        if (this.Block?.classList.contains('inactive')) {
+            this.setState(
+                this.RemainingAnswerCount === 0 ? 'complete' : 'empty',
+            );
         }
     }
 
@@ -42,24 +58,29 @@ export default class OPalette extends Component implements Subject {
             const associateName = element.dataset.associateQuestion;
             let source: Node | null = null;
 
+            const response = Array.from(
+                document.querySelectorAll<HTMLElement>('o-response'),
+            ).find(
+                (candidate) =>
+                    candidate.dataset.associateQuestion === associateName,
+            );
+
             switch (associateType) {
                 case 'label':
-                    source = document.querySelector(
-                        `o-response[data-associate-question="${associateName}"] label[data-associate-type="${associateType}"]`,
-                    );
+                    source =
+                        response
+                            ?.closest('o-question')
+                            ?.querySelector(':scope > label') ?? null;
                     break;
                 case 'control':
                     source = document.createElement('o-question');
-                    const control = document.querySelector<HTMLElement>(
-                        `o-response[data-associate-question="${associateName}"]`,
-                    );
-                    if (!control) {
+                    if (!response) {
                         console.warn(
                             `Palette source element ${associateName} not found!`,
                         );
                         return;
                     }
-                    source.appendChild(control.cloneNode(true));
+                    source.appendChild(response.cloneNode(true));
                     break;
             }
 
@@ -145,7 +166,7 @@ export default class OPalette extends Component implements Subject {
     }
 
     private configureLoop(): void {
-        this.loop = document.querySelector('o-palette-loop');
+        this.loop = this.querySelector('o-palette-loop');
     }
 
     private updateRemainingAnswers(): void {
@@ -211,21 +232,37 @@ export default class OPalette extends Component implements Subject {
     public connectedCallback(): void {
         super.connectedCallback();
         this.addEventListener('cloneQuestion', this);
+        this.addEventListener('answerCountChange', this);
         this.configureSubmitButton();
         this.configureCancelButton();
         this.configureLoop();
         this.configureEmpty();
         this.configureBlock();
         this.configureComplete();
-        this.updateRemainingAnswers();
-        this.setState(this.RemainingAnswerCount === 0 ? 'complete' : 'empty');
 
+        // Wait for the loop to initialize before setting state
         queueMicrotask(() => {
             if (!this.loop) this.configureLoop();
-            this.updateRemainingAnswers();
-            this.setState(
-                this.RemainingAnswerCount === 0 ? 'complete' : 'empty',
-            );
+            
+            // If loop is still initializing, wait for the next microtask
+            if (this.loop && !this.loop.isLoopInitialized?.()) {
+                queueMicrotask(() => {
+                    this.updateRemainingAnswers();
+                    this.setState(
+                        this.RemainingAnswerCount === 0 ? 'complete' : 'empty',
+                    );
+                });
+            } else {
+                this.updateRemainingAnswers();
+                this.setState(
+                    this.RemainingAnswerCount === 0 ? 'complete' : 'empty',
+                );
+            }
         });
+    }
+
+    public disconnectedCallback(): void {
+        this.removeEventListener('cloneQuestion', this);
+        this.removeEventListener('answerCountChange', this);
     }
 }
