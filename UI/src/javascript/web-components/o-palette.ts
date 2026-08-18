@@ -107,7 +107,8 @@ export default class OPalette extends Component implements Subject {
                     source =
                         response
                             ?.closest('o-question')
-                            ?.querySelector(':scope > label') ?? null;
+                            ?.querySelector(':scope > label')
+                            ?.cloneNode(true) ?? null;
                     break;
                 case 'control':
                     source = document.createElement('o-question');
