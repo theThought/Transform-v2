@@ -40,6 +40,10 @@ export default class OPaletteHistoryEntry extends HTMLElement {
                 background-image: url('./build/static/images/restart.svg');
                 background-position: center;
                 background-repeat: no-repeat;
+            }
+
+            .l-col-history {
+                justify-content: end;
             }`;
 
         const shadowRoot = this.attachShadow({ mode: 'open' });

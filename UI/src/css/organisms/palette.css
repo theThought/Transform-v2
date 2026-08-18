@@ -15,7 +15,6 @@ o-palette {
     .history-empty {
         .a-label-history {
             &::before {
-                background: white;
                 content: attr(data-translate);
                 display: block;
                 inline-size: fit-content;
@@ -23,6 +22,10 @@ o-palette {
                 white-space: nowrap;
             }
         }
+    }
+
+    o-palette-history-entry {
+        display: block;
     }
 }
 
