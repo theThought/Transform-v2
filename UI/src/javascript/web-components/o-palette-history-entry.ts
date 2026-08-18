@@ -1,7 +1,6 @@
 export default class OPaletteHistoryEntry extends HTMLElement {
     private EditButton: HTMLElement | null | undefined = undefined;
     private DeleteButton: HTMLElement | null | undefined = undefined;
-    private ResetButton: HTMLElement | null | undefined = undefined;
 
     constructor() {
         super();
@@ -113,34 +112,9 @@ export default class OPaletteHistoryEntry extends HTMLElement {
         });
     }
 
-    private configureResetButton(): void {
-        this.ResetButton = this.shadowRoot?.querySelector(
-            'button.a-button-icon.reset',
-        );
-
-        if (!this.ResetButton) {
-            console.warn('Reset button not found');
-            return;
-        }
-
-        this.ResetButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            this.dispatchEvent(
-                new CustomEvent('paletteRecordReset', {
-                    bubbles: true,
-                    detail: {
-                        value: this.getAttribute('data-value') || '',
-                        entry: this,
-                    },
-                }),
-            );
-        });
-    }
-
     public connectedCallback(): void {
         this.render();
         this.configureEditButton();
         this.configureDeleteButton();
-        this.configureResetButton();
     }
 }
