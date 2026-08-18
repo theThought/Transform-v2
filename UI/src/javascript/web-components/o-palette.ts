@@ -179,12 +179,19 @@ export default class OPalette extends Component implements Subject {
 
         // Collect all inputs in the palette-inprogress block with their associate questions
         const inputsByQuestion = new Map<string, HTMLInputElement>();
+        const labelsByQuestion = new Map<string, string>();
         this.Block.querySelectorAll<HTMLInputElement>('input').forEach(
             (input) => {
                 const response = input.closest<HTMLElement>('o-response');
                 const associateQuestion = response?.dataset.associateQuestion;
                 if (associateQuestion && input.value.trim()) {
                     inputsByQuestion.set(associateQuestion, input);
+                    const label =
+                        input.dataset.label ||
+                        response?.dataset.label ||
+                        response?.querySelector<HTMLElement>('[data-label]')
+                            ?.dataset.label;
+                    if (label) labelsByQuestion.set(associateQuestion, label);
                 }
             },
         );
@@ -233,7 +240,11 @@ export default class OPalette extends Component implements Subject {
             new CustomEvent('paletteRecordCommitted', {
                 bubbles: true,
                 composed: true,
-                detail: { value: firstValue, row: nextRow },
+                detail: {
+                    value: firstValue,
+                    row: nextRow,
+                    labels: Object.fromEntries(labelsByQuestion),
+                },
             }),
         );
     }

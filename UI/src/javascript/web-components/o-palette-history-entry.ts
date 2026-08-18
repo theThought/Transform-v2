@@ -60,7 +60,9 @@ export default class OPaletteHistoryEntry extends HTMLElement {
                 if (!associateControl) return;
 
                 ftd.textContent =
-                    this.getAttribute(`data-${associateControl}`) || '';
+                    this.getAttribute(`data-label-${associateControl}`) ||
+                    this.getAttribute(`data-${associateControl}`) ||
+                    '';
             });
     }
 

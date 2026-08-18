@@ -1,6 +1,11 @@
 import Component from './component';
 import OLoop from './o-palette-loop';
 
+interface PaletteRecordCommittedDetail {
+    row: HTMLTableRowElement;
+    labels?: Record<string, string>;
+}
+
 export default class OHistory extends Component {
     public values: Array<HTMLInputElement> = [];
     private EmptyMessage: HTMLElement | null = null;
@@ -11,6 +16,7 @@ export default class OHistory extends Component {
     private createHistoryEntry(
         rowData: Map<string, string>,
         rowIndex: number,
+        rowLabels: Map<string, string> = new Map(),
     ): void {
         if (!this.HistoryDestination) {
             return;
@@ -26,6 +32,13 @@ export default class OHistory extends Component {
         // The history entry renders its visible content from these attributes.
         rowData.forEach((value, associateControl) => {
             historyEntry.setAttribute(`data-${associateControl}`, value);
+            const label = rowLabels.get(associateControl);
+            if (label) {
+                historyEntry.setAttribute(
+                    `data-label-${associateControl}`,
+                    label,
+                );
+            }
         });
 
         historyEntry.setAttribute('data-index', rowIndex.toString());
@@ -45,6 +58,7 @@ export default class OHistory extends Component {
 
         rows.forEach((row, rowIndex) => {
             const rowData = new Map<string, string>();
+            const rowLabels = new Map<string, string>();
             let hasData = false;
 
             row.querySelectorAll<HTMLInputElement>('input').forEach((input) => {
@@ -54,15 +68,27 @@ export default class OHistory extends Component {
                         response?.dataset.associateQuestion;
                     if (associateQuestion) {
                         rowData.set(associateQuestion, input.value);
+                        const label = this.getInputLabel(input);
+                        if (label) rowLabels.set(associateQuestion, label);
                         hasData = true;
                     }
                 }
             });
 
             if (hasData) {
-                this.createHistoryEntry(rowData, rowIndex);
+                this.createHistoryEntry(rowData, rowIndex, rowLabels);
             }
         });
+    }
+
+    private getInputLabel(input: HTMLInputElement): string | null {
+        const response = input.closest<HTMLElement>('o-response');
+        const label =
+            input.dataset.label ||
+            response?.dataset.label ||
+            response?.querySelector<HTMLElement>('[data-label]')?.dataset.label;
+
+        return label?.trim() || null;
     }
 
     public getAnswerCount(): number {
@@ -81,7 +107,7 @@ export default class OHistory extends Component {
     }
 
     private handleRecordCommitted = (event: Event): void => {
-        const customEvent = event as CustomEvent;
+        const customEvent = event as CustomEvent<PaletteRecordCommittedDetail>;
         const detail = customEvent.detail;
 
         if (!detail || !detail.row) {
@@ -95,13 +121,22 @@ export default class OHistory extends Component {
 
         // Collect all field values from the submitted row
         const rowData = new Map<string, string>();
+        const rowLabels = new Map<string, string>();
         row.querySelectorAll<HTMLInputElement>('input').forEach((input) => {
             if (input.value.trim()) {
                 const response = input.closest<HTMLElement>('o-response');
                 const associateQuestion = response?.dataset.associateQuestion;
                 if (associateQuestion) {
                     rowData.set(associateQuestion, input.value);
+                    const label = this.getInputLabel(input);
+                    if (label) rowLabels.set(associateQuestion, label);
                 }
+            }
+        });
+
+        Object.entries(detail.labels ?? {}).forEach(([control, label]) => {
+            if (typeof label === 'string' && label.trim()) {
+                rowLabels.set(control, label);
             }
         });
 
@@ -130,15 +165,19 @@ export default class OHistory extends Component {
                         `data-${associateControl}`,
                         value,
                     );
+                    const label = rowLabels.get(associateControl);
+                    if (label) {
+                        existingEntry.setAttribute(
+                            `data-label-${associateControl}`,
+                            label,
+                        );
+                    }
                 });
-                existingEntry.textContent = Array.from(rowData.values()).join(
-                    ' ',
-                );
                 (
                     existingEntry as HTMLElement & { render?: () => void }
                 ).render?.();
             } else {
-                this.createHistoryEntry(rowData, rowIndex);
+                this.createHistoryEntry(rowData, rowIndex, rowLabels);
             }
             this.updateEmptyMessage();
         }
