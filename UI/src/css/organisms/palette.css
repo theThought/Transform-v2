@@ -70,11 +70,11 @@ o-palette-loop {
 .inactive {
     background: repeating-linear-gradient(
         45deg,
-        var(--color-light4),
+        var(--color-light3),
+        var(--color-light3) var(--space-2),
         var(--color-light4) var(--space-2),
-        var(--color-dark1) var(--space-2),
-        var(--color-dark1) var(--space-4)
+        var(--color-light4) var(--space-4)
     );
-    opacity: 0.2;
+    opacity: 0.6;
     pointer-events: none;
 }
