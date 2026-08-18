@@ -6,9 +6,8 @@ export default class OPaletteHistoryEntry extends HTMLElement {
     constructor() {
         super();
 
-        const template: HTMLTemplateElement | null = document.querySelector(
-            '.history-inprogress template',
-        );
+        const template: HTMLTemplateElement | null =
+            document.querySelector('o-history template');
 
         if (!template) return;
 
@@ -31,11 +30,11 @@ export default class OPaletteHistoryEntry extends HTMLElement {
                 background-position: center;
                 background-repeat: no-repeat;
             }
-            
+
             .a-button-icon.edit {
                 background-color: transparent;
             }
-            
+
             .a-button-icon.reset {
                 background-color: transparent;
                 background-image: url('./build/static/images/restart.svg');
@@ -49,18 +48,17 @@ export default class OPaletteHistoryEntry extends HTMLElement {
     }
 
     render(): void {
-        // Populate ftd type="variable" elements with values from data attributes
-        const ftdVariables = this.shadowRoot?.querySelectorAll('ftd[type="variable"]');
-        if (!ftdVariables) return;
+        this.shadowRoot
+            ?.querySelectorAll('ftd[type="variable"]')
+            .forEach((ftd) => {
+                const associateControl = ftd.getAttribute(
+                    'data-associate-control',
+                );
+                if (!associateControl) return;
 
-        ftdVariables.forEach((ftd) => {
-            const associateControl = ftd.getAttribute('data-associate-control');
-            if (associateControl) {
-                const dataKey = `data-${associateControl}`;
-                const value = this.getAttribute(dataKey) || '';
-                ftd.textContent = value;
-            }
-        });
+                ftd.textContent =
+                    this.getAttribute(`data-${associateControl}`) || '';
+            });
     }
 
     private configureEditButton(): void {

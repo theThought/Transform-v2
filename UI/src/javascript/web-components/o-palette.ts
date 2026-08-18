@@ -10,6 +10,7 @@ export default class OPalette extends Component implements Subject {
     private SubmitButton: HTMLElement | null = null;
     private CancelButton: HTMLElement | null = null;
     private loop: OPaletteLoop | null = null;
+    private editingRow: HTMLTableRowElement | null = null;
     private RemainingAnswerCount: number = 0;
     private isInitialized: boolean = false;
 
@@ -29,6 +30,41 @@ export default class OPalette extends Component implements Subject {
                 break;
         }
     }
+
+    private handleRecordEdit = (event: Event): void => {
+        const detail = (event as CustomEvent<{ entry: HTMLElement }>).detail;
+        const index = Number(detail?.entry?.getAttribute('data-index'));
+        const rows = this.loop?.querySelectorAll<HTMLTableRowElement>('tr');
+
+        if (!rows || !Number.isInteger(index) || index < 0 || !rows[index]) {
+            return;
+        }
+
+        this.editingRow = rows[index];
+        this.cloneQuestion(event as CustomEvent);
+
+        const valuesByQuestion = new Map<string, string>();
+        this.editingRow
+            .querySelectorAll<HTMLInputElement>('input')
+            .forEach((input) => {
+                const response = input.closest<HTMLElement>('o-response');
+                const question = response?.dataset.associateQuestion;
+                if (question) valuesByQuestion.set(question, input.value);
+            });
+
+        this.Block?.querySelectorAll<HTMLInputElement>('input').forEach(
+            (input) => {
+                const response = input.closest<HTMLElement>('o-response');
+                const question = response?.dataset.associateQuestion;
+                const value = question ? valuesByQuestion.get(question) : null;
+                if (value !== null && value !== undefined) {
+                    input.value = value;
+                    input.dispatchEvent(new Event('input', { bubbles: true }));
+                    input.dispatchEvent(new Event('change', { bubbles: true }));
+                }
+            },
+        );
+    };
 
     private handleAnswerCountChange(e: CustomEvent): void {
         this.RemainingAnswerCount = e.detail.remainingAnswerCount;
@@ -137,25 +173,27 @@ export default class OPalette extends Component implements Subject {
     private submitRecord(): void {
         if (!this.loop || !this.Block) return;
 
-        const nextRow = this.loop.getNextAvailableRow();
+        const nextRow = this.editingRow ?? this.loop.getNextAvailableRow();
         if (!nextRow) return;
 
         // Collect all inputs in the palette-inprogress block with their associate questions
         const inputsByQuestion = new Map<string, HTMLInputElement>();
-        this.Block.querySelectorAll<HTMLInputElement>('input').forEach((input) => {
-            const response = input.closest('o-response');
-            const associateQuestion = response?.dataset.associateQuestion;
-            if (associateQuestion && input.value.trim()) {
-                inputsByQuestion.set(associateQuestion, input);
-            }
-        });
+        this.Block.querySelectorAll<HTMLInputElement>('input').forEach(
+            (input) => {
+                const response = input.closest<HTMLElement>('o-response');
+                const associateQuestion = response?.dataset.associateQuestion;
+                if (associateQuestion && input.value.trim()) {
+                    inputsByQuestion.set(associateQuestion, input);
+                }
+            },
+        );
 
         if (inputsByQuestion.size === 0) return;
 
         // Fill all cells in the next row that have matching associate questions
         let rowDataFound = false;
         nextRow.querySelectorAll<HTMLInputElement>('input').forEach((input) => {
-            const response = input.closest('o-response');
+            const response = input.closest<HTMLElement>('o-response');
             const associateQuestion = response?.dataset.associateQuestion;
             if (associateQuestion && inputsByQuestion.has(associateQuestion)) {
                 const sourceInput = inputsByQuestion.get(associateQuestion)!;
@@ -168,13 +206,27 @@ export default class OPalette extends Component implements Subject {
 
         if (!rowDataFound) return;
 
+        if (this.editingRow) {
+            nextRow
+                .querySelectorAll<HTMLInputElement>('input')
+                .forEach((input) => {
+                    const response = input.closest<HTMLElement>('o-response');
+                    const question = response?.dataset.associateQuestion;
+                    if (question && !inputsByQuestion.has(question)) {
+                        input.value = '';
+                    }
+                });
+        }
+
         this.loop.refreshAnswerCount();
         this.clearBlock();
+        this.editingRow = null;
         this.updateRemainingAnswers();
         this.setState(this.RemainingAnswerCount === 0 ? 'complete' : 'empty');
-        
-        const firstValue = Array.from(inputsByQuestion.values())[0]?.value || '';
-        
+
+        const firstValue =
+            Array.from(inputsByQuestion.values())[0]?.value || '';
+
         // Dispatch on window so all o-history elements can listen regardless of nesting
         window.dispatchEvent(
             new CustomEvent('paletteRecordCommitted', {
@@ -187,6 +239,10 @@ export default class OPalette extends Component implements Subject {
 
     private cancelRecord(): void {
         this.clearBlock();
+        this.editingRow = null;
+        // Cancelling does not change the loop count, but observers still need
+        // the current count so the add button can become active again.
+        this.updateRemainingAnswers();
         this.setState(this.RemainingAnswerCount === 0 ? 'complete' : 'empty');
         this.dispatchEvent(
             new CustomEvent('paletteRecordCancelled', { bubbles: true }),
@@ -266,6 +322,7 @@ export default class OPalette extends Component implements Subject {
         this.configureSubmitButton();
         this.configureCancelButton();
         this.configureLoop();
+        window.addEventListener('paletteRecordEdit', this.handleRecordEdit);
         this.configureEmpty();
         this.configureBlock();
         this.configureComplete();
@@ -315,5 +372,6 @@ export default class OPalette extends Component implements Subject {
     public disconnectedCallback(): void {
         this.removeEventListener('cloneQuestion', this);
         this.removeEventListener('answerCountChange', this);
+        window.removeEventListener('paletteRecordEdit', this.handleRecordEdit);
     }
 }
