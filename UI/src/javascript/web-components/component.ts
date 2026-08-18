@@ -96,6 +96,14 @@ export default class Component extends HTMLElement {
 
         if (!get || !set) return;
 
+        // A parent response and its child control can both resolve the same
+        // input. The first component to connect installs this behaviour; a
+        // second definition would fail because defineProperty defaults to
+        // configurable: false.
+        if (Object.prototype.hasOwnProperty.call(this.element, 'value')) {
+            return;
+        }
+
         Object.defineProperty(this.element, 'value', {
             get() {
                 return get.call(this);
