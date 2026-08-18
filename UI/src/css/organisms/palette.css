@@ -25,7 +25,8 @@ o-palette {
     }
 
     o-palette-history-entry {
-        display: block;
+        align-items: center;
+        display: flex;
     }
 }
 
