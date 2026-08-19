@@ -7,6 +7,7 @@ interface FocusProperties extends JsonObject {
 }
 
 interface CustomProperties extends JsonObject {
+    debug: boolean;
     floatdetails: boolean;
     focus: FocusProperties;
     jumptoerror: boolean;
@@ -24,6 +25,7 @@ interface CustomProperties extends JsonObject {
 
 export default class AProperties extends Component {
     public properties: CustomProperties = {
+        debug: false,
         floatdetails: true,
         focus: {
             control: true,
@@ -37,6 +39,11 @@ export default class AProperties extends Component {
         validate: false,
         resettonull: true,
     };
+
+    private setDebugMode(): void {
+        if (!this.properties.debug) return;
+        document.body.classList.add('debug');
+    }
 
     private setFloatDetailsStyle(): void {
         if (this.properties.floatdetails) return;
@@ -112,6 +119,7 @@ export default class AProperties extends Component {
 
     public connectedCallback(): void {
         super.connectedCallback();
+        this.setDebugMode();
         this.setFloatDetailsStyle();
         this.setFocusOnControlStyle();
         this.setFocusOnQuestionStyle();
