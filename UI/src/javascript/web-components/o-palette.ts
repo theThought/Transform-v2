@@ -118,7 +118,14 @@ export default class OPalette extends Component implements Subject {
                         );
                         return;
                     }
-                    source.appendChild(response.cloneNode(true));
+                    const clonedResponse = response.cloneNode(
+                        true,
+                    ) as HTMLElement;
+                    // Custom elements in the response are upgraded again when
+                    // this clone is inserted. Let them initialise their
+                    // behaviour, but avoid rebuilding generated scaffolding.
+                    clonedResponse.setAttribute('data-palette-clone', 'true');
+                    source.appendChild(clonedResponse);
                     break;
             }
 

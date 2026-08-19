@@ -100,12 +100,19 @@ export default class OList extends Component implements Observer {
     private oneTimeConfiguration(): void {
         if (this.isConfigured) return;
 
+        const isPaletteClone = this.closest('[data-palette-clone]') !== null;
+
         this.buildList();
         this.buildVisibleList();
         this.setInitialListHeight();
 
-        this.createNotEnoughCharactersMessage();
-        this.createNoItemsInListMessage();
+        // These entries are already present in a palette clone. Recreating
+        // them here makes every cloned list grow on its second connection.
+        if (!isPaletteClone) {
+            this.createNotEnoughCharactersMessage();
+            this.createNoItemsInListMessage();
+        }
+
         this.initialMinCharacterMessage();
         this.setFilterMethod();
 

@@ -118,6 +118,7 @@ export default class ODropdown extends Component implements Subject {
     }
 
     private addPlaceholderToList(): void {
+        if (this.closest('[data-palette-clone]')) return;
         if (!this.element?.placeholder?.length) return;
 
         const placeholderData = new CustomEvent('addPlaceholderEntry', {
