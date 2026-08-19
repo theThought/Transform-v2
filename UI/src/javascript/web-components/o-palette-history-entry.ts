@@ -38,18 +38,15 @@ export default class OPaletteHistoryEntry extends HTMLElement {
                 background-position: center;
                 background-repeat: no-repeat;
             }
-
             .a-button-icon.edit {
                 background-color: var(--color-bg-neutral-primary, #ffffff);
             }
-
             .a-button-icon.reset {
                 background-color: transparent;
                 background-image: url('./build/static/images/restart.svg');
                 background-position: center;
                 background-repeat: no-repeat;
             }
-
             .l-col-history {
                 justify-content: end;
             }`;
