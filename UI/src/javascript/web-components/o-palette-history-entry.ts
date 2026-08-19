@@ -15,18 +15,26 @@ export default class OPaletteHistoryEntry extends HTMLElement {
             :host {
                 display: flex;
                 justify-content: space-between;
+                transition: background-color 150ms ease-in-out;
             }
             :host(.active) {
                 background: var(--color-bg-system-warning-subtle, #fff6e5);
             }
             button {
-                visibility: hidden;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 150ms ease-in-out;
             }
             :host(.active) button {
-                visibility: visible;
+                opacity: 1;
+                pointer-events: all;
             }
             .l-col-history {
                 display: flex;
+            }
+            ftd {
+                color: var(--color-secondary);
+                cursor: default;
             }
             .a-button-icon {
                 width: 36px;
