@@ -176,6 +176,7 @@ export default class OHistory extends Component {
                 (
                     existingEntry as HTMLElement & { render?: () => void }
                 ).render?.();
+                existingEntry.classList.remove('active');
             } else {
                 this.createHistoryEntry(rowData, rowIndex, rowLabels);
             }
@@ -216,6 +217,12 @@ export default class OHistory extends Component {
         this.updateEmptyMessage();
     };
 
+    private clearActiveEntry = (): void => {
+        this.HistoryDestination?.querySelector(
+            'o-palette-history-entry.active',
+        )?.classList.remove('active');
+    };
+
     public connectedCallback(): void {
         super.connectedCallback();
         // Listen for events on the window since paletteRecordCommitted is dispatched there
@@ -224,6 +231,10 @@ export default class OHistory extends Component {
             this.handleRecordCommitted,
         );
         window.addEventListener('paletteRecordDelete', this.handleRecordDelete);
+        window.addEventListener(
+            'paletteRecordCancelled',
+            this.clearActiveEntry,
+        );
         this.loop = document.querySelector('o-palette-loop');
 
         this.setHistoryOutputLocation();
@@ -245,6 +256,10 @@ export default class OHistory extends Component {
         window.removeEventListener(
             'paletteRecordDelete',
             this.handleRecordDelete,
+        );
+        window.removeEventListener(
+            'paletteRecordCancelled',
+            this.clearActiveEntry,
         );
     }
 }

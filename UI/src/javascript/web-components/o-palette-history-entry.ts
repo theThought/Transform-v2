@@ -16,6 +16,15 @@ export default class OPaletteHistoryEntry extends HTMLElement {
                 display: flex;
                 justify-content: space-between;
             }
+            :host(.active) {
+                background: var(--color-bg-system-warning-subtle, #fff6e5);
+            }
+            button {
+                visibility: hidden;
+            }
+            :host(.active) button {
+                visibility: visible;
+            }
             .l-col-history {
                 display: flex;
             }
@@ -24,14 +33,14 @@ export default class OPaletteHistoryEntry extends HTMLElement {
                 height: 33px;
             }
             .a-button-icon.delete {
-                background-color: transparent;
+                background-color: var(--color-bg-neutral-primary, #ffffff);
                 background-image: url('./build/static/images/delete.svg');
                 background-position: center;
                 background-repeat: no-repeat;
             }
 
             .a-button-icon.edit {
-                background-color: transparent;
+                background-color: var(--color-bg-neutral-primary, #ffffff);
             }
 
             .a-button-icon.reset {
@@ -114,9 +123,19 @@ export default class OPaletteHistoryEntry extends HTMLElement {
         });
     }
 
+    private configureSelection(): void {
+        this.addEventListener('click', () => {
+            this.parentElement
+                ?.querySelectorAll('o-palette-history-entry.active')
+                .forEach((entry) => entry.classList.remove('active'));
+            this.classList.add('active');
+        });
+    }
+
     public connectedCallback(): void {
         this.render();
         this.configureEditButton();
         this.configureDeleteButton();
+        this.configureSelection();
     }
 }
