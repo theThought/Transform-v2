@@ -14,15 +14,21 @@ o-question {
     }
 }
 
+o-palette :where(o-question) {
+    padding: 0;
+}
+
 .question-no-separator o-question,
 o-question.question-no-separator {
     border-block-end-color: transparent;
 }
 
 body.focus-question {
-    o-question:not([data-global='true'], :has(o-loop)):has(
-            o-response:focus-within
-        ) {
+    o-question:not(
+            [data-global='true'],
+            :has(o-loop),
+            o-palette o-question
+        ):has(o-response:focus-within) {
         box-shadow: var(--box-shadow);
 
         o-question {

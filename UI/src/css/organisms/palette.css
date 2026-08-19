@@ -3,7 +3,7 @@ o-palette {
 
     .m-message-information {
         &::before {
-            background: white;
+            background: var(--color-bg-neutral-primary);
             content: attr(data-translate);
             display: block;
             inline-size: fit-content;
@@ -11,27 +11,10 @@ o-palette {
             white-space: nowrap;
         }
     }
-
-    .history-empty {
-        .a-label-history {
-            &::before {
-                content: attr(data-translate);
-                display: block;
-                inline-size: fit-content;
-                padding: var(--space-2);
-                white-space: nowrap;
-            }
-        }
-    }
-
-    o-palette-history-entry {
-        align-items: center;
-        display: flex;
-    }
 }
 
 .a-button-icon.add {
-    background-color: transparent;
+    background-color: var(--color-bg-neutral-primary);
     display: flex;
     padding: 0;
 
@@ -50,14 +33,14 @@ o-palette {
 }
 
 .a-button-icon.submit {
-    background-color: transparent;
+    background-color: var(--color-bg-neutral-primary, #fff);
     background-image: url('../../images/save.svg');
     background-position: center;
     background-repeat: no-repeat;
 }
 
 .a-button-icon.cancel {
-    background-color: transparent;
+    background-color: var(--color-bg-neutral-primary, #fff);
     background-image: url('../../images/cancel.svg');
     background-position: center;
     background-repeat: no-repeat;
@@ -70,10 +53,10 @@ o-palette-loop {
 .inactive {
     background: repeating-linear-gradient(
         45deg,
-        var(--color-light3),
-        var(--color-light3) var(--space-2),
-        var(--color-light4) var(--space-2),
-        var(--color-light4) var(--space-4)
+        var(--color-light1),
+        var(--color-light1) var(--space-2),
+        var(--color-light2) var(--space-2),
+        var(--color-light2) var(--space-4)
     );
     opacity: 0.6;
     pointer-events: none;
