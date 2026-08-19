@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="en-US" />
+    <meta http-equiv="Expires" content="-1" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta name="Robots" content="noindex, nofollow" />
+    <meta name="Generator" content="Interviewer Server HTML Player 1.0.2300.10799" />
+    <meta name="Template" content="TabbedPage.htm" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <link rel="stylesheet" type="text/css" href="./index.css" title="Formal" />
+    <title>Welcome to this Transform Demonstration</title>
+</head>
+<body>
+<form name="mrForm" id="mrForm" action="#" method="post">
+    <a-properties
+        data-properties="{&quot;validate&quot;:true,&quot;floatdetails&quot;:false,&quot;separator&quot;:true,&quot;sidebyside&quot;:35,&quot;focus&quot;:{&quot;question&quot;:true,&quot;control&quot;:true},&quot;paste&quot;:false,&quot;jumptoerror&quot;:true,&quot;tab&quot;:&quot;Form1Question&quot;,&quot;resettonull&quot;:true}">
+        <!-- Page Properties --></a-properties>
+    <header class="header">
+        <img class="site-logo" alt="Ipsos Logo" title="Ipsos Logo" src="./static/ipsoslogo192.png" />
+        <h1>
+            <!-- Page Header Banner -->
+            <label>
+                <!--Banner:pageHeader-->Welcome to this Transform Demonstration</label>
+        </h1>
+    </header>
+    <main class="surroundcontent">
+        <!--No question label-->
+        <!-- only used for tabstrips -->
+        <o-page>
+            <label class="a-label-question" style="">This is a block containing a complete complex question</label>
+            <o-palette>
+                <div class="palette-empty">
+                    <palette-button-add>
+                        <button class="m-button-action" data-translate="add-button" data-translate-purpose="caption">
+                            <!-- Add button -->
+                        </button>
+                    </palette-button-add>
+                </div>
+                <div class="palette-complete">
+                    <div class="m-message-information" data-translate="palette-complete"
+                         data-translate-purpose="content">
+                        <!-- empty content message -->
+                    </div>
+                </div>
+                <div class="palette-inprogress">
+                    <style>
+                        .palette-inprogress {
+                            display: grid;
+                            grid-template-columns: 1fr 1fr;
+                            grid-template-rows: auto auto auto;
+
+                            column-gap: 16px;
+                            row-gap: 8px;
+
+                        .label-cbDrugTest {
+                            grid-column: 1;
+                            grid-row: 1;
+                        }
+
+                        .label-otherdrug {
+                            grid-column: 1;
+                            grid-row: 2;
+                        }
+
+                        .control-cbDrugTest {
+                            grid-column: 2;
+                            grid-row: 1;
+                        }
+
+                        .control-otherdrug {
+                            grid-column: 2;
+                            grid-row: 2;
+                        }
+
+                        .palette-button-row {
+                            grid-column: 2;
+                            grid-row: 3;
+
+                            justify-self: end;
+
+                            display: grid;
+                            grid-auto-flow: column;
+                            gap: 12px;
+                        }
+                    </style>
+                    <div class="label-cbDrugTest" data-associate-type="label" data-associate-question="cb__drugtest">
+                        <!-- drugtest label -->
+                    </div>
+                    <div class="control-cbDrugTest" data-associate-question="cb__drugtest" data-associate-type="control">
+                        <!-- drugtest control -->
+                    </div>
+                    <div class="label-otherdrug" data-associate-type="label" data-associate-question="otherdrug">
+                        <!-- otherdrug label -->
+                    </div>
+                    <div class="control-otherdrug" data-associate-question="otherdrug" data-associate-type="control">
+                        <!-- otherdrug control -->
+                    </div>
+                    <div class="palette-button-row">
+                        <button class="a-button-icon cancel">
+                            <!-- cancel button -->
+                            <img class="a-icon-singlestate" data-translate="Cancel-alt" data-translate-purpose="alt"
+                                 src="./build/static/images/cancel.svg" />
+                        </button>
+                        <button class="a-button-icon submit">
+                            <img class="a-icon-singlestate" data-translate="Save-alt" data-translate-purpose="alt"
+                                 src="./build/static/images/save.svg" />
+                        </button>
+                    </div>
+                </div>
+                <o-history>
+                    <template class="l-row-template">
+                        <div class="l-col-history-ftd">
+                            <ftd type="span"
+                                 color="{'visible':{'collapse':true,'rules':'drugtest.containsAny('other1','other2')'}}">
+
+                                <ftd type="variable" data-associate-control="cb__drugtest"><!-- Otherdrug Value --></ftd>
+                                <strong>
+                                    <ftd type="static" data-translate="ftd-other" data-translate-purpose="content">
+                                        <!-- string --></ftd>
+                                    <span>: </span>
+                                </strong>                            </ftd>
+                            <ftd type="variable" data-associate-control="otherdrug"
+                                 color="{'invisible':{'collapse':true,'rules':'drugtest.containsAny('other1','other2')'}}">
+                                <!-- cb_drugtest Value --></ftd>
+                        </div>
+                        <div class="l-col-history">
+                            <div class="l-history-edit">
+                                <button class="a-button-icon edit">
+                                    <img class="a-icon-singlestate" data-translate="history-button-edit"
+                                         data-translate-purpose="alt"
+                                         src="./build/static/images/edit.svg" />
+                                </button>
+                            </div>
+                            <div class="l-history-delete">
+                                <button class="a-button-icon delete">
+                                    <img class="a-icon-singlestate" data-translate="history-button-delete"
+                                         data-translate-purpose="alt"
+                                         src="./build/static/images/delete.svg" />
+                                </button>
+                            </div>
+                        </div>
+                    </template>
+                    <div class="history-empty">
+                        <span class="a-label-history" data-translate="history-empty"
+                              data-translate-purpose="content"></span>
+                    </div>
+                    <div class="history-inprogress">
+                        <div class="l-row-header">
+                            <div class="l-col">
+                                <span class="a-label-question" data-associate-question="triggerword"
+                                      data-associate-type="label"><!-- Question label --></span>
+                            </div>
+                        </div>
+                        <div class="l-row-history">
+                            <!-- history rows will be dynamically inserted here -->
+                        </div>
+                    </div>
+                </o-history>
+            </o-palette>
+            <o-question data-global="false" class="inactive">
+                <label class="a-label-question" style="">Select Drug</label>
+                <!--Parent: Questions-->
+                <!--Current: qCalcGroup=_QFormComboAndOtherJustABlock_Qcb__drugtestqGroup=-->
+                <o-response data-has-container="true" data-question-group="_QFormComboAndOtherJustABlock_Qcb__drugtest"
+                            data-associate-question="cb__drugtest"
+                            data-properties="{&quot;listsize&quot;:10,&quot;mincharactersforlist&quot;:0,&quot;noenoughcharacters&quot;:&quot;&quot;,&quot;filtertype&quot;:&quot;starts&quot;,&quot;placeholder&quot;:&quot;&quot;,&quot;otherquestion&quot;:null,&quot;noitemsinlist&quot;:&quot;no items match this filter&quot;}"
+                            data-position="below">
+                    <o-combobox data-question-group="_QFormComboAndOtherJustABlock_Qcb__drugtest" data-question-id="_Q2"
+                                class="o-select-custom">
+                        <input id="_Q2_control" type="text" class="a-input-combobox" autocomplete="off"
+                               placeholder="select an option" />
+                        <o-list data-question-group="_QFormComboAndOtherJustABlock_Qcb__drugtest"
+                                data-question-id="_Q2_list" tabindex="0" id="_Q2_list_list">
+                            <ul class="o-list">
+                                <li id="_Q2_C0" class="m-list-option" data-value="__3__7674__7674">
+                                    <div>
+												<span class="a-icon-multistate" data-icon-type="listitem">
+													<!--Icon-->
+												</span>
+                                        <span class="a-label-option">177Lu-PSMA-617</span>
+                                    </div>
+                                </li>
+                                <li id="_Q2_C1" class="m-list-option" data-value="__3__0002__0002">
+                                    <div>
+												<span class="a-icon-multistate" data-icon-type="listitem">
+													<!--Icon-->
+												</span>
+                                        <span class="a-label-option">5-FU</span>
+                                    </div>
+                                </li>
+                                <li id="_Q2_C2" class="m-list-option" data-value="__3__0004__0004">
+                                    <div>
+												<span class="a-icon-multistate" data-icon-type="listitem">
+													<!--Icon-->
+												</span>
+                                        <span class="a-label-option">6-Mercaptopurine</span>
+                                    </div>
+                                </li>
+                                <li id="_Q2_C3" class="m-list-option" data-value="__3__0006__0006">
+                                    <div>
+												<span class="a-icon-multistate" data-icon-type="listitem">
+													<!--Icon-->
+												</span>
+                                        <span class="a-label-option">6-Thioguanine</span>
+                                    </div>
+                                </li>
+                                <li id="_Q2_C4" class="m-list-option" data-value="__1__9999__9997">
+                                    <div>
+												<span class="a-icon-multistate" data-icon-type="listitem">
+													<!--Icon-->
+												</span>
+                                        <span class="a-label-option">7 + 3 (cytarabine + dauorubicin)</span>
+                                    </div>
+                                </li>
+                                <li id="_Q2_C5" class="m-list-option" data-value="__2__9999__9997">
+                                    <div>
+												<span class="a-icon-multistate" data-icon-type="listitem">
+													<!--Icon-->
+												</span>
+                                        <span class="a-label-option">7 + 3 (cytarabine + idarubicin)</span>
+                                    </div>
+                                </li>
+                                <li id="_Q2_C6" class="m-list-option" data-value="__3__9999__9997">
+                                    <div>
+												<span class="a-icon-multistate" data-icon-type="listitem">
+													<!--Icon-->
+												</span>
+                                        <span class="a-label-option">7 + 3 (cytarabine + mitoxantrone)</span>
+                                    </div>
+                                </li>
+                                <li id="_Q2_C7" class="m-list-option" data-value="__1__9999__9998">
+                                    <div>
+												<span class="a-icon-multistate" data-icon-type="listitem">
+													<!--Icon-->
+												</span>
+                                        <span class="a-label-option">5 + 2 (cytarabine + dauorubicin)</span>
+                                    </div>
+                                </li>
+                                <li id="_Q2_C8" class="m-list-option" data-value="__2__9999__9998">
+                                    <div>
+												<span class="a-icon-multistate" data-icon-type="listitem">
+													<!--Icon-->
+												</span>
+                                        <span class="a-label-option">5 + 2 (cytarabine + idarubicin)</span>
+                                    </div>
+                                </li>
+                                <li id="_Q2_C9" class="m-list-option" data-value="__3__9999__9998">
+                                    <div>
+												<span class="a-icon-multistate" data-icon-type="listitem">
+													<!--Icon-->
+												</span>
+                                        <span class="a-label-option">5 + 2 (cytarabine + mitoxantrone)</span>
+                                    </div>
+                                </li>
+                                <li id="_Q2_C10" class="m-list-option" data-value="__1__9999__9917">
+                                    <div>
+												<span class="a-icon-multistate" data-icon-type="listitem">
+													<!--Icon-->
+												</span>
+                                        <span class="a-label-option">A+AVD</span>
+                                    </div>
+                                </li>
+                                <li id="_Q2_C11" class="m-list-option" data-value="__1__6775__6775">
+                                    <div>
+												<span class="a-icon-multistate" data-icon-type="listitem">
+													<!--Icon-->
+												</span>
+                                        <span class="a-label-option">Abarelix</span>
+                                    </div>
+                                </li>
+                                <li id="_Q2_C12" class="m-list-option" data-value="__2__7645__7645">
+                                    <div>
+												<span class="a-icon-multistate" data-icon-type="listitem">
+													<!--Icon-->
+												</span>
+                                        <span class="a-label-option">Abecma</span>
+                                    </div>
+                                </li>
+                                <li id="_Q2_C13" class="m-list-option" data-value="__1__7511__7511">
+                                    <div>
+												<span class="a-icon-multistate" data-icon-type="listitem">
+													<!--Icon-->
+												</span>
+                                        <span class="a-label-option">Abemaciclib</span>
+                                    </div>
+                                </li>
+                                <li id="_Q2_C14" class="m-list-option" data-value="__2__6757__7660">
+                                    <div>
+												<span class="a-icon-multistate" data-icon-type="listitem">
+													<!--Icon-->
+												</span>
+                                        <span class="a-label-option">Abevmy</span>
+                                    </div>
+                                </li>
+                                <li id="_Q2_C15" class="m-list-option" data-value="__1__7316__7316">
+                                    <div>
+												<span class="a-icon-multistate" data-icon-type="listitem">
+													<!--Icon-->
+												</span>
+                                        <span class="a-label-option">Abiraterone</span>
+                                    </div>
+                                </li>
+                                <li id="_Q2_C16" class="m-list-option" data-value="__3__7719__7719">
+                                    <div>
+												<span class="a-icon-multistate" data-icon-type="listitem">
+													<!--Icon-->
+												</span>
+                                        <span class="a-label-option">Abiraterone + Niraparib [Akeega]</span>
+                                    </div>
+                                </li>
+                                <li id="_Q2_C17" class="m-list-option" data-value="__2__6939__6939">
+                                    <div>
+												<span class="a-icon-multistate" data-icon-type="listitem">
+													<!--Icon-->
+												</span>
+                                        <span class="a-label-option">Abraxane</span>
+                                    </div>
+                                </li>
+                                <li id="_Q2_C18" class="m-list-option" data-value="__1__9999__9906">
+                                    <div>
+												<span class="a-icon-multistate" data-icon-type="listitem">
+													<!--Icon-->
+												</span>
+                                        <span class="a-label-option">ABVD</span>
+                                    </div>
+                                </li>
+                                <li id="_Q2_C19" class="m-list-option" data-value="__1__9999__9912">
+                                    <div>
+												<span class="a-icon-multistate" data-icon-type="listitem">
+													<!--Icon-->
+												</span>
+                                        <span class="a-label-option">AC</span>
+                                    </div>
+                                </li>
+                                <li id="_Q2_C20" class="m-list-option" data-value="__1__7512__7512">
+                                    <div>
+												<span class="a-icon-multistate" data-icon-type="listitem">
+													<!--Icon-->
+												</span>
+                                        <span class="a-label-option">Acalabrutinib</span>
+                                    </div>
+                                </li>
+                                <li id="_Q2_C21" class="m-list-option" data-value="__2__0014__6246">
+                                    <div>
+												<span class="a-icon-multistate" data-icon-type="listitem">
+													<!--Icon-->
+												</span>
+                                        <span class="a-label-option">Aclacinon</span>
+                                    </div>
+                                </li>
+                                <li id="_Q2_C22" class="m-list-option" data-value="__1__0014__0014">
+                                    <div>
+												<span class="a-icon-multistate" data-icon-type="listitem">
+													<!--Icon-->
+												</span>
+                                        <span class="a-label-option">Aclarubicin</span>
+                                    </div>
+                                </li>
+                                <li id="_Q2_C23" class="m-list-option" data-value="__1__7690__7690">
+                                    <div>
+												<span class="a-icon-multistate" data-icon-type="listitem">
+													<!--Icon-->
+												</span>
+                                        <span class="a-label-option">Adagrasib</span>
+                                    </div>
+                                </li>
+                                <li id="_Q2_C24" class="m-list-option" data-value="__2__7324__7324">
+                                    <div>
+												<span class="a-icon-multistate" data-icon-type="listitem">
+													<!--Icon-->
+												</span>
+                                        <span class="a-label-option">Adcetris</span>
+                                    </div>
+                                </li>
+                                <li id="_Q2_C25" class="m-list-option" data-value="__1__9999__9962">
+                                    <div>
+												<span class="a-icon-multistate" data-icon-type="listitem">
+													<!--Icon-->
+												</span>
+                                        <span class="a-label-option">ADE</span>
+                                    </div>
+                                </li>
+                                <li id="_Q2_C26" class="m-list-option" data-value="__1__7709__7709">
+                                    <div>
+												<span class="a-icon-multistate" data-icon-type="listitem">
+													<!--Icon-->
+												</span>
+                                        <span class="a-label-option">Adebrelimab</span>
+                                    </div>
+                                </li>
+                                <li id="_Q2_C27" class="m-list-option" data-value="__1__7302__7302">
+                                    <div>
+												<span class="a-icon-multistate" data-icon-type="listitem">
+													<!--Icon-->
+												</span>
+                                        <span class="a-label-option">Ado-trastuzumab</span>
+                                    </div>
+                                </li>
+                                <li id="_Q2_C28" class="m-list-option" data-value="__2__0233__6200">
+                                    <div>
+												<span class="a-icon-multistate" data-icon-type="listitem">
+													<!--Icon-->
+												</span>
+                                        <span class="a-label-option">Adriacin</span>
+                                    </div>
+                                </li>
+                                <li id="_Q2_C29" class="m-list-option" data-value="__2__0233__0023">
+                                    <div>
+												<span class="a-icon-multistate" data-icon-type="listitem">
+													<!--Icon-->
+												</span>
+                                        <span class="a-label-option">Adriamycin</span>
+                                    </div>
+                                </li>
+                                <li id="_Q2_C30" class="m-list-option" data-value="__2__7701__7701">
+                                    <div>
+												<span class="a-icon-multistate" data-icon-type="listitem">
+													<!--Icon-->
+												</span>
+                                        <span class="a-label-option">Adstiladrin</span>
+                                    </div>
+                                </li>
+                                <li id="_Q2_C1015" class="m-list-option" data-value="__3__7203__7203">
+                                    <div>
+												<span class="a-icon-multistate" data-icon-type="listitem">
+													<!--Icon-->
+												</span>
+                                        <span class="a-label-option">Ziv-Aflibercept</span>
+                                    </div>
+                                </li>
+                                <li id="_Q2_C1016" class="m-list-option" data-value="__2__0728__0643">
+                                    <div>
+												<span class="a-icon-multistate" data-icon-type="listitem">
+													<!--Icon-->
+												</span>
+                                        <span class="a-label-option">Zoladex</span>
+                                    </div>
+                                </li>
+                                <li id="_Q2_C1017" class="m-list-option" data-value="__2__0728__6335">
+                                    <div>
+												<span class="a-icon-multistate" data-icon-type="listitem">
+													<!--Icon-->
+												</span>
+                                        <span class="a-label-option">Zoladex-la</span>
+                                    </div>
+                                </li>
+                                <li id="_Q2_C1018" class="m-list-option" data-value="__2__7060__7060">
+                                    <div>
+												<span class="a-icon-multistate" data-icon-type="listitem">
+													<!--Icon-->
+												</span>
+                                        <span class="a-label-option">Zolinza</span>
+                                    </div>
+                                </li>
+                                <li id="_Q2_C1019" class="m-list-option" data-value="__2__7463__7463">
+                                    <div>
+												<span class="a-icon-multistate" data-icon-type="listitem">
+													<!--Icon-->
+												</span>
+                                        <span class="a-label-option">Zydelig</span>
+                                    </div>
+                                </li>
+                                <li id="_Q2_C1020" class="m-list-option" data-value="__2__7460__7460">
+                                    <div>
+												<span class="a-icon-multistate" data-icon-type="listitem">
+													<!--Icon-->
+												</span>
+                                        <span class="a-label-option">Zykadia</span>
+                                    </div>
+                                </li>
+                                <li id="_Q2_C1021" class="m-list-option" data-value="__2__7702__7702">
+                                    <div>
+												<span class="a-icon-multistate" data-icon-type="listitem">
+													<!--Icon-->
+												</span>
+                                        <span class="a-label-option">Zynyz</span>
+                                    </div>
+                                </li>
+                                <li id="_Q2_C1022" class="m-list-option" data-value="__2__7650__7650">
+                                    <div>
+												<span class="a-icon-multistate" data-icon-type="listitem">
+													<!--Icon-->
+												</span>
+                                        <span class="a-label-option">Zynlonta</span>
+                                    </div>
+                                </li>
+                                <li id="_Q2_C1023" class="m-list-option" data-value="__2__7316__7316">
+                                    <div>
+												<span class="a-icon-multistate" data-icon-type="listitem">
+													<!--Icon-->
+												</span>
+                                        <span class="a-label-option">Zytiga</span>
+                                    </div>
+                                </li>
+                                <li id="_Q2_C1024" class="m-list-option" data-value="__1__1128__1128">
+                                    <div>
+												<span class="a-icon-multistate" data-icon-type="listitem">
+													<!--Icon-->
+												</span>
+                                        <span class="a-label-option">Trial Drug (SPECIFY)</span>
+                                    </div>
+                                </li>
+                                <li id="_Q2_C1025" class="m-list-option" data-value="__1__7126__7126">
+                                    <div>
+												<span class="a-icon-multistate" data-icon-type="listitem">
+													<!--Icon-->
+												</span>
+                                        <span class="a-label-option">Other Non-Hormonal (SPECIFY)</span>
+                                    </div>
+                                </li>
+                                <li id="_Q2_C1026" class="m-list-option" data-value="__1__5020__5020">
+                                    <div>
+												<span class="a-icon-multistate" data-icon-type="listitem">
+													<!--Icon-->
+												</span>
+                                        <span class="a-label-option">Other Hormonal (SPECIFY)</span>
+                                    </div>
+                                </li>
+                            </ul>
+                            <!--inputType: hidden-->
+                            <input data-question-group="_QFormComboAndOtherJustABlock_Qcb__drugtest"
+                                   name="_Q_DDynamicPage_QFormComboAndOtherJustABlock_Qcb__drugtest_C"
+                                   data-xmlNode="Question/Control" data-hidden="true" autocomplete="off" id="_Q2"
+                                   type="hidden" max="1" style="text-align:left;" value=""
+                                   placeholder="select an option" />
+                        </o-list>
+                    </o-combobox>
+                </o-response>
+            </o-question>
+            <o-question data-global="false" class="inactive">
+                <label for="_Q3" class="a-label-question" style="">please specify</label>
+                <!--Parent: Questions-->
+                <!--Current: qCalcGroup=_QFormComboAndOtherJustABlock_QotherdrugqGroup=-->
+                <o-response data-has-container="true" data-question-group="_QFormComboAndOtherJustABlock_Qotherdrug"
+                            data-associate-question="otherdrug"
+                            data-properties="{&quot;visible&quot;:{&quot;collapse&quot;:true,&quot;rules&quot;:&quot;FormComboAndOtherJustABlock_Qcb__drugtest.containsAny('__1__1128__1128','__1__7126__7126','__1__5020__5020')&quot;}}"
+                            data-position="below">
+                    <m-singleline data-question-group="_QFormComboAndOtherJustABlock_Qotherdrug" data-question-id="_Q3">
+								<span class="a-label-pre-boxed">
+									<!--pre label-boxed-->
+								</span>
+                        <!--inputType: text-->
+                        <input data-question-group="_QFormComboAndOtherJustABlock_Qotherdrug"
+                               name="_Q_DDynamicPage_QFormComboAndOtherJustABlock_Qotherdrug" value=""
+                               data-xmlNode="Question/Control" data-hidden="false" autocomplete="off" id="_Q3"
+                               type="text" class="a-singleline" maxlength="100" style="text-align:left;" />
+                        <span class="a-label-post-boxed">
+									<!--post label-boxed-->
+								</span>
+                    </m-singleline>
+                    <!--Cell context: -->
+                </o-response>
+            </o-question>
+            <o-question data-global="false">
+                <!--Parent: Questions-->
+                <!--Current: qCalcGroup=_QFormComboAndOtherJustABlock_QStorageqGroup=-->
+                <o-response data-has-container="true" data-question-group="_QFormComboAndOtherJustABlock_QStorage"
+                            data-associate-question="Storage" data-position="below">
+                    <o-palette-loop>
+                        <table class="o-structure-table" data-header-rows-count="1" data-question-count="2">
+                            <colgroup
+                                data-question-group="_Q_DDynamicPage_QFormComboAndOtherJustABlock_QStorage_Q__1_Qcb__drugtest_C" />
+                            <colgroup
+                                data-question-group="_Q_DDynamicPage_QFormComboAndOtherJustABlock_QStorage_Q__1_Qotherdrug" />
+                            <thead>
+                            <tr class="m-structure-row-heading">
+                                <th scope="col" data-X="0" data-Y="0" style="">
+                                    <span class="a-label-question" id="_Q4!R0">Which Drug</span>
+                                </th>
+                                <th scope="col" data-X="1" data-Y="0"
+                                    style="vertical-align:Middle; text-align:Center; ">
+                                    <span class="a-label-question" id="_Q4!C1">Other drug (specified)</span>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody xmlns:fo="http://www.w3.org/1999/XSL/Format">
+                            <tr inputCellCount="2" class="m-structure-row">
+                                <td data-X="0" data-Y="1" class="m-structure-cell">
+                                    <o-question>
+                                        <o-response
+                                            data-question-group="_QFormComboAndOtherJustABlock_QStorage_Q__1_Qcb__drugtest"
+                                            data-associate-question="cb__drugtest" data-associate-type="storage">
+                                            <m-singleline
+                                                data-question-group="_QFormComboAndOtherJustABlock_QStorage_Q__1_Qcb__drugtest"
+                                                data-question-id="_Q4_Q0_Q0">
+															<span class="a-label-pre-boxed">
+																<!--pre label-boxed-->
+															</span>
+                                                <!--inputType: text-->
+                                                <input
+                                                    data-question-group="_QFormComboAndOtherJustABlock_QStorage_Q__1_Qcb__drugtest"
+                                                    name="_Q_DDynamicPage_QFormComboAndOtherJustABlock_QStorage_Q__1_Qcb__drugtest_C"
+                                                    data-xmlNode="Cell/Control" data-hidden="false"
+                                                    aria-labelledby="_Q4!C0 _Q4!R1" autocomplete="off" id="_Q4_Q0_Q0"
+                                                    type="text" class="a-singleline" max="1" style="text-align:Center;"
+                                                    value="" placeholder="select an option" />
+                                                <span class="a-label-post-boxed">
+																<!--post label-boxed-->
+															</span>
+                                            </m-singleline>
+                                        </o-response>
+                                    </o-question>
+                                </td>
+                                <td data-X="1" data-Y="1" class="m-structure-cell">
+                                    <o-question>
+                                        <o-response
+                                            data-question-group="_QFormComboAndOtherJustABlock_QStorage_Q__1_Qotherdrug"
+                                            data-associate-question="otherdrug" data-associate-type="storage">
+                                            <m-singleline
+                                                data-question-group="_QFormComboAndOtherJustABlock_QStorage_Q__1_Qotherdrug"
+                                                data-question-id="_Q4_Q0_Q1">
+															<span class="a-label-pre-boxed">
+																<!--pre label-boxed-->
+															</span>
+                                                <!--inputType: text-->
+                                                <input
+                                                    data-question-group="_QFormComboAndOtherJustABlock_QStorage_Q__1_Qotherdrug"
+                                                    name="_Q_DDynamicPage_QFormComboAndOtherJustABlock_QStorage_Q__1_Qotherdrug"
+                                                    value="" data-xmlNode="Question/Control" data-hidden="false"
+                                                    aria-labelledby="_Q4!C1 _Q4!R1" autocomplete="off" id="_Q4_Q0_Q1"
+                                                    type="text" class="a-singleline" max="1" maxlength="100"
+                                                    style="text-align:Center;" />
+                                                <span class="a-label-post-boxed">
+																<!--post label-boxed-->
+															</span>
+                                            </m-singleline>
+                                        </o-response>
+                                    </o-question>
+                                </td>
+                            </tr>
+                            <tr inputCellCount="2" class="m-structure-row">
+                                <td data-X="0" data-Y="2" class="m-structure-cell">
+                                    <o-question>
+                                        <o-response
+                                            data-question-group="_QFormComboAndOtherJustABlock_QStorage_Q__2_Qcb__drugtest"
+                                            data-associate-question="cb__drugtest" data-associate-type="storage">
+                                            <m-singleline
+                                                data-question-group="_QFormComboAndOtherJustABlock_QStorage_Q__2_Qcb__drugtest"
+                                                data-question-id="_Q4_Q1_Q0">
+															<span class="a-label-pre-boxed">
+																<!--pre label-boxed-->
+															</span>
+                                                <!--inputType: text-->
+                                                <input
+                                                    data-question-group="_QFormComboAndOtherJustABlock_QStorage_Q__2_Qcb__drugtest"
+                                                    name="_Q_DDynamicPage_QFormComboAndOtherJustABlock_QStorage_Q__2_Qcb__drugtest_C"
+                                                    data-xmlNode="Cell/Control" data-hidden="false"
+                                                    aria-labelledby="_Q4!C0 _Q4!R2" autocomplete="off" id="_Q4_Q1_Q0"
+                                                    type="text" class="a-singleline" max="1" style="text-align:Center;"
+                                                    value="" placeholder="select an option" />
+                                                <span class="a-label-post-boxed">
+																<!--post label-boxed-->
+															</span>
+                                            </m-singleline>
+                                        </o-response>
+                                    </o-question>
+                                </td>
+                                <td data-X="1" data-Y="2" class="m-structure-cell">
+                                    <o-question>
+                                        <o-response
+                                            data-question-group="_QFormComboAndOtherJustABlock_QStorage_Q__2_Qotherdrug"
+                                            data-associate-question="otherdrug" data-associate-type="storage">
+                                            <m-singleline
+                                                data-question-group="_QFormComboAndOtherJustABlock_QStorage_Q__2_Qotherdrug"
+                                                data-question-id="_Q4_Q1_Q1">
+															<span class="a-label-pre-boxed">
+																<!--pre label-boxed-->
+															</span>
+                                                <!--inputType: text-->
+                                                <input
+                                                    data-question-group="_QFormComboAndOtherJustABlock_QStorage_Q__2_Qotherdrug"
+                                                    name="_Q_DDynamicPage_QFormComboAndOtherJustABlock_QStorage_Q__2_Qotherdrug"
+                                                    value="" data-xmlNode="Question/Control" data-hidden="false"
+                                                    aria-labelledby="_Q4!C1 _Q4!R2" autocomplete="off" id="_Q4_Q1_Q1"
+                                                    type="text" class="a-singleline" max="1" maxlength="100"
+                                                    style="text-align:Center;" />
+                                                <span class="a-label-post-boxed">
+																<!--post label-boxed-->
+															</span>
+                                            </m-singleline>
+                                        </o-response>
+                                    </o-question>
+                                </td>
+                            </tr>
+                            <tr inputCellCount="2" class="m-structure-row">
+                                <td data-X="0" data-Y="3" class="m-structure-cell">
+                                    <o-question>
+                                        <o-response
+                                            data-question-group="_QFormComboAndOtherJustABlock_QStorage_Q__3_Qcb__drugtest"
+                                            data-associate-question="cb__drugtest" data-associate-type="storage">
+                                            <m-singleline
+                                                data-question-group="_QFormComboAndOtherJustABlock_QStorage_Q__3_Qcb__drugtest"
+                                                data-question-id="_Q4_Q2_Q0">
+															<span class="a-label-pre-boxed">
+																<!--pre label-boxed-->
+															</span>
+                                                <!--inputType: text-->
+                                                <input
+                                                    data-question-group="_QFormComboAndOtherJustABlock_QStorage_Q__3_Qcb__drugtest"
+                                                    name="_Q_DDynamicPage_QFormComboAndOtherJustABlock_QStorage_Q__3_Qcb__drugtest_C"
+                                                    data-xmlNode="Cell/Control" data-hidden="false"
+                                                    aria-labelledby="_Q4!C0 _Q4!R3" autocomplete="off" id="_Q4_Q2_Q0"
+                                                    type="text" class="a-singleline" max="1" style="text-align:Center;"
+                                                    value="" placeholder="select an option" />
+                                                <span class="a-label-post-boxed">
+																<!--post label-boxed-->
+															</span>
+                                            </m-singleline>
+                                        </o-response>
+                                    </o-question>
+                                </td>
+                                <td data-X="1" data-Y="3" class="m-structure-cell">
+                                    <o-question>
+                                        <o-response
+                                            data-question-group="_QFormComboAndOtherJustABlock_QStorage_Q__3_Qotherdrug"
+                                            data-associate-question="otherdrug" data-associate-type="storage">
+                                            <m-singleline
+                                                data-question-group="_QFormComboAndOtherJustABlock_QStorage_Q__3_Qotherdrug"
+                                                data-question-id="_Q4_Q2_Q1">
+															<span class="a-label-pre-boxed">
+																<!--pre label-boxed-->
+															</span>
+                                                <!--inputType: text-->
+                                                <input
+                                                    data-question-group="_QFormComboAndOtherJustABlock_QStorage_Q__3_Qotherdrug"
+                                                    name="_Q_DDynamicPage_QFormComboAndOtherJustABlock_QStorage_Q__3_Qotherdrug"
+                                                    value="" data-xmlNode="Question/Control" data-hidden="false"
+                                                    aria-labelledby="_Q4!C1 _Q4!R3" autocomplete="off" id="_Q4_Q2_Q1"
+                                                    type="text" class="a-singleline" max="1" maxlength="100"
+                                                    style="text-align:Center;" />
+                                                <span class="a-label-post-boxed">
+																<!--post label-boxed-->
+															</span>
+                                            </m-singleline>
+                                        </o-response>
+                                    </o-question>
+                                </td>
+                            </tr>
+                            <tr inputCellCount="2" class="m-structure-row">
+                                <td data-X="0" data-Y="4" class="m-structure-cell">
+                                    <o-question>
+                                        <o-response
+                                            data-question-group="_QFormComboAndOtherJustABlock_QStorage_Q__4_Qcb__drugtest"
+                                            data-associate-question="cb__drugtest" data-associate-type="storage">
+                                            <m-singleline
+                                                data-question-group="_QFormComboAndOtherJustABlock_QStorage_Q__4_Qcb__drugtest"
+                                                data-question-id="_Q4_Q3_Q0">
+															<span class="a-label-pre-boxed">
+																<!--pre label-boxed-->
+															</span>
+                                                <!--inputType: text-->
+                                                <input
+                                                    data-question-group="_QFormComboAndOtherJustABlock_QStorage_Q__4_Qcb__drugtest"
+                                                    name="_Q_DDynamicPage_QFormComboAndOtherJustABlock_QStorage_Q__4_Qcb__drugtest_C"
+                                                    data-xmlNode="Cell/Control" data-hidden="false"
+                                                    aria-labelledby="_Q4!C0 _Q4!R4" autocomplete="off" id="_Q4_Q3_Q0"
+                                                    type="text" class="a-singleline" max="1" style="text-align:Center;"
+                                                    value="" placeholder="select an option" />
+                                                <span class="a-label-post-boxed">
+																<!--post label-boxed-->
+															</span>
+                                            </m-singleline>
+                                        </o-response>
+                                    </o-question>
+                                </td>
+                                <td data-X="1" data-Y="4" class="m-structure-cell">
+                                    <o-question>
+                                        <o-response
+                                            data-question-group="_QFormComboAndOtherJustABlock_QStorage_Q__4_Qotherdrug"
+                                            data-associate-question="otherdrug" data-associate-type="storage">
+                                            <m-singleline
+                                                data-question-group="_QFormComboAndOtherJustABlock_QStorage_Q__4_Qotherdrug"
+                                                data-question-id="_Q4_Q3_Q1">
+															<span class="a-label-pre-boxed">
+																<!--pre label-boxed-->
+															</span>
+                                                <!--inputType: text-->
+                                                <input
+                                                    data-question-group="_QFormComboAndOtherJustABlock_QStorage_Q__4_Qotherdrug"
+                                                    name="_Q_DDynamicPage_QFormComboAndOtherJustABlock_QStorage_Q__4_Qotherdrug"
+                                                    value="" data-xmlNode="Question/Control" data-hidden="false"
+                                                    aria-labelledby="_Q4!C1 _Q4!R4" autocomplete="off" id="_Q4_Q3_Q1"
+                                                    type="text" class="a-singleline" max="1" maxlength="100"
+                                                    style="text-align:Center;" />
+                                                <span class="a-label-post-boxed">
+																<!--post label-boxed-->
+															</span>
+                                            </m-singleline>
+                                        </o-response>
+                                    </o-question>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </o-palette-loop>
+                </o-response>
+            </o-question>
+        </o-page>
+    </main>
+    <footer class="footer">
+        <div class="m-button-group">
+            <input type="submit" name="_NNext" class="a-button-next" style="" value="Next"></input>
+            <div class="m-button-group">
+                <input type="submit" name="_NPrev" class="a-button-prev" style="" value="Previous"></input>
+                <input tabindex="-1" type="submit" name="_NStop" class="a-button-stop" style="" value="Stop"></input>
+            </div>
+        </div>
+        <nav class="m-page-links" aria-label="Links to supporting documents"><a href="#">Privacy Policy</a><a href="#">Terms
+            and Conditions</a><a href="#">Unsubscribe</a></nav>
+    </footer>
+</form>
+</body>
+<script type="module" src="./index.js"><!-- core code --></script>
+</html>
