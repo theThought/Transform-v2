@@ -1,0 +1,35 @@
+<control type="ComboList" questionname="_Q_DDynamicPage_QFormComboAndOtherJustABlock_Qcb__drugtest_C" elementid="_Q2_C" maxvalue="1">
+    <style color="{&quot;listsize&quot;:10,&quot;mincharactersforlist&quot;:0,&quot;noenoughcharacters&quot;:&quot;&quot;,&quot;filtertype&quot;:&quot;starts&quot;,&quot;placeholder&quot;:&quot;&quot;,&quot;otherquestion&quot;:null,&quot;noitemsinlist&quot;:&quot;no items match this filter&quot;}" bgcolor="combobox:_QFormComboAndOtherJustABlock_Qcb__drugtest" elementalign="NewLine" indent="1">
+        <Control Type="ComboList" Placeholder="select an option"></Control>
+    </style>
+    <category name="__3__7674__7674" categoryid="0">
+        <label>
+            <style elementalign="Right"></style>
+            <text>177Lu-PSMA-617</text>
+        </label>
+    </category>
+    <category name="__3__0002__0002" categoryid="1" checked="true">
+        <label>
+            <style elementalign="Right"></style>
+            <text>5-FU</text>
+        </label>
+    </category>
+    <category name="__3__0004__0004" categoryid="2">
+        <label>
+            <style elementalign="Right"></style>
+            <text>6-Mercaptopurine</text>
+        </label>
+    </category>
+    <category name="__3__0006__0006" categoryid="3">
+        <label>
+            <style elementalign="Right"></style>
+            <text>6-Thioguanine</text>
+        </label>
+    </category>
+    <category name="__1__9999__9997" categoryid="4">
+        <label>
+            <style elementalign="Right"></style>
+            <text>7 + 3 (cytarabine + dauorubicin)</text>
+        </label>
+    </category>
+</control>
