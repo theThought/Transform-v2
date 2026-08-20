@@ -17,7 +17,7 @@
 <body>
 <form name="mrForm" id="mrForm" action="#" method="post">
     <a-properties
-        data-properties="{&quot;validate&quot;:true,&quot;floatdetails&quot;:false,&quot;separator&quot;:true,&quot;sidebyside&quot;:35,&quot;focus&quot;:{&quot;question&quot;:true,&quot;control&quot;:true},&quot;paste&quot;:false,&quot;jumptoerror&quot;:true,&quot;tab&quot;:&quot;Form1Question&quot;,&quot;resettonull&quot;:true}">
+        data-properties="{&quot;debug&quot;:true,&quot;validate&quot;:true,&quot;floatdetails&quot;:false,&quot;separator&quot;:true,&quot;sidebyside&quot;:35,&quot;focus&quot;:{&quot;question&quot;:true,&quot;control&quot;:true},&quot;paste&quot;:false,&quot;jumptoerror&quot;:true,&quot;tab&quot;:&quot;Form1Question&quot;,&quot;resettonull&quot;:true}">
         <!-- Page Properties --></a-properties>
     <header class="header">
         <img class="site-logo" alt="Ipsos Logo" title="Ipsos Logo" src="./static/ipsoslogo192.png" />
@@ -56,7 +56,6 @@
                             column-gap: 16px;
                             row-gap: 8px;
 
-                            width: 90%;
                         }
 
                         .label-cbDrugTest {
@@ -117,6 +116,7 @@
                 <o-history>
                     <template class="l-row-template">
                         <div class="l-col-history-ftd">
+                            <ftd type="variable" data-associate-control="cb__drugtest"><!-- drug name --></ftd>
                             <ftd type="span"
                                  color="{'visible':{'collapse':true,'rules':'drugtest.containsAny('other1','other2')'}}">
                                 <strong>
@@ -124,11 +124,10 @@
                                         <!-- string --></ftd>
                                     <span>: </span>
                                 </strong>
-                                <ftd type="variable" data-associate-control="otherdrug"><!-- Otherdrug Value --></ftd>
                             </ftd>
                             <ftd type="variable" data-associate-control="otherdrug"
                                  color="{'invisible':{'collapse':true,'rules':'drugtest.containsAny('other1','other2')'}}">
-                                <!-- cb_drugtest Value --></ftd>
+                                <!-- other specifier value --></ftd>
                         </div>
                         <div class="l-col-history">
                             <div class="l-history-edit">
@@ -137,21 +136,12 @@
                                          data-translate-purpose="alt"
                                          src="./build/static/images/edit.svg" />
                                 </button>
-                                <img class="a-icon-singlestate " data-translate="history-indicator-edit"
-                                     data-translate-purpose="alt"
-                                     src="./build/static/images/edit.svg"
-                                     alt="Edit record" />
                             </div>
                             <div class="l-history-delete">
                                 <button class="a-button-icon delete">
                                     <img class="a-icon-singlestate" data-translate="history-button-delete"
                                          data-translate-purpose="alt"
                                          src="./build/static/images/delete.svg" />
-                                </button>
-                                <button class="a-button-icon reset">
-                                    <img class="a-icon-singlestate" data-translate="history-button-reset"
-                                         data-translate-purpose="alt"
-                                         src="./build/static/images/reset.svg" />
                                 </button>
                             </div>
                         </div>
@@ -173,7 +163,7 @@
                     </div>
                 </o-history>
             </o-palette>
-            <o-question data-global="false" class="inactive">
+            <o-question data-global="false" class="hidden">
                 <label class="a-label-question" style="">Select Drug</label>
                 <!--Parent: Questions-->
                 <!--Current: qCalcGroup=_QFormComboAndOtherJustABlock_Qcb__drugtestqGroup=-->
@@ -543,7 +533,7 @@
                     </o-combobox>
                 </o-response>
             </o-question>
-            <o-question data-global="false" class="inactive">
+            <o-question data-global="false" class="hidden">
                 <label for="_Q3" class="a-label-question" style="">please specify</label>
                 <!--Parent: Questions-->
                 <!--Current: qCalcGroup=_QFormComboAndOtherJustABlock_QotherdrugqGroup=-->
@@ -568,7 +558,6 @@
                 </o-response>
             </o-question>
             <o-question data-global="false">
-                <label class="a-label-question" style="">This is the hidden table</label>
                 <!--Parent: Questions-->
                 <!--Current: qCalcGroup=_QFormComboAndOtherJustABlock_QStorageqGroup=-->
                 <o-response data-has-container="true" data-question-group="_QFormComboAndOtherJustABlock_QStorage"
