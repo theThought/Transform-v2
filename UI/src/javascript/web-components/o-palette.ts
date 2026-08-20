@@ -15,9 +15,9 @@ export default class OPalette extends Component implements Subject {
     private isInitialized: boolean = false;
 
     private setState(state: 'empty' | 'inprogress' | 'complete'): void {
-        this.Empty?.classList.toggle('inactive', state !== 'empty');
-        this.Block?.classList.toggle('inactive', state !== 'inprogress');
-        this.Complete?.classList.toggle('inactive', state !== 'complete');
+        this.Empty?.classList.toggle('hidden', state !== 'empty');
+        this.Block?.classList.toggle('hidden', state !== 'inprogress');
+        this.Complete?.classList.toggle('hidden', state !== 'complete');
     }
 
     public handleEvent(e: CustomEvent): void {
@@ -72,7 +72,7 @@ export default class OPalette extends Component implements Subject {
 
         // The loop can finish initialising after the palette. In that case,
         // use its first count event to make the empty state interactive.
-        if (this.Block?.classList.contains('inactive')) {
+        if (this.Block?.classList.contains('hidden')) {
             this.setState(
                 this.RemainingAnswerCount === 0 ? 'complete' : 'empty',
             );

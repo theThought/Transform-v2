@@ -34,30 +34,12 @@ o-palette {
 
 .a-button-icon.submit {
     background-color: var(--color-bg-neutral-primary, #fff);
-    background-image: url('../../images/save.svg');
     background-position: center;
     background-repeat: no-repeat;
 }
 
 .a-button-icon.cancel {
     background-color: var(--color-bg-neutral-primary, #fff);
-    background-image: url('../../images/cancel.svg');
     background-position: center;
     background-repeat: no-repeat;
-}
-
-o-palette-loop {
-    display: block;
-}
-
-.inactive {
-    background: repeating-linear-gradient(
-        45deg,
-        var(--color-light1),
-        var(--color-light1) var(--space-2),
-        var(--color-light2) var(--space-2),
-        var(--color-light2) var(--space-4)
-    );
-    opacity: 0.6;
-    pointer-events: none;
 }

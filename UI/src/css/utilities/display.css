@@ -24,6 +24,7 @@ The CSS utility class behaves the same as the HTML attribute.
 .hidden,
 [hidden] {
     display: none;
+    visibility: hidden;
 }
 
 .hidden-filter,

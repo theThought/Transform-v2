@@ -98,7 +98,7 @@ export default class OPaletteLoop extends Component {
     }
 
     private setInteractionStatus(): void {
-        this.classList.add('inactive');
+        this.classList.add('hidden');
     }
 
     public connectedCallback(): void {

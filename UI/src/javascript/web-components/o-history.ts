@@ -47,7 +47,7 @@ export default class OHistory extends Component {
     }
 
     private updateEmptyMessage(): void {
-        this.EmptyMessage?.classList.toggle('inactive', this.AnswerCount > 0);
+        this.EmptyMessage?.classList.toggle('hidden', this.AnswerCount > 0);
     }
 
     private layoutValues(): void {
@@ -97,7 +97,7 @@ export default class OHistory extends Component {
 
     private configureEmptyMessage(): void {
         this.EmptyMessage = this.querySelector('.history-empty');
-        this.EmptyMessage?.classList.add('inactive');
+        this.EmptyMessage?.classList.add('hidden');
 
         this.updateEmptyMessage();
     }
