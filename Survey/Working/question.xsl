@@ -1660,14 +1660,20 @@
                                 <xsl:variable name="cellY" select="../@Y"/>
                                 <xsl:variable name="table" select="ancestor::Table[1]"/>
                                 <!-- Side label: X=0, Y=cellY -->
-                                <xsl:variable name="sideLabelCell" select="$table/Row/Cell[@X='0' and @Y=$cellY]"/>
+                                <xsl:variable name="sideLabelCell0" select="$table/Row/Cell[@X='0' and @Y=$cellY]"/>
+                                <xsl:variable name="sideLabelCell1" select="$table/Row/Cell[@X='1' and @Y=$cellY]"/>
                                 <!-- Top label: X=cellX, Y=0 -->
-                                <xsl:variable name="topLabelCell" select="$table/Row/Cell[@X=$cellX and @Y='0']"/>
+                                <xsl:variable name="topLabelCell0" select="$table/Row/Cell[@X=$cellX and @Y='0']"/>
+                                <xsl:variable name="topLabelCell1" select="$table/Row/Cell[@X=$cellX and @Y='1']"/>
                                 <xsl:choose>
                                     <xsl:when test="
-                                        ($sideLabelCell/Label/Style/Font/@IsBold = 'true')
+                                        ($sideLabelCell0/Label/Style/Font/@IsBold = 'true')
                                         or
-                                        ($topLabelCell/Label/Style/Font/@IsBold = 'true')
+                                        ($sideLabelCell1/Label/Style/Font/@IsBold = 'true')
+                                        or
+                                        ($topLabelCell0/Label/Style/Font/@IsBold = 'true')
+                                        or
+                                        ($topLabelCell1/Label/Style/Font/@IsBold = 'true')
                                     ">
                                         <xsl:text>true</xsl:text>
                                     </xsl:when>
@@ -2564,6 +2570,9 @@
 
         <xsl:if test="$numberofErrors>0">
             <xsl:element name="tr">
+                <xsl:attribute name="class">
+                    <xsl:text>m-structure-row-error</xsl:text>
+                </xsl:attribute>
                 <xsl:for-each select="$currentRow/Cell">
                         <xsl:element name="td">
                             <xsl:if test=".//Error">
@@ -3850,10 +3859,15 @@
             </xsl:call-template>
 
             <!-- label-option -->
+            <xsl:comment>
+                <xsl:text>type: </xsl:text>
+                <xsl:value-of select="@Type" />
+            </xsl:comment>
+
             <xsl:call-template name="insert-label-boolean">
                 <xsl:with-param name="subType">
                     <xsl:choose>
-                        <xsl:when test="$isExclusive='true'">
+                        <xsl:when test="@Type='RadioButton'">
                             <xsl:text>radio</xsl:text>
                         </xsl:when>
                         <xsl:otherwise>
