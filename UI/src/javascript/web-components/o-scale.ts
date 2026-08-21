@@ -175,6 +175,7 @@ export default class OScale extends Component implements Subject, Observer {
         if (!this.element) return;
         if (this.element.value === '') return;
         if (e?.target === this) return;
+        if (e?.detail.qgroup !== this.qgroup) return;
 
         this.element.placeholder = this.element.value;
         this.element.value = '';

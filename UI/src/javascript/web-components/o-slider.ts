@@ -67,7 +67,6 @@ export default class OSlider extends Component implements Observer, Subject {
 
     public update(method: string, data: CustomEvent): void {
         switch (method) {
-            case 'clearExclusiveOptions':
             case 'clearValue':
                 this.clearValue(data);
                 break;

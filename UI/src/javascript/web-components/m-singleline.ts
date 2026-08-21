@@ -110,6 +110,7 @@ export default class MSingleline extends Component implements Observer {
     }
 
     private clearValue(e: CustomEvent): void {
+        if (e.detail.qgroup !== this.qgroup) return;
         const target = e.target as HTMLElement;
 
         if (!this.element) return;
