@@ -67,8 +67,11 @@ export default class OSlider extends Component implements Observer, Subject {
 
     public update(method: string, data: CustomEvent): void {
         switch (method) {
+            case 'clearOtherValues':
+                this.clearValueFromInternal(data);
+                break;
             case 'clearValue':
-                this.clearValue(data);
+                this.clearValueFromExternal(data);
                 break;
             case 'restoreOtherValues':
                 this.restoreData();
@@ -76,7 +79,18 @@ export default class OSlider extends Component implements Observer, Subject {
         }
     }
 
-    private clearValue(e: CustomEvent): void {
+    private clearValueFromInternal(e: CustomEvent): void {
+        if (!this.element) return;
+        if (e.target === this) return;
+        if (e.detail.qgroup !== this.qgroup) return;
+
+        if (this.element.value) {
+            this.element.placeholder = this.element.value;
+            this.element.value = '';
+        }
+    }
+
+    private clearValueFromExternal(e: CustomEvent): void {
         if (!this.element) return;
         if (e.target === this) return;
 
