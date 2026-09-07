@@ -45,21 +45,35 @@ export default class Component extends HTMLElement {
     }
 
     protected parseProperties(): void {
-        let properties = this.dataset.properties ?? '{}';
+        this.properties = this.parsePropertiesFrom(this, this.properties);
+    }
+
+    protected parsePropertiesFrom(
+        element: HTMLElement,
+        baseProperties: JsonObject = {},
+    ): JsonObject {
+        let properties = element.dataset.properties ?? '{}';
         properties = properties.replace(/&apos;/g, "'");
         if (!properties.length) properties = '{}';
 
-        const propertiesAsJson: JsonObject = JSON.parse(properties.toString());
+        let propertiesAsJson: JsonObject;
+        try {
+            propertiesAsJson = JSON.parse(properties.toString());
+        } catch {
+            // Some older generated pages contain JavaScript-style property
+            // strings. Callers that support those pages can apply a fallback.
+            return baseProperties;
+        }
 
         if (this.response?.properties) {
-            this.properties = mergeDeep(
-                this.properties,
+            return mergeDeep(
+                baseProperties,
                 this.response.properties,
                 propertiesAsJson,
             );
-        } else {
-            this.properties = mergeDeep(this.properties, propertiesAsJson);
         }
+
+        return mergeDeep(baseProperties, propertiesAsJson);
     }
 
     protected broadcastChange(): void {
