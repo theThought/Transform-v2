@@ -3,6 +3,7 @@ import { decodeHTML, replaceHTMLPlaceholder, JsonObject } from './util';
 import Component from './component';
 import OQuestion from './o-question';
 import { UAParser } from 'ua-parser-js';
+import VisibilityRulesProcessor from './visibility-rules-processor';
 
 interface QuestionProperties extends JsonObject {
     filter: {
@@ -99,6 +100,7 @@ export default class OResponse extends Component implements Subject, Observer {
     private ruleParsingComplete = false;
     private available = true;
     private initialValues: FormData | null = null;
+    private visibilityRulesProcessor = new VisibilityRulesProcessor();
 
     public handleEvent(e: Event): void {
         switch (e.type) {
@@ -321,7 +323,7 @@ export default class OResponse extends Component implements Subject, Observer {
             return;
         }
 
-        this.getQuestionValues();
+        this.visibilityRulesProcessor.getQuestionValues();
 
         if (this.properties.options?.invisible) {
             this.properties.options.invisible.forEach((option) => {
@@ -329,9 +331,15 @@ export default class OResponse extends Component implements Subject, Observer {
 
                 let invisibleRuleString = option.parsedRule;
                 invisibleRuleString =
-                    this.insertQuestionValuesIntoRule(invisibleRuleString);
+                    this.visibilityRulesProcessor.insertQuestionValuesIntoRule(
+                        invisibleRuleString,
+                    );
 
-                if (this.evaluateRule(invisibleRuleString)) {
+                if (
+                    this.visibilityRulesProcessor.evaluateRule(
+                        invisibleRuleString,
+                    )
+                ) {
                     this.hideOption(option.name, 'rule');
                 } else {
                     this.showOption(option.name, 'rule');
@@ -344,9 +352,12 @@ export default class OResponse extends Component implements Subject, Observer {
                 if (option.parsedRule === undefined) return;
 
                 let ruleString = option.parsedRule;
-                ruleString = this.insertQuestionValuesIntoRule(ruleString);
+                ruleString =
+                    this.visibilityRulesProcessor.insertQuestionValuesIntoRule(
+                        ruleString,
+                    );
 
-                if (this.evaluateRule(ruleString)) {
+                if (this.visibilityRulesProcessor.evaluateRule(ruleString)) {
                     this.showOption(option.name, 'rule');
                 } else {
                     this.hideOption(option.name, 'rule');
@@ -374,13 +385,14 @@ export default class OResponse extends Component implements Subject, Observer {
             return;
         }
 
-        this.getQuestionValues();
+        this.visibilityRulesProcessor.getQuestionValues();
 
         this.properties.labels.alternatives.forEach((item) => {
             if (!item.parsedRule) return;
-            const ruleString = this.insertQuestionValuesIntoRule(
-                item.parsedRule,
-            );
+            const ruleString =
+                this.visibilityRulesProcessor.insertQuestionValuesIntoRule(
+                    item.parsedRule,
+                );
 
             const itemName = item.name ?? '';
 
@@ -393,7 +405,7 @@ export default class OResponse extends Component implements Subject, Observer {
     }
 
     private evaluateAlternativeVisibleRule(rule: string, name: string): void {
-        if (this.evaluateRule(rule)) {
+        if (this.visibilityRulesProcessor.evaluateRule(rule)) {
             this.makeAlternativeAvailable(name);
         } else {
             this.makeAlternativeUnavailable(name);
@@ -401,7 +413,7 @@ export default class OResponse extends Component implements Subject, Observer {
     }
 
     private evaluateAlternativeInvisibleRule(rule: string, name: string): void {
-        if (this.evaluateRule(rule)) {
+        if (this.visibilityRulesProcessor.evaluateRule(rule)) {
             this.makeAlternativeUnavailable(name);
         } else {
             this.makeAlternativeAvailable(name);
@@ -439,7 +451,9 @@ export default class OResponse extends Component implements Subject, Observer {
                 const invisibleOptionName = option.name;
                 option.name = this.escapeString(invisibleOptionName);
                 option.parsedRule =
-                    this.parseVisibilityRules(invisibleRuleString);
+                    this.visibilityRulesProcessor.parseVisibilityRules(
+                        invisibleRuleString,
+                    );
             });
         }
 
@@ -449,7 +463,10 @@ export default class OResponse extends Component implements Subject, Observer {
                 const ruleString = option.rules;
                 const optionName = option.name;
                 option.name = this.escapeString(optionName);
-                option.parsedRule = this.parseVisibilityRules(ruleString);
+                option.parsedRule =
+                    this.visibilityRulesProcessor.parseVisibilityRules(
+                        ruleString,
+                    );
             });
         }
 
@@ -475,7 +492,7 @@ export default class OResponse extends Component implements Subject, Observer {
             }
 
             this.properties.labels.alternatives[i].parsedRule =
-                this.parseVisibilityRules(rule);
+                this.visibilityRulesProcessor.parseVisibilityRules(rule);
         }
 
         this.alternativeRuleParsingComplete = true;
@@ -971,9 +988,10 @@ export default class OResponse extends Component implements Subject, Observer {
     private processVisibleRules(): void {
         if (!this.ruleParsingComplete && this.properties.visible.rules !== '') {
             this.complexVisibilityRule = this.properties.visible.rules;
-            this.expandedVisibilityRule = this.parseVisibilityRules(
-                this.complexVisibilityRule,
-            );
+            this.expandedVisibilityRule =
+                this.visibilityRulesProcessor.parseVisibilityRules(
+                    this.complexVisibilityRule,
+                );
             this.ruleParsingComplete = true;
         }
 
@@ -984,12 +1002,13 @@ export default class OResponse extends Component implements Subject, Observer {
             return;
         }
 
-        this.getQuestionValues();
-        const ruleString = this.insertQuestionValuesIntoRule(
-            this.expandedVisibilityRule,
-        );
+        this.visibilityRulesProcessor.getQuestionValues();
+        const ruleString =
+            this.visibilityRulesProcessor.insertQuestionValuesIntoRule(
+                this.expandedVisibilityRule,
+            );
 
-        if (this.evaluateRule(ruleString)) {
+        if (this.visibilityRulesProcessor.evaluateRule(ruleString)) {
             this.makeAvailable();
         } else {
             const collapse = this.properties.visible?.collapse ?? true;
@@ -1003,9 +1022,10 @@ export default class OResponse extends Component implements Subject, Observer {
             this.properties.invisible.rules !== ''
         ) {
             this.complexVisibilityRule = this.properties.invisible.rules;
-            this.expandedVisibilityRule = this.parseVisibilityRules(
-                this.complexVisibilityRule,
-            );
+            this.expandedVisibilityRule =
+                this.visibilityRulesProcessor.parseVisibilityRules(
+                    this.complexVisibilityRule,
+                );
             this.ruleParsingComplete = true;
         }
 
@@ -1016,12 +1036,13 @@ export default class OResponse extends Component implements Subject, Observer {
             return;
         }
 
-        this.getQuestionValues();
-        const ruleString = this.insertQuestionValuesIntoRule(
-            this.expandedVisibilityRule,
-        );
+        this.visibilityRulesProcessor.getQuestionValues();
+        const ruleString =
+            this.visibilityRulesProcessor.insertQuestionValuesIntoRule(
+                this.expandedVisibilityRule,
+            );
 
-        if (this.evaluateRule(ruleString)) {
+        if (this.visibilityRulesProcessor.evaluateRule(ruleString)) {
             const collapse = this.properties.invisible?.collapse ?? true;
             this.makeUnavailable(collapse);
         } else {
