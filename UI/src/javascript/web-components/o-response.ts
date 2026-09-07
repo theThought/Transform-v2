@@ -94,7 +94,7 @@ export default class OResponse extends Component implements Subject, Observer {
     private optionRuleParsingComplete = false;
     private hasOptionVisibilityRules = false;
     private alternativeRuleParsingComplete = false;
-    private sourceQuestions: Record<string, any> = [];
+    private sourceQuestions: Record<string, string[]> = {};
     private complexVisibilityRule = '';
     private expandedVisibilityRule = '';
     private ruleParsingComplete = false;
