@@ -1,6 +1,10 @@
-export default class OPaletteHistoryEntry extends HTMLElement {
+import Component from './component';
+import VisibilityRulesProcessor from './visibility-rules-processor';
+
+export default class OPaletteHistoryEntry extends Component {
     private EditButton: HTMLElement | null | undefined = undefined;
     private DeleteButton: HTMLElement | null | undefined = undefined;
+    private visibilityRulesProcessor = new VisibilityRulesProcessor();
 
     constructor() {
         super();
@@ -36,6 +40,13 @@ export default class OPaletteHistoryEntry extends HTMLElement {
                 color: var(--color-secondary);
                 cursor: default;
             }
+            ftd.unavailable {
+                display: none;
+            }
+            ftd.unavailable.do-not-collapse {
+                display: initial;
+                visibility: hidden;
+            }
             .a-button-icon {
                 width: 36px;
                 height: 33px;
@@ -65,19 +76,111 @@ export default class OPaletteHistoryEntry extends HTMLElement {
     }
 
     render(): void {
-        this.shadowRoot
-            ?.querySelectorAll('ftd[type="variable"]')
-            .forEach((ftd) => {
-                const associateControl = ftd.getAttribute(
-                    'data-associate-control',
-                );
-                if (!associateControl) return;
+        this.shadowRoot?.querySelectorAll('ftd').forEach((ftd) => {
+            this.processVisibility(ftd);
 
-                ftd.textContent =
-                    this.getAttribute(`data-label-${associateControl}`) ||
-                    this.getAttribute(`data-${associateControl}`) ||
-                    '';
+            if (ftd.getAttribute('type') !== 'variable') return;
+            const associateControl = ftd.getAttribute('data-associate-control');
+            if (!associateControl) return;
+
+            ftd.textContent =
+                this.getAttribute(`data-label-${associateControl}`) ||
+                this.getAttribute(`data-${associateControl}`) ||
+                '';
+        });
+    }
+
+    private processVisibility(ftd: Element): void {
+        const properties = this.parsePropertiesFrom(ftd as HTMLElement);
+        const rules =
+            Object.keys(properties).length > 0
+                ? (properties as ReturnType<typeof this.getVisibilityRules>)
+                : this.getVisibilityRules(ftd.getAttribute('data-properties'));
+        const visibleRule = rules.visible?.rules ?? '';
+        const invisibleRule = rules.invisible?.rules ?? '';
+
+        ftd.classList.remove('unavailable', 'do-not-collapse');
+        if (!visibleRule && !invisibleRule) return;
+
+        let available = true;
+        let collapse = true;
+        const valueScope = this.getVisibilityValueScope();
+        if (!valueScope) return;
+        if (visibleRule) {
+            const parsedRule =
+                this.visibilityRulesProcessor.parseVisibilityRules(visibleRule);
+            this.visibilityRulesProcessor.getQuestionValues(valueScope);
+            available = this.visibilityRulesProcessor.evaluateRule(
+                this.visibilityRulesProcessor.insertQuestionValuesIntoRule(
+                    parsedRule,
+                ),
+            );
+            collapse = rules.visible?.collapse ?? true;
+        }
+        if (invisibleRule) {
+            const parsedRule =
+                this.visibilityRulesProcessor.parseVisibilityRules(
+                    invisibleRule,
+                );
+            this.visibilityRulesProcessor.getQuestionValues(valueScope);
+            if (
+                this.visibilityRulesProcessor.evaluateRule(
+                    this.visibilityRulesProcessor.insertQuestionValuesIntoRule(
+                        parsedRule,
+                    ),
+                )
+            ) {
+                available = false;
+            }
+            collapse = rules.invisible?.collapse ?? collapse;
+        }
+
+        if (!available) {
+            ftd.classList.add('unavailable');
+            if (!collapse) ftd.classList.add('do-not-collapse');
+        }
+    }
+
+    // TODO: Change o-page to o-palette or o-complex when Kevin has manufactured a wrapper around the new question type.
+    private getVisibilityValueScope(): HTMLTableRowElement | null {
+        const rowIndex = Number(this.getAttribute('data-index'));
+        const loop = this.closest('o-page')?.querySelector('o-palette-loop');
+        const rows = loop?.querySelectorAll<HTMLTableRowElement>('tr');
+
+        return Number.isInteger(rowIndex) && rowIndex >= 0 && rows
+            ? (rows[rowIndex] ?? null)
+            : null;
+    }
+
+    private getVisibilityRules(value: string | null): {
+        visible?: { rules: string; collapse?: boolean };
+        invisible?: { rules: string; collapse?: boolean };
+    } {
+        if (!value) return {};
+        try {
+            return JSON.parse(value.replace(/&quot;/g, '"'));
+        } catch {
+            const result: ReturnType<typeof this.getVisibilityRules> = {};
+            (['visible', 'invisible'] as const).forEach((type) => {
+                const match = value.match(
+                    new RegExp(
+                        `['"]?${type}['"]?\\s*:\\s*\\{.*?['"]?rules['"]?\\s*:\\s*'(.+?)'\\s*\\}`,
+                        'i',
+                    ),
+                );
+                if (match) {
+                    result[type] = {
+                        rules: match[1],
+                        collapse: !/collapse\s*:\s*false/i.test(match[0]),
+                    };
+                }
             });
+            return result;
+        }
+    }
+
+    public handleEvent(event: Event): void {
+        if (event.type === 'questionChange') this.render();
     }
 
     private configureEditButton(): void {
@@ -138,9 +241,14 @@ export default class OPaletteHistoryEntry extends HTMLElement {
     }
 
     public connectedCallback(): void {
+        document.addEventListener('questionChange', this);
         this.render();
         this.configureEditButton();
         this.configureDeleteButton();
         this.configureSelection();
+    }
+
+    public disconnectedCallback(): void {
+        document.removeEventListener('questionChange', this);
     }
 }
