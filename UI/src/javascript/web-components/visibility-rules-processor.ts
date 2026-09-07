@@ -43,14 +43,14 @@ export default class VisibilityRulesProcessor {
         }
     }
 
-    public getQuestionValues(): void {
+    public getQuestionValues(scope: ParentNode = document): void {
         Object.keys(this.sourceQuestions).forEach((question) => {
             this.sourceQuestions[question] = [];
-            let elements = document.querySelectorAll<HTMLElement>(
+            let elements = scope.querySelectorAll<HTMLElement>(
                 `input[id][data-question-group$='${question}'], select[id][data-question-group$='${question}']`,
             );
             if (!elements.length) {
-                elements = document.querySelectorAll<HTMLElement>(
+                elements = scope.querySelectorAll<HTMLElement>(
                     `tr[data-question-group$='${question}'] input[id], tr[data-question-group$='${question}'] select[id], div[data-question-group$='${question}'] input[id], div[data-question-group$='${question}'] select[id]`,
                 );
             }
