@@ -7,267 +7,155 @@ export default class VisibilityRulesProcessor {
 
         let processedRule = ruleString;
 
-        // Expand complex rule operators (containsAny, containsAll, containsNone, etc.)
-        if (processedRule.toLowerCase().indexOf('containsany') !== -1) {
-            this.expandContainsAnyRule(processedRule);
-        }
-        if (processedRule.toLowerCase().indexOf('containsall') !== -1) {
-            this.expandContainsAllRule(processedRule);
-        }
-        if (processedRule.toLowerCase().indexOf('containsnone') !== -1) {
-            this.expandContainsNoneRule(processedRule);
-        }
-        if (processedRule.toLowerCase().indexOf('answercount') !== -1) {
-            this.expandAnswerCountRule(processedRule);
-        }
-        if (processedRule.toLowerCase().indexOf('isvisible') !== -1) {
-            this.expandIsVisibleRule(processedRule);
-        }
+        processedRule = this.expandCollectionRule(
+            processedRule,
+            'containsAny',
+            'some',
+            '>= 0',
+        );
 
-        // Replace operators and extract question identifiers
+        processedRule = this.expandCollectionRule(
+            processedRule,
+            'containsAll',
+            'every',
+            '>= 0',
+        );
+
+        processedRule = this.expandCollectionRule(
+            processedRule,
+            'containsNone',
+            'every',
+            '== -1',
+        );
+
+        processedRule = this.expandAnswerCountRule(processedRule);
+        processedRule = this.expandIsVisibleRule(processedRule);
         processedRule = this.replaceOperators(processedRule);
-        processedRule = this.extractQuestionIdentifiers(processedRule);
-
-        return processedRule;
+        return this.extractQuestionIdentifiers(processedRule);
     }
 
-    /**
-     * Evaluate a parsed rule string
-     * @param ruleString Evaluated rule without placeholders
-     */
-    protected evaluateRule(ruleString: string): boolean {
+    public evaluateRule(ruleString: string): boolean {
         try {
-            const evaluationFunction = new Function(
-                'return',
-                `return ${ruleString};`,
-            );
-
-            // Capture the result, return it or false on error
-            const result = evaluationFunction();
-            return typeof result === 'boolean' ? result : false;
-        } catch (e) {
-            console.error('Rule evaluation error:', e);
+            return Boolean(new Function(`return ${ruleString}`)());
+        } catch (error) {
+            console.error('Rule evaluation error:', error);
             return false;
         }
     }
 
-    /**
-     * Extract question identifiers from rule string and prepare for value insertion
-     */
-    protected extractQuestionIdentifiers(ruleString: string): string {
-        // Implementation would go here - similar to existing method
-        return ruleString;
-    }
-
-    /**
-     * Replace operators in rule (e.g., AND, OR)
-     */
-    protected replaceOperators(ruleString: string): string {
-        // Implementation would go here
-        return ruleString;
-    }
-
-    /**
-     * Expand containsAny rule operator
-     */
-    private expandContainsAnyRule(ruleString: string): void {
-        const re = /\s?(\w+)\.containsAny\((.*?)\)/gi;
-        let matches;
-
-        while (null !== (matches = re.exec(ruleString))) {
-            const expandedString =
-                '[' +
-                this.escapeString(matches[2]).toLowerCase() +
-                '].some(function (val) {return [%%' +
-                this.escapeString(matches[1]) +
-                '%%].indexOf(val) >= 0})';
-            const wrapper = ' (' + expandedString + ') ';
-            ruleString = ruleString.replace(matches[0], wrapper);
-        }
-    }
-
-    /**
-     * Expand containsAll rule operator
-     */
-    private expandContainsAllRule(ruleString: string): void {
-        const re = /\s?(\w+)\.containsAll\((.*?)\)/gi;
-        let matches;
-
-        while (null !== (matches = re.exec(ruleString))) {
-            const expandedString =
-                '[' +
-                this.escapeString(matches[2]).toLowerCase() +
-                '].every(function (val) {return [%%' +
-                this.escapeString(matches[1]) +
-                '%%].indexOf(val) >= 0})';
-            const wrapper = ' (' + expandedString + ') ';
-            ruleString = ruleString.replace(matches[0], wrapper);
-        }
-    }
-
-    /**
-     * Expand containsNone rule operator
-     */
-    private expandContainsNoneRule(ruleString: string): void {
-        const re = /\s?(\w+)\.containsNone\((.*?)\)/gi;
-        let matches;
-
-        while (null !== (matches = re.exec(ruleString))) {
-            const expandedString =
-                '[' +
-                this.escapeString(matches[2]).toLowerCase() +
-                '].every(function (val) {return [%%' +
-                this.escapeString(matches[1]) +
-                '%%].indexOf(val) == -1})';
-            const wrapper = ' (' + expandedString + ') ';
-            ruleString = ruleString.replace(matches[0], wrapper);
-        }
-    }
-
-    /**
-     * Expand answerCount rule operator
-     */
-    private expandAnswerCountRule(ruleString: string): void {
-        const re = /\s?(\w+)\.answerCount\(\)(.*?)/gi;
-        let matches;
-
-        while (null !== (matches = re.exec(ruleString))) {
-            const expandedString =
-                '[%%' +
-                this.escapeString(matches[1]) +
-                '%%].length ' +
-                matches[2];
-            const wrapper = ' (' + expandedString + ') ';
-            ruleString = ruleString.replace(matches[0], wrapper);
-        }
-    }
-
-    /**
-     * Expand isVisible rule operator
-     */
-    private expandIsVisibleRule(ruleString: string): void {
-        const re = /\s?(\w+)\.isVisible\(\)/gi;
-        // Implementation similar to containsAny - not shown for brevity
-    }
-
-    /**
-     * Escape special characters in rule strings
-     */
-    protected escapeString(ruleString: string): string {
-        ruleString = ruleString.replace(/__([^Q])/g, '_$1');
-        ruleString = ruleString.replace(/_([^Q])/g, '__$1');
-        return ruleString;
-    }
-
-    /**
-     * Insert collected question values into the processed rule
-     */
-    protected insertQuestionValuesIntoRule(ruleString: string): string {
-        for (const question in this.sourceQuestions) {
-            if (!this.sourceQuestions.hasOwnProperty(question)) {
-                continue;
-            }
-
-            const qData = this.sourceQuestions[question].join("','");
-
-            if (qData.length) {
-                const arrayQuestions = new RegExp(
-                    '\\[%%' + question + '%%\\]',
-                    'g',
-                );
-                ruleString = ruleString.replace(
-                    arrayQuestions,
-                    '[' + qData.toLowerCase() + ']',
-                );
-
-                const simpleQuestions = new RegExp('%%' + question + '%%', 'g');
-                if (qData.length) {
-                    ruleString = ruleString.replace(simpleQuestions, qData);
-                } else {
-                    ruleString = ruleString.replace(
-                        simpleQuestions,
-                        "'" + qData + "'",
-                    );
-                }
-            }
-        }
-
-        return ruleString;
-    }
-
-    /**
-     * Get question values from DOM elements
-     */
-    protected getQuestionValues(): void {
-        for (const question in this.sourceQuestions) {
-            if (!this.sourceQuestions.hasOwnProperty(question)) {
-                continue;
-            }
-
-            const sourceQuestion = this.sourceQuestions[question];
-            let questionElements: NodeList | null = null;
-
-            // Retrieve questions by container or group ID
-            questionElements = document.querySelectorAll(
+    public getQuestionValues(): void {
+        Object.keys(this.sourceQuestions).forEach((question) => {
+            this.sourceQuestions[question] = [];
+            let elements = document.querySelectorAll<HTMLElement>(
                 `input[id][data-question-group$='${question}'], select[id][data-question-group$='${question}']`,
             );
-
-            if (!questionElements.length) {
-                questionElements = document.querySelectorAll(
-                    `tr[data-question-group$='${question}'] input[id], tr[data-question-group$='${question}'] select[id]`,
+            if (!elements.length) {
+                elements = document.querySelectorAll<HTMLElement>(
+                    `tr[data-question-group$='${question}'] input[id], tr[data-question-group$='${question}'] select[id], div[data-question-group$='${question}'] input[id], div[data-question-group$='${question}'] select[id]`,
                 );
             }
-
-            if (!questionElements.length) {
+            if (!elements.length) {
                 console.warn(
                     'Could not find a question required by a visibility rule: ' +
                         question,
                 );
-                continue;
+                return;
             }
-
-            for (let j = 0; j < questionElements.length; j++) {
-                const element = questionElements[j] as HTMLInputElement;
-                const questionType = element.type;
-
-                // Skip buttons or unchecked radio/checkboxes
+            elements.forEach((element) => {
+                const input = element as HTMLInputElement;
                 if (
-                    questionType === 'button' ||
-                    ((questionType === 'checkbox' ||
-                        questionType === 'radio') &&
-                        !element.checked)
-                ) {
-                    continue;
-                }
+                    input.type === 'button' ||
+                    ((input.type === 'checkbox' || input.type === 'radio') &&
+                        !input.checked)
+                )
+                    return;
+                if (input.value.length)
+                    this.sourceQuestions[question].push(input.value);
+            });
+        });
+    }
 
-                const questionValue = element.value;
-                if (questionValue.length) {
-                    sourceQuestion.push(questionValue);
-                }
-            }
+    public insertQuestionValuesIntoRule(ruleString: string): string {
+        Object.keys(this.sourceQuestions).forEach((question) => {
+            const values = this.sourceQuestions[question];
+            const qData = values.length
+                ? "'" + values.join("','").toLowerCase() + "'"
+                : '';
+            ruleString = ruleString.replace(
+                new RegExp(`\\[%%${question}%%\\]`, 'g'),
+                `[${qData}]`,
+            );
+            ruleString = ruleString.replace(
+                new RegExp(`%%${question}%%`, 'g'),
+                qData || "''",
+            );
+        });
+        return ruleString;
+    }
+
+    private escapeString(value: string): string {
+        return value.replace(/__([^Q])/g, '_$1').replace(/_([^Q])/g, '__$1');
+    }
+
+    private expandCollectionRule(
+        ruleString: string,
+        operator: string,
+        method: string,
+        comparison: string,
+    ): string {
+        const re = new RegExp(`\\s?(\\w+)\\.${operator}\\((.*?)\\)`, 'gi');
+        let matches: RegExpExecArray | null;
+        while ((matches = re.exec(ruleString)) !== null) {
+            const expanded = `[${this.escapeString(matches[2]).toLowerCase()}].${method}(function (val) {return [%%${this.escapeString(matches[1])}%%].indexOf(val) ${comparison}})`;
+            ruleString = ruleString.replace(matches[0], ` (${expanded}) `);
         }
+        return ruleString;
     }
 
-    /**
-     * Mark the processor as complete (no more changes expected)
-     */
-    protected markComplete(): void {
-        this.visibilityIsComplete = true;
+    private expandAnswerCountRule(ruleString: string): string {
+        const re = /\s?(\w+)\.answerCount\(\)(.*?)/gi;
+        let matches: RegExpExecArray | null;
+        while ((matches = re.exec(ruleString)) !== null) {
+            ruleString = ruleString.replace(
+                matches[0],
+                ` ([%%${this.escapeString(matches[1])}%%].length ${matches[2]}) `,
+            );
+        }
+        return ruleString;
     }
 
-    /**
-     * Check if processor is complete
-     */
-    public isComplete(): boolean {
-        return this.visibilityIsComplete;
+    private expandIsVisibleRule(ruleString: string): string {
+        const re = /\s?(\w+)\.isVisible\(\)/gi;
+        let matches: RegExpExecArray | null;
+        while ((matches = re.exec(ruleString)) !== null) {
+            const expanded = `!document.querySelector('o-response[data-question-group*="${this.escapeString(matches[1])}"]').classList.contains('unavailable')`;
+            ruleString = ruleString.replace(matches[0], ` (${expanded}) `);
+        }
+        return ruleString;
     }
 
-    /**
-     * Clear collected question values
-     */
-    protected clearValues(): void {
-        this.sourceQuestions = {};
-        this.complexVisibilityRule = '';
-        this.expandedVisibilityRule = '';
+    private replaceOperators(ruleString: string): string {
+        const questionRe = /\s?([a-zA-Z0-9_]+)\s([=<>+-]+)/g;
+        return ruleString
+            .replace(/or /gi, '|| ')
+            .replace(/and /gi, '&& ')
+            .replace(/%gt%/g, '>')
+            .replace(/%lt%/g, '<')
+            .replace(questionRe, ' %%$1%% $2 ')
+            .replace(/[^=!<>*]=[^=]/g, '==');
+    }
+
+    private extractQuestionIdentifiers(ruleString: string): string {
+        const questionRe = /%%(\w+)%%/g;
+        const questions = [...new Set(ruleString.match(questionRe) ?? [])];
+        questions.forEach((questionToken) => {
+            const currentQuestion = questionToken.replace(questionRe, '_Q$1');
+            this.sourceQuestions[currentQuestion] = [];
+            ruleString = ruleString.replace(
+                new RegExp(questionToken, 'g'),
+                `%%${currentQuestion}%%`,
+            );
+        });
+        return ruleString;
     }
 }
