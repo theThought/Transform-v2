@@ -769,6 +769,21 @@ export default class OResponse extends Component implements Subject, Observer {
                     label.classList.toggle('unavailable', hidden);
                 }
             });
+
+        const associateQuestion = this.dataset.associateQuestion;
+        const palette = this.closest('o-palette');
+        if (!associateQuestion || !palette) return;
+
+        palette
+            .querySelectorAll<HTMLElement>('[data-associate-type="label"]')
+            .forEach((labelContainer) => {
+                if (
+                    labelContainer.dataset.associateQuestion ===
+                    associateQuestion
+                ) {
+                    labelContainer.classList.toggle('unavailable', hidden);
+                }
+            });
     }
 
     private attachLabels(): void {
