@@ -104,7 +104,27 @@ export default class OPalette extends Component implements Subject {
 
             switch (associateType) {
                 case 'label':
-                    source =
+                    if (response) {
+                        const inputIds = new Set(
+                            Array.from(
+                                response.querySelectorAll<HTMLInputElement>(
+                                    'input[id]',
+                                ),
+                            ).map((input) => input.id),
+                        );
+                        source =
+                            Array.from(
+                                response.querySelectorAll<HTMLLabelElement>(
+                                    'label[for]',
+                                ),
+                            )
+                                .find((label) => inputIds.has(label.htmlFor))
+                                ?.cloneNode(true) ?? null;
+                    }
+
+                    // Keep supporting pages where the question label is outside
+                    // the response and is a direct child of o-question.
+                    source ??=
                         response
                             ?.closest('o-question')
                             ?.querySelector(':scope > label')
@@ -134,6 +154,13 @@ export default class OPalette extends Component implements Subject {
                     `Palette source element ${associateName} not found!`,
                 );
                 return;
+            }
+
+            if (associateType === 'label' && source instanceof HTMLElement) {
+                source.classList.toggle(
+                    'unavailable',
+                    response?.classList.contains('unavailable') ?? false,
+                );
             }
 
             element.appendChild(source);

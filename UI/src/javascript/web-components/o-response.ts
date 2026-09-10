@@ -692,6 +692,7 @@ export default class OResponse extends Component implements Subject, Observer {
         if (this.available) return;
 
         this.classList.remove('unavailable');
+        this.updatePaletteLabels(false);
 
         this.requestInitialSize();
         this.restoreInitialState();
@@ -710,6 +711,7 @@ export default class OResponse extends Component implements Subject, Observer {
 
         if (!collapse) this.classList.add('do-not-collapse');
         this.classList.add('unavailable');
+        this.updatePaletteLabels(true);
 
         this.available = false;
 
@@ -751,6 +753,22 @@ export default class OResponse extends Component implements Subject, Observer {
         });
 
         this.notifyObservers('questionVisibility', questionVisibility);
+    }
+
+    private updatePaletteLabels(hidden: boolean): void {
+        const inputIds = new Set(
+            Array.from(
+                this.querySelectorAll<HTMLInputElement>('input[id]'),
+            ).map((input) => input.id),
+        );
+
+        document
+            .querySelectorAll<HTMLLabelElement>('label[for]')
+            .forEach((label) => {
+                if (inputIds.has(label.htmlFor)) {
+                    label.classList.toggle('unavailable', hidden);
+                }
+            });
     }
 
     private attachLabels(): void {
