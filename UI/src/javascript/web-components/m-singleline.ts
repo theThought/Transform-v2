@@ -29,6 +29,7 @@ export default class MSingleline extends Component implements Observer {
         switch (e.type) {
             case 'change':
             case 'input':
+                this.onChange();
                 this.broadcastChange();
                 break;
             case 'keydown':
@@ -70,6 +71,22 @@ export default class MSingleline extends Component implements Observer {
             case 'setValueFromLocalStorage':
                 this.setValue(data.detail);
                 break;
+            case 'clearExclusiveOptions':
+                this.clearValue(data);
+                break;
+        }
+    }
+
+    private onChange(): void {
+        if (!this.element) return;
+
+        if (this.isExclusive && this.element.value.length) {
+            this.dispatchEvent(
+                new CustomEvent('exclusiveSelected', {
+                    bubbles: true,
+                    detail: this,
+                }),
+            );
         }
     }
 

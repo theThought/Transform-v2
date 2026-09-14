@@ -33,7 +33,6 @@ export default class Option extends Component implements Observer {
     protected element: HTMLInputElement | HTMLButtonElement | null = null;
 
     private sublist: OOptionSublist | null = null;
-    public isExclusive = false;
 
     constructor() {
         super();
@@ -151,8 +150,6 @@ export default class Option extends Component implements Observer {
                 new CustomEvent(eventName, { bubbles: true, detail: this }),
             );
         }
-
-        //this.broadcastChange();
     }
 
     protected onClick(e: Event): void {
@@ -233,7 +230,8 @@ export default class Option extends Component implements Observer {
     }
 
     protected setExclusive(): void {
-        this.isExclusive = this.getAttribute('data-exclusive') === 'true';
+        super.setExclusive();
+
         const icon = this.querySelector('span.a-icon-multistate');
 
         if (

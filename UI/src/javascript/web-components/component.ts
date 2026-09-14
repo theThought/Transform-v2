@@ -20,6 +20,7 @@ export default class Component extends HTMLElement {
     protected response: OResponse | null = null;
     protected properties: JsonObject = {};
     protected isReadonly: boolean = false;
+    protected isExclusive = false;
     protected element:
         | HTMLInputElement
         | HTMLSelectElement
@@ -137,10 +138,15 @@ export default class Component extends HTMLElement {
         }
     }
 
+    protected setExclusive(): void {
+        this.isExclusive = this.getAttribute('data-exclusive') === 'true';
+    }
+
     public connectedCallback(): void {
         this.response = this.closest('o-response') ?? null;
         this.parseProperties();
         this.setElement();
         this.configureSetBehaviour();
+        this.setExclusive();
     }
 }
