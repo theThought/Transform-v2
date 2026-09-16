@@ -7,11 +7,6 @@ interface CustomProperties extends JsonObject {
         post: string;
     };
     paste: boolean;
-    step: number | string;
-    min: number | string | null;
-    max: number | string | null;
-    minimum: number | string | null;
-    maximum: number | string | null;
     showspinner: boolean;
 }
 
@@ -22,11 +17,6 @@ export default class MSinglelineNumber extends MSingleline {
             post: '',
         },
         paste: false,
-        step: 'any',
-        min: null,
-        max: null,
-        minimum: null,
-        maximum: null,
         showspinner: false,
     };
 
@@ -66,25 +56,23 @@ export default class MSinglelineNumber extends MSingleline {
     }
 
     private get isIntegerOnly(): boolean {
+        const step = this.element?.step;
         if (
-            this.properties.step === undefined ||
-            this.properties.step === null ||
-            this.properties.step === '' ||
-            this.properties.step === 'any'
+            step === undefined ||
+            step === null ||
+            step === '' ||
+            step === 'any'
         ) {
             return false;
         }
-        const stepNum = Number(this.properties.step);
+        const stepNum = Number(step);
         return (
             !Number.isNaN(stepNum) && Number.isInteger(stepNum) && stepNum >= 1
         );
     }
 
     private getMin(): number | null {
-        const val =
-            this.element?.getAttribute('min') ??
-            this.element?.min ??
-            this.properties.min;
+        const val = this.element?.min;
 
         if (val !== undefined && val !== null && val !== '') {
             const parsed = this.parseNumber(String(val));
@@ -94,10 +82,7 @@ export default class MSinglelineNumber extends MSingleline {
     }
 
     private getMax(): number | null {
-        const val =
-            this.element?.getAttribute('max') ??
-            this.element?.max ??
-            this.properties.max;
+        const val = this.element?.max;
 
         if (val !== undefined && val !== null && val !== '') {
             const parsed = this.parseNumber(String(val));
@@ -107,10 +92,7 @@ export default class MSinglelineNumber extends MSingleline {
     }
 
     private getStep(): number {
-        const val =
-            this.properties.step ??
-            this.element?.getAttribute('step') ??
-            this.element?.step;
+        const val = this.element?.step;
 
         if (val === undefined || val === null || val === '' || val === 'any') {
             return 1;
@@ -141,7 +123,7 @@ export default class MSinglelineNumber extends MSingleline {
     private getPattern(): string {
         const min = this.getMin();
         const allowNegative = min === null || min < 0;
-        const sign = allowNegative ? '[+-]?' : '\\+?';
+        const sign = allowNegative ? '[+\\-]?' : '\\+?';
 
         if (this.isIntegerOnly) {
             return `${sign}[0-9]+`;
@@ -154,7 +136,7 @@ export default class MSinglelineNumber extends MSingleline {
 
         const min = this.getMin();
         const allowNegative = min === null || min < 0;
-        const signPart = allowNegative ? '[-+]?' : '\\+?';
+        const signPart = allowNegative ? '[\\-+]?' : '\\+?';
 
         if (this.isIntegerOnly) {
             const regex = new RegExp(`^${signPart}\\d*$`);
@@ -383,17 +365,6 @@ export default class MSinglelineNumber extends MSingleline {
         this.broadcastChange();
     }
 
-    private setStep(): void {
-        if (
-            !this.element ||
-            !Object.prototype.hasOwnProperty.call(this.properties, 'step')
-        ) {
-            return;
-        }
-
-        this.element.setAttribute('step', String(this.properties.step));
-    }
-
     private setSpinnerVisibility(): void {
         if (!this.element || this.properties.showspinner) return;
         this.element.classList.add('hide-spinner');
@@ -417,7 +388,6 @@ export default class MSinglelineNumber extends MSingleline {
     public connectedCallback(): void {
         super.connectedCallback();
         this.setupElement();
-        this.setStep();
         this.setSpinnerVisibility();
     }
 
