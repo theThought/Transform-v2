@@ -37,6 +37,7 @@ export default class MSinglelineNumber extends MSingleline {
                 break;
             case 'input':
                 this.onInput();
+                super.handleEvent(e);
                 break;
             case 'blur':
                 this.onBlur();
@@ -225,7 +226,6 @@ export default class MSinglelineNumber extends MSingleline {
         } else {
             this.element.value = this.lastValidValue;
         }
-        this.broadcastChange();
     }
 
     private onNumberPaste(e: ClipboardEvent): void {
@@ -317,7 +317,6 @@ export default class MSinglelineNumber extends MSingleline {
         this.lastValidValue = this.element.value;
         this.element.dispatchEvent(new Event('input', { bubbles: true }));
         this.element.dispatchEvent(new Event('change', { bubbles: true }));
-        this.broadcastChange();
     }
 
     public stepDown(multiplier: number = 1): void {
@@ -362,7 +361,6 @@ export default class MSinglelineNumber extends MSingleline {
         this.lastValidValue = this.element.value;
         this.element.dispatchEvent(new Event('input', { bubbles: true }));
         this.element.dispatchEvent(new Event('change', { bubbles: true }));
-        this.broadcastChange();
     }
 
     private setSpinnerVisibility(): void {
