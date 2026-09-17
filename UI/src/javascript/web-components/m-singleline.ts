@@ -24,7 +24,6 @@ export default class MSingleline extends Component implements Observer {
     private sublist: OOptionSublist | null = null;
     private initialPlaceholder = '';
 
-    // Handle constructor() event listeners.
     public handleEvent(e: Event): void {
         switch (e.type) {
             case 'change':

@@ -157,14 +157,14 @@ export default class MSinglelineNumber extends MSingleline {
         if (e.key === 'ArrowUp') {
             e.preventDefault();
             e.stopImmediatePropagation();
-            this.stepUp(e.shiftKey ? 10 : 1);
+            this.stepUp();
             return;
         }
 
         if (e.key === 'ArrowDown') {
             e.preventDefault();
             e.stopImmediatePropagation();
-            this.stepDown(e.shiftKey ? 10 : 1);
+            this.stepDown();
             return;
         }
 
