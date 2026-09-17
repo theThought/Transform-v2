@@ -45,6 +45,12 @@ export default class MSinglelineNumber extends MSingleline {
             case 'paste':
                 this.onNumberPaste(e as ClipboardEvent);
                 break;
+            case 'incrementValue':
+                this.stepUp();
+                break;
+            case 'decrementValue':
+                this.stepDown();
+                break;
             default:
                 super.handleEvent(e);
                 break;
@@ -363,9 +369,41 @@ export default class MSinglelineNumber extends MSingleline {
         this.element.dispatchEvent(new Event('change', { bubbles: true }));
     }
 
-    private setSpinnerVisibility(): void {
-        if (!this.element || this.properties.showspinner) return;
-        this.element.classList.add('hide-spinner');
+    private setupSpinner(): void {
+        if (!this.element) return;
+
+        const existingControl = this.querySelector(
+            '.m-singleline-number-control',
+        );
+        if (existingControl) {
+            if (this.properties.showspinner) {
+                this.classList.add('show-spinner');
+            }
+            this.addEventListener('incrementValue', this.handleEvent);
+            this.addEventListener('decrementValue', this.handleEvent);
+            return;
+        }
+
+        const control = document.createElement('span');
+        control.className = 'm-singleline-number-control';
+
+        const decrement = document.createElement('a-button-terminator');
+        decrement.dataset.behaviour = 'decrement';
+        decrement.setAttribute('aria-label', 'Decrease value');
+
+        const increment = document.createElement('a-button-terminator');
+        increment.dataset.behaviour = 'increment';
+        increment.setAttribute('aria-label', 'Increase value');
+
+        this.element.replaceWith(control);
+        control.append(this.element, decrement, increment);
+
+        this.addEventListener('incrementValue', this.handleEvent);
+        this.addEventListener('decrementValue', this.handleEvent);
+
+        if (this.properties.showspinner) {
+            this.classList.add('show-spinner');
+        }
     }
 
     private setupElement(): void {
@@ -386,7 +424,7 @@ export default class MSinglelineNumber extends MSingleline {
     public connectedCallback(): void {
         super.connectedCallback();
         this.setupElement();
-        this.setSpinnerVisibility();
+        this.setupSpinner();
     }
 
     public disconnectedCallback(): void {
@@ -394,6 +432,8 @@ export default class MSinglelineNumber extends MSingleline {
             this.element.removeEventListener('beforeinput', this.handleEvent);
             this.element.removeEventListener('blur', this.handleEvent);
         }
+        this.removeEventListener('incrementValue', this.handleEvent);
+        this.removeEventListener('decrementValue', this.handleEvent);
         super.disconnectedCallback();
     }
 }
