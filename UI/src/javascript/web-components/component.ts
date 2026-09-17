@@ -113,6 +113,10 @@ export default class Component extends HTMLElement {
         return this.qgroup;
     }
 
+    public getExclusive(): boolean {
+        return this.isExclusive;
+    }
+
     protected setQuestionGroup(questionGroup: string): void {
         this.qgroup = questionGroup;
     }

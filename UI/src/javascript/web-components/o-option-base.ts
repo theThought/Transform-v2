@@ -47,7 +47,7 @@ export default class OOptionBase extends Option {
                 this.additionalInputElement.getLength()
             ) {
                 this.optionElement.changeState(true);
-                if (this.optionElement.isExclusive) {
+                if (this.optionElement.getExclusive()) {
                     const exclusiveSelected = new CustomEvent(
                         'exclusiveSelected',
                         {
