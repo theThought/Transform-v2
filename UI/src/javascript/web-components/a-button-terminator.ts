@@ -8,6 +8,9 @@ export default class AButtonTerminator extends Component {
             case 'click':
                 this.onClick(e);
                 break;
+            case 'keydown':
+                this.onKeydown(e as KeyboardEvent);
+                break;
         }
     }
 
@@ -20,6 +23,13 @@ export default class AButtonTerminator extends Component {
         } else {
             this.decrementValue();
         }
+    }
+
+    private onKeydown(e: KeyboardEvent): void {
+        if (e.key !== 'Enter' && e.key !== ' ') return;
+
+        e.preventDefault();
+        this.onClick(e);
     }
 
     private incrementValue(): void {
@@ -39,6 +49,9 @@ export default class AButtonTerminator extends Component {
     }
 
     private setLabel(): void {
+        this.setAttribute('role', 'button');
+        this.setAttribute('tabindex', '0');
+
         if (this.behaviour == 'increment') {
             //this.innerHTML = '&raquo;';
             //this.innerHTML = '<img src="terminator.svg" alt="»"/>';
@@ -58,5 +71,6 @@ export default class AButtonTerminator extends Component {
         this.setBehaviour();
         this.setLabel();
         this.addEventListener('click', this.handleEvent);
+        this.addEventListener('keydown', this.handleEvent);
     }
 }
