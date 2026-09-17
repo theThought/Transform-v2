@@ -10,6 +10,7 @@ module.exports = [
     {
         ignores: [
             'node_modules/**',
+            'eslint.config.cjs',
             '_example-pages/index.js',
             '_example-pages/index.css',
         ],
