@@ -139,16 +139,7 @@ export default class MSingleline extends Component implements Observer {
     }
 
     private clearExclusiveOptions(e: CustomEvent): void {
-        const source = e.detail as {
-            dataset?: DOMStringMap;
-            getExclusive?: () => boolean;
-        };
-
-        if (
-            typeof source.dataset?.checked !== 'undefined' &&
-            source.getExclusive?.() !== true
-        )
-            return;
+        if (this.isNonExclusiveOptionSource(e)) return;
 
         this.clearValue(e);
     }

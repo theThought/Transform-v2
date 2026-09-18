@@ -117,6 +117,18 @@ export default class Component extends HTMLElement {
         return this.isExclusive;
     }
 
+    protected isNonExclusiveOptionSource(e: CustomEvent): boolean {
+        const source = e.detail as {
+            dataset?: DOMStringMap;
+            getExclusive?: () => boolean;
+        };
+
+        return (
+            typeof source.dataset?.checked !== 'undefined' &&
+            source.getExclusive?.() !== true
+        );
+    }
+
     protected setQuestionGroup(questionGroup: string): void {
         this.qgroup = questionGroup;
     }
