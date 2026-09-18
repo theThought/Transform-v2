@@ -66,6 +66,23 @@ export default class OQuestion extends Component implements Subject {
         )
             return;
 
+        const source = e.detail as {
+            dataset?: DOMStringMap;
+            getExclusive?: () => boolean;
+            closest?: (selector: string) => Element | null;
+        };
+        const isOption = typeof source.dataset?.checked !== 'undefined';
+        const sublist = source.closest?.('o-option-sublist') as
+            | (Element & { getExclusive?: () => boolean })
+            | null;
+
+        if (
+            isOption &&
+            source.getExclusive?.() !== true &&
+            sublist?.getExclusive?.() !== true
+        )
+            return;
+
         this.notifyObservers('clearExclusiveOptions', e);
     }
 
