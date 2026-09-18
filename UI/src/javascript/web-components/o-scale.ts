@@ -45,6 +45,9 @@ export default class OScale extends Component implements Subject, Observer {
             case 'clearExclusiveOptions':
                 this.clearValueFromExclusive(data);
                 break;
+            case 'clearOtherValues':
+                this.clearValueFromGroup(data);
+                break;
             case 'restoreOtherValues':
                 this.restoreOtherValues();
                 break;
@@ -172,6 +175,11 @@ export default class OScale extends Component implements Subject, Observer {
     }
 
     private clearValueFromExclusive(e?: CustomEvent): void {
+        if (e && this.isNonExclusiveOptionSource(e)) return;
+        this.clearValueFromGroup(e);
+    }
+
+    private clearValueFromGroup(e?: CustomEvent): void {
         if (!this.element) return;
         if (this.element.value === '') return;
         if (e?.target === this) return;

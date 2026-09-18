@@ -130,6 +130,9 @@ export default class OList extends Component implements Observer {
             case 'clearOtherValues':
                 this.clearValue();
                 break;
+            case 'clearExclusiveOptions':
+                this.clearValueFromExclusive(data as CustomEvent);
+                break;
             case 'newValue':
                 this.filterList(data as CustomEvent);
                 break;
@@ -194,6 +197,14 @@ export default class OList extends Component implements Observer {
     private clearValueFromLocal(): void {
         this.clearSelectedOptions();
         this.clearElementValue();
+    }
+
+    private clearValueFromExclusive(e: CustomEvent): void {
+        if (this.isNonExclusiveOptionSource(e)) return;
+        if (e.target === this) return;
+        if (e.detail.qgroup !== this.qgroup) return;
+
+        this.clearValue();
     }
 
     private clearElementValue(): void {

@@ -70,6 +70,9 @@ export default class OSlider extends Component implements Observer, Subject {
             case 'clearOtherValues':
                 this.clearValueFromInternal(data);
                 break;
+            case 'clearExclusiveOptions':
+                this.clearValueFromExclusive(data);
+                break;
             case 'clearValue':
                 this.clearValueFromExternal(data);
                 break;
@@ -98,6 +101,11 @@ export default class OSlider extends Component implements Observer, Subject {
             this.element.placeholder = this.element.value;
             this.element.value = '';
         }
+    }
+
+    private clearValueFromExclusive(e: CustomEvent): void {
+        if (this.isNonExclusiveOptionSource(e)) return;
+        this.clearValueFromInternal(e);
     }
 
     private restoreSelection(): void {
