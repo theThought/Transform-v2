@@ -71,7 +71,7 @@ export default class MSingleline extends Component implements Observer {
                 this.setValue(data.detail);
                 break;
             case 'clearExclusiveOptions':
-                this.clearValue(data);
+                this.clearExclusiveOptions(data);
                 break;
         }
     }
@@ -136,6 +136,21 @@ export default class MSingleline extends Component implements Observer {
             this.element.value = '';
             this.broadcastChange();
         }
+    }
+
+    private clearExclusiveOptions(e: CustomEvent): void {
+        const source = e.detail as {
+            dataset?: DOMStringMap;
+            getExclusive?: () => boolean;
+        };
+
+        if (
+            typeof source.dataset?.checked !== 'undefined' &&
+            source.getExclusive?.() !== true
+        )
+            return;
+
+        this.clearValue(e);
     }
 
     private onPaste(e: Event): void {

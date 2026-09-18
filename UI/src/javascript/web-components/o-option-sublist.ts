@@ -91,14 +91,9 @@ export default class OOptionSublist
 
         if (source.dataset?.checked === 'false') return;
 
-        const isOption = typeof source.dataset?.checked !== 'undefined';
         const isExclusiveOption = source.getExclusive?.() === true;
 
-        if (isOption && !isExclusiveOption && !this.isExclusive) return;
-
-        if (!isOption || isExclusiveOption) {
-            this.notifyObservers('clearExclusiveOptions', e);
-        }
+        this.notifyObservers('clearExclusiveOptions', e);
 
         if (
             this.isExclusive &&
