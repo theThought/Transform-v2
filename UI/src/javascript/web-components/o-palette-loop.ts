@@ -73,12 +73,14 @@ export default class OPaletteLoop extends Component {
     }
 
     public getNextAvailableRow(): HTMLTableRowElement | null {
-        return this.rows.find(
-            (row) =>
-                !Array.from(
-                    row.querySelectorAll<HTMLInputElement>('input'),
-                ).some((input) => input.value.trim().length > 0),
-        ) ?? null;
+        return (
+            this.rows.find(
+                (row) =>
+                    !Array.from(
+                        row.querySelectorAll<HTMLInputElement>('input'),
+                    ).some((input) => input.value.trim().length > 0),
+            ) ?? null
+        );
     }
 
     public getExpectedAnswerCount(): number {
