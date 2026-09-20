@@ -12,7 +12,7 @@ export default class OQuestion extends Component implements Subject {
     };
 
     private observers: Observer[] = [];
-    private responses: Record<string, any> = [];
+    private responses: Record<string, string> = {};
 
     public handleEvent(e: Event): void {
         switch (e.type) {
