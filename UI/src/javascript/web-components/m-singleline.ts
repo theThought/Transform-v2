@@ -24,11 +24,11 @@ export default class MSingleline extends Component implements Observer {
     private sublist: OOptionSublist | null = null;
     private initialPlaceholder = '';
 
-    // Handle constructor() event listeners.
     public handleEvent(e: Event): void {
         switch (e.type) {
             case 'change':
             case 'input':
+                this.onChange();
                 this.broadcastChange();
                 break;
             case 'keydown':
@@ -70,6 +70,22 @@ export default class MSingleline extends Component implements Observer {
             case 'setValueFromLocalStorage':
                 this.setValue(data.detail);
                 break;
+            case 'clearExclusiveOptions':
+                this.clearExclusiveOptions(data);
+                break;
+        }
+    }
+
+    private onChange(): void {
+        if (!this.element) return;
+
+        if (this.isExclusive && this.element.value.length) {
+            this.dispatchEvent(
+                new CustomEvent('exclusiveSelected', {
+                    bubbles: true,
+                    detail: this,
+                }),
+            );
         }
     }
 
@@ -120,6 +136,12 @@ export default class MSingleline extends Component implements Observer {
             this.element.value = '';
             this.broadcastChange();
         }
+    }
+
+    private clearExclusiveOptions(e: CustomEvent): void {
+        if (this.isNonExclusiveOptionSource(e)) return;
+
+        this.clearValue(e);
     }
 
     private onPaste(e: Event): void {

@@ -20,6 +20,7 @@ export default class Component extends HTMLElement {
     protected response: OResponse | null = null;
     protected properties: JsonObject = {};
     protected isReadonly: boolean = false;
+    protected isExclusive = false;
     protected element:
         | HTMLInputElement
         | HTMLSelectElement
@@ -134,6 +135,22 @@ export default class Component extends HTMLElement {
         return this.qgroup;
     }
 
+    public getExclusive(): boolean {
+        return this.isExclusive;
+    }
+
+    protected isNonExclusiveOptionSource(e: CustomEvent): boolean {
+        const source = e.detail as {
+            dataset?: DOMStringMap;
+            getExclusive?: () => boolean;
+        };
+
+        return (
+            typeof source.dataset?.checked !== 'undefined' &&
+            source.getExclusive?.() !== true
+        );
+    }
+
     protected setQuestionGroup(questionGroup: string): void {
         this.qgroup = questionGroup;
     }
@@ -159,10 +176,15 @@ export default class Component extends HTMLElement {
         }
     }
 
+    protected setExclusive(): void {
+        this.isExclusive = this.getAttribute('data-exclusive') === 'true';
+    }
+
     public connectedCallback(): void {
         this.response = this.closest('o-response') ?? null;
         this.parseProperties();
         this.setElement();
         this.configureSetBehaviour();
+        this.setExclusive();
     }
 }

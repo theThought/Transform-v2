@@ -117,6 +117,13 @@ export default class OResponse extends Component implements Subject, Observer {
             case 'questionVisibility':
                 if (this !== e.target) e.stopImmediatePropagation();
                 break;
+            case 'exclusiveDeselected':
+                // A response owns the value cleared by its exclusive option.
+                // Keep the event from reaching a containing question, where
+                // it would restore every response in that question.
+                e.stopPropagation();
+                this.notifyObservers('restoreOtherValues', e as CustomEvent);
+                break;
         }
     }
 
@@ -1190,6 +1197,7 @@ export default class OResponse extends Component implements Subject, Observer {
         this.processVisibilityRules();
         this.processAlternativeVisibilityRules();
         this.ready = true;
+        this.addEventListener('exclusiveDeselected', this.handleEvent);
     }
 
     public disconnectedCallback(): void {

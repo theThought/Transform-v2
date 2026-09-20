@@ -12,7 +12,7 @@ export default class OQuestion extends Component implements Subject {
     };
 
     private observers: Observer[] = [];
-    private responses: Record<string, any> = [];
+    private responses: Record<string, string> = {};
 
     public handleEvent(e: Event): void {
         switch (e.type) {
@@ -63,6 +63,23 @@ export default class OQuestion extends Component implements Subject {
         if (
             (element.type === 'checkbox' || element.type === 'radio') &&
             !element.checked
+        )
+            return;
+
+        const source = e.detail as {
+            dataset?: DOMStringMap;
+            getExclusive?: () => boolean;
+            closest?: (selector: string) => Element | null;
+        };
+        const isOption = typeof source.dataset?.checked !== 'undefined';
+        const sublist = source.closest?.('o-option-sublist') as
+            | (Element & { getExclusive?: () => boolean })
+            | null;
+
+        if (
+            isOption &&
+            source.getExclusive?.() !== true &&
+            sublist?.getExclusive?.() !== true
         )
             return;
 

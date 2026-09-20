@@ -33,7 +33,14 @@ export default class MSliderTrack extends Component implements Observer {
     public update(method: string, e: CustomEvent): void {
         switch (method) {
             case 'clearValue':
+                this.clearValue(e);
+                break;
             case 'clearExclusiveOptions':
+                if (!this.isNonExclusiveOptionSource(e)) {
+                    this.clearValue(e);
+                }
+                break;
+            case 'clearOtherValues':
                 this.clearValue(e);
                 break;
             case 'restoreData':

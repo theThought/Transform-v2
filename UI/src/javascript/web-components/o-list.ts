@@ -137,6 +137,9 @@ export default class OList extends Component implements Observer {
             case 'clearOtherValues':
                 this.clearValue();
                 break;
+            case 'clearExclusiveOptions':
+                this.clearValueFromExclusive(data as CustomEvent);
+                break;
             case 'newValue':
                 this.filterList(data as CustomEvent);
                 break;
@@ -201,6 +204,14 @@ export default class OList extends Component implements Observer {
     private clearValueFromLocal(): void {
         this.clearSelectedOptions();
         this.clearElementValue();
+    }
+
+    private clearValueFromExclusive(e: CustomEvent): void {
+        if (this.isNonExclusiveOptionSource(e)) return;
+        if (e.target === this) return;
+        if (e.detail.qgroup !== this.qgroup) return;
+
+        this.clearValue();
     }
 
     private clearElementValue(): void {
@@ -283,7 +294,7 @@ export default class OList extends Component implements Observer {
     private getBorderThickness(): number {
         if (!this.listElement) return 0;
 
-        // The border lives on the inner list, and is rem based, so measure it
+        // The border lives on the inner list and is rem based, so measure it
         // rather than assuming 2px - iOS text size adjustment can inflate it
         const width = parseFloat(
             window.getComputedStyle(this.listElement).borderBlockStartWidth,

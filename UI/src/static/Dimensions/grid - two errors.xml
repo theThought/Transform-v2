@@ -1,0 +1,630 @@
+<Questions>
+  <Question MustAnswer="false">
+    <Style BgColor="loop:_QddPaperDay" ElementAlign="NewLine"></Style>
+    <Table UseTablesLayout="-1" Summary="Indicate which paper you read first on each day" TableName="_Q_DDynamicPage_QddPaperDay" TableID="_Q1" QuestionType="LoopCategorical">
+      <Row Y="0">
+        <Cell X="0" Y="0" Class="mrGridCategoryText">
+          <Label>
+            <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+            <Text>Monday</Text>
+          </Label>
+        </Cell>
+        <Cell X="1" Y="0">
+          <Control Type="DropList" QuestionName="_Q_DDynamicPage_QddPaperDay_QMon_QWhichPaper_C" ElementID="_Q1_Q0_Q0_C" MaxValue="1">
+            <Style Color="{&quot;listsize&quot;:10,&quot;jumptofirstletter&quot;:true}" BgColor="dropdown:_QddPaperDay_QMon_QWhichPaper" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
+              <Control Type="DropList" Placeholder="Select Paper"></Control>
+            </Style>
+            <Category Name="first" CategoryID="0">
+              <Label>
+                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>1&lt;sup&gt;st&lt;/sup&gt; &amp;amp; edition</Text>
+              </Label>
+            </Category>
+            <Category Name="Sun" CategoryID="1">
+              <Label>
+                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>Sun</Text>
+              </Label>
+            </Category>
+            <Category Name="Mail" CategoryID="2">
+              <Label>
+                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>The Daily Mail</Text>
+              </Label>
+            </Category>
+            <Category Name="Express" CategoryID="3">
+              <Label>
+                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>Daily Express</Text>
+              </Label>
+            </Category>
+            <Category Name="Mirror" CategoryID="4">
+              <Label>
+                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>The Mirror</Text>
+              </Label>
+            </Category>
+            <Category Name="Telegraph" CategoryID="5">
+              <Label>
+                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>The Daily Telegraph</Text>
+              </Label>
+            </Category>
+            <Category Name="Independent" CategoryID="6">
+              <Label>
+                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>The Independent</Text>
+              </Label>
+            </Category>
+            <Category Name="Guardian" CategoryID="7">
+              <Label>
+                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>Guardian</Text>
+              </Label>
+            </Category>
+            <Category Name="star" CategoryID="8">
+              <Label>
+                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>Daily Star</Text>
+              </Label>
+            </Category>
+            <Category Name="Times" CategoryID="9">
+              <Label>
+                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>The Times</Text>
+              </Label>
+            </Category>
+            <Category Name="I" CategoryID="10">
+              <Label>
+                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>i</Text>
+              </Label>
+            </Category>
+            <Category Name="Metro" CategoryID="11">
+              <Label>
+                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>Metro</Text>
+              </Label>
+            </Category>
+          </Control>
+        </Cell>
+      </Row>
+      <Row Y="1">
+        <Cell X="0" Y="1" Class="mrGridCategoryText">
+          <Label>
+            <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+            <Text>Tuesday</Text>
+          </Label>
+        </Cell>
+        <Cell X="1" Y="1">
+          <Error Name="firsterror">
+            <Style Color="Red" ElementAlign="NewLine">
+              <Cell BorderColor="Red"></Cell>
+              <Font IsBold="true"></Font>
+            </Style>
+            <Text>This is the first error</Text>
+          </Error>
+          <Error Name="seconderror">
+            <Style Color="Red" ElementAlign="NewLine">
+              <Cell BorderColor="Red"></Cell>
+              <Font IsBold="true"></Font>
+            </Style>
+            <Text>This is the second error</Text>
+          </Error>
+          <Control Type="DropList" QuestionName="_Q_DDynamicPage_QddPaperDay_QTue_QWhichPaper_C" ElementID="_Q1_Q1_Q0_C" MaxValue="1">
+            <Style Color="{&quot;listsize&quot;:10,&quot;jumptofirstletter&quot;:true}" BgColor="dropdown:_QddPaperDay_QTue_QWhichPaper" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
+              <Control Type="DropList" Placeholder="Select Paper"></Control>
+            </Style>
+            <Category Name="first" CategoryID="0">
+              <Label>
+                <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>1&lt;sup&gt;st&lt;/sup&gt; &amp;amp; edition</Text>
+              </Label>
+            </Category>
+            <Category Name="Sun" CategoryID="1">
+              <Label>
+                <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>Sun</Text>
+              </Label>
+            </Category>
+            <Category Name="Mail" CategoryID="2">
+              <Label>
+                <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>The Daily Mail</Text>
+              </Label>
+            </Category>
+            <Category Name="Express" CategoryID="3">
+              <Label>
+                <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>Daily Express</Text>
+              </Label>
+            </Category>
+            <Category Name="Mirror" CategoryID="4">
+              <Label>
+                <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>The Mirror</Text>
+              </Label>
+            </Category>
+            <Category Name="Telegraph" CategoryID="5">
+              <Label>
+                <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>The Daily Telegraph</Text>
+              </Label>
+            </Category>
+            <Category Name="Independent" CategoryID="6">
+              <Label>
+                <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>The Independent</Text>
+              </Label>
+            </Category>
+            <Category Name="Guardian" CategoryID="7">
+              <Label>
+                <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>Guardian</Text>
+              </Label>
+            </Category>
+            <Category Name="star" CategoryID="8">
+              <Label>
+                <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>Daily Star</Text>
+              </Label>
+            </Category>
+            <Category Name="Times" CategoryID="9">
+              <Label>
+                <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>The Times</Text>
+              </Label>
+            </Category>
+            <Category Name="I" CategoryID="10">
+              <Label>
+                <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>i</Text>
+              </Label>
+            </Category>
+            <Category Name="Metro" CategoryID="11">
+              <Label>
+                <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>Metro</Text>
+              </Label>
+            </Category>
+          </Control>
+        </Cell>
+      </Row>
+      <Row Y="2">
+        <Cell X="0" Y="2" Class="mrGridCategoryText">
+          <Label>
+            <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+            <Text>Wednesday</Text>
+          </Label>
+        </Cell>
+        <Cell X="1" Y="2">
+          <Control Type="DropList" QuestionName="_Q_DDynamicPage_QddPaperDay_QWed_QWhichPaper_C" ElementID="_Q1_Q2_Q0_C" MaxValue="1">
+            <Style Color="{&quot;listsize&quot;:10,&quot;jumptofirstletter&quot;:true}" BgColor="dropdown:_QddPaperDay_QWed_QWhichPaper" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
+              <Control Type="DropList" Placeholder="Select Paper"></Control>
+            </Style>
+            <Category Name="first" CategoryID="0">
+              <Label>
+                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>1&lt;sup&gt;st&lt;/sup&gt; &amp;amp; edition</Text>
+              </Label>
+            </Category>
+            <Category Name="Sun" CategoryID="1">
+              <Label>
+                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>Sun</Text>
+              </Label>
+            </Category>
+            <Category Name="Mail" CategoryID="2">
+              <Label>
+                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>The Daily Mail</Text>
+              </Label>
+            </Category>
+            <Category Name="Express" CategoryID="3">
+              <Label>
+                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>Daily Express</Text>
+              </Label>
+            </Category>
+            <Category Name="Mirror" CategoryID="4">
+              <Label>
+                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>The Mirror</Text>
+              </Label>
+            </Category>
+            <Category Name="Telegraph" CategoryID="5">
+              <Label>
+                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>The Daily Telegraph</Text>
+              </Label>
+            </Category>
+            <Category Name="Independent" CategoryID="6">
+              <Label>
+                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>The Independent</Text>
+              </Label>
+            </Category>
+            <Category Name="Guardian" CategoryID="7">
+              <Label>
+                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>Guardian</Text>
+              </Label>
+            </Category>
+            <Category Name="star" CategoryID="8">
+              <Label>
+                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>Daily Star</Text>
+              </Label>
+            </Category>
+            <Category Name="Times" CategoryID="9">
+              <Label>
+                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>The Times</Text>
+              </Label>
+            </Category>
+            <Category Name="I" CategoryID="10">
+              <Label>
+                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>i</Text>
+              </Label>
+            </Category>
+            <Category Name="Metro" CategoryID="11">
+              <Label>
+                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>Metro</Text>
+              </Label>
+            </Category>
+          </Control>
+        </Cell>
+      </Row>
+      <Row Y="3">
+        <Cell X="0" Y="3" Class="mrGridCategoryText">
+          <Label>
+            <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+            <Text>Thursday</Text>
+          </Label>
+        </Cell>
+        <Cell X="1" Y="3">
+          <Control Type="DropList" QuestionName="_Q_DDynamicPage_QddPaperDay_QThu_QWhichPaper_C" ElementID="_Q1_Q3_Q0_C" MaxValue="1">
+            <Style Color="{&quot;listsize&quot;:10,&quot;jumptofirstletter&quot;:true}" BgColor="dropdown:_QddPaperDay_QThu_QWhichPaper" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
+              <Control Type="DropList" Placeholder="Select Paper"></Control>
+            </Style>
+            <Category Name="first" CategoryID="0">
+              <Label>
+                <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>1&lt;sup&gt;st&lt;/sup&gt; &amp;amp; edition</Text>
+              </Label>
+            </Category>
+            <Category Name="Sun" CategoryID="1">
+              <Label>
+                <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>Sun</Text>
+              </Label>
+            </Category>
+            <Category Name="Mail" CategoryID="2">
+              <Label>
+                <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>The Daily Mail</Text>
+              </Label>
+            </Category>
+            <Category Name="Express" CategoryID="3">
+              <Label>
+                <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>Daily Express</Text>
+              </Label>
+            </Category>
+            <Category Name="Mirror" CategoryID="4">
+              <Label>
+                <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>The Mirror</Text>
+              </Label>
+            </Category>
+            <Category Name="Telegraph" CategoryID="5">
+              <Label>
+                <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>The Daily Telegraph</Text>
+              </Label>
+            </Category>
+            <Category Name="Independent" CategoryID="6">
+              <Label>
+                <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>The Independent</Text>
+              </Label>
+            </Category>
+            <Category Name="Guardian" CategoryID="7">
+              <Label>
+                <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>Guardian</Text>
+              </Label>
+            </Category>
+            <Category Name="star" CategoryID="8">
+              <Label>
+                <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>Daily Star</Text>
+              </Label>
+            </Category>
+            <Category Name="Times" CategoryID="9">
+              <Label>
+                <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>The Times</Text>
+              </Label>
+            </Category>
+            <Category Name="I" CategoryID="10">
+              <Label>
+                <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>i</Text>
+              </Label>
+            </Category>
+            <Category Name="Metro" CategoryID="11">
+              <Label>
+                <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>Metro</Text>
+              </Label>
+            </Category>
+          </Control>
+        </Cell>
+      </Row>
+      <Row Y="4">
+        <Cell X="0" Y="4" Class="mrGridCategoryText">
+          <Label>
+            <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+            <Text>Friday</Text>
+          </Label>
+        </Cell>
+        <Cell X="1" Y="4">
+          <Control Type="DropList" QuestionName="_Q_DDynamicPage_QddPaperDay_QFri_QWhichPaper_C" ElementID="_Q1_Q4_Q0_C" MaxValue="1">
+            <Style Color="{&quot;listsize&quot;:10,&quot;jumptofirstletter&quot;:true}" BgColor="dropdown:_QddPaperDay_QFri_QWhichPaper" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
+              <Control Type="DropList" Placeholder="Select Paper"></Control>
+            </Style>
+            <Category Name="first" CategoryID="0">
+              <Label>
+                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>1&lt;sup&gt;st&lt;/sup&gt; &amp;amp; edition</Text>
+              </Label>
+            </Category>
+            <Category Name="Sun" CategoryID="1">
+              <Label>
+                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>Sun</Text>
+              </Label>
+            </Category>
+            <Category Name="Mail" CategoryID="2">
+              <Label>
+                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>The Daily Mail</Text>
+              </Label>
+            </Category>
+            <Category Name="Express" CategoryID="3">
+              <Label>
+                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>Daily Express</Text>
+              </Label>
+            </Category>
+            <Category Name="Mirror" CategoryID="4">
+              <Label>
+                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>The Mirror</Text>
+              </Label>
+            </Category>
+            <Category Name="Telegraph" CategoryID="5">
+              <Label>
+                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>The Daily Telegraph</Text>
+              </Label>
+            </Category>
+            <Category Name="Independent" CategoryID="6">
+              <Label>
+                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>The Independent</Text>
+              </Label>
+            </Category>
+            <Category Name="Guardian" CategoryID="7">
+              <Label>
+                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>Guardian</Text>
+              </Label>
+            </Category>
+            <Category Name="star" CategoryID="8">
+              <Label>
+                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>Daily Star</Text>
+              </Label>
+            </Category>
+            <Category Name="Times" CategoryID="9">
+              <Label>
+                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>The Times</Text>
+              </Label>
+            </Category>
+            <Category Name="I" CategoryID="10">
+              <Label>
+                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>i</Text>
+              </Label>
+            </Category>
+            <Category Name="Metro" CategoryID="11">
+              <Label>
+                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>Metro</Text>
+              </Label>
+            </Category>
+          </Control>
+        </Cell>
+      </Row>
+      <Row Y="5">
+        <Cell X="0" Y="5" Class="mrGridCategoryText">
+          <Label>
+            <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+            <Text>Saturday</Text>
+          </Label>
+        </Cell>
+        <Cell X="1" Y="5">
+          <Control Type="DropList" QuestionName="_Q_DDynamicPage_QddPaperDay_QSat_QWhichPaper_C" ElementID="_Q1_Q5_Q0_C" MaxValue="1">
+            <Style Color="{&quot;listsize&quot;:10,&quot;jumptofirstletter&quot;:true}" BgColor="dropdown:_QddPaperDay_QSat_QWhichPaper" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
+              <Control Type="DropList" Placeholder="Select Paper"></Control>
+            </Style>
+            <Category Name="first" CategoryID="0">
+              <Label>
+                <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>1&lt;sup&gt;st&lt;/sup&gt; &amp;amp; edition</Text>
+              </Label>
+            </Category>
+            <Category Name="Sun" CategoryID="1">
+              <Label>
+                <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>Sun</Text>
+              </Label>
+            </Category>
+            <Category Name="Mail" CategoryID="2">
+              <Label>
+                <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>The Daily Mail</Text>
+              </Label>
+            </Category>
+            <Category Name="Express" CategoryID="3">
+              <Label>
+                <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>Daily Express</Text>
+              </Label>
+            </Category>
+            <Category Name="Mirror" CategoryID="4">
+              <Label>
+                <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>The Mirror</Text>
+              </Label>
+            </Category>
+            <Category Name="Telegraph" CategoryID="5">
+              <Label>
+                <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>The Daily Telegraph</Text>
+              </Label>
+            </Category>
+            <Category Name="Independent" CategoryID="6">
+              <Label>
+                <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>The Independent</Text>
+              </Label>
+            </Category>
+            <Category Name="Guardian" CategoryID="7">
+              <Label>
+                <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>Guardian</Text>
+              </Label>
+            </Category>
+            <Category Name="star" CategoryID="8">
+              <Label>
+                <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>Daily Star</Text>
+              </Label>
+            </Category>
+            <Category Name="Times" CategoryID="9">
+              <Label>
+                <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>The Times</Text>
+              </Label>
+            </Category>
+            <Category Name="I" CategoryID="10">
+              <Label>
+                <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>i</Text>
+              </Label>
+            </Category>
+            <Category Name="Metro" CategoryID="11">
+              <Label>
+                <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>Metro</Text>
+              </Label>
+            </Category>
+          </Control>
+        </Cell>
+      </Row>
+      <Row Y="6">
+        <Cell X="0" Y="6" Class="mrGridCategoryText">
+          <Label>
+            <Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+            <Text>Sunday</Text>
+          </Label>
+        </Cell>
+        <Cell X="1" Y="6">
+          <Control Type="DropList" QuestionName="_Q_DDynamicPage_QddPaperDay_QSun_QWhichPaper_C" ElementID="_Q1_Q6_Q0_C" MaxValue="1">
+            <Style Color="{&quot;listsize&quot;:10,&quot;jumptofirstletter&quot;:true}" BgColor="dropdown:_QddPaperDay_QSun_QWhichPaper" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine">
+              <Control Type="DropList" Placeholder="Select Paper"></Control>
+            </Style>
+            <Category Name="first" CategoryID="0">
+              <Label>
+                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>1&lt;sup&gt;st&lt;/sup&gt; &amp;amp; edition</Text>
+              </Label>
+            </Category>
+            <Category Name="Sun" CategoryID="1">
+              <Label>
+                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>Sun</Text>
+              </Label>
+            </Category>
+            <Category Name="Mail" CategoryID="2">
+              <Label>
+                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>The Daily Mail</Text>
+              </Label>
+            </Category>
+            <Category Name="Express" CategoryID="3">
+              <Label>
+                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>Daily Express</Text>
+              </Label>
+            </Category>
+            <Category Name="Mirror" CategoryID="4">
+              <Label>
+                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>The Mirror</Text>
+              </Label>
+            </Category>
+            <Category Name="Telegraph" CategoryID="5">
+              <Label>
+                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>The Daily Telegraph</Text>
+              </Label>
+            </Category>
+            <Category Name="Independent" CategoryID="6">
+              <Label>
+                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>The Independent</Text>
+              </Label>
+            </Category>
+            <Category Name="Guardian" CategoryID="7">
+              <Label>
+                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>Guardian</Text>
+              </Label>
+            </Category>
+            <Category Name="star" CategoryID="8">
+              <Label>
+                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>Daily Star</Text>
+              </Label>
+            </Category>
+            <Category Name="Times" CategoryID="9">
+              <Label>
+                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>The Times</Text>
+              </Label>
+            </Category>
+            <Category Name="I" CategoryID="10">
+              <Label>
+                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>i</Text>
+              </Label>
+            </Category>
+            <Category Name="Metro" CategoryID="11">
+              <Label>
+                <Style Align="Center" VerticalAlign="Middle" ElementAlign="Right"></Style>
+                <Text>Metro</Text>
+              </Label>
+            </Category>
+          </Control>
+        </Cell>
+      </Row>
+    </Table>
+  </Question>
+</Questions>

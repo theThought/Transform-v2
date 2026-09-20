@@ -61,21 +61,72 @@ export default class OOptionSublist
     }
 
     private exclusiveSelected(e: CustomEvent): void {
+        if (
+            this.isExclusive &&
+            this.contains(e.target as Node) &&
+            this.isNonExclusiveOption(e)
+        )
+            return;
+
         this.notifyObservers('clearOtherValues', e);
     }
 
+    private isNonExclusiveOption(e: CustomEvent): boolean {
+        const source = e.detail as {
+            dataset?: DOMStringMap;
+            getExclusive?: () => boolean;
+        };
+
+        return (
+            typeof source.dataset?.checked !== 'undefined' &&
+            source.getExclusive?.() !== true
+        );
+    }
+
     private handleChange(e: CustomEvent): void {
-        if (e.detail.dataset.checked === 'false') return;
+        const source = e.detail as {
+            dataset?: DOMStringMap;
+            getExclusive?: () => boolean;
+        };
+
+        if (source.dataset?.checked === 'false') return;
+
+        const isExclusiveOption = source.getExclusive?.() === true;
+
         this.notifyObservers('clearExclusiveOptions', e);
+
+        if (
+            this.isExclusive &&
+            source.dataset?.checked === 'true' &&
+            !isExclusiveOption
+        ) {
+            const exclusiveSelected = new CustomEvent('exclusiveSelected', {
+                bubbles: true,
+                detail: e.detail,
+            });
+
+            // Keep the original option as the event target so observers can
+            // exclude the selected option while clearing its siblings.
+            e.target?.dispatchEvent(exclusiveSelected);
+        }
     }
 
     public update(method: string, data: CustomEvent): void {
         switch (method) {
             case 'clearExclusiveOptions':
                 if (this.contains(data.target as HTMLElement)) return;
+                if (this.isExclusive) {
+                    this.notifyObservers('clearOtherValues', data);
+                }
                 this.handleChange(data);
                 break;
             case 'clearOtherValues':
+                if (
+                    this.isExclusive &&
+                    this.contains(data.target as Node) &&
+                    this.isNonExclusiveOption(data)
+                )
+                    return;
                 this.notifyObservers('clearOtherValues', data);
                 break;
             case 'exclusiveSelected':
