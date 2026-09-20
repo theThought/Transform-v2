@@ -61,17 +61,6 @@ export default class OPaletteLoop extends Component {
         if (notify) this.notifyCountChange();
     }
 
-    public getNextAvailableInput(): HTMLInputElement | null {
-        const availableRow = this.rows.find(
-            (row) =>
-                !Array.from(
-                    row.querySelectorAll<HTMLInputElement>('input'),
-                ).some((input) => input.value.trim().length > 0),
-        );
-
-        return availableRow?.querySelector<HTMLInputElement>('input') ?? null;
-    }
-
     public getNextAvailableRow(): HTMLTableRowElement | null {
         return (
             this.rows.find(
