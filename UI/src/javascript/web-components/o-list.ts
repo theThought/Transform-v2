@@ -287,7 +287,7 @@ export default class OList extends Component implements Observer {
     private getBorderThickness(): number {
         if (!this.listElement) return 0;
 
-        // The border lives on the inner list, and is rem based, so measure it
+        // The border lives on the inner list and is rem based, so measure it
         // rather than assuming 2px - iOS text size adjustment can inflate it
         const width = parseFloat(
             window.getComputedStyle(this.listElement).borderBlockStartWidth,
