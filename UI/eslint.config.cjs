@@ -56,4 +56,14 @@ module.exports = [
             ],
         },
     }),
+    {
+        files: [
+            'stories/**/*.{js,jsx,ts,tsx}',
+            '.storybook/**/*.{js,jsx,ts,tsx}',
+        ],
+        rules: {
+            '@typescript-eslint/explicit-function-return-type': 'off',
+            '@typescript-eslint/no-explicit-any': 'off',
+        },
+    },
 ];

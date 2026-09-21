@@ -1,6 +1,8 @@
-import { Meta, StoryObj } from '@storybook/web-components';
-
+import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import * as TList from './list';
+
+type ListStoryArgs = Record<string, unknown>;
+type ListLoaded = { xmlData: string; xslData: string };
 
 export default {
     title: 'Templates/list',
@@ -22,13 +24,10 @@ export default {
     },
 } as Meta;
 
-export const TListbox_Short: StoryObj<typeof TList.TList_Story> = {
+export const TListbox_Short: StoryObj<ListStoryArgs> = {
     loaders: [
-        async (context) => {
-            const { args } = context; // Extract args from context
-
+        async () => {
             try {
-
                 const xmlResponse = await fetch(
                     `./build/static/Dimensions/list - organisation.xml`,
                 );
@@ -55,17 +54,14 @@ export const TListbox_Short: StoryObj<typeof TList.TList_Story> = {
             listsize: 10,
         },
     },
-    render: (args, { loaded }) => TList.TList_Story(args, loaded),
+    render: (args, { loaded }) => TList.TList_Story(args, loaded as ListLoaded),
 };
 TListbox_Short.storyName = 'Listbox - few items';
 
-export const TListbox_Long: StoryObj<typeof TList.TList_Story> = {
+export const TListbox_Long: StoryObj<ListStoryArgs> = {
     loaders: [
-        async (context) => {
-            const { args } = context; // Extract args from context
-
+        async () => {
             try {
-
                 const xmlResponse = await fetch(
                     `./build/static/Dimensions/list - drugs.xml`,
                 );
@@ -92,6 +88,6 @@ export const TListbox_Long: StoryObj<typeof TList.TList_Story> = {
             listsize: 10,
         },
     },
-    render: (args, { loaded }) => TList.TList_Story(args, loaded),
+    render: (args, { loaded }) => TList.TList_Story(args, loaded as ListLoaded),
 };
 TListbox_Long.storyName = 'Listbox - many items';

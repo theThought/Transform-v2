@@ -10,7 +10,7 @@ export function FigmaEmbed({
     fileKey,
     nodeId,
     height = 450,
-}: FigmaEmbedProps): JSX.Element {
+}: FigmaEmbedProps): React.JSX.Element {
     // nodeId must be dash-separated (e.g. "12-345") — Figma's share links use colons, but the embed URL requires dashes.
     const params = new URLSearchParams({
         'embed-host': 'storybook',

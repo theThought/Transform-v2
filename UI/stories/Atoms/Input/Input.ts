@@ -17,7 +17,7 @@ export function ASingleline(args: any): HTMLInputElement {
             }
             break;
         case 'number':
-            component.setAttribute('type', 'number');
+            component.setAttribute('type', 'text');
             component.classList.add('a-singleline-number');
             if (args.minimum) {
                 component.setAttribute('min', args.minimum.toString());

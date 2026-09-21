@@ -1,6 +1,10 @@
-import { Meta, StoryObj } from '@storybook/web-components';
-
+import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import * as TChoice from './choice';
+
+type ChoiceStoryArgs = {
+    optionType?: 'single-answer' | 'multi-answer';
+};
+type ChoiceLoaded = { xmlData: string; xslData: string };
 
 export default {
     title: 'Templates/choice',
@@ -63,7 +67,7 @@ export default {
     },
 } as Meta;
 
-export const TSimplelist: StoryObj<typeof TChoice.TChoice_Story> = {
+export const TSimplelist: StoryObj<ChoiceStoryArgs> = {
     loaders: [
         async (context) => {
             const { args } = context; // Extract args from context
@@ -98,15 +102,14 @@ export const TSimplelist: StoryObj<typeof TChoice.TChoice_Story> = {
     args: {
         optionType: 'single-answer',
     },
-    render: (args, { loaded }) => TChoice.TChoice_Story(args, loaded),
+    render: (args, { loaded }) =>
+        TChoice.TChoice_Story(args, loaded as ChoiceLoaded),
 };
 TSimplelist.storyName = 'A simple list with a heading';
 
-export const TSimplePlusExclusive: StoryObj<typeof TChoice.TChoice_Story> = {
+export const TSimplePlusExclusive: StoryObj<ChoiceStoryArgs> = {
     loaders: [
-        async (context) => {
-            const { args } = context; // Extract args from context
-
+        async () => {
             try {
                 const xmlResponse = await fetch(
                     './build/static/Dimensions/choice - simple with exclusive.xml',
@@ -132,11 +135,12 @@ export const TSimplePlusExclusive: StoryObj<typeof TChoice.TChoice_Story> = {
     args: {
         optionType: 'multi-answer',
     },
-    render: (args, { loaded }) => TChoice.TChoice_Story(args, loaded),
+    render: (args, { loaded }) =>
+        TChoice.TChoice_Story(args, loaded as ChoiceLoaded),
 };
 TSimplePlusExclusive.storyName = 'A simple multi-answer with one exclusive';
 
-export const TSimpleSublist: StoryObj<typeof TChoice.TChoice_Story> = {
+export const TSimpleSublist: StoryObj<ChoiceStoryArgs> = {
     loaders: [
         async (context) => {
             const { args } = context; // Extract args from context
@@ -171,15 +175,14 @@ export const TSimpleSublist: StoryObj<typeof TChoice.TChoice_Story> = {
     args: {
         optionType: 'single-answer',
     },
-    render: (args, { loaded }) => TChoice.TChoice_Story(args, loaded),
+    render: (args, { loaded }) =>
+        TChoice.TChoice_Story(args, loaded as ChoiceLoaded),
 };
 TSimpleSublist.storyName = 'A simple multi-answer with one exclusive';
 
-export const TSublistPlusExclusive: StoryObj<typeof TChoice.TChoice_Story> = {
+export const TSublistPlusExclusive: StoryObj<ChoiceStoryArgs> = {
     loaders: [
-        async (context) => {
-            const { args } = context; // Extract args from context
-
+        async () => {
             try {
                 const xmlResponse = await fetch(
                     './build/static/Dimensions/choice - sublist with exclusive.xml',
@@ -205,12 +208,13 @@ export const TSublistPlusExclusive: StoryObj<typeof TChoice.TChoice_Story> = {
     args: {
         optionType: 'multi-answer',
     },
-    render: (args, { loaded }) => TChoice.TChoice_Story(args, loaded),
+    render: (args, { loaded }) =>
+        TChoice.TChoice_Story(args, loaded as ChoiceLoaded),
 };
 TSublistPlusExclusive.storyName =
     'A multi-answer sublist with one exclusive outside the list';
 
-export const TComplexlist: StoryObj<typeof TChoice.TChoice_Story> = {
+export const TComplexlist: StoryObj<ChoiceStoryArgs> = {
     loaders: [
         async (context) => {
             const { args } = context; // Extract args from context
@@ -245,7 +249,8 @@ export const TComplexlist: StoryObj<typeof TChoice.TChoice_Story> = {
     args: {
         optionType: 'single-answer',
     },
-    render: (args, { loaded }) => TChoice.TChoice_Story(args, loaded),
+    render: (args, { loaded }) =>
+        TChoice.TChoice_Story(args, loaded as ChoiceLoaded),
 };
 TComplexlist.storyName =
     'A complex list of items in sublists and outside of them';

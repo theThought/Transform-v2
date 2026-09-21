@@ -1,6 +1,8 @@
-import { Meta, StoryObj } from '@storybook/web-components';
-
+import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import * as TSingleline from './singleline';
+
+type SinglelineStoryArgs = Record<string, unknown>;
+type SinglelineLoaded = { xmlData: string; xslData: string };
 
 export default {
     title: 'Templates/singleline',
@@ -146,7 +148,7 @@ export default {
     },
 } as Meta;
 
-type TextStory = StoryObj<typeof TSingleline.TSingleLine_Story>;
+type TextStory = StoryObj<SinglelineStoryArgs>;
 export const TextStory = {
     parameters: {
         controls: {
@@ -197,10 +199,11 @@ export const TextStory = {
         align: 'Left',
         width: '15em',
     },
-    render: (args, { loaded }) => TSingleline.TSingleLine_Story(args, loaded),
+    render: (args, { loaded }) =>
+        TSingleline.TSingleLine_Story(args, loaded as SinglelineLoaded),
 };
 
-type NumberStory = StoryObj<typeof TSingleline.TSingleLine_Story>;
+type NumberStory = StoryObj<SinglelineStoryArgs>;
 export const NumberStory = {
     parameters: {
         controls: {
@@ -251,11 +254,11 @@ export const NumberStory = {
         align: 'Right',
         width: '4em',
     },
-    render: (args, { loaded }) => TSingleline.TSingleLine_Story(args, loaded),
+    render: (args, { loaded }) =>
+        TSingleline.TSingleLine_Story(args, loaded as SinglelineLoaded),
 };
 
-
-type DateStory = StoryObj<typeof TSingleline.TSingleLine_Story>;
+type DateStory = StoryObj<SinglelineStoryArgs>;
 export const DateStory = {
     parameters: {
         controls: {
@@ -314,5 +317,6 @@ export const DateStory = {
             return tenDaysFromNow.toISOString().split('T')[0]; // Format as YYYY-MM-DD
         })(),
     },
-    render: (args, { loaded }) => TSingleline.TSingleLine_Story(args, loaded),
+    render: (args, { loaded }) =>
+        TSingleline.TSingleLine_Story(args, loaded as SinglelineLoaded),
 };

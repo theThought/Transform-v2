@@ -1,6 +1,8 @@
-import { Meta, StoryObj } from '@storybook/web-components';
-
+import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import * as TCombo from './combo';
+
+type ComboStoryArgs = Record<string, unknown>;
+type ComboLoaded = { xmlData: string; xslData: string };
 
 export default {
     title: 'Templates/combobox',
@@ -90,13 +92,10 @@ export default {
     },
 } as Meta;
 
-export const TCombobox_Short: StoryObj<typeof TCombo.TCombo_Story> = {
+export const TCombobox_Short: StoryObj<ComboStoryArgs> = {
     loaders: [
-        async (context) => {
-            const { args } = context; // Extract args from context
-
+        async () => {
             try {
-
                 const xmlResponse = await fetch(
                     `./build/static/Dimensions/combo - simple.xml`,
                 );
@@ -124,17 +123,15 @@ export const TCombobox_Short: StoryObj<typeof TCombo.TCombo_Story> = {
         },
         placeholder: 'Select one option',
     },
-    render: (args, { loaded }) => TCombo.TCombo_Story(args, loaded),
+    render: (args, { loaded }) =>
+        TCombo.TCombo_Story(args, loaded as ComboLoaded),
 };
 TCombobox_Short.storyName = 'Combobox - few items';
 
-export const TCombobox_Long: StoryObj<typeof TCombo.TCombo_Story> = {
+export const TCombobox_Long: StoryObj<ComboStoryArgs> = {
     loaders: [
-        async (context) => {
-            const { args } = context; // Extract args from context
-
+        async () => {
             try {
-
                 const xmlResponse = await fetch(
                     `./build/static/Dimensions/combo - drugs.xml`,
                 );
@@ -161,7 +158,8 @@ export const TCombobox_Long: StoryObj<typeof TCombo.TCombo_Story> = {
             listsize: 10,
         },
         placeholder: 'Select a drug',
-        },
-    render: (args, { loaded }) => TCombo.TCombo_Story(args, loaded),
+    },
+    render: (args, { loaded }) =>
+        TCombo.TCombo_Story(args, loaded as ComboLoaded),
 };
 TCombobox_Long.storyName = 'Combobox - few items';

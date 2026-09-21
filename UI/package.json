@@ -46,6 +46,7 @@
         "@storybook/addon-links": "^10.1.11",
         "@storybook/html-vite": "^10.1.11",
         "@storybook/web-components-vite": "^10.1.11",
+        "@types/react": "^19.3.0",
         "@typescript-eslint/eslint-plugin": "^8.48.0",
         "@typescript-eslint/parser": "^8.48.0",
         "cheerio": "^1.1.2",
