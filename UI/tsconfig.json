@@ -9,11 +9,6 @@
         "lib": ["dom", "dom.iterable", "es2020"],
         "skipLibCheck": true
     },
-    "include": [
-        "src/javascript/**/*",
-        "stories/**/*",
-        ".storybook/**/*",
-        "components/*"
-    ],
+    "include": ["src/javascript/**/*", "components/*"],
     "exclude": ["node_modules"]
 }
