@@ -13,11 +13,11 @@ type ButtonTerminator = StoryObj<
 >;
 
 export const ButtonTerminatorPre: ButtonTerminator = {
-    render: (args: object): HTMLInputElement =>
+    render: (args: object): HTMLElement =>
         ButtonTerminatorStories.AButtonTerminator(args),
 };
 
 export const ButtonTerminatorPost: ButtonTerminator = {
-    render: (args: object): HTMLInputElement =>
+    render: (args: object): HTMLElement =>
         ButtonTerminatorStories.AButtonTerminator(args),
 };
