@@ -39,7 +39,7 @@ export function Placeholder({
     source = 'tbd',
     owner = 'unassigned',
     status = 'todo',
-}: PlaceholderProps): JSX.Element {
+}: PlaceholderProps): React.JSX.Element {
     const accent = statusColors[status];
 
     return (
