@@ -1,6 +1,8 @@
-import { Meta, StoryObj } from '@storybook/web-components';
-
+import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import * as TScale from './scale';
+
+type ScaleStoryArgs = Record<string, unknown>;
+type ScaleLoaded = { xmlData: string; xslData: string };
 
 export default {
     title: 'Templates/scale',
@@ -70,7 +72,7 @@ export default {
     },
 } as Meta;
 
-type TenPointScale = StoryObj<typeof TScale.TScale_Story>;
+type TenPointScale = StoryObj<ScaleStoryArgs>;
 export const TenPointScale: TenPointScale = {
     parameters: {
         controls: {
@@ -114,6 +116,7 @@ export const TenPointScale: TenPointScale = {
         },
         width: '35em',
     },
-    render: (args, { loaded }) => TScale.TScale_Story(args, loaded),
+    render: (args, { loaded }) =>
+        TScale.TScale_Story(args, loaded as ScaleLoaded),
 };
 TenPointScale.storyName = 'A 10-point scale';

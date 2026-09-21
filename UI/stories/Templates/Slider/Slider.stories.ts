@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/web-components-vite';
+import type { Meta } from '@storybook/web-components-vite';
 import { OSliderWithExclusive } from '../../Organisms/Slider/Slider';
 
 export default {
