@@ -5,6 +5,7 @@ export default class OCombobox extends Component implements Subject {
     protected element: HTMLInputElement | null = null;
     private observers: Observer[] = [];
     private explicitWidth: boolean = false;
+    private widthConfigured = false;
     private containerResizeObserver: ResizeObserver | null = null;
 
     public handleEvent(e: Event): void {
@@ -58,8 +59,22 @@ export default class OCombobox extends Component implements Subject {
     }
 
     addObserver(observer: Observer): void {
-        this.observers.push(observer);
+        if (!this.observers.includes(observer)) this.observers.push(observer);
+        this.initializeListSizing();
+    }
+
+    private initializeListSizing(): void {
+        if (
+            !this.isConnected ||
+            !this.widthConfigured ||
+            !this.observers.length
+        )
+            return;
+
+        // Registration guarantees that the list can receive the placeholder
+        // synchronously before its content is measured.
         this.addPlaceholderToList();
+        this.monitorContainerWidth();
     }
 
     removeObserver(observer: Observer): void {
@@ -156,6 +171,8 @@ export default class OCombobox extends Component implements Subject {
 
     private addPlaceholderToList(): void {
         if (!this.element?.placeholder?.length) return;
+        if (this.querySelector('o-list .a-list-placeholder-hidden-prompt'))
+            return;
 
         const placeholderData = new CustomEvent('addPlaceholderEntry', {
             bubbles: false,
@@ -194,6 +211,7 @@ export default class OCombobox extends Component implements Subject {
         if (!closestLayoutContainer) return;
 
         this.applyWidthFromContainer(closestLayoutContainer);
+        if (this.containerResizeObserver) return;
 
         this.containerResizeObserver = new ResizeObserver(() => {
             this.applyWidthFromContainer(closestLayoutContainer);
@@ -213,8 +231,11 @@ export default class OCombobox extends Component implements Subject {
         }
 
         const listWidth = this.getListContentWidth();
-        const targetWidth = Math.min(listWidth, availableWidth);
-        const width = this.getAdjustedWidth(targetWidth);
+        // Loop spacing reduces the available space, not the content's width.
+        const width = Math.min(
+            listWidth,
+            Math.max(0, this.getAdjustedWidth(availableWidth)),
+        );
 
         this.style.width = `${width}px`;
 
@@ -261,6 +282,7 @@ export default class OCombobox extends Component implements Subject {
         // Keep the clone in the same component context, so general list
         // styles, such as dropdown option padding, are included in the
         // measured width. Also account for the possible presence of scrollbar.
+        this.styleMeasurementPlaceholder(clone, listStyle);
         list.appendChild(clone);
 
         const borderWidth =
@@ -283,6 +305,36 @@ export default class OCombobox extends Component implements Subject {
 
     private getAppliedWidth(): number {
         return Math.ceil(this.getBoundingClientRect().width);
+    }
+
+    private styleMeasurementPlaceholder(
+        clone: HTMLElement,
+        listStyle: CSSStyleDeclaration,
+    ): void {
+        const placeholder = clone.querySelector<HTMLElement>(
+            '.a-list-placeholder-hidden-prompt',
+        );
+        if (!this.element || !placeholder) return;
+
+        const inputStyle = getComputedStyle(this.element);
+        placeholder.style.whiteSpace = 'pre';
+
+        // Make this entry represent the closed input, including arrow space.
+        // The list already supplies its own padding and borders around the entry.
+        placeholder.style.paddingLeft = `${Math.max(
+            0,
+            parseFloat(inputStyle.paddingLeft) +
+                parseFloat(inputStyle.borderLeftWidth) -
+                parseFloat(listStyle.paddingLeft) -
+                parseFloat(listStyle.borderLeftWidth),
+        )}px`;
+        placeholder.style.paddingRight = `${Math.max(
+            0,
+            parseFloat(inputStyle.paddingRight) +
+                parseFloat(inputStyle.borderRightWidth) -
+                parseFloat(listStyle.paddingRight) -
+                parseFloat(listStyle.borderRightWidth),
+        )}px`;
     }
 
     private getAdjustedWidth(width: number): number {
@@ -317,9 +369,12 @@ export default class OCombobox extends Component implements Subject {
     public connectedCallback(): void {
         super.connectedCallback();
         this.setElement();
-        this.addPlaceholderToList();
-        this.setWidthStrategy();
-        this.monitorContainerWidth();
+        if (!this.widthConfigured) {
+            this.setWidthStrategy();
+            this.widthConfigured = true;
+        }
+        // Existing registrations survive disconnection; resume sizing on reconnect.
+        this.initializeListSizing();
         this.removeTabIndex();
 
         this.element?.addEventListener('blur', this);
