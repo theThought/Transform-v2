@@ -1227,8 +1227,26 @@ export default class OResponse extends Component implements Subject, Observer {
         return `${screen.width}x${screen.height}`;
     }
 
+    private setPercentageControlWidth(): void {
+        const hasPercentageWidth = Array.from(
+            this.querySelectorAll<HTMLElement>(
+                'o-scale, o-slider, o-combobox, o-dropdown, o-list',
+            ),
+        ).some(
+            (component) =>
+                component.closest('o-response') === this &&
+                /^\d*\.?\d+%$/.test(component.style.width.trim()),
+        );
+
+        this.classList.toggle(
+            'has-percentage-control-width',
+            hasPercentageWidth,
+        );
+    }
+
     public connectedCallback(): void {
         this.parseProperties();
+        this.setPercentageControlWidth();
         this.setQuestion();
         this.setNestedResponse();
         this.readFromStorage();
