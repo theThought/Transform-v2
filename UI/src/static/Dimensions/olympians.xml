@@ -1,0 +1,67 @@
+<Questions>
+<Question MustAnswer="false">
+								<Style BgColor="loop:_QOlympians" ElementAlign="NewLine"></Style>
+								<Table UseTablesLayout="-1" Summary="How likely are your children to become Olympians" TableName="_Q_DDynamicPage_QOlympians" TableID="_Q1" QuestionType="LoopCategorical">
+									<Row Y="0">
+										<Cell X="0" Y="0" Class="mrGridCategoryText">
+											<Label>
+												<Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+												<Text>1st Child</Text>
+											</Label>
+										</Cell>
+										<Cell X="1" Y="0">
+											<Question MustAnswer="false">
+												<Style Color="{&quot;labels&quot;:{&quot;pre&quot;:&quot;Not a chance&quot;,&quot;post&quot;:&quot;already an Olympian&quot;,&quot;position&quot;:&quot;before&quot;},&quot;show&quot;:{&quot;terminators&quot;:false,&quot;marks&quot;:true,&quot;value&quot;:false},&quot;ticklabels&quot;:10}" BgColor="slider-horizontal:_QOlympians_Qfirst_Qhowlikely" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine" Width="35em">
+													<Control Type="SingleLineEdit"></Control>
+												</Style>
+												<Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QOlympians_Qfirst_Qhowlikely" ElementID="_Q1_Q0_Q0" Value="" MaxValue="100" MinValue="0" Length="3">
+													<Style Color="{&quot;labels&quot;:{&quot;pre&quot;:&quot;Not a chance&quot;,&quot;post&quot;:&quot;already an Olympian&quot;,&quot;position&quot;:&quot;before&quot;},&quot;show&quot;:{&quot;terminators&quot;:false,&quot;marks&quot;:true,&quot;value&quot;:false},&quot;ticklabels&quot;:10}" BgColor="slider-horizontal:_QOlympians_Qfirst_Qhowlikely" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine" Width="35em">
+														<Control Type="SingleLineEdit"></Control>
+													</Style>
+												</Control>
+											</Question>
+										</Cell>
+									</Row>
+									<Row Y="1">
+										<Cell X="0" Y="1" Class="mrGridCategoryText">
+											<Label>
+												<Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+												<Text>2nd Child</Text>
+											</Label>
+										</Cell>
+										<Cell X="1" Y="1">
+											<Question MustAnswer="false">
+												<Style Color="{&quot;labels&quot;:{&quot;pre&quot;:&quot;Not a chance&quot;,&quot;post&quot;:&quot;already an Olympian&quot;,&quot;position&quot;:&quot;before&quot;},&quot;show&quot;:{&quot;terminators&quot;:false,&quot;marks&quot;:true,&quot;value&quot;:false},&quot;ticklabels&quot;:10}" BgColor="slider-horizontal:_QOlympians_Qsecond_Qhowlikely" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine" Width="35em">
+													<Control Type="SingleLineEdit"></Control>
+												</Style>
+												<Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QOlympians_Qsecond_Qhowlikely" ElementID="_Q1_Q1_Q0" Value="" MaxValue="100" MinValue="0" Length="3">
+													<Style Color="{&quot;labels&quot;:{&quot;pre&quot;:&quot;Not a chance&quot;,&quot;post&quot;:&quot;already an Olympian&quot;,&quot;position&quot;:&quot;before&quot;},&quot;show&quot;:{&quot;terminators&quot;:false,&quot;marks&quot;:true,&quot;value&quot;:false},&quot;ticklabels&quot;:10}" BgColor="slider-horizontal:_QOlympians_Qsecond_Qhowlikely" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine" Width="35em">
+														<Control Type="SingleLineEdit"></Control>
+													</Style>
+												</Control>
+											</Question>
+										</Cell>
+									</Row>
+									<Row Y="2">
+										<Cell X="0" Y="2" Class="mrGridCategoryText">
+											<Label>
+												<Style Align="Left" VerticalAlign="Middle" ElementAlign="Right"></Style>
+												<Text>3rd Child</Text>
+											</Label>
+										</Cell>
+										<Cell X="1" Y="2">
+											<Question MustAnswer="false">
+												<Style Color="{&quot;labels&quot;:{&quot;pre&quot;:&quot;Not a chance&quot;,&quot;post&quot;:&quot;already an Olympian&quot;,&quot;position&quot;:&quot;before&quot;},&quot;show&quot;:{&quot;terminators&quot;:false,&quot;marks&quot;:true,&quot;value&quot;:false},&quot;ticklabels&quot;:10}" BgColor="slider-horizontal:_QOlympians_Qthird_Qhowlikely" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine" Width="35em">
+													<Control Type="SingleLineEdit"></Control>
+												</Style>
+												<Control Type="SingleLineEdit" QuestionName="_Q_DDynamicPage_QOlympians_Qthird_Qhowlikely" ElementID="_Q1_Q2_Q0" Value="" MaxValue="100" MinValue="0" Length="3">
+													<Style Color="{&quot;labels&quot;:{&quot;pre&quot;:&quot;Not a chance&quot;,&quot;post&quot;:&quot;already an Olympian&quot;,&quot;position&quot;:&quot;before&quot;},&quot;show&quot;:{&quot;terminators&quot;:false,&quot;marks&quot;:true,&quot;value&quot;:false},&quot;ticklabels&quot;:10}" BgColor="slider-horizontal:_QOlympians_Qthird_Qhowlikely" Align="Center" VerticalAlign="Middle" ElementAlign="NewLine" Width="35em">
+														<Control Type="SingleLineEdit"></Control>
+													</Style>
+												</Control>
+											</Question>
+										</Cell>
+									</Row>
+								</Table>
+							</Question>
+</Questions>
