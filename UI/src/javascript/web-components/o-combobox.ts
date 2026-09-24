@@ -287,10 +287,10 @@ export default class OCombobox extends Component implements Subject {
         this.styleMeasurementPlaceholder(clone, listStyle);
         list.appendChild(clone);
 
-        // Allow for small browser/font metric differences between the hidden
-        // measurement clone and the live list. Without this, a difference of
-        // a fraction of a pixel can make an option wrap when the list opens.
-        const width = Math.ceil(clone.getBoundingClientRect().width + 2);
+        // Allow for browser/font metric differences between the hidden
+        // measurement clone and the live list. Firefox can measure this
+        // Korean text several pixels narrower than other browsers.
+        const width = Math.ceil(clone.getBoundingClientRect().width + 5);
 
         clone.remove();
 
