@@ -75,15 +75,33 @@ export default class OQuestion extends Component implements Subject {
         const sublist = source.closest?.('o-option-sublist') as
             | (Element & { getExclusive?: () => boolean })
             | null;
+        const questionGroup =
+            source.dataset?.questionGroup ??
+            element.dataset.questionGroup ??
+            '';
+        const hasExclusiveOption = this.hasExclusiveOption(questionGroup);
 
         if (
             isOption &&
             source.getExclusive?.() !== true &&
-            sublist?.getExclusive?.() !== true
+            sublist?.getExclusive?.() !== true &&
+            !hasExclusiveOption
         )
             return;
 
         this.notifyObservers('clearExclusiveOptions', e);
+    }
+
+    private hasExclusiveOption(questionGroup: string): boolean {
+        if (!questionGroup) return false;
+
+        return Array.from(
+            this.querySelectorAll<HTMLElement>('[data-question-group]'),
+        ).some(
+            (element) =>
+                element.dataset.questionGroup === questionGroup &&
+                element.dataset.exclusive === 'true',
+        );
     }
 
     private notifyOtherQuestions(e: CustomEvent): void {

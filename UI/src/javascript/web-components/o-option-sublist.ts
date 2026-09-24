@@ -116,6 +116,10 @@ export default class OOptionSublist
             case 'clearExclusiveOptions':
                 if (this.contains(data.target as HTMLElement)) return;
                 if (this.isExclusive) {
+                    if (this.isNonExclusiveOption(data)) {
+                        this.notifyObservers('clearExclusiveOptions', data);
+                        return;
+                    }
                     this.notifyObservers('clearOtherValues', data);
                 }
                 this.handleChange(data);
