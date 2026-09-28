@@ -189,6 +189,7 @@ export default class OList extends Component implements Observer {
     }
 
     private clearValue(): void {
+        this.clearHighlightedOption();
         this.clearSelectedOptions();
         this.clearElementValue();
         this.clearLabel();
