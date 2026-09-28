@@ -243,6 +243,13 @@ export default class ODropdown extends Component implements Subject {
         clone.style.visibility = 'hidden';
         clone.style.whiteSpace = 'nowrap';
 
+        // The live list wraps options when its width is capped by the
+        // containing column. Measure the options at their natural width first
+        // so the control only wraps when that cap is actually reached.
+        clone.querySelectorAll<HTMLElement>('li').forEach((item) => {
+            item.style.whiteSpace = 'nowrap';
+        });
+
         // Keep the clone in the same component context, so general list
         // styles, such as dropdown option padding, are included in the
         // measured width. Reserve scrollbar space on the clone even when the
