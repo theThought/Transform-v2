@@ -45,6 +45,9 @@ export default class MSinglelineNumber extends MSingleline {
             case 'paste':
                 this.onNumberPaste(e as ClipboardEvent);
                 break;
+            case 'restore':
+                this.onRestore();
+                break;
             case 'incrementValue':
                 this.stepUp();
                 break;
@@ -232,6 +235,10 @@ export default class MSinglelineNumber extends MSingleline {
         } else {
             this.element.value = this.lastValidValue;
         }
+    }
+
+    protected onRestore(): void {
+        this.lastValidValue = this.element?.value ?? '';
     }
 
     private onNumberPaste(e: ClipboardEvent): void {

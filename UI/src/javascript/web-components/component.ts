@@ -103,8 +103,7 @@ export default class Component extends HTMLElement {
             },
             set(newVal) {
                 set.call(this, newVal);
-                if (newVal.length)
-                    this.dispatchEvent(new Event('restore', { bubbles: true }));
+                this.dispatchEvent(new Event('restore', { bubbles: true }));
             },
         });
     }

@@ -38,6 +38,9 @@ export default class MSingleline extends Component implements Observer {
             case 'paste':
                 this.onPaste(e);
                 break;
+            case 'restore':
+                this.onRestore();
+                break;
         }
     }
 
@@ -126,7 +129,11 @@ export default class MSingleline extends Component implements Observer {
     }
 
     private clearValue(e: CustomEvent): void {
-        if (e.detail.qgroup !== this.qgroup) return;
+        // Visibility clears events are sent by the response whose visibility
+        // changed. Grid controls can be nested within that response and may
+        // have a different question group.
+        if (e.type !== 'clearVisibility' && e.detail.qgroup !== this.qgroup)
+            return;
         const target = e.target as HTMLElement;
 
         if (!this.element) return;
@@ -158,6 +165,10 @@ export default class MSingleline extends Component implements Observer {
         }
     }
 
+    protected onRestore(): void {
+        // m-singleline-number has some custom functionality here.
+    }
+
     // Handle (global) event listeners which are not part of this web component.
     public connectedCallback(): void {
         super.connectedCallback();
@@ -171,6 +182,7 @@ export default class MSingleline extends Component implements Observer {
         this.addEventListener('keydown', this.handleEvent);
         this.addEventListener('mouseup', this.handleEvent);
         this.addEventListener('paste', this.handleEvent);
+        this.addEventListener('restore', this.handleEvent);
 
         this.setLabels();
 
