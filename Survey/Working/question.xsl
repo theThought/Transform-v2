@@ -2428,23 +2428,23 @@
                         </xsl:when>
                         <xsl:when test="name($contentNode) = 'Control'">
                                 <xsl:variable name="styleVerticalAlign">
-                                    <xsl:if test="Style/@VerticalAlign">
+                                    <xsl:if test="$contentNode/Style/@VerticalAlign">
                                         <xsl:text>vertical-align:</xsl:text>
-                                        <xsl:value-of select="Style/@VerticalAlign" />
+                                        <xsl:value-of select="$contentNode/Style/@VerticalAlign" />
                                         <xsl:text>; </xsl:text>
                                     </xsl:if>
                                 </xsl:variable>
                                 <xsl:variable name="styleHorizontalAlign">
-                                    <xsl:if test="Style/@Align">
+                                    <xsl:if test="$contentNode/Style/@Align">
                                         <xsl:text>text-align:</xsl:text>
-                                        <xsl:value-of select="Style/@Align" />
+                                        <xsl:value-of select="$contentNode/Style/@Align" />
                                         <xsl:text>; </xsl:text>
                                     </xsl:if>
                                 </xsl:variable>
                                 <xsl:variable name="styleWidth">
-                                    <xsl:if test="Style/Cell/@Width">
+                                    <xsl:if test="$contentNode/Style/Cell/@Width">
                                         <xsl:text>width:</xsl:text>
-                                        <xsl:value-of select="Style/Cell/@Width" />
+                                        <xsl:value-of select="$contentNode/Style/Cell/@Width" />
                                         <xsl:text>; </xsl:text>
                                     </xsl:if>
                                 </xsl:variable>
@@ -2456,12 +2456,12 @@
                                     </xsl:attribute>
                                 </xsl:if>
                                 <xsl:choose>
-                                    <xsl:when test="@Type = 'CheckButton' or @Type = 'RadioButton'">
+                                    <xsl:when test="$contentNode/@Type = 'CheckButton' or $contentNode/@Type = 'RadioButton'">
                                         <xsl:call-template name="Question">
                                             <xsl:with-param name="cellContext" select="$cellContext" />
                                             <xsl:with-param name="qReadOnly" select="$qReadOnly"/>
                                             <xsl:with-param name="qGroup">
-                                                <xsl:value-of select="@QuestionName"/>
+                                                <xsl:value-of select="$contentNode/@QuestionName"/>
                                             </xsl:with-param>
                                         </xsl:call-template>
                                     </xsl:when>
