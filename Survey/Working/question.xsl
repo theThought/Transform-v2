@@ -13,43 +13,42 @@
     <xsl:strip-space elements="*"/>
 
     <xsl:template match="Questions">
-        <xsl:element name="Question">
         <xsl:variable name="questionCount" select="count(Question)" />
 
+        <xsl:element name="output">
+
         <!-- iterate through the questions eleents in the XML structure -->
-        <xsl:choose>
-            <xsl:when test="$questionCount > 1">
-                <xsl:for-each select="*">
-                    <xsl:element name="o-question">
-                    <xsl:choose>
-                        <xsl:when test="name()='Question'">
-                            <xsl:call-template name="Question" />
-                        </xsl:when>
-                        <xsl:otherwise>
-                        <Other>
-                            <xsl:value-of select="name()" />
-                        </Other>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                    </xsl:element>
-                </xsl:for-each>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:for-each select="*">
-                    <xsl:choose>
-                        <xsl:when test="name()='Question'">
-                            <xsl:call-template name="Question" />
-                        </xsl:when>
-                        <xsl:otherwise>
-                        <Other>
-                            <xsl:value-of select="name()" />
-                        </Other>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </xsl:for-each>
-            </xsl:otherwise>
-        </xsl:choose>
-        </xsl:element>
+                <xsl:choose>
+                    <xsl:when test="$questionCount > 1">
+                        <xsl:for-each select="*">
+                            <xsl:choose>
+                                <xsl:when test="name()='Question'">
+                                    <xsl:call-template name="Question" />
+                                </xsl:when>
+                                <xsl:otherwise>
+                                <Other>
+                                    <xsl:value-of select="name()" />
+                                </Other>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:for-each>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:for-each select="*">
+                            <xsl:choose>
+                                <xsl:when test="name()='Question'">
+                                    <xsl:call-template name="Question" />
+                                </xsl:when>
+                                <xsl:otherwise>
+                                <xsl:element name="Other">
+                                    <xsl:value-of select="name()" />
+                                </xsl:element>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:for-each>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:element>
     </xsl:template>    
 
     <xsl:template name="Question">
@@ -57,79 +56,54 @@
         <xsl:param name="qGroup" />
         <!-- iterate through the question eleents in the XML structure -->
         <!-- question elements are contained within the questions element -->
+            <xsl:variable name="BgColor">
+                <xsl:choose>
+                    <xsl:when test="Style">
+                        <xsl:value-of select="Style/@BgColor"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="Control[1]/Style/@BgColor"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:variable>
 
-        <xsl:variable name="BgColor">
-            <xsl:choose>
-                <xsl:when test="Style">
-                    <xsl:value-of select="Style/@BgColor"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:value-of select="Control[1]/Style/@BgColor"/>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:variable>
+            <xsl:variable name="qType">
+                <xsl:call-template name="funcGetQType">
+                    <xsl:with-param name="BgColor" select="$BgColor"/>
+                </xsl:call-template>
+            </xsl:variable>
 
-        <xsl:variable name="qType">
-            <xsl:call-template name="funcGetQType">
-                <xsl:with-param name="BgColor" select="$BgColor"/>
-            </xsl:call-template>
-        </xsl:variable>
-
-        <xsl:variable name="qCalcGroup">
-            <xsl:choose>
-                <xsl:when test="$qGroup">
+            <xsl:variable name="qCalcGroup">
+                <xsl:choose>
+                    <xsl:when test="$qGroup">
+                        <xsl:call-template name="remove_C">
+                            <xsl:with-param name="str">
+                                <xsl:value-of select="$qGroup" />
+                            </xsl:with-param>
+                        </xsl:call-template>
+                    </xsl:when>
+                    <xsl:otherwise>
                     <xsl:call-template name="remove_C">
                         <xsl:with-param name="str">
-                            <xsl:value-of select="$qGroup" />
+                            <xsl:call-template name="funcGetQGroup">
+                                <xsl:with-param name="BgColor" select="$BgColor"/>
+                            </xsl:call-template>
                         </xsl:with-param>
                     </xsl:call-template>
-                </xsl:when>
-                <xsl:otherwise>
-                <xsl:call-template name="remove_C">
-                    <xsl:with-param name="str">
-                        <xsl:call-template name="funcGetQGroup">
-                            <xsl:with-param name="BgColor" select="$BgColor"/>
-                        </xsl:call-template>
-                    </xsl:with-param>
-                </xsl:call-template>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:variable>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:variable>
 
-        <xsl:variable name="qReadOnly">
-            <xsl:choose>
-                <xsl:when test="Style/Control/@ReadOnly">
-                    <xsl:value-of select="true()"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:value-of select="false()"/>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:variable>
-
-            <xsl:comment>
-            <xsl:text>Parent: </xsl:text>
-            <xsl:value-of select="name(..)" />
-            <xsl:for-each select="../@*">
-                <xsl:text> </xsl:text>
-                <xsl:value-of select="name()" />
-                <xsl:text>="</xsl:text>
-                <xsl:value-of select="." />
-                <xsl:text>"</xsl:text>
-            </xsl:for-each>
-            </xsl:comment>
-
-            <xsl:comment>
-                <xsl:text>Current: </xsl:text>
-                <xsl:text>qCalcGroup=</xsl:text>
-                <xsl:value-of select="$qCalcGroup" />
-                <xsl:text>qGroup=</xsl:text>
-                <xsl:value-of select="$qGroup" />
-                <xsl:text>, qType=</xsl:text>
-                <xsl:value-of select="$qType" />
-                <xsl:text>, qReadOnly=</xsl:text>
-                <xsl:value-of select="$qReadOnly" />
-            </xsl:comment>
+            <xsl:variable name="qReadOnly">
+                <xsl:choose>
+                    <xsl:when test="Style/Control/@ReadOnly">
+                        <xsl:value-of select="true()"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="false()"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:variable>
 
             <xsl:call-template name="response">
                 <xsl:with-param name="qType" select="$qType"/>
@@ -153,6 +127,17 @@
         </xsl:variable>
 
         <xsl:element name="o-response">
+
+            <xsl:attribute name="data-bgcolor">
+                <xsl:value-of select="$qType"/>
+            </xsl:attribute>
+
+            <xsl:if test="$qType='palette-loop'">
+                <xsl:attribute name="hidden">
+                    <xsl:value-of select="true()"/>
+                </xsl:attribute>
+            </xsl:if>
+
             <xsl:attribute name="data-has-container">
                 <xsl:value-of select="not($cellContext!='')" />
             </xsl:attribute>
@@ -2672,6 +2657,7 @@
 
         <xsl:variable name="tableName" select="@TableID"/>
         <xsl:element name="o-palette-loop">
+
             <xsl:element name="table">
                 <xsl:attribute name="class">
                     <xsl:text>o-structure-table</xsl:text>
