@@ -34,9 +34,9 @@
     --theme-color-accent-information: 75, 121, 182;
 
     /* Fonts */
-    --theme-font-family-primary: 'Karla', 'KarlaLocal', sans-serif;
-    --theme-font-family-secondary: 'Merriweather', 'MerriweatherLocal', serif;
-    --theme-font-family-rtl: 'Rubik', 'RubikLocal', serif;
+    --theme-font-family-primary: Barlow, sans-serif;
+    --theme-font-family-secondary: 'Barlow Semi Condensed', serif;
+    --theme-font-family-rtl: Barlow, serif;
 
     /* Typography */
     --theme-font-size-xs: 0.75rem;
@@ -45,7 +45,7 @@
     --theme-font-size-m: 1.125rem;
     --theme-font-size-l: 1.25rem;
     --theme-font-size-xl: 1.5rem;
-    --theme-line-height: 1.2;
+    --theme-line-height: 1.5;
 
     /* Borders */
     --theme-border-thickness: 0.125rem;
