@@ -7,6 +7,7 @@ export default class OPalette extends Component implements Subject {
     private Block: HTMLElement | null = null;
     private Complete: HTMLElement | null = null;
     private Empty: HTMLElement | null = null;
+    private AddButton: HTMLElement | null = null;
     private SubmitButton: HTMLElement | null = null;
     private CancelButton: HTMLElement | null = null;
     private loop: OPaletteLoop | null = null;
@@ -18,6 +19,10 @@ export default class OPalette extends Component implements Subject {
         this.Empty?.classList.toggle('hidden', state !== 'empty');
         this.Block?.classList.toggle('hidden', state !== 'inprogress');
         this.Complete?.classList.toggle('hidden', state !== 'complete');
+        this.AddButton?.classList.toggle(
+            'hidden',
+            state !== 'empty' || this.RemainingAnswerCount <= 0,
+        );
     }
 
     public handleEvent(e: CustomEvent): void {
@@ -68,6 +73,7 @@ export default class OPalette extends Component implements Subject {
 
     private handleAnswerCountChange(e: CustomEvent): void {
         this.RemainingAnswerCount = e.detail.remainingAnswerCount;
+        this.updateAddButtonVisibility();
         this.notifyObservers('answerCountChange', e);
 
         // The loop can finish initialising after the palette. In that case,
@@ -180,7 +186,9 @@ export default class OPalette extends Component implements Subject {
     }
 
     private configureSubmitButton(): void {
-        this.SubmitButton = this.querySelector('button.a-button-icon.submit');
+        this.SubmitButton = this.querySelector(
+            '.palette-inprogress .complexbutton-submit, .palette-inprogress .complexbutton-add, .palette-inprogress .a-button-icon.submit',
+        );
 
         if (!this.SubmitButton) {
             console.warn('Submit button not found');
@@ -194,7 +202,9 @@ export default class OPalette extends Component implements Subject {
     }
 
     private configureCancelButton(): void {
-        this.CancelButton = this.querySelector('button.a-button-icon.cancel');
+        this.CancelButton = this.querySelector(
+            '.palette-inprogress .complexbutton-cancel, .palette-inprogress .a-button-icon.cancel',
+        );
 
         if (!this.CancelButton) {
             console.warn('Cancel button not found');
@@ -364,6 +374,33 @@ export default class OPalette extends Component implements Subject {
         this.Empty = this.querySelector('.palette-empty');
     }
 
+    private configureAddButton(): void {
+        this.AddButton =
+            this.Empty?.querySelector('.complexbutton-add') ?? null;
+
+        if (!this.AddButton) return;
+
+        this.AddButton.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            if (!this.getRemainingAnswerCount()) {
+                console.warn('The loop is fully populated.');
+                return;
+            }
+
+            this.AddButton?.dispatchEvent(
+                new CustomEvent('cloneQuestion', { bubbles: true }),
+            );
+        });
+    }
+
+    private updateAddButtonVisibility(): void {
+        this.AddButton?.classList.toggle(
+            'hidden',
+            this.RemainingAnswerCount <= 0,
+        );
+    }
+
     public connectedCallback(): void {
         super.connectedCallback();
         this.addEventListener('cloneQuestion', this);
@@ -375,6 +412,7 @@ export default class OPalette extends Component implements Subject {
         this.configureEmpty();
         this.configureBlock();
         this.configureComplete();
+        this.configureAddButton();
 
         queueMicrotask(() => {
             // Ensure loop is found

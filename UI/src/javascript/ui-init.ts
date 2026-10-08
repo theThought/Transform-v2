@@ -31,7 +31,6 @@ import OPalette from './web-components/o-palette';
 import OPaletteLoop from './web-components/o-palette-loop';
 import OHistory from './web-components/o-history';
 import OPaletteHistoryEntry from './web-components/o-palette-history-entry';
-import PaletteButtonAdd from './web-components/palette-button-add';
 
 export const uiInit = (): void => {
     // DEMO web component for Storybook introduction.
@@ -79,8 +78,6 @@ export const uiInit = (): void => {
         customElements.define('o-history', OHistory);
     !customElements.get('o-palette-history-entry') &&
         customElements.define('o-palette-history-entry', OPaletteHistoryEntry);
-    !customElements.get('palette-button-add') &&
-        customElements.define('palette-button-add', PaletteButtonAdd);
 
     // Inner components.
     !customElements.get('a-scale-unit') &&
