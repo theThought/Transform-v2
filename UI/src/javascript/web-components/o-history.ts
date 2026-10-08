@@ -235,7 +235,8 @@ export default class OHistory extends Component {
             'paletteRecordCancelled',
             this.clearActiveEntry,
         );
-        this.loop = document.querySelector('o-palette-loop');
+        this.loop =
+            this.closest('o-block')?.querySelector('o-palette-loop') ?? null;
 
         this.setHistoryOutputLocation();
         // The loop collects its values in a microtask, after both components

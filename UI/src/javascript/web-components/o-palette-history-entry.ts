@@ -6,11 +6,12 @@ export default class OPaletteHistoryEntry extends Component {
     private DeleteButton: HTMLElement | null | undefined = undefined;
     private visibilityRulesProcessor = new VisibilityRulesProcessor();
 
-    constructor() {
-        super();
+    private initializeShadowRoot(): void {
+        if (this.shadowRoot) return;
 
         const template: HTMLTemplateElement | null =
-            document.querySelector('o-history template');
+            this.closest('o-block')?.querySelector('o-history template') ??
+            null;
 
         if (!template) return;
 
@@ -141,10 +142,9 @@ export default class OPaletteHistoryEntry extends Component {
         }
     }
 
-    // TODO: Change o-page to o-palette or o-complex when Kevin has manufactured a wrapper around the new question type.
     private getVisibilityValueScope(): HTMLTableRowElement | null {
         const rowIndex = Number(this.getAttribute('data-index'));
-        const loop = this.closest('o-page')?.querySelector('o-palette-loop');
+        const loop = this.closest('o-block')?.querySelector('o-palette-loop');
         const rows = loop?.querySelectorAll<HTMLTableRowElement>('tr');
 
         return Number.isInteger(rowIndex) && rowIndex >= 0 && rows
@@ -241,6 +241,8 @@ export default class OPaletteHistoryEntry extends Component {
     }
 
     public connectedCallback(): void {
+        super.connectedCallback();
+        this.initializeShadowRoot();
         document.addEventListener('questionChange', this);
         this.render();
         this.configureEditButton();

@@ -96,7 +96,9 @@ export default class OPalette extends Component implements Subject {
             let source: Node | null = null;
 
             const response = Array.from(
-                document.querySelectorAll<HTMLElement>('o-response'),
+                this.closest('o-block')?.querySelectorAll<HTMLElement>(
+                    'o-response',
+                ) ?? [],
             ).find(
                 (candidate) =>
                     candidate.dataset.associateQuestion === associateName,
@@ -296,7 +298,8 @@ export default class OPalette extends Component implements Subject {
     }
 
     private configureLoop(): void {
-        this.loop = document.querySelector('o-palette-loop');
+        this.loop =
+            this.closest('o-block')?.querySelector('o-palette-loop') ?? null;
     }
 
     private updateRemainingAnswers(): void {
