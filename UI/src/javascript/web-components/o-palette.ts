@@ -437,13 +437,13 @@ export default class OPalette extends Component implements Subject {
                     );
                 });
             } else {
-                // Loop is already initialized or doesn't exist, update now
+                // Loop is already initialised or doesn't exist, update now
                 this.updateRemainingAnswers();
                 this.setState(
                     this.RemainingAnswerCount === 0 ? 'complete' : 'empty',
                 );
                 this.isInitialized = true;
-                // Notify all observers that were added before initialization
+                // Notify all observers that were added before initialisation
                 this.notifyObservers(
                     'answerCountChange',
                     new CustomEvent('answerCountChange', {
