@@ -199,10 +199,10 @@
                                 gap: 12px;
                             }
                         </style>
-                        <div class="label-cbDrugTest" data-associate-type="label" data-associate-question="cb_drugtest">
+                        <div class="label-cbDrugTest" data-associate-type="label" data-associate-question="cb__drugtest">
                             <!-- drugtest label -->
                         </div>
-                        <div class="control-cbDrugTest" data-associate-question="cb_drugtest"
+                        <div class="control-cbDrugTest" data-associate-question="cb__drugtest"
                              data-associate-type="control">
                             <!-- drugtest control -->
                         </div>
@@ -226,12 +226,11 @@
                         <template class="l-row-template">
                             <div class="l-col-history-ftd">
                                 <ftd type="variable" data-associate-control="cb__drugtest">
-                                    <!-- cb_drugtest Value --></ftd>
+                                    <!-- cb__drugtest Value --></ftd>
                                 <ftd type="span"
-                                     data-properties="{&quot;visible&quot;:{&quot;collapse&quot;:true,&quot;rules&quot;:&quot;drugtest.containsAny('other1','other2')&quot;}}">
+                                     data-properties="{&quot;visible&quot;:{&quot;collapse&quot;:true,&quot;rules&quot;:&quot;cb__drugtest.containsAny('__1__7126__7126','__1__5020__5020')&quot;}}">
                                     <ftd type="static" data-translate="other" data-translate-purpose="content">
-                                        <!-- string --></ftd>
-                                    <span>: </span>
+                                        <!-- string --><span>: </span></ftd>
                                     <ftd type="variable" data-associate-control="otherdrug">
                                         <!-- Otherdrug Value --></ftd>
                                 </ftd>
@@ -263,10 +262,11 @@
                     </o-history>
                 </o-palette>
                 <o-question data-global="false" hidden="hidden">
+                    <label for="_Q2" class="a-label-question" style="">Drug name</label>
                     <o-response data-bgcolor="combobox" data-has-container="true"
                                 data-question-group="_QFormComboAndOtherJustABlockPage_QFormComboAndOtherJustABlock_Qcb__drugtest"
                                 data-associate-question="cb__drugtest"
-                                data-properties="{&quot;listsize&quot;:10,&quot;mincharactersforlist&quot;:0,&quot;noenoughcharacters&quot;:&quot;&quot;,&quot;filtertype&quot;:&quot;starts&quot;,&quot;placeholder&quot;:&quot;&quot;,&quot;otherquestion&quot;:null,&quot;noitemsinlist&quot;:&quot;no items match this filter&quot;}"
+                                data-properties="{&quot;listsize&quot;:10,&quot;mincharactersforlist&quot;:0,&quot;notenoughcharacters&quot;:&quot;&quot;,&quot;filtertype&quot;:&quot;starts&quot;,&quot;placeholder&quot;:&quot;&quot;,&quot;otherquestion&quot;:null,&quot;noitemsinlist&quot;:&quot;no items match this filter&quot;}"
                                 data-position="below">
                         <o-combobox
                             data-question-group="_QFormComboAndOtherJustABlockPage_QFormComboAndOtherJustABlock_Qcb__drugtest"
@@ -8515,6 +8515,7 @@
                     </o-response>
                 </o-question>
                 <o-question data-global="false" hidden="hidden">
+                    <label for="_Q3" class="a-label-question" style="">Other name</label>
                     <o-response data-bgcolor="singleline" data-has-container="true"
                                 data-question-group="_QFormComboAndOtherJustABlockPage_QFormComboAndOtherJustABlock_Qotherdrug"
                                 data-associate-question="otherdrug"
