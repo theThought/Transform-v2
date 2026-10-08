@@ -13,33 +13,47 @@ o-palette {
     }
 }
 
-.a-button-icon.add {
+.complexbutton-add {
     background-color: var(--color-bg-neutral-primary);
-    display: flex;
+    display: inline-flex;
+    inline-size: fit-content;
     padding: 0;
-
-    span.icon {
-        background-color: var(--color-primary);
-        color: white;
-        font-size: 28px;
-        width: 40px;
-    }
-
-    span.caption {
-        align-content: center;
-        color: var(--color-primary);
-        padding-inline: var(--space-2);
-    }
 }
 
-.a-button-icon.submit {
+.complexbutton-add::before {
+    align-items: center;
+    background-color: var(--color-primary);
+    color: white;
+    content: '+';
+    display: flex;
+    font-size: 28px;
+    justify-content: center;
+    min-block-size: 2.5rem;
+    min-inline-size: 40px;
+}
+
+.complexbutton-add::after {
+    align-content: center;
+    color: var(--color-primary);
+    content: 'Add';
+    padding-inline: var(--space-2);
+}
+
+.complexbutton-submit,
+.complexbutton-cancel {
     background-color: var(--color-bg-neutral-primary, #fff);
     background-position: center;
     background-repeat: no-repeat;
+    background-size: 1.5rem;
+    min-block-size: 2.5rem;
+    min-inline-size: 2.5rem;
+    padding: 0;
 }
 
-.a-button-icon.cancel {
-    background-color: var(--color-bg-neutral-primary, #fff);
-    background-position: center;
-    background-repeat: no-repeat;
+.complexbutton-submit {
+    background-image: url('../../images/checked.svg');
+}
+
+.complexbutton-cancel {
+    background-image: url('../../images/cancel.svg');
 }
