@@ -5,6 +5,7 @@ import { Observer, Subject } from '../interfaces';
 export default class OPalette extends Component implements Subject {
     protected observers: Observer[] = [];
     private Block: HTMLElement | null = null;
+    private OwnerBlock: HTMLElement | null = null;
     private Complete: HTMLElement | null = null;
     private Empty: HTMLElement | null = null;
     private AddButton: HTMLElement | null = null;
@@ -37,6 +38,13 @@ export default class OPalette extends Component implements Subject {
     }
 
     private handleRecordEdit = (event: Event): void => {
+        if (
+            (event.target as Element | null)?.closest?.('o-block') !==
+            this.OwnerBlock
+        ) {
+            return;
+        }
+
         const detail = (event as CustomEvent<{ entry: HTMLElement }>).detail;
         const index = Number(detail?.entry?.getAttribute('data-index'));
         const rows = this.loop?.querySelectorAll<HTMLTableRowElement>('tr');
@@ -281,11 +289,9 @@ export default class OPalette extends Component implements Subject {
         const firstValue =
             Array.from(inputsByQuestion.values())[0]?.value || '';
 
-        // Dispatch on window so all o-history elements can listen regardless of nesting
-        window.dispatchEvent(
+        this.dispatchEvent(
             new CustomEvent('paletteRecordCommitted', {
                 bubbles: true,
-                composed: true,
                 detail: {
                     value: firstValue,
                     row: nextRow,
@@ -408,7 +414,11 @@ export default class OPalette extends Component implements Subject {
         this.configureSubmitButton();
         this.configureCancelButton();
         this.configureLoop();
-        window.addEventListener('paletteRecordEdit', this.handleRecordEdit);
+        this.OwnerBlock = this.closest('o-block');
+        this.OwnerBlock?.addEventListener(
+            'paletteRecordEdit',
+            this.handleRecordEdit,
+        );
         this.configureEmpty();
         this.configureBlock();
         this.configureComplete();
@@ -459,6 +469,10 @@ export default class OPalette extends Component implements Subject {
     public disconnectedCallback(): void {
         this.removeEventListener('cloneQuestion', this);
         this.removeEventListener('answerCountChange', this);
-        window.removeEventListener('paletteRecordEdit', this.handleRecordEdit);
+        this.OwnerBlock?.removeEventListener(
+            'paletteRecordEdit',
+            this.handleRecordEdit,
+        );
+        this.OwnerBlock = null;
     }
 }

@@ -12,6 +12,14 @@ export default class OHistory extends Component {
     private HistoryDestination: HTMLElement | null = null;
     private AnswerCount = 0;
     private loop: OLoop | null = null;
+    private Block: HTMLElement | null = null;
+
+    private isLocalEvent(event: Event): boolean {
+        return (
+            (event.target as Element | null)?.closest?.('o-block') ===
+            this.Block
+        );
+    }
 
     private createHistoryEntry(
         rowData: Map<string, string>,
@@ -107,6 +115,8 @@ export default class OHistory extends Component {
     }
 
     private handleRecordCommitted = (event: Event): void => {
+        if (!this.isLocalEvent(event)) return;
+
         const customEvent = event as CustomEvent<PaletteRecordCommittedDetail>;
         const detail = customEvent.detail;
 
@@ -185,6 +195,8 @@ export default class OHistory extends Component {
     };
 
     private handleRecordDelete = (event: Event): void => {
+        if (!this.isLocalEvent(event)) return;
+
         const detail = (event as CustomEvent<{ entry: HTMLElement }>).detail;
         if (!detail?.entry) {
             return;
@@ -217,7 +229,9 @@ export default class OHistory extends Component {
         this.updateEmptyMessage();
     };
 
-    private clearActiveEntry = (): void => {
+    private clearActiveEntry = (event: Event): void => {
+        if (!this.isLocalEvent(event)) return;
+
         this.HistoryDestination?.querySelector(
             'o-palette-history-entry.active',
         )?.classList.remove('active');
@@ -225,13 +239,16 @@ export default class OHistory extends Component {
 
     public connectedCallback(): void {
         super.connectedCallback();
-        // Listen for events on the window since paletteRecordCommitted is dispatched there
-        window.addEventListener(
+        this.Block = this.closest('o-block');
+        this.Block?.addEventListener(
             'paletteRecordCommitted',
             this.handleRecordCommitted,
         );
-        window.addEventListener('paletteRecordDelete', this.handleRecordDelete);
-        window.addEventListener(
+        this.Block?.addEventListener(
+            'paletteRecordDelete',
+            this.handleRecordDelete,
+        );
+        this.Block?.addEventListener(
             'paletteRecordCancelled',
             this.clearActiveEntry,
         );
@@ -250,17 +267,18 @@ export default class OHistory extends Component {
     }
 
     public disconnectedCallback(): void {
-        window.removeEventListener(
+        this.Block?.removeEventListener(
             'paletteRecordCommitted',
             this.handleRecordCommitted,
         );
-        window.removeEventListener(
+        this.Block?.removeEventListener(
             'paletteRecordDelete',
             this.handleRecordDelete,
         );
-        window.removeEventListener(
+        this.Block?.removeEventListener(
             'paletteRecordCancelled',
             this.clearActiveEntry,
         );
+        this.Block = null;
     }
 }

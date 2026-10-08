@@ -2,6 +2,7 @@ import Component from './component';
 import VisibilityRulesProcessor from './visibility-rules-processor';
 
 export default class OPaletteHistoryEntry extends Component {
+    private Block: HTMLElement | null = null;
     private EditButton: HTMLElement | null | undefined = undefined;
     private DeleteButton: HTMLElement | null | undefined = undefined;
     private visibilityRulesProcessor = new VisibilityRulesProcessor();
@@ -188,6 +189,12 @@ export default class OPaletteHistoryEntry extends Component {
     }
 
     public handleEvent(event: Event): void {
+        if (
+            (event.target as Element | null)?.closest?.('o-block') !==
+            this.Block
+        ) {
+            return;
+        }
         if (event.type === 'questionChange') this.render();
     }
 
@@ -251,7 +258,8 @@ export default class OPaletteHistoryEntry extends Component {
     public connectedCallback(): void {
         super.connectedCallback();
         this.initializeShadowRoot();
-        document.addEventListener('questionChange', this);
+        this.Block = this.closest('o-block');
+        this.Block?.addEventListener('questionChange', this);
         this.render();
         this.configureEditButton();
         this.configureDeleteButton();
@@ -259,6 +267,7 @@ export default class OPaletteHistoryEntry extends Component {
     }
 
     public disconnectedCallback(): void {
-        document.removeEventListener('questionChange', this);
+        this.Block?.removeEventListener('questionChange', this);
+        this.Block = null;
     }
 }
