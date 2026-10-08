@@ -25,14 +25,14 @@ export default class OPaletteHistoryEntry extends Component {
             :host(.active) {
                 background: var(--color-bg-system-warning-subtle, #fff6e5);
             }
-            button {
+            :is(.complexquestion-edit, .complexquestion-delete, .complexquestion-reset) {
                 opacity: 0;
                 pointer-events: none;
                 transition: opacity 150ms ease-in-out;
             }
-            :host(.active) button {
+            :host(.active) :is(.complexquestion-edit, .complexquestion-delete, .complexquestion-reset) {
                 opacity: 1;
-                pointer-events: all;
+                pointer-events: auto;
             }
             .l-col-history {
                 display: flex;
@@ -48,20 +48,28 @@ export default class OPaletteHistoryEntry extends Component {
                 display: initial;
                 visibility: hidden;
             }
-            .a-button-icon {
+            :is(.complexquestion-edit, .complexquestion-delete, .complexquestion-reset) {
+                align-items: center;
+                border: 1px solid var(--color-primary, #1f1f1f);
+                cursor: pointer;
+                display: inline-flex;
+                justify-content: center;
                 width: 36px;
                 height: 33px;
             }
-            .a-button-icon.delete {
+            .complexquestion-delete {
                 background-color: var(--color-bg-neutral-primary, #ffffff);
                 background-image: url('./build/static/images/delete.svg');
                 background-position: center;
                 background-repeat: no-repeat;
             }
-            .a-button-icon.edit {
+            .complexquestion-edit {
                 background-color: var(--color-bg-neutral-primary, #ffffff);
+                background-image: url('./build/static/images/edit.svg');
+                background-position: center;
+                background-repeat: no-repeat;
             }
-            .a-button-icon.reset {
+            .complexquestion-reset {
                 background-color: transparent;
                 background-image: url('./build/static/images/restart.svg');
                 background-position: center;
@@ -185,7 +193,7 @@ export default class OPaletteHistoryEntry extends Component {
 
     private configureEditButton(): void {
         this.EditButton = this.shadowRoot?.querySelector(
-            'button.a-button-icon.edit',
+            '.complexquestion-edit',
         );
 
         if (!this.EditButton) {
@@ -209,7 +217,7 @@ export default class OPaletteHistoryEntry extends Component {
 
     private configureDeleteButton(): void {
         this.DeleteButton = this.shadowRoot?.querySelector(
-            'button.a-button-icon.delete',
+            '.complexquestion-delete',
         );
 
         if (!this.DeleteButton) {
