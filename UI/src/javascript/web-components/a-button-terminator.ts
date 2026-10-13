@@ -1,35 +1,16 @@
-import Component from './component';
+import AButtonIcon from './a-button-icon';
 
-export default class AButtonTerminator extends Component {
+export default class AButtonTerminator extends AButtonIcon {
     private behaviour = 'increment';
 
-    public handleEvent(e: Event): void {
-        switch (e.type) {
-            case 'click':
-                this.onClick(e);
-                break;
-            case 'keydown':
-                this.onKeydown(e as KeyboardEvent);
-                break;
-        }
-    }
+    protected onClick(e: Event): void {
+        super.onClick(e);
 
-    private onClick(e: Event): void {
-        e.preventDefault();
-        e.stopPropagation();
-
-        if (this.behaviour == 'increment') {
+        if (this.behaviour === 'increment') {
             this.incrementValue();
         } else {
             this.decrementValue();
         }
-    }
-
-    private onKeydown(e: KeyboardEvent): void {
-        if (e.key !== 'Enter' && e.key !== ' ') return;
-
-        e.preventDefault();
-        this.onClick(e);
     }
 
     private incrementValue(): void {
@@ -48,19 +29,6 @@ export default class AButtonTerminator extends Component {
         this.dispatchEvent(decrementValueEvent);
     }
 
-    private setLabel(): void {
-        this.setAttribute('role', 'button');
-        this.setAttribute('tabindex', '0');
-
-        if (this.behaviour == 'increment') {
-            //this.innerHTML = '&raquo;';
-            //this.innerHTML = '<img src="terminator.svg" alt="»"/>';
-        } else {
-            //this.innerHTML = '&laquo;';
-            //this.innerHTML = '<img src="terminator.svg" alt="»"/>';
-        }
-    }
-
     private setBehaviour(): void {
         if (this.hasAttribute('data-behaviour')) {
             this.behaviour = this.getAttribute('data-behaviour') ?? 'increment';
@@ -68,9 +36,7 @@ export default class AButtonTerminator extends Component {
     }
 
     public connectedCallback(): void {
+        super.connectedCallback();
         this.setBehaviour();
-        this.setLabel();
-        this.addEventListener('click', this.handleEvent);
-        this.addEventListener('keydown', this.handleEvent);
     }
 }

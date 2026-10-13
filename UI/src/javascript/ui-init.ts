@@ -2,6 +2,7 @@
 import WCExample from './web-components/wc-example';
 
 // Import modules for web components.
+import AButtonIcon from './web-components/a-button-icon';
 import AButtonTerminator from './web-components/a-button-terminator';
 import AScaleUnit from './web-components/a-scale-unit';
 import MOptionButton from './web-components/m-option-button';
@@ -82,6 +83,8 @@ export const uiInit = (): void => {
     // Inner components.
     !customElements.get('a-scale-unit') &&
         customElements.define('a-scale-unit', AScaleUnit);
+    !customElements.get('a-button-icon') &&
+        customElements.define('a-button-icon', AButtonIcon);
     !customElements.get('a-button-terminator') &&
         customElements.define('a-button-terminator', AButtonTerminator);
 
