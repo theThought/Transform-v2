@@ -40,6 +40,19 @@ Debug display.
 Make hidden content inspectable while clearly marking it as debug-only.
 ----------------------------------------------------------------------------
 */
+.a-properties-debug {
+    display: none;
+}
+
+.unavailable {
+    display: none;
+
+    &.do-not-collapse {
+        display: block;
+        visibility: hidden;
+    }
+}
+
 body.debug {
     :where(.hidden, [hidden]) {
         display: block;
@@ -86,14 +99,39 @@ body.debug {
             color: rgb(var(--color-warning));
         }
     }
-}
 
-.unavailable {
-    display: none;
-
-    &.do-not-collapse {
+    .a-properties-debug {
+        border: var(--theme-border-thickness) solid rgb(var(--color-warning));
+        border-radius: var(--theme-border-radius);
+        color: rgb(var(--color-warning));
         display: block;
-        visibility: hidden;
+        font-family: monospace;
+        font-size: var(--theme-font-size-xs);
+        margin: var(--theme-space-2) 0;
+        padding: var(--theme-space-2);
+        white-space: pre-wrap;
+        word-break: break-all;
+
+        pre {
+            color: inherit;
+            font-family: inherit;
+            font-size: inherit;
+            margin: 0;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        .a-properties-rule {
+            color: rgb(var(--color-success));
+        }
+    }
+
+    .a-properties-debug:has(+ .unavailable),
+    .unavailable > .a-properties-debug,
+    .unavailable .a-properties-debug {
+        .a-properties-rule {
+            color: rgb(var(--color-error));
+        }
     }
 }
 
