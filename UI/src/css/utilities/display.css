@@ -43,7 +43,7 @@ Make hidden content inspectable while clearly marking it as debug-only.
 body.debug {
     :where(.hidden, [hidden]) {
         display: block;
-        opacity: 0.5;
+        opacity: 0.7;
         pointer-events: none;
         visibility: visible;
 
