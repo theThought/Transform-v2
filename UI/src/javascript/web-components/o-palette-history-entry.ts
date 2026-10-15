@@ -60,13 +60,13 @@ export default class OPaletteHistoryEntry extends Component {
             }
             .complexquestion-delete {
                 background-color: var(--color-bg-neutral-primary, #ffffff);
-                background-image: url('./static/images/delete.svg');
+                background-image: url("data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Cpath%20d%3D%22M16%209V19H8V9H16ZM14.5%203H9.5L8.5%204H5V6H19V4H15.5L14.5%203ZM18%207H6V19C6%2020.1%206.9%2021%208%2021H16C17.1%2021%2018%2020.1%2018%2019V7Z%22%20fill%3D%22%232F469C%22%2F%3E%0A%3C%2Fsvg%3E");
                 background-position: center;
                 background-repeat: no-repeat;
             }
             .complexquestion-edit {
                 background-color: var(--color-bg-neutral-primary, #ffffff);
-                background-image: url('./static/images/edit.svg');
+                background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20height%3D%2224px%22%20viewBox%3D%220%20-960%20960%20960%22%20width%3D%2224px%22%20fill%3D%22%231f1f1f%22%3E%3Cpath%20d%3D%22M200-200h57l391-391-57-57-391%20391v57Zm-80%2080v-170l528-527q12-11%2026.5-17t30.5-6q16%200%2031%206t26%2018l55%2056q12%2011%2017.5%2026t5.5%2030q0%2016-5.5%2030.5T817-647L290-120H120Zm640-584-56-56%2056%2056Zm-141%2085-28-29%2057%2057-29-28Z%22%2F%3E%3C%2Fsvg%3E");
                 background-position: center;
                 background-repeat: no-repeat;
             }
