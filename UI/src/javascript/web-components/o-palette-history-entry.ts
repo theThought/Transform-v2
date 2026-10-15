@@ -60,19 +60,13 @@ export default class OPaletteHistoryEntry extends Component {
             }
             .complexquestion-delete {
                 background-color: var(--color-bg-neutral-primary, #ffffff);
-                background-image: url('./build/static/images/delete.svg');
+                background-image: url('./static/images/delete.svg');
                 background-position: center;
                 background-repeat: no-repeat;
             }
             .complexquestion-edit {
                 background-color: var(--color-bg-neutral-primary, #ffffff);
-                background-image: url('./build/static/images/edit.svg');
-                background-position: center;
-                background-repeat: no-repeat;
-            }
-            .complexquestion-reset {
-                background-color: transparent;
-                background-image: url('./build/static/images/restart.svg');
+                background-image: url('./static/images/edit.svg');
                 background-position: center;
                 background-repeat: no-repeat;
             }
