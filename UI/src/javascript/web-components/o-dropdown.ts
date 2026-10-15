@@ -181,7 +181,9 @@ export default class ODropdown extends Component implements Subject {
     }
 
     private monitorContainerWidth(): void {
-        const closestLayoutContainer = this.closest('div.l-column');
+        const closestLayoutContainer = this.closest(
+            'div.l-column, div[data-associate-type]',
+        );
 
         if (!closestLayoutContainer) return;
 
