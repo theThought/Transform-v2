@@ -222,45 +222,45 @@
                             </a-button-icon>
                         </div>
                     </div>
-                    <o-history>
-                        <template class="l-row-template">
-                            <div class="l-col-history-ftd">
-                                <ftd type="variable" data-associate-control="cb__drugtest">
-                                    <!-- cb__drugtest Value --></ftd>
-                                <ftd type="span"
-                                     data-properties="{&quot;visible&quot;:{&quot;collapse&quot;:true,&quot;rules&quot;:&quot;cb__drugtest.containsAny('__1__1128__1128','__1__7126__7126','__1__5020__5020')&quot;}}">
-                                    <ftd type="static" data-translate="other" data-translate-purpose="content">
-                                        <!-- string --><span>: </span></ftd>
-                                    <ftd type="variable" data-associate-control="otherdrug">
-                                        <!-- Otherdrug Value --></ftd>
-                                </ftd>
-                            </div>
-                            <div class="l-col-history">
-                                <a-button-icon class="complexquestion-edit">
-                                    <!-- Edit button -->
-                                </a-button-icon>
-                                <a-button-icon class="complexquestion-delete">
-                                    <!-- Delete button -->
-                                </a-button-icon>
-                            </div>
-                        </template>
-                        <div class="history-empty">
-                            <span class="a-label-history" data-translate="history-empty"
-                                  data-translate-purpose="content"></span>
-                        </div>
-                        <div class="history-inprogress">
-                            <div class="l-row-header">
-                                <div class="l-col">
-                                    <span class="a-label-question" data-associate-question="triggerword"
-                                          data-associate-type="label"><!-- Question label --></span>
-                                </div>
-                            </div>
-                            <div class="l-row-history">
-                                <!-- history rows will be dynamically inserted here -->
-                            </div>
-                        </div>
-                    </o-history>
                 </o-palette>
+                <o-history>
+                    <template class="l-row-template">
+                        <div class="l-col-history-ftd">
+                            <ftd type="variable" data-associate-control="cb__drugtest">
+                                <!-- cb__drugtest Value --></ftd>
+                            <ftd type="span"
+                                 data-properties="{&quot;visible&quot;:{&quot;collapse&quot;:true,&quot;rules&quot;:&quot;cb__drugtest.containsAny('__1__1128__1128','__1__7126__7126','__1__5020__5020')&quot;}}">
+                                <ftd type="static" data-translate="other" data-translate-purpose="content">
+                                    <!-- string --><span>: </span></ftd>
+                                <ftd type="variable" data-associate-control="otherdrug">
+                                    <!-- Otherdrug Value --></ftd>
+                            </ftd>
+                        </div>
+                        <div class="l-col-history">
+                            <a-button-icon class="complexquestion-edit">
+                                <!-- Edit button -->
+                            </a-button-icon>
+                            <a-button-icon class="complexquestion-delete">
+                                <!-- Delete button -->
+                            </a-button-icon>
+                        </div>
+                    </template>
+                    <div class="history-empty">
+                        <span class="a-label-history" data-translate="history-empty"
+                              data-translate-purpose="content"></span>
+                    </div>
+                    <div class="history-inprogress">
+                        <div class="l-row-header">
+                            <div class="l-col">
+                                <span class="a-label-question" data-associate-question="triggerword"
+                                      data-associate-type="label"><!-- Question label --></span>
+                            </div>
+                        </div>
+                        <div class="l-row-history">
+                            <!-- history rows will be dynamically inserted here -->
+                        </div>
+                    </div>
+                </o-history>
                 <o-question data-global="false" hidden="hidden">
                     <label for="_Q2" class="a-label-question" style="">Drug name</label>
                     <o-response data-bgcolor="combobox" data-has-container="true"

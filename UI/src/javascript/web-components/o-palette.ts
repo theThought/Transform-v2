@@ -32,6 +32,12 @@ export default class OPalette extends Component implements Subject {
                 this.cloneQuestion(e);
                 break;
             case 'answerCountChange':
+                if (
+                    (e.target as Element | null)?.closest?.('o-block') !==
+                    this.OwnerBlock
+                ) {
+                    return;
+                }
                 this.handleAnswerCountChange(e);
                 break;
         }
@@ -410,11 +416,11 @@ export default class OPalette extends Component implements Subject {
     public connectedCallback(): void {
         super.connectedCallback();
         this.addEventListener('cloneQuestion', this);
-        this.addEventListener('answerCountChange', this);
         this.configureSubmitButton();
         this.configureCancelButton();
         this.configureLoop();
         this.OwnerBlock = this.closest('o-block');
+        this.OwnerBlock?.addEventListener('answerCountChange', this);
         this.OwnerBlock?.addEventListener(
             'paletteRecordEdit',
             this.handleRecordEdit,
@@ -428,7 +434,7 @@ export default class OPalette extends Component implements Subject {
             // Ensure loop is found
             if (!this.loop) this.configureLoop();
 
-            // Wait for loop to finish initializing its row count
+            // Wait for loop to finish initialising its row count
             if (this.loop && !this.loop.isLoopInitialized?.()) {
                 queueMicrotask(() => {
                     this.updateRemainingAnswers();
@@ -436,7 +442,7 @@ export default class OPalette extends Component implements Subject {
                         this.RemainingAnswerCount === 0 ? 'complete' : 'empty',
                     );
                     this.isInitialized = true;
-                    // Notify all observers that were added before initialization
+                    // Notify all observers that were added before initialisation
                     this.notifyObservers(
                         'answerCountChange',
                         new CustomEvent('answerCountChange', {
@@ -468,7 +474,7 @@ export default class OPalette extends Component implements Subject {
 
     public disconnectedCallback(): void {
         this.removeEventListener('cloneQuestion', this);
-        this.removeEventListener('answerCountChange', this);
+        this.OwnerBlock?.removeEventListener('answerCountChange', this);
         this.OwnerBlock?.removeEventListener(
             'paletteRecordEdit',
             this.handleRecordEdit,

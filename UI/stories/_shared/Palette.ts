@@ -42,27 +42,27 @@ export const PaletteBlockHtml = (): string => `
                 <a-button-icon class="complexbutton-submit"></a-button-icon>
             </div>
         </div>
-        <o-history>
-            <template class="l-row-template">
-                <div class="l-col-history-ftd">
-                    <ftd type="variable" data-associate-control="cb__drugtest"></ftd>
-                    <ftd type="span" data-properties="{&quot;visible&quot;:{&quot;collapse&quot;:true,&quot;rules&quot;:&quot;cb__drugtest.containsAny('__1__7126__7126','__1__5020__5020')&quot;}}">
-                        <ftd type="static" data-translate="other"><span>: </span></ftd>
-                        <ftd type="variable" data-associate-control="otherdrug"></ftd>
-                    </ftd>
-                </div>
-                <div class="l-col-history">
-                    <a-button-icon class="complexquestion-edit"></a-button-icon>
-                    <a-button-icon class="complexquestion-delete"></a-button-icon>
-                </div>
-            </template>
-            <div class="history-empty"><span class="a-label-history" data-translate="history-empty"></span></div>
-            <div class="history-inprogress">
-                <div class="l-row-header"><div class="l-col"><span class="a-label-question" data-associate-question="triggerword" data-associate-type="label"></span></div></div>
-                <div class="l-row-history"></div>
-            </div>
-        </o-history>
     </o-palette>
+    <o-history>
+        <template class="l-row-template">
+            <div class="l-col-history-ftd">
+                <ftd type="variable" data-associate-control="cb__drugtest"></ftd>
+                <ftd type="span" data-properties="{&quot;visible&quot;:{&quot;collapse&quot;:true,&quot;rules&quot;:&quot;cb__drugtest.containsAny('__1__7126__7126','__1__5020__5020')&quot;}}">
+                    <ftd type="static" data-translate="other"><span>: </span></ftd>
+                    <ftd type="variable" data-associate-control="otherdrug"></ftd>
+                </ftd>
+            </div>
+            <div class="l-col-history">
+                <a-button-icon class="complexquestion-edit"></a-button-icon>
+                <a-button-icon class="complexquestion-delete"></a-button-icon>
+            </div>
+        </template>
+        <div class="history-empty"><span class="a-label-history" data-translate="history-empty"></span></div>
+        <div class="history-inprogress">
+            <div class="l-row-header"><div class="l-col"><span class="a-label-question" data-associate-question="triggerword" data-associate-type="label"></span></div></div>
+            <div class="l-row-history"></div>
+        </div>
+    </o-history>
 
     <o-question data-global="false" hidden="hidden">
         <label for="_Q2" class="a-label-question" style="">Drug name</label>
