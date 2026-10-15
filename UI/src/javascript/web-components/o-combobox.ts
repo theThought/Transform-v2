@@ -7,6 +7,7 @@ export default class OCombobox extends Component implements Subject {
     private explicitWidth: boolean = false;
     private widthConfigured = false;
     private containerResizeObserver: ResizeObserver | null = null;
+    private fontReadySizingScheduled = false;
 
     public handleEvent(e: Event): void {
         switch (e.type) {
@@ -75,6 +76,16 @@ export default class OCombobox extends Component implements Subject {
         // synchronously before its content is measured.
         this.addPlaceholderToList();
         this.monitorContainerWidth();
+        this.scheduleFontReadySizing();
+    }
+
+    private scheduleFontReadySizing(): void {
+        if (this.fontReadySizingScheduled || !document.fonts) return;
+
+        this.fontReadySizingScheduled = true;
+        document.fonts.ready.then(() => {
+            if (this.isConnected) this.monitorContainerWidth();
+        });
     }
 
     removeObserver(observer: Observer): void {
