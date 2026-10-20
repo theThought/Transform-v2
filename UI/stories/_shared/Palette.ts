@@ -55,7 +55,6 @@ export const PaletteBlockHtml = (): string => `
             </div>
             <div class="l-col-history">
                 <a-button-icon class="complexquestion-edit"></a-button-icon>
-                <a-button-icon class="complexquestion-delete"></a-button-icon>
             </div>
         </template>
         <div class="history-empty"><span class="a-label-history" data-translate="history-empty"></span></div>
