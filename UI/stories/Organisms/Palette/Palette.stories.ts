@@ -40,3 +40,8 @@ export const OHistory: PaletteStory = {
     name: 'o-history (palette dependency)',
     render: (): string => PaletteBlockHtml(),
 };
+
+export const OHistoryDescending: PaletteStory = {
+    name: 'o-history (descending order)',
+    render: (): string => PaletteBlockHtml({ order: 'descending' }),
+};

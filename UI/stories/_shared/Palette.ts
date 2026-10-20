@@ -2,7 +2,7 @@ import { uiInit } from '../../src/javascript/ui-init';
 
 uiInit();
 
-export const PaletteBlockHtml = (): string => `
+export const PaletteBlockHtml = (options?: { order?: string }): string => `
 <o-block>
     <o-palette>
         <div class="palette-empty">
@@ -44,7 +44,7 @@ export const PaletteBlockHtml = (): string => `
             </div>
         </div>
     </o-palette>
-    <o-history>
+    <o-history${options?.order ? ` data-order="${options.order}"` : ''}>
         <template class="l-row-template">
             <div class="l-col-history-ftd">
                 <ftd type="variable" data-associate-control="cb__drugtest"></ftd>

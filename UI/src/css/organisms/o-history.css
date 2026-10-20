@@ -18,6 +18,18 @@ o-history {
         }
     }
 
+    .l-row-history {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &[data-order='descending'],
+    &[data-order='desc'] {
+        .l-row-history {
+            flex-direction: column-reverse;
+        }
+    }
+
     o-palette-history-entry {
         align-items: center;
         display: flex;
