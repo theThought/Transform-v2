@@ -40,7 +40,8 @@ o-palette {
 }
 
 .complexbutton-submit,
-.complexbutton-cancel {
+.complexbutton-cancel,
+.complexbutton-delete {
     background-color: var(--color-bg-neutral-primary, #fff);
     background-position: center;
     background-repeat: no-repeat;
@@ -56,4 +57,8 @@ o-palette {
 
 .complexbutton-cancel {
     background-image: url('../../images/cancel.svg');
+}
+
+.complexbutton-delete {
+    background-image: url('../../images/delete.svg');
 }

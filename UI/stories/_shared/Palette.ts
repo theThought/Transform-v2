@@ -40,6 +40,7 @@ export const PaletteBlockHtml = (): string => `
             <div class="palette-button-row">
                 <a-button-icon class="complexbutton-cancel"></a-button-icon>
                 <a-button-icon class="complexbutton-submit"></a-button-icon>
+                <a-button-icon class="complexbutton-delete"></a-button-icon>
             </div>
         </div>
     </o-palette>

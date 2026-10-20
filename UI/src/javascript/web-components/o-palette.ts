@@ -11,6 +11,7 @@ export default class OPalette extends Component implements Subject {
     private AddButton: HTMLElement | null = null;
     private SubmitButton: HTMLElement | null = null;
     private CancelButton: HTMLElement | null = null;
+    private DeleteButton: HTMLElement | null = null;
     private loop: OPaletteLoop | null = null;
     private editingRow: HTMLTableRowElement | null = null;
     private RemainingAnswerCount: number = 0;
@@ -99,8 +100,8 @@ export default class OPalette extends Component implements Subject {
         }
     }
 
-    private cloneQuestion(e: CustomEvent): void {
-        e.stopImmediatePropagation();
+    private cloneQuestion(e?: CustomEvent | Event): void {
+        e?.stopImmediatePropagation();
 
         if (!this.Block) return;
 
@@ -188,6 +189,7 @@ export default class OPalette extends Component implements Subject {
             element.appendChild(source);
         });
 
+        this.updateDeleteButtonVisibility();
         this.setState('inprogress');
     }
 
@@ -229,6 +231,61 @@ export default class OPalette extends Component implements Subject {
             e.preventDefault();
             this.cancelRecord();
         });
+    }
+
+    private configureDeleteButton(): void {
+        this.DeleteButton = this.querySelector(
+            '.palette-inprogress .complexbutton-delete, .palette-inprogress .a-button-icon.delete',
+        );
+
+        if (!this.DeleteButton) {
+            return;
+        }
+
+        this.DeleteButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            this.deleteRecord();
+        });
+    }
+
+    private deleteRecord(): void {
+        if (!this.editingRow || !this.loop) return;
+
+        const editingRow = this.editingRow;
+        const rowIndex = Array.from(this.loop.querySelectorAll('tr')).indexOf(
+            editingRow,
+        );
+
+        const entry =
+            rowIndex >= 0
+                ? this.OwnerBlock?.querySelector(
+                      `o-palette-history-entry[data-index="${rowIndex}"]`,
+                  )
+                : null;
+
+        editingRow
+            .querySelectorAll<HTMLInputElement>('input')
+            .forEach((input) => {
+                input.value = '';
+            });
+
+        this.clearBlock();
+        this.editingRow = null;
+
+        this.loop.refreshAnswerCount();
+        this.updateRemainingAnswers();
+        this.updateDeleteButtonVisibility();
+        this.setState(this.RemainingAnswerCount === 0 ? 'complete' : 'empty');
+
+        this.dispatchEvent(
+            new CustomEvent('paletteRecordDelete', {
+                bubbles: true,
+                detail: {
+                    row: editingRow,
+                    entry: entry ?? undefined,
+                },
+            }),
+        );
     }
 
     private submitRecord(): void {
@@ -286,11 +343,17 @@ export default class OPalette extends Component implements Subject {
                 });
         }
 
-        this.loop.refreshAnswerCount();
-        this.clearBlock();
         this.editingRow = null;
+        this.loop.refreshAnswerCount();
         this.updateRemainingAnswers();
-        this.setState(this.RemainingAnswerCount === 0 ? 'complete' : 'empty');
+        this.updateDeleteButtonVisibility();
+
+        if (this.RemainingAnswerCount === 0) {
+            this.clearBlock();
+            this.setState('complete');
+        } else {
+            this.cloneQuestion();
+        }
 
         const firstValue =
             Array.from(inputsByQuestion.values())[0]?.value || '';
@@ -313,6 +376,7 @@ export default class OPalette extends Component implements Subject {
         // Cancelling does not change the loop count, but observers still need
         // the current count so the add button can become active again.
         this.updateRemainingAnswers();
+        this.updateDeleteButtonVisibility();
         this.setState(this.RemainingAnswerCount === 0 ? 'complete' : 'empty');
         this.dispatchEvent(
             new CustomEvent('paletteRecordCancelled', { bubbles: true }),
@@ -400,10 +464,19 @@ export default class OPalette extends Component implements Subject {
                 return;
             }
 
+            this.editingRow = null;
+            this.OwnerBlock?.querySelectorAll(
+                'o-palette-history-entry.active',
+            ).forEach((entry) => entry.classList.remove('active'));
+
             this.AddButton?.dispatchEvent(
                 new CustomEvent('cloneQuestion', { bubbles: true }),
             );
         });
+    }
+
+    private updateDeleteButtonVisibility(): void {
+        this.DeleteButton?.classList.toggle('hidden', !this.editingRow);
     }
 
     private updateAddButtonVisibility(): void {
@@ -418,6 +491,8 @@ export default class OPalette extends Component implements Subject {
         this.addEventListener('cloneQuestion', this);
         this.configureSubmitButton();
         this.configureCancelButton();
+        this.configureDeleteButton();
+        this.updateDeleteButtonVisibility();
         this.configureLoop();
         this.OwnerBlock = this.closest('o-block');
         this.OwnerBlock?.addEventListener('answerCountChange', this);

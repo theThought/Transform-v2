@@ -3,8 +3,6 @@ import VisibilityRulesProcessor from './visibility-rules-processor';
 
 export default class OPaletteHistoryEntry extends Component {
     private Block: HTMLElement | null = null;
-    private EditButton: HTMLElement | null | undefined = undefined;
-    private DeleteButton: HTMLElement | null | undefined = undefined;
     private visibilityRulesProcessor = new VisibilityRulesProcessor();
 
     private initializeShadowRoot(): void {
@@ -19,6 +17,7 @@ export default class OPaletteHistoryEntry extends Component {
         const style = document.createElement('style');
         style.innerHTML = `
             :host {
+                cursor: pointer;
                 display: flex;
                 justify-content: space-between;
                 transition: background-color 150ms ease-in-out;
@@ -26,21 +25,24 @@ export default class OPaletteHistoryEntry extends Component {
             :host(.active) {
                 background: var(--color-bg-system-warning-subtle, #fff6e5);
             }
-            :is(.complexquestion-edit, .complexquestion-delete, .complexquestion-reset) {
+            :is(.complexquestion-edit, .complexquestion-reset) {
                 opacity: 0;
                 pointer-events: none;
                 transition: opacity 150ms ease-in-out;
             }
-            :host(.active) :is(.complexquestion-edit, .complexquestion-delete, .complexquestion-reset) {
+            :host(.active) :is(.complexquestion-edit, .complexquestion-reset) {
                 opacity: 1;
-                pointer-events: auto;
+                pointer-events: none;
+            }
+            .complexquestion-delete {
+                display: none !important;
             }
             .l-col-history {
                 display: flex;
             }
             ftd {
                 color: var(--color-secondary);
-                cursor: default;
+                cursor: pointer;
             }
             ftd.unavailable {
                 display: none;
@@ -49,20 +51,13 @@ export default class OPaletteHistoryEntry extends Component {
                 display: initial;
                 visibility: hidden;
             }
-            :is(.complexquestion-edit, .complexquestion-delete, .complexquestion-reset) {
+            :is(.complexquestion-edit, .complexquestion-reset) {
                 align-items: center;
                 border: 1px solid var(--color-primary, #1f1f1f);
-                cursor: pointer;
                 display: inline-flex;
                 justify-content: center;
                 width: 36px;
                 height: 33px;
-            }
-            .complexquestion-delete {
-                background-color: var(--color-bg-neutral-primary, #ffffff);
-                background-image: url("data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Cpath%20d%3D%22M16%209V19H8V9H16ZM14.5%203H9.5L8.5%204H5V6H19V4H15.5L14.5%203ZM18%207H6V19C6%2020.1%206.9%2021%208%2021H16C17.1%2021%2018%2020.1%2018%2019V7Z%22%20fill%3D%22%232F469C%22%2F%3E%0A%3C%2Fsvg%3E");
-                background-position: center;
-                background-repeat: no-repeat;
             }
             .complexquestion-edit {
                 background-color: var(--color-bg-neutral-primary, #ffffff);
@@ -192,18 +187,12 @@ export default class OPaletteHistoryEntry extends Component {
         if (event.type === 'questionChange') this.render();
     }
 
-    private configureEditButton(): void {
-        this.EditButton = this.shadowRoot?.querySelector(
-            '.complexquestion-edit',
-        );
-
-        if (!this.EditButton) {
-            console.warn('Edit button not found');
-            return;
-        }
-
-        this.EditButton.addEventListener('click', (e) => {
-            e.preventDefault();
+    private configureSelection(): void {
+        this.addEventListener('click', () => {
+            this.parentElement
+                ?.querySelectorAll('o-palette-history-entry.active')
+                .forEach((entry) => entry.classList.remove('active'));
+            this.classList.add('active');
             this.dispatchEvent(
                 new CustomEvent('paletteRecordEdit', {
                     bubbles: true,
@@ -216,47 +205,12 @@ export default class OPaletteHistoryEntry extends Component {
         });
     }
 
-    private configureDeleteButton(): void {
-        this.DeleteButton = this.shadowRoot?.querySelector(
-            '.complexquestion-delete',
-        );
-
-        if (!this.DeleteButton) {
-            console.warn('Delete button not found');
-            return;
-        }
-
-        this.DeleteButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            this.dispatchEvent(
-                new CustomEvent('paletteRecordDelete', {
-                    bubbles: true,
-                    detail: {
-                        value: this.getAttribute('data-value') || '',
-                        entry: this,
-                    },
-                }),
-            );
-        });
-    }
-
-    private configureSelection(): void {
-        this.addEventListener('click', () => {
-            this.parentElement
-                ?.querySelectorAll('o-palette-history-entry.active')
-                .forEach((entry) => entry.classList.remove('active'));
-            this.classList.add('active');
-        });
-    }
-
     public connectedCallback(): void {
         super.connectedCallback();
         this.initializeShadowRoot();
         this.Block = this.closest('o-block');
         this.Block?.addEventListener('questionChange', this);
         this.render();
-        this.configureEditButton();
-        this.configureDeleteButton();
         this.configureSelection();
     }
 
