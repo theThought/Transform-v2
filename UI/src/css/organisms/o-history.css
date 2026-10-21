@@ -9,7 +9,8 @@ o-history {
     .history-empty {
         .a-label-history {
             &::before {
-                content: attr(data-translate);
+                /* To set the content from the data-translate string */
+                /* content: attr(data-translate); */
                 display: block;
                 inline-size: fit-content;
                 padding: var(--space-2);

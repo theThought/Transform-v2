@@ -4,7 +4,9 @@ o-palette {
     .m-message-information {
         &::before {
             background: var(--color-bg-neutral-primary);
-            content: attr(data-translate);
+
+            /* To set the content from the data-translate string */
+            /* content: attr(data-translate); */
             display: block;
             inline-size: fit-content;
             padding: var(--space-2);
