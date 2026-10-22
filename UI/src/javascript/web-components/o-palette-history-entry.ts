@@ -25,6 +25,13 @@ export default class OPaletteHistoryEntry extends Component {
             :host(.active) {
                 background: var(--color-bg-system-warning-subtle, #fff6e5);
             }
+            :host(.delete-confirm),
+            :host(.active.delete-confirm) {
+                background: var(
+                    --color-bg-system-error-subtle,
+                    rgb(var(--color-error, 218, 41, 17), 0.15)
+                );
+            }
             :is(.complexquestion-edit, .complexquestion-reset) {
                 opacity: 0;
                 pointer-events: none;
@@ -191,7 +198,9 @@ export default class OPaletteHistoryEntry extends Component {
         this.addEventListener('click', () => {
             this.parentElement
                 ?.querySelectorAll('o-palette-history-entry.active')
-                .forEach((entry) => entry.classList.remove('active'));
+                .forEach((entry) =>
+                    entry.classList.remove('active', 'delete-confirm'),
+                );
             this.classList.add('active');
             this.dispatchEvent(
                 new CustomEvent('paletteRecordEdit', {

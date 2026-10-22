@@ -16,6 +16,7 @@ export default class OPalette extends Component implements Subject {
     private editingRow: HTMLTableRowElement | null = null;
     private RemainingAnswerCount: number = 0;
     private isInitialized: boolean = false;
+    private isConfirmingDelete: boolean = false;
 
     private setState(state: 'empty' | 'inprogress' | 'complete'): void {
         this.Empty?.classList.toggle('hidden', state !== 'empty');
@@ -60,6 +61,7 @@ export default class OPalette extends Component implements Subject {
             return;
         }
 
+        this.resetDeleteConfirmation();
         this.editingRow = rows[index];
         this.cloneQuestion(event as CustomEvent);
 
@@ -244,8 +246,58 @@ export default class OPalette extends Component implements Subject {
 
         this.DeleteButton.addEventListener('click', (e) => {
             e.preventDefault();
-            this.deleteRecord();
+            this.handleDeleteClick();
         });
+    }
+
+    private resetDeleteConfirmation(): void {
+        this.isConfirmingDelete = false;
+        this.DeleteButton?.classList.remove('delete-confirm');
+        this.OwnerBlock?.querySelectorAll(
+            'o-palette-history-entry.delete-confirm',
+        ).forEach((entry) => entry.classList.remove('delete-confirm'));
+        this.editingRow?.classList.remove('delete-confirm');
+    }
+
+    private getEditingHistoryEntry(): HTMLElement | null {
+        if (!this.editingRow || !this.loop) {
+            return (
+                this.OwnerBlock?.querySelector(
+                    'o-palette-history-entry.active',
+                ) ?? null
+            );
+        }
+
+        const rowIndex = Array.from(this.loop.querySelectorAll('tr')).indexOf(
+            this.editingRow,
+        );
+
+        if (rowIndex >= 0) {
+            const entry = this.OwnerBlock?.querySelector<HTMLElement>(
+                `o-palette-history-entry[data-index="${rowIndex}"]`,
+            );
+            if (entry) return entry;
+        }
+
+        return (
+            this.OwnerBlock?.querySelector('o-palette-history-entry.active') ??
+            null
+        );
+    }
+
+    private handleDeleteClick(): void {
+        if (!this.editingRow) return;
+
+        if (!this.isConfirmingDelete) {
+            this.isConfirmingDelete = true;
+            this.DeleteButton?.classList.add('delete-confirm');
+            const entry = this.getEditingHistoryEntry();
+            entry?.classList.add('delete-confirm');
+            this.editingRow?.classList.add('delete-confirm');
+            return;
+        }
+
+        this.deleteRecord();
     }
 
     private deleteRecord(): void {
@@ -262,6 +314,8 @@ export default class OPalette extends Component implements Subject {
                       `o-palette-history-entry[data-index="${rowIndex}"]`,
                   )
                 : null;
+
+        this.resetDeleteConfirmation();
 
         editingRow
             .querySelectorAll<HTMLInputElement>('input')
@@ -343,6 +397,7 @@ export default class OPalette extends Component implements Subject {
                 });
         }
 
+        this.resetDeleteConfirmation();
         this.editingRow = null;
         this.loop.refreshAnswerCount();
         this.updateRemainingAnswers();
@@ -371,6 +426,7 @@ export default class OPalette extends Component implements Subject {
     }
 
     private cancelRecord(): void {
+        this.resetDeleteConfirmation();
         this.clearBlock();
         this.editingRow = null;
         // Cancelling does not change the loop count, but observers still need
@@ -464,6 +520,7 @@ export default class OPalette extends Component implements Subject {
                 return;
             }
 
+            this.resetDeleteConfirmation();
             this.editingRow = null;
             this.OwnerBlock?.querySelectorAll(
                 'o-palette-history-entry.active',
@@ -477,6 +534,9 @@ export default class OPalette extends Component implements Subject {
 
     private updateDeleteButtonVisibility(): void {
         this.DeleteButton?.classList.toggle('hidden', !this.editingRow);
+        if (!this.editingRow) {
+            this.DeleteButton?.classList.remove('delete-confirm');
+        }
     }
 
     private updateAddButtonVisibility(): void {

@@ -43,5 +43,13 @@ o-history {
         &.active {
             background: var(--color-bg-system-warning-subtle, #fff6e5);
         }
+
+        &.delete-confirm,
+        &.active.delete-confirm {
+            background: var(
+                --color-bg-system-error-subtle,
+                rgb(var(--color-error, 218, 41, 17), 0.15)
+            );
+        }
     }
 }

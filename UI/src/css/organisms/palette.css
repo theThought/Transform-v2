@@ -63,4 +63,28 @@ o-palette {
 
 .complexbutton-delete {
     background-image: url('../../images/delete.svg');
+
+    &.delete-confirm {
+        background-color: var(
+            --color-bg-system-error-subtle,
+            rgb(var(--color-error, 218, 41, 17), 0.15)
+        );
+        border-color: var(
+            --color-border-system-error,
+            rgb(var(--color-error, 218, 41, 17))
+        );
+    }
+}
+
+.a-button-icon.delete {
+    &.delete-confirm {
+        background-color: var(
+            --color-bg-system-error-subtle,
+            rgb(var(--color-error, 218, 41, 17), 0.15)
+        );
+        border-color: var(
+            --color-border-system-error,
+            rgb(var(--color-error, 218, 41, 17))
+        );
+    }
 }

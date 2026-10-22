@@ -186,7 +186,7 @@ export default class OHistory extends Component {
                 (
                     existingEntry as HTMLElement & { render?: () => void }
                 ).render?.();
-                existingEntry.classList.remove('active');
+                existingEntry.classList.remove('active', 'delete-confirm');
             } else {
                 this.createHistoryEntry(rowData, rowIndex, rowLabels);
             }
@@ -232,9 +232,11 @@ export default class OHistory extends Component {
     private clearActiveEntry = (event: Event): void => {
         if (!this.isLocalEvent(event)) return;
 
-        this.HistoryDestination?.querySelector(
-            'o-palette-history-entry.active',
-        )?.classList.remove('active');
+        this.HistoryDestination?.querySelectorAll(
+            'o-palette-history-entry.active, o-palette-history-entry.delete-confirm',
+        ).forEach((entry) => {
+            entry.classList.remove('active', 'delete-confirm');
+        });
     };
 
     public connectedCallback(): void {
