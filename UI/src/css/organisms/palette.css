@@ -27,6 +27,24 @@ o-palette {
         }
     }
 
+    /*
+     * Default layout of the in-progress form. :where() keeps the specificity at
+     * zero so a page can override any of these (gaps, columns, placement of
+     * individual controls) with a plain class selector.
+     */
+    :where(.palette-form) {
+        align-items: center;
+        column-gap: 24px;
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        min-inline-size: 0;
+        row-gap: 12px;
+
+        > * {
+            min-inline-size: 0;
+        }
+    }
+
     .m-message-information {
         &::before {
             background: var(--color-bg-neutral-primary);
