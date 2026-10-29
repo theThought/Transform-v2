@@ -1,5 +1,31 @@
 o-palette {
-    display: block;
+    /*
+     * Stack the three areas (empty, complete, in progress) in the same grid
+     * cell so the palette is always as tall as the tallest area, and its
+     * height does not change as the visible area changes.
+     */
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+
+    > :where(.palette-empty, .palette-complete, .palette-inprogress) {
+        grid-area: 1 / 1;
+        min-inline-size: 0;
+
+        /* Keep the hidden areas in the layout (so they still size the grid), but not visible or interactive. */
+        &.hidden {
+            display: block;
+            visibility: hidden;
+
+            /*
+             * o-palette.ts also adds .hidden to the add button while this area is hidden.
+             * Override the normal hidden class styling (display: none) so that the button remains
+             * in the document flow to keep the height between the three areas consistent.
+             */
+            .complexbutton-add.hidden {
+                display: inline-flex;
+            }
+        }
+    }
 
     .m-message-information {
         &::before {
